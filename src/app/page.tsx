@@ -136,13 +136,6 @@ const staggerItem = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
-// ── Stat Data ──────────────────────────────────────────────────────────────
-const heroStats = [
-  { label: 'Uninsured Indians', value: 700, suffix: 'M+', prefix: '' },
-  { label: 'Claim Settlement', value: 87, suffix: '%', prefix: '' },
-  { label: 'Avg Hospital Bill', value: 2, suffix: 'L', prefix: '₹' },
-];
-
 // ── Feature Data ───────────────────────────────────────────────────────────
 const features = [
   {
@@ -393,7 +386,7 @@ export default function InsureGPTPage() {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full text-left px-3 py-2 text-sm font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                    className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors min-h-[44px]"
                   >
                     {item.label}
                   </button>
@@ -417,7 +410,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center pt-16 overflow-hidden">
         {/* Background gradient & shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-amber-50" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
@@ -441,7 +434,7 @@ export default function InsureGPTPage() {
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-0">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -462,7 +455,7 @@ export default function InsureGPTPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-tight"
               >
                 Smart Insurance{' '}
                 <span className="text-emerald-600">for Every Indian</span>
@@ -487,19 +480,20 @@ export default function InsureGPTPage() {
                 <Button
                   size="lg"
                   onClick={() => setShowOnboarding(true)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2 shadow-lg shadow-emerald-200 h-12 px-8 text-base"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2 shadow-lg shadow-emerald-200 h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base"
                 >
-                  Get Personalized Recommendations
-                  <ArrowRight className="w-5 h-5" />
+                  <span className="hidden sm:inline">Get Personalized Recommendations</span>
+                  <span className="sm:hidden">Get Recommendations</span>
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   onClick={() => scrollToSection('game-of-life')}
-                  className="gap-2 border-slate-300 hover:border-emerald-400 hover:text-emerald-600 h-12 px-8 text-base"
+                  className="gap-2 border-slate-300 hover:border-emerald-400 hover:text-emerald-600 h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base"
                 >
                   Talk to InsureGPT
-                  <MessageSquare className="w-5 h-5" />
+                  <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </motion.div>
 
@@ -511,7 +505,7 @@ export default function InsureGPTPage() {
                 className="mt-12 grid grid-cols-3 gap-4 sm:gap-8"
               >
                 <div className="text-center lg:text-left">
-                  <p className="text-2xl sm:text-3xl font-bold text-slate-900">
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
                     {stat1}M+
                   </p>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -519,7 +513,7 @@ export default function InsureGPTPage() {
                   </p>
                 </div>
                 <div className="text-center lg:text-left">
-                  <p className="text-2xl sm:text-3xl font-bold text-slate-900">
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
                     {stat2}%
                   </p>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -527,7 +521,7 @@ export default function InsureGPTPage() {
                   </p>
                 </div>
                 <div className="text-center lg:text-left">
-                  <p className="text-2xl sm:text-3xl font-bold text-slate-900">
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
                     ₹{stat3}L
                   </p>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
@@ -641,7 +635,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* FEATURES SECTION                                                   */}
       {/* ================================================================== */}
-      <section id="features" className="py-20 sm:py-28 bg-white">
+      <section id="features" className="py-20 sm:py-28 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -702,7 +696,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* INSURANCE CATEGORIES SECTION                                       */}
       {/* ================================================================== */}
-      <section id="products" className="py-20 sm:py-28 bg-slate-50">
+      <section id="products" className="py-20 sm:py-28 bg-slate-50 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -737,12 +731,13 @@ export default function InsureGPTPage() {
             {categoryInfo.map((cat) => {
               const Icon = getCategoryIcon(cat.icon);
               const isActive = activeCategory === cat.id;
+              const shortName = cat.name.replace(' Insurance', '');
               return (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   className={`
-                    inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
+                    inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200
                     ${
                       isActive
                         ? 'bg-emerald-600 text-white shadow-md shadow-emerald-200'
@@ -750,8 +745,9 @@ export default function InsureGPTPage() {
                     }
                   `}
                 >
-                  <Icon className="w-4 h-4" />
-                  {cat.name}
+                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className="sm:hidden">{shortName}</span>
+                  <span className="hidden sm:inline">{cat.name}</span>
                 </button>
               );
             })}
@@ -795,7 +791,7 @@ export default function InsureGPTPage() {
                 {currentPlans.slice(0, 6).map((plan) => (
                   <Card
                     key={plan.id}
-                    className="hover:shadow-lg transition-all duration-300 group border-slate-200"
+                    className="h-full hover:shadow-lg transition-all duration-300 group border-slate-200 flex flex-col"
                   >
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between gap-2">
@@ -855,10 +851,10 @@ export default function InsureGPTPage() {
                         ))}
                       </div>
                     </CardContent>
-                    <CardFooter className="pt-0">
+                    <CardFooter className="pt-0 mt-auto">
                       <Button
                         variant="outline"
-                        className="w-full group-hover:border-emerald-400 group-hover:text-emerald-600 transition-colors"
+                        className="w-full min-h-[44px] group-hover:border-emerald-400 group-hover:text-emerald-600 transition-colors"
                         onClick={() =>
                           toast({
                             title: plan.name,
@@ -880,7 +876,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* GAME OF LIFE SECTION                                               */}
       {/* ================================================================== */}
-      <section id="game-of-life" className="py-20 sm:py-28 bg-white">
+      <section id="game-of-life" className="py-20 sm:py-28 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -914,7 +910,7 @@ export default function InsureGPTPage() {
       <section
         id="contact"
         ref={contactRef}
-        className="py-20 sm:py-28 bg-slate-50"
+        className="py-20 sm:py-28 bg-slate-50 scroll-mt-16"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -1129,6 +1125,13 @@ export default function InsureGPTPage() {
                 AI-powered insurance recommendations for every Indian. Making
                 insurance simple, transparent, and accessible.
               </p>
+              <div className="mt-4 flex items-center gap-2">
+                <div className="h-px bg-emerald-500/40 flex-1 max-w-[2rem]" />
+                <span className="text-xs font-semibold text-emerald-400 tracking-wide">
+                  Powered by Himanshu Paliwal
+                </span>
+                <div className="h-px bg-emerald-500/40 flex-1 max-w-[2rem]" />
+              </div>
             </div>
 
             {/* Quick Links */}
@@ -1193,24 +1196,34 @@ export default function InsureGPTPage() {
 
           {/* Bottom bar */}
           <div className="mt-12 pt-8 border-t border-slate-800">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-xs text-slate-500 text-center sm:text-left">
-                © {new Date().getFullYear()} InsureGPT. All rights reserved.
-                Insurance is the subject matter of solicitation.
-              </p>
-              <div className="flex items-center gap-4">
-                <span className="text-xs text-slate-500">
-                  IRDAI Regulated Platform
+            <div className="flex flex-col items-center gap-4">
+              {/* Powered by branding - prominent */}
+              <div className="flex items-center gap-2 bg-slate-800/60 px-4 py-2 rounded-full border border-slate-700/50">
+                <Shield className="w-4 h-4 text-emerald-400" />
+                <span className="text-sm font-semibold text-white">
+                  Powered by{' '}
+                  <span className="text-emerald-400">Himanshu Paliwal</span>
                 </span>
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                  <span className="text-xs text-emerald-400 font-medium">
-                    Compliant
+              </div>
+              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-3">
+                <p className="text-xs text-slate-500 text-center sm:text-left">
+                  © {new Date().getFullYear()} InsureGPT. All rights reserved.
+                  Insurance is the subject matter of solicitation.
+                </p>
+                <div className="flex items-center gap-4">
+                  <span className="text-xs text-slate-500">
+                    IRDAI Regulated Platform
                   </span>
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs text-emerald-400 font-medium">
+                      Compliant
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="mt-4 text-[10px] text-slate-600 leading-relaxed text-center sm:text-left max-w-4xl">
+            <p className="mt-4 text-xs text-slate-600 leading-relaxed text-center sm:text-left max-w-4xl">
               {IRDAI_MANDATORY_DISCLAIMER} Tax benefits are subject to changes
               in tax laws. Please consult your tax advisor for details. Claim
               settlement ratio is based on previous year&apos;s data. Past

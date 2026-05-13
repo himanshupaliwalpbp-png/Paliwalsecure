@@ -135,7 +135,7 @@ export default function GameOfLife() {
   // ── Start Screen ──────────────────────────────────────────────────────────
   if (!started) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 p-4">
+      <div className="flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 py-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export default function GameOfLife() {
           className="w-full max-w-lg"
         >
           <Card className="border-0 shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 sm:p-8 text-white text-center">
+            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-5 sm:p-8 text-white text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -158,18 +158,18 @@ export default function GameOfLife() {
               </p>
             </div>
             <CardContent className="pt-6 text-center space-y-4">
-              <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-lg bg-red-50 p-3">
-                  <p className="text-xs text-red-600 font-medium">Without Insurance</p>
-                  <p className="text-lg font-bold text-red-700">{formatCurrency(grandTotalWithout)}</p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
+                <div className="rounded-lg bg-red-50 p-2 sm:p-3">
+                  <p className="text-[10px] sm:text-xs text-red-600 font-medium">Without Insurance</p>
+                  <p className="text-sm sm:text-lg font-bold text-red-700">{formatCurrency(grandTotalWithout)}</p>
                 </div>
-                <div className="rounded-lg bg-emerald-50 p-3">
-                  <p className="text-xs text-emerald-600 font-medium">With Insurance</p>
-                  <p className="text-lg font-bold text-emerald-700">{formatCurrency(grandTotalWith)}</p>
+                <div className="rounded-lg bg-emerald-50 p-2 sm:p-3">
+                  <p className="text-[10px] sm:text-xs text-emerald-600 font-medium">With Insurance</p>
+                  <p className="text-sm sm:text-lg font-bold text-emerald-700">{formatCurrency(grandTotalWith)}</p>
                 </div>
-                <div className="rounded-lg bg-amber-50 p-3">
-                  <p className="text-xs text-amber-600 font-medium">You Save</p>
-                  <p className="text-lg font-bold text-amber-700">{formatCurrency(grandTotalSavings)}</p>
+                <div className="rounded-lg bg-amber-50 p-2 sm:p-3">
+                  <p className="text-[10px] sm:text-xs text-amber-600 font-medium">You Save</p>
+                  <p className="text-sm sm:text-lg font-bold text-amber-700">{formatCurrency(grandTotalSavings)}</p>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">
@@ -195,7 +195,7 @@ export default function GameOfLife() {
   // ── Finished Screen ───────────────────────────────────────────────────────
   if (isFinished) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 p-4">
+      <div className="flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 py-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -203,7 +203,7 @@ export default function GameOfLife() {
           className="w-full max-w-lg"
         >
           <Card className="border-0 shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 sm:p-8 text-white text-center">
+            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-5 sm:p-8 text-white text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -275,7 +275,7 @@ export default function GameOfLife() {
                 <h3 className="text-sm font-semibold text-muted-foreground">
                   All Scenarios at a Glance
                 </h3>
-                <div className="max-h-48 overflow-y-auto space-y-2 pr-1 scrollbar-thin">
+                <div className="max-h-64 overflow-y-auto space-y-2 pr-1 scrollbar-thin">
                   {gameOfLifeScenarios.map((s, i) => (
                     <motion.div
                       key={s.id}
@@ -324,7 +324,7 @@ export default function GameOfLife() {
 
   // ── Active Scenario Screen ────────────────────────────────────────────────
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 p-4">
+    <div className="flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 py-4">
       <div className="w-full max-w-lg">
         {/* Progress bar section */}
         <motion.div
@@ -332,14 +332,14 @@ export default function GameOfLife() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-4"
         >
-          <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground mb-1.5 sm:mb-2">
             <span className="font-medium">
               Step {currentStep + 1} of {gameOfLifeScenarios.length}
             </span>
             <span className="font-medium">Age {currentScenario?.age ?? 25}</span>
           </div>
-          <Progress value={ageProgress} className="h-3 bg-emerald-100" />
-          <div className="flex justify-between mt-1.5 text-[10px] text-muted-foreground">
+          <Progress value={ageProgress} className="h-2 sm:h-3 bg-emerald-100" />
+          <div className="flex justify-between mt-1 sm:mt-1.5 text-[10px] text-muted-foreground">
             <span>Age 25</span>
             <span>Age 55</span>
           </div>
@@ -351,27 +351,27 @@ export default function GameOfLife() {
           animate={{ opacity: 1 }}
           className="grid grid-cols-3 gap-2 sm:gap-3 mb-4"
         >
-          <div className="rounded-lg bg-red-50 border border-red-100 p-2.5 sm:p-3 text-center">
+          <div className="rounded-lg bg-red-50 border border-red-100 p-2 sm:p-3 text-center">
             <p className="text-[10px] sm:text-xs font-medium text-red-600 mb-0.5">
               Without Insurance
             </p>
-            <p className="text-base sm:text-xl font-bold text-red-700">
+            <p className="text-sm sm:text-xl font-bold text-red-700">
               {formatCurrency(animatedWithout)}
             </p>
           </div>
-          <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-2.5 sm:p-3 text-center">
+          <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-2 sm:p-3 text-center">
             <p className="text-[10px] sm:text-xs font-medium text-emerald-600 mb-0.5">
               With Insurance
             </p>
-            <p className="text-base sm:text-xl font-bold text-emerald-700">
+            <p className="text-sm sm:text-xl font-bold text-emerald-700">
               {formatCurrency(animatedWith)}
             </p>
           </div>
-          <div className="rounded-lg bg-amber-50 border border-amber-100 p-2.5 sm:p-3 text-center">
+          <div className="rounded-lg bg-amber-50 border border-amber-100 p-2 sm:p-3 text-center">
             <p className="text-[10px] sm:text-xs font-medium text-amber-600 mb-0.5">
               You Save
             </p>
-            <p className="text-base sm:text-xl font-bold text-amber-700">
+            <p className="text-sm sm:text-xl font-bold text-amber-700">
               {formatCurrency(animatedSavings)}
             </p>
           </div>
@@ -389,7 +389,7 @@ export default function GameOfLife() {
             >
               <Card className="border-0 shadow-xl overflow-hidden">
                 {/* Card header with age badge */}
-                <div className="bg-gradient-to-r from-slate-800 to-slate-700 p-4 sm:p-6 text-white">
+                <div className="bg-gradient-to-r from-slate-800 to-slate-700 p-3 sm:p-6 text-white">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 mb-1">
@@ -526,7 +526,7 @@ export default function GameOfLife() {
         </AnimatePresence>
 
         {/* IRDAI Disclaimer */}
-        <p className="mt-4 text-center text-[10px] text-muted-foreground leading-relaxed max-w-md mx-auto">
+        <p className="mt-4 text-center text-xs text-muted-foreground leading-relaxed max-w-md mx-auto">
           For more details on risk factors, terms and conditions, please read the sales
           brochure/policy wording carefully before concluding a sale. Insurance is the subject matter
           of solicitation. | IRDAI Regulated

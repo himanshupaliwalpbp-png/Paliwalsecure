@@ -210,8 +210,8 @@ export default function ChatBot({ profile }: ChatBotProps) {
   useEffect(() => {
     if (messages.length === 0) {
       const greeting = profile
-        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor. I can see you've shared your profile details. How can I help you today?`
-        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?`;
+        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
+        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
 
       setMessages([
         {
@@ -376,20 +376,43 @@ export default function ChatBot({ profile }: ChatBotProps) {
       {/* Floating Chat Button */}
       <AnimatePresence>
         {!isOpen && (
-          <motion.button
-            key="chat-fab"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 flex items-center justify-center group cursor-pointer"
-            aria-label="Open chat"
-          >
-            <MessageCircle className="w-6 h-6 group-hover:scale-110 transition-transform" />
-            {/* Pulse ring */}
-            <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-20" />
-          </motion.button>
+          <div className="fixed bottom-6 right-6 z-[60] flex items-center gap-3">
+            {/* InsureGPT Label Badge - visible on sm+ screens */}
+            <motion.div
+              key="chat-label"
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ delay: 0.5, duration: 0.3 }}
+              className="hidden sm:flex items-center"
+            >
+              <span className="bg-white shadow-md rounded-full px-3 py-1.5 text-xs font-semibold text-emerald-700 border border-emerald-200">
+                InsureGPT
+              </span>
+            </motion.div>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <motion.button
+                  key="chat-fab"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                  onClick={() => setIsOpen(true)}
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
+                  aria-label="Open chat"
+                >
+                  <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" />
+                  {/* Pulse ring */}
+                  <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-20" />
+                </motion.button>
+              </TooltipTrigger>
+              <TooltipContent side="left" sideOffset={8}>
+                <p>Chat with InsureGPT</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
         )}
       </AnimatePresence>
 
@@ -402,7 +425,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-50 w-full sm:w-[400px] h-full sm:h-[600px] sm:max-h-[calc(100vh-3rem)] bg-white sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-border/50"
+            className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-[60] w-full sm:w-[400px] h-full sm:h-[600px] sm:max-h-[calc(100vh-3rem)] bg-white sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-border/50"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-4 py-3 flex items-center justify-between shrink-0">
@@ -416,6 +439,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
                     <span className="text-xs text-emerald-100">AI Insurance Advisor</span>
                   </div>
+                  <span className="text-[10px] text-emerald-100/70">Powered by Himanshu Paliwal</span>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -481,7 +505,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
               {/* IRDAI Disclaimer */}
               {messages.length > 1 && (
                 <div className="mt-4 mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
-                  <p className="text-[10px] text-amber-700 leading-snug">
+                  <p className="text-xs text-amber-700 leading-snug">
                     ⚠️ <strong>IRDAI Disclaimer:</strong> {IRDAI_MANDATORY_DISCLAIMER}
                   </p>
                 </div>
@@ -497,7 +521,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     <button
                       key={suggestion}
                       onClick={() => handleSuggestion(suggestion)}
-                      className="px-3 py-1.5 text-xs rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors cursor-pointer whitespace-nowrap"
+                      className="px-3 py-2 text-xs rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
                     >
                       {suggestion}
                     </button>
@@ -507,7 +531,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
             )}
 
             {/* Input Area */}
-            <div className="border-t bg-white px-4 py-3 shrink-0">
+            <div className="border-t bg-white px-3 sm:px-4 py-3 shrink-0">
               <form onSubmit={handleSubmit} className="flex items-center gap-2">
                 <div className="relative flex-1">
                   <Input
@@ -567,6 +591,8 @@ export default function ChatBot({ profile }: ChatBotProps) {
                   <Send className="w-4 h-4" />
                 </Button>
               </form>
+              {/* Powered by branding */}
+              <p className="text-center text-[10px] sm:text-xs text-slate-400 mt-2">Powered by Himanshu Paliwal</p>
             </div>
           </motion.div>
         )}
