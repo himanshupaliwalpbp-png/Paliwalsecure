@@ -249,3 +249,71 @@ Stage Summary:
 - Hero section top gap fixed
 - All "Powered by Himanshu Paliwal" branding in place
 - IRDAI compliance: no "best" or "guaranteed" language
+
+---
+Task ID: 2-a
+Agent: component-builder
+Task: Create ThemeToggle, SkeletonLoader, DailyTip, Confetti components
+
+Work Log:
+- Created ThemeToggle.tsx — light/dark/system theme toggle using next-themes with DropdownMenu, Sun/Moon/Monitor icons, smooth rotate+scale transition animation, active theme indicator dot
+- Created SkeletonLoader.tsx — 3 skeleton components: ProductCardSkeleton (insurance plan card layout), ChatMessageSkeleton (bot bubble with bouncing typing dots), CalculatorSkeleton (form fields + sliders + result area)
+- Created DailyTip.tsx — 22 Hinglish insurance tips across health/life/motor/travel/tax topics, day-of-year rotation, "Next Tip" manual cycle button, framer-motion AnimatePresence fade+slide transitions, IRDAI-compliant language, Lightbulb+RefreshCw icons, tip counter
+- Created Confetti.tsx — fireConfetti() imperative function + ConfettiButton component, canvas-confetti with emerald/gold color theme (8 colors), 100 particles, spread 70, top-center origin
+- Lint passes cleanly with no errors
+- Dev server compiles successfully
+
+Stage Summary:
+- All 4 components created and production-ready
+- ThemeToggle: dropdown with Light/Dark/System options, smooth icon transitions
+- SkeletonLoader: 3 distinct skeletons matching real component layouts
+- DailyTip: 22 tips with day-based rotation and manual cycling
+- Confetti: emerald/gold themed celebration effects
+
+---
+Task ID: 2-b
+Agent: calculator-builder
+Task: Create Insurance Calculator components
+
+Work Log:
+- Created /src/components/calculators/ directory
+- Created HealthPremiumCalculator.tsx — Health Insurance Premium Calculator with Section 80D Tax Savings
+  - Inputs: Age (slider 18-80), Sum Insured (7 options: 2L-25L), Family Type (5 options), PED Status (6 options), City Tier (3 options), Smoker toggle
+  - Calculation: Base premium from dataset + Age Loading (+5% per 5yr after 35) + PED Loading (0-75%) + Family Loading (0-110%) + Smoker Loading (25%) + City Tier (-5% to +10%)
+  - Section 80D Tax: Self deduction (₹25K/₹50K), Parents deduction (₹50K for senior), Preventive check-up ₹5K
+  - Output: Base vs Loaded premium, loading breakdown, 80D tax savings, effective premium, Top 3 insurer recommendations with CSR & PED waiting, Hinglish message
+  - Uses framer-motion AnimatePresence for results, Card/Slider/Select/Badge/Button from shadcn/ui
+- Created MotorPremiumCalculator.tsx — Motor Insurance Premium Calculator per IRDAI 2025-26
+  - Inputs: Vehicle Type (Car/Bike), Vehicle Age (7 options with depreciation %), Showroom Price (₹1L-50L slider), Engine Capacity (3 tiers for cars), NCB (0-50%), Add-ons (5 checkboxes)
+  - Calculation: Depreciation (5-40%), IDV = Price × (1-Dep%), OD Premium (3.5% cars / 7% bikes), TP Premium per IRDAI (₹2,094/₹3,316/₹7,789), NCB Discount, Add-on prices, GST 18%
+  - Output: IDV calculation with depreciation breakdown, Premium components (OD/TP/Add-ons), NCB savings, GST, Final premium, Hinglish message
+- Created TermLifeCalculator.tsx — Term Insurance HLV Calculator
+  - Inputs: Age (18-60), Annual Income (₹2L-2Cr), Annual Expenses (₹1L-1Cr), Retirement Age (58/60/65), Outstanding Loans (₹0-5Cr), Dependents (0-8), Smoker toggle
+  - Calculation: HLV = (Income - Expenses) × Years to Retirement, Coverage = HLV + Loans + Dependents×₹5L, Premium per Crore: ≤35yr ₹7,500, 36-45 ₹15,000, 46+ ₹32,500, Smoker +40%
+  - Output: HLV breakdown, Recommended cover, Annual/monthly premium, 6 insurer comparison table (HDFC Life 99.97%, Max Life 99.08%, LIC 95.55%, etc.), Key takeaways, Hinglish summary
+- Created TaxSavingsCalculator.tsx — Section 80D Tax Savings Calculator (standalone, more detailed)
+  - Inputs: Your Age (Under 60/60+), Parents' Age (Under 60/60+/N/A), Health Premium Self, Health Premium Parents, Preventive Check-up, Life Insurance Premium (80C), Tax Bracket (0-30%)
+  - Calculation: 80D Self (₹25K/₹50K), 80D Parents (₹25K/₹50K), Preventive (₹5K within limit), 80C Life Insurance (₹1.5L), Total deduction × tax bracket = tax saved
+  - Output: Section-wise breakdown with animated progress bars, Total tax savings, Effective premium after savings, Visual bar chart of savings by section, Hinglish message
+- Created ClaimSettlementPredictor.tsx — Claim Settlement Probability Score Calculator
+  - Inputs: Insurer dropdown (8 pre-populated with real data), CSR% (auto-filled, editable), ICR% (auto-filled, editable), Complaints per 10K (auto-filled, editable), PED Status
+  - Scoring: Weighted Score = CSR×40% + ICR Health×20% + Claim Speed×20% + Complaint Index×20%
+  - ICR Health: 60-85%→100, 85-95%→85, >95%→50, <60%→60
+  - Claim Speed: CSR >95%→100, 90-95%→80, 85-90%→60, <85%→40
+  - Complaint Index: max(0, 100-complaints×2)
+  - Insurer data hardcoded: Acko 99.91%/81.23%, HDFC ERGO 98.85%/84.85%, Care Health 93.13%/61.28%, Star Health 88.34%/67.26%, TATA AIG 96.67%/72.45%, Bajaj Allianz 93.65%/78.90%, ICICI Lombard 91.22%/82.50%, Niva Bupa 95.20%/59.80%
+  - Output: CSP Score 0-100 with color-coded display (green/yellow/orange/red), Rating (Excellent/Good/Average/Poor), Component breakdown with animated bars, PED impact message, All insurers comparison chart sorted by score, Scoring methodology explanation, Hinglish recommendation
+- All components: 'use client', shadcn/ui components, Tailwind CSS, mobile responsive, Hinglish output, IRDAI compliance (no "best/guaranteed"), "Powered by Himanshu Paliwal" branding, framer-motion animations
+- Lint passes cleanly with no errors
+- Dev server compiles successfully, page serves HTTP 200
+
+Stage Summary:
+- All 5 calculator components created in /src/components/calculators/
+- HealthPremiumCalculator: Full premium + Section 80D tax savings calculation
+- MotorPremiumCalculator: IRDAI 2025-26 compliant motor premium with IDV, TP, NCB, add-ons, GST
+- TermLifeCalculator: HLV-based coverage need with 6 insurer comparison
+- TaxSavingsCalculator: Detailed 80D + 80C breakdown with visual savings bars
+- ClaimSettlementPredictor: Weighted CSP scoring with 8 insurers, color-coded ratings, comparison chart
+- All use accurate IRDAI 2025-26 formulas and data
+- All IRDAI compliant (no "best/guaranteed", use "recommended for you")
+- All have "Powered by Himanshu Paliwal" branding

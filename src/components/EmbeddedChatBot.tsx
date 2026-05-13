@@ -365,9 +365,9 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   // Render — Full-width prominent inline chatbot
   // ---------------------------------------------------------------------------
   return (
-    <div className="w-full bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden flex flex-col">
+    <div className="w-full bg-background rounded-2xl shadow-xl border border-emerald-100 dark:border-emerald-900/30 overflow-hidden flex flex-col">
       {/* Header - Prominent gradient */}
-      <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 text-white px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between shrink-0 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500/90 backdrop-blur-md text-white px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between shrink-0 relative overflow-hidden">
         {/* Decorative circles */}
         <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-full" />
         <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/5 rounded-full" />

@@ -30,6 +30,7 @@ import {
   XCircle,
   Clock,
   Sparkles,
+  Calculator,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -72,8 +73,21 @@ import {
   complianceChecklist,
   marketInsights,
 } from '@/lib/insurance-data';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { DailyTip } from '@/components/DailyTip';
+import { fireConfetti } from '@/components/Confetti';
+import { ProductCardSkeleton } from '@/components/SkeletonLoader';
+import MobileBottomNav from '@/components/MobileBottomNav';
 import dynamic from 'next/dynamic';
 
+const CalculatorSection = dynamic(() => import('@/components/CalculatorSection'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+    </div>
+  ),
+});
 const GameOfLife = dynamic(() => import('@/components/GameOfLife'), {
   ssr: false,
   loading: () => (
@@ -311,6 +325,7 @@ export default function PaliwalSecurePage() {
         const data = await res.json();
 
         if (res.ok && data.success) {
+          fireConfetti();
           toast({
             title: 'Message sent!',
             description: data.message,
@@ -374,21 +389,21 @@ export default function PaliwalSecurePage() {
   // Nav links
   const navLinks = [
     { id: 'insuregpt-chat', label: 'InsureGPT' },
+    { id: 'calculators', label: 'Calculators' },
     { id: 'features', label: 'Features' },
     { id: 'insuregyaan', label: 'InsureGyaan' },
     { id: 'products', label: 'Products' },
-    { id: 'game-of-life', label: 'Game of Life' },
     { id: 'contact', label: 'Contact' },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
       {/* ================================================================== */}
       {/* NAVIGATION BAR                                                     */}
       {/* ================================================================== */}
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/60"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-md border-b border-border/40"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -425,7 +440,8 @@ export default function PaliwalSecurePage() {
             </div>
 
             {/* CTA + Mobile Toggle */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
               <Button
                 onClick={() => setShowOnboarding(true)}
                 className="inline-flex bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5 shadow-sm text-xs sm:text-sm px-2.5 sm:px-4 py-1.5 sm:py-2"
@@ -501,7 +517,7 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       <section className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
         {/* Background gradient & shapes */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-amber-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-background to-amber-50 dark:from-emerald-950/30 dark:via-background dark:to-amber-950/20" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-rose-100/20 rounded-full blur-2xl animate-pulse" />
@@ -766,9 +782,16 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
+      {/* DAILY INSURANCE TIP                                                 */}
+      {/* ================================================================== */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 mb-4 relative z-10">
+        <DailyTip />
+      </div>
+
+      {/* ================================================================== */}
       {/* PALIWAL SECURE CHAT SECTION                                         */}
       {/* ================================================================== */}
-      <section id="insuregpt-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-white to-white scroll-mt-16">
+      <section id="insuregpt-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-background to-background scroll-mt-16 dark:from-emerald-950/30 dark:via-background dark:to-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -798,9 +821,41 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
+      {/* INSURANCE CALCULATORS SECTION                                       */}
+      {/* ================================================================== */}
+      <section id="calculators" className="py-16 sm:py-20 lg:py-24 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
+          >
+            <Badge
+              variant="secondary"
+              className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-800"
+            >
+              <Calculator className="w-3.5 h-3.5 mr-1" />
+              Insurance Calculators
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Calculate Karo,{' '}
+              <span className="text-emerald-600">Sahi Premium Paao</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base lg:text-lg text-muted-foreground">
+              Health, Motor, Term, Tax aur Claim — sab calculator ek jagah. IRDAI 2025-26 data ke saath accurate estimates!
+            </p>
+          </motion.div>
+
+          <CalculatorSection />
+        </div>
+      </section>
+
+      {/* ================================================================== */}
       {/* MARKET INSIGHTS SECTION                                            */}
       {/* ================================================================== */}
-      <section id="market-insights" className="py-16 sm:py-20 bg-slate-900 scroll-mt-16">
+      <section id="market-insights" className="py-16 sm:py-20 bg-slate-900 dark:bg-slate-950 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -1631,10 +1686,13 @@ export default function PaliwalSecurePage() {
         </div>
       </section>
 
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav onNavigate={scrollToSection} />
+
       {/* ================================================================== */}
       {/* FOOTER                                                             */}
       {/* ================================================================== */}
-      <footer className="mt-auto bg-slate-900 text-slate-300">
+      <footer className="mt-auto bg-slate-900 dark:bg-slate-950 text-slate-300 pb-20 md:pb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Brand */}
