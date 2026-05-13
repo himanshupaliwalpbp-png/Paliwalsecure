@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
         planName: r.plan.name,
         provider: r.plan.provider,
         category: r.plan.category,
-        premium: `₹${r.plan.premium.min.toLocaleString()} - ₹${r.plan.premium.max.toLocaleString()}/yr`,
+        premium: `₹${r.plan.premium.monthly.toLocaleString()}/mo (₹${r.plan.premium.annual.toLocaleString()}/yr)`,
         claimSettlementRatio: `${r.plan.claimSettlementRatio}%`,
         matchScore: `${r.score.percentage}%`,
         whyRecommended: r.whyRecommended,

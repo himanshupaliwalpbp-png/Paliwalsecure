@@ -45,15 +45,6 @@ interface StepConfig {
   questions: OnboardingQuestion[];
 }
 
-const INCOME_MAP: Record<string, number> = {
-  'below-3l': 200000,
-  '3-5l': 400000,
-  '5-10l': 750000,
-  '10-25l': 1750000,
-  '25-50l': 3750000,
-  'above-50l': 6000000,
-};
-
 const DEPENDENTS_MAP: Record<string, number> = {
   '0': 0,
   '1-2': 2,
@@ -684,12 +675,11 @@ export default function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowPro
 // ============================================================================
 
 function buildUserProfile(formData: FormValues): UserProfile {
-  const incomeStr = (formData['income'] as string) || '';
   const dependentsStr = (formData['dependents'] as string) || '0';
 
   return {
     age: parseInt((formData['age'] as string) || '25', 10) || 25,
-    income: INCOME_MAP[incomeStr] || 500000,
+    income: (formData['income'] as string) || '5-10l',
     pincode: (formData['pincode'] as string) || '',
     medicalHistory: Array.isArray(formData['medicalHistory'])
       ? (formData['medicalHistory'] as string[]).filter((v) => v !== 'none')

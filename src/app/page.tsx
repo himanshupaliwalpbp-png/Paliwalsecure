@@ -45,7 +45,6 @@ import { useToast } from '@/hooks/use-toast';
 import {
   categoryInfo,
   getPlansByCategory,
-  formatCurrency,
   type InsuranceCategory,
   type UserProfile,
   IRDAI_MANDATORY_DISCLAIMER,
@@ -817,12 +816,11 @@ export default function InsureGPTPage() {
                       </div>
                     </CardHeader>
                     <CardContent className="pb-4 space-y-3">
-                      {/* Premium Range */}
+                      {/* Premium */}
                       <div className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2">
                         <span className="text-xs text-slate-500">Premium</span>
                         <span className="text-sm font-semibold text-emerald-600">
-                          {formatCurrency(plan.premium.min)} -{' '}
-                          {formatCurrency(plan.premium.max)}/yr
+                          ₹{plan.premium.monthly}/mo
                         </span>
                       </div>
 
@@ -833,6 +831,16 @@ export default function InsureGPTPage() {
                           {plan.claimSettlementRatio}%
                         </span>
                       </div>
+
+                      {/* Solvency Ratio */}
+                      {plan.solvencyRatio && (
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-slate-500">Solvency</span>
+                          <span className="text-sm font-semibold text-slate-700">
+                            {plan.solvencyRatio}
+                          </span>
+                        </div>
+                      )}
 
                       {/* Key Features */}
                       <div className="space-y-1.5">

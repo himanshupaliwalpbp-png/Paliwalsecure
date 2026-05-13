@@ -1,6 +1,7 @@
 // ============================================================================
 // InsureGPT - Personalized Scoring Engine
 // RAG-based recommendation scoring with IRDAI compliance
+// Source: IRDAI Annual Report 2024-25
 // ============================================================================
 
 import {
@@ -11,6 +12,7 @@ import {
   IRDAI_MANDATORY_DISCLAIMER,
   IRDAI_TAX_DISCLAIMER,
   IRDAI_CLAIM_DISCLAIMER,
+  IRDAI_SOLVENCY_DISCLAIMER,
   searchKnowledgeBase,
 } from './insurance-data';
 
@@ -26,10 +28,12 @@ export interface ScoreBreakdown {
     ageMatch: { score: number; max: number; reason: string };
     incomeFit: { score: number; max: number; reason: string };
     claimHistory: { score: number; max: number; reason: string };
+    solvencyScore: { score: number; max: number; reason: string };
     coverageFit: { score: number; max: number; reason: string };
     lifestyleMatch: { score: number; max: number; reason: string };
     priorityMatch: { score: number; max: number; reason: string };
     networkScore: { score: number; max: number; reason: string };
+    turnaroundScore: { score: number; max: number; reason: string };
   };
   disclaimers: string[];
 }
@@ -45,13 +49,15 @@ export interface RecommendationResult {
 // SCORING WEIGHTS
 // ============================================================================
 const WEIGHTS = {
-  ageMatch: 15,
-  incomeFit: 20,
-  claimHistory: 20,
+  ageMatch: 10,
+  incomeFit: 15,
+  claimHistory: 15,
+  solvencyScore: 10,
   coverageFit: 15,
   lifestyleMatch: 10,
-  priorityMatch: 15,
+  priorityMatch: 12,
   networkScore: 5,
+  turnaroundScore: 8,
 };
 
 const MAX_TOTAL_SCORE = Object.values(WEIGHTS).reduce((a, b) => a + b, 0);
@@ -82,9 +88,8 @@ function scoreAgeMatch(plan: InsurancePlan, profile: UserProfile): { score: numb
     return { score: 0, max, reason: `Not eligible: Age ${profile.age} is outside the allowed range (${minAge}-${maxAge})` };
   }
 
-  // Higher score for being in the sweet spot
   const range = maxAge - minAge;
-  const midPoint = minAge + range * 0.3; // Slightly lower is better for most plans
+  const midPoint = minAge + range * 0.3;
   const distance = Math.abs(profile.age - midPoint);
   const normalizedScore = 1 - (distance / (range / 2));
 
@@ -97,29 +102,42 @@ function scoreAgeMatch(plan: InsurancePlan, profile: UserProfile): { score: numb
 
 function scoreIncomeFit(plan: InsurancePlan, profile: UserProfile): { score: number; max: number; reason: string } {
   const max = WEIGHTS.incomeFit;
-  const incomeBracket = getIncomeBracket(profile.income as string || '5-10l');
+  const incomeBracket = getIncomeBracket(profile.income || '5-10l');
   const midIncome = incomeBracket.min === Infinity ? 10000000 : (incomeBracket.min + Math.min(incomeBracket.max, 10000000)) / 2;
-
-  const premiumRatio = plan.premium.min / midIncome;
+  const premiumRatio = plan.premium.annual / midIncome;
 
   if (premiumRatio > 0.1) {
-    return { score: Math.round(max * 0.3), max, reason: `Premium may be high relative to your income` };
+    return { score: Math.round(max * 0.3), max, reason: `Annual premium ₹${plan.premium.annual.toLocaleString()} may be high relative to your income` };
   }
   if (premiumRatio > 0.05) {
-    return { score: Math.round(max * 0.7), max, reason: `Premium is moderate for your income level` };
+    return { score: Math.round(max * 0.7), max, reason: `Annual premium ₹${plan.premium.annual.toLocaleString()} is moderate for your income level` };
   }
-  return { score: max, max, reason: `Premium is affordable for your income level` };
+  return { score: max, max, reason: `Annual premium ₹${plan.premium.annual.toLocaleString()} is affordable for your income level` };
 }
 
 function scoreClaimHistory(plan: InsurancePlan): { score: number; max: number; reason: string } {
   const max = WEIGHTS.claimHistory;
   const csr = plan.claimSettlementRatio;
 
-  if (csr >= 95) return { score: max, max, reason: `Excellent claim settlement ratio of ${csr}%` };
-  if (csr >= 90) return { score: Math.round(max * 0.85), max, reason: `Very good claim settlement ratio of ${csr}%` };
-  if (csr >= 85) return { score: Math.round(max * 0.7), max, reason: `Good claim settlement ratio of ${csr}%` };
-  if (csr >= 80) return { score: Math.round(max * 0.55), max, reason: `Average claim settlement ratio of ${csr}%` };
-  return { score: Math.round(max * 0.3), max, reason: `Below average claim settlement ratio of ${csr}%` };
+  if (csr >= 99) return { score: max, max, reason: `Exceptional CSR of ${csr}% (IRDAI 2024-25 data)` };
+  if (csr >= 97) return { score: Math.round(max * 0.9), max, reason: `Very strong CSR of ${csr}% (IRDAI 2024-25 data)` };
+  if (csr >= 93) return { score: Math.round(max * 0.75), max, reason: `Good CSR of ${csr}% (IRDAI 2024-25 data)` };
+  if (csr >= 90) return { score: Math.round(max * 0.6), max, reason: `Above average CSR of ${csr}% (IRDAI 2024-25 data)` };
+  if (csr >= 85) return { score: Math.round(max * 0.45), max, reason: `Average CSR of ${csr}% (IRDAI 2024-25 data)` };
+  return { score: Math.round(max * 0.25), max, reason: `Below average CSR of ${csr}% (IRDAI 2024-25 data)` };
+}
+
+function scoreSolvency(plan: InsurancePlan): { score: number; max: number; reason: string } {
+  const max = WEIGHTS.solvencyScore;
+  const sr = plan.solvencyRatio;
+
+  if (!sr) return { score: Math.round(max * 0.5), max, reason: 'Solvency ratio data not available' };
+
+  if (sr >= 2.2) return { score: max, max, reason: `Excellent solvency ratio of ${sr} (IRDAI min: 1.5)` };
+  if (sr >= 2.0) return { score: Math.round(max * 0.85), max, reason: `Strong solvency ratio of ${sr} (IRDAI min: 1.5)` };
+  if (sr >= 1.8) return { score: Math.round(max * 0.7), max, reason: `Good solvency ratio of ${sr} (IRDAI min: 1.5)` };
+  if (sr >= 1.5) return { score: Math.round(max * 0.5), max, reason: `Meets IRDAI minimum solvency of 1.5 (actual: ${sr})` };
+  return { score: Math.round(max * 0.2), max, reason: `Below recommended solvency ratio at ${sr}` };
 }
 
 function scoreCoverageFit(plan: InsurancePlan, profile: UserProfile): { score: number; max: number; reason: string } {
@@ -128,33 +146,42 @@ function scoreCoverageFit(plan: InsurancePlan, profile: UserProfile): { score: n
 
   // Medical history matching
   if (profile.medicalHistory?.includes('none') && plan.claimSettlementRatio >= 85) {
-    score += 0.3;
+    score += 0.2;
   }
   if (profile.medicalHistory?.some(m => ['diabetes', 'hypertension', 'heart-disease'].includes(m))) {
-    if (plan.category === 'health' && plan.features.some(f => f.toLowerCase().includes('pre-existing'))) {
-      score += 0.4;
-    } else if (plan.category === 'life' && plan.claimSettlementRatio >= 95) {
+    if (plan.category === 'health') {
+      if (plan.waitingPeriodPED && plan.waitingPeriodPED <= 24) {
+        score += 0.35;
+      } else {
+        score += 0.15;
+      }
+    }
+    if (plan.category === 'life' && plan.ridersAvailable?.includes('Critical Illness')) {
       score += 0.3;
     }
   }
 
-  // Dependent coverage
-  if (profile.dependents > 0 && plan.category === 'health') {
-    if (plan.features.some(f => f.toLowerCase().includes('family') || f.toLowerCase().includes('restoration'))) {
-      score += 0.3;
+  // Family floater for dependents
+  if (profile.dependents && profile.dependents !== '0' && plan.category === 'health') {
+    if (plan.familyFloater) {
+      score += 0.25;
     }
   }
 
-  // Sum insured adequacy
-  const incomeBracket = getIncomeBracket(profile.income as string || '5-10l');
-  if (plan.sumInsured.max >= incomeBracket.min * 10) {
-    score += 0.2;
+  // Maternity for young families
+  if (profile.age >= 25 && profile.age <= 40 && plan.category === 'health' && plan.maternityCover) {
+    score += 0.15;
+  }
+
+  // Wellness for fitness-oriented
+  if (profile.lifestyle?.includes('exercise') && plan.wellnessAddons) {
+    score += 0.15;
   }
 
   return {
     score: Math.round(Math.min(1, score) * max),
     max,
-    reason: score >= 0.7 ? 'Excellent coverage match for your profile' : 
+    reason: score >= 0.7 ? 'Excellent coverage match for your profile' :
             score >= 0.4 ? 'Good coverage match for your profile' :
             'Basic coverage match for your profile',
   };
@@ -162,34 +189,28 @@ function scoreCoverageFit(plan: InsurancePlan, profile: UserProfile): { score: n
 
 function scoreLifestyleMatch(plan: InsurancePlan, profile: UserProfile): { score: number; max: number; reason: string } {
   const max = WEIGHTS.lifestyleMatch;
-  let score = 0.5; // Base score
+  let score = 0.5;
 
   if (profile.lifestyle?.includes('smoker')) {
-    if (plan.category === 'health') {
-      score -= 0.2; // Health insurance becomes more important but also more expensive
-    }
-    if (plan.category === 'life' && plan.features.some(f => f.toLowerCase().includes('non-smoker') || f.toLowerCase().includes('special rate'))) {
-      score -= 0.3; // Won't get special rates
+    if (plan.category === 'health') score -= 0.2;
+    if (plan.category === 'life' && !plan.features.some(f => f.toLowerCase().includes('non-smoker'))) {
+      score -= 0.1;
     }
   }
 
   if (profile.lifestyle?.includes('exercise')) {
-    score += 0.2; // Wellness benefits more useful
-    if (plan.features.some(f => f.toLowerCase().includes('wellness') || f.toLowerCase().includes('health check'))) {
-      score += 0.2;
-    }
+    score += 0.15;
+    if (plan.wellnessAddons) score += 0.15;
   }
 
   if (profile.lifestyle?.includes('sedentary')) {
-    if (plan.category === 'health') {
-      score += 0.1; // More likely to need health insurance
-    }
+    if (plan.category === 'health') score += 0.1;
   }
 
   return {
     score: Math.round(Math.max(0, Math.min(1, score)) * max),
     max,
-    reason: score >= 0.7 ? 'Great lifestyle-plan match' : 
+    reason: score >= 0.7 ? 'Great lifestyle-plan match' :
             score >= 0.4 ? 'Moderate lifestyle-plan match' :
             'Consider lifestyle factors when choosing',
   };
@@ -218,12 +239,26 @@ function scorePriorityMatch(plan: InsurancePlan, profile: UserProfile): { score:
 function scoreNetwork(plan: InsurancePlan): { score: number; max: number; reason: string } {
   const max = WEIGHTS.networkScore;
   const hospitals = plan.networkHospitals || 0;
+  const garages = plan.networkGarages || 0;
+  const network = Math.max(hospitals, garages);
 
-  if (hospitals >= 15000) return { score: max, max, reason: `Extensive network of ${hospitals.toLocaleString()}+ hospitals` };
-  if (hospitals >= 10000) return { score: Math.round(max * 0.8), max, reason: `Large network of ${hospitals.toLocaleString()}+ hospitals` };
-  if (hospitals >= 5000) return { score: Math.round(max * 0.6), max, reason: `Good network of ${hospitals.toLocaleString()}+ hospitals` };
-  if (hospitals >= 1000) return { score: Math.round(max * 0.4), max, reason: `Moderate network of ${hospitals.toLocaleString()}+ hospitals` };
-  return { score: Math.round(max * 0.2), max, reason: `Limited network information` };
+  if (network >= 10000) return { score: max, max, reason: `Extensive network of ${network.toLocaleString()}+ facilities` };
+  if (network >= 8000) return { score: Math.round(max * 0.85), max, reason: `Large network of ${network.toLocaleString()}+ facilities` };
+  if (network >= 5000) return { score: Math.round(max * 0.65), max, reason: `Good network of ${network.toLocaleString()}+ facilities` };
+  if (network >= 1000) return { score: Math.round(max * 0.4), max, reason: `Moderate network of ${network.toLocaleString()}+ facilities` };
+  return { score: Math.round(max * 0.2), max, reason: 'Limited network information' };
+}
+
+function scoreTurnaround(plan: InsurancePlan): { score: number; max: number; reason: string } {
+  const max = WEIGHTS.turnaroundScore;
+  const tat = plan.claimTurnaroundDays;
+
+  if (tat === undefined || tat === null) return { score: Math.round(max * 0.5), max, reason: 'Claim turnaround data not available' };
+
+  if (tat <= 0.5) return { score: max, max, reason: `Ultra-fast claim settlement in ${tat} days` };
+  if (tat <= 1) return { score: Math.round(max * 0.85), max, reason: `Fast claim settlement in ${tat} days` };
+  if (tat <= 2) return { score: Math.round(max * 0.6), max, reason: `Claim settlement in ${tat} days` };
+  return { score: Math.round(max * 0.3), max, reason: `Claim settlement takes ${tat}+ days` };
 }
 
 // ============================================================================
@@ -233,18 +268,22 @@ export function scorePlan(plan: InsurancePlan, profile: UserProfile): ScoreBreak
   const ageMatch = scoreAgeMatch(plan, profile);
   const incomeFit = scoreIncomeFit(plan, profile);
   const claimHistory = scoreClaimHistory(plan);
+  const solvencyScore = scoreSolvency(plan);
   const coverageFit = scoreCoverageFit(plan, profile);
   const lifestyleMatch = scoreLifestyleMatch(plan, profile);
   const priorityMatch = scorePriorityMatch(plan, profile);
   const networkScore = scoreNetwork(plan);
+  const turnaroundScore = scoreTurnaround(plan);
 
-  const totalScore = ageMatch.score + incomeFit.score + claimHistory.score + 
-                     coverageFit.score + lifestyleMatch.score + priorityMatch.score + networkScore.score;
+  const totalScore = ageMatch.score + incomeFit.score + claimHistory.score +
+    solvencyScore.score + coverageFit.score + lifestyleMatch.score +
+    priorityMatch.score + networkScore.score + turnaroundScore.score;
 
   const disclaimers = [
     IRDAI_MANDATORY_DISCLAIMER,
     plan.taxBenefit !== 'N/A' ? IRDAI_TAX_DISCLAIMER : '',
     IRDAI_CLAIM_DISCLAIMER,
+    plan.solvencyRatio ? IRDAI_SOLVENCY_DISCLAIMER : '',
   ].filter(Boolean);
 
   return {
@@ -256,10 +295,12 @@ export function scorePlan(plan: InsurancePlan, profile: UserProfile): ScoreBreak
       ageMatch,
       incomeFit,
       claimHistory,
+      solvencyScore,
       coverageFit,
       lifestyleMatch,
       priorityMatch,
       networkScore,
+      turnaroundScore,
     },
     disclaimers,
   };
@@ -299,7 +340,7 @@ export function getRecommendations(
 }
 
 // ============================================================================
-// EXPLAINABILITY - WHY RECOMMENDED
+// EXPLAINABILITY
 // ============================================================================
 function generateWhyRecommended(
   plan: InsurancePlan,
@@ -308,8 +349,16 @@ function generateWhyRecommended(
 ): string {
   const reasons: string[] = [];
 
-  if (score.breakdown.claimHistory.score >= WEIGHTS.claimHistory * 0.8) {
-    reasons.push(`${plan.provider} has a strong ${plan.claimSettlementRatio}% claim settlement ratio`);
+  if (score.breakdown.claimHistory.score >= WEIGHTS.claimHistory * 0.85) {
+    reasons.push(`${plan.provider} has a strong ${plan.claimSettlementRatio}% CSR (IRDAI 2024-25)`);
+  }
+
+  if (plan.solvencyRatio && plan.solvencyRatio >= 1.8) {
+    reasons.push(`Healthy solvency ratio of ${plan.solvencyRatio} (IRDAI min: 1.5)`);
+  }
+
+  if (plan.claimTurnaroundDays && plan.claimTurnaroundDays <= 1) {
+    reasons.push(`Fast claim settlement in ${plan.claimTurnaroundDays} day(s)`);
   }
 
   if (score.breakdown.priorityMatch.score >= WEIGHTS.priorityMatch) {
@@ -317,19 +366,27 @@ function generateWhyRecommended(
   }
 
   if (score.breakdown.coverageFit.score >= WEIGHTS.coverageFit * 0.7) {
-    reasons.push(`Coverage features align well with your profile`);
+    reasons.push('Coverage features align well with your profile');
   }
 
   if (score.breakdown.incomeFit.score >= WEIGHTS.incomeFit * 0.8) {
-    reasons.push(`Premium is affordable for your income level`);
+    reasons.push(`Premium ₹${plan.premium.monthly}/mo is affordable for your income`);
   }
 
-  if (plan.networkHospitals && plan.networkHospitals >= 10000) {
+  if (plan.networkHospitals && plan.networkHospitals >= 8000) {
     reasons.push(`Extensive hospital network with ${plan.networkHospitals.toLocaleString()}+ cashless facilities`);
   }
 
-  return reasons.length > 0 
-    ? reasons.join('. ') + '.' 
+  if (plan.familyFloater && profile.dependents && profile.dependents !== '0') {
+    reasons.push('Family floater option available for your dependents');
+  }
+
+  if (plan.ridersAvailable && plan.ridersAvailable.length >= 3) {
+    reasons.push(`${plan.ridersAvailable.length} riders available for customization`);
+  }
+
+  return reasons.length > 0
+    ? reasons.join('. ') + '.'
     : 'This plan meets your basic eligibility criteria.';
 }
 
@@ -339,10 +396,10 @@ function generatePersonalizedMessage(
   profile: UserProfile
 ): string {
   if (score.percentage >= 80) {
-    return `Based on your profile, ${plan.name} is an excellent match! It offers great value with a ${plan.claimSettlementRatio}% claim settlement ratio and premiums starting at just ₹${plan.premium.min.toLocaleString()}/year.`;
+    return `Based on your profile, ${plan.name} is an excellent match! With a ${plan.claimSettlementRatio}% CSR, solvency ratio of ${plan.solvencyRatio || 'N/A'}, and premiums starting at just ₹${plan.premium.monthly}/mo, it offers outstanding value and reliability.`;
   }
   if (score.percentage >= 60) {
-    return `${plan.name} is a good option for you. With a claim settlement ratio of ${plan.claimSettlementRatio}%, it provides reliable coverage at a reasonable premium.`;
+    return `${plan.name} is a good option for you. With a CSR of ${plan.claimSettlementRatio}% and premium of ₹${plan.premium.monthly}/mo, it provides reliable coverage at a reasonable cost.`;
   }
   return `${plan.name} is worth considering. Review the features carefully to see if it meets your specific needs.`;
 }
@@ -358,7 +415,7 @@ export function checkIRDAICompliance(text: string): { isCompliant: boolean; viol
     const regex = new RegExp(`\\b${word}\\b`, 'gi');
     if (regex.test(text)) {
       violations.push(word);
-      sanitizedText = sanitizedText.replace(regex, `[removed - IRDAI prohibited term]`);
+      sanitizedText = sanitizedText.replace(regex, '[removed - IRDAI prohibited term]');
     }
   });
 
@@ -374,16 +431,20 @@ export function checkIRDAICompliance(text: string): { isCompliant: boolean; viol
 // ============================================================================
 export function buildRAGContext(userQuery: string, profile?: UserProfile): string {
   const relevantKB = searchKnowledgeBase(userQuery);
-  
-  let context = `You are InsureGPT, an AI-powered insurance assistant for India. You help people understand insurance, compare plans, and make informed decisions.
+
+  let context = `You are InsureGPT, an AI-powered insurance assistant for India targeting 700M uninsured/underinsured people. You help people understand insurance, compare plans, and make informed decisions.
 
 IMPORTANT RULES:
 1. NEVER use these prohibited words: ${IRDAI_PROHIBITED_WORDS.join(', ')}
 2. ALWAYS include the IRDAI disclaimer when discussing specific plans
-3. NEVER recommend a single plan as the "best" - always present options
-4. Use simple, jargon-free language suitable for first-time insurance buyers
-5. Include specific numbers and facts when available
-6. If you don't know something, say so honestly - never hallucinate
+3. NEVER recommend a single plan as the "best" — always present options
+4. Use simple, jargon-free Hindi-English mix suitable for first-time insurance buyers
+5. Include specific numbers and facts from the data when available
+6. Cite data sources (IRDAI Annual Report 2024-25, CSR Report 2025-26)
+7. If you don't know something, say so honestly — never hallucinate
+8. When comparing plans, mention CSR, ICR, solvency ratio, and claim turnaround
+9. For health plans, mention waiting period (PED), room rent limit, family floater, maternity
+10. For life plans, mention riders available and claim turnaround time
 
 KNOWLEDGE BASE CONTEXT:
 `;
@@ -405,8 +466,18 @@ KNOWLEDGE BASE CONTEXT:
 `;
   }
 
-  context += `\nAVAILABLE PLANS SUMMARY:
-${allInsurancePlans.map(p => `- ${p.name} by ${p.provider}: ₹${p.premium.min}-${p.premium.max}/yr, CSR: ${p.claimSettlementRatio}%, Category: ${p.category}`).join('\n')}
+  context += `\nAVAILABLE PLANS SUMMARY (Source: IRDAI Annual Report 2024-25):
+${allInsurancePlans.map(p => {
+  const parts = [`- ${p.name} by ${p.provider}: ₹${p.premium.monthly}/mo (₹${p.premium.annual}/yr), CSR: ${p.claimSettlementRatio}%`];
+  if (p.incurredClaimRatio) parts.push(`ICR: ${p.incurredClaimRatio}%`);
+  if (p.solvencyRatio) parts.push(`Solvency: ${p.solvencyRatio}`);
+  if (p.claimTurnaroundDays !== undefined) parts.push(`TAT: ${p.claimTurnaroundDays} days`);
+  if (p.waitingPeriodPED) parts.push(`PED wait: ${p.waitingPeriodPED} mo`);
+  if (p.familyFloater) parts.push('Family floater');
+  if (p.maternityCover) parts.push('Maternity');
+  parts.push(`Category: ${p.category}`);
+  return parts.join(', ');
+}).join('\n')}
 
 Always be helpful, accurate, and compliant with IRDAI regulations. When in doubt, suggest the user consult a licensed insurance advisor.`;
 
