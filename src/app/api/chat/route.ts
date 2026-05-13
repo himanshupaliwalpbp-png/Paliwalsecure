@@ -36,14 +36,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Build conversation messages for the API
-    // The z-ai SDK uses 'user' and 'assistant' roles (no 'system')
-    const apiMessages = [
-      { role: 'user' as const, content: `System instructions: ${systemPrompt}` },
+    // The z-ai SDK uses 'assistant' role for system prompts, and 'user'/'assistant' for conversation
+    const apiMessages: Array<{ role: 'assistant' | 'user'; content: string }> = [
+      { role: 'assistant', content: systemPrompt },
       ...(history || []).map((m: { role: string; content: string }) => ({
-        role: (m.role === 'bot' ? 'assistant' : m.role) as 'user' | 'assistant',
+        role: (m.role === 'bot' ? 'assistant' : 'user') as 'assistant' | 'user',
         content: m.content,
       })),
-      { role: 'user' as const, content: message },
+      { role: 'user', content: message },
     ];
 
     // Add recommendations context if available

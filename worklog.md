@@ -80,3 +80,55 @@ Stage Summary:
 - Responsive design working across all breakpoints
 - WhatsApp CTA integrated as primary lead capture
 - IRDAI compliance and disclaimers in place
+
+---
+Task ID: 5
+Agent: embedded-chatbot-agent
+Task: Replace floating ChatBot with inline EmbeddedChatBot section
+
+Work Log:
+- Created /src/components/EmbeddedChatBot.tsx — a fully inline, always-visible chat component
+  - No floating button, no fixed/absolute positioning, no toggle open/close
+  - Regular card-based design that sits in page flow
+  - Same functionality as old ChatBot: send messages, voice input, quick suggestions, typing indicator, markdown rendering
+  - Header: "InsureGPT - AI Insurance Advisor" with "Powered by Himanshu Paliwal" branding
+  - IRDAI disclaimer at bottom of chat when messages > 1
+  - Uses /api/chat endpoint for messages
+  - max-h-[500px] on messages ScrollArea
+  - Hinglish quick suggestions and placeholder text
+  - Responsive: full width with max-w-3xl
+- Updated /src/app/page.tsx:
+  - Replaced ChatBot dynamic import with EmbeddedChatBot dynamic import (ssr: false, with loading spinner)
+  - Added InsureGPT Chat section BEFORE Market Insights section with id="insuregpt-chat"
+  - Section has: badge "InsureGPT AI Assistant", title "Apna Insurance Guide — Chat karo", Hinglish subtitle
+  - Background: gradient from emerald-50/40 to white, scroll-mt-16 for fixed navbar offset
+  - Added "InsureGPT" as first item in navLinks (id: insuregpt-chat)
+  - Removed old floating `<ChatBot profile={userProfile} />` from bottom of page
+  - Fixed hero section top gap: pt-20 lg:pt-24 → pt-16 lg:pt-20
+- Lint passes cleanly with no errors
+- Dev server compiles successfully, page serves HTTP 200
+
+Stage Summary:
+- Floating ChatBot popup removed, replaced with inline EmbeddedChatBot
+- Chatbot is now a natural section of the page, always visible
+- Nav updated with InsureGPT Chat link as first item
+- Hero gap reduced for better visual alignment
+- All existing functionality preserved (voice, quick suggestions, markdown, IRDAI disclaimer, branding)
+
+---
+Task ID: 6
+Agent: main-coordinator
+Task: Fix LLM API chat route and verify all changes
+
+Work Log:
+- Fixed chat API route: changed system prompt from `role: 'user'` to `role: 'assistant'` per z-ai-web-dev-sdk docs
+- The SDK requires system prompts to use `role: 'assistant'` instead of `role: 'system'` or `role: 'user'`
+- Verified lint passes cleanly
+- Verified dev server returns HTTP 200
+- Verified chat API returns 200 (previously was throwing "角色信息不正确" error)
+- Latest dev logs show POST /api/chat 200 in 9.5s
+
+Stage Summary:
+- LLM API error fixed - chat now works properly
+- All components verified: EmbeddedChatBot, page layout, hero gap, nav links
+- Site is fully functional with embedded chatbot

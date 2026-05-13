@@ -82,8 +82,13 @@ const GameOfLife = dynamic(() => import('@/components/GameOfLife'), {
     </div>
   ),
 });
-const ChatBot = dynamic(() => import('@/components/ChatBot'), {
+const EmbeddedChatBot = dynamic(() => import('@/components/EmbeddedChatBot'), {
   ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+    </div>
+  ),
 });
 const OnboardingFlow = dynamic(() => import('@/components/OnboardingFlow'), {
   ssr: false,
@@ -368,6 +373,7 @@ export default function InsureGPTPage() {
 
   // Nav links
   const navLinks = [
+    { id: 'insuregpt-chat', label: 'InsureGPT' },
     { id: 'features', label: 'Features' },
     { id: 'insuregyaan', label: 'InsureGyaan' },
     { id: 'products', label: 'Products' },
@@ -517,7 +523,7 @@ export default function InsureGPTPage() {
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-24 pb-12 sm:pb-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-12 sm:pb-16">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -756,6 +762,37 @@ export default function InsureGPTPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* INSUREGPT CHAT SECTION                                             */}
+      {/* ================================================================== */}
+      <section id="insuregpt-chat" className="py-16 sm:py-20 bg-gradient-to-b from-emerald-50/40 to-white scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-10"
+          >
+            <Badge
+              variant="secondary"
+              className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
+            >
+              InsureGPT AI Assistant
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+              Apna Insurance Guide —{' '}
+              <span className="text-emerald-600">Chat karo</span>
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-slate-600">
+              Insurance ke baare mein koi bhi sawaal poochiye — Hindi, English ya Hinglish mein. AI advisor turant jawab dega!
+            </p>
+          </motion.div>
+
+          <EmbeddedChatBot profile={userProfile} />
         </div>
       </section>
 
@@ -1739,9 +1776,6 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* FLOATING COMPONENTS                                                */}
       {/* ================================================================== */}
-
-      {/* ChatBot */}
-      <ChatBot profile={userProfile} />
 
       {/* Onboarding Flow */}
       <AnimatePresence>
