@@ -1,4 +1,4 @@
-# InsureGPT Project Worklog
+# Paliwal Secure Project Worklog
 
 ---
 Task ID: 1
@@ -167,3 +167,85 @@ Stage Summary:
 - Hero section top gap fixed for desktop
 - All responsive design improvements applied
 - Lint passes, dev server HTTP 200
+
+---
+Task ID: 2-a
+Agent: data-scoring-update-agent
+Task: Update insurance-data.ts and scoring-engine.ts with exact IRDAI 2025-26 data and new scoring algorithm
+
+Work Log:
+- Updated insurance-data.ts header: "InsureGPT" → "Paliwal Secure", source year → "IRDAI Annual Report 2025-26"
+- Added new interface fields to InsurancePlan:
+  - complaintsPer10k?: number (complaints per 10,000 policies)
+  - waitingPeriodDetailed?: { diabetes: number; bp: number; heart: number } (condition-specific waiting periods)
+  - aum?: number (Assets Under Management in ₹ Crores, for life insurance)
+  - thirdPartyPremium?: number (for motor insurance)
+  - singleTripPremium?: number (for travel insurance)
+  - annualMultiTripPremium?: number (for travel insurance)
+- Replaced healthInsurancePlans (was 10 plans, now 8) with exact IRDAI 2025-26 data:
+  - Acko General Insurance: CSR 99.91, ICR 65, Solvency 1.7, Complaints 15/10k, 10K hospitals
+  - HDFC ERGO General Insurance: CSR 98.85, ICR 89.47, Solvency 1.9, Complaints 10.67/10k, 10K hospitals
+  - Care Health Insurance: CSR 93.13, ICR 58.68, Solvency 1.8, Complaints 27.06/10k, 21.7K hospitals
+  - Star Health & Allied Insurance: CSR 88.34, ICR 67.26, Solvency 2.1, Complaints 52.31/10k, 14K hospitals
+  - Niva Bupa Health Insurance: CSR 91.22, ICR 58.10, Solvency 1.9, Complaints 42.85/10k, 10K hospitals
+  - ICICI Lombard General Insurance: CSR 91.22, ICR 77.37, Solvency 1.8, Complaints 27.06/10k, 7.5K hospitals
+  - TATA AIG General Insurance: CSR 96.67, ICR 94.44, Solvency 2.0, Complaints 20/10k, 6.5K hospitals
+  - Bajaj Allianz General Insurance: CSR 93.65, ICR 54.33, Solvency 3.0, Complaints 25/10k, 8.5K hospitals
+- Replaced lifeInsurancePlans (was 7 plans, now 8) with exact data:
+  - HDFC Life Insurance: CSR 99.97, Solvency 2.1, AUM ₹2.5L Cr
+  - Max Life Insurance: CSR 99.08, Solvency 2.1, AUM ₹1.5L Cr
+  - SBI Life Insurance: CSR 98.50, Solvency 2.0, AUM ₹3.8L Cr
+  - ICICI Prudential Life: CSR 98.20, Solvency 2.0, AUM ₹2.2L Cr
+  - Bajaj Allianz Life: CSR 97.50, Solvency 5.41, AUM ₹1.1L Cr
+  - LIC of India: CSR 95.55, Solvency 1.85, AUM ₹50L Cr
+  - Kotak Mahindra Life: CSR 97.20, Solvency 2.0, AUM ₹1L Cr
+  - Tata AIA Life: CSR 98.00, Solvency 2.2, AUM ₹1.2L Cr
+- Replaced motorInsurancePlans (was 2 plans, now 3):
+  - ICICI Lombard Motor: CSR 91.22, Comprehensive ₹1,899/yr, Third Party ₹850/yr
+  - HDFC ERGO Motor: CSR 98.85, Comprehensive ₹2,200/yr, Third Party ₹950/yr
+  - Bajaj Allianz Motor: CSR 93.65, Comprehensive ₹1,950/yr, Third Party ₹880/yr
+- Replaced travelInsurancePlans (was 1 plan, now 2):
+  - TATA AIG Travel: CSR 96.67, Single trip ₹499, Annual multi-trip ₹2,499
+  - Care Health Travel: CSR 93.13, Single trip ₹450, Annual multi-trip ₹2,299
+- Updated categoryInfo with new avg CSR, premium ranges, and key features
+- Updated premiumBreakdowns with new ranges
+- Replaced all 4 "InsureGPT" references in marketInsights with "Paliwal Secure"
+- Completely rewrote scoring-engine.ts with exact scoring algorithm:
+  - Trust Score = (CSR * 0.40) + (Solvency * 0.25) + (Complaint Score * 0.20) + (Claim Speed * 0.15)
+  - Compatibility Score = (Budget Match * 0.35) + (Age/PED Match * 0.25) + (Family Suitability * 0.20) + (Features Match * 0.20)
+  - Final Score = (Trust Score * 0.60) + (Compatibility Score * 0.40)
+  - Complaint Score = max(0, 100 - (complaintsPer10k * 2))
+  - Claim Speed: >95% CSR = 100, 90-95% = 80, 85-90% = 60, <85% = 40
+  - Budget Match: 100 if ≤ budget, else 2 points penalty per ₹100 over
+  - PED Penalties: Diabetes >24mo = -15, >36mo = -25; BP >24mo = -10; Heart >36mo = -20
+- Renamed "InsureGPT" to "Paliwal Secure AI" in RAG context system prompt
+- Updated RAG context to include complaint ratios, condition-specific waiting periods, AUM, and scoring methodology
+- Lint passes cleanly
+- Dev server compiles successfully, no errors
+
+Stage Summary:
+- insurance-data.ts: Updated with exact IRDAI 2025-26 data for 8 health, 8 life, 3 motor, 2 travel plans
+- New interface fields: complaintsPer10k, waitingPeriodDetailed, aum, thirdPartyPremium, singleTripPremium, annualMultiTripPremium
+- scoring-engine.ts: Completely rewritten with exact Trust/Compatibility/Final Score algorithm
+- All "InsureGPT" references in both files renamed to "Paliwal Secure"
+- All data values match user-provided exact numbers from IRDAI 2025-26 reports
+
+---
+Task ID: 8
+Agent: main-coordinator
+Task: Rename InsureGPT → Paliwal Secure, fix chat speed, fix hero gap, update branding
+
+Work Log:
+- Renamed all "InsureGPT" → "Paliwal Secure" across all source files
+- Fixed hero section top gap: Added pt-16 to hero section, reduced inner padding
+- Added "by Himanshu Paliwal" to hero badge
+- Updated chat API route for speed: 10s timeout, enhanced fallback responses, trimmed message history
+- Changed "Best plan" to "Recommended plan" in chatbot suggestions (IRDAI compliance)
+- Verified lint passes cleanly, dev server compiles and serves HTTP 200
+
+Stage Summary:
+- Complete rebrand from InsureGPT to Paliwal Secure across all source files
+- Chat API optimized with timeout + enhanced fallbacks for faster responses
+- Hero section top gap fixed
+- All "Powered by Himanshu Paliwal" branding in place
+- IRDAI compliance: no "best" or "guaranteed" language

@@ -210,8 +210,8 @@ export default function ChatBot({ profile }: ChatBotProps) {
   useEffect(() => {
     if (messages.length === 0) {
       const greeting = profile
-        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
-        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
+        ? `Namaste! 👋 Welcome to **Paliwal Secure AI**, your AI insurance advisor. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
+        : `Namaste! 👋 Welcome to **Paliwal Secure AI**, your AI insurance advisor. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
 
       setMessages([
         {
@@ -377,7 +377,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
       <AnimatePresence>
         {!isOpen && (
           <div className="fixed bottom-6 right-6 z-[60] flex items-center gap-3">
-            {/* InsureGPT Label Badge - visible on sm+ screens */}
+            {/* Paliwal Secure AI Label Badge - visible on sm+ screens */}
             <motion.div
               key="chat-label"
               initial={{ opacity: 0, x: 10 }}
@@ -387,7 +387,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
               className="hidden sm:flex items-center"
             >
               <span className="bg-white shadow-md rounded-full px-3 py-1.5 text-xs font-semibold text-emerald-700 border border-emerald-200">
-                InsureGPT
+                Paliwal Secure AI
               </span>
             </motion.div>
 
@@ -409,7 +409,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                 </motion.button>
               </TooltipTrigger>
               <TooltipContent side="left" sideOffset={8}>
-                <p>Chat with InsureGPT</p>
+                <p>Chat with Paliwal Secure AI</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -434,7 +434,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                   <Bot className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base leading-tight">InsureGPT</h3>
+                  <h3 className="font-bold text-base leading-tight">Paliwal Secure AI</h3>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
                     <span className="text-xs text-emerald-100">AI Insurance Advisor</span>

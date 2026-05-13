@@ -14,36 +14,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "InsureGPT - Smart Insurance for Every Indian",
+  title: "Paliwal Secure - Smart Insurance for Every Indian",
   description:
-    "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with InsureGPT.",
+    "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with Paliwal Secure.",
   keywords: [
     "insurance",
     "India",
     "health insurance",
     "life insurance",
     "AI",
-    "InsureGPT",
+    "Paliwal Secure",
     "IRDAI",
   ],
-  authors: [{ name: "InsureGPT" }],
+  authors: [{ name: "Himanshu Paliwal" }],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
   openGraph: {
-    title: "InsureGPT - Smart Insurance for Every Indian",
+    title: "Paliwal Secure - Smart Insurance for Every Indian",
     description:
-      "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with InsureGPT.",
-    url: "https://insuregpt.in",
-    siteName: "InsureGPT",
+      "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with Paliwal Secure.",
+    url: "https://paliwalsecure.in",
+    siteName: "Paliwal Secure",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "InsureGPT - Smart Insurance for Every Indian",
+    title: "Paliwal Secure - Smart Insurance for Every Indian",
     description:
-      "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with InsureGPT.",
+      "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with Paliwal Secure.",
   },
 };
 

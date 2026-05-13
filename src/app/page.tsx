@@ -238,7 +238,7 @@ function getInsightStyle(cat: string) {
 // Main Page Component
 // ============================================================================
 
-export default function InsureGPTPage() {
+export default function PaliwalSecurePage() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [activeCategory, setActiveCategory] = useState<InsuranceCategory>('health');
@@ -282,7 +282,7 @@ export default function InsureGPTPage() {
 
   // WhatsApp handler
   const handleWhatsAppClick = useCallback(() => {
-    const welcomeMsg = dripCampaigns[0]?.welcomeMessage || 'Namaste! 🙏 Main InsureGPT hoon — aapka insurance guide. Kaise madad kar sakta hoon?';
+    const welcomeMsg = dripCampaigns[0]?.welcomeMessage || 'Namaste! 🙏 Main Paliwal Secure hoon — aapka insurance guide. Kaise madad kar sakta hoon?';
     const phone = whatsappPhone.replace(/\D/g, '');
     const waUrl = `https://wa.me/919999999999?text=${encodeURIComponent(welcomeMsg)}`;
     window.open(waUrl, '_blank');
@@ -373,7 +373,7 @@ export default function InsureGPTPage() {
 
   // Nav links
   const navLinks = [
-    { id: 'insuregpt-chat', label: 'InsureGPT' },
+    { id: 'paliwal-secure-chat', label: 'Paliwal Secure AI' },
     { id: 'features', label: 'Features' },
     { id: 'insuregyaan', label: 'InsureGyaan' },
     { id: 'products', label: 'Products' },
@@ -398,7 +398,7 @@ export default function InsureGPTPage() {
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-slate-900">
-                Insure<span className="text-emerald-600">GPT</span>
+                Paliwal<span className="text-emerald-600"> Secure</span>
               </span>
             </div>
 
@@ -499,7 +499,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden pt-16">
         {/* Background gradient & shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-amber-50" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
@@ -523,7 +523,7 @@ export default function InsureGPTPage() {
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-8 pb-12 sm:pb-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-4 pb-12 sm:pb-16">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -536,7 +536,7 @@ export default function InsureGPTPage() {
                   variant="secondary"
                   className="mb-6 bg-emerald-50 text-emerald-700 border-emerald-200 px-4 py-1.5 text-sm font-medium"
                 >
-                  India ka pehla AI-powered Bima Gyaan
+                  India ka pehla AI-powered Bima Gyaan — by Himanshu Paliwal
                 </Badge>
               </motion.div>
 
@@ -766,9 +766,9 @@ export default function InsureGPTPage() {
       </section>
 
       {/* ================================================================== */}
-      {/* INSUREGPT CHAT SECTION                                             */}
+      {/* PALIWAL SECURE CHAT SECTION                                         */}
       {/* ================================================================== */}
-      <section id="insuregpt-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-white to-white scroll-mt-16">
+      <section id="paliwal-secure-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-white to-white scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -782,7 +782,7 @@ export default function InsureGPTPage() {
               className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
             >
               <Brain className="w-3.5 h-3.5 mr-1" />
-              InsureGPT AI Assistant
+              Paliwal Secure AI Assistant
             </Badge>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
               Apna Insurance Guide —{' '}
@@ -819,7 +819,7 @@ export default function InsureGPTPage() {
               India ka Insurance <span className="text-emerald-400">Picture</span>
             </h2>
             <p className="mt-4 text-base sm:text-lg text-slate-400">
-              Yeh stats dikhate hain ki insurance awareness kitni zaroori hai — aur InsureGPT kyun faaydemand hai.
+              Yeh stats dikhate hain ki insurance awareness kitni zaroori hai — aur Paliwal Secure kyun faaydemand hai.
             </p>
           </motion.div>
 
@@ -918,7 +918,7 @@ export default function InsureGPTPage() {
               variant="secondary"
               className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
             >
-              Kyun InsureGPT
+              Kyun Paliwal Secure
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
               Insurance Ab Hai{' '}
@@ -1606,7 +1606,7 @@ export default function InsureGPTPage() {
                 <div className="min-w-0">
                   <p className="text-xs text-slate-500">Email us</p>
                   <p className="text-sm font-semibold text-slate-700 truncate">
-                    help@insuregpt.in
+                    help@paliwalsecure.in
                   </p>
                 </div>
               </div>
@@ -1644,7 +1644,7 @@ export default function InsureGPTPage() {
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold text-white">
-                  Insure<span className="text-emerald-400">GPT</span>
+                  Paliwal<span className="text-emerald-400"> Secure</span>
                 </span>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
@@ -1736,7 +1736,7 @@ export default function InsureGPTPage() {
               <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-3">
                 <div className="flex flex-col items-center sm:items-start gap-1">
                   <p className="text-xs text-slate-500 text-center sm:text-left">
-                    &copy; {new Date().getFullYear()} InsureGPT. All rights reserved.
+                    &copy; {new Date().getFullYear()} Paliwal Secure. All rights reserved.
                     Insurance is the subject matter of solicitation. Read all policy documents carefully.
                   </p>
                   <p className="text-xs text-slate-400 text-center sm:text-left">
