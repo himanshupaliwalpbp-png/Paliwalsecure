@@ -35,11 +35,12 @@ export async function POST(request: NextRequest) {
       }));
     }
 
-    // Build conversation messages
-    const messages = [
-      { role: 'system' as const, content: systemPrompt },
+    // Build conversation messages for the API
+    // The z-ai SDK uses 'user' and 'assistant' roles (no 'system')
+    const apiMessages = [
+      { role: 'user' as const, content: `System instructions: ${systemPrompt}` },
       ...(history || []).map((m: { role: string; content: string }) => ({
-        role: m.role as 'user' | 'assistant',
+        role: (m.role === 'bot' ? 'assistant' : m.role) as 'user' | 'assistant',
         content: m.content,
       })),
       { role: 'user' as const, content: message },
@@ -47,8 +48,8 @@ export async function POST(request: NextRequest) {
 
     // Add recommendations context if available
     if (recommendations) {
-      messages[messages.length - 1] = {
-        ...messages[messages.length - 1],
+      apiMessages[apiMessages.length - 1] = {
+        ...apiMessages[apiMessages.length - 1],
         content: `${message}\n\n[SYSTEM: Here are the personalized recommendations based on the user profile - include these in your response in a friendly, structured way]:\n${JSON.stringify(recommendations, null, 2)}`,
       };
     }
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
       const zai = await ZAI.create();
 
       const completion = await zai.chat.completions.create({
-        messages,
+        messages: apiMessages,
         thinking: { type: 'disabled' },
       });
 

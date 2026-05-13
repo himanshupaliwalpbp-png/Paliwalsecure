@@ -293,7 +293,7 @@ export default function InsureGPTPage() {
   const currentCategoryInfo = categoryInfo.find((c) => c.id === activeCategory);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white overflow-x-hidden">
       {/* ================================================================== */}
       {/* NAVIGATION BAR                                                     */}
       {/* ================================================================== */}
@@ -345,10 +345,11 @@ export default function InsureGPTPage() {
             <div className="flex items-center gap-3">
               <Button
                 onClick={() => setShowOnboarding(true)}
-                className="hidden sm:inline-flex bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5 shadow-sm"
+                className="inline-flex bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5 shadow-sm text-xs sm:text-sm px-2.5 sm:px-4 py-1.5 sm:py-2"
               >
-                Get Started
-                <ArrowRight className="w-4 h-4" />
+                <span className="hidden sm:inline">Get Started</span>
+                <span className="sm:hidden">Start</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -374,7 +375,7 @@ export default function InsureGPTPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-slate-200/60 bg-white/95 backdrop-blur-lg overflow-hidden"
+              className="md:hidden border-t border-slate-200/60 bg-white/95 backdrop-blur-lg overflow-hidden z-50 relative"
             >
               <div className="px-4 py-4 space-y-3">
                 {[
@@ -410,7 +411,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center pt-16 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
         {/* Background gradient & shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-amber-50" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
@@ -434,7 +435,7 @@ export default function InsureGPTPage() {
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-0">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -1065,30 +1066,30 @@ export default function InsureGPTPage() {
             </Card>
 
             {/* Contact Info */}
-            <div className="grid sm:grid-cols-3 gap-4 mt-8">
-              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-200">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-8">
+              <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-xl border border-slate-200">
                 <Phone className="w-5 h-5 text-emerald-600 shrink-0" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs text-slate-500">Call us</p>
-                  <p className="text-sm font-semibold text-slate-700">
+                  <p className="text-sm font-semibold text-slate-700 truncate">
                     1800-XXX-XXXX
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-200">
+              <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-xl border border-slate-200">
                 <Mail className="w-5 h-5 text-emerald-600 shrink-0" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs text-slate-500">Email us</p>
-                  <p className="text-sm font-semibold text-slate-700">
+                  <p className="text-sm font-semibold text-slate-700 truncate">
                     help@insuregpt.in
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-200">
+              <div className="flex items-center gap-3 p-3 sm:p-4 bg-white rounded-xl border border-slate-200">
                 <MapPin className="w-5 h-5 text-emerald-600 shrink-0" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs text-slate-500">Visit us</p>
-                  <p className="text-sm font-semibold text-slate-700">
+                  <p className="text-sm font-semibold text-slate-700 truncate">
                     Mumbai, India
                   </p>
                 </div>
@@ -1206,10 +1207,16 @@ export default function InsureGPTPage() {
                 </span>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-3">
-                <p className="text-xs text-slate-500 text-center sm:text-left">
-                  © {new Date().getFullYear()} InsureGPT. All rights reserved.
-                  Insurance is the subject matter of solicitation.
-                </p>
+                <div className="flex flex-col items-center sm:items-start gap-1">
+                  <p className="text-xs text-slate-500 text-center sm:text-left">
+                    © {new Date().getFullYear()} InsureGPT. All rights reserved.
+                    Insurance is the subject matter of solicitation.
+                  </p>
+                  <p className="text-xs text-slate-400 text-center sm:text-left">
+                    Designed & Developed by{' '}
+                    <span className="font-semibold text-emerald-400">Himanshu Paliwal</span>
+                  </p>
+                </div>
                 <div className="flex items-center gap-4">
                   <span className="text-xs text-slate-500">
                     IRDAI Regulated Platform

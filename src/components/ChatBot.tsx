@@ -439,7 +439,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
                     <span className="text-xs text-emerald-100">AI Insurance Advisor</span>
                   </div>
-                  <span className="text-[10px] text-emerald-100/70">Powered by Himanshu Paliwal</span>
+                  <span className="text-[11px] text-emerald-100 font-medium">Powered by Himanshu Paliwal</span>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -592,7 +592,11 @@ export default function ChatBot({ profile }: ChatBotProps) {
                 </Button>
               </form>
               {/* Powered by branding */}
-              <p className="text-center text-[10px] sm:text-xs text-slate-400 mt-2">Powered by Himanshu Paliwal</p>
+              <div className="flex items-center justify-center gap-1.5 mt-2">
+                <span className="h-px flex-1 bg-slate-200" />
+                <p className="text-center text-[10px] sm:text-xs text-slate-400 font-medium whitespace-nowrap">Powered by Himanshu Paliwal</p>
+                <span className="h-px flex-1 bg-slate-200" />
+              </div>
             </div>
           </motion.div>
         )}
