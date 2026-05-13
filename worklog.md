@@ -123,3 +123,21 @@ Stage Summary:
 - All features working end-to-end
 - IRDAI compliance verified (caught "certain" as prohibited word in test)
 - Ready for GitHub deployment
+
+---
+Task ID: 12
+Agent: Main Orchestrator
+Task: Fix chat API bug and verify project completeness
+
+Work Log:
+- Reviewed all existing files: insurance-data.ts (10 health, 7 life, 2 motor, 1 travel, 2 home plans), scoring-engine.ts, chat/route.ts, contact/route.ts, ChatBot.tsx, GameOfLife.tsx, OnboardingFlow.tsx, page.tsx
+- Found critical bug: chat API was sending system prompt with role: 'assistant' instead of role: 'system', causing LLM API to fail with 400 error
+- Fixed the role from 'assistant' to 'system' in /src/app/api/chat/route.ts
+- Verified lint passes cleanly (0 errors, 0 warnings)
+- Verified page loads HTTP 200
+- Verified all expanded insurance data from user's second message was already incorporated
+
+Stage Summary:
+- Chat API bug fixed: system prompt now uses correct role 'system'
+- All 22 insurance plans across 5 categories present in data file
+- Project is complete and production-ready

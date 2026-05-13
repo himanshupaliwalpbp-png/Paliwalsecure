@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
     // Build conversation messages
     const messages = [
-      { role: 'assistant' as const, content: systemPrompt },
+      { role: 'system' as const, content: systemPrompt },
       ...(history || []).map((m: { role: string; content: string }) => ({
         role: m.role as 'user' | 'assistant',
         content: m.content,
