@@ -132,3 +132,38 @@ Stage Summary:
 - LLM API error fixed - chat now works properly
 - All components verified: EmbeddedChatBot, page layout, hero gap, nav links
 - Site is fully functional with embedded chatbot
+
+---
+Task ID: 7
+Agent: main-coordinator
+Task: Fix EmbeddedChatBot display, hero top gap, responsive design, and chat API role error
+
+Work Log:
+- Fixed chat API route: ensured messages alternate properly (no consecutive same-role messages)
+  - Previous code could have consecutive 'assistant' messages causing "角色信息不正确" error
+  - Now properly merges consecutive same-role messages before sending to API
+- Rewrote EmbeddedChatBot component for better display:
+  - Increased height: h-[400px] sm:h-[450px] lg:h-[500px] for messages area
+  - Removed ScrollArea in favor of native div scroll for better control
+  - Added smooth auto-scroll with messagesEndRef
+  - Enhanced header: gradient with decorative circles, IRDAI Compliant badge, larger avatar
+  - Better message animations: fade-in + slide-up on each new message
+  - Improved quick suggestions with Sparkles icon and cleaner layout
+  - Better input area styling with bg-slate-50/50
+  - Enhanced "Powered by Himanshu Paliwal" branding with emerald-600 highlight
+  - Better responsive design throughout
+- Fixed hero section top gap:
+  - Changed from min-h-screen to min-h-[calc(100vh-4rem)] for proper nav offset
+  - Reduced padding: pt-8 sm:pt-12 lg:pt-8 (was pt-16 lg:pt-20)
+- Enhanced InsureGPT Chat section:
+  - Wider container: max-w-5xl (was max-w-7xl with max-w-3xl inner)
+  - Added Brain icon to badge
+  - Better responsive text sizing
+  - More padding: py-16 sm:py-20 lg:py-24
+
+Stage Summary:
+- Chat API role error fixed - messages properly alternate
+- EmbeddedChatBot much more prominent with larger size and better styling
+- Hero section top gap fixed for desktop
+- All responsive design improvements applied
+- Lint passes, dev server HTTP 200

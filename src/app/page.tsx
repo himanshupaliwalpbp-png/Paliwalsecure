@@ -499,7 +499,7 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
         {/* Background gradient & shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-amber-50" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
@@ -523,7 +523,7 @@ export default function InsureGPTPage() {
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 lg:pt-20 pb-12 sm:pb-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-8 pb-12 sm:pb-16">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -768,26 +768,27 @@ export default function InsureGPTPage() {
       {/* ================================================================== */}
       {/* INSUREGPT CHAT SECTION                                             */}
       {/* ================================================================== */}
-      <section id="insuregpt-chat" className="py-16 sm:py-20 bg-gradient-to-b from-emerald-50/40 to-white scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="insuregpt-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-white to-white scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-center max-w-3xl mx-auto mb-10"
+            className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
           >
             <Badge
               variant="secondary"
               className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
             >
+              <Brain className="w-3.5 h-3.5 mr-1" />
               InsureGPT AI Assistant
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
               Apna Insurance Guide —{' '}
               <span className="text-emerald-600">Chat karo</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-slate-600">
+            <p className="mt-3 text-sm sm:text-base lg:text-lg text-slate-600">
               Insurance ke baare mein koi bhi sawaal poochiye — Hindi, English ya Hinglish mein. AI advisor turant jawab dega!
             </p>
           </motion.div>

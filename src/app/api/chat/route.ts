@@ -37,21 +37,34 @@ export async function POST(request: NextRequest) {
 
     // Build conversation messages for the API
     // The z-ai SDK uses 'assistant' role for system prompts, and 'user'/'assistant' for conversation
+    // Messages must alternate: assistant (system) -> user -> assistant -> user -> ...
     const apiMessages: Array<{ role: 'assistant' | 'user'; content: string }> = [
       { role: 'assistant', content: systemPrompt },
-      ...(history || []).map((m: { role: string; content: string }) => ({
-        role: (m.role === 'bot' ? 'assistant' : 'user') as 'assistant' | 'user',
-        content: m.content,
-      })),
-      { role: 'user', content: message },
     ];
 
-    // Add recommendations context if available
-    if (recommendations) {
-      apiMessages[apiMessages.length - 1] = {
-        ...apiMessages[apiMessages.length - 1],
-        content: `${message}\n\n[SYSTEM: Here are the personalized recommendations based on the user profile - include these in your response in a friendly, structured way]:\n${JSON.stringify(recommendations, null, 2)}`,
-      };
+    // Add conversation history, ensuring proper alternation
+    const historyMessages: Array<{ role: 'assistant' | 'user'; content: string }> = (history || [])
+      .map((m: { role: string; content: string }) => ({
+        role: (m.role === 'bot' ? 'assistant' : 'user') as 'assistant' | 'user',
+        content: m.content,
+      }));
+
+    // Add user message with recommendations context if available
+    const userContent = recommendations
+      ? `${message}\n\n[SYSTEM: Here are the personalized recommendations based on the user profile - include these in your response in a friendly, structured way]:\n${JSON.stringify(recommendations, null, 2)}`
+      : message;
+
+    historyMessages.push({ role: 'user', content: userContent });
+
+    // Ensure messages alternate properly: no consecutive same-role messages
+    for (const msg of historyMessages) {
+      const lastRole = apiMessages[apiMessages.length - 1]?.role;
+      if (lastRole === msg.role) {
+        // Merge with previous message of same role
+        apiMessages[apiMessages.length - 1].content += '\n' + msg.content;
+      } else {
+        apiMessages.push(msg);
+      }
     }
 
     // Use z-ai-web-dev-sdk for LLM

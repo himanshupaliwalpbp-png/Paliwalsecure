@@ -2,10 +2,9 @@
 
 import { useState, useRef, useEffect, useCallback, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mic, MicOff, Bot, User } from 'lucide-react';
+import { Send, Mic, MicOff, Bot, User, Sparkles, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
 
@@ -85,6 +84,12 @@ function renderBotContent(content: string): React.ReactNode[] {
       return;
     }
 
+    // Handle separator lines (---)
+    if (line.trim() === '---') {
+      nodes.push(<hr key={`hr-${lineIdx}`} className="border-slate-200 my-2" />);
+      return;
+    }
+
     // Handle list items
     const ulMatch = line.match(/^[\-\*]\s+(.*)/);
     const olMatch = line.match(/^\d+\.\s+(.*)/);
@@ -129,7 +134,7 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
       parts.push(<strong key={`b-${match.index}`} className="font-semibold text-emerald-700">{match[2]}</strong>);
     } else if (match[3]) {
       // *italic*
-      parts.push(<em key={`i-${match.index}`}>{match[3]}</em>);
+      parts.push(<em key={`i-${match.index}`} className="text-slate-500">{match[3]}</em>);
     } else if (match[4]) {
       // `code`
       parts.push(
@@ -155,11 +160,11 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
 // ---------------------------------------------------------------------------
 function TypingIndicator() {
   return (
-    <div className="flex items-start gap-2 mb-4">
+    <div className="flex items-start gap-2.5 mb-4">
       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shrink-0 shadow-sm">
         <Bot className="w-4 h-4 text-white" />
       </div>
-      <div className="bg-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%]">
+      <div className="bg-slate-100 rounded-2xl rounded-tl-sm px-4 py-3">
         <div className="flex items-center gap-1.5">
           <motion.span
             className="w-2 h-2 bg-emerald-500 rounded-full"
@@ -184,6 +189,7 @@ function TypingIndicator() {
 
 // ---------------------------------------------------------------------------
 // EmbeddedChatBot Component — Always visible, inline in page flow
+// Full-width, prominent, and responsive
 // ---------------------------------------------------------------------------
 export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -192,7 +198,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<ISpeechRecognition | null>(null);
 
@@ -224,12 +231,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
 
   // Auto-scroll to bottom
   useEffect(() => {
-    if (scrollRef.current) {
-      const viewport = scrollRef.current.querySelector('[data-slot="scroll-area-viewport"]');
-      if (viewport) {
-        viewport.scrollTop = viewport.scrollHeight;
-      }
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
   // ---------------------------------------------------------------------------
@@ -281,7 +283,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
             id: generateId(),
             role: 'bot',
             content:
-              "I'm sorry, I couldn't process your request. Please try again or rephrase your question.",
+              "Maafi chahunga, main aapka sawaal process nahi kar paya. Kripya dobara try karein ya apna sawaal alag tarike se poochiye.",
             timestamp: new Date(),
           };
           setMessages((prev) => [...prev, errorMessage]);
@@ -291,7 +293,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           id: generateId(),
           role: 'bot',
           content:
-            "I'm having trouble connecting right now. Please check your internet connection and try again.",
+            "Abhi connection mein dikkat aa rahi hai. Apna internet check karein aur dobara try karein.",
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -360,39 +362,57 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   };
 
   // ---------------------------------------------------------------------------
-  // Render — always visible, inline card
+  // Render — Full-width prominent inline chatbot
   // ---------------------------------------------------------------------------
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200/80 overflow-hidden flex flex-col">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-4 sm:px-6 py-4 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-            <Bot className="w-5 h-5" />
+    <div className="w-full bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden flex flex-col">
+      {/* Header - Prominent gradient */}
+      <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 text-white px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between shrink-0 relative overflow-hidden">
+        {/* Decorative circles */}
+        <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-full" />
+        <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/5 rounded-full" />
+
+        <div className="flex items-center gap-3 sm:gap-4 relative z-10">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
+            <Bot className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h3 className="font-bold text-base leading-tight">InsureGPT - AI Insurance Advisor</h3>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
-              <span className="text-xs text-emerald-100">Online • Ready to help</span>
+            <h3 className="font-bold text-base sm:text-lg leading-tight">InsureGPT</h3>
+            <div className="flex items-center gap-2 mt-0.5">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
+                <span className="text-xs text-emerald-100">Online • AI Insurance Advisor</span>
+              </div>
             </div>
-            <span className="text-[11px] text-emerald-100 font-medium">Powered by Himanshu Paliwal</span>
           </div>
         </div>
-        {profile && (
-          <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs">
-            Personalized
-          </Badge>
-        )}
+        <div className="flex items-center gap-2 relative z-10">
+          {profile && (
+            <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs hidden sm:inline-flex">
+              Personalized
+            </Badge>
+          )}
+          <div className="flex items-center gap-1 bg-white/15 px-2.5 py-1 rounded-full">
+            <ShieldCheck className="w-3 h-3" />
+            <span className="text-[10px] sm:text-xs font-medium">IRDAI Compliant</span>
+          </div>
+        </div>
       </div>
 
-      {/* Messages Area */}
-      <ScrollArea ref={scrollRef} className="max-h-[500px] px-4 sm:px-6 py-4">
+      {/* Messages Area - Custom scrollable div for better control */}
+      <div
+        ref={scrollContainerRef}
+        className="h-[400px] sm:h-[450px] lg:h-[500px] overflow-y-auto px-4 sm:px-6 py-4 scroll-smooth"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: '#d1d5db transparent' }}
+      >
         <div className="space-y-1">
           {messages.map((msg) => (
-            <div
+            <motion.div
               key={msg.id}
-              className={`flex items-start gap-2 mb-4 ${
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex items-start gap-2.5 mb-4 ${
                 msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
               }`}
             >
@@ -409,10 +429,10 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
 
               {/* Bubble */}
               <div
-                className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                className={`max-w-[80%] sm:max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                   msg.role === 'user'
-                    ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-tr-sm'
-                    : 'bg-slate-100 text-slate-800 rounded-tl-sm'
+                    ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-tr-sm shadow-sm'
+                    : 'bg-slate-50 text-slate-800 rounded-tl-sm border border-slate-100'
                 }`}
               >
                 {msg.role === 'bot' ? (
@@ -421,33 +441,39 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
                   <p>{msg.content}</p>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
 
           {/* Typing indicator */}
           {isLoading && <TypingIndicator />}
-        </div>
 
-        {/* IRDAI Disclaimer */}
-        {messages.length > 1 && (
-          <div className="mt-4 mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
-            <p className="text-xs text-amber-700 leading-snug">
-              ⚠️ <strong>IRDAI Disclaimer:</strong> {IRDAI_MANDATORY_DISCLAIMER}
-            </p>
-          </div>
-        )}
-      </ScrollArea>
+          {/* IRDAI Disclaimer */}
+          {messages.length > 1 && (
+            <div className="mt-4 mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
+              <p className="text-xs text-amber-700 leading-snug">
+                ⚠️ <strong>IRDAI Disclaimer:</strong> {IRDAI_MANDATORY_DISCLAIMER}
+              </p>
+            </div>
+          )}
+
+          {/* Scroll anchor */}
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
 
       {/* Quick Suggestions */}
       {messages.length <= 2 && !isLoading && (
-        <div className="px-4 sm:px-6 pb-3 shrink-0">
-          <p className="text-xs text-slate-500 mb-2 font-medium">Quick questions:</p>
+        <div className="px-4 sm:px-6 pb-3 shrink-0 border-t border-slate-100 pt-3">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+            <p className="text-xs text-slate-500 font-medium">Try asking:</p>
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {QUICK_SUGGESTIONS.map((suggestion) => (
               <button
                 key={suggestion}
                 onClick={() => handleSuggestion(suggestion)}
-                className="px-3 py-2 text-xs rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
+                className="px-3 py-1.5 text-xs rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
               >
                 {suggestion}
               </button>
@@ -457,16 +483,16 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
       )}
 
       {/* Input Area */}
-      <div className="border-t border-slate-200 bg-white px-4 sm:px-6 py-3 shrink-0">
+      <div className="border-t border-slate-200 bg-slate-50/50 px-4 sm:px-6 py-3 shrink-0">
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
           <div className="relative flex-1">
             <Input
               ref={inputRef}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Insurance ke baare mein poochiye..."
+              placeholder="Insurance ke baare mein poochiye... (Hindi, English, Hinglish)"
               disabled={isLoading}
-              className="pr-0 h-10 rounded-full border-slate-200 focus-visible:ring-emerald-500/30 text-sm"
+              className="h-11 rounded-full border-slate-200 bg-white focus-visible:ring-emerald-500/30 focus-visible:border-emerald-300 text-sm pl-4 pr-0"
             />
           </div>
 
@@ -477,7 +503,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
               variant={isRecording ? 'destructive' : 'ghost'}
               size="icon"
               onClick={toggleVoice}
-              className={`h-10 w-10 rounded-full shrink-0 transition-all ${
+              className={`h-11 w-11 rounded-full shrink-0 transition-all ${
                 isRecording
                   ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
                   : 'hover:bg-emerald-50 hover:text-emerald-600'
@@ -492,7 +518,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
               variant="ghost"
               size="icon"
               disabled
-              className="h-10 w-10 rounded-full shrink-0 opacity-50"
+              className="h-11 w-11 rounded-full shrink-0 opacity-50"
               aria-label="Voice not supported"
             >
               <MicOff className="w-4 h-4" />
@@ -503,7 +529,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           <Button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
-            className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shrink-0 shadow-sm disabled:opacity-50"
+            className="h-11 w-11 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shrink-0 shadow-sm disabled:opacity-50"
             size="icon"
             aria-label="Send message"
           >
@@ -511,9 +537,11 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           </Button>
         </form>
         {/* Powered by branding */}
-        <div className="flex items-center justify-center gap-1.5 mt-2">
+        <div className="flex items-center justify-center gap-2 mt-2.5">
           <span className="h-px flex-1 bg-slate-200" />
-          <p className="text-center text-[10px] sm:text-xs text-slate-400 font-medium whitespace-nowrap">Powered by Himanshu Paliwal</p>
+          <p className="text-center text-[10px] sm:text-xs text-slate-400 font-medium whitespace-nowrap">
+            Powered by <span className="text-emerald-600 font-semibold">Himanshu Paliwal</span>
+          </p>
           <span className="h-px flex-1 bg-slate-200" />
         </div>
       </div>
