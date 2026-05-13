@@ -215,8 +215,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   useEffect(() => {
     if (messages.length === 0) {
       const greeting = profile
-        ? `Namaste! 👋 Welcome to **Paliwal Secure AI**, your AI insurance advisor. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
-        : `Namaste! 👋 Welcome to **Paliwal Secure AI**, your AI insurance advisor. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
+        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
+        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
 
       setMessages([
         {
@@ -377,7 +377,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
             <Bot className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h3 className="font-bold text-base sm:text-lg leading-tight">Paliwal Secure AI</h3>
+            <h3 className="font-bold text-base sm:text-lg leading-tight">InsureGPT</h3>
             <div className="flex items-center gap-2 mt-0.5">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />

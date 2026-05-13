@@ -373,7 +373,7 @@ export default function PaliwalSecurePage() {
 
   // Nav links
   const navLinks = [
-    { id: 'paliwal-secure-chat', label: 'Paliwal Secure AI' },
+    { id: 'insuregpt-chat', label: 'InsureGPT' },
     { id: 'features', label: 'Features' },
     { id: 'insuregyaan', label: 'InsureGyaan' },
     { id: 'products', label: 'Products' },
@@ -499,7 +499,7 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden pt-16">
+      <section className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
         {/* Background gradient & shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-amber-50" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
@@ -523,7 +523,7 @@ export default function PaliwalSecurePage() {
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-4 pb-12 sm:pb-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -768,7 +768,7 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       {/* PALIWAL SECURE CHAT SECTION                                         */}
       {/* ================================================================== */}
-      <section id="paliwal-secure-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-white to-white scroll-mt-16">
+      <section id="insuregpt-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-white to-white scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -782,14 +782,14 @@ export default function PaliwalSecurePage() {
               className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
             >
               <Brain className="w-3.5 h-3.5 mr-1" />
-              Paliwal Secure AI Assistant
+              InsureGPT AI Assistant
             </Badge>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
               Apna Insurance Guide —{' '}
               <span className="text-emerald-600">Chat karo</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base lg:text-lg text-slate-600">
-              Insurance ke baare mein koi bhi sawaal poochiye — Hindi, English ya Hinglish mein. AI advisor turant jawab dega!
+              Insurance ke baare mein koi bhi sawaal poochiye — Hindi, English ya Hinglish mein. InsureGPT turant jawab dega!
             </p>
           </motion.div>
 

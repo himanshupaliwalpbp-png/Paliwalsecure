@@ -1,4 +1,4 @@
-# InsureGPT - Smart Insurance for Every Indian
+# Paliwal Secure - Smart Insurance for Every Indian
 
 AI-powered insurance recommendation platform targeting the 700 million uninsured/underinsured people in India. Built with Next.js 16, TypeScript, Tailwind CSS, and Framer Motion.
 
@@ -34,8 +34,8 @@ AI-powered insurance recommendation platform targeting the 700 million uninsured
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/insuregpt.git
-cd insuregpt
+git clone https://github.com/your-username/paliwal-secure.git
+cd paliwal-secure
 
 # Install dependencies
 npm install
@@ -147,9 +147,9 @@ Uses the Web Speech API (`SpeechRecognition` / `webkitSpeechRecognition`) with:
 ```bash
 git init
 git add .
-git commit -m "Initial commit: InsureGPT insurance platform"
+git commit -m "Initial commit: Paliwal Secure insurance platform"
 git branch -M main
-git remote add origin https://github.com/your-username/insuregpt.git
+git remote add origin https://github.com/your-username/paliwal-secure.git
 git push -u origin main
 ```
 
@@ -164,7 +164,7 @@ git push -u origin main
 ### Step 3: Custom Domain (Optional)
 
 1. In Vercel dashboard, go to Settings > Domains
-2. Add your custom domain (e.g., `insuregpt.in`)
+2. Add your custom domain (e.g., `paliwalsecure.in`)
 3. Update DNS records as instructed
 
 ### Vercel Configuration
@@ -189,7 +189,7 @@ AI chatbot endpoint with RAG and IRDAI compliance.
   },
   "history": [
     { "role": "user", "content": "Hi" },
-    { "role": "assistant", "content": "Hello! I'm InsureGPT..." }
+    { "role": "assistant", "content": "Hello! I'm Paliwal Secure AI..." }
   ]
 }
 ```

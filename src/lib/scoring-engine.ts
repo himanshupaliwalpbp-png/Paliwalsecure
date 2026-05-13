@@ -594,7 +594,7 @@ export function checkIRDAICompliance(text: string): { isCompliant: boolean; viol
 export function buildRAGContext(userQuery: string, profile?: UserProfile): string {
   const relevantKB = searchKnowledgeBase(userQuery);
 
-  let context = `You are Paliwal Secure AI, an AI-powered insurance assistant for India targeting 700M uninsured/underinsured people. You help people understand insurance, compare plans, and make informed decisions.
+  let context = `You are InsureGPT, an AI-powered insurance assistant by Paliwal Secure for India targeting 700M uninsured/underinsured people. You help people understand insurance, compare plans, and make informed decisions.
 
 IMPORTANT RULES:
 1. NEVER use these prohibited words: ${IRDAI_PROHIBITED_WORDS.join(', ')}

@@ -146,7 +146,7 @@ function generateFallbackResponse(
 
   // Greeting
   if (/hi|hello|hey|namaste|namaskar/i.test(lowerMsg)) {
-    return 'Namaste! 👋 Welcome to **Paliwal Secure AI** — your insurance advisor! I can help you understand insurance, compare plans, and find the right coverage for you.\n\nYou can ask me about:\n• Health Insurance\n• Life/Term Insurance\n• Motor Insurance\n• Travel Insurance\n• Tax benefits\n• Claim process\n\nWhat would you like to know?';
+    return 'Namaste! 👋 Welcome to **InsureGPT** — your AI insurance advisor by Paliwal Secure! I can help you understand insurance, compare plans, and find the right coverage for you.\n\nYou can ask me about:\n• Health Insurance\n• Life/Term Insurance\n• Motor Insurance\n• Travel Insurance\n• Tax benefits\n• Claim process\n\nWhat would you like to know?';
   }
 
   // Health insurance questions
