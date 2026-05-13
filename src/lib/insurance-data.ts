@@ -1411,6 +1411,1067 @@ export const gameOfLifeScenarios: LifeScenario[] = [
 ];
 
 // ============================================================================
+// POLICY GLOSSARY - 40+ Terms with Hinglish Explanations
+// ============================================================================
+export interface GlossaryTerm {
+  term: string;
+  hindiTerm?: string;
+  explanation: string;
+  example: string;
+  category: 'health' | 'life' | 'motor' | 'general';
+}
+
+export const policyGlossary: GlossaryTerm[] = [
+  {
+    term: 'CSR (Claim Settlement Ratio)',
+    hindiTerm: 'क्लेम सेटलमेंट रेश्यो',
+    explanation: 'CSR matlab kitne percent claims insurance company ne approve kiye. Jaise agar 100 claims aaye aur 97 settle hue, toh CSR 97% hoga. Jitna zyada CSR, utna reliable company.',
+    example: 'PNB MetLife ka CSR 99.50% hai — matlab 1000 mein se 995 claims settle hote hain. Yeh trust dilaata hai.',
+    category: 'general',
+  },
+  {
+    term: 'PED (Pre-Existing Disease)',
+    hindiTerm: 'पहले से मौजूद बीमारी',
+    explanation: 'PED woh beemari hai jo policy leney se pehle se aapke mein maujood thi — jaise diabetes, blood pressure. Inka cover waiting period ke baad hi milta hai.',
+    example: 'Agar aapko policy lene se 2 saal pehle diabetes thi, toh uska cover 24-36 mahine ke waiting period ke baad milega.',
+    category: 'health',
+  },
+  {
+    term: 'Waiting Period',
+    hindiTerm: 'इंतज़ार की अवधि',
+    explanation: 'Waiting period woh samay hai jab aapko policy ki poori benefits nahi milti. Initial 30 din, PED ke liye 24-36 mahine, aur kuch specific diseases ke liye 1-2 saal.',
+    example: 'Aaj policy li, toh pehle 30 din koi claim nahi hoga (emergency ke alawa). PED ka cover 2-3 saal baad shuru hoga.',
+    category: 'health',
+  },
+  {
+    term: 'Deductible',
+    hindiTerm: 'डिडक्टिबल (अपनी जेब से)',
+    explanation: 'Deductible woh amount hai jo claim karne par aapko khud pay karna padta hai, baaki insurance company deti hai. Yeh premium kam karne mein help karta hai.',
+    example: 'Agar deductible ₹5,000 hai aur bill ₹50,000 ka aaya, toh aap ₹5,000 denge aur company ₹45,000 degi.',
+    category: 'general',
+  },
+  {
+    term: 'Sum Insured',
+    hindiTerm: 'बीमा राशि',
+    explanation: 'Sum Insured woh maximum amount hai jo insurance company ek claim par pay kar sakti hai. Yeh aapka coverage limit hai — isse zyada ka bill aapko khud bharna padega.',
+    example: 'Agar Sum Insured ₹5 Lakh hai aur hospital bill ₹6 Lakh ka aaya, toh ₹5 Lakh company degi aur ₹1 Lakh aap denge.',
+    category: 'health',
+  },
+  {
+    term: 'Premium',
+    hindiTerm: 'प्रीमियम (प्रीमियम राशि)',
+    explanation: 'Premium woh fixed amount hai jo aapko insurance cover ke liye regularly pay karna hota hai — monthly, quarterly, ya annually. Iske badle company aapko risk se protect karti hai.',
+    example: 'ACKO Health Plan ka monthly premium ₹475 hai — yani ₹475/month dekar aapko ₹5 Lakh tak ka health cover milta hai.',
+    category: 'general',
+  },
+  {
+    term: 'Co-payment',
+    hindiTerm: 'को-पेमेंट (साझा भुगतान)',
+    explanation: 'Co-payment mein aapko har bill ka ek fixed percentage khud pay karna padta hai. Yeh usually 10-20% hota hai. Premium kam hota hai lekin har claim mein aapka hissa aata hai.',
+    example: 'Agar 20% co-pay hai aur bill ₹1 Lakh ka hai, toh aap ₹20,000 denge aur company ₹80,000 degi.',
+    category: 'health',
+  },
+  {
+    term: 'Network Hospital',
+    hindiTerm: 'नेटवर्क अस्पताल',
+    explanation: 'Network hospitals woh hospitals hain jo insurance company se tied-up hain. Inmein cashless treatment milti hai — aapko bill pay nahi karna padta, company directly settle karti hai.',
+    example: 'ACKO ke 8,000+ network hospitals hain. Agar aap inmein kisi mein admit hue, toh bill directly ACKO pay karega.',
+    category: 'health',
+  },
+  {
+    term: 'Cashless Claim',
+    hindiTerm: 'कैशलेस क्लेम',
+    explanation: 'Cashless claim mein aapko hospital mein paisa pay nahi karna padta. Insurance company directly hospital ko pay karti hai. Sirf network hospitals mein yeh facility milti hai.',
+    example: 'Aap network hospital mein admit hue — ₹3 Lakh ka bill aaya. Aapne kuch nahi pay kiya, company ne directly settle kiya.',
+    category: 'health',
+  },
+  {
+    term: 'Rider',
+    hindiTerm: 'राइडर (अतिरिक्त लाभ)',
+    explanation: 'Rider ek add-on benefit hai jo aap apni base policy mein extra premium dekar jod sakte hain — jaise Critical Illness, Accidental Death, Waiver of Premium.',
+    example: 'Aapne term plan li ₹1,000/month mein. Critical Illness rider add kiya +₹200/month. Ab aapko critical illness diagnosis par additional ₹10 Lakh milega.',
+    category: 'life',
+  },
+  {
+    term: 'No Claim Bonus (NCB)',
+    hindiTerm: 'नो क्लेम बोनस',
+    explanation: 'Jab aap saal bhar koi claim nahi karte, toh company aapko reward deti hai. Health mein sum insured badhta hai, motor mein premium kam hota hai.',
+    example: 'Motor insurance mein 5 saal tak claim nahi kiya = 50% discount on renewal premium. Health mein 10-100% sum insured badh jaata hai.',
+    category: 'general',
+  },
+  {
+    term: 'IDV (Insured Declared Value)',
+    hindiTerm: 'आईडीवी (गाड़ी का बीमा मूल्य)',
+    explanation: 'IDV aapki gaadi ki current market value hai — yahi woh maximum amount hai jo theft ya total loss mein company pay karegi. Har saal depreciation ke saath IDV kam hota hai.',
+    example: 'Nayi gaadi ₹10 Lakh ki — IDV ₹8.5 Lakh (85%). Agar gaadi chori ho gayi, toh ₹8.5 Lakh mileage.',
+    category: 'motor',
+  },
+  {
+    term: 'Third Party Insurance',
+    hindiTerm: 'थर्ड पार्टी बीमा',
+    explanation: 'Third party insurance woh hai jo dusre ko hui nuksan ko cover karta hai — legally mandatory hai. Isme aapki gaadi ka nuksan cover nahi hota, sirf dusron ka nuksan cover hota hai.',
+    example: 'Aapki gaadi se kisi ki gaadi takkar gayi — dusre ki repair cost third party insurance dega. Aapki gaadi ka nuksan nahi milega.',
+    category: 'motor',
+  },
+  {
+    term: 'Comprehensive Insurance',
+    hindiTerm: 'कॉम्प्रिहेंसिव बीमा (पूर्ण बीमा)',
+    explanation: 'Comprehensive insurance mein third party + aapki gaadi ka nuksan dono covered hota hai. Yeh zyada expensive hai lekin complete protection deta hai.',
+    example: 'Flood mein gaadi kharab hui — comprehensive insurance repair cost dega. Third party mein yeh nahi milta.',
+    category: 'motor',
+  },
+  {
+    term: 'Endorsement',
+    hindiTerm: 'एंडोर्समेंट (पॉलिसी में बदलाव)',
+    explanation: 'Endorsement woh hai jab aap apni policy mein koi change karwate hain — naam, address, coverage change, ya koi add-on jodna. Company ka approval chahiye hota hai.',
+    example: 'Shaadi ke baad spouse ka naam policy mein add karwana = endorsement. Car ka color change karwana bhi endorsement hai.',
+    category: 'general',
+  },
+  {
+    term: 'Grace Period',
+    hindiTerm: 'ग्रेस पीरियड (अतिरिक्त समय)',
+    explanation: 'Grace period woh extra time hai jo aapko premium pay karne ke liye milta hai after due date — usually 15-30 din. Iske andar pay karo toh policy lapse nahi hoti.',
+    example: 'Premium due date 5 March hai. 15 din grace period hai. Agar 20 March tak pay kiya, toh policy continue rahegi.',
+    category: 'general',
+  },
+  {
+    term: 'Free Look Period',
+    hindiTerm: 'फ्री लुक पीरियड (समीक्षा अवधि)',
+    explanation: 'Free look period mein aap policy ko padh ke pasand nahi aaye toh cancel kar sakte hain bina penalty ke — 15 din (offline) ya 30 din (online). Premium refund hota hai deductibles ke baad.',
+    example: 'Online policy li, 20 din baad terms pasand nahi aaye. Free look mein cancel kiya — premium wapas mil gaya (medical test charges kata).',
+    category: 'general',
+  },
+  {
+    term: 'Portability',
+    hindiTerm: 'पोर्टेबिलिटी (कंपनी बदलना)',
+    explanation: 'Portability ka matlab hai aap apni health insurance dusri company mein shift kar sakte hain bina waiting period ke benefits khoiye. At least 45 din pehle apply karna padta hai.',
+    example: 'Aapki 2 saal purani policy hai — PED waiting 24 mahine mein se 24 ho chuke. Ab port kiya — naye company mein bhi PED cover turant milega.',
+    category: 'health',
+  },
+  {
+    term: 'Sub-limit',
+    hindiTerm: 'सब-लिमिट (उप-सीमा)',
+    explanation: 'Sub-limit woh restriction hai jismein sum insured ke andar bhi kuch services par max limit hoti hai — jaise room rent par ₹5,000/day ki limit.',
+    example: 'Sum Insured ₹5 Lakh hai lekin room rent limit ₹5,000/day hai. Agar ₹10,000/day ka room liya, toh ₹5,000 aapko dena padega.',
+    category: 'health',
+  },
+  {
+    term: 'Room Rent Limit',
+    hindiTerm: 'रूम रेंट लिमिट',
+    explanation: 'Room rent limit woh maximum amount hai jo hospital room ke liye company pay karegi. Kuch plans mein koi limit nahi hoti, kuch mein 1-2% of sum insured hoti hai.',
+    example: 'ACKO mein no room rent limit — koi bhi room lein. Star Health mein single room limit hai — deluxe room ka extra paisa aapko dena padega.',
+    category: 'health',
+  },
+  {
+    term: 'Restoration',
+    hindiTerm: 'रिस्टोरेशन (कवर वापस)',
+    explanation: 'Restoration benefit mein agar saal mein sum insured khatam ho gaya, toh company use refill kar deti hai — 100% ya unlimited. Same illness ke liye nahi, alag illness ke liye milta hai.',
+    example: '₹5 Lakh ka plan liya. Pehle claim mein ₹5 Lakh use ho gaye. Restoration se phir ₹5 Lakh mil gaye dusri illness ke liye.',
+    category: 'health',
+  },
+  {
+    term: 'Family Floater',
+    hindiTerm: 'फैमिली फ्लोटर',
+    explanation: 'Family floater mein ek hi policy mein poore family ko cover kiya jaata hai — sum insured sab shared karte hain. Individual plan se sasta padta hai.',
+    example: '₹10 Lakh family floater liya — pati, patni, 2 bacche sab covered. Koi bhi member ₹10 Lakh tak claim kar sakta hai.',
+    category: 'health',
+  },
+  {
+    term: 'Critical Illness Cover',
+    hindiTerm: 'क्रिटिकल इलनेस कवर',
+    explanation: 'Critical Illness cover mein agar aapko listed serious beemari (cancer, heart attack, stroke) diagnosis hoti hai, toh lump sum amount milta hai — hospitalization ki zaroorat nahi.',
+    example: 'Aapko cancer diagnose hua — ₹10 Lakh lump sum mil gaya. Yeh amount treatment ke liye bhi use kar sakte hain ya kisi bhi zaroorat ke liye.',
+    category: 'life',
+  },
+  {
+    term: 'Term Plan',
+    hindiTerm: 'टर्म प्लान',
+    explanation: 'Term plan sabse sasta life insurance hai — chhota premium, bada cover. Agar policy ke dauran death ho gayi toh family ko lump sum milta hai. Koi maturity benefit nahi.',
+    example: '₹1,057/month dekar ₹1 Crore ka term plan liya. 30 saal tak yeh cover rahega. Agar kuch hua toh family ko ₹1 Crore milega.',
+    category: 'life',
+  },
+  {
+    term: 'Endowment Plan',
+    hindiTerm: 'एंडोमेंट प्लान',
+    explanation: 'Endowment plan mein insurance + savings dono hote hain. Agar policy term mein death ho gayi toh sum assured + bonus milta hai. Agar zinda rahe toh maturity par sum assured + bonus milta hai.',
+    example: '₹5 Lakh ka endowment plan liya 20 saal ke liye. Zinda rahe toh ₹5 Lakh + bonus milega. Death ho gayi toh bhi ₹5 Lakh + bonus family ko milega.',
+    category: 'life',
+  },
+  {
+    term: 'ULIP (Unit Linked Insurance Plan)',
+    hindiTerm: 'यूलिप',
+    explanation: 'ULIP mein insurance + investment dono hote hain. Premium ka ek part insurance ke liye jaata hai, baaki stock/debt market mein invest hota hai. Returns market par depend karta hai.',
+    example: '₹50,000/year premium — ₹10,000 insurance ke liye, ₹40,000 market mein invest. 10 saal baad fund value market performance ke hisaab se milegi.',
+    category: 'life',
+  },
+  {
+    term: 'Money Back Policy',
+    hindiTerm: 'मनी बैक पॉलिसी',
+    explanation: 'Money Back policy mein policy term ke dauran regular intervals par aapko kuch percent amount wapas milta hai. Baaki balance maturity par milta hai.',
+    example: '₹10 Lakh ki 20 saal ki policy — har 5 saal mein ₹2 Lakh milenge. 20 saal baad baki ₹4 Lakh + bonus milega.',
+    category: 'life',
+  },
+  {
+    term: 'Maturity Benefit',
+    hindiTerm: 'मैच्योरिटी बेनिफिट',
+    explanation: 'Maturity benefit woh amount hai jo policy term complete hone par aapko milta hai — endowment, money back, ULIP mein. Term plan mein maturity benefit nahi hota (unless return of premium option).',
+    example: '20 saal ki endowment policy complete hui — ₹5 Lakh sum assured + ₹2 Lakh bonus = ₹7 Lakh maturity benefit mila.',
+    category: 'life',
+  },
+  {
+    term: 'Death Benefit',
+    hindiTerm: 'डेथ बेनिफिट',
+    explanation: 'Death benefit woh amount hai jo policyholder ki death par nominee/family ko milta hai. Yeh sum assured + bonus (agar hai) hota hai.',
+    example: '₹1 Crore ka term plan tha. Policyholder ki death ho gayi — family ko ₹1 Crore death benefit mila.',
+    category: 'life',
+  },
+  {
+    term: 'Surrender Value',
+    hindiTerm: 'सरेंडर वैल्यू',
+    explanation: 'Surrender value woh amount hai jo policy beech mein break karne par milta hai. Minimum 3 saal premium pay karne ke baad hi surrender value milti hai. Bahut kam amount milta hai.',
+    example: '₹5 Lakh ki policy 5 saal chalayi. Surrender kiya — sirf ₹1.5 Lakh mila. Isliye policy beech mein break karna loss hai.',
+    category: 'life',
+  },
+  {
+    term: 'Paid-up Value',
+    hindiTerm: 'पेड-अप वैल्यू',
+    explanation: 'Agar aap premium pay karna band kar dete hain lekin policy surrender nahi karte, toh policy paid-up ho jaati hai. Reduced cover milta hai — originally liye hue sum insured se kam.',
+    example: '₹10 Lakh ki policy 5 saal premium pay kiya, phir band kiya. Paid-up value ₹3 Lakh hui — ab yahi reduced cover rahega.',
+    category: 'life',
+  },
+  {
+    term: 'Annuity',
+    hindiTerm: 'एन्युिटी (वार्षिक आय)',
+    explanation: 'Annuity mein aap ek lump sum invest karte hain aur uske badle aapko regular monthly/quarterly income milti hai — usually retirement ke baad. Pension plan ka base yahi hai.',
+    example: 'Retirement par ₹50 Lakh invest kiya annuity mein — ab har mahine ₹25,000 pension mil rahi hai zindagi bhar.',
+    category: 'life',
+  },
+  {
+    term: 'IRDAI',
+    hindiTerm: 'आईआरडीएआई',
+    explanation: 'IRDAI (Insurance Regulatory and Development Authority of India) woh sarkari body hai jo insurance companies ko regulate karti hai — policyholders ki protection, rules banana, complaints sunna.',
+    example: 'IRDAI ne rule banaya ki sab insurance companies ka solvency ratio 1.5 se zyada hona chahiye — taaki claims pay ho sakein.',
+    category: 'general',
+  },
+  {
+    term: 'TPA (Third Party Administrator)',
+    hindiTerm: 'टीपीए (थर्ड पार्टी एडमिनिस्ट्रेटर)',
+    explanation: 'TPA woh intermediate body hai jo insurance company aur hospital ke beech mein kaam karti hai — cashless claims process karna, pre-authorization lena, bills verify karna.',
+    example: 'Aap hospital mein admit hue. Hospital ne TPA ko pre-auth request bheja. TPA ne approve kiya. Cashless treatment shuru hui.',
+    category: 'health',
+  },
+  {
+    term: 'Pre-authorization',
+    hindiTerm: 'प्री-ऑथराइज़ेशन',
+    explanation: 'Cashless treatment se pehle hospital ko insurance company/TPA se approval lena padta hai — isko pre-authorization kehte hain. Emergency mein 24 ghante ke andar bhi le sakte hain.',
+    example: 'Surgery planned hai. Hospital ne 3 din pehle pre-auth bheja. Company ne approve kiya. Ab cashless surgery ho payegi.',
+    category: 'health',
+  },
+  {
+    term: 'Domiciliary Treatment',
+    hindiTerm: 'डोमिसाइलरी ट्रीटमेंट (घर पर इलाज)',
+    explanation: 'Domiciliary treatment woh hai jismein patient hospital mein admit nahi hota lekin ghar par treatment chal raha hota hai — doctor condition mein hospital nahi ja sakte. Yeh bhi cover hota hai kuch plans mein.',
+    example: 'Dada ji itne weak hain ki hospital le jaana possible nahi. Ghar par nurse + doctor treatment kar rahe hain — yeh domiciliary claim hoga.',
+    category: 'health',
+  },
+  {
+    term: 'Day Care Procedure',
+    hindiTerm: 'डे केयर प्रोसीजर',
+    explanation: 'Day care procedures woh hain jismein 24 ghante se kam hospital stay hota hai — jaise cataract surgery, piles surgery. Ab IRDAI ne 500+ day care procedures cover karne mandatory kiya hai.',
+    example: 'Cataract surgery — subah gaye, dopahar mein wapas aaye. Yeh day care procedure hai, pura cover hoga.',
+    category: 'health',
+  },
+  {
+    term: 'AYUSH Treatment',
+    hindiTerm: 'आयुष उपचार',
+    explanation: 'AYUSH ka matlab Ayurveda, Yoga, Unani, Siddha, aur Homeopathy. IRDAI ne mandate kiya hai ki sabhi health plans mein AYUSH treatments cover hona chahiye.',
+    example: 'Aapko Ayurvedic treatment chahiye — yeh bhi insurance se cover hoga, lekin sirf government-recognized hospital mein.',
+    category: 'health',
+  },
+  {
+    term: 'Maternity Cover',
+    hindiTerm: 'मैटरनिटी कवर',
+    explanation: 'Maternity cover mein pregnancy aur delivery ke expenses cover hote hain — normal delivery, C-section, aur newborn baby care. Usually waiting period 9-36 mahine hoti hai.',
+    example: 'Policy lene ke 2 saal baad pregnancy hui — delivery ka ₹50,000-1,50,000 bill insurance se cover hoga.',
+    category: 'health',
+  },
+  {
+    term: 'Exclusion',
+    hindiTerm: 'एक्सक्लूज़न (छूट हुई चीज़ें)',
+    explanation: 'Exclusions woh conditions ya treatments hain jo policy mein cover nahi hote — jaise cosmetic surgery, dental (basic), self-inflicted injuries. Yeh policy document mein clearly listed hote hain.',
+    example: 'Aapne teeth whitening karwaya — yeh cosmetic/dental procedure hai, insurance cover nahi karega.',
+    category: 'general',
+  },
+  {
+    term: 'Indemnity Plan',
+    hindiTerm: 'इंडेम्निटी प्लान',
+    explanation: 'Indemnity plan mein actual hospital bill ka payment hota hai — jitna bill, utna cover (sum insured ke andar). Fixed benefit plan mein diagnosis par fixed amount milta hai, bill se independent.',
+    example: 'Hospital bill ₹3 Lakh aaya, sum insured ₹5 Lakh — indemnity plan mein ₹3 Lakh milega. Fixed benefit mein ₹5 Lakh milta.',
+    category: 'health',
+  },
+  {
+    term: 'Top-up Plan',
+    hindiTerm: 'टॉप-अप प्लान',
+    explanation: 'Top-up plan ek extra cover hai jo aapki existing policy ke upar lagta hai. Jab bills ek certain threshold (deductible) cross karti hain, tab yeh activate hota hai. Bahut kam premium mein zyada cover.',
+    example: 'Base policy ₹5 Lakh hai. ₹5 Lakh deductible wala top-up liya ₹15 Lakh ka. Total cover = ₹20 Lakh, sasta mein.',
+    category: 'health',
+  },
+  {
+    term: 'Super Top-up Plan',
+    hindiTerm: 'सुपर टॉप-अप प्लान',
+    explanation: 'Super top-up bhi top-up jaisa hai, lekin ismein saal bhar ki TOTAL bills deductible cross karti hain — ek bill nahi. Yeh top-up se better hai kyunki multiple claims combine hote hain.',
+    example: '₹5 Lakh deductible hai. Pehla bill ₹3 Lakh, dusra bill ₹4 Lakh — total ₹7 Lakh. Super top-up ₹2 Lakh dega (7-5). Normal top-up mein kuch nahi milta.',
+    category: 'health',
+  },
+  {
+    term: 'Personal Accident Cover',
+    hindiTerm: 'पर्सनल एक्सीडेंट कवर',
+    explanation: 'Personal accident cover mein accident ki wajah se death, disability, ya injury par lump sum amount milta hai — 24-hour coverage, duniya mein kahin bhi.',
+    example: 'Accident mein leg fracture hua — personal accident cover se ₹5 Lakh mila. Separate health insurance se hospital bill bhi cover hua.',
+    category: 'general',
+  },
+  {
+    term: 'Key Person Insurance',
+    hindiTerm: 'की पर्सन इंश्योरेंस',
+    explanation: 'Business mein sabse important vyakti (key person) ke liye insurance — agar kuch ho jaaye toh business ko financial support milta hai. Company premium pay karti hai, company beneficiary hoti hai.',
+    example: 'Startup ka founder insure kiya ₹2 Crore ka. Agar founder ko kuch ho gaya toh company ko ₹2 Crore milenge — business chalane mein help.',
+    category: 'life',
+  },
+];
+
+// ============================================================================
+// BIMA KI ABCD - Blog/Article Section Data
+// ============================================================================
+export interface BlogArticle {
+  id: string;
+  title: string;
+  titleHi: string;
+  category: 'health' | 'life' | 'motor' | 'travel' | 'home' | 'general';
+  summary: string;
+  readTime: string;
+  keyPoints: string[];
+}
+
+export const blogArticles: BlogArticle[] = [
+  {
+    id: 'blog-001',
+    title: 'What is Term Insurance and Why is it Essential?',
+    titleHi: 'Term insurance kya hota hai? Isse kyun jaroori hai?',
+    category: 'life',
+    summary: 'Term insurance sabse sasta aur sabse zaroori life insurance hai. Chhote premium mein bada cover — lekin log isko ignore kyun karte hain? Samjhiye term plan ki basics aur iski zaroorat.',
+    readTime: '5 min',
+    keyPoints: [
+      'Term plan = pure protection, no investment component',
+      '₹1 Crore cover starting ₹800/month for 30-year-old',
+      'CSR 97-99.5% across top insurers',
+      'Return of Premium option available at extra cost',
+      'Tax benefit under Section 80C up to ₹1.5 Lakh',
+    ],
+  },
+  {
+    id: 'blog-002',
+    title: 'How to File a Health Insurance Claim: Step-by-Step Guide',
+    titleHi: 'Health insurance claim kaise karein? Step-by-step guide.',
+    category: 'health',
+    summary: 'Health insurance claim karna complicated lagta hai, lekin nahi hai. Cashless aur reimbursement — dono tarah ke claims ki complete guide with real examples.',
+    readTime: '7 min',
+    keyPoints: [
+      'Cashless claims: Get pre-authorization from TPA first',
+      'Reimbursement: Pay bills, then claim within 15-30 days',
+      'Keep all original bills, discharge summary, and reports',
+      'Emergency admission: Notify within 24-48 hours',
+      'Day care procedures also covered — no 24-hour stay needed',
+    ],
+  },
+  {
+    id: 'blog-003',
+    title: 'What is Deductible and How Does It Affect Your Premium?',
+    titleHi: 'Deductible kya hota hai? Iska premium par kya asar padta hai?',
+    category: 'general',
+    summary: 'Deductible samjhna bahut zaroori hai — yeh aapke premium ko directly affect karta hai. Jaaniye deductible kaise kaam karta hai aur kya aapke liye sahi hai.',
+    readTime: '4 min',
+    keyPoints: [
+      'Higher deductible = lower premium, but more out-of-pocket',
+      'Compulsory vs voluntary deductible — dono alag hain',
+      'Top-up plans use deductible to give extra cover at low cost',
+      '₹5,000 deductible can save 15-20% on premium',
+      'Best for people who can handle small expenses themselves',
+    ],
+  },
+  {
+    id: 'blog-004',
+    title: 'What is CSR (Claim Settlement Ratio) and Why is it Important?',
+    titleHi: 'CSR (Claim Settlement Ratio) kya hai? Kyun important hai?',
+    category: 'general',
+    summary: 'CSR hi batata hai ki insurance company kitni reliable hai. Jitna zyada CSR, utna zyada chance ki aapka claim settle hoga. Jaaniye kaise check karein aur kya numbers dekhne chahiye.',
+    readTime: '5 min',
+    keyPoints: [
+      'CSR = claims settled / total claims received × 100',
+      'Life insurance: Look for CSR above 97%',
+      'Health insurance: Look for CSR above 90%',
+      'ACKO leads health with 99.98%, Max Life leads life with 99.51%',
+      'Check IRDAI Annual Report for official CSR data',
+    ],
+  },
+  {
+    id: 'blog-005',
+    title: 'Family Floater vs Individual Plan — Which Should You Choose?',
+    titleHi: 'Family floater vs individual plan — kya choose karein?',
+    category: 'health',
+    summary: 'Family floater sasta lagta hai, lekin hamesha sahi nahi hota. Individual plan mein dedicated cover milta hai. Apni family ki need ke hisaab se decide karein.',
+    readTime: '6 min',
+    keyPoints: [
+      'Family floater: One policy, shared sum insured for all members',
+      'Individual: Separate cover for each member — no sharing',
+      'Young healthy family → floater is better value',
+      'Elderly parents or chronic conditions → individual is safer',
+      'Mix approach possible: parents individual, rest floater',
+    ],
+  },
+  {
+    id: 'blog-006',
+    title: 'Types of Life Insurance — Term, Endowment, ULIP, Money Back',
+    titleHi: 'Life insurance ke types — Term, Endowment, ULIP, Money Back',
+    category: 'life',
+    summary: 'Life insurance ke 4 main types hain — har ek ka alag purpose hai. Samjhiye kaunsa plan aapke liye best hai aur kyun term plan se shuru karna chahiye.',
+    readTime: '8 min',
+    keyPoints: [
+      'Term Plan: Pure protection, lowest premium, no returns',
+      'Endowment: Protection + savings, guaranteed maturity amount',
+      'ULIP: Protection + market-linked investment, high risk-reward',
+      'Money Back: Regular payouts during policy term',
+      'Rule: Buy term for protection, invest separately for wealth',
+    ],
+  },
+  {
+    id: 'blog-007',
+    title: 'Motor Insurance — Third Party vs Comprehensive Explained',
+    titleHi: 'Motor insurance — Third party vs Comprehensive',
+    category: 'motor',
+    summary: 'Third party mandatory hai, comprehensive optional. Lekin comprehensive mein aapki gaadi bhi covered hoti hai. Jaaniye kaunsa aapke liye better hai aur kyun.',
+    readTime: '5 min',
+    keyPoints: [
+      'Third party: Legally mandatory, covers damage to others only',
+      'Comprehensive: Third party + own damage + theft + natural calamity',
+      'New car → always choose comprehensive',
+      'Old car (>5 years) → third party may be enough',
+      'Zero depreciation add-on: Must for new cars, costs 15-20% extra',
+    ],
+  },
+  {
+    id: 'blog-008',
+    title: 'Understanding Waiting Period in Health Insurance',
+    titleHi: 'Health insurance me waiting period kya hoti hai?',
+    category: 'health',
+    summary: 'Waiting period sabse common reason hai jisse claims reject hoti hain. Jaaniye kitne tarah ki waiting periods hote hain aur kaise plan karein taaki emergency mein dikkat na aaye.',
+    readTime: '6 min',
+    keyPoints: [
+      'Initial waiting period: 30 days (accidents exempt)',
+      'PED waiting: 24-48 months for pre-existing conditions',
+      'Specific disease waiting: 1-2 years for cataract, hernia, etc.',
+      'Maternity waiting: 9-36 months before delivery covered',
+      'Port your policy to carry forward waiting period credits',
+    ],
+  },
+  {
+    id: 'blog-009',
+    title: 'Tax Benefits Under Section 80D and 80C',
+    titleHi: 'Tax benefits under Section 80D and 80C',
+    category: 'general',
+    summary: 'Insurance se tax bhi bachta hai! Section 80D mein health insurance ke liye ₹75,000 tak deduction, aur 80C mein life insurance ke liye ₹1.5 Lakh tak. Detail mein samjhiye.',
+    readTime: '5 min',
+    keyPoints: [
+      'Section 80D: ₹25,000 self + family, ₹25,000 parents (₹50,000 if senior)',
+      'Maximum 80D deduction: ₹75,000 with senior citizen parents',
+      'Section 80C: Up to ₹1.5 Lakh for life insurance premium',
+      'GST fully exempted on individual life and health policies',
+      'Health check-up: ₹5,000 within 80D limit',
+    ],
+  },
+  {
+    id: 'blog-010',
+    title: 'Pre-Existing Diseases and Insurance Coverage',
+    titleHi: 'Pre-existing diseases aur insurance',
+    category: 'health',
+    summary: 'Agar aapko pehle se koi beemari hai toh insurance milta hai ya nahi? Milta hai — lekin waiting period ke baad. Jaaniye kya declare karna padta hai aur kya nahi.',
+    readTime: '6 min',
+    keyPoints: [
+      'Always declare PED honestly — non-disclosure can reject claims',
+      'PED covered after 24-48 months waiting period',
+      'Diabetes, hypertension, thyroid — sab PED count hote hain',
+      'Some plans offer PED cover from day 1 at extra premium',
+      'Porting carries forward PED waiting period credits',
+    ],
+  },
+  {
+    id: 'blog-011',
+    title: 'No Claim Bonus — What It Is and How It Works',
+    titleHi: 'No Claim Bonus — kya hai aur kaise kaam karta hai?',
+    category: 'general',
+    summary: 'Jab aap saal bhar koi claim nahi karte toh company aapko reward deti hai. Health mein cover badhta hai, motor mein premium kam hota hai. Jaaniye iska poora mechanism.',
+    readTime: '4 min',
+    keyPoints: [
+      'Health NCB: Sum insured increases 10-100% per claim-free year',
+      'Motor NCB: Discount on renewal premium up to 50% over 5 years',
+      'NCB stays with you even when switching insurers',
+      'Making small claims can cost more than losing NCB',
+      'NCB protector add-on available in motor insurance',
+    ],
+  },
+  {
+    id: 'blog-012',
+    title: 'What is Solvency Ratio? Understanding Insurer Financial Strength',
+    titleHi: 'Solvency Ratio kya hai? Insurance company ki financial strength',
+    category: 'general',
+    summary: 'Solvency ratio batata hai ki insurance company claims pay karne mein kitni strong hai. IRDAI ka minimum 1.5 hai — lekin aapko 1.8+ dhundhna chahiye. Jaaniye kyun.',
+    readTime: '4 min',
+    keyPoints: [
+      'Solvency ratio = Available margin / Required margin',
+      'IRDAI minimum: 1.5 — below this is risky',
+      'Top insurers: ICICI Prudential 2.30, Axis Max Life 2.25, ACKO 2.2',
+      'Higher solvency = company can pay even in mass claims scenario',
+      'Check solvency in IRDAI Annual Report before choosing insurer',
+    ],
+  },
+  {
+    id: 'blog-013',
+    title: 'GST Exemption on Insurance — What Has Changed?',
+    titleHi: 'GST exemption on insurance — kya badla hai?',
+    category: 'general',
+    summary: '2025 mein GST fully exempted ho gaya hai individual life and health insurance policies par. Yeh badlav aapke premium ko directly affect karega. Jaaniye kya change hua aur kya nahi.',
+    readTime: '3 min',
+    keyPoints: [
+      'GST fully exempted on individual life and health policies',
+      '18% GST earlier applied on all insurance premiums',
+      'Group/corporate policies: GST may still apply',
+      'Savings of ₹500-₹2,000/year on typical premiums',
+      'Check premium breakup to confirm GST exemption applied',
+    ],
+  },
+  {
+    id: 'blog-014',
+    title: 'Insurance Guide for Young Professionals',
+    titleHi: 'Young professionals ke liye insurance guide',
+    category: 'general',
+    summary: 'Pehli job, pehli salary — insurance last priority lagta hai. Lekin young age mein insurance lena sabse smart move hai. Jaaniye 25-35 age group ke liye kya kya chahiye.',
+    readTime: '7 min',
+    keyPoints: [
+      'Start with term insurance — ₹1 Cr cover from ₹800/month at age 25',
+      'Health insurance is must — premium lowest at young age',
+      'Employer insurance is NOT enough — it ends with the job',
+      'Buy early: No PED, lower premium, waiting period ends sooner',
+      'Stack: Term + Health + Personal Accident = complete protection',
+    ],
+  },
+  {
+    id: 'blog-015',
+    title: 'Health Insurance for Senior Citizens',
+    titleHi: 'Senior citizens ke liye health insurance',
+    category: 'health',
+    summary: 'Senior citizens ke liye insurance lena mushkil lagta hai — lekin options hain. Jaaniye kya dekhna chahiye, kya limitations hain, aur kaunse plans best hain parents ke liye.',
+    readTime: '6 min',
+    keyPoints: [
+      'Entry age up to 65 years in most plans, some go up to 80',
+      'Co-payment of 10-20% usually applicable for seniors',
+      'Pre-acceptance medical screening may be required above 45',
+      'Look for plans with day care, AYUSH, and domiciliary cover',
+      'Separate policy for parents is better than adding to family floater',
+    ],
+  },
+];
+
+// ============================================================================
+// MYTH-BUSTERS Section Data
+// ============================================================================
+export interface MythBuster {
+  id: string;
+  myth: string;
+  mythHi: string;
+  reality: string;
+  stat: string;
+  source: string;
+}
+
+export const mythBusters: MythBuster[] = [
+  {
+    id: 'myth-001',
+    myth: 'Young people don\'t need life insurance',
+    mythHi: 'Jawano ko life insurance ki zaroorat nahi hoti',
+    reality: 'Young age mein term insurance lena sabse smart financial move hai — premium sabse kam hota hai aur aapko decades ka protection milta hai. 25 ki umar mein ₹1 Crore cover ₹800/month mein milta hai, 40 mein yeh ₹2,500/month ho jayega.',
+    stat: 'Term insurance premium doubles every 7-10 years of age increase',
+    source: 'IRDAI Life Insurance Premium Data 2024-25',
+  },
+  {
+    id: 'myth-002',
+    myth: 'Health insurance is too expensive for my family',
+    mythHi: 'Health insurance meri family ke budget se bahar hai',
+    reality: 'Family floater health plan ₹1,500-3,000/month mein milta hai — yeh ek dinner outing ka kharcha hai. Ek emergency hospitalization ₹2-5 Lakh ka bill laa sakti hai. Insurance nahi lena asli mehenga hai.',
+    stat: 'Average hospitalization cost in India: ₹2.5 Lakh (private hospital)',
+    source: 'National Health Accounts 2024',
+  },
+  {
+    id: 'myth-003',
+    myth: 'My employer\'s insurance is enough',
+    mythHi: 'Company ka insurance kaafi hai',
+    reality: 'Employer insurance coverage limited hota hai (₹3-5 Lakh usually), job change hone par khatam ho jaata hai, aur pre-existing conditions job ke baad insurance lene mein problem banengi. Personal policy zaroori hai.',
+    stat: 'Only 30% of employer plans cover ₹5 Lakh+, most cap at ₹3 Lakh',
+    source: 'Corporate Benefits Survey 2024',
+  },
+  {
+    id: 'myth-004',
+    myth: 'I\'ll just save money instead of buying insurance',
+    mythHi: 'Main insurance ki jagah paisa save karunga',
+    reality: '₹5,000/month save karne mein 8 saal lagenge ₹5 Lakh bachane mein. Lekin emergency aaj hi aa sakti hai. Insurance ₹500/month mein ₹5 Lakh ka protection turant deta hai — savings kabhi replace nahi kar sakti.',
+    stat: '65% of Indians dip into savings for medical emergencies; 25% borrow',
+    source: 'NITI Aayog Health Report 2024',
+  },
+  {
+    id: 'myth-005',
+    myth: 'Insurance companies don\'t pay claims',
+    mythHi: 'Insurance companies claims pay nahi karti',
+    reality: 'Top insurers 97-99.5% claims settle karte hain. IRDAI ka strict regulation hai — companies claims reject nahi kar sakti without valid reason. Rejection ki main wajah: wrong information, PED non-disclosure, ya waiting period.',
+    stat: 'Life insurance CSR: 97-99.5% | Health CSR: 88-99.98%',
+    source: 'IRDAI Annual Report 2024-25',
+  },
+  {
+    id: 'myth-006',
+    myth: 'I\'m healthy, I don\'t need health insurance',
+    mythHi: 'Main healthy hoon, mujhe health insurance nahi chahiye',
+    reality: 'Dengue, COVID, accident — yeh kisi ko bhi kisi bhi waqt ho sakte hain. Healthy hone ka matlab yeh nahi ki emergency nahi aayegi. Insurance healthy logon ke liye hi sabse sasta hota hai — medical test bhi nahi lagta.',
+    stat: '60% of hospitalizations in India are unplanned emergencies',
+    source: 'WHO India Health Statistics 2024',
+  },
+  {
+    id: 'myth-007',
+    myth: 'Term insurance has no returns, so it\'s a waste',
+    mythHi: 'Term insurance mein kuch return nahi milta, faltu hai',
+    reality: 'Term insurance investment nahi hai — yeh protection hai. Ghar ka insurance bhi return nahi deta, phir bhi log karte hain. ₹800/month = ₹1 Crore protection. Baaki ₹700 invest karo mutual fund mein — returns bhi milenge aur protection bhi.',
+    stat: '₹800/month term + ₹700/month SIP = ₹1 Cr protection + ₹45 Lakh in 20 years',
+    source: 'Financial Planning Calculation 2025',
+  },
+  {
+    id: 'myth-008',
+    myth: 'Buying insurance online is not safe',
+    mythHi: 'Online insurance lena safe nahi hai',
+    reality: 'Online insurance bilkul safe hai — IRDAI regulated hota hai, same policy terms hote hain, aur often 10-15% cheaper hota hai kyunki agent commission nahi lagta. Free look period mein policy cancel bhi kar sakte hain.',
+    stat: 'Online term plans are 10-15% cheaper than offline; 30-day free look for digital',
+    source: 'IRDAI Digital Insurance Guidelines 2024',
+  },
+];
+
+// ============================================================================
+// WHATSAPP DRIP CAMPAIGN Data
+// ============================================================================
+export interface DripMessage {
+  day: number;
+  type: 'text' | 'pdf' | 'quiz' | 'infographic' | 'prompt';
+  content: string;
+  contentHi: string;
+}
+
+export interface DripCampaign {
+  intent: 'health' | 'life' | 'motor';
+  welcomeMessage: string;
+  messages: DripMessage[];
+}
+
+export const dripCampaigns: DripCampaign[] = [
+  {
+    intent: 'health',
+    welcomeMessage: 'Namaste! 🙏 Aapne health insurance ke baare mein dikhava kiya. Main aapko 10 din mein step-by-step sab samjhaunga. Shuru karte hain!',
+    messages: [
+      {
+        day: 1,
+        type: 'pdf',
+        content: 'Health Insurance 101: Complete Guide for Indian Families',
+        contentHi: '📎 PDF bhej raha hoon — "Health Insurance 101: Indian Families ke liye Complete Guide". Isme sab basics hain — sum insured, premium, claims, sab kuch. Dhyan se padhiye!',
+      },
+      {
+        day: 2,
+        type: 'text',
+        content: 'Did you know? Medical inflation in India is 14% annually. A single hospitalization can cost ₹2-5 Lakhs.',
+        contentHi: 'Kya aap jaante the? 🏥 India mein medical inflation 14% saalana hai. Ek hospitalization ka bill ₹2-5 Lakh aa sakta hai. Insurance nahi lena = savings khatam. Sochiye is baare mein!',
+      },
+      {
+        day: 3,
+        type: 'quiz',
+        content: 'Quick Quiz: What is the minimum waiting period for pre-existing diseases in health insurance? A) 12 months B) 24 months C) 48 months',
+        contentHi: 'Quiz time! 🧠 Pre-existing diseases ke liye minimum waiting period kitna hai? A) 12 mahine B) 24 mahine C) 48 mahine. Answer bhejiye!',
+      },
+      {
+        day: 4,
+        type: 'text',
+        content: 'Answer: B) 24-36 months. Most plans cover PED after 24 months (ACKO, HDFC ERGO) or 36 months (Star Health, ManipalCigna).',
+        contentHi: 'Answer: B) 24-36 mahine! ✅ Zyada tar plans 24 mahine baad PED cover karte hain (jaise ACKO, HDFC ERGO). Kuch mein 36 mahine lagte hain. Isliye jaldi lena better hai!',
+      },
+      {
+        day: 5,
+        type: 'text',
+        content: 'Family Floater vs Individual Plan: Young family = floater saves money. Elderly parents = individual is safer.',
+        contentHi: '💡 Aaj ka tip: Family floater sasta hai lekin shared cover. Agar parents bhi add kar rahe hain toh unke liye alag policy better hai. Kyunki unka treatment zyada expensive hota hai.',
+      },
+      {
+        day: 6,
+        type: 'text',
+        content: 'Cashless vs Reimbursement: Network hospital = no bill payment. Non-network = pay first, claim later.',
+        contentHi: '🏥 Cashless treatment samjhiye: Network hospital mein admit huye = bill direct insurance company pay karegi. Aapko paisa nahi dena! Pehle check karo hospital network mein hai ya nahi.',
+      },
+      {
+        day: 7,
+        type: 'infographic',
+        content: 'Health Insurance Decision Tree: Age → Family Size → Medical History → Budget → Plan Recommendation',
+        contentHi: '📊 Infographic bhej raha hoon — "Health Insurance ka Decision Tree". Apni age, family, aur budget dekhke easily samajh aayega kaunsa plan aapke liye best hai!',
+      },
+      {
+        day: 8,
+        type: 'text',
+        content: 'Section 80D Tax Benefit: Self + family ₹25,000. Parents ₹25,000 (₹50,000 if senior). Total up to ₹75,000 deduction.',
+        contentHi: '💰 Tax bachao! Section 80D mein health insurance premium ka deduction milta hai — khud + family ₹25,000, parents ₹25,000 (senior ho toh ₹50,000). Total ₹75,000 tak tax bachat!',
+      },
+      {
+        day: 9,
+        type: 'text',
+        content: 'Before buying: Check CSR, network hospitals near you, waiting period, room rent limit, and restoration benefit.',
+        contentHi: '✅ Kal se pehle yeh 5 cheezein check karein: 1) CSR 90%+ hai? 2) Aapke area mein network hospitals hain? 3) Waiting period kitni hai? 4) Room rent limit hai? 5) Restoration benefit hai?',
+      },
+      {
+        day: 10,
+        type: 'prompt',
+        content: 'Ready to explore health insurance plans? I can help you compare the best options based on your needs.',
+        contentHi: '🛡️ Ab aap ready hain! Agar health insurance explore karna chahte hain toh main aapke liye best plans compare kar sakta hoon — apni age aur budget bataiye, main recommendations dunga!',
+      },
+    ],
+  },
+  {
+    intent: 'life',
+    welcomeMessage: 'Namaste! 🙏 Aapne life insurance ke baare mein interest dikhaya. Main 10 din mein aapko sab kuch samjhaunga — types, benefits, aur kaise choose karein. Chaliye shuru karte hain!',
+    messages: [
+      {
+        day: 1,
+        type: 'pdf',
+        content: 'Life Insurance Guide: Protecting Your Family\'s Future',
+        contentHi: '📎 PDF bhej raha hoon — "Life Insurance Guide: Apne Parivar ka Future Kaise Surakshit Karein". Isme term, endowment, ULIP sab explained hai. Zaroor padhiye!',
+      },
+      {
+        day: 2,
+        type: 'text',
+        content: 'Why Life Insurance? If something happens to the earning member, how will the family survive? Term insurance gives ₹1 Crore+ cover from ₹800/month.',
+        contentHi: '💭 Sochiye: Agar kamane wale ko kuch ho jaaye toh family kaise chalegi? Term insurance ₹800/month mein ₹1 Crore+ ka protection deta hai. Yeh family ki financial security hai.',
+      },
+      {
+        day: 3,
+        type: 'quiz',
+        content: 'Quiz: Which life insurance type has the lowest premium? A) Endowment B) ULIP C) Term Plan',
+        contentHi: 'Quiz time! 🧠 Sabse kam premium kis life insurance type mein hota hai? A) Endowment B) ULIP C) Term Plan. Answer bhejiye!',
+      },
+      {
+        day: 4,
+        type: 'text',
+        content: 'Answer: C) Term Plan! Pure protection, no investment, lowest premium. ₹1 Crore cover from ₹800/month for a 30-year-old non-smoker.',
+        contentHi: 'Answer: C) Term Plan! ✅ Sabse sasta aur sabse effective. Investment ke liye alag se invest karein (mutual fund), protection ke liye term plan. Dono alag rakhein!',
+      },
+      {
+        day: 5,
+        type: 'text',
+        content: 'Term vs Endowment vs ULIP vs Money Back — each serves a different purpose. Term = protection, others = protection + savings/investment.',
+        contentHi: '💡 Types samjhiye: Term = sirf protection (sasta). Endowment = protection + guaranteed savings. ULIP = protection + market investment. Money Back = protection + regular payouts. Aapka goal kya hai?',
+      },
+      {
+        day: 6,
+        type: 'text',
+        content: 'Key riders: Critical Illness (+₹200/month), Accidental Death (+₹150/month), Waiver of Premium (+₹100/month). Small cost, big protection.',
+        contentHi: '🛡️ Riders yaani extra benefits: Critical Illness rider (+₹200/mahine), Accidental Death rider (+₹150/mahine), Waiver of Premium rider (+₹100/mahine). Chhota extra cost, bada fayda!',
+      },
+      {
+        day: 7,
+        type: 'infographic',
+        content: 'Life Insurance Comparison Chart: Premium vs Coverage vs Returns across all types',
+        contentHi: '📊 Infographic bhej raha hoon — "Life Insurance ka Comparison Chart". Term, Endowment, ULIP, Money Back — sabka premium, coverage, aur returns side by side. Clear picture aa jayega!',
+      },
+      {
+        day: 8,
+        type: 'text',
+        content: 'How much cover do you need? Rule of thumb: 10-15 times your annual income. If you earn ₹10 Lakh/year, get ₹1-1.5 Crore cover.',
+        contentHi: '🎯 Kitna cover chahiye? Simple rule: Annual income ka 10-15 guna. Agar ₹10 Lakh/year kamate hain toh ₹1-1.5 Crore ka cover lo. Loans aur future expenses bhi add karein.',
+      },
+      {
+        day: 9,
+        type: 'text',
+        content: 'Before buying life insurance: Check CSR (97%+), claim turnaround time, solvency ratio (1.8+), and compare quotes from 3+ insurers.',
+        contentHi: '✅ Life insurance lene se pehle: 1) CSR 97%+ check karein 2) Claim turnaround time dekhein 3) Solvency ratio 1.8+ hona chahiye 4) 3+ companies se quotes compare karein.',
+      },
+      {
+        day: 10,
+        type: 'prompt',
+        content: 'Ready to find the right life insurance? Tell me your age and coverage needs — I\'ll recommend the best plans for you.',
+        contentHi: '🛡️ Ab aap ready hain! Apni age aur kitna cover chahiye yeh bataiye — main aapke liye best life insurance plans recommend karunga. Simple hai!',
+      },
+    ],
+  },
+  {
+    intent: 'motor',
+    welcomeMessage: 'Namaste! 🚗 Aapne motor insurance ke baare mein pucha. Main 10 din mein aapko sab kuch samjhaunga — third party, comprehensive, add-ons, claims, sab kuch. Chaliye shuru karte hain!',
+    messages: [
+      {
+        day: 1,
+        type: 'pdf',
+        content: 'Motor Insurance Guide: Everything You Need to Know About Car Insurance in India',
+        contentHi: '📎 PDF bhej raha hoon — "Motor Insurance Guide: India mein Car Insurance ki Complete Jaankari". Third party, comprehensive, add-ons, claims — sab included hai. Padhiye!',
+      },
+      {
+        day: 2,
+        type: 'text',
+        content: 'Third party insurance is MANDATORY by law. Driving without it can lead to ₹2,000 fine and/or 3 months imprisonment. Comprehensive is optional but highly recommended.',
+        contentHi: '⚠️ Third party insurance LAW ke hisaab se zaroori hai! Bina insurance driving = ₹2,000 fine + 3 mahine jail. Comprehensive optional hai lekin bahut recommended hai.',
+      },
+      {
+        day: 3,
+        type: 'quiz',
+        content: 'Quiz: What does IDV stand for in motor insurance? A) Indian Driving Value B) Insured Declared Value C) Insurance Deducted Value',
+        contentHi: 'Quiz time! 🧠 Motor insurance mein IDV ka full form kya hai? A) Indian Driving Value B) Insured Declared Value C) Insurance Deducted Value. Answer bhejiye!',
+      },
+      {
+        day: 4,
+        type: 'text',
+        content: 'Answer: B) Insured Declared Value. IDV is your car\'s current market value — the maximum amount you\'ll get if the car is stolen or totally damaged.',
+        contentHi: 'Answer: B) Insured Declared Value! ✅ IDV = aapki gaadi ki current market value. Agar gaadi chori ho ya total damage ho, toh max IDV hi mileage. Har saal depreciation se IDV kam hota hai.',
+      },
+      {
+        day: 5,
+        type: 'text',
+        content: 'Zero Depreciation Add-on: Without it, you bear 30-50% of plastic/fiber part costs. With it, full claim. Costs 15-20% extra but a must for new cars.',
+        contentHi: '💡 Zero Depreciation (Bumper-to-Bumper): Bina iske plastic/fiber parts ke 30-50% aapko dena padega. Iske saath full claim! 15-20% extra premium lekin nayi gaadi ke liye zaroori.',
+      },
+      {
+        day: 6,
+        type: 'text',
+        content: 'No Claim Bonus in Motor: 5 claim-free years = 50% discount on own damage premium. NCB transfers when you switch insurers. Making small claims can cost more than losing NCB.',
+        contentHi: '🏆 Motor mein NCB: 5 saal tak claim nahi kiya = 50% discount! NCB aapke saath rehta hai — company change karo toh bhi. Chhota claim karne se NCB khatam — soch samajh ke claim karein.',
+      },
+      {
+        day: 7,
+        type: 'infographic',
+        content: 'Motor Insurance Add-ons Comparison: Zero Dep, Engine Protect, Roadside Assist, Return to Invoice, Consumables',
+        contentHi: '📊 Infographic bhej raha hoon — "Motor Insurance Add-ons ka Comparison". Zero Dep, Engine Protect, Roadside Assist, Return to Invoice — kya kya cover hota hai, kitna cost hai. Clear picture!',
+      },
+      {
+        day: 8,
+        type: 'text',
+        content: 'Claims process: 1) Note other driver\'s details 2) Take photos 3) File FIR if needed 4) Inform insurer within 48 hours 5) Get survey done before repair.',
+        contentHi: '📋 Accident ke baad kya karein: 1) Dusre driver ki details lein 2) Photos lein 3) FIR file karein (zaroorat ho toh) 4) 48 ghante mein insurer ko bataiye 5) Repair se pehle survey karwayiye.',
+      },
+      {
+        day: 9,
+        type: 'text',
+        content: 'New car → always comprehensive + zero dep. Old car (>5 years) → third party may be enough. Luxury car → add engine protect and return to invoice.',
+        contentHi: '✅ Quick guide: Nayi gaadi = Comprehensive + Zero Dep zaroori. 5+ saal purani = Third party bhi chalta hai. Luxury car = Engine Protect + Return to Invoice add karein.',
+      },
+      {
+        day: 10,
+        type: 'prompt',
+        content: 'Want to compare motor insurance plans for your car? Share your car model and year — I\'ll find the best coverage options.',
+        contentHi: '🚗 Ab compare karein! Apni gaadi ka model aur year bataiye — main aapke liye best motor insurance plans dhundh lunga with great coverage at lowest premium!',
+      },
+    ],
+  },
+];
+
+// ============================================================================
+// COMPLIANCE CHECKLIST Data
+// ============================================================================
+export interface ComplianceItem {
+  id: string;
+  category: 'DPDP' | 'IRDAI' | 'WhatsApp';
+  requirement: string;
+  description: string;
+  status: 'required' | 'recommended' | 'future';
+  priority: 'high' | 'medium' | 'low';
+}
+
+export const complianceChecklist: ComplianceItem[] = [
+  {
+    id: 'comp-001',
+    category: 'DPDP',
+    requirement: 'Explicit Consent Records',
+    description: 'Digital Personal Data Protection Act ke under user ka explicit consent lena zaroori hai before collecting, storing, ya processing personal data. Consent record maintain karna padega with timestamp and purpose.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-002',
+    category: 'DPDP',
+    requirement: 'Data Security Safeguards',
+    description: 'User data ko encrypt karna, access control lagana, aur security breaches se protect karna DPDP Act ke under mandatory hai. Data breach hone par 72 ghante mein users aur government ko notify karna padega.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-003',
+    category: 'DPDP',
+    requirement: 'Right to Erasure Implementation',
+    description: 'Users ko apna data delete karne ka right hai DPDP Act ke under. Jab user bole toh uska personal data delete karna padega (legal requirements ke alawa). Iske liye mechanism banana zaroori hai.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-004',
+    category: 'DPDP',
+    requirement: 'Data Minimization Principle',
+    description: 'Sirf woh data collect karna jo purpose ke liye zaroori hai — zyada data collect karna DPDP violation hai. Onboarding mein sirf required fields rakhna chahiye, optional clearly mark hona chahiye.',
+    status: 'required',
+    priority: 'medium',
+  },
+  {
+    id: 'comp-005',
+    category: 'WhatsApp',
+    requirement: 'Opt-Out Mechanism',
+    description: 'WhatsApp Business API mein har message ke saath opt-out option dena mandatory hai. User "STOP" type kare toh usko messages band ho jaane chahiye. 24-hour window ke baad marketing messages ke liye template approval chahiye.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-006',
+    category: 'WhatsApp',
+    requirement: 'Utility vs Marketing Message Classification',
+    description: 'WhatsApp par utility messages (policy updates, claim status) aur marketing messages (plan promotions, offers) ko clearly classify karna padega. Utility messages ke alag templates aur marketing ke alag approval process hai.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-007',
+    category: 'WhatsApp',
+    requirement: 'Per-Message Pricing Awareness',
+    description: 'WhatsApp Business API per-message pricing model hai — har message ka charge lagta hai (₹0.30-₹1.50 depending on type). Marketing messages zyada expensive hain. Budget planning mein yeh include karna zaroori hai.',
+    status: 'recommended',
+    priority: 'medium',
+  },
+  {
+    id: 'comp-008',
+    category: 'IRDAI',
+    requirement: 'IRDAI Web Aggregator Registration',
+    description: 'Agar platform insurance plans compare/sell karta hai toh IRDAI Web Aggregator registration zaroori hai. Yeh process time-consuming hai aur annual renewal chahiye. Bina registration ke plans recommend karna legal issue ho sakta hai.',
+    status: 'future',
+    priority: 'high',
+  },
+  {
+    id: 'comp-009',
+    category: 'IRDAI',
+    requirement: 'Mandatory Disclaimers Display',
+    description: 'Har page par IRDAI mandatory disclaimer dikhana zaroori hai: "Insurance is the subject matter of solicitation." Tax, claim, aur solvency disclaimers bhi clearly display hone chahiye.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-010',
+    category: 'IRDAI',
+    requirement: 'Prohibited Words Compliance',
+    description: 'IRDAI ne certain words prohibit kiye hain — "guaranteed", "assured", "risk-free", "best", "cheapest" etc. Platform par in words ka use nahi hona chahiye kisi bhi context mein.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-011',
+    category: 'IRDAI',
+    requirement: 'No-Selling Stance (Educational Platform)',
+    description: 'Platform educational hai, selling nahi. Kisi bhi specific plan ki recommendation "guaranteed" ya "best" language mein nahi honi chahiye. Neutral comparison aur education hi platform ka purpose hai.',
+    status: 'required',
+    priority: 'high',
+  },
+  {
+    id: 'comp-012',
+    category: 'DPDP',
+    requirement: 'Consent for WhatsApp Communication',
+    description: 'User ko WhatsApp par messages bhejne se pehle explicit consent lena zaroori hai — separate checkbox ya clear opt-in flow. Pre-checked boxes se consent valid nahi maana jaayega DPDP Act ke under.',
+    status: 'required',
+    priority: 'high',
+  },
+];
+
+// ============================================================================
+// MARKET INSIGHTS Data
+// ============================================================================
+export interface MarketInsight {
+  id: string;
+  stat: string;
+  context: string;
+  source: string;
+  category: 'opportunity' | 'pain-point' | 'regulatory' | 'competitor-gap';
+}
+
+export const marketInsights: MarketInsight[] = [
+  {
+    id: 'mi-001',
+    stat: 'India\'s insurance penetration: 3.7% of GDP',
+    context: 'Global average 7.3% hai — India nearly half pe hai. Yeh massive opportunity hai education aur awareness ke through penetration badhane ka. InsureGPT jaisa platform is gap ko fill kar sakta hai.',
+    source: 'IRDAI Annual Report 2024-25 / Swiss Re Sigma',
+    category: 'opportunity',
+  },
+  {
+    id: 'mi-002',
+    stat: 'Life insurance penetration fallen 3rd consecutive year to 2.7%',
+    context: 'Life insurance penetration tezi se girta ja raha hai — log investment products ki taraf jaa rahe hain, protection products se door. Education ki zaroorat hai ki term insurance investment nahi, protection hai.',
+    source: 'IRDAI Life Insurance Penetration Report 2024-25',
+    category: 'pain-point',
+  },
+  {
+    id: 'mi-003',
+    stat: 'Non-life insurance penetration flat at 1%',
+    context: 'Health aur motor insurance penetration 1% par stuck hai — matlab 99% population ke paas non-life insurance nahi hai. Awareness ki kami sabse bada reason hai. Education-first approach se yeh change ho sakta hai.',
+    source: 'IRDAI Annual Report 2024-25',
+    category: 'opportunity',
+  },
+  {
+    id: 'mi-004',
+    stat: '37% of insurance agents admit limited product knowledge',
+    context: 'Agents hi confuse hain toh customers kya samjhenge? Yeh massive trust gap hai. InsureGPT ka educational approach agents se better clarity de sakta hai kyunki data-backed, unbiased information hai.',
+    source: 'IRDAI Agent Survey 2024',
+    category: 'competitor-gap',
+  },
+  {
+    id: 'mi-005',
+    stat: 'GST fully exempted on individual life and health policies',
+    context: 'Yeh game-changing regulatory change hai — 18% GST hatne se insurance effectively sasta ho gaya. Lekin zyada log is baare mein jaante bhi nahi hain. Awareness spread karna zaroori hai.',
+    source: 'GST Council Notification 2025',
+    category: 'regulatory',
+  },
+  {
+    id: 'mi-006',
+    stat: 'Market focused on high-cost distribution, not education',
+    context: 'Insurance industry apna 70%+ budget distribution aur commissions par kharcha karti hai — education par bahut kam. Yeh gap InsureGPT fill kar sakta hai: education first, selling later.',
+    source: 'McKinsey India Insurance Report 2024',
+    category: 'competitor-gap',
+  },
+  {
+    id: 'mi-007',
+    stat: 'Only 5% of Indian households have health insurance',
+    context: '95% families health insurance ke bina hain — ek medical emergency poori savings khatam kar sakti hai. Yeh naa sirf market opportunity hai, balki social impact ka mauka hai.',
+    source: 'National Family Health Survey (NFHS-5)',
+    category: 'pain-point',
+  },
+  {
+    id: 'mi-008',
+    stat: 'Digital insurance adoption grew 35% YoY in 2024',
+    context: 'Log digital par trust kar rahe hain — online policy purchase badh raha hai. InsureGPT ka WhatsApp-first approach is trend ko aur accelerate kar sakta hai kyunki WhatsApp India ka #1 messaging app hai.',
+    source: 'IRDAI Digital Insurance Report 2024',
+    category: 'opportunity',
+  },
+  {
+    id: 'mi-009',
+    stat: 'DPDP Act 2023 enforcement beginning 2025',
+    context: 'Data protection law strict hone wala hai — consent management, data security, right to erasure sab implement karna padega. Early compliance = competitive advantage. Non-compliance = heavy fines up to ₹250 Crore.',
+    source: 'Ministry of Electronics & IT, DPDP Act 2023',
+    category: 'regulatory',
+  },
+  {
+    id: 'mi-010',
+    stat: 'Average Indian spends 6.6% of income on healthcare out-of-pocket',
+    context: 'Global average 2.9% hai — India mein double. Yeh out-of-pocket expenditure insurance se avoid ho sakti hai. Education se log samajh sakte hain ki insurance sirf premium nahi, savings hai.',
+    source: 'World Bank Health Expenditure Data 2024',
+    category: 'pain-point',
+  },
+];
+
+// ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
 export function formatCurrency(amount: number): string {
@@ -1439,7 +2500,9 @@ export function searchPlans(query: string): InsurancePlan[] {
 export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
   const q = query.toLowerCase();
   const words = q.split(/\s+/).filter(w => w.length > 2);
-  return knowledgeBase
+
+  // Search existing knowledge base entries
+  const kbResults = knowledgeBase
     .map(entry => {
       let score = 0;
       const searchable = `${entry.topic} ${entry.question} ${entry.answer} ${entry.tags.join(' ')}`.toLowerCase();
@@ -1448,7 +2511,77 @@ export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
       });
       return { entry, score };
     })
-    .filter(item => item.score > 0)
+    .filter(item => item.score > 0);
+
+  // Search glossary terms — convert to KnowledgeEntry format
+  const glossaryResults = policyGlossary
+    .map(term => {
+      let score = 0;
+      const searchable = `${term.term} ${term.hindiTerm || ''} ${term.explanation} ${term.example} ${term.category}`.toLowerCase();
+      words.forEach(word => {
+        if (searchable.includes(word)) score += 1;
+      });
+      return {
+        entry: {
+          id: `glossary-${term.term.replace(/\s+/g, '-')}`,
+          topic: term.term,
+          question: `What is ${term.term}?`,
+          answer: `${term.explanation} Example: ${term.example}`,
+          category: term.category as InsuranceCategory | 'general',
+          tags: [term.category, 'glossary', term.hindiTerm || ''].filter(Boolean),
+        } as KnowledgeEntry,
+        score,
+      };
+    })
+    .filter(item => item.score > 0);
+
+  // Search blog articles — convert to KnowledgeEntry format
+  const blogResults = blogArticles
+    .map(article => {
+      let score = 0;
+      const searchable = `${article.title} ${article.titleHi} ${article.summary} ${article.keyPoints.join(' ')} ${article.category}`.toLowerCase();
+      words.forEach(word => {
+        if (searchable.includes(word)) score += 1;
+      });
+      return {
+        entry: {
+          id: `blog-${article.id}`,
+          topic: article.title,
+          question: article.titleHi,
+          answer: `${article.summary} Key points: ${article.keyPoints.join('. ')}`,
+          category: article.category as InsuranceCategory | 'general',
+          tags: [article.category, 'blog', 'article'],
+        } as KnowledgeEntry,
+        score,
+      };
+    })
+    .filter(item => item.score > 0);
+
+  // Search myth busters — convert to KnowledgeEntry format
+  const mythResults = mythBusters
+    .map(myth => {
+      let score = 0;
+      const searchable = `${myth.myth} ${myth.mythHi} ${myth.reality} ${myth.stat} ${myth.source}`.toLowerCase();
+      words.forEach(word => {
+        if (searchable.includes(word)) score += 1;
+      });
+      return {
+        entry: {
+          id: `myth-${myth.id}`,
+          topic: `Myth: ${myth.myth}`,
+          question: myth.mythHi,
+          answer: `Reality: ${myth.reality} Stat: ${myth.stat} Source: ${myth.source}`,
+          category: 'general' as InsuranceCategory | 'general',
+          tags: ['myth-buster', 'fact-check'],
+        } as KnowledgeEntry,
+        score,
+      };
+    })
+    .filter(item => item.score > 0);
+
+  // Combine all results, sort by score, and return deduplicated entries
+  const allResults = [...kbResults, ...glossaryResults, ...blogResults, ...mythResults];
+  return allResults
     .sort((a, b) => b.score - a.score)
     .map(item => item.entry);
 }
