@@ -218,3 +218,163 @@ Stage Summary:
 - Chat Escalation: 16-keyword detection in English/Hinglish, inline escalation options (WhatsApp/Callback/Email), dialog-based callback form
 - Admin Callbacks Page: Stats dashboard, filterable table, status management, color-coded badges
 - Sidebar: Callbacks nav item added with Phone icon
+
+---
+Task ID: 2-d
+Agent: Knowledge Hub Agent
+Task: Create Knowledge Hub with Blog, FAQ, and Glossary tabs + Dynamic blog post page
+
+Work Log:
+- Created /home/z/my-project/src/lib/knowledge-data.ts with shared data:
+  - KnowledgeArticle interface (slug, title, summary, category, readTime, imageGradient, keyTakeaways, body, relatedSlugs)
+  - FAQItem interface (id, question, answer, category)
+  - GlossaryTerm interface (term, definition, category)
+  - 8 blog articles: "How to File a Health Insurance Claim" (health, 8min), "Term Insurance vs ULIP: Which is Better?" (life, 6min), "Why CSR Matters When Choosing an Insurer" (general, 5min), "Motor Insurance 101: Comprehensive vs Third Party" (motor, 7min), "Waiting Period in Health Insurance Explained" (health, 6min), "Section 80D: Tax Saving with Health Insurance" (general, 5min), "No Claim Bonus (NCB): Complete Guide" (general, 4min), "Maternity Insurance in India" (health, 5min)
+  - 12 FAQ items with Hinglish answers covering waiting period, policy portability, NCB, claim documents, cashless hospitalization, multiple policies, deductibles, maternity, term vs whole life, COVID-19, floater policy, parents insurance
+  - 31 glossary terms: Annuity, Bonus, Cashless, Co-payment, Critical Illness, CSR, Deductible, Endowment, Floater, Free Look Period, Grace Period, ICR, IDV, Loading, Maternity Cover, Moratorium, NCB, OD, PED, Portability, Premium, Reimbursement, Rider, Room Rent Capping, Sub-limit, Sum Insured, Surrender Value, Survival Benefit, TP, ULIP, Paid-up Value
+  - Helper functions: getArticleBySlug(), getRelatedArticles(), getCategoryStyle(), getCategoryGradient(), getCategoryIcon()
+- Created /home/z/my-project/src/app/knowledge/page.tsx — Main Knowledge Hub page:
+  - Glassmorphic navigation bar with home link and ThemeToggle
+  - Hero section with dark gradient background, breadcrumb, badge, title "Insurance ka Complete Gyaan"
+  - Sticky tabs bar (Blog, FAQ, Glossary) with animated pill-style triggers and count badges
+  - Blog Tab: Search input, category filter (all/health/life/motor/general), 8 article cards with gradient image placeholder, category badge, read time, summary, "Read article" link; clicking navigates to /knowledge/[slug]
+  - FAQ Tab: 12-item accordion with numbered badges, category badges, Hinglish answers, search/filter input with result count
+  - Glossary Tab: A-Z filter bar with 26 letter buttons (disabled for unavailable letters), search input, 31 term cards with definition, category badge, "Read more" link; filter by letter and search
+  - AnimatePresence tab transitions, staggerContainer/staggerItem Framer Motion animations
+  - Responsive grid layouts (1/2/3/4 columns), mobile-first design
+  - IRDAI disclaimer footer
+- Created /home/z/my-project/src/app/knowledge/[slug]/page.tsx — Dynamic blog post page:
+  - Extracts slug from params, matches against knowledgeArticles data
+  - Hero section with category gradient background, breadcrumb, category badge, read time, title, summary
+  - Article body rendered with custom markdown-like renderer (headings, numbered lists, bullet lists, tables, inline bold/code formatting)
+  - Key Takeaways section with numbered points and gradient icon
+  - IRDAI disclaimer card with amber styling
+  - Sidebar (desktop): Article Info card + Related Articles links
+  - Mobile: Related Articles grid below article
+  - Back to Knowledge Hub button
+  - 404 state for invalid slugs: AlertTriangle icon, "Article Not Found" message, redirect button
+  - Full glassmorphic card styling matching site theme
+- ESLint: PASS (0 errors, 0 warnings)
+- Dev server: All pages serving correctly (/knowledge: 200, /knowledge/[slug]: 200, invalid slug: 200 with 404 UI)
+
+Stage Summary:
+- knowledge-data.ts: 8 articles, 12 FAQs, 31 glossary terms with helper functions
+- /knowledge page: 3-tab hub (Blog/FAQ/Glossary) with search, filters, A-Z letter bar, glassmorphic cards, sticky tabs, breadcrumb, Framer Motion animations
+- /knowledge/[slug] page: Dynamic blog post with hero, article body renderer, key takeaways, sidebar, related articles, IRDAI disclaimer, 404 state
+- Lint: PASS | Dev Server: Running | All routes: 200
+Agent: full-stack-developer
+Task: Build PlanComparison.tsx component
+
+Work Log:
+- Created /home/z/my-project/src/components/PlanComparison.tsx with full side-by-side insurance plan comparison functionality
+- Category filter tabs: All (Sab Plans), Health, Life, Motor with animated pill-style buttons and icons
+- Search input for filtering plans by name, provider, or category
+- Plan selector grid: responsive 2-6 column grid of clickable cards showing plan name, provider, premium/mo, CSR badge, category icon with gradient indicator bar
+- Selected plans show checkmark overlay; max 4 plans; disabled state when full
+- Selected plan chips bar with removable tags and "Compare Karein" CTA button
+- Comparison table: sticky header row with gradient-colored column headers per category (rose=health, blue=life, amber=motor), sticky first column for feature labels
+- 10 comparison rows: Insurer, Premium Monthly/Yearly, CSR % (color-coded badges: green >95%, amber 90-95%, red <90%), Waiting Period PED, Network Hospitals, Key Add-ons (with sparkles icon, first 3 shown), Rating (with star), Sum Insured Range, Waiting Period
+- "Apply Now" button row at bottom of each plan column with category gradient styling, navigates to InsureGPT chat section
+- Empty state with icon and Hinglish guidance text
+- "Clear All" button to reset selection
+- IRDAI disclaimer at bottom of comparison table
+- CSR color legend: >95% = Excellent 🟢, 90-95% = Good 🟡, <90% = Average 🔴
+- Framer Motion animations throughout (fade, stagger, scale)
+- Indian number formatting via formatRupees/formatIndianCurrency from premiumUtils
+- Hinglish labels throughout (Compare Karein, Plan Add Karein, Sab Plans, etc.)
+- Uses shadcn/ui: Card, CardContent, Button, Badge, Input, ScrollArea, Separator
+- Uses lucide-react: Heart, Shield, Car, GitCompareArrows, Plus, Check, X, Star, Building2, Clock, Sparkles, MessageSquare, ArrowRight, Search, Trash2, ChevronDown
+- Imports from @/lib/insurance-data: healthInsurancePlans, lifeInsurancePlans, motorInsurancePlans, allInsurancePlans, InsurancePlan, InsuranceCategory
+- ESLint: PASS (0 errors on PlanComparison.tsx)
+- Dev server: Running correctly
+
+Stage Summary:
+- Produced /home/z/my-project/src/components/PlanComparison.tsx
+- Full-featured plan comparison component with category filtering, search, max 4 selection, responsive comparison table with sticky headers and first column, CSR color coding, gradient category headers, Apply Now CTA, empty state, Hinglish UI, Framer Motion animations
+- Standalone component ready for integration into page.tsx
+
+---
+Task ID: 2-c
+Agent: Claim Simulator Agent
+Task: Create Interactive Claim Simulator component (ClaimSimulator.tsx)
+
+Work Log:
+- Created /home/z/my-project/src/components/ClaimSimulator.tsx with full interactive claim probability simulation
+- Form inputs (left column on desktop):
+  - Age slider (18-80) with shadcn/ui Slider and dynamic badge
+  - Sum Insured dropdown (₹2L, ₹5L, ₹10L, ₹25L, ₹50L) with shadcn/ui Select
+  - Claim Amount ₹ input with Indian number formatting (formatIndianCurrency) and IndianRupee icon
+  - PED present? Yes/No toggle with shadcn/ui Switch
+  - Waiting period completed? toggle (conditionally shown only when PED=Yes) with amber background, animated in/out with Framer Motion
+  - Insurer dropdown (HDFC ERGO, Star Health, Care Health, Niva Bupa, Acko) with CSR% shown in dropdown items and specialty text below
+  - "Claim Probability Simulate Karein" button with emerald/teal gradient, disabled when claim amount is 0
+  - Validation: warning when claim amount exceeds sum insured
+- Calculation logic (simulateClaim function):
+  - baseProbability = insurer's CSR percentage
+  - Adjustments: PED + waiting NOT completed = -20%, PED + waiting completed = -5%, No PED = +0%, Claim >80% SI = -5%, Claim <20% SI = +2%, Age >60 = -5%
+  - Final probability = clamp(baseProbability + adjustments, 10, 99)
+  - Returns probability%, level (High/Medium/Low), factor breakdown with labels/impact/descriptions/types, reasoning sentences
+- Results display (right column on desktop):
+  - Dark gradient probability card with large animated percentage number (spring animation)
+  - Color-coded progress bar: green (>80%), amber (60-80%), red (<60%) with Framer Motion width animation
+  - Level badge with icon (ThumbsUp/Minus/ThumbsDown)
+  - Reasoning section with bullet points and teal ChevronRight icons
+  - Factor breakdown cards with TrendingUp/TrendingDown/Minus icons and colored impact badges (+2% green, -20% red, 0% slate)
+- Tips section (full width, below both columns):
+  - 6 tip cards in responsive 1/2/3-column grid
+  - Each with colored icon, Hinglish tip text, colored background
+  - Topics: complete medical docs, waiting period, cashless claims, claim intimation timing, room rent limits, pre-approval
+- Disclaimer: "Yeh educational tool hai. Actual claim approval insurer ki underwriting policy pe depend karta hai."
+- Design:
+  - Glass-card style with emerald/teal gradient header
+  - Two-column layout on desktop (lg:grid-cols-2), stacked on mobile
+  - Framer Motion animations: spring scale for probability number, width animation for progress bar, stagger for factors/tips
+  - All shadcn/ui components: Slider, Select, Switch, Input, Card, Badge, Button, Label
+  - All lucide-react icons
+  - Hinglish labels throughout
+- Integration into page.tsx:
+  - Added dynamic import for ClaimSimulator with ssr: false
+  - Added new section between claim-status and contact with teal/emerald Badge and "Apna Claim Simulate Karein" heading
+  - Added "Simulator" nav link with ShieldCheck icon to navLinks array
+- ESLint: PASS (0 errors)
+- Dev server: Running correctly (HTTP 200)
+
+Stage Summary:
+- ClaimSimulator.tsx: Interactive claim probability simulator with 6 form inputs, CSR-based calculation engine, probability display with color-coded progress bar, reasoning, factor breakdown, tips section
+- Calculation: baseProbability=insurer CSR, PED within waiting -20%, PED completed -5%, high claim ratio -5%, low claim +2%, senior citizen -5%, clamped 10-99%
+- Integration: Dynamic import in page.tsx, new section added, nav link added
+- Lint: PASS | Dev Server: Running
+
+---
+Task ID: 2-b
+Agent: CSR & ICR Trends Chart Agent
+Task: Create InsurerPerformanceChart.tsx — CSR & ICR Trends Chart
+
+Work Log:
+- Created /home/z/my-project/src/components/InsurerPerformanceChart.tsx with comprehensive CSR & ICR trend visualization
+- Mock data: 5 insurers (HDFC ERGO, Star Health, Care Health, Niva Bupa, Acko) with 5-year CSR and ICR data (2021-2025)
+- Insurer selector dropdown in gradient header using shadcn/ui Select component ("Insurer Select Karein")
+- Single insurer mode: dual-line chart with CSR (solid line, left Y-axis) and ICR (dashed line, right Y-axis)
+- All Insurers mode: overlay of 5 CSR lines only (ICR hidden for clarity), with color-coded legend cards
+- Recharts LineChart with: CartesianGrid, dual YAxis (CSR left, ICR right), XAxis (years), ReferenceLine at 100% CSR
+- Custom tooltip showing year, insurer name, CSR% / ICR% with color indicators
+- Custom legend with solid/dashed line indicators for CSR vs ICR
+- Quick stats cards in single insurer mode: latest CSR and ICR values with trend badges (↑/↓ change)
+- InfoTip tooltips for CSR and ICR definitions (Hinglish explanations)
+- Data table below chart: single insurer mode shows Year | CSR | ICR | Assessment columns with color-coded assessment badges (Excellent/Good/Average/Below Avg); all insurers mode shows Year + 5 insurer CSR columns
+- Chart explanation note with mode-specific Hinglish text
+- IRDAI disclaimer at bottom: "Data source: IRDAI Annual Reports"
+- Framer Motion animations: card entry, AnimatePresence for mode switching, table fade-in
+- Color scheme per insurer: HDFC ERGO (indigo), Star Health (rose), Care Health (emerald), Niva Bupa (amber), Acko (violet)
+- Responsive: min-width 400px chart with horizontal scroll on mobile, responsive stat cards grid
+- Hinglish labels: "CSR & ICR Trends", "Insurer Select Karein", assessment text
+- Gradient header: emerald → teal → cyan matching insurance/financial theme
+- ESLint: PASS (0 errors)
+- Dev server: Running correctly (HTTP 200)
+
+Stage Summary:
+- InsurerPerformanceChart.tsx: Full-featured CSR & ICR trend visualization with dual-axis chart, insurer selector, custom tooltip/legend, quick stats, data table, Hinglish labels, Framer Motion animations
+- Dual Y-axis: CSR (left, 40-105%) and ICR (right, 30-100%) properly mapped with yAxisId props
+- All Insurers compare mode: 5 overlaid CSR lines with individual colors, ICR hidden note
+- Data table: Year-wise exact values with assessment badges in single mode, 5-column CSR comparison in all mode
+- Lint: PASS | Dev Server: Running

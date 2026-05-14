@@ -72,6 +72,23 @@ const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), 
 const ConnectionStatus = dynamic(() => import('@/components/ConnectionStatus'), { ssr: false });
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
 const ClaimStatusChecker = dynamic(() => import('@/components/ClaimStatusChecker'), { ssr: false });
+const ClaimSimulator = dynamic(() => import('@/components/ClaimSimulator'), { ssr: false });
+const PlanComparison = dynamic(() => import('@/components/PlanComparison'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
+    </div>
+  ),
+});
+const InsurerPerformanceChart = dynamic(() => import('@/components/InsurerPerformanceChart'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
+    </div>
+  ),
+});
 const HeroShield3D = dynamic(() => import('@/components/HeroShield3D'), { ssr: false });
 const HeroParallaxParticles = dynamic(() => import('@/components/HeroParallaxParticles'), { ssr: false });
 
@@ -393,8 +410,11 @@ export default function PaliwalSecurePage() {
     { id: 'knowledge-base', label: 'InsureGyaan', icon: BookOpen },
     { id: 'insuregpt-chat', label: 'InsureGPT', icon: Brain },
     { id: 'calculators', label: 'Calculators', icon: Calculator },
+    { id: 'plan-compare', label: 'Compare', icon: Target },
+    { id: 'insurer-charts', label: 'CSR Trends', icon: TrendingUp },
     { id: 'products', label: 'Products', icon: Shield },
     { id: 'claim-status', label: 'Claim', icon: Clock },
+    { id: 'claim-simulator', label: 'Simulator', icon: ShieldCheck },
     { id: 'reviews', label: 'Reviews', icon: Star },
     { id: 'features', label: 'Features', icon: Sparkles },
     { id: 'contact', label: 'Contact', icon: Phone },
@@ -880,6 +900,64 @@ export default function PaliwalSecurePage() {
           </motion.div>
 
           <PremiumCalculator />
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* PLAN COMPARISON TABLE                                               */}
+      {/* ================================================================== */}
+      <section id="plan-compare" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-slate-50 via-background to-background dark:from-slate-900/50 dark:via-background dark:to-background scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
+          >
+            <Badge className="mb-4 bg-violet-50 text-violet-700 border-violet-200 dark:bg-violet-950/50 dark:text-violet-300 dark:border-violet-800 rounded-full px-4 py-1">
+              <Target className="w-3.5 h-3.5 mr-1" />
+              Plan Comparison
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Side-by-Side{' '}
+              <span className="gradient-text">Compare Karein</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base lg:text-lg text-muted-foreground">
+              2-4 plans select karein aur ek nazar mein compare karein — Premium, CSR, Network Hospitals sab kuch!
+            </p>
+          </motion.div>
+
+          <PlanComparison />
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* INSURER PERFORMANCE CHART (CSR & ICR Trends)                        */}
+      {/* ================================================================== */}
+      <section id="insurer-charts" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
+          >
+            <Badge className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800 rounded-full px-4 py-1">
+              <TrendingUp className="w-3.5 h-3.5 mr-1" />
+              CSR & ICR Trends
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Insurer Performance{' '}
+              <span className="gradient-text">5-Year Trends</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base lg:text-lg text-muted-foreground">
+              HDFC ERGO, Star Health, Care, Niva Bupa, Acko — CSR aur ICR ka 5 saal ka trend dekhein. IRDAI data based!
+            </p>
+          </motion.div>
+
+          <InsurerPerformanceChart />
         </div>
       </section>
 
@@ -1383,6 +1461,35 @@ export default function PaliwalSecurePage() {
           <div className="max-w-lg mx-auto">
             <ClaimStatusChecker />
           </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* CLAIM SIMULATOR                                                     */}
+      {/* ================================================================== */}
+      <section id="claim-simulator" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-2xl mx-auto mb-10"
+          >
+            <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/50 dark:text-teal-300 dark:border-teal-800 rounded-full px-4 py-1">
+              <ShieldCheck className="w-3.5 h-3.5 mr-1" />
+              Claim Simulator
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Apna Claim{' '}
+              <span className="gradient-text">Simulate Karein</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-muted-foreground">
+              Insurer CSR, PED status, age aur claim amount ke basis pe jaanein — kitni probability hai claim approve hone ki?
+            </p>
+          </motion.div>
+
+          <ClaimSimulator />
         </div>
       </section>
 
