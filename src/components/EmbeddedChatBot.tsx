@@ -86,7 +86,7 @@ function renderBotContent(content: string): React.ReactNode[] {
 
     // Handle separator lines (---)
     if (line.trim() === '---') {
-      nodes.push(<hr key={`hr-${lineIdx}`} className="border-slate-200 my-2" />);
+      nodes.push(<hr key={`hr-${lineIdx}`} className="border-slate-200 dark:border-slate-700 my-2" />);
       return;
     }
 
@@ -98,7 +98,7 @@ function renderBotContent(content: string): React.ReactNode[] {
       const text = ulMatch ? ulMatch[1] : (olMatch as RegExpMatchArray)[1];
       nodes.push(
         <div key={`li-${lineIdx}`} className="flex gap-2 ml-1">
-          <span className="text-indigo-600 shrink-0">{ulMatch ? '\u2022' : line.match(/^\d+/)?.[0] + '.'}</span>
+          <span className="text-indigo-600 dark:text-indigo-400 shrink-0">{ulMatch ? '\u2022' : line.match(/^\d+/)?.[0] + '.'}</span>
           <span>{renderInlineMarkdown(text)}</span>
         </div>
       );
@@ -131,14 +131,14 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
 
     if (match[2]) {
       // **bold**
-      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-indigo-700">{match[2]}</strong>);
+      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-indigo-700 dark:text-indigo-300">{match[2]}</strong>);
     } else if (match[3]) {
       // *italic*
-      parts.push(<em key={`i-${match.index}`} className="text-slate-500">{match[3]}</em>);
+      parts.push(<em key={`i-${match.index}`} className="text-slate-500 dark:text-slate-400">{match[3]}</em>);
     } else if (match[4]) {
       // `code`
       parts.push(
-        <code key={`c-${match.index}`} className="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">
+        <code key={`c-${match.index}`} className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono">
           {match[4]}
         </code>
       );
@@ -156,15 +156,15 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
 }
 
 // ---------------------------------------------------------------------------
-// Typing Indicator
+// Typing Indicator — Premium
 // ---------------------------------------------------------------------------
 function TypingIndicator() {
   return (
     <div className="flex items-start gap-2.5 mb-4">
-      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-sm">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/20">
         <Bot className="w-4 h-4 text-white" />
       </div>
-      <div className="bg-slate-100 rounded-2xl rounded-tl-sm px-4 py-3">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border border-slate-100 dark:border-slate-700">
         <div className="flex items-center gap-1.5">
           <motion.span
             className="w-2 h-2 bg-indigo-500 rounded-full"
@@ -188,7 +188,7 @@ function TypingIndicator() {
 }
 
 // ---------------------------------------------------------------------------
-// EmbeddedChatBot Component — Always visible, inline in page flow
+// EmbeddedChatBot Component — Premium Design
 // Full-width, prominent, and responsive
 // ---------------------------------------------------------------------------
 export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
@@ -362,25 +362,29 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   };
 
   // ---------------------------------------------------------------------------
-  // Render — Full-width prominent inline chatbot
+  // Render — Premium full-width inline chatbot
   // ---------------------------------------------------------------------------
   return (
-    <div className="w-full bg-background rounded-2xl shadow-xl border border-indigo-100 dark:border-indigo-900/30 overflow-hidden flex flex-col">
-      {/* Header - Prominent gradient */}
-      <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 backdrop-blur-md text-white px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between shrink-0 relative overflow-hidden">
+    <div className="w-full bg-background rounded-3xl shadow-xl border border-indigo-100/50 dark:border-indigo-900/30 overflow-hidden flex flex-col">
+      {/* Header — Premium Glassmorphic Gradient */}
+      <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 backdrop-blur-md text-white px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between shrink-0 relative overflow-hidden">
         {/* Decorative circles */}
         <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-full" />
         <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/5 rounded-full" />
+        <div className="absolute top-2 right-20 w-12 h-12 bg-white/5 rounded-full" />
 
         <div className="flex items-center gap-3 sm:gap-4 relative z-10">
-          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
-            <Bot className="w-5 h-5 sm:w-6 sm:h-6" />
+          {/* Bot avatar with live-dot */}
+          <div className="live-dot">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
+              <Bot className="w-5 h-5 sm:w-6 sm:h-6" />
+            </div>
           </div>
           <div>
             <h3 className="font-bold text-base sm:text-lg leading-tight">InsureGPT</h3>
             <div className="flex items-center gap-2 mt-0.5">
               <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-indigo-200 rounded-full animate-pulse" />
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-xs text-indigo-100">Online • AI Insurance Advisor</span>
               </div>
             </div>
@@ -399,7 +403,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
         </div>
       </div>
 
-      {/* Messages Area - Custom scrollable div for better control */}
+      {/* Messages Area */}
       <div
         ref={scrollContainerRef}
         className="h-[400px] sm:h-[450px] lg:h-[500px] overflow-y-auto px-4 sm:px-6 py-4 scroll-smooth"
@@ -418,21 +422,21 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
             >
               {/* Avatar */}
               {msg.role === 'bot' ? (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/20">
                   <Bot className="w-4 h-4 text-white" />
                 </div>
               ) : (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shrink-0 shadow-md shadow-slate-500/20">
                   <User className="w-4 h-4 text-white" />
                 </div>
               )}
 
-              {/* Bubble */}
+              {/* Bubble — Premium shadows */}
               <div
                 className={`max-w-[80%] sm:max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                   msg.role === 'user'
-                    ? 'bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-tr-sm shadow-sm'
-                    : 'bg-slate-50 text-slate-800 rounded-tl-sm border border-slate-100'
+                    ? 'bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-tr-sm shadow-md shadow-indigo-500/20'
+                    : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-sm shadow-sm border border-slate-100 dark:border-slate-700'
                 }`}
               >
                 {msg.role === 'bot' ? (
@@ -449,8 +453,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
 
           {/* IRDAI Disclaimer */}
           {messages.length > 1 && (
-            <div className="mt-4 mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
-              <p className="text-xs text-amber-700 leading-snug">
+            <div className="mt-4 mb-2 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+              <p className="text-xs text-amber-700 dark:text-amber-300 leading-snug">
                 ⚠️ <strong>IRDAI Disclaimer:</strong> {IRDAI_MANDATORY_DISCLAIMER}
               </p>
             </div>
@@ -461,9 +465,9 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
         </div>
       </div>
 
-      {/* Quick Suggestions */}
+      {/* Quick Suggestions — Pill-shaped with hover glow */}
       {messages.length <= 2 && !isLoading && (
-        <div className="px-4 sm:px-6 pb-3 shrink-0 border-t border-slate-100 pt-3">
+        <div className="px-4 sm:px-6 pb-3 shrink-0 border-t border-slate-100 dark:border-slate-800 pt-3">
           <div className="flex items-center gap-1.5 mb-2">
             <Sparkles className="w-3.5 h-3.5 text-blue-500" />
             <p className="text-xs text-slate-500 font-medium">Try asking:</p>
@@ -473,7 +477,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
               <button
                 key={suggestion}
                 onClick={() => handleSuggestion(suggestion)}
-                className="px-3 py-1.5 text-xs rounded-full border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
+                className="px-3.5 py-1.5 text-xs rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md hover:shadow-blue-500/10 transition-all cursor-pointer whitespace-nowrap min-h-[32px]"
               >
                 {suggestion}
               </button>
@@ -482,8 +486,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
         </div>
       )}
 
-      {/* Input Area */}
-      <div className="border-t border-slate-200 bg-slate-50/50 px-4 sm:px-6 py-3 shrink-0">
+      {/* Input Area — Rounded full with glass background */}
+      <div className="border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm px-4 sm:px-6 py-3 shrink-0">
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
           <div className="relative flex-1">
             <Input
@@ -492,7 +496,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Insurance ke baare mein poochiye... (Hindi, English, Hinglish)"
               disabled={isLoading}
-              className="h-11 rounded-full border-slate-200 bg-white focus-visible:ring-indigo-500/30 focus-visible:border-indigo-300 text-sm pl-4 pr-0"
+              className="h-11 rounded-full border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus-visible:ring-indigo-500/30 focus-visible:border-indigo-300 text-sm pl-4 pr-0 shadow-sm"
             />
           </div>
 
@@ -505,8 +509,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
               onClick={toggleVoice}
               className={`h-11 w-11 rounded-full shrink-0 transition-all ${
                 isRecording
-                  ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
-                  : 'hover:bg-indigo-50 hover:text-indigo-600'
+                  ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse shadow-lg shadow-red-500/30'
+                  : 'hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-950/30'
               }`}
               aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
             >
@@ -525,11 +529,11 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
             </Button>
           )}
 
-          {/* Send Button */}
+          {/* Send Button — btn-ripple */}
           <Button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
-            className="h-11 w-11 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white shrink-0 shadow-sm disabled:opacity-50"
+            className="btn-ripple h-11 w-11 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white shrink-0 shadow-md shadow-indigo-500/25 disabled:opacity-50"
             size="icon"
             aria-label="Send message"
           >
@@ -538,11 +542,11 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
         </form>
         {/* Powered by branding */}
         <div className="flex items-center justify-center gap-2 mt-2.5">
-          <span className="h-px flex-1 bg-slate-200" />
+          <span className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
           <p className="text-center text-[10px] sm:text-xs text-slate-400 font-medium whitespace-nowrap">
             Powered by <span className="text-blue-600 font-semibold">Himanshu Paliwal</span>
           </p>
-          <span className="h-px flex-1 bg-slate-200" />
+          <span className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
         </div>
       </div>
     </div>

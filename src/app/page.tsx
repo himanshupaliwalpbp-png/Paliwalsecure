@@ -8,7 +8,7 @@ import {
   Home as HomeIcon, Search, BookOpen, AlertTriangle, TrendingUp,
   QrCode, ExternalLink, CheckCircle2, XCircle, Clock, Sparkles,
   Calculator, Zap, Users, Target, Handshake, ChevronDown, Award,
-  ArrowUpRight, Globe, Play,
+  ArrowUpRight, Globe, Play, Quote,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -217,6 +217,16 @@ const howItWorksSteps = [
   },
 ];
 
+// ── Testimonials Data ──────────────────────────────────────────────────────
+const testimonials = [
+  { name: 'Rajesh Kumar', role: 'Business Owner, Delhi', rating: 5, quote: 'InsureGPT ne mujhe 15 minutes mein sahi health plan dhundh diya — jo agent 2 week nahi kar paya!', avatar: 'RK' },
+  { name: 'Priya Sharma', role: 'IT Professional, Bangalore', rating: 5, quote: 'Claim process itna aasan tha ki mujhe believe nahi hua. Paliwal Secure ne 3 din mein approve karwa diya!', avatar: 'PS' },
+  { name: 'Amit Patel', role: 'Teacher, Ahmedabad', rating: 4, quote: 'Hinglish mein insurance samajhna itna easy? InsureGPT ne sab clear kar diya — koi jargon nahi!', avatar: 'AP' },
+  { name: 'Sunita Verma', role: 'Homemaker, Lucknow', rating: 5, quote: 'Voice feature ekdum perfect hai. Hindi mein poocha, Hindi mein jawab mila. Best experience!', avatar: 'SV' },
+  { name: 'Vikram Singh', role: 'Farmer, Jaipur', rating: 5, quote: 'Crop insurance ke liye Paliwal Secure se baat ki — WhatsApp pe turant response mila. Impressive!', avatar: 'VS' },
+  { name: 'Meera Reddy', role: 'Doctor, Hyderabad', rating: 5, quote: 'As a doctor, I appreciate their IRDAI compliance and transparent recommendations. Highly trustworthy!', avatar: 'MR' },
+];
+
 // ── Glossary Category Colors ───────────────────────────────────────────────
 function getGlossaryCategoryColor(cat: string) {
   switch (cat) {
@@ -412,36 +422,38 @@ export default function PaliwalSecurePage() {
     <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
 
       {/* ================================================================== */}
-      {/* NAVIGATION BAR                                                     */}
+      {/* NAVIGATION BAR — Premium Glassmorphic                              */}
       {/* ================================================================== */}
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-white/20 dark:border-slate-700/50 transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2.5 group">
+            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2.5 group" aria-label="Go to top">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:shadow-blue-500/50 transition-all duration-300 group-hover:scale-105">
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                Paliwal<span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> Secure</span>
+                Paliwal<span className="gradient-text"> Secure</span>
               </span>
             </button>
 
-            {/* Desktop Nav */}
+            {/* Desktop Nav with hover underline animation */}
             <div className="hidden md:flex items-center gap-1 lg:gap-2">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-all duration-200"
+                  className="relative px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all duration-200 group"
+                  aria-label={`Navigate to ${link.label}`}
                 >
                   {link.label}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full group-hover:w-3/4 transition-all duration-300" />
                 </button>
               ))}
-              {/* WhatsApp button */}
+              {/* WhatsApp quick-link button */}
               <button
                 onClick={handleWhatsAppClick}
                 className="px-3 py-2 text-sm font-medium text-green-600 hover:text-green-700 hover:bg-green-50 dark:hover:bg-green-950/30 rounded-lg transition-all duration-200 flex items-center gap-1.5"
@@ -455,14 +467,16 @@ export default function PaliwalSecurePage() {
             {/* CTA + ThemeToggle + Mobile Toggle */}
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <Button
-                onClick={() => setShowOnboarding(true)}
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full text-xs sm:text-sm px-3 sm:px-5 py-1.5 sm:py-2 gap-1.5 font-semibold shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300"
-              >
-                <span className="hidden sm:inline">Get Started</span>
-                <span className="sm:hidden">Start</span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </Button>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  onClick={() => setShowOnboarding(true)}
+                  className="btn-ripple bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full text-xs sm:text-sm px-3 sm:px-5 py-1.5 sm:py-2 gap-1.5 font-semibold shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300"
+                >
+                  <span className="hidden sm:inline">Get Started</span>
+                  <span className="sm:hidden">Start</span>
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </Button>
+              </motion.div>
               <Button
                 variant="ghost"
                 size="icon"
@@ -476,14 +490,14 @@ export default function PaliwalSecurePage() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu — Slide down animation */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-slate-200/50 dark:border-slate-700/50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl overflow-hidden z-50 relative"
+              className="md:hidden border-t border-white/20 dark:border-slate-700/50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl overflow-hidden z-50 relative"
             >
               <div className="px-4 py-3 space-y-1">
                 {navLinks.map((item) => (
@@ -510,7 +524,7 @@ export default function PaliwalSecurePage() {
                     setMobileMenuOpen(false);
                     setShowOnboarding(true);
                   }}
-                  className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-semibold gap-1.5 mt-2 shadow-lg shadow-amber-500/25"
+                  className="w-full btn-ripple bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-semibold gap-1.5 mt-2 shadow-lg shadow-amber-500/25"
                 >
                   Get Started
                   <ArrowRight className="w-4 h-4" />
@@ -522,16 +536,18 @@ export default function PaliwalSecurePage() {
       </nav>
 
       {/* ================================================================== */}
-      {/* HERO SECTION                                                       */}
+      {/* HERO SECTION — World-Class                                          */}
       {/* ================================================================== */}
       <section id="hero" className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-24 lg:pb-32">
         {/* Dark gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800" />
         {/* Animated gradient overlay */}
         <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(99,102,241,0.1)_50%,transparent_70%)] bg-[length:200%_100%]" />
-        {/* Radial glow */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl" />
+
+        {/* 3 Floating Orbs */}
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
 
         {/* Floating decorative shapes */}
         <motion.div
@@ -606,25 +622,29 @@ export default function PaliwalSecurePage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
               >
-                <Button
-                  size="lg"
-                  onClick={() => setShowOnboarding(true)}
-                  className="cta-amber rounded-full gap-2 h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base font-semibold shadow-lg shadow-amber-500/20"
-                >
-                  🎯 Get My Best Plan
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={handleWhatsAppClick}
-                  className="gap-2 border-white/20 text-white hover:bg-white/10 hover:text-white rounded-full h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base backdrop-blur-sm"
-                >
-                  <Phone className="w-4 h-4" />
-                  📞 Talk to Expert
-                </Button>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    size="lg"
+                    onClick={() => setShowOnboarding(true)}
+                    className="btn-ripple cta-amber rounded-full gap-2 h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base font-semibold shadow-lg shadow-amber-500/20"
+                  >
+                    🎯 Get My Best Plan
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onClick={handleWhatsAppClick}
+                    className="gap-2 border-white/20 text-white hover:bg-white/10 hover:text-white rounded-full h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base backdrop-blur-sm"
+                  >
+                    <Phone className="w-4 h-4" />
+                    📞 Talk to Expert
+                  </Button>
+                </motion.div>
               </motion.div>
 
-              {/* Stats */}
+              {/* Stats counter row */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -648,7 +668,7 @@ export default function PaliwalSecurePage() {
               </motion.div>
             </div>
 
-            {/* Right: Decorative Shield SVG */}
+            {/* Right: Animated Shield Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -708,7 +728,7 @@ export default function PaliwalSecurePage() {
                   </div>
                 </motion.div>
 
-                {/* Floating badge - IRDAI */}
+                {/* Floating badge - IRDAI Verified */}
                 <motion.div
                   className="absolute -bottom-4 -left-4 glass-dark rounded-xl p-3 shadow-lg"
                   animate={{ y: [5, -5, 5] }}
@@ -758,7 +778,7 @@ export default function PaliwalSecurePage() {
             className="text-center mb-6"
           >
             <p className="text-sm sm:text-base text-muted-foreground font-medium">
-              Trusted by <span className="text-blue-600 font-bold">{trustCount}+</span> families across India
+              Trusted by <span className="gradient-text font-bold">{trustCount}+</span> families across India
             </p>
           </motion.div>
 
@@ -771,6 +791,7 @@ export default function PaliwalSecurePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
+                whileHover={{ y: -4 }}
                 className="flex-shrink-0 px-4 py-2 rounded-xl border border-border/50 bg-card hover:border-blue-300 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-300 cursor-default group"
               >
                 <span className="text-xs sm:text-sm font-semibold text-muted-foreground group-hover:text-blue-600 transition-colors whitespace-nowrap">
@@ -825,13 +846,13 @@ export default function PaliwalSecurePage() {
               const IconComp = cat.icon;
               const info = categoryInfo.find((c) => c.id === cat.id);
               return (
-                <motion.div key={cat.id} variants={staggerItem}>
+                <motion.div key={cat.id} variants={staggerItem} whileHover={{ y: -8 }}>
                   <div
                     onClick={() => {
                       setActiveCategory(cat.id);
                       scrollToSection('products');
                     }}
-                    className="card-premium rounded-3xl p-6 sm:p-8 cursor-pointer group bg-card"
+                    className="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group bg-card"
                   >
                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
                       <IconComp className="w-7 h-7 text-white" />
@@ -841,7 +862,7 @@ export default function PaliwalSecurePage() {
                       {info?.description.substring(0, 80)}...
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400">
+                      <span className="text-xs sm:text-sm font-semibold gradient-text">
                         Starting {cat.price}
                       </span>
                       <span className="text-blue-600 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300">
@@ -855,20 +876,22 @@ export default function PaliwalSecurePage() {
           </motion.div>
 
           <div className="text-center mt-8">
-            <Button
-              variant="outline"
-              onClick={() => scrollToSection('products')}
-              className="rounded-full gap-2 border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/30"
-            >
-              Show all 12+ products
-              <ArrowRight className="w-4 h-4" />
-            </Button>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                variant="outline"
+                onClick={() => scrollToSection('products')}
+                className="rounded-full gap-2 border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/30"
+              >
+                Show all 12+ products
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* ================================================================== */}
-      {/* INSUREGPT CHAT SECTION                                              */}
+      {/* INSUREGPT CHAT SECTION — Premium                                    */}
       {/* ================================================================== */}
       <section id="insuregpt-chat" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-blue-50/60 via-background to-background dark:from-blue-950/20 dark:via-background dark:to-background scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -925,7 +948,7 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* HOW IT WORKS (3 Steps)                                              */}
+      {/* HOW IT WORKS (3 Steps) — Premium                                    */}
       {/* ================================================================== */}
       <section id="how-it-works" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -947,8 +970,8 @@ export default function PaliwalSecurePage() {
           </motion.div>
 
           <div className="relative">
-            {/* Connecting line */}
-            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-amber-500 -translate-y-1/2 z-0 opacity-30" />
+            {/* Connecting gradient line */}
+            <div className="hidden lg:block absolute top-1/2 left-[10%] right-[10%] h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-amber-500 -translate-y-1/2 z-0 opacity-20 rounded-full" />
 
             <motion.div
               variants={staggerContainer}
@@ -960,12 +983,12 @@ export default function PaliwalSecurePage() {
               {howItWorksSteps.map((step) => {
                 const StepIcon = step.icon;
                 return (
-                  <motion.div key={step.num} variants={staggerItem}>
+                  <motion.div key={step.num} variants={staggerItem} whileHover={{ y: -8 }}>
                     <div className="card-premium rounded-3xl p-6 sm:p-8 text-center bg-card">
-                      {/* Numbered circle */}
+                      {/* Gradient icon circle with number badge */}
                       <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mx-auto mb-5 shadow-lg relative`}>
                         <StepIcon className="w-7 h-7 text-white" />
-                        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center shadow">
+                        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 text-white text-xs font-bold flex items-center justify-center shadow-lg">
                           {step.num}
                         </div>
                       </div>
@@ -981,7 +1004,79 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* MARKET INSIGHTS SECTION                                            */}
+      {/* TESTIMONIALS CAROUSEL — New Premium Section                         */}
+      {/* ================================================================== */}
+      <section id="testimonials" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-background via-blue-50/30 to-background dark:from-background dark:via-blue-950/10 dark:to-background scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
+            <Badge className="badge-shimmer mb-4 bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800 rounded-full px-4 py-1">
+              <Star className="w-3.5 h-3.5 mr-1 fill-amber-500" />
+              Customer Stories
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Log Kya <span className="gradient-text-amber">Kehte Hain</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              Real stories from real people — Paliwal Secure ne unka insurance experience kaise badla
+            </p>
+          </motion.div>
+
+          {/* Auto-scrolling carousel */}
+          <div className="overflow-hidden relative">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+            <div className="animate-carousel flex gap-6 w-max">
+              {/* Duplicate items for infinite scroll */}
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div
+                  key={`${t.avatar}-${i}`}
+                  className="w-[300px] sm:w-[350px] flex-shrink-0 card-premium rounded-3xl p-6 sm:p-8 bg-card"
+                >
+                  {/* Quote icon */}
+                  <Quote className="w-8 h-8 text-blue-200 dark:text-blue-800 mb-4" />
+
+                  {/* Quote text */}
+                  <p className="text-sm sm:text-base text-foreground leading-relaxed mb-6">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+
+                  {/* Star rating */}
+                  <div className="flex gap-0.5 mb-4">
+                    {[...Array(5)].map((_, si) => (
+                      <Star
+                        key={si}
+                        className={`w-4 h-4 ${si < t.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'}`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Avatar + Name */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shrink-0">
+                      {t.avatar}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                      <p className="text-xs text-muted-foreground">{t.role}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* MARKET INSIGHTS SECTION — Dark                                      */}
       {/* ================================================================== */}
       <section id="market-insights" className="py-16 sm:py-24 bg-slate-900 dark:bg-slate-950 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1015,7 +1110,7 @@ export default function PaliwalSecurePage() {
               const style = getInsightStyle(insight.category);
               const IconComp = style.icon;
               return (
-                <motion.div key={insight.id} variants={staggerItem}>
+                <motion.div key={insight.id} variants={staggerItem} whileHover={{ y: -4 }}>
                   <div className="glass-dark hover:border-blue-500/30 transition-all duration-300 group h-full rounded-2xl">
                     <div className="pt-4 pb-4 px-3 sm:pt-5 sm:pb-5 sm:px-4">
                       <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
@@ -1045,7 +1140,7 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* FEATURES SECTION                                                   */}
+      {/* FEATURES SECTION — Premium                                          */}
       {/* ================================================================== */}
       <section id="features" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1079,7 +1174,7 @@ export default function PaliwalSecurePage() {
             {features.map((feature) => {
               const FeatureIcon = feature.icon;
               return (
-                <motion.div key={feature.title} variants={staggerItem}>
+                <motion.div key={feature.title} variants={staggerItem} whileHover={{ y: -8 }}>
                   <div className="card-premium rounded-3xl p-6 sm:p-8 h-full cursor-default group bg-card">
                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
                       <FeatureIcon className="w-7 h-7 text-white" />
@@ -1196,7 +1291,7 @@ export default function PaliwalSecurePage() {
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {blogArticles.slice(0, 3).map((article) => (
-                <div key={article.id} className="card-premium rounded-2xl p-5 bg-card cursor-pointer group">
+                <motion.div key={article.id} whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card cursor-pointer group">
                   <Badge className="mb-3 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 text-[10px] rounded-full">
                     {article.category}
                   </Badge>
@@ -1205,7 +1300,7 @@ export default function PaliwalSecurePage() {
                   </h4>
                   <p className="text-xs text-muted-foreground line-clamp-2">{article.excerpt}</p>
                   <p className="text-[10px] text-muted-foreground/60 mt-3">{article.readTime} min read</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -1223,7 +1318,7 @@ export default function PaliwalSecurePage() {
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {mythBusters.slice(0, 4).map((myth) => (
-                <div key={myth.id} className="card-premium rounded-2xl p-5 bg-card">
+                <motion.div key={myth.id} whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card">
                   <div className="flex items-start gap-3">
                     <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
                     <div>
@@ -1234,7 +1329,7 @@ export default function PaliwalSecurePage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -1271,7 +1366,7 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* PRODUCTS SECTION                                                    */}
+      {/* PRODUCTS SECTION with Tabs                                          */}
       {/* ================================================================== */}
       <section id="products" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1352,7 +1447,7 @@ export default function PaliwalSecurePage() {
                 {/* Plan cards */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {getPlansByCategory(cat.id as InsuranceCategory).map((plan) => (
-                    <div key={plan.id} className="card-premium rounded-2xl p-5 sm:p-6 bg-card group">
+                    <motion.div key={plan.id} whileHover={{ y: -8 }} className="card-premium rounded-2xl p-5 sm:p-6 bg-card group">
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <h4 className="font-bold text-foreground text-sm sm:text-base group-hover:text-blue-600 transition-colors">
@@ -1389,24 +1484,26 @@ export default function PaliwalSecurePage() {
                         ))}
                       </div>
 
-                      <Button
-                        className="w-full cta-glow rounded-xl text-xs font-semibold"
-                        size="sm"
-                        onClick={() => {
-                          toast({
-                            title: `${plan.name}`,
-                            description: `CSR: ${plan.claimSettlementRatio}% | Premium: ₹${plan.premium.monthly}/mo | ${plan.tagline}`,
-                          });
-                        }}
-                      >
-                        View Details
-                        <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
-                      </Button>
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <Button
+                          className="w-full cta-glow rounded-xl text-xs font-semibold"
+                          size="sm"
+                          onClick={() => {
+                            toast({
+                              title: `${plan.name}`,
+                              description: `CSR: ${plan.claimSettlementRatio}% | Premium: ₹${plan.premium.monthly}/mo | ${plan.tagline}`,
+                            });
+                          }}
+                        >
+                          View Details
+                          <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
+                        </Button>
+                      </motion.div>
 
                       <p className="text-[9px] text-muted-foreground/60 mt-2 text-center">
                         IRDAI Reg: {plan.irdaRegistrationNo}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </TabsContent>
@@ -1424,7 +1521,7 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* CONTACT SECTION                                                     */}
+      {/* CONTACT SECTION — Premium                                           */}
       {/* ================================================================== */}
       <section id="contact" ref={contactRef} className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1458,6 +1555,8 @@ export default function PaliwalSecurePage() {
               className="lg:col-span-3"
             >
               <div className="glass rounded-3xl p-6 sm:p-8 shadow-lg">
+                {/* Gradient header accent */}
+                <div className="h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-amber-500 rounded-full mb-6 -mt-2" />
                 <form onSubmit={handleContactSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
@@ -1537,23 +1636,25 @@ export default function PaliwalSecurePage() {
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full cta-amber rounded-xl h-11 sm:h-12 text-sm sm:text-base font-semibold gap-2"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full btn-ripple cta-amber rounded-xl h-11 sm:h-12 text-sm sm:text-base font-semibold gap-2"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </Button>
+                  </motion.div>
                 </form>
               </div>
             </motion.div>
@@ -1566,7 +1667,7 @@ export default function PaliwalSecurePage() {
               viewport={{ once: true, amount: 0.2 }}
               className="lg:col-span-2 space-y-6"
             >
-              <div className="card-premium rounded-2xl p-5 bg-card">
+              <motion.div whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0">
                     <Phone className="w-5 h-5 text-white" />
@@ -1583,9 +1684,9 @@ export default function PaliwalSecurePage() {
                     </Button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="card-premium rounded-2xl p-5 bg-card">
+              <motion.div whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shrink-0">
                     <Mail className="w-5 h-5 text-white" />
@@ -1596,9 +1697,9 @@ export default function PaliwalSecurePage() {
                     <p className="text-sm text-blue-600 font-semibold mt-1">hello@paliwalsecure.com</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="card-premium rounded-2xl p-5 bg-card">
+              <motion.div whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center shrink-0">
                     <MapPin className="w-5 h-5 text-white" />
@@ -1608,10 +1709,10 @@ export default function PaliwalSecurePage() {
                     <p className="text-xs text-muted-foreground mt-1">New Delhi, India</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* QR Code */}
-              <div className="card-premium rounded-2xl p-5 bg-card">
+              <motion.div whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card">
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-xl bg-slate-100 dark:bg-slate-800 border border-border flex items-center justify-center shrink-0">
                     <QrCode className="w-7 h-7 text-muted-foreground" />
@@ -1621,7 +1722,7 @@ export default function PaliwalSecurePage() {
                     <p className="text-xs text-muted-foreground mt-0.5">WhatsApp QR Code</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* IRDAI Disclaimer */}
               <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
@@ -1638,7 +1739,7 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* FOOTER                                                              */}
+      {/* FOOTER — Premium Dark                                               */}
       {/* ================================================================== */}
       <footer className="bg-slate-900 dark:bg-slate-950 pb-20 md:pb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -1650,21 +1751,23 @@ export default function PaliwalSecurePage() {
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold text-white">
-                  Paliwal<span className="text-blue-400"> Secure</span>
+                  Paliwal<span className="gradient-text"> Secure</span>
                 </span>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed mb-4">
                 AI-powered insurance recommendations for every Indian. IRDAI-compliant, transparent, aur aasan.
               </p>
-              <Button
-                onClick={handleWhatsAppClick}
-                variant="outline"
-                className="border-green-600 text-green-400 hover:bg-green-900/30 rounded-full gap-2 text-xs"
-                size="sm"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                WhatsApp
-              </Button>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  onClick={handleWhatsAppClick}
+                  variant="outline"
+                  className="border-green-600 text-green-400 hover:bg-green-900/30 rounded-full gap-2 text-xs"
+                  size="sm"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  WhatsApp
+                </Button>
+              </motion.div>
             </div>
 
             {/* Quick Links */}
@@ -1742,7 +1845,7 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       {/* MOBILE BOTTOM NAV                                                   */}
       {/* ================================================================== */}
-      <MobileBottomNav />
+      <MobileBottomNav onNavigate={scrollToSection} />
 
       {/* ================================================================== */}
       {/* ONBOARDING FLOW                                                     */}

@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { Inter, Sora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
+import { ScrollProgress } from "@/components/ScrollProgress";
+
+const sora = Sora({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+});
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -64,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${ibmPlexMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden`}
+        className={`${inter.variable} ${sora.variable} ${ibmPlexMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden`}
       >
         <ThemeProvider
           attribute="class"
@@ -72,6 +80,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ScrollProgress />
           {children}
           <Toaster />
         </ThemeProvider>

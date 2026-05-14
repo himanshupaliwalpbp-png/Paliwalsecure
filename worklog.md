@@ -317,3 +317,92 @@ Stage Summary:
 - All use accurate IRDAI 2025-26 formulas and data
 - All IRDAI compliant (no "best/guaranteed", use "recommended for you")
 - All have "Powered by Himanshu Paliwal" branding
+
+---
+Task ID: 2-a
+Agent: css-design-system-agent
+Task: Premium CSS Design System + Layout Redesign
+
+Work Log:
+- Enhanced /src/app/globals.css with 10 new CSS features while preserving all existing CSS:
+  a) Scroll Progress Bar — fixed top gradient bar (blue→indigo→amber) with z-index 9999
+  b) Testimonials Carousel animation — @keyframes carousel-scroll with 30s infinite, pause on hover
+  c) Button Ripple Effect — .btn-ripple with radial-gradient pseudo-element using CSS custom properties
+  d) Aurora Gradient — .aurora-bg with 3 radial-gradient layers for dark mode backgrounds
+  e) Enhanced .card-premium:hover — translateY changed from -4px to -8px, stronger dual-layer shadow (20px/40px + 8px/16px), border-color 0.25 alpha
+  f) Gradient Border Animation — .gradient-border with animated 4-color gradient (blue→indigo→amber→coral) using ::before/::after pseudo-elements
+  g) Floating Orbs — .orb-1/2/3 classes with blur(80px), different sizes (400/300/250px), positions, and float animations (8/6/10s)
+  h) Glassmorphic Premium Card — .glass-card with backdrop-filter blur(12px), 32px border-radius, -8px hover lift, dark mode variant
+  i) Live Pulse Dot — .live-dot with green pulsing indicator for chatbot status
+  j) Added --font-heading variable to @theme inline block
+- Created /src/components/ScrollProgress.tsx — client component tracking scroll position with passive event listener, renders .scroll-progress div with dynamic width
+- Updated /src/app/layout.tsx:
+  - Added Sora font from next/font/google (weights 600/700/800) with --font-heading CSS variable
+  - Added sora.variable to body className
+  - Added ScrollProgress component inside ThemeProvider
+  - All existing metadata, ThemeProvider, Toaster preserved
+- Lint passes cleanly with no errors
+- Dev server compiles successfully, page serves HTTP 200
+
+Stage Summary:
+- globals.css: 10 new premium CSS features added, all existing CSS preserved
+- ScrollProgress.tsx: Client component for scroll progress indicator
+- layout.tsx: Sora display font added, ScrollProgress integrated
+- card-premium hover enhanced with -8px lift and stronger shadows
+- All new utility classes available: .scroll-progress, .animate-carousel, .btn-ripple, .aurora-bg, .gradient-border, .orb-1/2/3, .glass-card, .live-dot
+
+---
+Task ID: 2-b
+Agent: premium-redesign-agent
+Task: Complete Premium Redesign of page.tsx, MobileBottomNav.tsx, and EmbeddedChatBot.tsx
+
+Work Log:
+- Complete rewrite of /src/app/page.tsx with world-class premium design:
+  a) Premium Glassmorphic Navbar — backdrop-blur-xl, gradient logo text, hover underline animation on nav links, btn-ripple on CTA, green WhatsApp button, ThemeToggle
+  b) Hero Section — 3 floating orbs (orb-1/2/3), animated gradient overlay, shield card with coverage scores, AI Ready + IRDAI Verified floating badges, stats counter row, motion animations on mount
+  c) Trust Bar — Animated trustCount counter, gradient-text styling, whileHover lift on insurer chips
+  d) Daily Tip — Kept existing DailyTip component
+  e) Product Categories Grid — glass-card class, gradient-text pricing, whileHover y:-8 lift, stagger animations
+  f) InsureGPT Chat — badge-shimmer on badge, premium section header
+  g) Calculators Section — Same structure with premium styling
+  h) How It Works — 3 steps with gradient icon circles, gradient number badges, connecting gradient line between steps
+  i) NEW: Testimonials Carousel — Auto-scrolling using animate-carousel CSS class, 6 testimonials (Rajesh, Priya, Amit, Sunita, Vikram, Meera), Quote icon, star ratings, avatar circles, fade edges, infinite scroll with duplicated items
+  j) Market Insights — Dark section with glass-dark cards (plain divs, NOT Card component), stagger animations
+  k) Features Section — card-premium with whileHover lift, gradient icons
+  l) InsureGyaan — Glossary search, blog articles, myth busters (all preserved)
+  m) Game of Life — Kept existing GameOfLife component
+  n) Products with Tabs — Category tabs, plan cards with whileHover y:-8, cta-glow buttons with whileHover/whileTap
+  o) Contact Section — Gradient header accent bar, glass form, whileHover on contact info cards, btn-ripple on submit
+  p) Footer — Dark bg-slate-900, gradient-text logo, multi-column layout (Brand, Quick Links, Products, Compliance), IRDAI disclaimer, "Powered by Himanshu Paliwal"
+  q) Mobile Bottom Nav — Kept MobileBottomNav component reference
+  r) Onboarding Flow — Kept existing OnboardingFlow component reference
+  - Micro-interactions: motion whileHover scale 1.02 on buttons, whileTap scale 0.98, whileHover y:-8 on cards, stagger animations for grid items, sectionVariants for scroll-triggered animations
+  - Design standards: rounded-3xl for large cards, p-6 sm:p-8 padding, gap-6/gap-8 grid spacing, badge-shimmer, gradient-text/gradient-text-amber, py-16 sm:py-24 lg:py-32 sections, scroll-mt-16
+  - Added Quote icon import from lucide-react
+
+- Updated /src/components/MobileBottomNav.tsx with premium design:
+  - Glassmorphic background: bg-white/70 dark:bg-slate-900/70 backdrop-blur-md
+  - Active indicator: gradient dot (from-blue-600 to-indigo-600) instead of solid blue
+  - Active text: gradient-text class for gradient color
+  - Subtle top border glow: h-px gradient from transparent via-blue-500/40 to transparent
+  - Same navigation items preserved
+
+- Updated /src/components/EmbeddedChatBot.tsx with premium design:
+  - Header: Glassmorphic gradient (from-indigo-600 via-blue-600 to-indigo-700), 3 decorative circles, live-dot on bot avatar with green pulse
+  - Messages: Better bubble design with shadow-md shadow-indigo-500/20, dark mode support (bg-white dark:bg-slate-800), border on bot bubbles
+  - Quick reply chips: Pill-shaped with hover:shadow-md hover:shadow-blue-500/10 glow effect, dark mode styles
+  - Input area: Rounded full with glass background (bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm), shadow-sm on input
+  - Send button: Added btn-ripple class, shadow-md shadow-indigo-500/25
+  - Typing indicator: shadow-md shadow-indigo-500/20 on avatar, border on bubble
+  - All existing functionality preserved (voice input, markdown rendering, IRDAI disclaimer, etc.)
+
+- Lint passes cleanly with no errors
+- Dev server compiles successfully, all GET / 200 responses
+
+Stage Summary:
+- page.tsx: Complete premium redesign with testimonials carousel, floating orbs, micro-interactions, glass-card/glass-dark usage, btn-ripple on CTAs, whileHover/whileTap animations throughout
+- MobileBottomNav.tsx: Glassmorphic with gradient active indicator, top border glow, gradient-text active label
+- EmbeddedChatBot.tsx: Premium header with live-dot, better bubble shadows, hover glow on chips, btn-ripple send button
+- All existing functionality preserved (calculators, chat, onboarding, forms, glossary, blog, myths, game of life, products)
+- All IRDAI compliance maintained (disclaimers, no "best/guaranteed" language)
+- All "Powered by Himanshu Paliwal" branding in place
