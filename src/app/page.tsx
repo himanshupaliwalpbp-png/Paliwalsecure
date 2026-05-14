@@ -562,8 +562,10 @@ export default function PaliwalSecurePage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-tight"
               >
-                Samjho Bima,{' '}
-                <span className="text-emerald-600">Sahi Bima</span>
+                AI se{' '}
+                <span className="text-emerald-600">Best Plan.</span>{' '}
+                Humse{' '}
+                <span className="text-amber-600">Easy Claim.</span>
                 <span className="block text-base sm:text-xl lg:text-2xl font-medium text-slate-500 mt-1 sm:mt-2">
                   Smart Insurance for Every Indian
                 </span>
@@ -575,7 +577,7 @@ export default function PaliwalSecurePage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="mt-4 sm:mt-6 text-sm sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
               >
-                Insurance samajhna ab aasan hai. AI-powered recommendations, zero jargon — bas sahi coverage paao.
+                AI-powered recommendations from 51+ insurers — aur claim process hum aasan bana dete hain.
               </motion.p>
 
               <motion.div
