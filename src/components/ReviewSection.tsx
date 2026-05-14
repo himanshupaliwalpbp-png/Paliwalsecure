@@ -42,6 +42,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from '@/components/ui/carousel';
 import { useToast } from '@/hooks/use-toast';
 import { fireConfetti } from '@/components/Confetti';
 
@@ -1122,7 +1129,7 @@ export default function ReviewSection() {
           </div>
         </div>
 
-        {/* ── Review Cards Grid ──────────────────────────────────────────── */}
+        {/* ── Review Cards Swipeable Carousel ─────────────────────────────── */}
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
@@ -1136,7 +1143,7 @@ export default function ReviewSection() {
                 Be the first to share your insurance experience!
               </p>
               <Button
-                onClick={() => setDialogOpen(true)}
+                onClick={() => setInlineFormOpen(true)}
                 variant="outline"
                 className="rounded-xl gap-1.5"
               >
@@ -1146,30 +1153,39 @@ export default function ReviewSection() {
             </CardContent>
           </Card>
         ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <AnimatePresence mode="popLayout">
-                {reviews.map((review, i) => (
-                  <motion.div
-                    key={review.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3, delay: i * 0.05 }}
-                  >
+          <div className="relative">
+            {/* Swipe hint */}
+            <p className="text-center text-xs text-muted-foreground mb-4 flex items-center justify-center gap-1.5">
+              <ChevronDown className="w-3 h-3 -rotate-90" />
+              Swipe to see more reviews
+              <ChevronDown className="w-3 h-3 rotate-90" />
+            </p>
+            <Carousel
+              opts={{
+                align: 'start',
+                loop: false,
+                dragFree: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {reviews.map((review) => (
+                  <CarouselItem key={review.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                     <ReviewCard
                       review={review}
                       onVote={handleVote}
                       votedReviews={votedReviews}
                     />
-                  </motion.div>
+                  </CarouselItem>
                 ))}
-              </AnimatePresence>
-            </div>
+              </CarouselContent>
+              <CarouselPrevious className="left-0 -translate-x-1/2 shadow-lg bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700" />
+              <CarouselNext className="right-0 translate-x-1/2 shadow-lg bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700" />
+            </Carousel>
 
-            {/* ── Pagination ──────────────────────────────────────────────── */}
+            {/* Load more indicator */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-3 mt-8">
+              <div className="flex items-center justify-center gap-3 mt-6">
                 <Button
                   variant="outline"
                   size="sm"
@@ -1193,7 +1209,7 @@ export default function ReviewSection() {
                 </Button>
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </section>
