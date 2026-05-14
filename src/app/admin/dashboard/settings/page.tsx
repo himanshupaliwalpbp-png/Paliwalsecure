@@ -65,7 +65,7 @@ export default function SettingsPage() {
 
     setPasswordLoading(true);
     try {
-      const res = await fetch('/api/admin/auth/setup', {
+      const res = await fetch('/api/admin/auth/change-password', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -110,7 +110,7 @@ export default function SettingsPage() {
 
     setCreateLoading(true);
     try {
-      const res = await fetch('/api/admin/auth/setup', {
+      const res = await fetch('/api/admin/users', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,

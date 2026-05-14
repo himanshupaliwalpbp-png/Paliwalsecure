@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { PWARegistrar } from "@/components/PWARegistrar";
 
 const sora = Sora({
   variable: "--font-heading",
@@ -91,6 +92,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ScrollProgress />
+          <PWARegistrar />
           {children}
           <Toaster />
         </ThemeProvider>
