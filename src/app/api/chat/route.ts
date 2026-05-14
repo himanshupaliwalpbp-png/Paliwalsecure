@@ -4,30 +4,61 @@ import {
   type UserProfile, IRDAI_MANDATORY_DISCLAIMER, allInsurancePlans,
   responseTemplates, marketTrends2026, irdaiRegulations2025, claimGuides,
 } from '@/lib/insurance-data';
+import { chatRateLimiter, getClientIp } from '@/lib/server-rate-limiter';
+import { chatMessageSchema, validateInput, sanitizeString } from '@/lib/validation';
 
 export const maxDuration = 30;
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { message, profile, history } = body;
+    const clientIp = getClientIp(request);
 
-    if (!message || typeof message !== 'string') {
+    // ── Rate limiting: 20 messages per minute per IP ─────────────────────
+    const rateLimit = chatRateLimiter.check(clientIp, 20, 60 * 1000);
+    if (!rateLimit.allowed) {
       return NextResponse.json(
-        { error: 'Message is required.' },
-        { status: 400 }
+        {
+          error: 'Too many messages. Please slow down and try again.',
+          retryAfter: Math.ceil((rateLimit.resetTime - Date.now()) / 1000),
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(Math.ceil((rateLimit.resetTime - Date.now()) / 1000)),
+            'X-RateLimit-Remaining': '0',
+          },
+        }
       );
     }
 
+    // ── Validate input with Zod ──────────────────────────────────────────
+    const body = await request.json();
+    const validation = validateInput(chatMessageSchema, body);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: validation.errors[0] },
+        {
+          status: 400,
+          headers: { 'X-RateLimit-Remaining': String(rateLimit.remaining) },
+        }
+      );
+    }
+
+    const { message, profile, history } = validation.data;
+
+    // ── Sanitize user message ────────────────────────────────────────────
+    const sanitizedMessage = sanitizeString(message);
+
     // Check if user is asking for recommendations
-    const isRecommendationRequest = /recommend|suggest|which.*plan|which.*insurance|suitable|batao|sujhav|chuno/i.test(message);
+    const isRecommendationRequest = /recommend|suggest|which.*plan|which.*insurance|suitable|batao|sujhav|chuno/i.test(sanitizedMessage);
 
     // Check for high-pressure scenario templates
     let templateResponse: string | null = null;
     for (const tpl of responseTemplates) {
       try {
         const regex = typeof tpl.trigger === 'string' ? new RegExp(tpl.trigger, 'i') : tpl.trigger;
-        if (regex.test(message)) {
+        if (regex.test(sanitizedMessage)) {
           templateResponse = tpl.response;
           break;
         }
@@ -59,7 +90,7 @@ export async function POST(request: NextRequest) {
     let aiResponse: string | null = null;
 
     try {
-      const systemPrompt = buildRAGContext(message, profile as UserProfile | undefined);
+      const systemPrompt = buildRAGContext(sanitizedMessage, profile as UserProfile | undefined);
 
       const apiMessages: Array<{ role: 'assistant' | 'user'; content: string }> = [
         { role: 'assistant', content: systemPrompt },
@@ -72,8 +103,8 @@ export async function POST(request: NextRequest) {
         }));
 
       const userContent = recommendations
-        ? `${message}\n\n[SYSTEM: Here are the personalized recommendations based on the user profile - include these in your response in a friendly, structured way]:\n${JSON.stringify(recommendations, null, 2)}`
-        : message;
+        ? `${sanitizedMessage}\n\n[SYSTEM: Here are the personalized recommendations based on the user profile - include these in your response in a friendly, structured way]:\n${JSON.stringify(recommendations, null, 2)}`
+        : sanitizedMessage;
 
       historyMessages.push({ role: 'user', content: userContent });
 
@@ -119,7 +150,7 @@ export async function POST(request: NextRequest) {
       if (templateResponse) {
         aiResponse = templateResponse;
       } else {
-        aiResponse = generateFallbackResponse(message, recommendations);
+        aiResponse = generateFallbackResponse(sanitizedMessage, recommendations);
       }
     }
 
@@ -140,6 +171,8 @@ export async function POST(request: NextRequest) {
       response: aiResponse,
       recommendations: recommendations || undefined,
       complianceChecked: true,
+    }, {
+      headers: { 'X-RateLimit-Remaining': String(rateLimit.remaining) },
     });
   } catch (error) {
     console.error('Chat API error:', error);

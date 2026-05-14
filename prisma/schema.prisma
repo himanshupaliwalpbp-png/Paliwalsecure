@@ -14,20 +14,22 @@ datasource db {
 
 // ── Admin User Model ────────────────────────────────────────────────────────
 model AdminUser {
-  id            String   @id @default(cuid())
-  email         String   @unique
-  name          String
-  passwordHash  String
-  role          String   @default("MODERATOR") // ADMIN | MODERATOR
-  avatarUrl     String?
-  isActive      Boolean  @default(true)
-  lastLoginAt   DateTime?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                   String    @id @default(cuid())
+  email                String    @unique
+  name                 String
+  passwordHash         String
+  role                 String    @default("MODERATOR") // ADMIN | MODERATOR
+  avatarUrl            String?
+  isActive             Boolean   @default(true)
+  failedLoginAttempts  Int       @default(0)
+  lockedUntil          DateTime?
+  lastLoginAt          DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
 
   // Relations
-  auditLogs     AuditLog[]
-  leadNotes     LeadNote[]
+  auditLogs            AuditLog[]
+  leadNotes            LeadNote[]
 
   @@map("admin_users")
 }

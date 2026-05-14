@@ -807,3 +807,114 @@ html, body {
 html {
   scroll-behavior: smooth;
 }
+
+/* ──────────────────────────────────────────────
+   LIQUID GLASS MORPHISM — Premium Variant
+   ────────────────────────────────────────────── */
+
+.glass-liquid {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 8px 32px rgba(31, 38, 135, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.dark .glass-liquid {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ──────────────────────────────────────────────
+   ENHANCED MICRO-INTERACTIONS
+   ────────────────────────────────────────────── */
+
+/* Button ripple with mouse position tracking */
+.btn-ripple-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple-enhanced .ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0);
+  animation: ripple-anim 0.6s linear;
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Card lift with 3D perspective */
+.card-lift-3d {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.card-lift-3d:hover {
+  transform: translateY(-8px) rotateX(2deg);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Magnetic button effect */
+.btn-magnetic {
+  transition: transform 0.2s ease;
+}
+
+/* ──────────────────────────────────────────────
+   CUSTOM CURSOR STYLES
+   ────────────────────────────────────────────── */
+
+.custom-cursor-active {
+  cursor: none !important;
+}
+.custom-cursor-active * {
+  cursor: none !important;
+}
+@media (pointer: coarse) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: auto !important;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   CLAIM STATUS ANIMATIONS
+   ────────────────────────────────────────────── */
+
+/* Claim status pulse */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Progress bar shimmer */
+@keyframes progress-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-progress-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+/* ──────────────────────────────────────────────
+   COUNTER GLOW ON ACTIVE
+   ────────────────────────────────────────────── */
+
+.counter-glow {
+  text-shadow: 0 0 20px rgba(29, 78, 216, 0.3);
+}
+.dark .counter-glow {
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+}

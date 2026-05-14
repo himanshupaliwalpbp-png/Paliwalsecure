@@ -70,6 +70,8 @@ const ReviewSection = dynamic(() => import('@/components/ReviewSection'), {
 });
 const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), { ssr: false });
 const ConnectionStatus = dynamic(() => import('@/components/ConnectionStatus'), { ssr: false });
+const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
+const ClaimStatusChecker = dynamic(() => import('@/components/ClaimStatusChecker'), { ssr: false });
 
 const CalculatorSection = dynamic(() => import('@/components/CalculatorSection'), {
   ssr: false,
@@ -400,6 +402,7 @@ export default function PaliwalSecurePage() {
     { id: 'insuregpt-chat', label: 'InsureGPT', icon: Brain },
     { id: 'calculators', label: 'Calculators', icon: Calculator },
     { id: 'products', label: 'Products', icon: Shield },
+    { id: 'claim-status', label: 'Claim', icon: Clock },
     { id: 'reviews', label: 'Reviews', icon: Star },
     { id: 'features', label: 'Features', icon: Sparkles },
     { id: 'contact', label: 'Contact', icon: Phone },
@@ -1515,6 +1518,37 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
+      {/* CLAIM STATUS CHECKER                                                */}
+      {/* ================================================================== */}
+      <section id="claim-status" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
+            <Badge className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800 rounded-full px-4 py-1">
+              <Clock className="w-3.5 h-3.5 mr-1" />
+              Claim Tracker
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Track Your{' '}
+              <span className="gradient-text-amber">Claim Status</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              Real-time claim tracking — enter your policy number and get instant updates
+            </p>
+          </motion.div>
+
+          <div className="max-w-lg mx-auto">
+            <ClaimStatusChecker />
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
       {/* CONTACT SECTION — Premium                                           */}
       {/* ================================================================== */}
       <section id="contact" ref={contactRef} className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
@@ -1865,6 +1899,7 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       <PWAInstallPrompt />
       <ConnectionStatus />
+      <CustomCursor />
 
       {/* ================================================================== */}
       {/* ONBOARDING FLOW                                                     */}
