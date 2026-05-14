@@ -8,7 +8,7 @@ import {
   Home as HomeIcon, Search, BookOpen, AlertTriangle, TrendingUp,
   QrCode, ExternalLink, CheckCircle2, XCircle, Clock, Sparkles,
   Calculator, Zap, Users, Target, Handshake, ChevronDown, Award,
-  ArrowUpRight, Globe, Play, Quote,
+  ArrowUpRight, Globe, Play, Quote, Lock,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -1829,9 +1829,19 @@ export default function PaliwalSecurePage() {
               <p className="text-[10px] text-slate-600 text-center max-w-lg leading-relaxed">
                 {IRDAI_MANDATORY_DISCLAIMER}
               </p>
-              <p className="text-xs text-slate-600">
-                © {new Date().getFullYear()} Paliwal Secure
-              </p>
+              <div className="flex items-center gap-3">
+                <p className="text-xs text-slate-600">
+                  © {new Date().getFullYear()} Paliwal Secure
+                </p>
+                <a
+                  href="/admin/login"
+                  className="text-[10px] text-slate-700 hover:text-amber-400 transition-colors flex items-center gap-1"
+                  aria-label="Admin Login"
+                >
+                  <Lock className="w-2.5 h-2.5" />
+                  Admin
+                </a>
+              </div>
             </div>
           </div>
         </div>
