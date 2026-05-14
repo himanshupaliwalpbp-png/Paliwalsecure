@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { db } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,32 +34,38 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // In production, you would send this data to:
-    // 1. A database (e.g., Prisma + PostgreSQL)
-    // 2. An email service (e.g., SendGrid, AWS SES)
-    // 3. A CRM (e.g., HubSpot, Salesforce)
-    //
-    // Example email sending (commented out):
-    // await sendEmail({
-    //   to: 'your-email@example.com',
-    //   subject: `New Insurance Inquiry from ${name}`,
-    //   body: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nInsurance Type: ${insuranceType}\nMessage: ${message}`,
-    // });
+    // Save lead to database
+    const lead = await db.lead.create({
+      data: {
+        name,
+        email,
+        phone: phone || null,
+        message,
+        insuranceType: insuranceType || null,
+        status: 'NEW',
+        source: 'website',
+      },
+    });
 
-    // Log the lead for now (replace with actual storage)
-    console.log('New Lead Received:', {
-      name,
-      email,
-      phone: phone || 'Not provided',
-      insuranceType: insuranceType || 'Not specified',
-      message,
-      timestamp: new Date().toISOString(),
+    // Also create an audit log entry
+    await db.auditLog.create({
+      data: {
+        action: 'CREATE',
+        entity: 'Lead',
+        entityId: lead.id,
+        details: JSON.stringify({
+          name,
+          email,
+          insuranceType: insuranceType || 'Not specified',
+          source: 'website',
+        }),
+      },
     });
 
     return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Thank you for your inquiry! Our insurance advisor will contact you within 24 hours.' 
+      {
+        success: true,
+        message: 'Thank you for your inquiry! Our insurance advisor will contact you within 24 hours.',
       },
       { status: 200 }
     );
