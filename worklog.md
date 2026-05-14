@@ -406,3 +406,80 @@ Stage Summary:
 - All existing functionality preserved (calculators, chat, onboarding, forms, glossary, blog, myths, game of life, products)
 - All IRDAI compliance maintained (disclaimers, no "best/guaranteed" language)
 - All "Powered by Himanshu Paliwal" branding in place
+
+---
+Task ID: 2-a
+Agent: knowledge-base-expansion-agent
+Task: Expand Insurance Knowledge Base Data in insurance-data.ts
+
+Work Log:
+- Updated MythBuster interface: made mythHi, reality, stat, source optional; added fact?, statistic?, category? fields
+- Updated BlogArticle interface: made titleHi, summary optional; added excerpt?, keyTakeaways?, source? fields; readTime now accepts number | string; keyPoints made optional
+- Added 13 new glossary terms to policyGlossary array (appended, not replaced):
+  - Sum Assured, Grace Period, Moratorium Period, Incurred Claim Ratio (ICR), Third-party Administrator (TPA)
+  - Top-up Plan, Super Top-up Plan, No Claim Bonus (NCB), Restoration Benefit, Portability
+  - Riders, Free Look Period, Solvency Ratio
+- Replaced mythBusters array with 8 expanded myths in Hindi:
+  - Health myths: only elderly need insurance, claims get rejected, employer insurance is enough, health vs critical illness confusion, diabetes exclusion
+  - Life myth: term insurance is waste of money
+  - Motor myth: third-party is enough
+  - General myth: online policies don't pay claims
+- Replaced blogArticles array with 6 expanded educational articles:
+  - 2025 health insurance claim guide (Hindi), ₹1000/month term cover (Hindi), car insurance explained (Hindi)
+  - Health insurance claim step-by-step (English), diabetes/BP special plans (Hindi), Section 80D tax guide (Hindi)
+- Added 3 new interfaces and data arrays at end of file:
+  - InsuranceCompany interface + 14 companies (8 health, 6 life) with CSR 2026, ICR 2026, solvency ratio, features, complaints data
+  - DiseaseSpecificPlan interface + 3 plans (HDFC ERGO Energy, Star Diabetes Safe, Aditya Birla Activ Health)
+  - MarketComparison interface + 5 health plan comparisons with coverage, premium, waiting period, unique benefits, CSR
+- Created API endpoint /api/knowledge-base/route.ts:
+  - GET endpoint with section parameter (glossary, articles, myths, companies, disease-plans, comparisons, plans, categories)
+  - Category and query filtering support
+  - Summary endpoint when no section specified
+  - IRDAI disclaimer included in response
+- Lint passes cleanly with no errors
+- Dev server compiles successfully, HTTP 200
+
+Stage Summary:
+- MythBuster interface expanded with fact, statistic, category fields
+- BlogArticle interface expanded with excerpt, keyTakeaways, source fields
+- 13 new glossary terms added (Sum Assured, Grace Period, ICR, TPA, Top-up, Super Top-up, NCB, Restoration, Portability, Riders, Free Look, Solvency Ratio, Moratorium Period)
+- 8 expanded Hindi myths replacing 8 English myths
+- 6 expanded educational articles replacing 15 English articles
+- 3 new data exports: insuranceCompanies (14 companies), diseaseSpecificPlans (3 plans), marketComparisons (5 plans)
+- New API endpoint: /api/knowledge-base with 8 sections, filtering, and search
+- All existing exports and imports preserved
+
+---
+Task ID: 3
+Agent: comparison-table-agent
+Task: Build Company Comparison Table Component + Update page.tsx with new knowledge base sections
+
+Work Log:
+- Created /src/components/CompanyComparisonTable.tsx — sortable, color-coded comparison table
+  - SortKey types: name, csr2026, icr2026, solvencyRatio, rating
+  - CategoryFilter: all, health, life — filter buttons with active state styling
+  - Color-coded CSR (green ≥99%, amber 95-99%, rose <95%), ICR (green 50-80%, amber 80-90%, rose >90%), Solvency (green ≥2.0, amber ≥1.5, rose <1.5)
+  - SortIcon component moved outside render to fix react-hooks/static-components lint error
+  - Conditional columns: ICR column hidden for life filter, ₹1 Cr Term shown for life, Network Hospitals shown for health/general
+  - Features shown as tags (max 2 + overflow count), rating as star characters
+  - IRDAI source attribution footer with Info icon
+  - Imports: insuranceCompanies from insurance-data.ts, Badge from shadcn/ui, ArrowUpDown/ArrowUp/ArrowDown/Info from lucide-react
+- Updated /src/app/page.tsx:
+  - Added imports: CompanyComparisonTable, insuranceCompanies, diseaseSpecificPlans, marketComparisons
+  - Added Company Comparison section (id="company-comparison") after Market Insights section
+    - Badge with Award icon, "Insurers ka Scoreboard" heading, IRDAI 2025-26 data subtitle
+    - CompanyComparisonTable component rendered
+  - Added Disease-Specific Plans section (id="disease-plans") after Company Comparison
+    - Badge with Heart icon, "Diabetes/BP ke liye Special Cover" heading with gradient-text-amber
+    - 3 disease-specific plan cards in md:grid-cols-3 layout
+    - Each card: Heart icon, plan name, insurer, disease badge, features with CheckCircle2, premium + waiting period
+  - Updated navLinks array: added { id: 'company-comparison', label: 'Compare' } as second item
+- Fixed lint error: SortIcon component was defined inside render, moved outside as standalone component with sortKey/sortDir props
+- Lint passes cleanly with no errors
+- Dev server compiles successfully, all GET / 200 responses
+
+Stage Summary:
+- CompanyComparisonTable.tsx: Full sortable comparison table with color-coded metrics, category filtering, conditional columns
+- page.tsx: 2 new sections added (Company Comparison + Disease-Specific Plans), navLinks updated with Compare link
+- All existing sections preserved (Hero, Trust Bar, Categories, InsureGPT Chat, Calculators, How It Works, Testimonials, Market Insights, Features, InsureGyaan, Products, Contact, Footer)
+- Lint clean, dev server running

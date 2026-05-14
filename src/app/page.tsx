@@ -50,7 +50,11 @@ import {
   dripCampaigns,
   complianceChecklist,
   marketInsights,
+  insuranceCompanies,
+  diseaseSpecificPlans,
+  marketComparisons,
 } from '@/lib/insurance-data';
+import CompanyComparisonTable from '@/components/CompanyComparisonTable';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { DailyTip } from '@/components/DailyTip';
 import { fireConfetti } from '@/components/Confetti';
@@ -404,6 +408,7 @@ export default function PaliwalSecurePage() {
   // Nav links
   const navLinks = [
     { id: 'insuregpt-chat', label: 'InsureGPT' },
+    { id: 'company-comparison', label: 'Compare' },
     { id: 'calculators', label: 'Calculators' },
     { id: 'features', label: 'Features' },
     { id: 'products', label: 'Products' },
@@ -1135,6 +1140,95 @@ export default function PaliwalSecurePage() {
                 </motion.div>
               );
             })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* COMPANY COMPARISON TABLE                                            */}
+      {/* ================================================================== */}
+      <section id="company-comparison" className="py-16 sm:py-24 bg-background scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
+            <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 rounded-full px-4 py-1">
+              <Award className="w-3.5 h-3.5 mr-1" />
+              Company Comparison
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Insurers ka <span className="gradient-text">Scoreboard</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              IRDAI 2025-26 data — CSR, ICR, Solvency Ratio se compare karein. Sort by any column!
+            </p>
+          </motion.div>
+
+          <CompanyComparisonTable />
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* DISEASE-SPECIFIC PLANS                                              */}
+      {/* ================================================================== */}
+      <section id="disease-plans" className="py-16 sm:py-24 bg-gradient-to-b from-blue-50/30 via-background to-background dark:from-blue-950/10 dark:via-background dark:to-background scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-2xl mx-auto mb-12"
+          >
+            <Badge className="mb-4 bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800 rounded-full px-4 py-1">
+              <Heart className="w-3.5 h-3.5 mr-1" />
+              Disease-Specific Plans
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Diabetes/BP ke liye <span className="gradient-text-amber">Special Cover</span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-muted-foreground">
+              IRDAI 2024 ke baad ab diabetes aur BP ke liye Day 1 coverage wale plans available hain
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid md:grid-cols-3 gap-6"
+          >
+            {diseaseSpecificPlans.map((plan) => (
+              <motion.div key={plan.name} variants={staggerItem}>
+                <div className="card-premium rounded-3xl p-6 bg-card h-full">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center mb-4">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-1">{plan.name}</h3>
+                  <p className="text-sm text-blue-600 dark:text-blue-400 mb-3">{plan.insurer}</p>
+                  <Badge className="mb-3 bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800 text-xs">
+                    {plan.disease}
+                  </Badge>
+                  <div className="space-y-2 mb-4">
+                    {plan.features.map((f, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                        <span className="text-xs text-muted-foreground">{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/50">
+                    <span className="text-sm font-bold text-foreground">{plan.startingPremium}</span>
+                    <span className="text-[10px] text-muted-foreground">{plan.waitingPeriod}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
