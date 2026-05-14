@@ -560,22 +560,28 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-tight"
+                className="text-[1.6rem] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.2]"
               >
                 AI se{' '}
-                <span className="text-emerald-600">Best Plan.</span>{' '}
+                <span className="text-emerald-600">Best Plan.</span>
+                <br className="sm:hidden" />{' '}
                 Humse{' '}
                 <span className="text-amber-600">Easy Claim.</span>
-                <span className="block text-base sm:text-xl lg:text-2xl font-medium text-slate-500 mt-1 sm:mt-2">
-                  Smart Insurance for Every Indian
-                </span>
               </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="text-sm sm:text-xl lg:text-2xl font-medium text-slate-500 mt-2 sm:mt-3"
+              >
+                Smart Insurance for Every Indian
+              </motion.p>
 
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-4 sm:mt-6 text-sm sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+                className="mt-3 sm:mt-6 text-xs sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
               >
                 AI-powered recommendations from 51+ insurers — aur claim process hum aasan bana dete hain.
               </motion.p>
@@ -593,7 +599,8 @@ export default function PaliwalSecurePage() {
                   className="bg-green-600 hover:bg-green-700 text-white gap-2 shadow-lg shadow-green-200 h-11 sm:h-12 px-4 sm:px-8 text-xs sm:text-base"
                 >
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Free Insurance Guide on WhatsApp
+                  <span className="hidden sm:inline">Free Insurance Guide on WhatsApp</span>
+                  <span className="sm:hidden">WhatsApp Guide</span>
                 </Button>
                 {/* Secondary CTA: Recommendations */}
                 <Button
@@ -602,7 +609,8 @@ export default function PaliwalSecurePage() {
                   onClick={() => setShowOnboarding(true)}
                   className="gap-2 border-slate-300 hover:border-emerald-400 hover:text-emerald-600 h-11 sm:h-12 px-4 sm:px-8 text-xs sm:text-base"
                 >
-                  Get Recommendations
+                  <span className="hidden sm:inline">Get Recommendations</span>
+                  <span className="sm:hidden">Get Plans</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </motion.div>
