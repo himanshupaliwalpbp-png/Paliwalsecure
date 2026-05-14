@@ -9,6 +9,15 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
+import {
+  loadChatMemory,
+  recordVisit,
+  extractInfoFromMessage,
+  updateChatMemory,
+  buildPersonalizedGreeting,
+  buildMemoryContextString,
+  type ChatMemory,
+} from '@/lib/chat-memory';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -193,6 +202,8 @@ export default function ChatBot({ profile }: ChatBotProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
+  const [chatMemory, setChatMemory] = useState<ChatMemory | null>(null);
+  const [isReturning, setIsReturning] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -206,12 +217,22 @@ export default function ChatBot({ profile }: ChatBotProps) {
     setSpeechSupported(!!SpeechRecognitionAPI);
   }, []);
 
-  // Initial welcome message
+  // Load chat memory and record visit on mount
   useEffect(() => {
-    if (messages.length === 0) {
-      const greeting = profile
-        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
-        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
+    const memory = loadChatMemory();
+    const returning = memory.visitCount > 0;
+    setIsReturning(returning);
+    setChatMemory(memory);
+
+    // Record this visit
+    const updated = recordVisit();
+    setChatMemory(updated);
+  }, []);
+
+  // Initial welcome message (with personalization)
+  useEffect(() => {
+    if (messages.length === 0 && chatMemory !== null) {
+      const greeting = buildPersonalizedGreeting(chatMemory, !!profile);
 
       setMessages([
         {
@@ -222,7 +243,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
         },
       ]);
     }
-  }, []);
+  }, [chatMemory]);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -259,11 +280,23 @@ export default function ChatBot({ profile }: ChatBotProps) {
       setInputValue('');
       setIsLoading(true);
 
+      // Extract info from message and update chat memory
+      const extracted = extractInfoFromMessage(text.trim());
+      const hasExtractedInfo = Object.keys(extracted).length > 0;
+      if (hasExtractedInfo) {
+        const updated = updateChatMemory(extracted);
+        setChatMemory(updated);
+      }
+
       try {
         const history = messages.map((m) => ({
           role: m.role,
           content: m.content,
         }));
+
+        // Build memory context for API
+        const currentMemory = loadChatMemory();
+        const memoryContext = buildMemoryContextString(currentMemory);
 
         const res = await fetch('/api/chat', {
           method: 'POST',
@@ -272,6 +305,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
             message: text.trim(),
             profile: profile ?? undefined,
             history,
+            memory: memoryContext || undefined,
           }),
         });
 
@@ -444,8 +478,13 @@ export default function ChatBot({ profile }: ChatBotProps) {
               </div>
               <div className="flex items-center gap-1">
                 {profile && (
-                  <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs mr-1">
-                    Personalized
+                  <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs mr-1 gap-1">
+                    🧠 Personalized
+                  </Badge>
+                )}
+                {isReturning && !profile && (
+                  <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs mr-1 gap-1">
+                    🧠 Remembered
                   </Badge>
                 )}
                 <Button

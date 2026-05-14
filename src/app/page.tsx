@@ -72,6 +72,8 @@ const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), 
 const ConnectionStatus = dynamic(() => import('@/components/ConnectionStatus'), { ssr: false });
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
 const ClaimStatusChecker = dynamic(() => import('@/components/ClaimStatusChecker'), { ssr: false });
+const HeroShield3D = dynamic(() => import('@/components/HeroShield3D'), { ssr: false });
+const HeroParallaxParticles = dynamic(() => import('@/components/HeroParallaxParticles'), { ssr: false });
 
 const CalculatorSection = dynamic(() => import('@/components/CalculatorSection'), {
   ssr: false,
@@ -574,6 +576,9 @@ export default function PaliwalSecurePage() {
         <div className="orb orb-2" />
         <div className="orb orb-3" />
 
+        {/* Parallax Floating Particles */}
+        <HeroParallaxParticles />
+
         {/* Floating decorative shapes */}
         <motion.div
           className="hidden lg:block absolute top-32 left-[12%] w-16 h-16 bg-blue-400/10 rounded-2xl rotate-12"
@@ -693,99 +698,14 @@ export default function PaliwalSecurePage() {
               </motion.div>
             </div>
 
-            {/* Right: Animated Shield Card */}
+            {/* Right: Animated 3D Shield */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="hidden lg:flex items-center justify-center"
             >
-              <div className="relative w-full max-w-md">
-                {/* Main shield card */}
-                <div className="glass-dark rounded-3xl p-8 shadow-2xl">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                      <Shield className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-lg">Coverage Score</h3>
-                      <p className="text-sm text-slate-400">AI Analysis</p>
-                    </div>
-                  </div>
-                  <div className="space-y-5">
-                    {[
-                      { label: 'Health', pct: 85, gradient: 'from-rose-400 to-pink-600', color: 'text-rose-400' },
-                      { label: 'Life', pct: 60, gradient: 'from-blue-400 to-indigo-600', color: 'text-blue-400' },
-                      { label: 'Motor', pct: 92, gradient: 'from-amber-400 to-orange-600', color: 'text-amber-400' },
-                    ].map((bar) => (
-                      <div key={bar.label}>
-                        <div className="flex justify-between text-sm mb-1.5">
-                          <span className="text-slate-300">{bar.label}</span>
-                          <span className={`font-semibold ${bar.color}`}>{bar.pct}%</span>
-                        </div>
-                        <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
-                          <motion.div
-                            className={`h-full bg-gradient-to-r ${bar.gradient} rounded-full`}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${bar.pct}%` }}
-                            transition={{ duration: 1.5, delay: 0.8 }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20">
-                    <p className="text-sm text-amber-300 font-medium">
-                      2 gaps found in your coverage
-                    </p>
-                  </div>
-                </div>
-
-                {/* Floating badge - AI Ready */}
-                <motion.div
-                  className="absolute -top-4 -right-4 glass-dark rounded-xl p-3 shadow-lg"
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <div className="flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-indigo-400" />
-                    <span className="text-sm font-semibold text-white">AI Ready</span>
-                  </div>
-                </motion.div>
-
-                {/* Floating badge - IRDAI Verified */}
-                <motion.div
-                  className="absolute -bottom-4 -left-4 glass-dark rounded-xl p-3 shadow-lg"
-                  animate={{ y: [5, -5, 5] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-blue-400" />
-                    <span className="text-sm font-semibold text-white">IRDAI Verified</span>
-                  </div>
-                </motion.div>
-
-                {/* Floating particles */}
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-blue-400/30"
-                    style={{
-                      top: `${20 + i * 12}%`,
-                      left: `${-5 + i * 18}%`,
-                    }}
-                    animate={{
-                      y: [-5, 5, -5],
-                      opacity: [0.3, 0.7, 0.3],
-                    }}
-                    transition={{
-                      duration: 3 + i * 0.5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                  />
-                ))}
-              </div>
+              <HeroShield3D />
             </motion.div>
           </div>
         </div>

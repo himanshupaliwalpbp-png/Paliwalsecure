@@ -1,9 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hashPassword, verifyAccessToken } from "@/lib/auth";
+import { isIpAllowed } from "@/lib/ip-whitelist";
+import { getClientIp } from "@/lib/server-rate-limiter";
+import { createAuditLog } from "@/lib/audit-log";
 
 export async function POST(request: NextRequest) {
   try {
+    // ── IP Whitelist check ──────────────────────────────────────────────────
+    const clientIp = getClientIp(request);
+    if (!isIpAllowed(clientIp)) {
+      await createAuditLog({
+        action: "IP_BLOCKED",
+        entity: "AdminUser",
+        details: { ip: clientIp, endpoint: "create-user" },
+        ipAddress: clientIp,
+      });
+      return NextResponse.json(
+        { success: false, error: "Access denied from this IP address" },
+        { status: 403 }
+      );
+    }
+
     // ── Authenticate & authorize (ADMIN only) ────────────────────────────
     const authHeader = request.headers.get("Authorization");
     const token = authHeader?.startsWith("Bearer ") ? authHeader.substring(7) : null;

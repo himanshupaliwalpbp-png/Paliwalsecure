@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 import { db } from "@/lib/db";
 import {
   comparePassword,
@@ -8,14 +9,32 @@ import {
 import { loginRateLimiter, getClientIp } from "@/lib/server-rate-limiter";
 import { adminLoginSchema, validateInput, sanitizeString } from "@/lib/validation";
 import { createAuditLog } from "@/lib/audit-log";
+import { isIpAllowed } from "@/lib/ip-whitelist";
 
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCK_DURATION_MS = 60 * 60 * 1000; // 1 hour
+const MFA_JWT_SECRET = process.env.JWT_SECRET || "paliwal-secure-jwt-secret-dev-placeholder";
 
 export async function POST(request: NextRequest) {
   try {
     const clientIp = getClientIp(request);
     const userAgent = request.headers.get("user-agent") ?? undefined;
+
+    // ── IP Whitelist check ─────────────────────────────────────────────────
+    if (!isIpAllowed(clientIp)) {
+      await createAuditLog({
+        action: "IP_BLOCKED",
+        entity: "AdminUser",
+        details: { ip: clientIp, reason: "IP not in whitelist" },
+        userAgent,
+        ipAddress: clientIp,
+      });
+
+      return NextResponse.json(
+        { success: false, error: "Access denied from this IP address." },
+        { status: 403 }
+      );
+    }
 
     // ── Rate limiting: 5 attempts per 15 min per IP ──────────────────────
     const rateLimit = loginRateLimiter.check(clientIp, 5, 15 * 60 * 1000);
@@ -150,7 +169,38 @@ export async function POST(request: NextRequest) {
     // ── Reset IP rate limiter on successful login ────────────────────────
     loginRateLimiter.reset(clientIp);
 
-    // ── Generate tokens ──────────────────────────────────────────────────
+    // ── Check if MFA is enabled ──────────────────────────────────────────
+    if (adminUser.mfaEnabled && adminUser.totpSecret) {
+      // Generate short-lived MFA step token (5 minutes)
+      const mfaToken = jwt.sign(
+        { userId: adminUser.id, mfaStep: true },
+        MFA_JWT_SECRET,
+        { expiresIn: "5m" }
+      );
+
+      // Audit MFA step initiated
+      await createAuditLog({
+        action: "LOGIN_MFA_REQUIRED",
+        entity: "AdminUser",
+        entityId: adminUser.id,
+        details: { email: adminUser.email, ip: clientIp },
+        userAgent,
+        ipAddress: clientIp,
+      });
+
+      return NextResponse.json({
+        success: true,
+        mfaRequired: true,
+        mfaToken,
+        user: {
+          userId: adminUser.id,
+          email: adminUser.email,
+          name: adminUser.name,
+        },
+      });
+    }
+
+    // ── No MFA: generate tokens normally ──────────────────────────────────
     const tokenPayload = {
       userId: adminUser.id,
       email: adminUser.email,

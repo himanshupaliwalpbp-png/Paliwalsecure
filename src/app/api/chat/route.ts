@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { message, profile, history } = validation.data;
+    const { message, profile, history, memory } = validation.data;
 
     // ── Sanitize user message ────────────────────────────────────────────
     const sanitizedMessage = sanitizeString(message);
@@ -92,8 +92,13 @@ export async function POST(request: NextRequest) {
     try {
       const systemPrompt = buildRAGContext(sanitizedMessage, profile as UserProfile | undefined);
 
+      // Append memory context to system prompt if available
+      const enrichedSystemPrompt = memory
+        ? `${systemPrompt}\n\n[USER MEMORY CONTEXT]: ${memory}`
+        : systemPrompt;
+
       const apiMessages: Array<{ role: 'assistant' | 'user'; content: string }> = [
-        { role: 'assistant', content: systemPrompt },
+        { role: 'assistant', content: enrichedSystemPrompt },
       ];
 
       const historyMessages: Array<{ role: 'assistant' | 'user'; content: string }> = (history || [])

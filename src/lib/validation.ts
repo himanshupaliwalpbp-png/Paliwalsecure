@@ -14,6 +14,7 @@ export const chatMessageSchema = z.object({
   message: z.string().min(1).max(2000),
   profile: z.object({}).passthrough().optional(),
   history: z.array(z.object({ role: z.string(), content: z.string() })).optional(),
+  memory: z.string().max(2000).optional(),
 });
 
 // ── Admin login validation ───────────────────────────────────────────────────
@@ -74,6 +75,23 @@ export const createUserSchema = z.object({
     'Password must contain at least one uppercase letter, one lowercase letter, and one number'
   ),
   role: z.enum(['ADMIN', 'MODERATOR']),
+});
+
+// ── MFA TOTP verification validation ──────────────────────────────────────────
+export const mfaVerifySchema = z.object({
+  token: z.string().regex(/^\d{6}$/, 'TOTP code must be exactly 6 digits'),
+});
+
+// ── MFA disable validation ───────────────────────────────────────────────────
+export const mfaDisableSchema = z.object({
+  password: z.string().min(1, 'Password is required'),
+  token: z.string().regex(/^\d{6}$/, 'TOTP code must be exactly 6 digits'),
+});
+
+// ── MFA login verification validation ────────────────────────────────────────
+export const mfaLoginSchema = z.object({
+  mfaToken: z.string().min(1, 'MFA token is required'),
+  totpCode: z.string().regex(/^\d{6}$/, 'TOTP code must be exactly 6 digits'),
 });
 
 // ── Sanitize string input (strip HTML tags) ──────────────────────────────────

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { verifyAccessToken } from '@/lib/auth';
+import { isIpAllowed } from '@/lib/ip-whitelist';
+import { getClientIp } from '@/lib/server-rate-limiter';
+import { createAuditLog } from '@/lib/audit-log';
 
 // Helper to verify admin token
 function verifyAdmin(request: NextRequest) {
@@ -58,6 +61,22 @@ export async function PUT(request: NextRequest) {
   const admin = verifyAdmin(request);
   if (!admin) {
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // ── IP Whitelist check ──────────────────────────────────────────────────
+  const clientIp = getClientIp(request);
+  if (!isIpAllowed(clientIp)) {
+    await createAuditLog({
+      action: 'IP_BLOCKED',
+      entity: 'SiteSetting',
+      details: { ip: clientIp, endpoint: 'settings-update' },
+      userId: admin.userId,
+      ipAddress: clientIp,
+    });
+    return NextResponse.json(
+      { success: false, error: 'Access denied from this IP address' },
+      { status: 403 }
+    );
   }
 
   try {

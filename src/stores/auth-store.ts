@@ -14,7 +14,11 @@ interface AuthState {
   user: AuthUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  mfaRequired: boolean;
+  mfaToken: string | null;
+  mfaUser: AuthUser | null;
   login: (email: string, password: string) => Promise<void>;
+  verifyMfa: (totpCode: string) => Promise<void>;
   logout: () => void;
   refreshTokenFn: () => Promise<void>;
   initialize: () => void;
@@ -36,6 +40,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   isAuthenticated: false,
   isLoading: false,
+  mfaRequired: false,
+  mfaToken: null,
+  mfaUser: null,
 
   login: async (email: string, password: string) => {
     set({ isLoading: true });
@@ -52,6 +59,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw new Error(data.error || "Login failed");
       }
 
+      // Check if MFA is required
+      if (data.mfaRequired) {
+        set({
+          mfaRequired: true,
+          mfaToken: data.mfaToken,
+          mfaUser: data.user,
+          isLoading: false,
+        });
+        return;
+      }
+
       // Store access token in memory + cookie for middleware
       setClientCookie("admin_access_token", data.accessToken, 15 * 60); // 15 min
       set({
@@ -59,6 +77,46 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         user: data.user,
         isAuthenticated: true,
         isLoading: false,
+        mfaRequired: false,
+        mfaToken: null,
+        mfaUser: null,
+      });
+    } catch (error) {
+      set({ isLoading: false, mfaRequired: false, mfaToken: null, mfaUser: null });
+      throw error;
+    }
+  },
+
+  verifyMfa: async (totpCode: string) => {
+    const { mfaToken } = get();
+    if (!mfaToken) {
+      throw new Error("MFA token not found. Please log in again.");
+    }
+
+    set({ isLoading: true });
+    try {
+      const res = await fetch("/api/admin/auth/mfa/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mfaToken, totpCode }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "MFA verification failed");
+      }
+
+      // Store access token in memory + cookie for middleware
+      setClientCookie("admin_access_token", data.accessToken, 15 * 60); // 15 min
+      set({
+        accessToken: data.accessToken,
+        user: data.user,
+        isAuthenticated: true,
+        isLoading: false,
+        mfaRequired: false,
+        mfaToken: null,
+        mfaUser: null,
       });
     } catch (error) {
       set({ isLoading: false });
@@ -77,6 +135,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       refreshToken: null,
       user: null,
       isAuthenticated: false,
+      mfaRequired: false,
+      mfaToken: null,
+      mfaUser: null,
     });
   },
 

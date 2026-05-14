@@ -13,6 +13,8 @@ import {
   LogOut,
   Menu,
   ChevronRight,
+  ClipboardList,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -57,6 +59,16 @@ const NAV_ITEMS = [
     label: "Settings",
     href: "/admin/dashboard/settings",
     icon: Settings,
+  },
+  {
+    label: "Audit Logs",
+    href: "/admin/dashboard/audit-logs",
+    icon: ClipboardList,
+  },
+  {
+    label: "Security",
+    href: "/admin/dashboard/security",
+    icon: ShieldCheck,
   },
 ] as const;
 
