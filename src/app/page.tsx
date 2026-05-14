@@ -416,27 +416,27 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow">
+            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2.5 group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:shadow-blue-500/50 transition-all duration-300 group-hover:scale-105">
                 <Shield className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-foreground">
-                Paliwal<span className="text-blue-600"> Secure</span>
+              <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Paliwal<span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> Secure</span>
               </span>
             </button>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-6 lg:gap-8">
+            <div className="hidden md:flex items-center gap-1 lg:gap-2">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-sm font-medium text-muted-foreground hover:text-blue-600 transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-all duration-200"
                 >
                   {link.label}
                 </button>
@@ -444,7 +444,7 @@ export default function PaliwalSecurePage() {
               {/* WhatsApp button */}
               <button
                 onClick={handleWhatsAppClick}
-                className="text-sm font-medium text-green-600 hover:text-green-700 transition-colors flex items-center gap-1.5"
+                className="px-3 py-2 text-sm font-medium text-green-600 hover:text-green-700 hover:bg-green-50 dark:hover:bg-green-950/30 rounded-lg transition-all duration-200 flex items-center gap-1.5"
                 aria-label="Chat on WhatsApp"
               >
                 <Phone className="w-4 h-4" />
@@ -457,7 +457,7 @@ export default function PaliwalSecurePage() {
               <ThemeToggle />
               <Button
                 onClick={() => setShowOnboarding(true)}
-                className="cta-amber rounded-full text-xs sm:text-sm px-3 sm:px-5 py-1.5 sm:py-2 gap-1.5 font-semibold"
+                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full text-xs sm:text-sm px-3 sm:px-5 py-1.5 sm:py-2 gap-1.5 font-semibold shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300"
               >
                 <span className="hidden sm:inline">Get Started</span>
                 <span className="sm:hidden">Start</span>
@@ -466,7 +466,7 @@ export default function PaliwalSecurePage() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className="md:hidden text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
               >
@@ -483,14 +483,14 @@ export default function PaliwalSecurePage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-border/40 glass-strong overflow-hidden z-50 relative"
+              className="md:hidden border-t border-slate-200/50 dark:border-slate-700/50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl overflow-hidden z-50 relative"
             >
-              <div className="px-4 py-4 space-y-2">
+              <div className="px-4 py-3 space-y-1">
                 {navLinks.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-xl transition-colors min-h-[44px]"
+                    className="flex items-center w-full text-left px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-xl transition-all duration-200 min-h-[44px]"
                   >
                     {item.label}
                   </button>
@@ -500,7 +500,7 @@ export default function PaliwalSecurePage() {
                     setMobileMenuOpen(false);
                     handleWhatsAppClick();
                   }}
-                  className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 rounded-xl transition-colors min-h-[44px] gap-2"
+                  className="flex items-center w-full text-left px-4 py-3 text-sm font-medium text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 rounded-xl transition-all duration-200 min-h-[44px] gap-2"
                 >
                   <Phone className="w-4 h-4" />
                   Chat on WhatsApp
@@ -510,7 +510,7 @@ export default function PaliwalSecurePage() {
                     setMobileMenuOpen(false);
                     setShowOnboarding(true);
                   }}
-                  className="w-full cta-amber rounded-xl font-semibold gap-1.5 mt-2"
+                  className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-semibold gap-1.5 mt-2 shadow-lg shadow-amber-500/25"
                 >
                   Get Started
                   <ArrowRight className="w-4 h-4" />
