@@ -247,7 +247,8 @@ function getInsightStyle(cat: string) {
 // ── Insurer names for trust bar ────────────────────────────────────────────
 const insurerNames = [
   'HDFC ERGO', 'Star Health', 'Acko', 'ICICI Lombard', 'Niva Bupa',
-  'Digit', 'Bajaj Allianz', 'TATA AIG', 'Care Health', 'SBI Life', 'LIC',
+  'Digit', 'Bajaj Allianz', 'TATA AIG', 'Care Health', 'Aditya Birla',
+  'SBI Life', 'LIC',
 ];
 
 // ============================================================================
@@ -376,14 +377,14 @@ export default function PaliwalSecurePage() {
   const currentPlans = getPlansByCategory(activeCategory);
   const currentCategoryInfo = categoryInfo.find((c) => c.id === activeCategory);
 
-  // Nav links
+  // Nav links — InsureGyaan prominently placed
   const navLinks = [
-    { id: 'insuregpt-chat', label: 'InsureGPT' },
-    { id: 'knowledge-base', label: 'InsureGyaan' },
-    { id: 'calculators', label: 'Calculators' },
-    { id: 'features', label: 'Features' },
-    { id: 'products', label: 'Products' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'knowledge-base', label: 'InsureGyaan', icon: BookOpen },
+    { id: 'insuregpt-chat', label: 'InsureGPT', icon: Brain },
+    { id: 'calculators', label: 'Calculators', icon: Calculator },
+    { id: 'products', label: 'Products', icon: Shield },
+    { id: 'features', label: 'Features', icon: Sparkles },
+    { id: 'contact', label: 'Contact', icon: Phone },
   ];
 
   // Category card config
@@ -416,19 +417,31 @@ export default function PaliwalSecurePage() {
               </span>
             </button>
 
-            {/* Desktop Nav with hover underline animation */}
-            <div className="hidden md:flex items-center gap-1 lg:gap-2">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollToSection(link.id)}
-                  className="relative px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all duration-200 group"
-                  aria-label={`Navigate to ${link.label}`}
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full group-hover:w-3/4 transition-all duration-300" />
-                </button>
-              ))}
+            {/* Desktop Nav with icons + hover underline animation */}
+            <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
+              {navLinks.map((link) => {
+                const LinkIcon = link.icon;
+                const isGyaan = link.id === 'knowledge-base';
+                return (
+                  <button
+                    key={link.id}
+                    onClick={() => scrollToSection(link.id)}
+                    className={`relative flex items-center gap-1.5 px-2.5 lg:px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group ${
+                      isGyaan
+                        ? 'text-blue-700 dark:text-blue-300 bg-blue-50/60 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/50 border border-blue-200/60 dark:border-blue-800/40'
+                        : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                    }`}
+                    aria-label={`Navigate to ${link.label}`}
+                  >
+                    <LinkIcon className="w-3.5 h-3.5 shrink-0" />
+                    <span className="hidden lg:inline">{link.label}</span>
+                    <span className="lg:hidden">{link.label === 'InsureGyaan' ? 'Gyaan' : link.label === 'Calculators' ? 'Calc' : link.label === 'Products' ? 'Plans' : link.label}</span>
+                    {!isGyaan && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full group-hover:w-3/4 transition-all duration-300" />
+                    )}
+                  </button>
+                );
+              })}
               {/* WhatsApp quick-link button */}
               <button
                 onClick={handleWhatsAppClick}
@@ -476,15 +489,29 @@ export default function PaliwalSecurePage() {
               className="md:hidden border-t border-white/20 dark:border-slate-700/50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl overflow-hidden z-50 relative"
             >
               <div className="px-4 py-3 space-y-1">
-                {navLinks.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className="flex items-center w-full text-left px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-xl transition-all duration-200 min-h-[44px]"
-                  >
-                    {item.label}
-                  </button>
-                ))}
+                {navLinks.map((item) => {
+                  const ItemIcon = item.icon;
+                  const isGyaan = item.id === 'knowledge-base';
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`flex items-center w-full text-left px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 min-h-[44px] gap-3 ${
+                        isGyaan
+                          ? 'text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800'
+                          : 'text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30'
+                      }`}
+                    >
+                      <ItemIcon className="w-4 h-4 shrink-0" />
+                      {item.label}
+                      {isGyaan && (
+                        <Badge className="ml-auto text-[9px] bg-blue-600 text-white border-0 rounded-full px-1.5 py-0.5">
+                          7 Tabs
+                        </Badge>
+                      )}
+                    </button>
+                  );
+                })}
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);

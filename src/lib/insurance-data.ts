@@ -2380,6 +2380,17 @@ export const insuranceCompanies: InsuranceCompany[] = [
     complaintsData: '20 per 10,000 policies',
     rating: 4.6,
   },
+  {
+    name: 'Aditya Birla Health Insurance',
+    category: 'health',
+    csr2026: 99.41,
+    icr2026: 59.18,
+    solvencyRatio: 1.8,
+    networkHospitals: 10000,
+    features: ['Activ One plan', 'Chronic management program', 'HealthReturns reward', 'Day 1 PED cover (select plans)'],
+    complaintsData: '34.12 per 10,000 policies',
+    rating: 4.5,
+  },
   // Life Insurers
   {
     name: 'HDFC Life Insurance',
@@ -2440,6 +2451,16 @@ export const insuranceCompanies: InsuranceCompany[] = [
     features: ['Sampoorna Raksha', 'Critical illness', 'Accidental disability', 'TATA brand trust'],
     complaintsData: 'Low complaints',
     rating: 4.6,
+  },
+  {
+    name: 'LIC of India',
+    category: 'life',
+    csr2026: 98.52,
+    solvencyRatio: 1.9,
+    premium1crTerm: '₹950/month',
+    features: ['Tech Term plan', 'India\'s most trusted brand', 'Sarkari guarantee', 'Largest claim settlement in India'],
+    complaintsData: 'Moderate complaints',
+    rating: 4.5,
   },
 ];
 
@@ -2780,6 +2801,25 @@ export const marketTrends2026: MarketTrend[] = [
     source: 'Finance Ministry / IRDAI 2025-26',
     year: '2025-26',
   },
+  {
+    id: 'trend-006',
+    title: 'Young India Buying Insurance Online',
+    titleHi: 'युवा भारत ऑनलाइन इंश्योरेंस खरीद रहा है',
+    category: 'consumer-behavior',
+    summary: '72% of new insurance policies in FY26 were bought online. The average buyer age has dropped from 38 to 31 years. WhatsApp-based insurance sales growing 4x year-on-year.',
+    summaryHi: 'FY26 में 72% नई पॉलिसी ऑनलाइन खरीदी गई। खरीदार की औसत उम्र 38 से 31 साल हो गई। WhatsApp पर इंश्योरेंस बिक्री सालाना 4 गुना बढ़ रही है।',
+    data: [
+      '72% new policies bought online in FY26',
+      'Average buyer age: 31 years (down from 38)',
+      'WhatsApp insurance sales: 4x YoY growth',
+      'Tier-2/3 cities driving 60% of new online purchases',
+      'Video-based claims filing growing rapidly',
+    ],
+    impact: 'Digital-first is the future. Choose insurers with strong app/web experience for best service.',
+    impactHi: 'डिजिटल-फर्स्ट भविष्य है। सबसे अच्छी सेवा के लिए मजबूत ऐप/वेब वाले इंश्योरर चुनें।',
+    source: 'IRDAI Annual Report / Digital India Survey 2025',
+    year: '2025-26',
+  },
 ];
 
 // ============================================================================
@@ -2892,6 +2932,21 @@ export const irdaiRegulations2025: IrdaiRegulation[] = [
     userAction: 'Verify your policy covers all day care procedures. If not, you can file a complaint with IRDAI.',
     userActionHi: 'जांचें कि पॉलिसी में सभी डे केयर प्रोसीजर कवर हैं। अगर नहीं, तो IRDAI में शिकायत करें।',
     source: 'IRDAI Guidelines 2024-25',
+  },
+  {
+    id: 'reg-007',
+    title: 'GST on Health Insurance Under Review',
+    titleHi: 'हेल्थ इंश्योरेंस पर GST समीक्षा में',
+    category: 'gst',
+    effectiveDate: 'FY 2025-26 (Proposed)',
+    summary: 'Government is considering reducing GST on retail health insurance from 18% to 5-12%. If approved, this could save ₹2,000-5,000 per year on a typical ₹15,000-30,000 policy.',
+    summaryHi: 'सरकार रिटेल हेल्थ इंश्योरेंस पर GST 18% से घटाकर 5-12% करने पर विचार कर रही है। अगर हुआ तो ₹15,000-30,000 की पॉलिसी पर ₹2,000-5,000/साल की बचत हो सकती है।',
+    beforeChange: 'GST on health insurance: 18%',
+    afterChange: 'Proposed GST: 5-12% for retail health policies',
+    impactLevel: 'high',
+    userAction: 'Wait for GST council announcement before renewing. If GST reduces, your premium could drop 6-13%.',
+    userActionHi: 'रिन्यूअल से पहले GST काउंसिल के ऐलान का इंतजार करें। अगर GST कम हुआ तो प्रीमियम 6-13% कम हो सकता है।',
+    source: 'Finance Ministry / GST Council 2025',
   },
 ];
 

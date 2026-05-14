@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Shield, MessageSquare, Phone, Calculator } from 'lucide-react';
+import { Home, Shield, MessageSquare, Phone, BookOpen } from 'lucide-react';
 
 interface MobileBottomNavProps {
   onNavigate: (sectionId: string) => void;
@@ -10,9 +10,9 @@ interface MobileBottomNavProps {
 
 const navItems = [
   { id: 'hero', label: 'Home', icon: Home },
-  { id: 'products', label: 'Plans', icon: Shield },
+  { id: 'knowledge-base', label: 'Gyaan', icon: BookOpen },
   { id: 'insuregpt-chat', label: 'Chat', icon: MessageSquare },
-  { id: 'calculators', label: 'Calc', icon: Calculator },
+  { id: 'products', label: 'Plans', icon: Shield },
   { id: 'contact', label: 'Contact', icon: Phone },
 ];
 

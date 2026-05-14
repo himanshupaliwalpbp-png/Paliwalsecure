@@ -163,3 +163,35 @@ Stage Summary:
 - EmbeddedChatBot enhanced with 6 UX features (Quick Replies, CSAT, Human Handoff, Explainability, Policyholder.gov.in, Progressive Disclosure)
 - Chat API enhanced with template-based responses and new topic handlers
 - All features working, zero lint errors
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Fix InsureGyaan navigation and verify all data completeness
+
+Work Log:
+- Investigated top navigation bar issue: InsureGyaan link existed but was not prominent and could be lost among 6 nav links
+- Moved InsureGyaan to FIRST position in navLinks array (was second)
+- Added icon support to navLinks: BookOpen for InsureGyaan, Brain for InsureGPT, Calculator, Shield, Sparkles, Phone
+- Updated desktop nav rendering: each link now shows an icon + text, InsureGyaan has highlighted blue background styling with border
+- On medium screens (md but < lg): short labels shown (Gyaan, Calc, Plans)
+- On large screens (lg+): full labels shown
+- Updated mobile menu: each item now shows icon + label, InsureGyaan highlighted with blue background + "7 Tabs" badge
+- Added InsureGyaan (as "Gyaan") to MobileBottomNav — replaced Calculator with BookOpen icon
+- Added missing companies to insurance-data.ts: Aditya Birla Health Insurance (CSR 99.41%, ICR 59.18%) and LIC of India (CSR 98.52%)
+- Added Aditya Birla to insurerNames trust bar in page.tsx
+- Added GST regulation entry (reg-007) with before/after comparison for GST on health insurance
+- Added GST filter option (💰 GST) to IRDAI Rules tab in KnowledgeBaseSection
+- Added consumer-behavior trend entry (trend-006): "Young India Buying Insurance Online" with online purchase stats
+- Added consumer-behavior filter (👥 Consumer) to Market Trends tab in KnowledgeBaseSection
+- Lint check: Zero errors
+- Dev server: Compiles and loads successfully
+
+Stage Summary:
+- InsureGyaan now prominently positioned as first nav item with icon + highlighted styling
+- Mobile bottom nav includes InsureGyaan (Gyaan) for easy access
+- 16 insurance companies now in database (added Aditya Birla + LIC)
+- 7 IRDAI regulations (added GST entry)
+- 6 market trends (added consumer behavior entry)
+- All filters updated to match new data categories
+- Zero lint errors, page loads successfully

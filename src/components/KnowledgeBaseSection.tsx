@@ -745,7 +745,7 @@ export default function KnowledgeBaseSection() {
         <TabsContent value="trends" className="space-y-4">
           {/* Category Filter */}
           <div className="flex gap-1.5 flex-wrap">
-            {(['all', 'premium-hike', 'market-growth', 'tech-shift', 'regulatory'] as TrendCategory[]).map(cat => (
+            {(['all', 'premium-hike', 'market-growth', 'tech-shift', 'regulatory', 'consumer-behavior'] as TrendCategory[]).map(cat => (
               <button
                 key={cat}
                 onClick={() => setTrendCat(cat)}
@@ -760,6 +760,7 @@ export default function KnowledgeBaseSection() {
                 {cat === 'market-growth' && '📊 Market Growth'}
                 {cat === 'tech-shift' && '🤖 Tech Shift'}
                 {cat === 'regulatory' && '⚖️ Regulatory'}
+                {cat === 'consumer-behavior' && '👥 Consumer'}
               </button>
             ))}
           </div>
@@ -836,7 +837,7 @@ export default function KnowledgeBaseSection() {
         <TabsContent value="regulations" className="space-y-4">
           {/* Category Filter */}
           <div className="flex gap-1.5 flex-wrap">
-            {(['all', 'ped', 'moratorium', 'claims', 'consumer-protection', 'portability'] as RegulationCategory[]).map(cat => (
+            {(['all', 'ped', 'moratorium', 'claims', 'gst', 'consumer-protection', 'portability'] as RegulationCategory[]).map(cat => (
               <button
                 key={cat}
                 onClick={() => setRegulationCat(cat)}
@@ -850,6 +851,7 @@ export default function KnowledgeBaseSection() {
                 {cat === 'ped' && '🏥 PED'}
                 {cat === 'moratorium' && '⏳ Moratorium'}
                 {cat === 'claims' && '📋 Claims'}
+                {cat === 'gst' && '💰 GST'}
                 {cat === 'consumer-protection' && '🛡️ Consumer'}
                 {cat === 'portability' && '🔄 Portability'}
               </button>
