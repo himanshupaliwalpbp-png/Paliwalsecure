@@ -1016,8 +1016,8 @@ export default function PaliwalSecurePage() {
               const IconComp = style.icon;
               return (
                 <motion.div key={insight.id} variants={staggerItem}>
-                  <Card className="glass-dark hover:border-blue-500/30 transition-all duration-300 group h-full rounded-2xl">
-                    <CardContent className="pt-4 pb-4 px-3 sm:pt-5 sm:pb-5 sm:px-4">
+                  <div className="glass-dark hover:border-blue-500/30 transition-all duration-300 group h-full rounded-2xl">
+                    <div className="pt-4 pb-4 px-3 sm:pt-5 sm:pb-5 sm:px-4">
                       <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
                         <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${style.bg} flex items-center justify-center shrink-0`}>
                           <IconComp className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${style.color}`} />
@@ -1035,8 +1035,8 @@ export default function PaliwalSecurePage() {
                       <p className="text-[9px] sm:text-[10px] text-slate-500 mt-1.5 sm:mt-2 truncate">
                         {insight.source}
                       </p>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}
