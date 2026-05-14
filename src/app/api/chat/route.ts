@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { buildRAGContext, getRecommendations, checkIRDAICompliance } from '@/lib/scoring-engine';
-import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER, allInsurancePlans } from '@/lib/insurance-data';
+import {
+  type UserProfile, IRDAI_MANDATORY_DISCLAIMER, allInsurancePlans,
+  responseTemplates, marketTrends2026, irdaiRegulations2025, claimGuides,
+} from '@/lib/insurance-data';
 
 export const maxDuration = 30;
 
@@ -18,6 +21,20 @@ export async function POST(request: NextRequest) {
 
     // Check if user is asking for recommendations
     const isRecommendationRequest = /recommend|suggest|which.*plan|which.*insurance|suitable|batao|sujhav|chuno/i.test(message);
+
+    // Check for high-pressure scenario templates
+    let templateResponse: string | null = null;
+    for (const tpl of responseTemplates) {
+      try {
+        const regex = typeof tpl.trigger === 'string' ? new RegExp(tpl.trigger, 'i') : tpl.trigger;
+        if (regex.test(message)) {
+          templateResponse = tpl.response;
+          break;
+        }
+      } catch {
+        // Skip invalid regex
+      }
+    }
 
     let recommendations = null;
     if (isRecommendationRequest && profile) {
@@ -98,7 +115,12 @@ export async function POST(request: NextRequest) {
 
     // Fallback to smart static responses if LLM fails or times out
     if (!aiResponse) {
-      aiResponse = generateFallbackResponse(message, recommendations);
+      // Check for template response first (high-pressure scenarios)
+      if (templateResponse) {
+        aiResponse = templateResponse;
+      } else {
+        aiResponse = generateFallbackResponse(message, recommendations);
+      }
     }
 
     // IRDAI Compliance Check
@@ -146,7 +168,7 @@ function generateFallbackResponse(
 
   // Greeting
   if (/hi|hello|hey|namaste|namaskar/i.test(lowerMsg)) {
-    return 'Namaste! 👋 Welcome to **InsureGPT** — your AI insurance advisor by Paliwal Secure! I can help you understand insurance, compare plans, and find the right coverage for you.\n\nYou can ask me about:\n• Health Insurance\n• Life/Term Insurance\n• Motor Insurance\n• Travel Insurance\n• Tax benefits\n• Claim process\n\nWhat would you like to know?';
+    return 'Namaste! 👋 Welcome to **InsureGPT** — your AI insurance advisor by Paliwal Secure! I can help you understand insurance, compare plans, and find the right coverage for you.\n\nYou can ask me about:\n• Health Insurance\n• Life/Term Insurance\n• Motor Insurance\n• Travel Insurance\n• Tax benefits\n• Claim process\n• IRDAI latest rules\n• Market trends 2026\n\n📖 Apni saari policies ek jagah dekhein: [policyholder.gov.in](https://policyholder.gov.in)\n\nWhat would you like to know?';
   }
 
   // Health insurance questions
@@ -176,7 +198,26 @@ function generateFallbackResponse(
 
   // Claim process
   if (/claim|kaise.*file|claim.*process|reimbursement|cashless.*claim/i.test(lowerMsg)) {
-    return `Here's how to file an insurance claim:\n\n**Cashless Claims (at network hospitals):**\n1. Show your health card at the hospital\n2. Hospital sends pre-authorization request to TPA/insurer\n3. Get approval (usually within 2-4 hours)\n4. Treatment happens — bill settled directly\n5. Pay only non-covered items at discharge\n\n**Reimbursement Claims:**\n1. Pay the hospital bill yourself\n2. Collect all original documents (bills, reports, discharge summary)\n3. Submit claim form + documents to insurer within 15-30 days\n4. Insurer processes and transfers amount to your bank\n\n**Emergency Claims:**\n• Notify insurer within 24-48 hours of admission\n• Cashless approval can be taken within 24 hours of admission\n\n**Documents needed:**\n• Claim form (filled)\n• Original bills and receipts\n• Discharge summary\n• Doctor's prescription and reports\n• ID proof and policy copy\n\nNeed help with a specific claim question?`;
+    return `Yeh raha step-by-step claim guide:\n\n**📋 Cashless Claims (Network Hospital):**\n1. Network hospital mein jaayein — health card + ID dikhayein\n2. Hospital pre-auth request bhejega — **IRDAI rule: 1 hour mein approval** aana chahiye\n3. Treatment start — bill directly insurer pay karega\n4. Discharge — **3 hours mein** hona chahiye (IRDAI mandate)\n5. Sirf non-covered items ka payment karein\n\n**💰 Reimbursement Claims:**\n1. Insurer ko 24-48 ghante mein inform karein\n2. Hospital bill khud pay karein — original bills save karein\n3. 15-30 din mein claim form + documents submit karein\n4. 15-30 din mein amount bank mein transfer hoga\n\n**📄 Zaroori Documents:**\n• Discharge Summary (sabse important!)\n• Original bills & receipts\n• Doctor's prescription & reports\n• Claim form (filled & signed)\n• ID proof + policy copy\n\n💡 **Important:** Cashless claim 1 ghante mein approve hona chahiye — agar nahi hua toh IRDAI portal (igms.irda.gov.in) pe complaint karein!\n\nKya aap kisi specific claim ke baare mein poochna chahte hain?`;
+  }
+
+  // IRDAI regulations
+  if (/irdai|regulation|rule|guideline|नियम|अधिनियम/i.test(lowerMsg)) {
+    const latestRules = irdaiRegulations2025.slice(0, 4);
+    let response = `IRDAI ke latest 2025-26 guidelines jo aapko jaanna chahiye:\n\n`;
+    latestRules.forEach((reg, i) => {
+      response += `**${i + 1}. ${reg.title}** (Effective: ${reg.effectiveDate})\n`;
+      response += `   ❌ Pehle: ${reg.beforeChange}\n`;
+      response += `   ✅ Ab: ${reg.afterChange}\n`;
+      response += `   🎯 Impact: ${reg.impactLevel.toUpperCase()}\n\n`;
+    });
+    response += `💡 **Aapko kya karna chahiye:** Check your current policy — agar old rules ke according hai, toh insurer se update maangein.\n\nKisi specific rule ke baare mein aur detail chahiye?`;
+    return response;
+  }
+
+  // Market trends
+  if (/market.*trend|premium.*badh|industry.*growth|बाज़ार|ट्रेंड|भविष्य/i.test(lowerMsg)) {
+    return `📈 2025-26 ke key market trends:\n\n**1. Premium 10-15% badhne wala hai** (12-18 mahine mein)\n• Reason: Medical inflation 14-15%, claim frequency 22% increase\n• Tip: Abhi lock karein — current premium pe policy lein\n\n**2. Health insurance ab 41% of non-life industry**\n• FY20 mein 29% tha → FY26 mein 41%\n• Motor insurance ka share girkar 28% ho gaya\n• Standalone health insurers ki growth: 19% (sabse tez)\n\n**3. Non-life industry: ₹3.36 Lakh Crore**\n• FY26 mein gross direct premium\n• Health sabse bada segment ban gaya\n\n**4. AI & InsurTech Revolution**\n• India = 2nd largest InsurTech market in Asia-Pacific\n• Cashless approval: 1 hour (IRDAI mandate)\n• Discharge: 3 hours\n• Digital-first insurers (Acko, Digit) 3x faster growing\n\n**5. GST Reduction Expected**\n• Current: 18% | Proposed: 5-12% for retail health\n• Potential savings: ₹2,000-5,000/year\n\n💡 Insaaf ke liye: policyholder.gov.in se apni saari policies download karein!`;
   }
 
   // Waiting period

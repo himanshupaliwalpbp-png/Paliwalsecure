@@ -1,11 +1,28 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
-import { Send, Mic, MicOff, Bot, User, Sparkles, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Send, Mic, MicOff, Bot, User, Sparkles, ShieldCheck,
+  Phone, MessageCircle, Mail, Clock, ChevronDown, ThumbsUp, ThumbsDown,
+  Headset, ExternalLink, ClipboardList,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion';
 import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
 
 // ---------------------------------------------------------------------------
@@ -13,13 +30,19 @@ import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-da
 // ---------------------------------------------------------------------------
 interface EmbeddedChatBotProps {
   profile?: UserProfile | null;
+  onOnboardingTrigger?: () => void;
 }
+
+type CSATState = 'neutral' | 'positive' | 'negative';
 
 interface ChatMessage {
   id: string;
   role: 'user' | 'bot';
   content: string;
   timestamp: Date;
+  csatFeedback: CSATState;
+  /** True if the bot message contains a plan recommendation */
+  isRecommendation: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -62,13 +85,38 @@ function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-const QUICK_SUGGESTIONS = [
-  'Health insurance kya hai?',
-  'Recommended plan batao',
-  'Claim kaise file karein?',
-  '80D mein tax benefits?',
-  'Term insurance kya hota hai?',
+// ---------------------------------------------------------------------------
+// Quick Reply Config — contextual suggestions
+// ---------------------------------------------------------------------------
+const INITIAL_QUICK_REPLIES = [
+  'Health Insurance',
+  'Term Plan',
+  'Claim Process',
+  'Tax Benefits',
+  'Compare Plans',
 ];
+
+const FOLLOWUP_MAP: Record<string, string[]> = {
+  health: ['Family Floater?', 'Cashless Hospitals', 'Waiting Period', 'Pre-existing Disease', 'Top-up Plans'],
+  term: ['Term vs Whole Life', 'Critical Illness Rider', 'Premium Calculator', 'Accidental Death Benefit'],
+  claim: ['Cashless Claim', 'Reimbursement Claim', 'Documents Required', 'Claim Rejection Reasons'],
+  tax: ['80D Benefits', '80C Benefits', 'HUF Tax Saving', 'NPS + Insurance'],
+  compare: ['Health vs Super Top-up', 'Term vs Endowment', 'Individual vs Floater', 'Best CSR Plans'],
+  life: ['Term Insurance', 'Endowment Plans', 'ULIPs', 'Pension Plans'],
+  motor: ['Comprehensive vs Third-party', 'Zero Depreciation', 'No Claim Bonus', 'IDV Calculator'],
+};
+
+function getFollowUpReplies(userMessage: string): string[] {
+  const lower = userMessage.toLowerCase();
+  if (/health|medical|hospital|disease|illness|surgery/i.test(lower)) return FOLLOWUP_MAP.health;
+  if (/term|life|death|cover|sum assured/i.test(lower)) return FOLLOWUP_MAP.term;
+  if (/claim|reimburse|cashless|settle/i.test(lower)) return FOLLOWUP_MAP.claim;
+  if (/tax|80d|80c|deduct|save/i.test(lower)) return FOLLOWUP_MAP.tax;
+  if (/compare|versus|vs|difference|better/i.test(lower)) return FOLLOWUP_MAP.compare;
+  if (/jivan|endowment|pension|ulip|child/i.test(lower)) return FOLLOWUP_MAP.life;
+  if (/car|bike|motor|vehicle|auto/i.test(lower)) return FOLLOWUP_MAP.motor;
+  return INITIAL_QUICK_REPLIES;
+}
 
 /**
  * Lightweight markdown-like renderer for bot messages.
@@ -118,8 +166,8 @@ function renderBotContent(content: string): React.ReactNode[] {
 
 function renderInlineMarkdown(text: string): React.ReactNode[] {
   const parts: React.ReactNode[] = [];
-  // Pattern: **bold**, *italic*, `code`
-  const regex = /(\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`)/g;
+  // Pattern: [link text](url), **bold**, *italic*, `code`
+  const regex = /(\[([^\]]+)\]\(([^)]+)\)|\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`)/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -129,17 +177,31 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
       parts.push(<span key={`t-${lastIndex}`}>{text.slice(lastIndex, match.index)}</span>);
     }
 
-    if (match[2]) {
-      // **bold**
-      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-indigo-700 dark:text-indigo-300">{match[2]}</strong>);
-    } else if (match[3]) {
-      // *italic*
-      parts.push(<em key={`i-${match.index}`} className="text-slate-500 dark:text-slate-400">{match[3]}</em>);
+    if (match[2] && match[3]) {
+      // [link text](url)
+      parts.push(
+        <a
+          key={`a-${match.index}`}
+          href={match[3]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 dark:hover:text-indigo-300 inline-flex items-center gap-0.5"
+        >
+          {match[2]}
+          <ExternalLink className="w-2.5 h-2.5 inline" />
+        </a>
+      );
     } else if (match[4]) {
+      // **bold**
+      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-indigo-700 dark:text-indigo-300">{match[4]}</strong>);
+    } else if (match[5]) {
+      // *italic*
+      parts.push(<em key={`i-${match.index}`} className="text-slate-500 dark:text-slate-400">{match[5]}</em>);
+    } else if (match[6]) {
       // `code`
       parts.push(
         <code key={`c-${match.index}`} className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono">
-          {match[4]}
+          {match[6]}
         </code>
       );
     }
@@ -153,6 +215,17 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
   }
 
   return parts;
+}
+
+// ---------------------------------------------------------------------------
+// Detect if a bot message contains a recommendation
+// ---------------------------------------------------------------------------
+function isRecommendationMessage(content: string): boolean {
+  const lower = content.toLowerCase();
+  return (
+    /recommend|suggest|best plan|top plan|yeh plan|aapke liye|suitable|ideal choice/i.test(lower) ||
+    /claim settlement ratio|csr|premium.*₹|network hospital/i.test(lower)
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -188,15 +261,219 @@ function TypingIndicator() {
 }
 
 // ---------------------------------------------------------------------------
+// CSAT Feedback Component — small thumbs up/down
+// ---------------------------------------------------------------------------
+function CSATFeedback({
+  feedback,
+  onFeedback,
+}: {
+  feedback: CSATState;
+  onFeedback: (state: CSATState) => void;
+}) {
+  if (feedback !== 'neutral') {
+    return (
+      <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 inline-block">
+        Shukriya! 🙏
+      </span>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-2 mt-1.5">
+      <span className="text-[10px] text-slate-400 dark:text-slate-500">Kya yeh helpful tha?</span>
+      <button
+        onClick={() => onFeedback('positive')}
+        className="p-0.5 rounded hover:bg-green-50 dark:hover:bg-green-950/30 transition-colors group"
+        aria-label="Helpful"
+      >
+        <ThumbsUp className="w-3 h-3 text-slate-300 dark:text-slate-600 group-hover:text-green-500 transition-colors" />
+      </button>
+      <button
+        onClick={() => onFeedback('negative')}
+        className="p-0.5 rounded hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors group"
+        aria-label="Not helpful"
+      >
+        <ThumbsDown className="w-3 h-3 text-slate-300 dark:text-slate-600 group-hover:text-red-500 transition-colors" />
+      </button>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Explainability Component — "Kyun yeh plan?" collapsible
+// ---------------------------------------------------------------------------
+function ExplainabilitySection() {
+  return (
+    <Accordion type="single" collapsible className="mt-2 w-full">
+      <AccordionItem value="explainability" className="border-b-0">
+        <AccordionTrigger className="py-1.5 text-[11px] text-indigo-500 hover:no-underline hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 gap-1">
+          <span className="flex items-center gap-1">
+            <ChevronDown className="w-3 h-3" />
+            Kyun yeh plan?
+          </span>
+        </AccordionTrigger>
+        <AccordionContent className="text-[11px] text-slate-500 dark:text-slate-400 pb-1">
+          <div className="space-y-1.5 pl-1">
+            <div className="flex items-center justify-between">
+              <span>Claim Settlement Ratio (CSR)</span>
+              <span className="font-medium text-indigo-600 dark:text-indigo-400">40% weight</span>
+            </div>
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1">
+              <div className="bg-indigo-500 h-1 rounded-full" style={{ width: '40%' }} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Premium Affordability</span>
+              <span className="font-medium text-emerald-600 dark:text-emerald-400">30% weight</span>
+            </div>
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1">
+              <div className="bg-emerald-500 h-1 rounded-full" style={{ width: '30%' }} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Network Hospitals</span>
+              <span className="font-medium text-amber-600 dark:text-amber-400">20% weight</span>
+            </div>
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1">
+              <div className="bg-amber-500 h-1 rounded-full" style={{ width: '20%' }} />
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Solvency Ratio</span>
+              <span className="font-medium text-rose-600 dark:text-rose-400">10% weight</span>
+            </div>
+            <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1">
+              <div className="bg-rose-500 h-1 rounded-full" style={{ width: '10%' }} />
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Human Handoff Dialog
+// ---------------------------------------------------------------------------
+function HumanHandoffDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-lg">
+            <Headset className="w-5 h-5 text-indigo-600" />
+            Expert se Baat Karein
+          </DialogTitle>
+          <DialogDescription>
+            Hamari insurance experts aapki madad ke liye ready hain.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-3 mt-2">
+          {/* Live Agent */}
+          <a
+            href="tel:+919999999999"
+            className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 border border-indigo-100 dark:border-indigo-800/40 hover:shadow-md transition-all group"
+          >
+            <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center shrink-0 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-800/50 transition-colors">
+              <Phone className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Live Agent</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">+91-9999-999-999</p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
+          </a>
+
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/919999999999"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-100 dark:border-green-800/40 hover:shadow-md transition-all group"
+          >
+            <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center shrink-0 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors">
+              <MessageCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">WhatsApp</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">wa.me/919999999999</p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
+          </a>
+
+          {/* Email */}
+          <a
+            href="mailto:support@paliwalsecure.com"
+            className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-100 dark:border-amber-800/40 hover:shadow-md transition-all group"
+          >
+            <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center shrink-0 group-hover:bg-amber-200 dark:group-hover:bg-amber-800/50 transition-colors">
+              <Mail className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Email</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">support@paliwalsecure.com</p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
+          </a>
+        </div>
+
+        {/* Availability Note */}
+        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 mt-1">
+          <Clock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Hamari team <strong className="text-slate-700 dark:text-slate-300">Mon-Sat, 9 AM - 7 PM</strong> available hai
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Progressive Disclosure Suggestion
+// ---------------------------------------------------------------------------
+function ProgressiveDisclosureSuggestion({
+  profile,
+  onOnboardingTrigger,
+}: {
+  profile?: UserProfile | null;
+  onOnboardingTrigger?: () => void;
+}) {
+  if (profile) return null;
+
+  const handleClick = () => {
+    if (onOnboardingTrigger) {
+      onOnboardingTrigger();
+    }
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-dashed border-indigo-200 dark:border-indigo-800/50 bg-indigo-50/50 dark:bg-indigo-950/20 text-[11px] text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-950/30 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all cursor-pointer group mt-1"
+    >
+      <ClipboardList className="w-3 h-3 shrink-0" />
+      <span>Personalized sujhav ke liye apna profile banaayein (2 min)</span>
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // EmbeddedChatBot Component — Premium Design
 // Full-width, prominent, and responsive
 // ---------------------------------------------------------------------------
-export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
+export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: EmbeddedChatBotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
+  const [showHandoffDialog, setShowHandoffDialog] = useState(false);
+  const [currentQuickReplies, setCurrentQuickReplies] = useState<string[]>(INITIAL_QUICK_REPLIES);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -215,8 +492,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   useEffect(() => {
     if (messages.length === 0) {
       const greeting = profile
-        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can see you've shared your profile details. How can I help you today?\n\n_Powered by Himanshu Paliwal_`
-        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n_Powered by Himanshu Paliwal_`;
+        ? `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can see you've shared your profile details. How can I help you today?\n\n📖 Apni saari policies ek jagah dekhein: [policyholder.gov.in](https://policyholder.gov.in)\n\n_Powered by Himanshu Paliwal_`
+        : `Namaste! 👋 Welcome to **InsureGPT**, your AI insurance advisor by Paliwal Secure. I can help you understand insurance plans, compare options, and find the right coverage for you. How can I help?\n\n📖 Apni saari policies ek jagah dekhein: [policyholder.gov.in](https://policyholder.gov.in)\n\n_Powered by Himanshu Paliwal_`;
 
       setMessages([
         {
@@ -224,6 +501,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           role: 'bot',
           content: greeting,
           timestamp: new Date(),
+          csatFeedback: 'neutral',
+          isRecommendation: false,
         },
       ]);
     }
@@ -233,6 +512,17 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  // ---------------------------------------------------------------------------
+  // CSAT feedback handler
+  // ---------------------------------------------------------------------------
+  const handleCSATFeedback = useCallback((messageId: string, feedback: CSATState) => {
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === messageId ? { ...msg, csatFeedback: feedback } : msg
+      )
+    );
+  }, []);
 
   // ---------------------------------------------------------------------------
   // Send message
@@ -246,11 +536,17 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
         role: 'user',
         content: text.trim(),
         timestamp: new Date(),
+        csatFeedback: 'neutral',
+        isRecommendation: false,
       };
 
       setMessages((prev) => [...prev, userMessage]);
       setInputValue('');
       setIsLoading(true);
+
+      // Update quick replies based on what the user asked
+      const newReplies = getFollowUpReplies(text);
+      setCurrentQuickReplies(newReplies);
 
       try {
         const history = messages.map((m) => ({
@@ -276,6 +572,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
             role: 'bot',
             content: data.response,
             timestamp: new Date(),
+            csatFeedback: 'neutral',
+            isRecommendation: isRecommendationMessage(data.response),
           };
           setMessages((prev) => [...prev, botMessage]);
         } else {
@@ -285,6 +583,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
             content:
               "Maafi chahunga, main aapka sawaal process nahi kar paya. Kripya dobara try karein ya apna sawaal alag tarike se poochiye.",
             timestamp: new Date(),
+            csatFeedback: 'neutral',
+            isRecommendation: false,
           };
           setMessages((prev) => [...prev, errorMessage]);
         }
@@ -295,6 +595,8 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           content:
             "Abhi connection mein dikkat aa rahi hai. Apna internet check karein aur dobara try karein.",
           timestamp: new Date(),
+          csatFeedback: 'neutral',
+          isRecommendation: false,
         };
         setMessages((prev) => [...prev, errorMessage]);
       } finally {
@@ -355,7 +657,7 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
   }, [isRecording, speechSupported]);
 
   // ---------------------------------------------------------------------------
-  // Quick suggestion click
+  // Quick reply click
   // ---------------------------------------------------------------------------
   const handleSuggestion = (suggestion: string) => {
     sendMessage(suggestion);
@@ -391,6 +693,19 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           </div>
         </div>
         <div className="flex items-center gap-2 relative z-10">
+          {/* Human Handoff Button */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowHandoffDialog(true)}
+            className="h-8 gap-1.5 bg-white/15 hover:bg-white/25 text-white border-0 rounded-full px-3 text-xs font-medium transition-all"
+            aria-label="Talk to an expert"
+          >
+            <Headset className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Expert se Baat Karein</span>
+            <span className="sm:hidden">Expert</span>
+          </Button>
           {profile && (
             <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs hidden sm:inline-flex">
               Personalized
@@ -440,7 +755,21 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
                 }`}
               >
                 {msg.role === 'bot' ? (
-                  <div className="space-y-1">{renderBotContent(msg.content)}</div>
+                  <div>
+                    <div className="space-y-1">{renderBotContent(msg.content)}</div>
+                    {/* Explainability Section for recommendations */}
+                    {msg.isRecommendation && <ExplainabilitySection />}
+                    {/* CSAT Feedback */}
+                    <CSATFeedback
+                      feedback={msg.csatFeedback}
+                      onFeedback={(state) => handleCSATFeedback(msg.id, state)}
+                    />
+                    {/* Progressive Disclosure Suggestion */}
+                    <ProgressiveDisclosureSuggestion
+                      profile={profile}
+                      onOnboardingTrigger={onOnboardingTrigger}
+                    />
+                  </div>
                 ) : (
                   <p>{msg.content}</p>
                 )}
@@ -465,23 +794,36 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
         </div>
       </div>
 
-      {/* Quick Suggestions — Pill-shaped with hover glow */}
-      {messages.length <= 2 && !isLoading && (
-        <div className="px-4 sm:px-6 pb-3 shrink-0 border-t border-slate-100 dark:border-slate-800 pt-3">
-          <div className="flex items-center gap-1.5 mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-            <p className="text-xs text-slate-500 font-medium">Try asking:</p>
+      {/* Quick Reply Buttons — contextual pill buttons with gradient border */}
+      {!isLoading && messages.length >= 1 && (
+        <div className="px-4 sm:px-6 pb-2 shrink-0">
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <Sparkles className="w-3 h-3 text-indigo-500" />
+            <p className="text-[10px] text-slate-400 font-medium">Quick Replies</p>
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {QUICK_SUGGESTIONS.map((suggestion) => (
-              <button
-                key={suggestion}
-                onClick={() => handleSuggestion(suggestion)}
-                className="px-3.5 py-1.5 text-xs rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md hover:shadow-blue-500/10 transition-all cursor-pointer whitespace-nowrap min-h-[32px]"
-              >
-                {suggestion}
-              </button>
-            ))}
+          <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
+            <AnimatePresence mode="popLayout">
+              {currentQuickReplies.map((reply) => (
+                <motion.button
+                  key={reply}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => handleSuggestion(reply)}
+                  className="px-3 py-1.5 text-xs rounded-full whitespace-nowrap min-h-[32px] cursor-pointer transition-all
+                    bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30
+                    border border-indigo-200/60 dark:border-indigo-800/40
+                    text-indigo-700 dark:text-indigo-300
+                    hover:from-indigo-100 hover:to-blue-100 dark:hover:from-indigo-900/40 dark:hover:to-blue-900/40
+                    hover:border-indigo-300 dark:hover:border-indigo-700
+                    hover:shadow-md hover:shadow-indigo-500/10
+                    shrink-0"
+                >
+                  {reply}
+                </motion.button>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
       )}
@@ -549,6 +891,12 @@ export default function EmbeddedChatBot({ profile }: EmbeddedChatBotProps) {
           <span className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
         </div>
       </div>
+
+      {/* Human Handoff Dialog */}
+      <HumanHandoffDialog
+        open={showHandoffDialog}
+        onOpenChange={setShowHandoffDialog}
+      />
     </div>
   );
 }

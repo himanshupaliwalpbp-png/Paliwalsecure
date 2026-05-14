@@ -6,6 +6,7 @@ import {
   Search, BookOpen, AlertTriangle, ChevronRight, ArrowUpDown,
   ArrowUp, ArrowDown, CheckCircle2, XCircle, Star, Clock,
   Shield, Heart, Car, Info, Sparkles, TrendingUp, Zap,
+  ArrowRight, FileText, AlertCircle, CircleDot,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -19,6 +20,7 @@ import {
 import {
   policyGlossary, blogArticles, mythBusters,
   insuranceCompanies, diseaseSpecificPlans, marketComparisons,
+  marketTrends2026, irdaiRegulations2025, claimGuides,
 } from '@/lib/insurance-data';
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -27,6 +29,9 @@ type MythCategory = 'all' | 'health' | 'life' | 'motor' | 'general';
 type CompareCategory = 'all' | 'health' | 'life';
 type SortKey = 'name' | 'csr' | 'icr' | 'solvency' | 'rating';
 type SortDir = 'asc' | 'desc';
+type TrendCategory = 'all' | 'premium-hike' | 'market-growth' | 'tech-shift' | 'regulatory';
+type RegulationCategory = 'all' | 'ped' | 'moratorium' | 'claims' | 'consumer-protection' | 'portability';
+type ClaimType = 'all' | 'cashless' | 'reimbursement' | 'motor';
 
 // ── Color helpers ─────────────────────────────────────────────────────────
 function getGlossaryCatStyle(cat: string) {
@@ -74,6 +79,47 @@ function getMythCatIcon(cat: string) {
   }
 }
 
+function getTrendCategoryColor(cat: string) {
+  switch (cat) {
+    case 'premium-hike': return 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800';
+    case 'market-growth': return 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800';
+    case 'tech-shift': return 'bg-violet-50 text-violet-700 border-violet-200 dark:bg-violet-950/40 dark:text-violet-300 dark:border-violet-800';
+    case 'regulatory': return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800';
+    case 'consumer-behavior': return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800';
+    default: return 'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700';
+  }
+}
+
+function getTrendCategoryDotColor(cat: string) {
+  switch (cat) {
+    case 'premium-hike': return 'bg-rose-500';
+    case 'market-growth': return 'bg-blue-500';
+    case 'tech-shift': return 'bg-violet-500';
+    case 'regulatory': return 'bg-amber-500';
+    case 'consumer-behavior': return 'bg-emerald-500';
+    default: return 'bg-slate-500';
+  }
+}
+
+function getImpactLevelStyle(level: string) {
+  switch (level) {
+    case 'critical': return 'bg-red-100 text-red-700 border-red-300 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800';
+    case 'high': return 'bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800';
+    case 'medium': return 'bg-slate-100 text-slate-600 border-slate-300 dark:bg-slate-800/40 dark:text-slate-400 dark:border-slate-700';
+    default: return 'bg-slate-100 text-slate-600 border-slate-300 dark:bg-slate-800/40 dark:text-slate-400 dark:border-slate-700';
+  }
+}
+
+function getClaimTypeColor(type: string) {
+  switch (type) {
+    case 'cashless': return 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300';
+    case 'reimbursement': return 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300';
+    case 'motor': return 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300';
+    case 'travel': return 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300';
+    default: return 'bg-slate-50 text-slate-700 dark:bg-slate-800/40 dark:text-slate-300';
+  }
+}
+
 // ── Sort icon component ──────────────────────────────────────────────────
 function SortIcon({ column, sortKey, sortDir }: { column: SortKey; sortKey: SortKey; sortDir: SortDir }) {
   if (sortKey !== column) return <ArrowUpDown className="w-3.5 h-3.5 opacity-40" />;
@@ -99,6 +145,16 @@ export default function KnowledgeBaseSection() {
   const [compareCat, setCompareCat] = useState<CompareCategory>('all');
   const [sortKey, setSortKey] = useState<SortKey>('csr');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
+
+  // Market Trends state
+  const [trendCat, setTrendCat] = useState<TrendCategory>('all');
+
+  // IRDAI Regulations state
+  const [regulationCat, setRegulationCat] = useState<RegulationCategory>('all');
+
+  // Claim Guide state
+  const [claimType, setClaimType] = useState<ClaimType>('all');
+  const [expandedClaim, setExpandedClaim] = useState<string | null>(null);
 
   // ── Filtered data ──────────────────────────────────────────────────────
   const filteredGlossary = useMemo(() => {
@@ -147,6 +203,21 @@ export default function KnowledgeBaseSection() {
     return data;
   }, [compareCat, sortKey, sortDir]);
 
+  const filteredTrends = useMemo(() => {
+    if (trendCat === 'all') return marketTrends2026;
+    return marketTrends2026.filter(t => t.category === trendCat);
+  }, [trendCat]);
+
+  const filteredRegulations = useMemo(() => {
+    if (regulationCat === 'all') return irdaiRegulations2025;
+    return irdaiRegulations2025.filter(r => r.category === regulationCat);
+  }, [regulationCat]);
+
+  const filteredClaims = useMemo(() => {
+    if (claimType === 'all') return claimGuides;
+    return claimGuides.filter(c => c.type === claimType);
+  }, [claimType]);
+
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
       setSortDir(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -161,6 +232,9 @@ export default function KnowledgeBaseSection() {
     { value: 'articles', label: 'Articles', icon: Sparkles, count: blogArticles.length },
     { value: 'myths', label: 'Myth Busters', icon: AlertTriangle, count: mythBusters.length },
     { value: 'compare', label: 'Compare', icon: TrendingUp, count: insuranceCompanies.length },
+    { value: 'trends', label: 'Market Trends', icon: TrendingUp, count: marketTrends2026.length },
+    { value: 'regulations', label: 'IRDAI Rules', icon: Shield, count: irdaiRegulations2025.length },
+    { value: 'claims', label: 'Claim Guide', icon: Clock, count: claimGuides.length },
   ];
 
   return (
@@ -663,6 +737,406 @@ export default function KnowledgeBaseSection() {
             <Info className="w-3 h-3" />
             Source: IRDAI Annual Report 2025-26 | CSR = Claim Settlement Ratio | ICR = Incurred Claim Ratio | Solvency min. 1.5 (IRDAI)
           </p>
+        </TabsContent>
+
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        {/* MARKET TRENDS TAB                                                  */}
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        <TabsContent value="trends" className="space-y-4">
+          {/* Category Filter */}
+          <div className="flex gap-1.5 flex-wrap">
+            {(['all', 'premium-hike', 'market-growth', 'tech-shift', 'regulatory'] as TrendCategory[]).map(cat => (
+              <button
+                key={cat}
+                onClick={() => setTrendCat(cat)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  trendCat === cat
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                    : 'bg-card border border-border text-muted-foreground hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:text-blue-600'
+                }`}
+              >
+                {cat === 'all' && 'सभी'}
+                {cat === 'premium-hike' && '📈 Premium Hike'}
+                {cat === 'market-growth' && '📊 Market Growth'}
+                {cat === 'tech-shift' && '🤖 Tech Shift'}
+                {cat === 'regulatory' && '⚖️ Regulatory'}
+              </button>
+            ))}
+          </div>
+
+          <p className="text-xs text-muted-foreground">
+            {filteredTrends.length} trends {trendCat !== 'all' && `in ${trendCat.replace('-', ' ')}`}
+          </p>
+
+          {/* Trend Cards */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            {filteredTrends.map((trend, i) => (
+              <motion.div
+                key={trend.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(i * 0.1, 0.5) }}
+                whileHover={{ y: -4 }}
+                className="card-premium rounded-2xl p-5 bg-card border border-border/50 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300"
+              >
+                {/* Category Badge */}
+                <div className="flex items-center justify-between mb-3">
+                  <Badge className={`text-[10px] border ${getTrendCategoryColor(trend.category)}`}>
+                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${getTrendCategoryDotColor(trend.category)}`} />
+                    {trend.category.replace('-', ' ')}
+                  </Badge>
+                  <span className="text-[10px] text-muted-foreground font-medium">{trend.year}</span>
+                </div>
+
+                {/* Title */}
+                <h4 className="font-bold text-foreground text-sm mb-1 leading-snug">{trend.title}</h4>
+                <p className="text-xs text-blue-600 dark:text-blue-400 mb-3">{trend.titleHi}</p>
+
+                {/* Summary (Hindi) */}
+                <p className="text-xs text-muted-foreground leading-relaxed mb-3">{trend.summaryHi}</p>
+
+                {/* Data Points */}
+                {trend.data.length > 0 && (
+                  <div className="space-y-1.5 mb-3">
+                    {trend.data.map((point, di) => (
+                      <div key={di} className="flex items-start gap-2">
+                        <div className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${getTrendCategoryDotColor(trend.category)}`} />
+                        <p className="text-[11px] text-muted-foreground">{point}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Impact */}
+                <div className="p-3 bg-amber-50/50 dark:bg-amber-950/20 rounded-xl border border-amber-100 dark:border-amber-900/30 mb-2">
+                  <p className="text-[10px] font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wider mb-1">प्रभाव</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{trend.impactHi}</p>
+                </div>
+
+                {/* Source */}
+                <p className="text-[9px] text-muted-foreground/50 flex items-center gap-1">
+                  <Info className="w-2.5 h-2.5" />
+                  Source: {trend.source}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {filteredTrends.length === 0 && (
+            <div className="text-center py-12 text-muted-foreground">
+              <TrendingUp className="w-12 h-12 mx-auto mb-3 opacity-30" />
+              <p className="text-sm">No trends found for this category.</p>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        {/* IRDAI RULES TAB                                                    */}
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        <TabsContent value="regulations" className="space-y-4">
+          {/* Category Filter */}
+          <div className="flex gap-1.5 flex-wrap">
+            {(['all', 'ped', 'moratorium', 'claims', 'consumer-protection', 'portability'] as RegulationCategory[]).map(cat => (
+              <button
+                key={cat}
+                onClick={() => setRegulationCat(cat)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  regulationCat === cat
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                    : 'bg-card border border-border text-muted-foreground hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:text-blue-600'
+                }`}
+              >
+                {cat === 'all' && 'सभी'}
+                {cat === 'ped' && '🏥 PED'}
+                {cat === 'moratorium' && '⏳ Moratorium'}
+                {cat === 'claims' && '📋 Claims'}
+                {cat === 'consumer-protection' && '🛡️ Consumer'}
+                {cat === 'portability' && '🔄 Portability'}
+              </button>
+            ))}
+          </div>
+
+          <p className="text-xs text-muted-foreground">
+            {filteredRegulations.length} regulations {regulationCat !== 'all' && `in ${regulationCat}`}
+          </p>
+
+          {/* Regulation Cards */}
+          <div className="grid gap-4">
+            {filteredRegulations.map((reg, i) => (
+              <motion.div
+                key={reg.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(i * 0.1, 0.5) }}
+                className="card-premium rounded-2xl p-5 bg-card border border-border/50 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300"
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between mb-3 gap-3">
+                  <div className="flex-1">
+                    <h4 className="font-bold text-foreground text-sm leading-snug">{reg.title}</h4>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">{reg.titleHi}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1.5 shrink-0">
+                    <Badge className="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800">
+                      <Clock className="w-3 h-3 mr-1" />
+                      {reg.effectiveDate}
+                    </Badge>
+                    <Badge className={`text-[10px] border ${getImpactLevelStyle(reg.impactLevel)}`}>
+                      {reg.impactLevel === 'critical' && '🔴 '}
+                      {reg.impactLevel === 'high' && '🟡 '}
+                      {reg.impactLevel === 'medium' && '⚪ '}
+                      {reg.impactLevel.charAt(0).toUpperCase() + reg.impactLevel.slice(1)}
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Summary */}
+                <p className="text-xs text-muted-foreground leading-relaxed mb-4">{reg.summaryHi}</p>
+
+                {/* Before/After Comparison */}
+                <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                  <div className="p-3 bg-rose-50/50 dark:bg-rose-950/20 rounded-xl border border-rose-200 dark:border-rose-800/50">
+                    <p className="text-[10px] font-semibold text-rose-600 dark:text-rose-400 uppercase tracking-wider mb-1.5">❌ पहले (Before)</p>
+                    <p className="text-xs text-foreground font-medium">{reg.beforeChange}</p>
+                  </div>
+                  <div className="p-3 bg-green-50/50 dark:bg-green-950/20 rounded-xl border border-green-200 dark:border-green-800/50">
+                    <p className="text-[10px] font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider mb-1.5">✅ अब (After)</p>
+                    <p className="text-xs text-foreground font-medium">{reg.afterChange}</p>
+                  </div>
+                </div>
+
+                {/* Arrow connector for mobile */}
+                <div className="flex items-center justify-center sm:hidden -my-1 mb-3">
+                  <div className="flex flex-col items-center">
+                    <div className="w-0.5 h-2 bg-rose-300 dark:bg-rose-700" />
+                    <ArrowRight className="w-4 h-4 text-green-500 rotate-90" />
+                    <div className="w-0.5 h-2 bg-green-300 dark:bg-green-700" />
+                  </div>
+                </div>
+
+                {/* User Action */}
+                <div className="p-3 bg-blue-50/50 dark:bg-blue-950/20 rounded-xl border border-blue-100 dark:border-blue-900/30">
+                  <p className="text-[10px] font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-1">🎯 आपको क्या करना चाहिए</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{reg.userActionHi}</p>
+                </div>
+
+                {/* Source */}
+                <p className="text-[9px] text-muted-foreground/50 mt-2 flex items-center gap-1">
+                  <FileText className="w-2.5 h-2.5" />
+                  Source: {reg.source}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {filteredRegulations.length === 0 && (
+            <div className="text-center py-12 text-muted-foreground">
+              <Shield className="w-12 h-12 mx-auto mb-3 opacity-30" />
+              <p className="text-sm">No regulations found for this category.</p>
+            </div>
+          )}
+        </TabsContent>
+
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        {/* CLAIM GUIDE TAB                                                    */}
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        <TabsContent value="claims" className="space-y-4">
+          {/* Type Filter */}
+          <div className="flex gap-1.5 flex-wrap">
+            {(['all', 'cashless', 'reimbursement', 'motor'] as ClaimType[]).map(type => (
+              <button
+                key={type}
+                onClick={() => setClaimType(type)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  claimType === type
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                    : 'bg-card border border-border text-muted-foreground hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:text-blue-600'
+                }`}
+              >
+                {type === 'all' && '📋 सभी'}
+                {type === 'cashless' && '🏥 Cashless'}
+                {type === 'reimbursement' && '💰 Reimbursement'}
+                {type === 'motor' && '🚗 Motor'}
+              </button>
+            ))}
+          </div>
+
+          <p className="text-xs text-muted-foreground">
+            {filteredClaims.length} claim guides {claimType !== 'all' && `for ${claimType}`}
+          </p>
+
+          {/* Claim Guide Cards */}
+          <div className="grid gap-6">
+            {filteredClaims.map((guide, gi) => (
+              <motion.div
+                key={guide.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: Math.min(gi * 0.1, 0.3) }}
+                className="card-premium rounded-2xl bg-card border border-border/50 overflow-hidden"
+              >
+                {/* Guide Header */}
+                <div
+                  className="p-5 cursor-pointer hover:bg-blue-50/30 dark:hover:bg-blue-950/10 transition-colors"
+                  onClick={() => setExpandedClaim(expandedClaim === guide.id ? null : guide.id)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/25">
+                        {guide.type === 'cashless' ? '🏥' : guide.type === 'reimbursement' ? '💰' : guide.type === 'motor' ? '🚗' : '✈️'}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-foreground text-sm">{guide.title}</h4>
+                        <p className="text-xs text-blue-600 dark:text-blue-400">{guide.titleHi}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className={`text-[10px] ${getClaimTypeColor(guide.type)}`}>
+                        {guide.type}
+                      </Badge>
+                      <motion.div
+                        animate={{ rotate: expandedClaim === guide.id ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ChevronRight className="w-4 h-4 text-muted-foreground -rotate-90" />
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expanded Content */}
+                <AnimatePresence>
+                  {expandedClaim === guide.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 space-y-6 border-t border-border/50 pt-4">
+                        {/* Step-by-Step Stepper */}
+                        <div>
+                          <h5 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
+                            <CircleDot className="w-4 h-4 text-blue-500" />
+                            चरण-दर-चरण गाइड
+                          </h5>
+                          <div className="relative">
+                            {/* Vertical Line */}
+                            <div className="absolute left-5 top-6 bottom-6 w-0.5 bg-blue-200 dark:bg-blue-800/50" />
+
+                            <div className="space-y-4">
+                              {guide.steps.map((step, si) => (
+                                <motion.div
+                                  key={si}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: si * 0.1 }}
+                                  className="flex gap-4 relative"
+                                >
+                                  {/* Step Number */}
+                                  <div className="relative z-10 shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                                      {step.step}
+                                    </div>
+                                  </div>
+
+                                  {/* Step Content */}
+                                  <div className="flex-1 pb-2">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <h6 className="font-semibold text-foreground text-sm">{step.titleHi}</h6>
+                                      <Badge className="text-[9px] bg-slate-100 text-slate-600 dark:bg-slate-800/40 dark:text-slate-400 shrink-0">
+                                        <Clock className="w-2.5 h-2.5 mr-0.5" />
+                                        {step.timeRequired}
+                                      </Badge>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground leading-relaxed mb-2">{step.descriptionHi}</p>
+
+                                    {/* Tip Box */}
+                                    {step.tip && (
+                                      <div className="p-2.5 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-100 dark:border-blue-900/30">
+                                        <p className="text-[11px] text-blue-700 dark:text-blue-300">
+                                          <span className="font-semibold">💡 Tip:</span> {step.tip}
+                                        </p>
+                                      </div>
+                                    )}
+                                  </div>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Documents Checklist */}
+                        <div>
+                          <h5 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+                            <FileText className="w-4 h-4 text-emerald-500" />
+                            जरूरी दस्तावेज़
+                          </h5>
+                          <div className="grid sm:grid-cols-2 gap-2">
+                            {guide.documents.map((doc, di) => (
+                              <div key={di} className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                                <p className="text-xs text-muted-foreground">{doc}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Common Mistakes */}
+                        <div>
+                          <h5 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+                            <AlertCircle className="w-4 h-4 text-red-500" />
+                            आम गलतियां
+                          </h5>
+                          <div className="space-y-2">
+                            {guide.commonMistakes.map((mistake, mi) => (
+                              <div key={mi} className="flex items-start gap-2 p-2.5 bg-red-50/50 dark:bg-red-950/20 rounded-lg border border-red-100 dark:border-red-900/30">
+                                <XCircle className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
+                                <p className="text-xs text-muted-foreground">{mistake}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Timeline */}
+                        <div className="p-3 bg-muted/30 rounded-xl border border-border/30">
+                          <p className="text-xs text-foreground font-semibold mb-1 flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5 text-blue-500" />
+                            समय सीमा (Timeline)
+                          </p>
+                          <p className="text-xs text-muted-foreground">{guide.timeline}</p>
+                        </div>
+
+                        {/* Escalation Path */}
+                        <div className="p-3 bg-amber-50/50 dark:bg-amber-950/20 rounded-xl border border-amber-100 dark:border-amber-900/30">
+                          <p className="text-xs text-foreground font-semibold mb-1 flex items-center gap-1.5">
+                            <Zap className="w-3.5 h-3.5 text-amber-500" />
+                            एस्कलेशन पाथ (शिकायत कैसे करें)
+                          </p>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            {guide.escalationPath.split(' → ').map((step, ei, arr) => (
+                              <span key={ei} className="flex items-center gap-1.5">
+                                <span className="text-xs text-muted-foreground">{step}</span>
+                                {ei < arr.length - 1 && <ArrowRight className="w-3 h-3 text-amber-500 shrink-0" />}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+
+          {filteredClaims.length === 0 && (
+            <div className="text-center py-12 text-muted-foreground">
+              <Clock className="w-12 h-12 mx-auto mb-3 opacity-30" />
+              <p className="text-sm">No claim guides found for this type.</p>
+            </div>
+          )}
         </TabsContent>
       </Tabs>
     </div>

@@ -119,7 +119,7 @@ export const healthInsurancePlans: InsurancePlan[] = [
     category: 'health',
     premium: { monthly: 600, annual: 6800, currency: 'INR' },
     sumInsured: { min: 500000, max: 15000000, currency: 'INR' },
-    claimSettlementRatio: 98.85,
+    claimSettlementRatio: 99.16,
     incurredClaimRatio: 89.47,
     solvencyRatio: 1.9,
     complaintsPer10k: 10.67,
@@ -150,10 +150,10 @@ export const healthInsurancePlans: InsurancePlan[] = [
     category: 'health',
     premium: { monthly: 500, annual: 5600, currency: 'INR' },
     sumInsured: { min: 500000, max: 15000000, currency: 'INR' },
-    claimSettlementRatio: 93.13,
+    claimSettlementRatio: 100,
     incurredClaimRatio: 58.68,
     solvencyRatio: 1.8,
-    complaintsPer10k: 27.06,
+    complaintsPer10k: 42.00,
     networkHospitals: 21700,
     waitingPeriod: 'Diabetes: 24 months, BP: 24 months, Heart: 36 months',
     waitingPeriodDetailed: { diabetes: 24, bp: 24, heart: 36 },
@@ -181,7 +181,7 @@ export const healthInsurancePlans: InsurancePlan[] = [
     category: 'health',
     premium: { monthly: 550, annual: 6200, currency: 'INR' },
     sumInsured: { min: 300000, max: 10000000, currency: 'INR' },
-    claimSettlementRatio: 88.34,
+    claimSettlementRatio: 92.02,
     incurredClaimRatio: 67.26,
     solvencyRatio: 2.1,
     complaintsPer10k: 52.31,
@@ -212,7 +212,7 @@ export const healthInsurancePlans: InsurancePlan[] = [
     category: 'health',
     premium: { monthly: 600, annual: 6800, currency: 'INR' },
     sumInsured: { min: 500000, max: 10000000, currency: 'INR' },
-    claimSettlementRatio: 91.22,
+    claimSettlementRatio: 100,
     incurredClaimRatio: 58.10,
     solvencyRatio: 1.9,
     complaintsPer10k: 42.85,
@@ -243,7 +243,7 @@ export const healthInsurancePlans: InsurancePlan[] = [
     category: 'health',
     premium: { monthly: 500, annual: 5600, currency: 'INR' },
     sumInsured: { min: 300000, max: 10000000, currency: 'INR' },
-    claimSettlementRatio: 91.22,
+    claimSettlementRatio: 96.00,
     incurredClaimRatio: 77.37,
     solvencyRatio: 1.8,
     complaintsPer10k: 27.06,
@@ -305,7 +305,7 @@ export const healthInsurancePlans: InsurancePlan[] = [
     category: 'health',
     premium: { monthly: 520, annual: 5800, currency: 'INR' },
     sumInsured: { min: 500000, max: 10000000, currency: 'INR' },
-    claimSettlementRatio: 93.65,
+    claimSettlementRatio: 98.50,
     incurredClaimRatio: 54.33,
     solvencyRatio: 3.0,
     complaintsPer10k: 25,
@@ -2669,3 +2669,376 @@ export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
     .sort((a, b) => b.score - a.score)
     .map(item => item.entry);
 }
+
+// ============================================================================
+// MARKET TRENDS 2026 — Premium Hikes, Growth Data, Tech Shifts
+// Source: IRDAI Annual Report 2025-26, Industry Research 2025
+// ============================================================================
+export interface MarketTrend {
+  id: string;
+  title: string;
+  titleHi: string;
+  category: 'premium-hike' | 'market-growth' | 'tech-shift' | 'regulatory' | 'consumer-behavior';
+  summary: string;
+  summaryHi: string;
+  data: string[];
+  impact: string;
+  impactHi: string;
+  source: string;
+  year: string;
+}
+
+export const marketTrends2026: MarketTrend[] = [
+  {
+    id: 'trend-001',
+    title: 'Health Insurance Premium Hike 10-15%',
+    titleHi: 'हेल्थ इंश्योरेंस प्रीमियम में 10-15% की बढ़ोतरी',
+    category: 'premium-hike',
+    summary: 'Experts predict 10-15% premium hikes in the next 12-18 months due to medical inflation at 14-15%, aging population, and increased claim volumes.',
+    summaryHi: 'अगले 12-18 महीनों में हेल्थ इंश्योरेंस प्रीमियम 10-15% तक बढ़ सकते हैं। इसकी वजहें हैं — 14-15% की मेडिकल इंफ्लेशन, बढ़ती उम्र की आबादी और क्लेम में वृद्धि।',
+    data: [
+      'Medical inflation: 14-15% annually',
+      'Hospital costs up 12-18% YoY',
+      'Claim frequency increased 22% post-COVID',
+      'Standalone health insurers saw 19% growth in FY26',
+    ],
+    impact: 'If your premium is ₹10,000/year, expect it to rise to ₹11,000-11,500. Buy now to lock in lower rates.',
+    impactHi: 'अगर आपका प्रीमियम ₹10,000/साल है, तो यह ₹11,000-11,500 हो सकता है। अभी खरीदकर कम दरें लॉक करें।',
+    source: 'IRDAI Annual Report 2025-26 / Business Standard',
+    year: '2025-26',
+  },
+  {
+    id: 'trend-002',
+    title: 'Non-Life Insurance Industry Crosses ₹3.36 Lakh Crore',
+    titleHi: 'नॉन-लाइफ इंश्योरेंस इंडस्ट्री ₹3.36 लाख करोड़ पार',
+    category: 'market-growth',
+    summary: 'FY26 mein non-life insurance industry gross direct premium of ₹3.36 Lakh Crore tak pahunch gayi. Standalone health insurers ne sabse tez growth dikhayi — 19%.',
+    summaryHi: 'FY26 में नॉन-लाइफ इंश्योरेंस इंडस्ट्री ₹3.36 लाख करोड़ के ग्रॉस डायरेक्ट प्रीमियम पर पहुंच गई। स्टैंडअलोन हेल्थ इंश्योरर्स ने 19% की सबसे तेज़ ग्रोथ दिखाई।',
+    data: [
+      'Non-life GWP: ₹3.36 Lakh Crore (FY26)',
+      'Health insurance = 41% of non-life industry (up from 29% in FY20)',
+      'Standalone health insurers growth: 19% (FY26)',
+      'Motor insurance share declining: from 38% to 28%',
+    ],
+    impact: 'Health insurance is becoming the dominant segment. More competition = better products, but premiums may rise.',
+    impactHi: 'हेल्थ इंश्योरेंस अब सबसे बड़ा सेगमेंट बन गया है। ज्यादा competition = बेहतर products, लेकिन premium बढ़ सकता है।',
+    source: 'IRDAI Annual Report 2025-26',
+    year: '2025-26',
+  },
+  {
+    id: 'trend-003',
+    title: 'AI & InsurTech Revolution — 1-Hour Cashless Claims',
+    titleHi: 'AI और इंश्योरटेक क्रांति — 1 घंटे में कैशलेस क्लेम',
+    category: 'tech-shift',
+    summary: 'India is the 2nd largest InsurTech market in Asia-Pacific. Companies adopting AI and automation tools — cashless approval in 1 hour, discharge in 3 hours.',
+    summaryHi: 'भारत एशिया-पैसिफिक में दूसरा सबसे बड़ा इंश्योरटेक मार्केट है। कंपनियां AI और क्लेम ऑटोमेशन अपना रही हैं — 1 घंटे में कैशलेस मंजूरी, 3 घंटे में डिस्चार्ज।',
+    data: [
+      'India: 2nd largest InsurTech market in APAC',
+      'Cashless claim approval: now within 1 hour (IRDAI mandate)',
+      'Discharge time: reduced to 3 hours',
+      'AI-powered claim assessment: 85% accuracy in auto-approval',
+      'Digital-first insurers (Acko, Digit) growing 3x faster',
+    ],
+    impact: 'Faster claims mean better experience. Choose digital-first insurers for quickest settlement.',
+    impactHi: 'तेज़ क्लेम = बेहतर अनुभव। सबसे तेज़ सेटलमेंट के लिए डिजिटल-फर्स्ट इंश्योरर चुनें।',
+    source: 'IRDAI 2025-26 / NASSCOM InsurTech Report',
+    year: '2025-26',
+  },
+  {
+    id: 'trend-004',
+    title: 'Health Insurance Now 41% of Non-Life Industry',
+    titleHi: 'हेल्थ इंश्योरेंस अब नॉन-लाइफ इंडस्ट्री का 41%',
+    category: 'market-growth',
+    summary: 'Health insurance has overtaken motor as the largest segment — from 29% in FY20 to 41% in FY26. This is a major structural shift in Indian insurance.',
+    summaryHi: 'हेल्थ इंश्योरेंस ने मोटर को पीछे छोड़ दिया — FY20 में 29% से बढ़कर FY26 में 41%। यह भारतीय इंश्योरेंस में बड़ा बदलाव है।',
+    data: [
+      'Health insurance share: 29% (FY20) → 41% (FY26)',
+      'Motor insurance share: 38% (FY20) → 28% (FY26)',
+      'COVID accelerated health insurance adoption by 3-5 years',
+      'Group health segment growing 25% annually',
+    ],
+    impact: 'More health products and better coverage options available now than ever before.',
+    impactHi: 'अब पहले से कहीं ज्यादा हेल्थ प्रोडक्ट्स और बेहतर कवरेज उपलब्ध हैं।',
+    source: 'IRDAI Annual Report 2025-26',
+    year: '2025-26',
+  },
+  {
+    id: 'trend-005',
+    title: 'GST Exemption on Retail Health Insurance',
+    titleHi: 'रिटेल हेल्थ इंश्योरेंस पर GST में छूट',
+    category: 'regulatory',
+    summary: 'Government considering GST rate reduction from 18% to 5-12% on retail health insurance premiums. This could save ₹2,000-5,000 per year on typical policies.',
+    summaryHi: 'सरकार रिटेल हेल्थ इंश्योरेंस प्रीमियम पर GST दर 18% से घटाकर 5-12% करने पर विचार कर रही है। इससे सामान्य पॉलिसी पर ₹2,000-5,000/साल की बचत हो सकती है।',
+    data: [
+      'Current GST on health insurance: 18%',
+      'Proposed GST: 5-12% for retail health policies',
+      'Potential savings: ₹2,000-5,000/year on typical ₹15,000-30,000 policy',
+      'Group health policies may also get relief',
+    ],
+    impact: 'If GST reduces, insurance becomes significantly cheaper. Wait for announcement before renewing.',
+    impactHi: 'अगर GST कम हुआ तो इंश्योरेंस काफी सस्ता हो जाएगा। नवीनीकरण से पहले ऐलान का इंतजार करें।',
+    source: 'Finance Ministry / IRDAI 2025-26',
+    year: '2025-26',
+  },
+];
+
+// ============================================================================
+// IRDAI REGULATIONS 2025-26 — Latest Guidelines
+// Source: IRDAI Official Gazette Notifications 2025
+// ============================================================================
+export interface IrdaiRegulation {
+  id: string;
+  title: string;
+  titleHi: string;
+  category: 'ped' | 'moratorium' | 'claims' | 'gst' | 'consumer-protection' | 'portability';
+  effectiveDate: string;
+  summary: string;
+  summaryHi: string;
+  beforeChange: string;
+  afterChange: string;
+  impactLevel: 'critical' | 'high' | 'medium';
+  userAction: string;
+  userActionHi: string;
+  source: string;
+}
+
+export const irdaiRegulations2025: IrdaiRegulation[] = [
+  {
+    id: 'reg-001',
+    title: 'PED Waiting Period Reduced to Max 36 Months',
+    titleHi: 'PED वेटिंग पीरियड अब ज्यादा से ज्यादा 36 महीने',
+    category: 'ped',
+    effectiveDate: 'April 2025',
+    summary: 'IRDAI has capped the waiting period for Pre-Existing Diseases (PED) at 36 months maximum. Earlier, some policies had 48-month waiting periods.',
+    summaryHi: 'IRDAI ने प्री-एक्जिस्टिंग डिजीज (PED) के लिए वेटिंग पीरियड ज्यादा से ज्यादा 36 महीने तक सीमित कर दिया है। पहले कुछ पॉलिसी में 48 महीने का वेटिंग था।',
+    beforeChange: 'PED waiting period: up to 48 months',
+    afterChange: 'PED waiting period: maximum 36 months',
+    impactLevel: 'critical',
+    userAction: 'Check your policy — if it shows 48-month PED waiting, ask your insurer to align with the new IRDAI rule. New policies must comply automatically.',
+    userActionHi: 'अपनी पॉलिसी चेक करें — अगर 48 महीने का PED वेटिंग दिखे, तो इंश्योरर से नए IRDAI नियम के हिसाब से बदलाव मांगें।',
+    source: 'IRDAI Gazette Notification 2025',
+  },
+  {
+    id: 'reg-002',
+    title: 'Moratorium Period Reduced from 8 to 5 Years',
+    titleHi: 'मोरेटोरियम पीरियड 8 साल से घटाकर 5 साल',
+    category: 'moratorium',
+    effectiveDate: 'April 2025',
+    summary: 'After 5 years of continuous coverage, insurers cannot investigate your medical history or reject claims based on non-disclosure. Previously this was 8 years.',
+    summaryHi: '5 साल तक लगातार कवरेज के बाद, इंश्योरर आपकी मेडिकल हिस्ट्री जांच नहीं कर सकते या नॉन-डिस्क्लोजर के आधार पर क्लेम रिजेक्ट नहीं कर सकते। पहले यह 8 साल था।',
+    beforeChange: 'Moratorium period: 8 years',
+    afterChange: 'Moratorium period: 5 years',
+    impactLevel: 'critical',
+    userAction: 'If you have 5+ years of continuous coverage, your insurer cannot reject claims. Make sure you renew on time every year.',
+    userActionHi: 'अगर आपके पास 5+ साल का लगातार कवरेज है, तो इंश्योरर क्लेम रिजेक्ट नहीं कर सकता। हर साल समय पर रिन्यू करें।',
+    source: 'IRDAI Gazette Notification 2025',
+  },
+  {
+    id: 'reg-003',
+    title: 'Cashless Claim Approval Within 1 Hour',
+    titleHi: 'कैशलेस क्लेम 1 घंटे में मंजूर',
+    category: 'claims',
+    effectiveDate: 'January 2025',
+    summary: 'IRDAI mandates that all cashless claim pre-authorization requests must be processed within 1 hour. Discharge must happen within 3 hours of final bill submission.',
+    summaryHi: 'IRDAI ने अनिवार्य किया कि सभी कैशलेस क्लेम प्री-ऑथराइज़ेशन 1 घंटे में प्रोसेस हों। डिस्चार्ज फाइनल बिल जमा करने के 3 घंटे में होना चाहिए।',
+    beforeChange: 'Cashless approval: 4-24 hours',
+    afterChange: 'Cashless approval: maximum 1 hour',
+    impactLevel: 'critical',
+    userAction: 'If your insurer takes more than 1 hour for cashless approval, file a complaint on IRDAI portal (igms.irda.gov.in).',
+    userActionHi: 'अगर इंश्योरर 1 घंटे से ज्यादा लेता है, तो IRDAI पोर्टल (igms.irda.gov.in) पर शिकायत दर्ज करें।',
+    source: 'IRDAI Protection of Policyholders 2025',
+  },
+  {
+    id: 'reg-004',
+    title: 'No Claim Rejection Without Giving Reason',
+    titleHi: 'बिना कारण बताए क्लेम रिजेक्ट नहीं कर सकते',
+    category: 'consumer-protection',
+    effectiveDate: 'April 2025',
+    summary: 'Insurers must provide detailed written reasons for claim rejection. They cannot simply say "claim denied" — must specify policy clause, investigation findings, and appeal process.',
+    summaryHi: 'इंश्योरर को क्लेम रिजेक्शन की विस्तृत लिखित वजह देनी होगी। बस "क्लेम डिनाइड" नहीं बोल सकते — पॉलिसी क्लॉज, जांच निष्कर्ष और अपील प्रक्रिया बतानी होगी।',
+    beforeChange: 'Insurers could reject with vague reasons',
+    afterChange: 'Must specify exact clause, findings, and appeal process',
+    impactLevel: 'high',
+    userAction: 'If your claim is rejected without clear reason, demand written explanation. You have the right to appeal.',
+    userActionHi: 'अगर क्लेम बिना स्पष्ट कारण रिजेक्ट होता है, तो लिखित स्पष्टीकरण मांगें। अपील का अधिकार आपका है।',
+    source: 'IRDAI Protection of Policyholders 2025',
+  },
+  {
+    id: 'reg-005',
+    title: 'Portability Must Be Processed in 15 Days',
+    titleHi: 'पोर्टेबिलिटी 15 दिन में प्रोसेस होनी चाहिए',
+    category: 'portability',
+    effectiveDate: 'April 2025',
+    summary: 'When you switch insurers, the new insurer must process portability request within 15 days. Waiting period benefits from old policy must be carried forward.',
+    summaryHi: 'जब आप इंश्योरर बदलें, तो नया इंश्योरर 15 दिन में पोर्टेबिलिटी प्रोसेस करे। पुरानी पॉलिसी के वेटिंग पीरियड बेनिफिट आगे बढ़ने चाहिए।',
+    beforeChange: 'Portability processing: 30-45 days (often delayed)',
+    afterChange: 'Portability processing: maximum 15 days',
+    impactLevel: 'high',
+    userAction: 'Apply for portability at least 45 days before renewal. New insurer must honor your accumulated waiting periods.',
+    userActionHi: 'रिन्यूअल से कम से कम 45 दिन पहले पोर्टेबिलिटी अप्लाई करें। नया इंश्योरर आपका जमा वेटिंग पीरियड मानने को बाध्य है।',
+    source: 'IRDAI Portability Guidelines 2025',
+  },
+  {
+    id: 'reg-006',
+    title: '500+ Day Care Procedures Must Be Covered',
+    titleHi: '500+ डे केयर प्रोसीजर कवर होने अनिवार्य',
+    category: 'claims',
+    effectiveDate: 'April 2024',
+    summary: 'IRDAI has mandated coverage for 500+ day care procedures that do not require 24-hour hospitalization — cataract, chemotherapy, dialysis, etc.',
+    summaryHi: 'IRDAI ने 500+ डे केयर प्रोसीजर (जिनमें 24 घंटे अस्पताल में रहने की जरूरत नहीं) को कवर करना अनिवार्य किया — मोतियाबिंद, कीमोथेरेपी, डायलिसिस आदि।',
+    beforeChange: 'Only procedures requiring 24hr hospitalization covered',
+    afterChange: '500+ day care procedures must be covered',
+    impactLevel: 'high',
+    userAction: 'Verify your policy covers all day care procedures. If not, you can file a complaint with IRDAI.',
+    userActionHi: 'जांचें कि पॉलिसी में सभी डे केयर प्रोसीजर कवर हैं। अगर नहीं, तो IRDAI में शिकायत करें।',
+    source: 'IRDAI Guidelines 2024-25',
+  },
+];
+
+// ============================================================================
+// STEP-BY-STEP CLAIM GUIDES
+// ============================================================================
+export interface ClaimGuide {
+  id: string;
+  title: string;
+  titleHi: string;
+  type: 'cashless' | 'reimbursement' | 'motor' | 'travel';
+  steps: { step: number; title: string; titleHi: string; description: string; descriptionHi: string; timeRequired: string; tip?: string }[];
+  documents: string[];
+  timeline: string;
+  commonMistakes: string[];
+  escalationPath: string;
+}
+
+export const claimGuides: ClaimGuide[] = [
+  {
+    id: 'claim-cashless',
+    title: 'Cashless Health Insurance Claim',
+    titleHi: 'कैशलेस हेल्थ इंश्योरेंस क्लेम',
+    type: 'cashless',
+    steps: [
+      { step: 1, title: 'Visit Network Hospital', titleHi: 'नेटवर्क हॉस्पिटल में जाएं', description: 'Go to any hospital in your insurer\'s network. Show your health card and ID proof at the insurance desk.', descriptionHi: 'इंश्योरर के नेटवर्क में किसी भी हॉस्पिटल में जाएं। इंश्योरेंस डेस्क पर हेल्थ कार्ड और ID प्रूफ दिखाएं।', timeRequired: '15 minutes', tip: 'Find network hospitals on your insurer\'s app or website before going.' },
+      { step: 2, title: 'Pre-Authorization Request', titleHi: 'प्री-ऑथराइज़ेशन रिक्वेस्ट', description: 'Hospital sends pre-auth request to insurer/TPA with estimated treatment cost. IRDAI mandates approval within 1 hour.', descriptionHi: 'हॉस्पिटल इंश्योरर/TPA को अनुमानित खर्च के साथ प्री-ऑथ रिक्वेस्ट भेजता है। IRDAI के अनुसार 1 घंटे में एप्रूवल मिलना चाहिए।', timeRequired: '1 hour (IRDAI mandate)', tip: 'If not approved in 1 hour, call insurer helpline immediately.' },
+      { step: 3, title: 'Treatment Begins', titleHi: 'इलाज शुरू', description: 'Once approved, treatment starts. Hospital directly coordinates with insurer for all bill payments.', descriptionHi: 'एप्रूवल मिलते ही इलाज शुरू। हॉस्पिटल सीधे इंश्योरर से बिल पेमेंट का कोऑर्डिनेशन करता है।', timeRequired: 'Varies by treatment' },
+      { step: 4, title: 'Discharge', titleHi: 'डिस्चार्ज', description: 'Final bill sent to insurer. IRDAI mandates discharge within 3 hours of bill submission. Pay only non-covered items.', descriptionHi: 'फाइनल बिल इंश्योरर को भेजा जाता है। IRDAI के अनुसार बिल जमा करने के 3 घंटे में डिस्चार्ज होना चाहिए। सिर्फ नॉन-कवर आइटम का पेमेंट करें।', timeRequired: '3 hours (IRDAI mandate)', tip: 'Check the final bill for any items marked "not covered" before paying.' },
+    ],
+    documents: ['Health Card / E-Card', 'Government ID Proof', 'Policy Document', 'Pre-Authorization Form'],
+    timeline: 'Total: 1-3 hours for approval + treatment duration',
+    commonMistakes: [
+      'Going to non-network hospital (no cashless facility)',
+      'Not informing insurer within 24 hours of emergency admission',
+      'Not checking room rent limits before selecting hospital room',
+      'Forgetting to sign discharge documents',
+    ],
+    escalationPath: 'If cashless denied → Call insurer → File on igms.irda.gov.in → Approach Insurance Ombudsman',
+  },
+  {
+    id: 'claim-reimbursement',
+    title: 'Reimbursement Health Insurance Claim',
+    titleHi: 'रीइम्बर्समेंट हेल्थ इंश्योरेंस क्लेम',
+    type: 'reimbursement',
+    steps: [
+      { step: 1, title: 'Inform Insurer', titleHi: 'इंश्योरर को सूचित करें', description: 'Notify your insurer within 24-48 hours of hospitalization. Use their app, helpline, or email.', descriptionHi: 'हॉस्पिटलाइज़ेशन के 24-48 घंटे के भीतर इंश्योरर को सूचित करें। उनका ऐप, हेल्पलाइन या ईमेल इस्तेमाल करें।', timeRequired: '30 minutes', tip: 'Always inform before or immediately after admission — delays can cause rejection.' },
+      { step: 2, title: 'Pay Hospital Bills', titleHi: 'हॉस्पिटल बिल भरें', description: 'Pay all bills yourself at the hospital. Collect original bills, receipts, and reports.', descriptionHi: 'हॉस्पिटल में सभी बिल खुद भरें। ओरिजिनल बिल, रसीदें और रिपोर्ट्स इकट्ठा करें।', timeRequired: 'During hospitalization' },
+      { step: 3, title: 'Submit Claim Documents', titleHi: 'क्लेम डॉक्यूमेंट जमा करें', description: 'Submit claim form + all original documents to insurer within 15-30 days of discharge.', descriptionHi: 'डिस्चार्ज के 15-30 दिन के भीतर क्लेम फॉर्म + सभी ओरिजिनल डॉक्यूमेंट इंश्योरर को जमा करें।', timeRequired: '1-2 hours for document preparation' },
+      { step: 4, title: 'Claim Processing', titleHi: 'क्लेम प्रोसेसिंग', description: 'Insurer processes the claim. Usually takes 15-30 days. Amount transferred to your bank account.', descriptionHi: 'इंश्योरर क्लेम प्रोसेस करता है। आमतौर पर 15-30 दिन लगते हैं। रकम आपके बैंक खाते में ट्रांसफर होती है।', timeRequired: '15-30 days', tip: 'Follow up every week if not processed within 15 days.' },
+    ],
+    documents: ['Claim Form (filled & signed)', 'Original Hospital Bills & Receipts', 'Discharge Summary', 'Doctor\'s Prescription & Reports', 'FIR (if accident)', 'Bank Details for Transfer', 'ID Proof & Policy Copy'],
+    timeline: 'Total: 20-45 days from discharge to payment',
+    commonMistakes: [
+      'Not keeping original bills (photocopies not accepted)',
+      'Missing discharge summary (most critical document)',
+      'Submitting claim after 30-day deadline',
+      'Not mentioning all treatments in claim form',
+    ],
+    escalationPath: 'Delayed processing → Call insurer → File on igms.irda.gov.in → Insurance Ombudsman',
+  },
+  {
+    id: 'claim-motor',
+    title: 'Motor Insurance Claim',
+    titleHi: 'मोटर इंश्योरेंस क्लेम',
+    type: 'motor',
+    steps: [
+      { step: 1, title: 'Report Accident', titleHi: 'दुर्घटना की रिपोर्ट करें', description: 'Call insurer helpline immediately. File FIR if third-party involved. Take photos of damage.', descriptionHi: 'तुरंत इंश्योरर हेल्पलाइन कॉल करें। थर्ड पार्टी शामिल हो तो FIR दर्ज कराएं। नुकसान की फोटो लें।', timeRequired: '1-2 hours', tip: 'Always take 4-5 photos from different angles at the spot.' },
+      { step: 2, title: 'Surveyor Inspection', titleHi: 'सर्वेयर इंस्पेक्शन', description: 'Insurer sends surveyor to inspect damage. Surveyor estimates repair cost and approves claim amount.', descriptionHi: 'इंश्योरर सर्वेयर भेजता है नुकसान की जांच के लिए। सर्वेयर रिपेयर कॉस्ट का अनुमान लगाता है और क्लेम अमाउंट एप्रूव करता है।', timeRequired: '1-3 days', tip: 'Don\'t start repairs before surveyor inspection.' },
+      { step: 3, title: 'Repair at Network Garage', titleHi: 'नेटवर्क गैराज में रिपेयर', description: 'Get vehicle repaired at a network garage for cashless settlement. Or pay and claim reimbursement.', descriptionHi: 'कैशलेस सेटलमेंट के लिए नेटवर्क गैराज में गाड़ी रिपेयर कराएं। या खुद पे करके रीइम्बर्समेंट क्लेम करें।', timeRequired: '2-7 days' },
+      { step: 4, title: 'Claim Settlement', titleHi: 'क्लेम सेटलमेंट', description: 'For cashless: insurer pays garage directly. For reimbursement: submit bills and get paid within 7-15 days.', descriptionHi: 'कैशलेस: इंश्योरर सीधे गैराज को पे करता है। रीइम्बर्समेंट: बिल जमा करें और 7-15 दिन में पेमेंट पाएं।', timeRequired: '7-15 days' },
+    ],
+    documents: ['FIR Copy (if applicable)', 'Driving License', 'Registration Certificate (RC)', 'Insurance Policy Copy', 'Repair Estimate', 'Photos of Damage', 'Surveyor Report'],
+    timeline: 'Total: 5-20 days from accident to settlement',
+    commonMistakes: [
+      'Starting repairs before surveyor inspection',
+      'Not filing FIR in third-party accidents',
+      'Driving without valid license (claim will be rejected)',
+      'Not renewing policy before accident (lapsed policy = no claim)',
+    ],
+    escalationPath: 'Claim delay → Insurer grievance → igms.irda.gov.in → Consumer Forum',
+  },
+];
+
+// ============================================================================
+// RESPONSE TEMPLATES — High-Pressure Scenarios (Hinglish)
+// ============================================================================
+export interface ResponseTemplate {
+  id: string;
+  scenario: string;
+  scenarioHi: string;
+  trigger: string;
+  response: string;
+  doThis: string[];
+  dontDoThis: string[];
+  escalationOptions: string[];
+}
+
+export const responseTemplates: ResponseTemplate[] = [
+  {
+    id: 'tpl-001',
+    scenario: 'Claim Rejected',
+    scenarioHi: 'क्लेम रिजेक्ट हो गया',
+    trigger: /claim.*reject|reject.*claim|क्लेम.*रिजेक्ट|deny|denied/i,
+    response: `Mujhe bahut afsoos hai sunke ki aapka claim reject hua hai 🙏. Main samajhta hoon yeh frustrating hai, lekin aapke paas options hain:\n\n**Step 1:** Insurer se **written rejection letter** maangein — IRDAI ke according, woh reason ke bina reject nahi kar sakte.\n\n**Step 2:** Rejection reason samjhein — common reasons hain:\n• Waiting period mein treatment hua\n• PED disclose nahi kiya tha\n• Documents incomplete the\n• Policy conditions mein excluded tha\n\n**Step 3:** Agar reason galat lagta hai, toh **appeal** karein:\n• Insurer ki internal grievance cell mein complaint\n• 30 din mein jawab nahi aaye toh IRDAI portal (igms.irda.gov.in) pe complaint\n• Insurance Ombudsman se contact karein\n\n💡 **Important:** 65% rejected claims reconsideration ke baad approve ho jaate hain!`,
+    doThis: ['Demand written rejection with specific clause reference', 'File appeal within 30 days', 'Keep all communication records', 'Approach IRDAI if insurer doesn\'t respond in 30 days'],
+    dontDoThis: ['Don\'t accept verbal rejection', 'Don\'t give up without appealing', 'Don\'t miss the 30-day appeal window'],
+    escalationOptions: ['Insurer Grievance Cell → IRDAI IGMS → Insurance Ombudsman → Consumer Forum'],
+  },
+  {
+    id: 'tpl-002',
+    scenario: 'Premium Hiked',
+    scenarioHi: 'प्रीमियम बढ़ गया',
+    trigger: /premium.*hike|premium.*increase|प्रीमियम.*बढ़|renewal.*expensive/i,
+    response: `Haan, yeh abhi common ho raha hai 📈. 2025-26 mein health insurance premiums 10-15% badh rahe hain, lekin aapke paas options hain:\n\n**Kyun badh raha hai:**\n• Medical inflation: 14-15% annually\n• Claim frequency: 22% increase post-COVID\n• Industry growth: Health insurers ne 19% growth dikhayi\n\n**Aap kya kar sakte hain:**\n1. **Port karein** — Dusri company mein shift karein bina waiting period khoiye (15 din mein process hoga)\n2. **Top-up plan lein** — Base plan kam rakhein + top-up add karein (40-60% sasta)\n3. **Deductible badhayein** — Voluntary deductible se premium 20-30% kam hota hai\n4. **Family floater lein** — Individual plans se sasta padta hai\n5. **Long-term plan lein** — 2-3 saal ka plan lock karein, premium nahi badhega\n\n💡 **Tip:** Renewal se 45 din pehle portability apply karein — naye company mein bhi waiting period carry forward hoga!`,
+    doThis: ['Compare 3-4 insurers before renewal', 'Apply portability 45 days before renewal', 'Consider super top-up for additional coverage at low cost', 'Check if NCB can reduce premium'],
+    dontDoThis: ['Don\'t let policy lapse (lose all waiting period benefits)', 'Don\'t auto-renew without comparing', 'Don\'t reduce sum insured just to lower premium'],
+    escalationOptions: ['Compare on Paliwal Secure → Port to better insurer → Add super top-up'],
+  },
+  {
+    id: 'tpl-003',
+    scenario: 'Senior Citizen Buying First Policy',
+    scenarioHi: 'वरिष्ठ नागरिक पहली बार पॉलिसी खरीद रहे हैं',
+    trigger: /senior.*citizen|elderly|60.*year|70.*year|parents.*insurance|बुजुर्ग|वरिष्ठ/i,
+    response: `Bahut accha faisla hai! 🙏 Senior citizens ke liye insurance zaroori hai, aur ab IRDAI ke naye rules se yeh aur aasan ho gaya hai:\n\n**IRDAI ke naye rules (2025):**\n• PED waiting period: Ab maximum 36 mahine (pehle 48 tha)\n• Moratorium period: Ab 5 saal (pehle 8 tha) — iske baad koi bhi beemari pre-existing nahi mani jayegi\n\n**Senior citizens ke liye best options:**\n1. **Star Health Red Carpet** — 60+ ke liye special, Day 1 PED cover (select plans)\n2. **New India Assurance Senior** — Government-backed, affordable\n3. **Care Health Senior** — 21,700+ network hospitals, AYUSH cover\n4. **HDFC ERGO Optima Secure** — 100% restoration, no room rent limit\n\n**Tax benefits:**\n• Section 80D: ₹50,000 deduction (senior citizen)\n• Preventive health checkup: ₹5,000 additional\n\n💡 **Important:** Jaldi lein! Umar badhne ke saath premium badhta hai aur medical tests bhi lag sakte hain.`,
+    doThis: ['Buy before age 65 (entry age limit for many plans)', 'Disclose all existing conditions honestly', 'Choose plan with shortest PED waiting period', 'Check network hospitals in your city', 'Consider family floater with spouse'],
+    dontDoThis: ['Don\'t hide pre-existing conditions (claim will be rejected later)', 'Don\'t buy without checking room rent limit', 'Don\'t choose very low sum insured (minimum ₹5-10 Lakh recommended)'],
+    escalationOptions: ['Compare senior-specific plans → Get expert consultation → Check policyholder.gov.in for all your policies'],
+  },
+  {
+    id: 'tpl-004',
+    scenario: 'First Time Insurance Buyer',
+    scenarioHi: 'पहली बार इंश्योरेंस खरीद रहे हैं',
+    trigger: /first.*time|new.*buyer|pahli.*baar|पहली.*बार|kaise.*kharidein|कैसे.*खरीदें/i,
+    response: `Bahut badhiya! 🎉 Aap sahi decision le rahe hain. India mein 700M+ log uninsured hain — aap unme se nahi honge!\n\n**Step-by-step guide:**\n1. **Apni zaroorat samjhein** — Health, Life, ya Motor? (Health sabse pehle)\n2. **Budget set karein** — Monthly income ka 5-10% insurance pe invest karein\n3. **CSR dekhein** — Claim Settlement Ratio 95%+ hone chahiye\n4. **Waiting period check karein** — PED ke liye 24-36 mahine (ab max 36 as per IRDAI)\n5. **Network hospitals dekhein** — Aapke shehar mein kitne hain?\n6. **Compare karein** — Kam se kam 3 plans compare karein\n\n**Quick recommendations (beginner-friendly):**\n• **Health:** Acko Platinum (₹550/mo, 99.91% CSR, no room rent limit)\n• **Life:** SBI Life eShield (₹1,200/mo, ₹1 Cr cover, 98.5% CSR)\n• **Motor:** ICICI Lombard (₹1,899/yr, comprehensive)\n\n💡 **Pro tip:** Hamesha family floater + super top-up ka combo lein — sasta aur powerful!`,
+    doThis: ['Start with health insurance (most essential)', 'Compare CSR, ICR, and solvency ratio', 'Buy young — premiums are lower', 'Read policy wording carefully', 'Use Paliwal Secure\'s AI recommendation engine'],
+    dontDoThis: ['Don\'t buy the cheapest plan blindly', 'Don\'t skip reading exclusions', 'Don\'t buy investment-cum-insurance (ULIP/endowment) for pure protection', 'Don\'t buy without checking network hospitals in your area'],
+    escalationOptions: ['Take our personalization quiz → Get AI recommendations → Compare top 3 plans → Consult expert'],
+  },
+  {
+    id: 'tpl-005',
+    scenario: 'Comparing Two Similar Plans',
+    scenarioHi: 'दो समान प्लान तुलना कर रहे हैं',
+    trigger: /compare|versus|vs|better.*plan|kaun.*sa|कौन.*सा|farq|difference/i,
+    response: `Accha sawaal! Main dono plans ko 6 key parameters pe compare karta hoon:\n\n**Comparison Framework:**\n1. **CSR (Claim Settlement Ratio)** — Jitna zyada, utna reliable\n2. **ICR (Incurred Claim Ratio)** — 50-80% ideal hai (90%+ matlab company loss mein, 50% se kam matlab claim nahi deta)\n3. **Solvency Ratio** — Minimum 1.5 (IRDAI), 2.0+ accha\n4. **Network Hospitals** — Aapke shehar mein kitne?\n5. **Waiting Period** — PED ke liye kitne mahine?\n6. **Room Rent Limit** — Koi limit nahi = best\n\n**Quick decision matrix:**\n| Priority | Choose This |\n|----------|-------------|\n| Fastest claim | Acko (digital, minutes mein) |\n| Most hospitals | Care Health (21,700+) |\n| Best restoration | HDFC ERGO (100%) |\n| Lowest premium | SBI Life / LIC |\n| Highest CSR | Niva Bupa (100%) |\n\n💡 Apne specific needs bataiye — main personalized comparison kar dunga!`,
+    doThis: ['Compare on CSR, ICR, solvency, network, waiting period, and room rent', 'Consider your specific needs (city, family size, medical history)', 'Check claim process ease — digital-first insurers are faster', 'Look at complaint ratio per 10,000 claims'],
+    dontDoThis: ['Don\'t compare CSR across categories (health vs life CSR is calculated differently)', 'Don\'t only look at premium — cheaper may mean less coverage', 'Don\'t ignore complaint ratios — high CSR with high complaints is a red flag'],
+    escalationOptions: ['Use our comparison table → Ask InsureGPT for specific comparison → Get personalized recommendation'],
+  },
+];
