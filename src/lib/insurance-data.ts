@@ -2623,7 +2623,7 @@ export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
   const blogResults = blogArticles
     .map(article => {
       let score = 0;
-      const searchable = `${article.title} ${article.titleHi} ${article.summary} ${article.keyPoints.join(' ')} ${article.category}`.toLowerCase();
+      const searchable = `${article.title} ${article.titleHi || ''} ${article.summary || ''} ${(article.keyPoints || []).join(' ')} ${article.category}`.toLowerCase();
       words.forEach(word => {
         if (searchable.includes(word)) score += 1;
       });
@@ -2632,7 +2632,7 @@ export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
           id: `blog-${article.id}`,
           topic: article.title,
           question: article.titleHi,
-          answer: `${article.summary} Key points: ${article.keyPoints.join('. ')}`,
+          answer: `${article.summary || ''} Key points: ${(article.keyPoints || []).join('. ')}`,
           category: article.category as InsuranceCategory | 'general',
           tags: [article.category, 'blog', 'article'],
         } as KnowledgeEntry,
@@ -2645,7 +2645,7 @@ export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
   const mythResults = mythBusters
     .map(myth => {
       let score = 0;
-      const searchable = `${myth.myth} ${myth.mythHi} ${myth.reality} ${myth.stat} ${myth.source}`.toLowerCase();
+      const searchable = `${myth.myth} ${myth.mythHi || ''} ${myth.reality || myth.fact || ''} ${myth.stat || myth.statistic || ''} ${myth.source || ''}`.toLowerCase();
       words.forEach(word => {
         if (searchable.includes(word)) score += 1;
       });
@@ -2654,7 +2654,7 @@ export function searchKnowledgeBase(query: string): KnowledgeEntry[] {
           id: `myth-${myth.id}`,
           topic: `Myth: ${myth.myth}`,
           question: myth.mythHi,
-          answer: `Reality: ${myth.reality} Stat: ${myth.stat} Source: ${myth.source}`,
+          answer: `Reality: ${myth.reality || myth.fact || ''} Stat: ${myth.stat || myth.statistic || ''} Source: ${myth.source || ''}`,
           category: 'general' as InsuranceCategory | 'general',
           tags: ['myth-buster', 'fact-check'],
         } as KnowledgeEntry,
