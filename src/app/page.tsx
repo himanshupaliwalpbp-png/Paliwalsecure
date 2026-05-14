@@ -8,7 +8,7 @@ import {
   Home as HomeIcon, Search, BookOpen, AlertTriangle, TrendingUp,
   QrCode, ExternalLink, CheckCircle2, XCircle, Clock, Sparkles,
   Calculator, Zap, Users, Target, Handshake, ChevronDown, Award,
-  ArrowUpRight, Globe, Play, Quote, Lock,
+  ArrowUpRight, Globe, Play, Lock,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -232,16 +232,6 @@ const howItWorksSteps = [
     description: 'Online khareedein ya expert se baat karein — dono mein aasan claim process',
     gradient: 'from-amber-500 to-orange-500',
   },
-];
-
-// ── Testimonials Data ──────────────────────────────────────────────────────
-const testimonials = [
-  { name: 'Rajesh Kumar', role: 'Business Owner, Delhi', rating: 5, quote: 'InsureGPT ne mujhe 15 minutes mein sahi health plan dhundh diya — jo agent 2 week nahi kar paya!', avatar: 'RK' },
-  { name: 'Priya Sharma', role: 'IT Professional, Bangalore', rating: 5, quote: 'Claim process itna aasan tha ki mujhe believe nahi hua. Paliwal Secure ne 3 din mein approve karwa diya!', avatar: 'PS' },
-  { name: 'Amit Patel', role: 'Teacher, Ahmedabad', rating: 4, quote: 'Hinglish mein insurance samajhna itna easy? InsureGPT ne sab clear kar diya — koi jargon nahi!', avatar: 'AP' },
-  { name: 'Sunita Verma', role: 'Homemaker, Lucknow', rating: 5, quote: 'Voice feature ekdum perfect hai. Hindi mein poocha, Hindi mein jawab mila. Best experience!', avatar: 'SV' },
-  { name: 'Vikram Singh', role: 'Farmer, Jaipur', rating: 5, quote: 'Crop insurance ke liye Paliwal Secure se baat ki — WhatsApp pe turant response mila. Impressive!', avatar: 'VS' },
-  { name: 'Meera Reddy', role: 'Doctor, Hyderabad', rating: 5, quote: 'As a doctor, I appreciate their IRDAI compliance and transparent recommendations. Highly trustworthy!', avatar: 'MR' },
 ];
 
 // ── Market Insight Category Config ─────────────────────────────────────────
@@ -945,78 +935,6 @@ export default function PaliwalSecurePage() {
                 );
               })}
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================== */}
-      {/* TESTIMONIALS CAROUSEL — New Premium Section                         */}
-      {/* ================================================================== */}
-      <section id="testimonials" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-background via-blue-50/30 to-background dark:from-background dark:via-blue-950/10 dark:to-background scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="text-center max-w-3xl mx-auto mb-12"
-          >
-            <Badge className="badge-shimmer mb-4 bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800 rounded-full px-4 py-1">
-              <Star className="w-3.5 h-3.5 mr-1 fill-amber-500" />
-              Customer Stories
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
-              Log Kya <span className="gradient-text-amber">Kehte Hain</span>
-            </h2>
-            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
-              Real stories from real people — Paliwal Secure ne unka insurance experience kaise badla
-            </p>
-          </motion.div>
-
-          {/* Auto-scrolling carousel */}
-          <div className="overflow-hidden relative">
-            {/* Fade edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-            <div className="animate-carousel flex gap-6 w-max">
-              {/* Duplicate items for infinite scroll */}
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div
-                  key={`${t.avatar}-${i}`}
-                  className="w-[300px] sm:w-[350px] flex-shrink-0 card-premium rounded-3xl p-6 sm:p-8 bg-card"
-                >
-                  {/* Quote icon */}
-                  <Quote className="w-8 h-8 text-blue-200 dark:text-blue-800 mb-4" />
-
-                  {/* Quote text */}
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed mb-6">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-
-                  {/* Star rating */}
-                  <div className="flex gap-0.5 mb-4">
-                    {[...Array(5)].map((_, si) => (
-                      <Star
-                        key={si}
-                        className={`w-4 h-4 ${si < t.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200 dark:text-slate-700'}`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Avatar + Name */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shrink-0">
-                      {t.avatar}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">{t.role}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
