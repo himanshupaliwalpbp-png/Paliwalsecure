@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Settings as SettingsIcon,
   User,
@@ -9,6 +9,12 @@ import {
   Save,
   Loader2,
   Shield,
+  BarChart3,
+  ExternalLink,
+  CheckCircle2,
+  XCircle,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -43,6 +49,90 @@ export default function SettingsPage() {
   const [newAdminPassword, setNewAdminPassword] = useState('');
   const [newAdminRole, setNewAdminRole] = useState('MODERATOR');
   const [createLoading, setCreateLoading] = useState(false);
+
+  // Google Analytics state
+  const [gaMeasurementId, setGaMeasurementId] = useState('');
+  const [gaLoading, setGaLoading] = useState(false);
+  const [gaFetching, setGaFetching] = useState(true);
+  const [gaConnected, setGaConnected] = useState(false);
+  const [showGaId, setShowGaId] = useState(false);
+
+  // ── Fetch GA settings on mount ─────────────────────────────────────────
+  const fetchGaSettings = useCallback(async () => {
+    if (!accessToken) return;
+    setGaFetching(true);
+    try {
+      const res = await fetch('/api/admin/settings?key=ga_measurement_id', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      const data = await res.json();
+      if (data.success && data.setting?.value) {
+        setGaMeasurementId(data.setting.value);
+        setGaConnected(true);
+      } else {
+        setGaConnected(false);
+      }
+    } catch {
+      // Silently fail
+    } finally {
+      setGaFetching(false);
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    fetchGaSettings();
+  }, [fetchGaSettings]);
+
+  // ── Save GA settings handler ───────────────────────────────────────────
+  const handleSaveGaId = async () => {
+    if (!accessToken) return;
+
+    const trimmedId = gaMeasurementId.trim();
+
+    // Validate GA ID format (G-XXXXXXXXXX or GT-XXXXXXXXXX or UA-XXXXX-X)
+    if (trimmedId && !/^(G|GT|UA)-[A-Z0-9]+(-[A-Z0-9]+)?$/i.test(trimmedId)) {
+      toast({
+        title: 'Invalid GA ID',
+        description: 'Format should be G-XXXXXXXXXX, GT-XXXXXXXXXX, or UA-XXXXX-X',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setGaLoading(true);
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          key: 'ga_measurement_id',
+          value: trimmedId,
+          description: 'Google Analytics Measurement ID',
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Failed to save GA ID');
+
+      setGaConnected(!!trimmedId);
+      toast({
+        title: trimmedId ? 'Google Analytics Connected! 🎉' : 'Google Analytics Disconnected',
+        description: trimmedId
+          ? `Tracking ID ${trimmedId} is now active on your website`
+          : 'GA tracking has been removed from your website',
+      });
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: err instanceof Error ? err.message : 'Failed to save GA settings',
+        variant: 'destructive',
+      });
+    } finally {
+      setGaLoading(false);
+    }
+  };
 
   // ── Change password handler ────────────────────────────────────────────
   const handleChangePassword = async () => {
@@ -154,6 +244,121 @@ export default function SettingsPage() {
           <p className="text-sm text-slate-500">Manage your account and preferences</p>
         </div>
       </div>
+
+      {/* ── Google Analytics Section ────────────────────────────────────────── */}
+      <Card className="border-0 shadow-md">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-amber-500" />
+              <CardTitle className="text-base">Google Analytics</CardTitle>
+            </div>
+            {!gaFetching && (
+              <Badge
+                className={`text-xs ${
+                  gaConnected
+                    ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
+                    : 'bg-slate-100 text-slate-600 border-slate-200'
+                }`}
+              >
+                {gaConnected ? (
+                  <>
+                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                    Connected
+                  </>
+                ) : (
+                  <>
+                    <XCircle className="w-3 h-3 mr-1" />
+                    Not Connected
+                  </>
+                )}
+              </Badge>
+            )}
+          </div>
+          <CardDescription>
+            Connect Google Analytics to track website visitors and page views
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label className="text-sm font-medium">GA Measurement ID</Label>
+            <div className="flex gap-2 mt-1">
+              <div className="relative flex-1">
+                <Input
+                  type={showGaId ? 'text' : 'password'}
+                  className="pr-10"
+                  value={gaMeasurementId}
+                  onChange={(e) => setGaMeasurementId(e.target.value)}
+                  placeholder="G-XXXXXXXXXX"
+                  disabled={gaFetching}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowGaId(!showGaId)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showGaId ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              <Button
+                className="bg-amber-500 hover:bg-amber-600 text-white shrink-0"
+                onClick={handleSaveGaId}
+                disabled={gaLoading || gaFetching}
+              >
+                {gaLoading ? (
+                  <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                ) : (
+                  <Save className="w-4 h-4 mr-1" />
+                )}
+                Save
+              </Button>
+            </div>
+          </div>
+
+          {gaConnected && gaMeasurementId && (
+            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs text-emerald-700 font-medium">
+                    Google Analytics is active
+                  </p>
+                  <p className="text-xs text-emerald-600 mt-0.5">
+                    Tracking ID: <code className="bg-emerald-100 px-1 py-0.5 rounded text-[11px]">{showGaId ? gaMeasurementId : 'G-••••••••••'}</code>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-xs text-blue-700">
+              <strong>How to get your GA Measurement ID:</strong>
+            </p>
+            <ol className="text-xs text-blue-600 mt-1 space-y-0.5 list-decimal list-inside">
+              <li>Go to{' '}
+                <a
+                  href="https://analytics.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline inline-flex items-center gap-0.5"
+                >
+                  Google Analytics <ExternalLink className="w-3 h-3" />
+                </a>
+              </li>
+              <li>Create a new property or select an existing one</li>
+              <li>Copy the Measurement ID (starts with G-)</li>
+              <li>Paste it above and click Save</li>
+            </ol>
+          </div>
+
+          {gaMeasurementId && !gaConnected && (
+            <p className="text-xs text-amber-600">
+              💡 Click &quot;Save&quot; to activate Google Analytics tracking on your website
+            </p>
+          )}
+        </CardContent>
+      </Card>
 
       {/* ── Profile Section ─────────────────────────────────────────────────── */}
       <Card className="border-0 shadow-md">

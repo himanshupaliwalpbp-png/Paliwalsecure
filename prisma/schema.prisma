@@ -154,6 +154,19 @@ model Article {
   @@map("articles")
 }
 
+// ── Site Settings Model ─────────────────────────────────────────────────────
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique  // e.g. "ga_measurement_id", "site_name", etc.
+  value       String
+  description String?
+  updatedBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
 // ── Audit Log Model ─────────────────────────────────────────────────────────
 model AuditLog {
   id        String   @id @default(cuid())

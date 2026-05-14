@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { PWARegistrar } from "@/components/PWARegistrar";
+import GAProvider from "@/components/GAProvider";
 
 const sora = Sora({
   variable: "--font-heading",
@@ -93,6 +94,7 @@ export default function RootLayout({
         >
           <ScrollProgress />
           <PWARegistrar />
+          <GAProvider />
           {children}
           <Toaster />
         </ThemeProvider>

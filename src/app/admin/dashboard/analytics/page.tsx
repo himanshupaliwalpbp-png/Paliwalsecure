@@ -7,9 +7,13 @@ import {
   Users,
   TrendingUp,
   Loader2,
+  CheckCircle2,
+  XCircle,
+  ExternalLink,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/auth-store';
 import { toast } from '@/hooks/use-toast';
 
@@ -112,11 +116,27 @@ export default function AnalyticsPage() {
   const [reviewStats, setReviewStats] = useState<ReviewStats | null>(null);
   const [leadFunnel, setLeadFunnel] = useState<LeadFunnel | null>(null);
   const [insuranceDist, setInsuranceDist] = useState<InsuranceDistribution[]>([]);
+  const [gaConnected, setGaConnected] = useState(false);
+  const [gaId, setGaId] = useState('');
 
   const fetchData = useCallback(async () => {
     if (!accessToken) return;
     setLoading(true);
     try {
+      // Check GA connection status
+      try {
+        const gaRes = await fetch('/api/admin/settings?key=ga_measurement_id', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        const gaData = await gaRes.json();
+        if (gaData.success && gaData.setting?.value) {
+          setGaConnected(true);
+          setGaId(gaData.setting.value);
+        }
+      } catch {
+        // Non-critical
+      }
+
       // Fetch all reviews for stats
       const reviewsRes = await fetch('/api/admin/reviews?limit=100', {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -222,6 +242,78 @@ export default function AnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* ── Google Analytics Connection Status ──────────────────────────────── */}
+        <Card className={`border-0 shadow-md ${gaConnected ? 'ring-1 ring-emerald-200' : ''}`}>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-blue-500" />
+                <CardTitle className="text-base">Google Analytics</CardTitle>
+              </div>
+              <Badge
+                className={`text-xs ${
+                  gaConnected
+                    ? 'bg-emerald-100 text-emerald-700 border-emerald-200'
+                    : 'bg-slate-100 text-slate-600 border-slate-200'
+                }`}
+              >
+                {gaConnected ? (
+                  <>
+                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                    Connected
+                  </>
+                ) : (
+                  <>
+                    <XCircle className="w-3 h-3 mr-1" />
+                    Not Connected
+                  </>
+                )}
+              </Badge>
+            </div>
+            <CardDescription>
+              Real-time visitor tracking and page analytics
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {gaConnected ? (
+              <div className="space-y-3">
+                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                    <div>
+                      <p className="text-sm font-medium text-emerald-700">Tracking Active</p>
+                      <p className="text-xs text-emerald-600">
+                        Measurement ID: <code className="bg-emerald-100 px-1 py-0.5 rounded">{gaId}</code>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full gap-2 text-blue-600 border-blue-200 hover:bg-blue-50"
+                  onClick={() => window.open('https://analytics.google.com/', '_blank')}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Open Google Analytics Dashboard
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-sm text-amber-700">
+                    Google Analytics is not connected. Go to{' '}
+                    <strong>Settings</strong> to add your GA Measurement ID.
+                  </p>
+                </div>
+                <p className="text-xs text-slate-500">
+                  Track visitors, page views, conversions, and user behavior on your website.
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* ── Review Stats ──────────────────────────────────────────────────── */}
         <Card className="border-0 shadow-md">
           <CardHeader>

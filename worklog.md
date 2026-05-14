@@ -102,3 +102,38 @@ Stage Summary:
 - PWA configured with custom service worker (Turbopack compatible)
 - Admin user seeded: admin@paliwalsecure.com / Paliwal@2024
 - Lint passes with zero errors
+
+---
+Task ID: 8
+Agent: Main Agent
+Task: Integrate Google Analytics into the project with admin management
+
+Work Log:
+- Added SiteSetting model to Prisma schema (key/value store for site configuration)
+- Ran `bun run db:push` to sync database
+- Created GoogleAnalytics.tsx client component with page view tracking (Script tags + gtag)
+- Created GAProvider.tsx client component that fetches GA ID from /api/settings and conditionally renders GA
+- Added GAProvider to root layout.tsx (site-wide, all pages including admin)
+- Created /api/admin/settings/route.ts (GET/PUT for admin settings management with auth)
+- Created /api/settings/route.ts (public endpoint exposing only safe keys like ga_measurement_id)
+- Added Google Analytics settings card to admin Settings page with:
+  - GA Measurement ID input with show/hide toggle
+  - Save button with validation (G-XXXXXXXXXX, GT-XXXXXXXXXX, UA-XXXXX-X formats)
+  - Connection status badge (Connected/Not Connected)
+  - Step-by-step setup instructions with link to Google Analytics
+  - Active tracking confirmation with Measurement ID display
+- Added Google Analytics connection status card to admin Analytics page with:
+  - Connected/Not Connected status badge
+  - Tracking active indicator with Measurement ID
+  - "Open Google Analytics Dashboard" button
+  - Instructions to go to Settings if not connected
+- Fixed JWT auth in settings route to use verifyAccessToken from @/lib/auth (was using different secret)
+- All lint checks pass
+
+Stage Summary:
+- Google Analytics is fully integrated into the project
+- GA tracking loads dynamically from database (no env vars needed)
+- Admin can configure GA Measurement ID from Settings page
+- Analytics page shows GA connection status
+- Public /api/settings endpoint provides GA ID to frontend
+- SiteSetting model allows future settings expansion
