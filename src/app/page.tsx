@@ -515,31 +515,31 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20">
+      <section className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-16 lg:pb-20">
         {/* Background gradient & shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-background to-amber-50 dark:from-emerald-950/30 dark:via-background dark:to-amber-950/20" />
-        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-rose-100/20 rounded-full blur-2xl animate-pulse" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse hidden sm:block" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl animate-pulse hidden sm:block" />
+        <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-rose-100/20 rounded-full blur-2xl animate-pulse hidden lg:block" />
 
-        {/* Floating decorative shapes */}
+        {/* Floating decorative shapes — hidden on mobile to prevent overlap */}
         <motion.div
-          className="absolute top-32 left-[15%] w-16 h-16 bg-emerald-400/10 rounded-xl rotate-12"
+          className="hidden lg:block absolute top-32 left-[15%] w-16 h-16 bg-emerald-400/10 rounded-xl rotate-12"
           animate={{ y: [-10, 10, -10], rotate: [12, 20, 12] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute bottom-40 right-[20%] w-20 h-20 bg-amber-400/10 rounded-full"
+          className="hidden lg:block absolute bottom-40 right-[20%] w-20 h-20 bg-amber-400/10 rounded-full"
           animate={{ y: [10, -10, 10] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute top-1/2 left-[8%] w-12 h-12 bg-violet-400/10 rounded-lg -rotate-12"
+          className="hidden lg:block absolute top-1/2 left-[8%] w-12 h-12 bg-violet-400/10 rounded-lg -rotate-12"
           animate={{ y: [-8, 8, -8], rotate: [-12, -20, -12] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -550,7 +550,7 @@ export default function PaliwalSecurePage() {
               >
                 <Badge
                   variant="secondary"
-                  className="mb-6 bg-emerald-50 text-emerald-700 border-emerald-200 px-4 py-1.5 text-sm font-medium"
+                  className="mb-4 sm:mb-6 bg-emerald-50 text-emerald-700 border-emerald-200 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium"
                 >
                   India ka pehla AI-powered Bima Gyaan — by Himanshu Paliwal
                 </Badge>
@@ -560,11 +560,11 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-tight"
+                className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 tracking-tight leading-tight"
               >
                 Samjho Bima,{' '}
                 <span className="text-emerald-600">Sahi Bima</span>
-                <span className="block text-lg sm:text-xl lg:text-2xl font-medium text-slate-500 mt-2">
+                <span className="block text-base sm:text-xl lg:text-2xl font-medium text-slate-500 mt-1 sm:mt-2">
                   Smart Insurance for Every Indian
                 </span>
               </motion.h1>
@@ -573,7 +573,7 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+                className="mt-4 sm:mt-6 text-sm sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
               >
                 Insurance samajhna ab aasan hai. AI-powered recommendations, zero jargon — bas sahi coverage paao.
               </motion.p>
@@ -582,15 +582,15 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                className="mt-5 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
               >
                 {/* Primary CTA: WhatsApp */}
                 <Button
                   size="lg"
                   onClick={handleWhatsAppClick}
-                  className="bg-green-600 hover:bg-green-700 text-white gap-2 shadow-lg shadow-green-200 h-12 px-6 sm:px-8 text-sm sm:text-base"
+                  className="bg-green-600 hover:bg-green-700 text-white gap-2 shadow-lg shadow-green-200 h-11 sm:h-12 px-4 sm:px-8 text-xs sm:text-base"
                 >
-                  <Phone className="w-5 h-5" />
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                   Free Insurance Guide on WhatsApp
                 </Button>
                 {/* Secondary CTA: Recommendations */}
@@ -598,7 +598,7 @@ export default function PaliwalSecurePage() {
                   size="lg"
                   variant="outline"
                   onClick={() => setShowOnboarding(true)}
-                  className="gap-2 border-slate-300 hover:border-emerald-400 hover:text-emerald-600 h-12 px-5 sm:px-8 text-sm sm:text-base"
+                  className="gap-2 border-slate-300 hover:border-emerald-400 hover:text-emerald-600 h-11 sm:h-12 px-4 sm:px-8 text-xs sm:text-base"
                 >
                   Get Recommendations
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -610,26 +610,26 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="mt-6 flex items-center gap-3 justify-center lg:justify-start"
+                className="mt-4 sm:mt-6 flex items-center gap-2 sm:gap-3 justify-center lg:justify-start"
               >
                 <div className="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm max-w-xs">
-                  <span className="px-3 py-2.5 text-sm text-slate-500 bg-slate-50 border-r border-slate-200 font-medium">+91</span>
+                  <span className="px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-500 bg-slate-50 border-r border-slate-200 font-medium">+91</span>
                   <Input
                     type="tel"
                     placeholder="WhatsApp number"
                     value={whatsappPhone}
                     onChange={(e) => setWhatsappPhone(e.target.value)}
-                    className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-11 text-sm"
+                    className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-9 sm:h-11 text-xs sm:text-sm"
                     maxLength={10}
                   />
                 </div>
                 <Button
                   onClick={handleWhatsAppClick}
                   size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-white gap-1.5 h-11"
+                  className="bg-green-600 hover:bg-green-700 text-white gap-1.5 h-9 sm:h-11 text-xs sm:text-sm"
                 >
                   Chat
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 </Button>
               </motion.div>
 
@@ -638,7 +638,7 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="mt-4 flex items-center gap-2 justify-center lg:justify-start"
+                className="mt-3 sm:mt-4 flex items-center gap-2 justify-center lg:justify-start"
               >
                 <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center">
                   <QrCode className="w-5 h-5 text-slate-400" />
@@ -651,29 +651,29 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-10 grid grid-cols-3 gap-4 sm:gap-8"
+                className="mt-6 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-8"
               >
                 <div className="text-center lg:text-left">
-                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
+                  <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900">
                     {stat1}M+
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  <p className="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1">
                     Uninsured
                   </p>
                 </div>
                 <div className="text-center lg:text-left">
-                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
+                  <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900">
                     {stat2}.7%
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Insurance Penetration
+                  <p className="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1">
+                    Penetration
                   </p>
                 </div>
                 <div className="text-center lg:text-left">
-                  <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900">
+                  <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900">
                     {stat3}%
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  <p className="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1">
                     Claim Settlement
                   </p>
                 </div>
@@ -883,69 +883,30 @@ export default function PaliwalSecurePage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4"
           >
-            {marketInsights.slice(0, 5).map((insight) => {
+            {marketInsights.map((insight) => {
               const style = getInsightStyle(insight.category);
               const IconComp = style.icon;
               return (
                 <motion.div key={insight.id} variants={staggerItem}>
-                  <Card className="h-full bg-slate-800/50 border-slate-700/50 hover:border-emerald-600/40 transition-all duration-300 group">
-                    <CardContent className="pt-5 pb-5 px-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className={`w-8 h-8 rounded-lg ${style.bg} flex items-center justify-center`}>
-                          <IconComp className={`w-4 h-4 ${style.color}`} />
+                  <Card className="bg-slate-800/50 border-slate-700/50 hover:border-emerald-600/40 transition-all duration-300 group h-full">
+                    <CardContent className="pt-4 pb-4 px-3 sm:pt-5 sm:pb-5 sm:px-4">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                        <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${style.bg} flex items-center justify-center shrink-0`}>
+                          <IconComp className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${style.color}`} />
                         </div>
-                        <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${style.border} ${style.color}`}>
+                        <Badge variant="outline" className={`text-[9px] sm:text-[10px] px-1 sm:px-1.5 py-0 ${style.border} ${style.color} truncate max-w-[80px] sm:max-w-none`}>
                           {insight.category.replace('-', ' ')}
                         </Badge>
                       </div>
-                      <p className="text-sm font-semibold text-white leading-snug mb-2">
+                      <p className="text-xs sm:text-sm font-semibold text-white leading-snug mb-1.5 sm:mb-2">
                         {insight.stat}
                       </p>
-                      <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
+                      <p className="text-[10px] sm:text-xs text-slate-400 leading-relaxed line-clamp-2 sm:line-clamp-3">
                         {insight.context}
                       </p>
-                      <p className="text-[10px] text-slate-500 mt-2 truncate">
-                        {insight.source}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-
-          {/* Additional insights row - show on larger screens */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4"
-          >
-            {marketInsights.slice(5, 10).map((insight) => {
-              const style = getInsightStyle(insight.category);
-              const IconComp = style.icon;
-              return (
-                <motion.div key={insight.id} variants={staggerItem}>
-                  <Card className="h-full bg-slate-800/50 border-slate-700/50 hover:border-emerald-600/40 transition-all duration-300 group">
-                    <CardContent className="pt-5 pb-5 px-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className={`w-8 h-8 rounded-lg ${style.bg} flex items-center justify-center`}>
-                          <IconComp className={`w-4 h-4 ${style.color}`} />
-                        </div>
-                        <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${style.border} ${style.color}`}>
-                          {insight.category.replace('-', ' ')}
-                        </Badge>
-                      </div>
-                      <p className="text-sm font-semibold text-white leading-snug mb-2">
-                        {insight.stat}
-                      </p>
-                      <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
-                        {insight.context}
-                      </p>
-                      <p className="text-[10px] text-slate-500 mt-2 truncate">
+                      <p className="text-[9px] sm:text-[10px] text-slate-500 mt-1.5 sm:mt-2 truncate">
                         {insight.source}
                       </p>
                     </CardContent>
