@@ -38,6 +38,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import { useToast } from '@/hooks/use-toast';
+import { GAEvents } from '@/lib/ga-events';
 import {
   categoryInfo,
   getPlansByCategory,
@@ -305,11 +306,13 @@ export default function PaliwalSecurePage() {
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      GAEvents.navClick(sectionId);
     }
   }, []);
 
   // WhatsApp handler
   const handleWhatsAppClick = useCallback(() => {
+    GAEvents.whatsappClick('navbar');
     const welcomeMsg = dripCampaigns[0]?.welcomeMessage || 'Namaste! 🙏 Main Paliwal Secure hoon — aapka insurance guide. Kaise madad kar sakta hoon?';
     const waUrl = `https://wa.me/919999999999?text=${encodeURIComponent(welcomeMsg)}`;
     window.open(waUrl, '_blank');
@@ -339,6 +342,7 @@ export default function PaliwalSecurePage() {
 
         if (res.ok && data.success) {
           fireConfetti();
+          GAEvents.contactFormSubmit(contactForm.insuranceType);
           toast({
             title: 'Message sent! 🎉',
             description: data.message,
@@ -374,6 +378,7 @@ export default function PaliwalSecurePage() {
   const handleOnboardingComplete = useCallback((profile: UserProfile) => {
     setUserProfile(profile);
     setShowOnboarding(false);
+    GAEvents.onboardingComplete(profile.insuranceType);
     toast({
       title: 'Profile saved! 🎯',
       description: 'Your personalized recommendations are ready.',
@@ -382,6 +387,7 @@ export default function PaliwalSecurePage() {
 
   const handleOnboardingSkip = useCallback(() => {
     setShowOnboarding(false);
+    GAEvents.onboardingSkip();
   }, []);
 
   // Get current category plans
@@ -470,7 +476,7 @@ export default function PaliwalSecurePage() {
               <ThemeToggle />
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
-                  onClick={() => setShowOnboarding(true)}
+                  onClick={() => { setShowOnboarding(true); GAEvents.getStarted(); }}
                   className="btn-ripple bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full text-xs sm:text-sm px-3 sm:px-5 py-1.5 sm:py-2 gap-1.5 font-semibold shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300"
                 >
                   <span className="hidden sm:inline">Get Started</span>
@@ -538,6 +544,7 @@ export default function PaliwalSecurePage() {
                   onClick={() => {
                     setMobileMenuOpen(false);
                     setShowOnboarding(true);
+                    GAEvents.getStarted();
                   }}
                   className="w-full btn-ripple bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-semibold gap-1.5 mt-2 shadow-lg shadow-amber-500/25"
                 >
@@ -640,7 +647,7 @@ export default function PaliwalSecurePage() {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     size="lg"
-                    onClick={() => setShowOnboarding(true)}
+                    onClick={() => { setShowOnboarding(true); GAEvents.getMyBestPlan(); }}
                     className="btn-ripple cta-amber rounded-full gap-2 h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base font-semibold shadow-lg shadow-amber-500/20"
                   >
                     🎯 Get My Best Plan
@@ -650,7 +657,7 @@ export default function PaliwalSecurePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={handleWhatsAppClick}
+                    onClick={() => { GAEvents.talkToExpert(); handleWhatsAppClick(); }}
                     className="gap-2 border-white/20 text-white hover:bg-white/10 hover:text-white rounded-full h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base backdrop-blur-sm"
                   >
                     <Phone className="w-4 h-4" />
@@ -865,6 +872,7 @@ export default function PaliwalSecurePage() {
                   <div
                     onClick={() => {
                       setActiveCategory(cat.id);
+                      GAEvents.categorySelect(cat.id);
                       scrollToSection('products');
                     }}
                     className="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group bg-card"

@@ -50,6 +50,7 @@ import {
   CarouselNext,
 } from '@/components/ui/carousel';
 import { useToast } from '@/hooks/use-toast';
+import { GAEvents } from '@/lib/ga-events';
 import { fireConfetti } from '@/components/Confetti';
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -371,6 +372,7 @@ export default function ReviewSection() {
           const newVoted = new Set(votedReviews);
           newVoted.add(reviewId);
           setVotedReviews(newVoted);
+          GAEvents.reviewVote(voteType, reviewId);
           localStorage.setItem(
             'paliwal_voted_reviews',
             JSON.stringify([...newVoted])
@@ -460,6 +462,7 @@ export default function ReviewSection() {
         if (res.ok) {
           setSubmitSuccess(true);
           fireConfetti();
+          GAEvents.reviewSubmit(form.rating, form.insuranceType);
           toast({
             title: 'Review submitted! 🎉',
             description: 'Your review is pending approval. Thanks for sharing!',
@@ -846,7 +849,7 @@ export default function ReviewSection() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <Tabs
             value={activeTab}
-            onValueChange={(v) => setActiveTab(v as InsuranceType)}
+            onValueChange={(v) => { setActiveTab(v as InsuranceType); GAEvents.reviewFilter('insurance_type', v); }}
             className="w-full sm:w-auto"
           >
             <TabsList className="h-9 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
@@ -874,7 +877,7 @@ export default function ReviewSection() {
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <Select
               value={sortBy}
-              onValueChange={(v) => setSortBy(v as SortOption)}
+              onValueChange={(v) => { setSortBy(v as SortOption); GAEvents.reviewFilter('sort', v); }}
             >
               <SelectTrigger className="w-[150px] h-9 text-xs rounded-xl">
                 <Filter className="w-3.5 h-3.5 mr-1.5" />

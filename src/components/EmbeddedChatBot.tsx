@@ -24,6 +24,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
+import { GAEvents } from '@/lib/ga-events';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -530,6 +531,8 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
   const sendMessage = useCallback(
     async (text: string) => {
       if (!text.trim() || isLoading) return;
+
+      GAEvents.chatMessage(text.trim().length);
 
       const userMessage: ChatMessage = {
         id: generateId(),

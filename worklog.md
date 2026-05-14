@@ -137,3 +137,53 @@ Stage Summary:
 - Analytics page shows GA connection status
 - Public /api/settings endpoint provides GA ID to frontend
 - SiteSetting model allows future settings expansion
+
+---
+Task ID: 9
+Agent: Main Agent
+Task: Add GA4 custom event tracking across the entire site
+
+Work Log:
+- Created /src/lib/ga-events.ts — comprehensive GA4 event tracking utility with:
+  - trackEvent() — generic event tracker with type-safe params
+  - trackPageView() — manual page view tracking
+  - GAEvents object with 25+ pre-built event trackers organized by category:
+    - CTA/Engagement: getStarted, getMyBestPlan, talkToExpert, getQuote, whatsappClick
+    - Navigation: categorySelect, navClick
+    - Product: productView, productCompare, planCompare
+    - Reviews: reviewSubmit (with rating + insurance type), reviewVote, reviewFilter
+    - Contact: contactFormSubmit
+    - ChatBot: chatOpen, chatMessage (with message length)
+    - Onboarding: onboardingStart, onboardingComplete, onboardingSkip
+    - Calculator: calculatorUse
+    - PWA: pwaInstallPrompt, pwaInstallAccept, pwaInstallDismiss
+    - Knowledge: knowledgeSearch, glossaryView
+    - Scroll: scrollDepth
+- Added GAEvents to page.tsx homepage:
+  - Nav click tracking on all navigation items
+  - WhatsApp click tracking (with source parameter)
+  - Contact form submission tracking (with insurance type)
+  - Get Started / Get My Best Plan CTA button tracking
+  - Talk to Expert button tracking
+  - Category selection tracking
+  - Onboarding complete/skip tracking
+- Added GAEvents to ReviewSection.tsx:
+  - Review submit tracking (with rating + insurance type)
+  - Review vote tracking (helpful/not_helpful + review ID)
+  - Review filter tracking (insurance type + sort)
+- Added GAEvents to EmbeddedChatBot.tsx:
+  - Chat message tracking (with message length)
+- Added GAEvents to PWAInstallPrompt.tsx:
+  - Install accept tracking
+  - Install dismiss tracking
+- Added GAEvents to CalculatorSection.tsx:
+  - Calculator tab switch tracking (health/motor/term/tax/claim)
+- Added GAEvents import to OnboardingFlow.tsx (tracking is via page.tsx callbacks)
+- All lint checks pass
+
+Stage Summary:
+- 25+ GA4 custom events implemented across 6 components
+- Every key user interaction is now trackable in Google Analytics
+- Events include contextual data (insurance type, rating, message length, source)
+- Silent failure handling — GA tracking never blocks user experience
+- Events organized by category: engagement, conversion, navigation

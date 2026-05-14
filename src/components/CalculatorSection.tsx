@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calculator, Heart, Car, UserCheck, IndianRupee, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { GAEvents } from '@/lib/ga-events';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import dynamic from 'next/dynamic';
 
@@ -53,7 +54,7 @@ export default function CalculatorSection() {
 
   return (
     <div className="w-full">
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <Tabs value={activeTab} onValueChange={(v) => { setActiveTab(v); GAEvents.calculatorUse(v); }} className="w-full">
         <TabsList className="grid w-full grid-cols-5 h-auto gap-1 bg-muted/50 p-1">
           <TabsTrigger value="health" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <Heart className="w-3.5 h-3.5" />

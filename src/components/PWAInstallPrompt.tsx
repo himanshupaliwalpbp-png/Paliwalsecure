@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Share, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { GAEvents } from '@/lib/ga-events';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -81,13 +82,17 @@ export default function PWAInstallPrompt() {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
+        GAEvents.pwaInstallAccept();
         setDeferredPrompt(null);
         setShowBanner(false);
+      } else {
+        GAEvents.pwaInstallDismiss();
       }
     }
   }, [deferredPrompt]);
 
   const handleDismiss = useCallback(() => {
+    GAEvents.pwaInstallDismiss();
     setShowBanner(false);
     localStorage.setItem(DISMISSED_KEY, String(Date.now()));
   }, []);

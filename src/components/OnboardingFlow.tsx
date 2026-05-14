@@ -24,6 +24,7 @@ import {
   type OnboardingQuestion,
   type UserProfile,
 } from '@/lib/insurance-data';
+import { GAEvents } from '@/lib/ga-events';
 
 // ============================================================================
 // Types & Constants
