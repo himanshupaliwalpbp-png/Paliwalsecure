@@ -59,6 +59,17 @@ import { ProductCardSkeleton } from '@/components/SkeletonLoader';
 import MobileBottomNav from '@/components/MobileBottomNav';
 import dynamic from 'next/dynamic';
 
+const ReviewSection = dynamic(() => import('@/components/ReviewSection'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
+    </div>
+  ),
+});
+const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), { ssr: false });
+const ConnectionStatus = dynamic(() => import('@/components/ConnectionStatus'), { ssr: false });
+
 const CalculatorSection = dynamic(() => import('@/components/CalculatorSection'), {
   ssr: false,
   loading: () => (
@@ -383,6 +394,7 @@ export default function PaliwalSecurePage() {
     { id: 'insuregpt-chat', label: 'InsureGPT', icon: Brain },
     { id: 'calculators', label: 'Calculators', icon: Calculator },
     { id: 'products', label: 'Products', icon: Shield },
+    { id: 'reviews', label: 'Reviews', icon: Star },
     { id: 'features', label: 'Features', icon: Sparkles },
     { id: 'contact', label: 'Contact', icon: Phone },
   ];
@@ -1713,6 +1725,15 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
+      {/* REVIEWS & RATINGS SECTION                                           */}
+      {/* ================================================================== */}
+      <section id="reviews" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ReviewSection />
+        </div>
+      </section>
+
+      {/* ================================================================== */}
       {/* FOOTER — Premium Dark                                               */}
       {/* ================================================================== */}
       <footer className="bg-slate-900 dark:bg-slate-950 pb-20 md:pb-0">
@@ -1820,6 +1841,12 @@ export default function PaliwalSecurePage() {
       {/* MOBILE BOTTOM NAV                                                   */}
       {/* ================================================================== */}
       <MobileBottomNav onNavigate={scrollToSection} />
+
+      {/* ================================================================== */}
+      {/* PWA & CONNECTION STATUS                                             */}
+      {/* ================================================================== */}
+      <PWAInstallPrompt />
+      <ConnectionStatus />
 
       {/* ================================================================== */}
       {/* ONBOARDING FLOW                                                     */}

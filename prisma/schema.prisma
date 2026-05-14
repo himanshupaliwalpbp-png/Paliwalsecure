@@ -1,8 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// ============================================================================
+// Paliwal Secure - Complete Database Schema
+// Models: AdminUser, Review, ReviewVote, Lead, LeadNote, GlossaryTerm, Article, AuditLog
+// ============================================================================
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +12,161 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// ── Admin User Model ────────────────────────────────────────────────────────
+model AdminUser {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String
+  passwordHash  String
+  role          String   @default("MODERATOR") // ADMIN | MODERATOR
+  avatarUrl     String?
+  isActive      Boolean  @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  auditLogs     AuditLog[]
+  leadNotes     LeadNote[]
+
+  @@map("admin_users")
 }
 
-model Post {
+// ── Review Model ────────────────────────────────────────────────────────────
+model Review {
+  id              String   @id @default(cuid())
+  productName     String
+  insuranceType   String   // health | life | motor | travel | home
+  rating          Int      // 1-5
+  title           String
+  body            String
+  photoUrl        String?
+  reviewerName    String
+  reviewerEmail   String
+  reviewerPhone   String?
+  isVerifiedPurchase Boolean @default(false)
+  status          String   @default("pending") // pending | approved | rejected | flagged
+  helpfulYes      Int      @default(0)
+  helpfulNo       Int      @default(0)
+  moderatedBy     String?
+  moderatedAt     DateTime?
+  adminNotes      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  votes           ReviewVote[]
+
+  @@map("reviews")
+}
+
+// ── Review Vote Model (duplicate prevention) ────────────────────────────────
+model ReviewVote {
+  id          String   @id @default(cuid())
+  reviewId    String
+  voterFingerprint String // IP + user agent hash for anonymous tracking
+  voteType    String   // helpful | not_helpful
+  createdAt   DateTime @default(now())
+
+  review      Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, voterFingerprint])
+  @@map("review_votes")
+}
+
+// ── Lead Model ──────────────────────────────────────────────────────────────
+model Lead {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  insuranceType String?  // health | life | motor | travel | home
+  message       String?
+  status        String   @default("NEW") // NEW | CONTACTED | QUALIFIED | CONVERTED | LOST
+  source        String   @default("website") // website | whatsapp | referral | ads
+  followUpDate  DateTime?
+  lastContactedAt DateTime?
+  notes         String?
+  assignedTo    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  leadNotes     LeadNote[]
+
+  @@map("leads")
+}
+
+// ── Lead Note Model ─────────────────────────────────────────────────────────
+model LeadNote {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
+  leadId    String
   authorId  String
+  content   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  author    AdminUser @relation(fields: [authorId], references: [id])
+
+  @@map("lead_notes")
+}
+
+// ── Glossary Term Model (Content Moderation) ───────────────────────────────
+model GlossaryTerm {
+  id          String   @id @default(cuid())
+  term        String
+  hindiTerm   String?
+  explanation  String
+  example     String?
+  category    String   @default("general") // health | life | motor | general
+  importance  String   @default("medium") // critical | high | medium
+  status      String   @default("published") // draft | published | archived
+  version     Int      @default(1)
+  createdBy   String?
+  updatedBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("glossary_terms")
+}
+
+// ── Article Model (Content Moderation) ──────────────────────────────────────
+model Article {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  excerpt       String?
+  content       String
+  category      String   @default("general") // health | life | motor | general
+  keyTakeaways  String?  // JSON array string
+  readTime      Int      @default(5)
+  status        String   @default("draft") // draft | published | archived
+  version       Int      @default(1)
+  featuredImage String?
+  author        String?
+  source        String?
+  publishedAt   DateTime?
+  createdBy     String?
+  updatedBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("articles")
+}
+
+// ── Audit Log Model ─────────────────────────────────────────────────────────
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String   // CREATE | UPDATE | DELETE | APPROVE | REJECT | FLAG | LOGIN | LOGOUT
+  entity    String   // Review | Lead | GlossaryTerm | Article | AdminUser
+  entityId  String?
+  details   String?  // JSON string with change details
+  userId    String?
+  userAgent String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user      AdminUser? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
 }

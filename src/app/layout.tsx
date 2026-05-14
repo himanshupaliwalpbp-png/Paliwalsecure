@@ -44,8 +44,10 @@ export const metadata: Metadata = {
     "term insurance",
   ],
   authors: [{ name: "Himanshu Paliwal" }],
+  manifest: "/manifest.json",
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    apple: "/logo.svg",
   },
   openGraph: {
     title: "Paliwal Secure — AI se Best Plan, Humse Easy Claim",
@@ -62,6 +64,11 @@ export const metadata: Metadata = {
     description:
       "AI-powered recommendations from 51+ insurers. Smart insurance for every Indian family. By Himanshu Paliwal.",
   },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default function RootLayout({
@@ -71,6 +78,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="apple-touch-icon" href="/logo.svg" />
+      </head>
       <body
         className={`${inter.variable} ${sora.variable} ${ibmPlexMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden`}
       >
