@@ -94,7 +94,7 @@ function renderBotContent(content: string): React.ReactNode[] {
       const text = ulMatch ? ulMatch[1] : (olMatch as RegExpMatchArray)[1];
       nodes.push(
         <div key={`li-${lineIdx}`} className="flex gap-2 ml-1">
-          <span className="text-emerald-600 shrink-0">{ulMatch ? '\u2022' : line.match(/^\d+/)?.[0] + '.'}</span>
+          <span className="text-blue-600 shrink-0">{ulMatch ? '\u2022' : line.match(/^\d+/)?.[0] + '.'}</span>
           <span>{renderInlineMarkdown(text)}</span>
         </div>
       );
@@ -127,7 +127,7 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
 
     if (match[2]) {
       // **bold**
-      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-emerald-700">{match[2]}</strong>);
+      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-indigo-700">{match[2]}</strong>);
     } else if (match[3]) {
       // *italic*
       parts.push(<em key={`i-${match.index}`}>{match[3]}</em>);
@@ -157,23 +157,23 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
 function TypingIndicator() {
   return (
     <div className="flex items-start gap-2 mb-4">
-      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shrink-0 shadow-sm">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-sm">
         <Bot className="w-4 h-4 text-white" />
       </div>
       <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%]">
         <div className="flex items-center gap-1.5">
           <motion.span
-            className="w-2 h-2 bg-emerald-500 rounded-full"
+            className="w-2 h-2 bg-indigo-500 rounded-full"
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
           />
           <motion.span
-            className="w-2 h-2 bg-emerald-500 rounded-full"
+            className="w-2 h-2 bg-indigo-500 rounded-full"
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
           />
           <motion.span
-            className="w-2 h-2 bg-emerald-500 rounded-full"
+            className="w-2 h-2 bg-indigo-500 rounded-full"
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
           />
@@ -386,7 +386,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
               transition={{ delay: 0.5, duration: 0.3 }}
               className="hidden sm:flex items-center"
             >
-              <span className="bg-white shadow-md rounded-full px-3 py-1.5 text-xs font-semibold text-emerald-700 border border-emerald-200">
+              <span className="bg-white shadow-md rounded-full px-3 py-1.5 text-xs font-semibold text-blue-700 border border-blue-200">
                 InsureGPT
               </span>
             </motion.div>
@@ -400,12 +400,12 @@ export default function ChatBot({ profile }: ChatBotProps) {
                   exit={{ scale: 0, opacity: 0 }}
                   transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                   onClick={() => setIsOpen(true)}
-                  className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 text-white shadow-lg hover:shadow-xl hover:from-indigo-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
                   aria-label="Open chat"
                 >
                   <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" />
                   {/* Pulse ring */}
-                  <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-20" />
+                  <span className="absolute inset-0 rounded-full bg-indigo-500 animate-ping opacity-20" />
                 </motion.button>
               </TooltipTrigger>
               <TooltipContent side="left" sideOffset={8}>
@@ -428,7 +428,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
             className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-[60] w-full sm:w-[400px] h-full sm:h-[600px] sm:max-h-[calc(100vh-3rem)] bg-white sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-border/50"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-4 py-3 flex items-center justify-between shrink-0">
+            <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 text-white px-4 py-3 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <Bot className="w-5 h-5" />
@@ -436,10 +436,10 @@ export default function ChatBot({ profile }: ChatBotProps) {
                 <div>
                   <h3 className="font-bold text-base leading-tight">InsureGPT</h3>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 bg-emerald-200 rounded-full animate-pulse" />
-                    <span className="text-xs text-emerald-100">AI Insurance Advisor</span>
+                    <span className="w-2 h-2 bg-indigo-200 rounded-full animate-pulse" />
+                    <span className="text-xs text-indigo-100">AI Insurance Advisor</span>
                   </div>
-                  <span className="text-[11px] text-emerald-100 font-medium">Powered by Himanshu Paliwal</span>
+                  <span className="text-[11px] text-indigo-100 font-medium">Powered by Himanshu Paliwal</span>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -472,7 +472,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                   >
                     {/* Avatar */}
                     {msg.role === 'bot' ? (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shrink-0 shadow-sm">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-sm">
                         <Bot className="w-4 h-4 text-white" />
                       </div>
                     ) : (
@@ -485,7 +485,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     <div
                       className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                         msg.role === 'user'
-                          ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-tr-sm'
+                          ? 'bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-tr-sm'
                           : 'bg-muted text-foreground rounded-tl-sm'
                       }`}
                     >
@@ -521,7 +521,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     <button
                       key={suggestion}
                       onClick={() => handleSuggestion(suggestion)}
-                      className="px-3 py-2 text-xs rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
+                      className="px-3 py-2 text-xs rounded-full border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
                     >
                       {suggestion}
                     </button>
@@ -540,7 +540,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Ask about insurance..."
                     disabled={isLoading}
-                    className="pr-0 h-10 rounded-full border-border/60 focus-visible:ring-emerald-500/30 text-sm"
+                    className="pr-0 h-10 rounded-full border-border/60 focus-visible:ring-indigo-500/30 text-sm"
                   />
                 </div>
 
@@ -554,7 +554,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                     className={`h-10 w-10 rounded-full shrink-0 transition-all ${
                       isRecording
                         ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
-                        : 'hover:bg-emerald-50 hover:text-emerald-600'
+                        : 'hover:bg-indigo-50 hover:text-indigo-600'
                     }`}
                     aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
                   >
@@ -584,7 +584,7 @@ export default function ChatBot({ profile }: ChatBotProps) {
                 <Button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-                  className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shrink-0 shadow-sm disabled:opacity-50"
+                  className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white shrink-0 shadow-sm disabled:opacity-50"
                   size="icon"
                   aria-label="Send message"
                 >

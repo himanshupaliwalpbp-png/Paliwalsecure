@@ -122,7 +122,7 @@ function calculateTaxSavings(
   const effectivePremiumAfterTax = totalPremiumPaid - totalTaxSaved;
 
   const savingsBreakdown = [
-    { section: '80D Self/Family', deduction: actualDeductionSelf, taxSaved: (actualDeductionSelf * taxBracket) / 100, color: 'bg-emerald-500' },
+    { section: '80D Self/Family', deduction: actualDeductionSelf, taxSaved: (actualDeductionSelf * taxBracket) / 100, color: 'bg-blue-500' },
     { section: '80D Parents', deduction: actualDeductionParents, taxSaved: (actualDeductionParents * taxBracket) / 100, color: 'bg-teal-500' },
     { section: '80D Preventive', deduction: actualPreventive, taxSaved: (actualPreventive * taxBracket) / 100, color: 'bg-cyan-500' },
     { section: '80C Life Insurance', deduction: actualDeduction80C, taxSaved: (actualDeduction80C * taxBracket) / 100, color: 'bg-amber-500' },
@@ -366,7 +366,7 @@ export default function TaxSavingsCalculator() {
                         initial={{ width: 0 }}
                         animate={{ width: `${Math.min((result.actualDeductionSelf / result.maxDeductionSelf) * 100, 100)}%` }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="h-full bg-emerald-500 rounded-full"
+                        className="h-full bg-blue-500 rounded-full"
                       />
                     </div>
                     <p className="text-xs text-muted-foreground">Tax saved: {formatCurrencyFull((result.actualDeductionSelf * result.taxBracket) / 100)}</p>
@@ -472,7 +472,7 @@ export default function TaxSavingsCalculator() {
               {/* Effective Premium */}
               <div className="rounded-xl bg-white/50 dark:bg-white/5 p-4 border">
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                  <PiggyBank className="h-4 w-4 text-emerald-600" />
+                  <PiggyBank className="h-4 w-4 text-blue-600" />
                   Effective Premium After Tax Savings
                 </h3>
                 <div className="space-y-2 text-sm">
@@ -482,10 +482,10 @@ export default function TaxSavingsCalculator() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Total Tax Saved</span>
-                    <span className="font-medium text-emerald-600">- {formatCurrencyFull(result.totalTaxSaved)}</span>
+                    <span className="font-medium text-blue-600">- {formatCurrencyFull(result.totalTaxSaved)}</span>
                   </div>
                   <Separator />
-                  <div className="flex justify-between font-bold text-emerald-700 dark:text-emerald-300">
+                  <div className="flex justify-between font-bold text-blue-700 dark:text-blue-300">
                     <span>Effective Premium After Tax Savings</span>
                     <span>{formatCurrencyFull(result.effectivePremiumAfterTax)}</span>
                   </div>

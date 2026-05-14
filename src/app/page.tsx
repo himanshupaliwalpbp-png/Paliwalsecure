@@ -3,34 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Shield,
-  Brain,
-  ShieldCheck,
-  Mic,
-  MessageSquare,
-  Menu,
-  X,
-  ArrowRight,
-  Star,
-  ChevronRight,
-  Phone,
-  Mail,
-  MapPin,
-  Heart,
-  Car,
-  Plane,
-  Home as HomeIcon,
-  Search,
-  BookOpen,
-  AlertTriangle,
-  TrendingUp,
-  QrCode,
-  ExternalLink,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Sparkles,
-  Calculator,
+  Shield, Brain, ShieldCheck, Mic, MessageSquare, Menu, X, ArrowRight,
+  Star, ChevronRight, Phone, Mail, MapPin, Heart, Car, Plane,
+  Home as HomeIcon, Search, BookOpen, AlertTriangle, TrendingUp,
+  QrCode, ExternalLink, CheckCircle2, XCircle, Clock, Sparkles,
+  Calculator, Zap, Users, Target, Handshake, ChevronDown, Award,
+  ArrowUpRight, Globe, Play,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -84,7 +62,7 @@ const CalculatorSection = dynamic(() => import('@/components/CalculatorSection')
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -92,7 +70,7 @@ const GameOfLife = dynamic(() => import('@/components/GameOfLife'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -100,7 +78,7 @@ const EmbeddedChatBot = dynamic(() => import('@/components/EmbeddedChatBot'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -185,36 +163,57 @@ const features = [
     title: 'AI-Powered Sujhav',
     description:
       'AI jo samajhta hai aapki zaroorat — personalized recommendations, bas aapke liye',
-    color: 'text-violet-600',
-    bgColor: 'bg-violet-50',
-    borderColor: 'border-violet-200',
+    gradient: 'from-indigo-500 to-blue-600',
+    color: 'text-indigo-600',
   },
   {
     icon: ShieldCheck,
     title: 'IRDAI Compliant',
     description:
       'Saari recommendations IRDAI guidelines ke according — poori transparency, koi chhupana nahi',
-    color: 'text-emerald-600',
-    bgColor: 'bg-emerald-50',
-    borderColor: 'border-emerald-200',
+    gradient: 'from-blue-500 to-cyan-500',
+    color: 'text-blue-600',
   },
   {
     icon: Mic,
     title: 'Voice-First / Boliye',
     description:
       'Apni bhasha mein poochiye — Hindi, English, ya Hinglish, hum samajh lenge',
+    gradient: 'from-amber-500 to-orange-500',
     color: 'text-amber-600',
-    bgColor: 'bg-amber-50',
-    borderColor: 'border-amber-200',
   },
   {
     icon: MessageSquare,
     title: 'Zero Jargon / Aasan Bhasha',
     description:
       'Insurance ki complex terms ko aasan Hindi/Hinglish mein samjhiye — koi confusion nahi',
+    gradient: 'from-rose-500 to-pink-500',
     color: 'text-rose-600',
-    bgColor: 'bg-rose-50',
-    borderColor: 'border-rose-200',
+  },
+];
+
+// ── How It Works Steps ──────────────────────────────────────────────────────
+const howItWorksSteps = [
+  {
+    num: 1,
+    icon: Target,
+    title: 'Tell Your Needs',
+    description: 'Apni family, budget aur zarooratein bataiye — hum sunenge aur samjhenge',
+    gradient: 'from-blue-500 to-indigo-600',
+  },
+  {
+    num: 2,
+    icon: Brain,
+    title: 'Get Top 3 Plans',
+    description: 'AI 51+ insurers compare karta hai — CSR, score aur price ke saath top 3 plans',
+    gradient: 'from-indigo-500 to-violet-600',
+  },
+  {
+    num: 3,
+    icon: Handshake,
+    title: 'Buy or Consult',
+    description: 'Online khareedein ya expert se baat karein — dono mein aasan claim process',
+    gradient: 'from-amber-500 to-orange-500',
   },
 ];
 
@@ -224,7 +223,7 @@ function getGlossaryCategoryColor(cat: string) {
     case 'health':
       return 'bg-rose-50 text-rose-700 border-rose-200';
     case 'life':
-      return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+      return 'bg-blue-50 text-blue-700 border-blue-200';
     case 'motor':
       return 'bg-amber-50 text-amber-700 border-amber-200';
     default:
@@ -236,17 +235,23 @@ function getGlossaryCategoryColor(cat: string) {
 function getInsightStyle(cat: string) {
   switch (cat) {
     case 'opportunity':
-      return { color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200', icon: TrendingUp };
+      return { color: 'text-blue-400', bg: 'bg-blue-900/40', border: 'border-blue-700/50', icon: TrendingUp };
     case 'pain-point':
-      return { color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200', icon: AlertTriangle };
+      return { color: 'text-rose-400', bg: 'bg-rose-900/40', border: 'border-rose-700/50', icon: AlertTriangle };
     case 'regulatory':
-      return { color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200', icon: ShieldCheck };
+      return { color: 'text-amber-400', bg: 'bg-amber-900/40', border: 'border-amber-700/50', icon: ShieldCheck };
     case 'competitor-gap':
-      return { color: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-200', icon: Sparkles };
+      return { color: 'text-violet-400', bg: 'bg-violet-900/40', border: 'border-violet-700/50', icon: Sparkles };
     default:
-      return { color: 'text-slate-600', bg: 'bg-slate-50', border: 'border-slate-200', icon: TrendingUp };
+      return { color: 'text-slate-400', bg: 'bg-slate-800/50', border: 'border-slate-700/50', icon: TrendingUp };
   }
 }
+
+// ── Insurer names for trust bar ────────────────────────────────────────────
+const insurerNames = [
+  'HDFC ERGO', 'Star Health', 'Acko', 'ICICI Lombard', 'Niva Bupa',
+  'Digit', 'Bajaj Allianz', 'TATA AIG', 'Care Health', 'SBI Life', 'LIC',
+];
 
 // ============================================================================
 // Main Page Component
@@ -278,6 +283,7 @@ export default function PaliwalSecurePage() {
   const stat1 = useAnimatedCounter(heroVisible ? 700 : 0, 2000);
   const stat2 = useAnimatedCounter(heroVisible ? 3 : 0, 1500);
   const stat3 = useAnimatedCounter(heroVisible ? 87 : 0, 2000);
+  const trustCount = useAnimatedCounter(heroVisible ? 500 : 0, 2000);
 
   // Mark hero visible on mount
   useEffect(() => {
@@ -297,7 +303,6 @@ export default function PaliwalSecurePage() {
   // WhatsApp handler
   const handleWhatsAppClick = useCallback(() => {
     const welcomeMsg = dripCampaigns[0]?.welcomeMessage || 'Namaste! 🙏 Main Paliwal Secure hoon — aapka insurance guide. Kaise madad kar sakta hoon?';
-    const phone = whatsappPhone.replace(/\D/g, '');
     const waUrl = `https://wa.me/919999999999?text=${encodeURIComponent(welcomeMsg)}`;
     window.open(waUrl, '_blank');
   }, [whatsappPhone]);
@@ -327,7 +332,7 @@ export default function PaliwalSecurePage() {
         if (res.ok && data.success) {
           fireConfetti();
           toast({
-            title: 'Message sent!',
+            title: 'Message sent! 🎉',
             description: data.message,
           });
           setContactForm({
@@ -362,7 +367,7 @@ export default function PaliwalSecurePage() {
     setUserProfile(profile);
     setShowOnboarding(false);
     toast({
-      title: 'Profile saved!',
+      title: 'Profile saved! 🎯',
       description: 'Your personalized recommendations are ready.',
     });
   }, [toast]);
@@ -391,31 +396,39 @@ export default function PaliwalSecurePage() {
     { id: 'insuregpt-chat', label: 'InsureGPT' },
     { id: 'calculators', label: 'Calculators' },
     { id: 'features', label: 'Features' },
-    { id: 'insuregyaan', label: 'InsureGyaan' },
     { id: 'products', label: 'Products' },
     { id: 'contact', label: 'Contact' },
   ];
 
+  // Category card config
+  const categoryCards = [
+    { id: 'health' as InsuranceCategory, icon: Heart, gradient: 'from-rose-500 to-pink-600', price: '₹399/mo' },
+    { id: 'life' as InsuranceCategory, icon: Shield, gradient: 'from-blue-500 to-indigo-600', price: '₹999/mo' },
+    { id: 'motor' as InsuranceCategory, icon: Car, gradient: 'from-amber-500 to-orange-600', price: '₹1,899/yr' },
+    { id: 'travel' as InsuranceCategory, icon: Plane, gradient: 'from-violet-500 to-purple-600', price: '₹449/trip' },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
+
       {/* ================================================================== */}
       {/* NAVIGATION BAR                                                     */}
       {/* ================================================================== */}
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-md border-b border-border/40"
+        className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-sm">
+            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2 group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-shadow">
                 <Shield className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-slate-900">
-                Paliwal<span className="text-emerald-600"> Secure</span>
+              <span className="text-xl font-bold text-foreground">
+                Paliwal<span className="text-blue-600"> Secure</span>
               </span>
-            </div>
+            </button>
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -423,15 +436,15 @@ export default function PaliwalSecurePage() {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+                  className="text-sm font-medium text-muted-foreground hover:text-blue-600 transition-colors"
                 >
                   {link.label}
                 </button>
               ))}
-              {/* WhatsApp icon in nav */}
+              {/* WhatsApp button */}
               <button
                 onClick={handleWhatsAppClick}
-                className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-green-600 hover:text-green-700 transition-colors flex items-center gap-1.5"
                 aria-label="Chat on WhatsApp"
               >
                 <Phone className="w-4 h-4" />
@@ -439,12 +452,12 @@ export default function PaliwalSecurePage() {
               </button>
             </div>
 
-            {/* CTA + Mobile Toggle */}
+            {/* CTA + ThemeToggle + Mobile Toggle */}
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <Button
                 onClick={() => setShowOnboarding(true)}
-                className="inline-flex bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5 shadow-sm text-xs sm:text-sm px-2.5 sm:px-4 py-1.5 sm:py-2"
+                className="cta-amber rounded-full text-xs sm:text-sm px-3 sm:px-5 py-1.5 sm:py-2 gap-1.5 font-semibold"
               >
                 <span className="hidden sm:inline">Get Started</span>
                 <span className="sm:hidden">Start</span>
@@ -457,11 +470,7 @@ export default function PaliwalSecurePage() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
               >
-                {mobileMenuOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
             </div>
           </div>
@@ -474,14 +483,14 @@ export default function PaliwalSecurePage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-slate-200/60 bg-white/95 backdrop-blur-lg overflow-hidden z-50 relative"
+              className="md:hidden border-t border-border/40 glass-strong overflow-hidden z-50 relative"
             >
-              <div className="px-4 py-4 space-y-3">
+              <div className="px-4 py-4 space-y-2">
                 {navLinks.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors min-h-[44px]"
+                    className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-foreground hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-xl transition-colors min-h-[44px]"
                   >
                     {item.label}
                   </button>
@@ -491,7 +500,7 @@ export default function PaliwalSecurePage() {
                     setMobileMenuOpen(false);
                     handleWhatsAppClick();
                   }}
-                  className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors min-h-[44px] gap-2"
+                  className="flex items-center w-full text-left px-3 py-2.5 text-sm font-medium text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 rounded-xl transition-colors min-h-[44px] gap-2"
                 >
                   <Phone className="w-4 h-4" />
                   Chat on WhatsApp
@@ -501,7 +510,7 @@ export default function PaliwalSecurePage() {
                     setMobileMenuOpen(false);
                     setShowOnboarding(true);
                   }}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5 mt-2"
+                  className="w-full cta-amber rounded-xl font-semibold gap-1.5 mt-2"
                 >
                   Get Started
                   <ArrowRight className="w-4 h-4" />
@@ -515,31 +524,38 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       {/* HERO SECTION                                                       */}
       {/* ================================================================== */}
-      <section className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-16 lg:pb-20">
-        {/* Background gradient & shapes */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-background to-amber-50 dark:from-emerald-950/30 dark:via-background dark:to-amber-950/20" />
-        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-200/30 rounded-full blur-3xl animate-pulse hidden sm:block" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl animate-pulse hidden sm:block" />
-        <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-rose-100/20 rounded-full blur-2xl animate-pulse hidden lg:block" />
+      <section id="hero" className="relative flex items-center overflow-hidden pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-24 lg:pb-32">
+        {/* Dark gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800" />
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(99,102,241,0.1)_50%,transparent_70%)] bg-[length:200%_100%]" />
+        {/* Radial glow */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl" />
 
-        {/* Floating decorative shapes — hidden on mobile to prevent overlap */}
+        {/* Floating decorative shapes */}
         <motion.div
-          className="hidden lg:block absolute top-32 left-[15%] w-16 h-16 bg-emerald-400/10 rounded-xl rotate-12"
+          className="hidden lg:block absolute top-32 left-[12%] w-16 h-16 bg-blue-400/10 rounded-2xl rotate-12"
           animate={{ y: [-10, 10, -10], rotate: [12, 20, 12] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="hidden lg:block absolute bottom-40 right-[20%] w-20 h-20 bg-amber-400/10 rounded-full"
+          className="hidden lg:block absolute bottom-40 right-[15%] w-20 h-20 bg-amber-400/10 rounded-full"
           animate={{ y: [10, -10, 10] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="hidden lg:block absolute top-1/2 left-[8%] w-12 h-12 bg-violet-400/10 rounded-lg -rotate-12"
+          className="hidden lg:block absolute top-1/2 left-[6%] w-12 h-12 bg-violet-400/10 rounded-xl -rotate-12"
           animate={{ y: [-8, 8, -8], rotate: [-12, -20, -12] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />
+        <motion.div
+          className="hidden lg:block absolute top-24 right-[25%] w-8 h-8 bg-amber-400/15 rounded-lg rotate-45"
+          animate={{ y: [5, -5, 5], rotate: [45, 60, 45] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-12">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
             <div className="text-center lg:text-left">
@@ -548,11 +564,8 @@ export default function PaliwalSecurePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Badge
-                  variant="secondary"
-                  className="mb-4 sm:mb-6 bg-emerald-50 text-emerald-700 border-emerald-200 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium"
-                >
-                  India ka pehla AI-powered Bima Gyaan — by Himanshu Paliwal
+                <Badge className="badge-shimmer mb-4 sm:mb-6 bg-blue-500/20 text-blue-300 border-blue-400/30 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-full">
+                  ✨ India&apos;s Most Trusted AI Advisor
                 </Badge>
               </motion.div>
 
@@ -560,19 +573,20 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[1.6rem] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.2]"
+                className="text-[1.8rem] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.15]"
               >
-                AI se{' '}
-                <span className="text-emerald-600">Best Plan.</span>
-                <br className="sm:hidden" />{' '}
-                Humse{' '}
-                <span className="text-amber-600">Easy Claim.</span>
+                <span className="text-white">AI se </span>
+                <span className="gradient-text">Best Plan.</span>
+                <br className="hidden sm:block" />
+                <span className="text-white sm:ml-2">Humse </span>
+                <span className="gradient-text-amber">Easy Claim.</span>
               </motion.h1>
+
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
-                className="text-sm sm:text-xl lg:text-2xl font-medium text-slate-500 mt-2 sm:mt-3"
+                className="text-sm sm:text-xl lg:text-2xl font-medium text-blue-200 mt-2 sm:mt-3"
               >
                 Smart Insurance for Every Indian
               </motion.p>
@@ -581,7 +595,7 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-3 sm:mt-6 text-xs sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+                className="mt-3 sm:mt-6 text-xs sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed"
               >
                 AI-powered recommendations from 51+ insurers — aur claim process hum aasan bana dete hain.
               </motion.p>
@@ -590,107 +604,51 @@ export default function PaliwalSecurePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-5 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+                className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
               >
-                {/* Primary CTA: WhatsApp */}
                 <Button
                   size="lg"
-                  onClick={handleWhatsAppClick}
-                  className="bg-green-600 hover:bg-green-700 text-white gap-2 shadow-lg shadow-green-200 h-11 sm:h-12 px-4 sm:px-8 text-xs sm:text-base"
+                  onClick={() => setShowOnboarding(true)}
+                  className="cta-amber rounded-full gap-2 h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base font-semibold shadow-lg shadow-amber-500/20"
                 >
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="hidden sm:inline">Free Insurance Guide on WhatsApp</span>
-                  <span className="sm:hidden">WhatsApp Guide</span>
+                  🎯 Get My Best Plan
                 </Button>
-                {/* Secondary CTA: Recommendations */}
                 <Button
                   size="lg"
                   variant="outline"
-                  onClick={() => setShowOnboarding(true)}
-                  className="gap-2 border-slate-300 hover:border-emerald-400 hover:text-emerald-600 h-11 sm:h-12 px-4 sm:px-8 text-xs sm:text-base"
-                >
-                  <span className="hidden sm:inline">Get Recommendations</span>
-                  <span className="sm:hidden">Get Plans</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Button>
-              </motion.div>
-
-              {/* WhatsApp phone input */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="mt-4 sm:mt-6 flex items-center gap-2 sm:gap-3 justify-center lg:justify-start"
-              >
-                <div className="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm max-w-xs">
-                  <span className="px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-500 bg-slate-50 border-r border-slate-200 font-medium">+91</span>
-                  <Input
-                    type="tel"
-                    placeholder="WhatsApp number"
-                    value={whatsappPhone}
-                    onChange={(e) => setWhatsappPhone(e.target.value)}
-                    className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-9 sm:h-11 text-xs sm:text-sm"
-                    maxLength={10}
-                  />
-                </div>
-                <Button
                   onClick={handleWhatsAppClick}
-                  size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-white gap-1.5 h-9 sm:h-11 text-xs sm:text-sm"
+                  className="gap-2 border-white/20 text-white hover:bg-white/10 hover:text-white rounded-full h-11 sm:h-12 px-5 sm:px-8 text-sm sm:text-base backdrop-blur-sm"
                 >
-                  Chat
-                  <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <Phone className="w-4 h-4" />
+                  📞 Talk to Expert
                 </Button>
-              </motion.div>
-
-              {/* QR Code Placeholder */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="mt-3 sm:mt-4 flex items-center gap-2 justify-center lg:justify-start"
-              >
-                <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center">
-                  <QrCode className="w-5 h-5 text-slate-400" />
-                </div>
-                <span className="text-xs text-slate-400">Scan to chat on WhatsApp</span>
               </motion.div>
 
               {/* Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-6 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-8"
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-8 sm:mt-12 grid grid-cols-3 gap-4 sm:gap-8"
               >
-                <div className="text-center lg:text-left">
-                  <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900">
-                    {stat1}M+
-                  </p>
-                  <p className="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1">
-                    Uninsured
-                  </p>
-                </div>
-                <div className="text-center lg:text-left">
-                  <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900">
-                    {stat2}.7%
-                  </p>
-                  <p className="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1">
-                    Penetration
-                  </p>
-                </div>
-                <div className="text-center lg:text-left">
-                  <p className="text-lg sm:text-2xl lg:text-3xl font-bold text-slate-900">
-                    {stat3}%
-                  </p>
-                  <p className="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1">
-                    Claim Settlement
-                  </p>
-                </div>
+                {[
+                  { value: `${stat1}M+`, label: 'Uninsured' },
+                  { value: `${stat2}.7%`, label: 'Penetration' },
+                  { value: `${stat3}%`, label: 'Claim Settlement' },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center lg:text-left">
+                    <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
+                      {stat.value}
+                    </p>
+                    <p className="text-[10px] sm:text-sm text-slate-400 mt-0.5 sm:mt-1">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
               </motion.div>
             </div>
 
-            {/* Right: Hero illustration */}
+            {/* Right: Decorative Shield SVG */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -698,93 +656,90 @@ export default function PaliwalSecurePage() {
               className="hidden lg:flex items-center justify-center"
             >
               <div className="relative w-full max-w-md">
-                {/* Main card */}
-                <div className="bg-white rounded-2xl shadow-2xl p-8 border border-slate-100">
+                {/* Main shield card */}
+                <div className="glass-dark rounded-3xl p-8 shadow-2xl">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
-                      <Shield className="w-6 h-6 text-white" />
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                      <Shield className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-slate-900">
-                        Your Coverage Score
-                      </h3>
-                      <p className="text-sm text-slate-500">AI Analysis</p>
+                      <h3 className="font-bold text-white text-lg">Coverage Score</h3>
+                      <p className="text-sm text-slate-400">AI Analysis</p>
                     </div>
                   </div>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1.5">
-                        <span className="text-slate-600">Health</span>
-                        <span className="font-semibold text-emerald-600">85%</span>
+                  <div className="space-y-5">
+                    {[
+                      { label: 'Health', pct: 85, gradient: 'from-rose-400 to-pink-600', color: 'text-rose-400' },
+                      { label: 'Life', pct: 60, gradient: 'from-blue-400 to-indigo-600', color: 'text-blue-400' },
+                      { label: 'Motor', pct: 92, gradient: 'from-amber-400 to-orange-600', color: 'text-amber-400' },
+                    ].map((bar) => (
+                      <div key={bar.label}>
+                        <div className="flex justify-between text-sm mb-1.5">
+                          <span className="text-slate-300">{bar.label}</span>
+                          <span className={`font-semibold ${bar.color}`}>{bar.pct}%</span>
+                        </div>
+                        <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
+                          <motion.div
+                            className={`h-full bg-gradient-to-r ${bar.gradient} rounded-full`}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${bar.pct}%` }}
+                            transition={{ duration: 1.5, delay: 0.8 }}
+                          />
+                        </div>
                       </div>
-                      <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: '85%' }}
-                          transition={{ duration: 1.5, delay: 0.8 }}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1.5">
-                        <span className="text-slate-600">Life</span>
-                        <span className="font-semibold text-amber-600">60%</span>
-                      </div>
-                      <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: '60%' }}
-                          transition={{ duration: 1.5, delay: 1.0 }}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex justify-between text-sm mb-1.5">
-                        <span className="text-slate-600">Motor</span>
-                        <span className="font-semibold text-violet-600">92%</span>
-                      </div>
-                      <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full bg-gradient-to-r from-violet-400 to-violet-600 rounded-full"
-                          initial={{ width: 0 }}
-                          animate={{ width: '92%' }}
-                          transition={{ duration: 1.5, delay: 1.2 }}
-                        />
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                  <div className="mt-6 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <p className="text-sm text-emerald-700 font-medium">
+                  <div className="mt-6 p-3 bg-amber-500/10 rounded-xl border border-amber-500/20">
+                    <p className="text-sm text-amber-300 font-medium">
                       2 gaps found in your coverage
                     </p>
                   </div>
                 </div>
 
-                {/* Floating badge */}
+                {/* Floating badge - AI Ready */}
                 <motion.div
-                  className="absolute -top-4 -right-4 bg-white rounded-xl shadow-lg p-3 border border-slate-100"
+                  className="absolute -top-4 -right-4 glass-dark rounded-xl p-3 shadow-lg"
                   animate={{ y: [-5, 5, -5] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 >
                   <div className="flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-violet-600" />
-                    <span className="text-sm font-semibold text-slate-700">AI Ready</span>
+                    <Brain className="w-5 h-5 text-indigo-400" />
+                    <span className="text-sm font-semibold text-white">AI Ready</span>
                   </div>
                 </motion.div>
 
-                {/* Floating badge 2 */}
+                {/* Floating badge - IRDAI */}
                 <motion.div
-                  className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-3 border border-slate-100"
+                  className="absolute -bottom-4 -left-4 glass-dark rounded-xl p-3 shadow-lg"
                   animate={{ y: [5, -5, 5] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 >
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-emerald-600" />
-                    <span className="text-sm font-semibold text-slate-700">IRDAI Verified</span>
+                    <ShieldCheck className="w-5 h-5 text-blue-400" />
+                    <span className="text-sm font-semibold text-white">IRDAI Verified</span>
                   </div>
                 </motion.div>
+
+                {/* Floating particles */}
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full bg-blue-400/30"
+                    style={{
+                      top: `${20 + i * 12}%`,
+                      left: `${-5 + i * 18}%`,
+                    }}
+                    animate={{
+                      y: [-5, 5, -5],
+                      opacity: [0.3, 0.7, 0.3],
+                    }}
+                    transition={{
+                      duration: 3 + i * 0.5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                ))}
               </div>
             </motion.div>
           </div>
@@ -792,16 +747,130 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
+      {/* TRUST BAR                                                          */}
+      {/* ================================================================== */}
+      <section className="py-8 sm:py-12 bg-background border-b border-border/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-6"
+          >
+            <p className="text-sm sm:text-base text-muted-foreground font-medium">
+              Trusted by <span className="text-blue-600 font-bold">{trustCount}+</span> families across India
+            </p>
+          </motion.div>
+
+          {/* Insurer logos/names */}
+          <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-2 scrollbar-thin justify-start lg:justify-center">
+            {insurerNames.map((name, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="flex-shrink-0 px-4 py-2 rounded-xl border border-border/50 bg-card hover:border-blue-300 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-300 cursor-default group"
+              >
+                <span className="text-xs sm:text-sm font-semibold text-muted-foreground group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                  {name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
       {/* DAILY INSURANCE TIP                                                 */}
       {/* ================================================================== */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 mb-4 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <DailyTip />
       </div>
 
       {/* ================================================================== */}
-      {/* PALIWAL SECURE CHAT SECTION                                         */}
+      {/* PRODUCT CATEGORIES (Premium Grid)                                   */}
       {/* ================================================================== */}
-      <section id="insuregpt-chat" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-emerald-50/60 via-background to-background scroll-mt-16 dark:from-emerald-950/30 dark:via-background dark:to-background">
+      <section id="categories" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+          >
+            <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 rounded-full px-4 py-1">
+              <Shield className="w-3.5 h-3.5 mr-1" />
+              Insurance Categories
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Choose Your{' '}
+              <span className="gradient-text">Protection</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              Health, Life, Motor, Travel — har category mein AI-powered recommendations
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {categoryCards.map((cat) => {
+              const IconComp = cat.icon;
+              const info = categoryInfo.find((c) => c.id === cat.id);
+              return (
+                <motion.div key={cat.id} variants={staggerItem}>
+                  <div
+                    onClick={() => {
+                      setActiveCategory(cat.id);
+                      scrollToSection('products');
+                    }}
+                    className="card-premium rounded-3xl p-6 sm:p-8 cursor-pointer group bg-card"
+                  >
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComp className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{info?.name || cat.id}</h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                      {info?.description.substring(0, 80)}...
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400">
+                        Starting {cat.price}
+                      </span>
+                      <span className="text-blue-600 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300">
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          <div className="text-center mt-8">
+            <Button
+              variant="outline"
+              onClick={() => scrollToSection('products')}
+              className="rounded-full gap-2 border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/30"
+            >
+              Show all 12+ products
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* INSUREGPT CHAT SECTION                                              */}
+      {/* ================================================================== */}
+      <section id="insuregpt-chat" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-blue-50/60 via-background to-background dark:from-blue-950/20 dark:via-background dark:to-background scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -810,18 +879,14 @@ export default function PaliwalSecurePage() {
             viewport={{ once: true, amount: 0.2 }}
             className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
-            >
-              <Brain className="w-3.5 h-3.5 mr-1" />
-              InsureGPT AI Assistant
+            <Badge className="badge-shimmer mb-4 bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800 rounded-full px-4 py-1">
+              🤖 InsureGPT AI Assistant
             </Badge>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
               Apna Insurance Guide —{' '}
-              <span className="text-emerald-600">Chat karo</span>
+              <span className="gradient-text">Chat karo</span>
             </h2>
-            <p className="mt-3 text-sm sm:text-base lg:text-lg text-slate-600">
+            <p className="mt-3 text-sm sm:text-base lg:text-lg text-muted-foreground">
               Insurance ke baare mein koi bhi sawaal poochiye — Hindi, English ya Hinglish mein. InsureGPT turant jawab dega!
             </p>
           </motion.div>
@@ -831,9 +896,9 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* INSURANCE CALCULATORS SECTION                                       */}
+      {/* CALCULATORS SECTION                                                 */}
       {/* ================================================================== */}
-      <section id="calculators" className="py-16 sm:py-20 lg:py-24 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
+      <section id="calculators" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -842,16 +907,13 @@ export default function PaliwalSecurePage() {
             viewport={{ once: true, amount: 0.2 }}
             className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-800"
-            >
+            <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 rounded-full px-4 py-1">
               <Calculator className="w-3.5 h-3.5 mr-1" />
               Insurance Calculators
             </Badge>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
               Calculate Karo,{' '}
-              <span className="text-emerald-600">Sahi Premium Paao</span>
+              <span className="gradient-text">Sahi Premium Paao</span>
             </h2>
             <p className="mt-3 text-sm sm:text-base lg:text-lg text-muted-foreground">
               Health, Motor, Term, Tax aur Claim — sab calculator ek jagah. IRDAI 2025-26 data ke saath accurate estimates!
@@ -863,9 +925,65 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
+      {/* HOW IT WORKS (3 Steps)                                              */}
+      {/* ================================================================== */}
+      <section id="how-it-works" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+          >
+            <Badge className="mb-4 bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800 rounded-full px-4 py-1">
+              <Zap className="w-3.5 h-3.5 mr-1" />
+              How It Works
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              3 Simple Steps to{' '}
+              <span className="gradient-text-amber">Smart Insurance</span>
+            </h2>
+          </motion.div>
+
+          <div className="relative">
+            {/* Connecting line */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-amber-500 -translate-y-1/2 z-0 opacity-30" />
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              className="grid sm:grid-cols-3 gap-8 relative z-10"
+            >
+              {howItWorksSteps.map((step) => {
+                const StepIcon = step.icon;
+                return (
+                  <motion.div key={step.num} variants={staggerItem}>
+                    <div className="card-premium rounded-3xl p-6 sm:p-8 text-center bg-card">
+                      {/* Numbered circle */}
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mx-auto mb-5 shadow-lg relative`}>
+                        <StepIcon className="w-7 h-7 text-white" />
+                        <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center shadow">
+                          {step.num}
+                        </div>
+                      </div>
+                      <h3 className="text-lg font-bold text-foreground mb-2">{step.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
       {/* MARKET INSIGHTS SECTION                                            */}
       {/* ================================================================== */}
-      <section id="market-insights" className="py-16 sm:py-20 bg-slate-900 dark:bg-slate-950 scroll-mt-16">
+      <section id="market-insights" className="py-16 sm:py-24 bg-slate-900 dark:bg-slate-950 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -874,14 +992,12 @@ export default function PaliwalSecurePage() {
             viewport={{ once: true, amount: 0.2 }}
             className="text-center max-w-3xl mx-auto mb-12"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-emerald-900/50 text-emerald-300 border-emerald-800"
-            >
+            <Badge className="mb-4 bg-blue-900/50 text-blue-300 border-blue-700/50 rounded-full px-4 py-1">
+              <TrendingUp className="w-3.5 h-3.5 mr-1" />
               Market Insights
             </Badge>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              India ka Insurance <span className="text-emerald-400">Picture</span>
+              India ka Insurance <span className="gradient-text">Picture</span>
             </h2>
             <p className="mt-4 text-base sm:text-lg text-slate-400">
               Yeh stats dikhate hain ki insurance awareness kitni zaroori hai — aur Paliwal Secure kyun faaydemand hai.
@@ -900,7 +1016,7 @@ export default function PaliwalSecurePage() {
               const IconComp = style.icon;
               return (
                 <motion.div key={insight.id} variants={staggerItem}>
-                  <Card className="bg-slate-800/50 border-slate-700/50 hover:border-emerald-600/40 transition-all duration-300 group h-full">
+                  <Card className="glass-dark hover:border-blue-500/30 transition-all duration-300 group h-full rounded-2xl">
                     <CardContent className="pt-4 pb-4 px-3 sm:pt-5 sm:pb-5 sm:px-4">
                       <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
                         <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${style.bg} flex items-center justify-center shrink-0`}>
@@ -931,26 +1047,24 @@ export default function PaliwalSecurePage() {
       {/* ================================================================== */}
       {/* FEATURES SECTION                                                   */}
       {/* ================================================================== */}
-      <section id="features" className="py-20 sm:py-28 bg-white scroll-mt-16">
+      <section id="features" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
-            >
+            <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 rounded-full px-4 py-1">
+              <Sparkles className="w-3.5 h-3.5 mr-1" />
               Kyun Paliwal Secure
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
               Insurance Ab Hai{' '}
-              <span className="text-emerald-600">Aasan</span>
+              <span className="gradient-text">Aasan</span>
             </h2>
-            <p className="mt-4 text-lg text-slate-600">
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
               AI aur insurance expertise ka combination — har Indian ke liye simple, transparent, aur personalized insurance.
             </p>
           </motion.div>
@@ -962,35 +1076,28 @@ export default function PaliwalSecurePage() {
             viewport={{ once: true, amount: 0.1 }}
             className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {features.map((feature) => (
-              <motion.div key={feature.title} variants={staggerItem}>
-                <Card
-                  className={`h-full border ${feature.borderColor} hover:shadow-lg transition-all duration-300 cursor-default group`}
-                >
-                  <CardContent className="pt-6 pb-6">
-                    <div
-                      className={`w-12 h-12 rounded-xl ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <feature.icon className={`w-6 h-6 ${feature.color}`} />
+            {features.map((feature) => {
+              const FeatureIcon = feature.icon;
+              return (
+                <motion.div key={feature.title} variants={staggerItem}>
+                  <div className="card-premium rounded-3xl p-6 sm:p-8 h-full cursor-default group bg-card">
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                      <FeatureIcon className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                    <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
 
       {/* ================================================================== */}
-      {/* INSUREGYAAN VAULT SECTION                                          */}
+      {/* INSUREGYAAN SECTION                                                 */}
       {/* ================================================================== */}
-      <section id="insuregyaan" className="py-20 sm:py-28 bg-slate-50 scroll-mt-16">
+      <section id="insuregyaan" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -999,437 +1106,163 @@ export default function PaliwalSecurePage() {
             viewport={{ once: true, amount: 0.2 }}
             className="text-center max-w-3xl mx-auto mb-12"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-violet-50 text-violet-700 border-violet-200"
-            >
-              InsureGyaan Vault
+            <Badge className="mb-4 bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800 rounded-full px-4 py-1">
+              <BookOpen className="w-3.5 h-3.5 mr-1" />
+              InsureGyaan
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-              Bima ka <span className="text-emerald-600">Gyaan</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Insurance Ki{' '}
+              <span className="gradient-text">Aasan Bhasha</span>
             </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              Insurance ki har term, har myth, aur har zaroori article — sab ek jagah, Hinglish mein.
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              Glossary, blogs aur myth busters — sab Hinglish mein, koi jargon nahi!
             </p>
           </motion.div>
 
+          {/* Glossary Search + Accordion */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
           >
-            <Tabs defaultValue="glossary" className="w-full">
-              <TabsList className="w-full sm:w-auto mx-auto flex mb-8 bg-white border border-slate-200 p-1 rounded-xl h-auto flex-wrap">
-                <TabsTrigger
-                  value="glossary"
-                  className="flex-1 sm:flex-none px-4 py-2.5 text-xs sm:text-sm rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white min-h-[44px]"
-                >
-                  <BookOpen className="w-4 h-4 mr-1.5" />
-                  Policy Glossary
-                </TabsTrigger>
-                <TabsTrigger
-                  value="articles"
-                  className="flex-1 sm:flex-none px-4 py-2.5 text-xs sm:text-sm rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white min-h-[44px]"
-                >
-                  <BookOpen className="w-4 h-4 mr-1.5" />
-                  Bima ki ABCD
-                </TabsTrigger>
-                <TabsTrigger
-                  value="myths"
-                  className="flex-1 sm:flex-none px-4 py-2.5 text-xs sm:text-sm rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white min-h-[44px]"
-                >
-                  <AlertTriangle className="w-4 h-4 mr-1.5" />
-                  Myth-Busters
-                </TabsTrigger>
-              </TabsList>
-
-              {/* ─── TAB 1: GLOSSARY ─── */}
-              <TabsContent value="glossary">
-                {/* Search */}
-                <div className="mb-6 max-w-md mx-auto">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                    <Input
-                      placeholder="Search glossary... (e.g., CSR, PED, IDV)"
-                      value={glossarySearch}
-                      onChange={(e) => setGlossarySearch(e.target.value)}
-                      className="pl-10 h-11 bg-white border-slate-200"
-                    />
-                  </div>
-                  {glossarySearch && (
-                    <p className="text-xs text-slate-500 mt-2 text-center">
-                      {filteredGlossary.length} result{filteredGlossary.length !== 1 ? 's' : ''} found
-                    </p>
-                  )}
+            <Card className="card-premium rounded-3xl p-6 sm:p-8 bg-card mb-8">
+              <CardHeader className="p-0 mb-6">
+                <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+                  <Search className="w-5 h-5 text-blue-600" />
+                  Insurance Glossary
+                </CardTitle>
+                <CardDescription>
+                  Complex terms ko aasan Hindi/Hinglish mein samjhiye
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="relative mb-6 max-w-md">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search terms... (e.g., 'premium', 'deductible')"
+                    value={glossarySearch}
+                    onChange={(e) => setGlossarySearch(e.target.value)}
+                    className="pl-9 rounded-xl border-blue-200 focus:border-blue-500 dark:border-blue-800 dark:focus:border-blue-500"
+                  />
                 </div>
 
-                {/* Glossary Accordion */}
-                <div className="max-w-4xl mx-auto">
-                  <Accordion type="single" collapsible className="space-y-3">
-                    {filteredGlossary.map((term, idx) => (
+                <div className="max-h-96 overflow-y-auto pr-2">
+                  <Accordion type="multiple" className="space-y-2">
+                    {filteredGlossary.slice(0, 20).map((term) => (
                       <AccordionItem
                         key={term.term}
                         value={term.term}
-                        className="bg-white border border-slate-200 rounded-xl px-4 sm:px-6 overflow-hidden data-[state=open]:shadow-md transition-shadow"
+                        className="border border-border/50 rounded-2xl px-4 data-[state=open]:border-blue-300 data-[state=open]:bg-blue-50/30 dark:data-[state=open]:bg-blue-950/20 transition-all"
                       >
-                        <AccordionTrigger className="hover:no-underline py-4">
-                          <div className="flex items-center gap-3 text-left flex-1 min-w-0">
-                            <span className="text-sm font-bold text-slate-900 shrink-0">{idx + 1}.</span>
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <span className="font-semibold text-slate-900 text-sm sm:text-base">{term.term}</span>
-                                {term.hindiTerm && (
-                                  <span className="text-xs text-slate-500 font-medium">{term.hindiTerm}</span>
-                                )}
-                              </div>
-                              <div className="mt-1">
-                                <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${getGlossaryCategoryColor(term.category)}`}>
-                                  {term.category}
-                                </Badge>
-                              </div>
-                            </div>
+                        <AccordionTrigger className="hover:no-underline py-3">
+                          <div className="flex items-center gap-3 text-left">
+                            <span className="font-semibold text-foreground">{term.term}</span>
+                            {term.hindiTerm && (
+                              <span className="text-xs text-blue-600 dark:text-blue-400">({term.hindiTerm})</span>
+                            )}
+                            <Badge className={`text-[10px] px-1.5 py-0 border ${getGlossaryCategoryColor(term.category)}`}>
+                              {term.category}
+                            </Badge>
                           </div>
                         </AccordionTrigger>
-                        <AccordionContent className="pb-4">
-                          <div className="pl-7 sm:pl-9 space-y-3">
-                            <p className="text-sm text-slate-600 leading-relaxed">
-                              {term.explanation}
-                            </p>
-                            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
-                              <p className="text-xs font-semibold text-emerald-700 mb-1">Example:</p>
-                              <p className="text-xs text-emerald-600 leading-relaxed">{term.example}</p>
-                            </div>
-                          </div>
+                        <AccordionContent className="text-sm text-muted-foreground pb-4">
+                          {term.explanation}
                         </AccordionContent>
                       </AccordionItem>
                     ))}
                   </Accordion>
-                  {filteredGlossary.length === 0 && (
-                    <div className="text-center py-12 text-slate-400">
-                      <Search className="w-10 h-10 mx-auto mb-3 opacity-50" />
-                      <p className="text-sm">Koi term nahi mili. Kuch aur try karein!</p>
-                    </div>
+                  {filteredGlossary.length > 20 && (
+                    <p className="text-center text-xs text-muted-foreground mt-4">
+                      Showing 20 of {filteredGlossary.length} terms. Search to filter more.
+                    </p>
                   )}
                 </div>
-              </TabsContent>
-
-              {/* ─── TAB 2: ARTICLES (BIMA KI ABCD) ─── */}
-              <TabsContent value="articles">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                  {blogArticles.map((article) => (
-                    <motion.div
-                      key={article.id}
-                      variants={staggerItem}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                    >
-                      <Card className="h-full hover:shadow-lg transition-all duration-300 group border-slate-200 flex flex-col">
-                        <CardHeader className="pb-3">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${getGlossaryCategoryColor(article.category)}`}>
-                              {article.category}
-                            </Badge>
-                            <span className="flex items-center gap-1 text-[10px] text-slate-400">
-                              <Clock className="w-3 h-3" />
-                              {article.readTime}
-                            </span>
-                          </div>
-                          <CardTitle className="text-sm sm:text-base font-bold text-slate-900 leading-snug group-hover:text-emerald-600 transition-colors">
-                            {article.titleHi || article.title}
-                          </CardTitle>
-                          <CardDescription className="text-xs text-slate-500 mt-1">
-                            {article.title}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent className="pb-4 flex-1">
-                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
-                            {article.summary}
-                          </p>
-                          <div className="space-y-1.5">
-                            {article.keyPoints.slice(0, 3).map((point, i) => (
-                              <div key={i} className="flex items-start gap-1.5 text-xs text-slate-500">
-                                <ChevronRight className="w-3 h-3 text-emerald-500 mt-0.5 shrink-0" />
-                                <span>{point}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </CardContent>
-                        <CardFooter className="pt-0 mt-auto">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="w-full text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 min-h-[44px] text-xs"
-                          >
-                            Read More
-                            <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </TabsContent>
-
-              {/* ─── TAB 3: MYTH-BUSTERS ─── */}
-              <TabsContent value="myths">
-                <div className="max-w-3xl mx-auto space-y-4">
-                  {mythBusters.map((myth, idx) => (
-                    <motion.div
-                      key={myth.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    >
-                      <Card className="overflow-hidden border-slate-200 hover:shadow-md transition-shadow">
-                        <div className="flex flex-col sm:flex-row">
-                          {/* Myth side */}
-                          <div className="flex-1 bg-red-50 p-4 sm:p-5 border-b sm:border-b-0 sm:border-r border-red-200">
-                            <div className="flex items-center gap-2 mb-2">
-                              <XCircle className="w-5 h-5 text-red-500 shrink-0" />
-                              <span className="text-xs font-bold text-red-600 uppercase tracking-wide">Myth</span>
-                            </div>
-                            <p className="text-sm font-semibold text-red-800 leading-snug">
-                              {myth.mythHi}
-                            </p>
-                            <p className="text-xs text-red-600/70 mt-1 italic">
-                              {myth.myth}
-                            </p>
-                          </div>
-                          {/* Reality side */}
-                          <div className="flex-1 bg-emerald-50 p-4 sm:p-5">
-                            <div className="flex items-center gap-2 mb-2">
-                              <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                              <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide">Reality</span>
-                            </div>
-                            <p className="text-sm text-emerald-800 leading-relaxed">
-                              {myth.reality}
-                            </p>
-                            <div className="mt-3 pt-2 border-t border-emerald-200">
-                              <p className="text-[10px] text-emerald-600 font-medium">
-                                {myth.stat}
-                              </p>
-                              <p className="text-[10px] text-emerald-500/60 mt-0.5">
-                                Source: {myth.source}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
+              </CardContent>
+            </Card>
           </motion.div>
-        </div>
-      </section>
 
-      {/* ================================================================== */}
-      {/* INSURANCE CATEGORIES SECTION                                       */}
-      {/* ================================================================== */}
-      <section id="products" className="py-20 sm:py-28 bg-white scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Blog Articles */}
           <motion.div
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="text-center max-w-3xl mx-auto mb-12"
+            viewport={{ once: true, amount: 0.1 }}
+            className="mb-8"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-amber-50 text-amber-700 border-amber-200"
-            >
-              Insurance Products
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-              Sahi <span className="text-emerald-600">Coverage</span> Dhundhiye
-            </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              India ke top insurers ke plans compare karein — har category mein.
-            </p>
+            <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-blue-600" />
+              Latest Articles
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {blogArticles.slice(0, 3).map((article) => (
+                <div key={article.id} className="card-premium rounded-2xl p-5 bg-card cursor-pointer group">
+                  <Badge className="mb-3 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 text-[10px] rounded-full">
+                    {article.category}
+                  </Badge>
+                  <h4 className="font-bold text-foreground mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {article.title}
+                  </h4>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{article.excerpt}</p>
+                  <p className="text-[10px] text-muted-foreground/60 mt-3">{article.readTime} min read</p>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
-          {/* Category Tabs */}
+          {/* Myth Busters */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-2 mb-10"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
           >
-            {categoryInfo.map((cat) => {
-              const Icon = getCategoryIcon(cat.icon);
-              const isActive = activeCategory === cat.id;
-              const shortName = cat.name.replace(' Insurance', '');
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`
-                    inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px]
-                    ${
-                      isActive
-                        ? 'bg-emerald-600 text-white shadow-md shadow-emerald-200'
-                        : 'bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50'
-                    }
-                  `}
-                >
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="sm:hidden">{shortName}</span>
-                  <span className="hidden sm:inline">{cat.name}</span>
-                </button>
-              );
-            })}
-          </motion.div>
-
-          {/* Category Info + Plan Cards */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Category description */}
-              {currentCategoryInfo && (
-                <div className="text-center mb-8">
-                  <p className="text-slate-600 max-w-2xl mx-auto">
-                    {currentCategoryInfo.description}
-                  </p>
-                  <div className="flex items-center justify-center gap-4 mt-3 text-sm">
-                    <span className="text-slate-500">
-                      <span className="font-semibold text-slate-700">
-                        {currentCategoryInfo.planCount}
-                      </span>{' '}
-                      plans
-                    </span>
-                    <span className="text-slate-300">|</span>
-                    <span className="text-slate-500">
-                      Avg CSR:{' '}
-                      <span className="font-semibold text-emerald-600">
-                        {currentCategoryInfo.avgClaimSettlementRatio}%
-                      </span>
-                    </span>
+            <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-amber-600" />
+              Myth Busters
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {mythBusters.slice(0, 4).map((myth) => (
+                <div key={myth.id} className="card-premium rounded-2xl p-5 bg-card">
+                  <div className="flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">Myth: {myth.myth}</p>
+                      <div className="flex items-start gap-2 mt-2">
+                        <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                        <p className="text-sm text-muted-foreground">{myth.fact}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              )}
-
-              {/* Plan Cards Grid */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentPlans.slice(0, 6).map((plan) => (
-                  <Card
-                    key={plan.id}
-                    className="h-full hover:shadow-lg transition-all duration-300 group border-slate-200 flex flex-col"
-                  >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <CardTitle className="text-base font-bold text-slate-900 leading-tight">
-                            {plan.name}
-                          </CardTitle>
-                          <CardDescription className="text-sm text-slate-500 mt-1">
-                            {plan.provider}
-                          </CardDescription>
-                        </div>
-                        <div className="flex items-center gap-0.5 shrink-0">
-                          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                          <span className="text-sm font-semibold text-slate-700">
-                            {plan.rating}
-                          </span>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pb-4 space-y-3">
-                      {/* Premium */}
-                      <div className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2">
-                        <span className="text-xs text-slate-500">Premium</span>
-                        <span className="text-sm font-semibold text-emerald-600">
-                          ₹{plan.premium.monthly}/mo
-                        </span>
-                      </div>
-
-                      {/* CSR */}
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-500">CSR</span>
-                        <span className="text-sm font-semibold text-slate-700">
-                          {plan.claimSettlementRatio}%
-                        </span>
-                      </div>
-
-                      {/* Solvency Ratio */}
-                      {plan.solvencyRatio && (
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-slate-500">Solvency</span>
-                          <span className="text-sm font-semibold text-slate-700">
-                            {plan.solvencyRatio}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Key Features */}
-                      <div className="space-y-1.5">
-                        {plan.features.slice(0, 3).map((f, i) => (
-                          <div
-                            key={i}
-                            className="flex items-start gap-2 text-xs text-slate-600"
-                          >
-                            <ChevronRight className="w-3 h-3 text-emerald-500 mt-0.5 shrink-0" />
-                            <span>{f}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                    <CardFooter className="pt-0 mt-auto">
-                      <Button
-                        variant="outline"
-                        className="w-full min-h-[44px] group-hover:border-emerald-400 group-hover:text-emerald-600 transition-colors"
-                        onClick={() =>
-                          toast({
-                            title: plan.name,
-                            description: plan.tagline,
-                          })
-                        }
-                      >
-                        View Details
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ================================================================== */}
-      {/* GAME OF LIFE SECTION                                               */}
+      {/* GAME OF LIFE SECTION                                                */}
       {/* ================================================================== */}
-      <section id="game-of-life" className="py-20 sm:py-28 bg-slate-50 scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="game-of-life" className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-center max-w-3xl mx-auto mb-12"
+            className="text-center max-w-2xl mx-auto mb-8"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-rose-50 text-rose-700 border-rose-200"
-            >
-              Interactive
+            <Badge className="mb-4 bg-violet-50 text-violet-700 border-violet-200 dark:bg-violet-950/50 dark:text-violet-300 dark:border-violet-800 rounded-full px-4 py-1">
+              <Play className="w-3.5 h-3.5 mr-1" />
+              Game of Life
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-              Play the{' '}
-              <span className="text-emerald-600">Game of Life</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Zindagi ke{' '}
+              <span className="gradient-text">Insurance Scenarios</span>
             </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              Dekhiye insurance har stage par kaise protect karta hai
+            <p className="mt-3 text-sm sm:text-base text-muted-foreground">
+              Interactive simulation — dekhein insurance kaise kaam karta hai life ke different stages mein
             </p>
           </motion.div>
 
@@ -1438,13 +1271,9 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* CONTACT SECTION                                                    */}
+      {/* PRODUCTS SECTION                                                    */}
       {/* ================================================================== */}
-      <section
-        id="contact"
-        ref={contactRef}
-        className="py-20 sm:py-28 bg-white scroll-mt-16"
-      >
+      <section id="products" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
@@ -1453,105 +1282,234 @@ export default function PaliwalSecurePage() {
             viewport={{ once: true, amount: 0.2 }}
             className="text-center max-w-3xl mx-auto mb-12"
           >
-            <Badge
-              variant="secondary"
-              className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-200"
-            >
-              Get in Touch
+            <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 rounded-full px-4 py-1">
+              <Award className="w-3.5 h-3.5 mr-1" />
+              Insurance Plans
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-              Expert <span className="text-emerald-600">Advice</span> Paayein
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Compare &{' '}
+              <span className="gradient-text">Choose</span>
             </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              Humare insurance advisors aapki madad ke liye taiyaar hain. WhatsApp par bhi sampark karein!
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              IRDAI-verified plans from top insurers — transparent pricing, real CSR data
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-2xl mx-auto"
+          {/* Category Tabs */}
+          <Tabs
+            defaultValue="health"
+            value={activeCategory}
+            onValueChange={(val) => setActiveCategory(val as InsuranceCategory)}
+            className="w-full"
           >
-            <Card className="border-slate-200 shadow-sm">
-              <CardContent className="pt-6">
+            <TabsList className="flex flex-wrap justify-center gap-2 bg-transparent h-auto p-0 mb-8">
+              {categoryInfo.map((cat) => {
+                const CatIcon = getCategoryIcon(cat.icon);
+                return (
+                  <TabsTrigger
+                    key={cat.id}
+                    value={cat.id}
+                    className="data-[state=active]:bg-blue-600 data-[state=active]:text-white rounded-full px-4 py-2 text-sm font-medium data-[state=inactive]:bg-card data-[state=inactive]:border data-[state=inactive]:border-border"
+                  >
+                    <CatIcon className="w-4 h-4 mr-1.5" />
+                    {cat.name}
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+
+            {categoryInfo.map((cat) => (
+              <TabsContent key={cat.id} value={cat.id}>
+                {/* Category info card */}
+                {currentCategoryInfo && activeCategory === cat.id && (
+                  <div className="card-premium rounded-3xl p-6 sm:p-8 bg-card mb-8">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${categoryCards.find(c => c.id === cat.id)?.gradient || 'from-blue-500 to-indigo-600'} flex items-center justify-center shadow-lg shrink-0`}>
+                        {(() => {
+                          const CatIcon = getCategoryIcon(cat.icon);
+                          return <CatIcon className="w-7 h-7 text-white" />;
+                        })()}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-foreground">{cat.name}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">{cat.description}</p>
+                        <div className="flex flex-wrap gap-3 mt-3">
+                          <Badge variant="outline" className="text-xs rounded-full border-blue-200 text-blue-700 dark:border-blue-800 dark:text-blue-300">
+                            Avg CSR: {cat.avgClaimSettlementRatio}%
+                          </Badge>
+                          <Badge variant="outline" className="text-xs rounded-full border-amber-200 text-amber-700 dark:border-amber-800 dark:text-amber-300">
+                            {cat.planCount} plans
+                          </Badge>
+                          <Badge variant="outline" className="text-xs rounded-full border-green-200 text-green-700 dark:border-green-800 dark:text-green-300">
+                            Starting ₹{cat.premiumRange.min}/{cat.premiumRange.frequency.replace('yearly', 'yr').replace('monthly', 'mo')}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Plan cards */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                  {getPlansByCategory(cat.id as InsuranceCategory).map((plan) => (
+                    <div key={plan.id} className="card-premium rounded-2xl p-5 sm:p-6 bg-card group">
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h4 className="font-bold text-foreground text-sm sm:text-base group-hover:text-blue-600 transition-colors">
+                            {plan.name}
+                          </h4>
+                          <p className="text-xs text-muted-foreground">{plan.provider}</p>
+                        </div>
+                        <div className="flex items-center gap-0.5">
+                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                          <span className="text-xs font-semibold text-foreground">{plan.rating}</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">CSR</span>
+                          <span className="font-semibold text-blue-600 dark:text-blue-400">{plan.claimSettlementRatio}%</span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">Premium</span>
+                          <span className="font-semibold text-foreground">₹{plan.premium.monthly}/mo</span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">Sum Insured</span>
+                          <span className="font-semibold text-foreground">₹{(plan.sumInsured.min / 100000).toFixed(0)}L – ₹{(plan.sumInsured.max / 100000).toFixed(0)}L</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {plan.features.slice(0, 3).map((f) => (
+                          <Badge key={f} variant="secondary" className="text-[10px] rounded-full px-2">
+                            {f}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      <Button
+                        className="w-full cta-glow rounded-xl text-xs font-semibold"
+                        size="sm"
+                        onClick={() => {
+                          toast({
+                            title: `${plan.name}`,
+                            description: `CSR: ${plan.claimSettlementRatio}% | Premium: ₹${plan.premium.monthly}/mo | ${plan.tagline}`,
+                          });
+                        }}
+                      >
+                        View Details
+                        <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
+                      </Button>
+
+                      <p className="text-[9px] text-muted-foreground/60 mt-2 text-center">
+                        IRDAI Reg: {plan.irdaRegistrationNo}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+
+          {/* IRDAI Disclaimer under products */}
+          <div className="mt-8 p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
+            <div className="flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-amber-700 dark:text-amber-300">{IRDAI_MANDATORY_DISCLAIMER}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* CONTACT SECTION                                                     */}
+      {/* ================================================================== */}
+      <section id="contact" ref={contactRef} className="py-16 sm:py-24 lg:py-32 bg-background scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-3xl mx-auto mb-12"
+          >
+            <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 rounded-full px-4 py-1">
+              <Mail className="w-3.5 h-3.5 mr-1" />
+              Get in Touch
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+              Questions?{' '}
+              <span className="gradient-text">Let&apos;s Talk</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
+              Insurance ke baare mein koi bhi sawaal — hum zaroor madad karenge
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 max-w-5xl mx-auto">
+            {/* Contact Form */}
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="lg:col-span-3"
+            >
+              <div className="glass rounded-3xl p-6 sm:p-8 shadow-lg">
                 <form onSubmit={handleContactSubmit} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <div className="space-y-2">
-                      <Label htmlFor="contact-name">
-                        Name <span className="text-red-500">*</span>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="name" className="text-sm font-medium text-foreground mb-1.5 block">
+                        Name *
                       </Label>
                       <Input
-                        id="contact-name"
-                        placeholder="Your full name"
+                        id="name"
+                        placeholder="Aapka naam"
                         value={contactForm.name}
-                        onChange={(e) =>
-                          setContactForm((prev) => ({
-                            ...prev,
-                            name: e.target.value,
-                          }))
-                        }
-                        required
+                        onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                        className="rounded-xl"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="contact-email">
-                        Email <span className="text-red-500">*</span>
+                    <div>
+                      <Label htmlFor="email" className="text-sm font-medium text-foreground mb-1.5 block">
+                        Email *
                       </Label>
                       <Input
-                        id="contact-email"
+                        id="email"
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder="aapka@email.com"
                         value={contactForm.email}
-                        onChange={(e) =>
-                          setContactForm((prev) => ({
-                            ...prev,
-                            email: e.target.value,
-                          }))
-                        }
-                        required
+                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                        className="rounded-xl"
                       />
                     </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <div className="space-y-2">
-                      <Label htmlFor="contact-phone">
-                        WhatsApp Number <span className="text-red-500">*</span>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="phone" className="text-sm font-medium text-foreground mb-1.5 block">
+                        Phone
                       </Label>
-                      <div className="flex">
-                        <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-slate-200 bg-slate-50 text-sm text-slate-500 font-medium">
-                          +91
-                        </span>
-                        <Input
-                          id="contact-phone"
-                          type="tel"
-                          placeholder="10-digit mobile number"
-                          value={contactForm.phone}
-                          onChange={(e) =>
-                            setContactForm((prev) => ({
-                              ...prev,
-                              phone: e.target.value,
-                            }))
-                          }
-                          className="rounded-l-none"
-                          maxLength={10}
-                        />
-                      </div>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="+91 99999 99999"
+                        value={contactForm.phone}
+                        onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                        className="rounded-xl"
+                      />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="contact-type">Insurance Type</Label>
+                    <div>
+                      <Label htmlFor="insurance-type" className="text-sm font-medium text-foreground mb-1.5 block">
+                        Insurance Type
+                      </Label>
                       <Select
                         value={contactForm.insuranceType}
-                        onValueChange={(val) =>
-                          setContactForm((prev) => ({
-                            ...prev,
-                            insuranceType: val,
-                          }))
-                        }
+                        onValueChange={(val) => setContactForm({ ...contactForm, insuranceType: val })}
                       >
-                        <SelectTrigger id="contact-type">
+                        <SelectTrigger id="insurance-type" className="rounded-xl">
                           <SelectValue placeholder="Select type" />
                         </SelectTrigger>
                         <SelectContent>
@@ -1560,152 +1518,164 @@ export default function PaliwalSecurePage() {
                           <SelectItem value="motor">Motor Insurance</SelectItem>
                           <SelectItem value="travel">Travel Insurance</SelectItem>
                           <SelectItem value="home">Home Insurance</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="contact-message">
-                      Message <span className="text-red-500">*</span>
+                  <div>
+                    <Label htmlFor="message" className="text-sm font-medium text-foreground mb-1.5 block">
+                      Message *
                     </Label>
                     <Textarea
-                      id="contact-message"
-                      placeholder="Apni insurance needs ke baare mein bataiye..."
+                      id="message"
+                      placeholder="Aapka sawaal ya message..."
                       value={contactForm.message}
-                      onChange={(e) =>
-                        setContactForm((prev) => ({
-                          ...prev,
-                          message: e.target.value,
-                        }))
-                      }
-                      rows={4}
-                      required
+                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                      className="rounded-xl min-h-[100px]"
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white h-12 text-base gap-2"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <ArrowRight className="w-4 h-4" />
-                        </>
-                      )}
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleWhatsAppClick}
-                      className="flex-1 sm:flex-none border-green-300 text-green-700 hover:bg-green-50 hover:text-green-800 h-12 gap-2"
-                    >
-                      <Phone className="w-4 h-4" />
-                      WhatsApp par baat karein
-                    </Button>
-                  </div>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full cta-amber rounded-xl h-11 sm:h-12 text-sm sm:text-base font-semibold gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </Button>
                 </form>
-              </CardContent>
-            </Card>
+              </div>
+            </motion.div>
 
             {/* Contact Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-8">
-              <div className="flex items-center gap-3 p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <Phone className="w-5 h-5 text-emerald-600 shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-slate-500">Call us</p>
-                  <p className="text-sm font-semibold text-slate-700 truncate">
-                    1800-XXX-XXXX
-                  </p>
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="lg:col-span-2 space-y-6"
+            >
+              <div className="card-premium rounded-2xl p-5 bg-card">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0">
+                    <Phone className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground text-sm">Call / WhatsApp</h4>
+                    <p className="text-xs text-muted-foreground mt-1">Mon–Sat, 9AM–7PM IST</p>
+                    <Button
+                      variant="link"
+                      className="text-blue-600 p-0 h-auto text-sm font-semibold mt-1"
+                      onClick={handleWhatsAppClick}
+                    >
+                      +91 99999 99999
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <Mail className="w-5 h-5 text-emerald-600 shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-slate-500">Email us</p>
-                  <p className="text-sm font-semibold text-slate-700 truncate">
-                    help@paliwalsecure.in
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 sm:p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <MapPin className="w-5 h-5 text-emerald-600 shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-slate-500">Visit us</p>
-                  <p className="text-sm font-semibold text-slate-700 truncate">
-                    Mumbai, India
-                  </p>
-                </div>
-              </div>
-            </div>
 
-            {/* IRDAI Disclaimer */}
-            <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-              <p className="text-xs text-amber-700 leading-relaxed">
-                <strong>IRDAI Disclaimer:</strong> {IRDAI_MANDATORY_DISCLAIMER}
-              </p>
-            </div>
-          </motion.div>
+              <div className="card-premium rounded-2xl p-5 bg-card">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shrink-0">
+                    <Mail className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground text-sm">Email</h4>
+                    <p className="text-xs text-muted-foreground mt-1">24hr response time</p>
+                    <p className="text-sm text-blue-600 font-semibold mt-1">hello@paliwalsecure.com</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-premium rounded-2xl p-5 bg-card">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground text-sm">Office</h4>
+                    <p className="text-xs text-muted-foreground mt-1">New Delhi, India</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* QR Code */}
+              <div className="card-premium rounded-2xl p-5 bg-card">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-xl bg-slate-100 dark:bg-slate-800 border border-border flex items-center justify-center shrink-0">
+                    <QrCode className="w-7 h-7 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground text-sm">Scan to Chat</h4>
+                    <p className="text-xs text-muted-foreground mt-0.5">WhatsApp QR Code</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* IRDAI Disclaimer */}
+              <div className="p-4 bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800">
+                <div className="flex items-start gap-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <p className="text-[10px] sm:text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+                    {IRDAI_MANDATORY_DISCLAIMER}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Mobile Bottom Navigation */}
-      <MobileBottomNav onNavigate={scrollToSection} />
-
       {/* ================================================================== */}
-      {/* FOOTER                                                             */}
+      {/* FOOTER                                                              */}
       {/* ================================================================== */}
-      <footer className="mt-auto bg-slate-900 dark:bg-slate-950 text-slate-300 pb-20 md:pb-0">
+      <footer className="bg-slate-900 dark:bg-slate-950 pb-20 md:pb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {/* Brand */}
-            <div className="sm:col-span-2 lg:col-span-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+            {/* Brand Column */}
+            <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xl font-bold text-white">
-                  Paliwal<span className="text-emerald-400"> Secure</span>
+                  Paliwal<span className="text-blue-400"> Secure</span>
                 </span>
               </div>
-              <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
-                AI-powered insurance recommendations for every Indian. Making
-                insurance simple, transparent, and accessible.
+              <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                AI-powered insurance recommendations for every Indian. IRDAI-compliant, transparent, aur aasan.
               </p>
-              <div className="mt-4 flex items-center gap-2">
-                <div className="h-px bg-emerald-500/40 flex-1 max-w-[2rem]" />
-                <span className="text-xs font-semibold text-emerald-400 tracking-wide">
-                  Powered by Himanshu Paliwal
-                </span>
-                <div className="h-px bg-emerald-500/40 flex-1 max-w-[2rem]" />
-              </div>
+              <Button
+                onClick={handleWhatsAppClick}
+                variant="outline"
+                className="border-green-600 text-green-400 hover:bg-green-900/30 rounded-full gap-2 text-xs"
+                size="sm"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                WhatsApp
+              </Button>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">
-                Quick Links
-              </h4>
+              <h4 className="font-semibold text-white mb-4 text-sm">Quick Links</h4>
               <ul className="space-y-2.5">
-                {[
-                  { id: 'features', label: 'Features' },
-                  { id: 'insuregyaan', label: 'InsureGyaan' },
-                  { id: 'products', label: 'Products' },
-                  { id: 'game-of-life', label: 'Game of Life' },
-                  { id: 'contact', label: 'Contact Us' },
-                ].map((link) => (
+                {navLinks.map((link) => (
                   <li key={link.id}>
                     <button
                       onClick={() => scrollToSection(link.id)}
-                      className="text-sm text-slate-400 hover:text-emerald-400 transition-colors"
+                      className="text-sm text-slate-400 hover:text-blue-400 transition-colors"
                     >
                       {link.label}
                     </button>
@@ -1714,11 +1684,9 @@ export default function PaliwalSecurePage() {
               </ul>
             </div>
 
-            {/* Insurance Types */}
+            {/* Products */}
             <div>
-              <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">
-                Insurance Types
-              </h4>
+              <h4 className="font-semibold text-white mb-4 text-sm">Products</h4>
               <ul className="space-y-2.5">
                 {categoryInfo.map((cat) => (
                   <li key={cat.id}>
@@ -1727,7 +1695,7 @@ export default function PaliwalSecurePage() {
                         setActiveCategory(cat.id);
                         scrollToSection('products');
                       }}
-                      className="text-sm text-slate-400 hover:text-emerald-400 transition-colors"
+                      className="text-sm text-slate-400 hover:text-blue-400 transition-colors"
                     >
                       {cat.name}
                     </button>
@@ -1738,65 +1706,33 @@ export default function PaliwalSecurePage() {
 
             {/* Compliance */}
             <div>
-              <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">
-                Compliance
-              </h4>
-              <ul className="space-y-2.5 text-sm text-slate-400">
-                <li>IRDAI Registered</li>
-                <li>Privacy Policy</li>
-                <li>Terms of Service</li>
-                <li>Grievance Redressal</li>
-                <li>DPDP Act Compliant</li>
+              <h4 className="font-semibold text-white mb-4 text-sm">Compliance</h4>
+              <ul className="space-y-2.5">
+                {complianceChecklist.slice(0, 5).map((item) => (
+                  <li key={item.id} className="flex items-center gap-1.5">
+                    {item.status === 'compliant' ? (
+                      <CheckCircle2 className="w-3 h-3 text-blue-400 shrink-0" />
+                    ) : (
+                      <Clock className="w-3 h-3 text-amber-400 shrink-0" />
+                    )}
+                    <span className="text-xs text-slate-400 truncate">{item.requirement}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
           {/* Bottom bar */}
           <div className="mt-12 pt-8 border-t border-slate-800">
-            <div className="flex flex-col items-center gap-4">
-              {/* Powered by branding */}
-              <div className="flex items-center gap-2 bg-slate-800/60 px-4 py-2 rounded-full border border-slate-700/50">
-                <Shield className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm font-semibold text-white">
-                  Powered by{' '}
-                  <span className="text-emerald-400">Himanshu Paliwal</span>
-                </span>
-              </div>
-              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-3">
-                <div className="flex flex-col items-center sm:items-start gap-1">
-                  <p className="text-xs text-slate-500 text-center sm:text-left">
-                    &copy; {new Date().getFullYear()} Paliwal Secure. All rights reserved.
-                    Insurance is the subject matter of solicitation. Read all policy documents carefully.
-                  </p>
-                  <p className="text-xs text-slate-400 text-center sm:text-left">
-                    Designed &amp; Developed by{' '}
-                    <span className="font-semibold text-emerald-400">Himanshu Paliwal</span>
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-xs text-slate-500">
-                    IRDAI Regulated Platform
-                  </span>
-                  <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs text-emerald-400 font-medium">
-                      Compliant
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Full IRDAI Disclaimers */}
-            <div className="mt-4 space-y-1">
-              <p className="text-xs text-slate-600 leading-relaxed text-center sm:text-left max-w-4xl">
-                {IRDAI_MANDATORY_DISCLAIMER} Tax benefits are subject to changes
-                in tax laws. Please consult your tax advisor for details. Claim
-                settlement ratio is based on previous year&apos;s data. Past
-                performance is not indicative of future results.
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-xs text-slate-500">
+                Powered by <span className="text-blue-400 font-semibold">Himanshu Paliwal</span>
               </p>
-              <p className="text-xs text-slate-600 leading-relaxed text-center sm:text-left max-w-4xl">
-                Insurance is a subject matter of solicitation. Read all policy documents carefully before concluding a sale.
-                IRDAI Reg No: This platform is for educational purposes only and does not sell insurance directly.
+              <p className="text-[10px] text-slate-600 text-center max-w-lg leading-relaxed">
+                {IRDAI_MANDATORY_DISCLAIMER}
+              </p>
+              <p className="text-xs text-slate-600">
+                © {new Date().getFullYear()} Paliwal Secure
               </p>
             </div>
           </div>
@@ -1804,10 +1740,13 @@ export default function PaliwalSecurePage() {
       </footer>
 
       {/* ================================================================== */}
-      {/* FLOATING COMPONENTS                                                */}
+      {/* MOBILE BOTTOM NAV                                                   */}
       {/* ================================================================== */}
+      <MobileBottomNav />
 
-      {/* Onboarding Flow */}
+      {/* ================================================================== */}
+      {/* ONBOARDING FLOW                                                     */}
+      {/* ================================================================== */}
       <AnimatePresence>
         {showOnboarding && (
           <OnboardingFlow

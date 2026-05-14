@@ -1,41 +1,48 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 
-const geistSans = Geist({
+const inter = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Paliwal Secure - Smart Insurance for Every Indian",
+  title: "Paliwal Secure — AI se Best Plan, Humse Easy Claim",
   description:
-    "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with Paliwal Secure.",
+    "India's most trusted AI-powered insurance advisor. Compare 51+ insurers, get personalized recommendations with InsureGPT, and enjoy hassle-free claims support. By Himanshu Paliwal.",
   keywords: [
     "insurance",
     "India",
     "health insurance",
     "life insurance",
+    "motor insurance",
     "AI",
     "Paliwal Secure",
     "InsureGPT",
     "IRDAI",
+    "claim settlement",
+    "tax saving",
+    "term insurance",
   ],
   authors: [{ name: "Himanshu Paliwal" }],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
   openGraph: {
-    title: "Paliwal Secure - Smart Insurance for Every Indian",
+    title: "Paliwal Secure — AI se Best Plan, Humse Easy Claim",
     description:
-      "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with Paliwal Secure.",
+      "AI-powered recommendations from 51+ insurers. Smart insurance for every Indian family. By Himanshu Paliwal.",
     url: "https://paliwalsecure.in",
     siteName: "Paliwal Secure",
     type: "website",
@@ -43,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Paliwal Secure - Smart Insurance for Every Indian",
+    title: "Paliwal Secure — AI se Best Plan, Humse Easy Claim",
     description:
-      "AI-powered insurance recommendations tailored for India. Compare health, life, motor, travel and home insurance plans with Paliwal Secure.",
+      "AI-powered recommendations from 51+ insurers. Smart insurance for every Indian family. By Himanshu Paliwal.",
   },
 };
 
@@ -57,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden`}
+        className={`${inter.variable} ${ibmPlexMono.variable} antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden`}
       >
         <ThemeProvider
           attribute="class"

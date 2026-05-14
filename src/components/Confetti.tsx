@@ -4,12 +4,12 @@ import confetti from 'canvas-confetti'
 import * as React from 'react'
 import { Button, ButtonProps } from '@/components/ui/button'
 
-/** Emerald and gold themed confetti colors */
+/** Blue and gold themed confetti colors */
 const CONFETTI_COLORS = [
-  '#059669', // emerald-600
-  '#10b981', // emerald-500
-  '#34d399', // emerald-400
-  '#6ee7b7', // emerald-300
+  '#1D4ED8', // blue-700
+  '#2563EB', // blue-600
+  '#3B82F6', // blue-500
+  '#60A5FA', // blue-400
   '#d97706', // amber-600
   '#f59e0b', // amber-500
   '#fbbf24', // amber-400
@@ -17,7 +17,7 @@ const CONFETTI_COLORS = [
 ]
 
 /**
- * Fires an emerald/gold themed confetti burst from the top-center of the screen.
+ * Fires a blue/gold themed confetti burst from the top-center of the screen.
  * Can be called imperatively from any event handler.
  */
 export function fireConfetti(): void {

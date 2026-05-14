@@ -248,7 +248,7 @@ export default function HealthPremiumCalculator() {
   };
 
   return (
-    <Card className="w-full border-0 shadow-lg shadow-emerald-500/5">
+    <Card className="w-full border-0 shadow-lg shadow-blue-500/5">
       <CardHeader className="pb-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600">
@@ -360,7 +360,7 @@ export default function HealthPremiumCalculator() {
               variant={!smoker ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSmoker(false)}
-              className={smoker ? '' : 'bg-emerald-600 hover:bg-emerald-700'}
+              className={smoker ? '' : 'bg-blue-600 hover:bg-blue-700'}
             >
               No
             </Button>
@@ -379,7 +379,7 @@ export default function HealthPremiumCalculator() {
         {/* Calculate Button */}
         <Button
           onClick={handleCalculate}
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white gap-2"
           size="lg"
         >
           <Calculator className="h-4 w-4" />
@@ -399,8 +399,8 @@ export default function HealthPremiumCalculator() {
               <Separator />
 
               {/* Premium Summary */}
-              <div className="rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 p-4 sm:p-5 dark:from-emerald-950/30 dark:to-teal-950/30">
-                <h3 className="text-sm font-semibold text-emerald-800 dark:text-emerald-300 mb-3 flex items-center gap-2">
+              <div className="rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-5 dark:from-blue-950/30 dark:to-indigo-950/30">
+                <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
                   <Shield className="h-4 w-4" />
                   Premium Estimate
                 </h3>
@@ -410,10 +410,10 @@ export default function HealthPremiumCalculator() {
                     <p className="text-lg font-bold text-gray-800 dark:text-gray-200">{formatCurrency(result.basePremiumMonthly)}/mo</p>
                     <p className="text-xs text-muted-foreground">{formatCurrency(result.basePremiumAnnual)}/yr</p>
                   </div>
-                  <div className="text-center p-3 rounded-lg bg-emerald-100/60 dark:bg-emerald-900/30">
-                    <p className="text-xs text-emerald-700 dark:text-emerald-300">Loaded Premium</p>
-                    <p className="text-lg font-bold text-emerald-700 dark:text-emerald-300">{formatCurrency(result.loadedPremiumMonthly)}/mo</p>
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400">{formatCurrency(result.loadedPremiumAnnual)}/yr</p>
+                  <div className="text-center p-3 rounded-lg bg-blue-100/60 dark:bg-blue-900/30">
+                    <p className="text-xs text-blue-700 dark:text-blue-300">Loaded Premium</p>
+                    <p className="text-lg font-bold text-blue-700 dark:text-blue-300">{formatCurrency(result.loadedPremiumMonthly)}/mo</p>
+                    <p className="text-xs text-blue-600 dark:text-blue-400">{formatCurrency(result.loadedPremiumAnnual)}/yr</p>
                   </div>
                 </div>
               </div>
@@ -454,7 +454,7 @@ export default function HealthPremiumCalculator() {
                       <span className="text-muted-foreground">
                         City Tier ({result.cityTierLoadingPercent > 0 ? '+' : ''}{result.cityTierLoadingPercent}%)
                       </span>
-                      <span className={`font-medium ${result.cityTierLoadingPercent < 0 ? 'text-emerald-600' : ''}`}>
+                      <span className={`font-medium ${result.cityTierLoadingPercent < 0 ? 'text-blue-600' : ''}`}>
                         {result.cityTierLoadingPercent > 0 ? '+' : ''}{formatCurrencyFull(result.cityTierLoadingAmount)}/yr
                       </span>
                     </div>
@@ -493,7 +493,7 @@ export default function HealthPremiumCalculator() {
                     <span>Total Tax Saved (20% bracket)</span>
                     <span>{formatCurrencyFull(result.taxSaved)}/yr</span>
                   </div>
-                  <div className="flex justify-between font-bold text-emerald-700 dark:text-emerald-300">
+                  <div className="flex justify-between font-bold text-blue-700 dark:text-blue-300">
                     <span>Effective Premium After Tax Savings</span>
                     <span>{formatCurrencyFull(result.effectivePremiumAnnual)}/yr</span>
                   </div>
@@ -519,7 +519,7 @@ export default function HealthPremiumCalculator() {
               {/* Top 3 Insurer Recommendations */}
               <div className="rounded-xl bg-white/50 dark:bg-white/5 p-4 border">
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                  <CheckCircle2 className="h-4 w-4 text-blue-600" />
                   Recommended for You (Top 3)
                 </h3>
                 <div className="space-y-3">
@@ -531,7 +531,7 @@ export default function HealthPremiumCalculator() {
                       transition={{ delay: 0.2 + idx * 0.1 }}
                       className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50"
                     >
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300 text-sm font-bold">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 text-sm font-bold">
                         {idx + 1}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -557,7 +557,7 @@ export default function HealthPremiumCalculator() {
 
               {/* Branding */}
               <p className="text-center text-xs text-muted-foreground pt-1">
-                Powered by <span className="font-semibold text-emerald-600">Himanshu Paliwal</span>
+                Powered by <span className="font-semibold text-blue-600">Himanshu Paliwal</span>
               </p>
             </motion.div>
           )}

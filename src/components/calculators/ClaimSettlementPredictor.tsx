@@ -83,7 +83,7 @@ function getOverallCSPScore(csr: number, icr: number, complaintsPer10k: number):
 }
 
 function getRating(score: number): { label: string; color: string; bgColor: string; textColor: string } {
-  if (score >= 90) return { label: 'Excellent', color: 'text-emerald-600', bgColor: 'bg-emerald-500', textColor: 'text-emerald-700 dark:text-emerald-300' };
+  if (score >= 90) return { label: 'Excellent', color: 'text-blue-600', bgColor: 'bg-blue-500', textColor: 'text-blue-700 dark:text-blue-300' };
   if (score >= 75) return { label: 'Good', color: 'text-yellow-600', bgColor: 'bg-yellow-500', textColor: 'text-yellow-700 dark:text-yellow-300' };
   if (score >= 60) return { label: 'Average', color: 'text-orange-600', bgColor: 'bg-orange-500', textColor: 'text-orange-700 dark:text-orange-300' };
   return { label: 'Poor', color: 'text-red-600', bgColor: 'bg-red-500', textColor: 'text-red-700 dark:text-red-300' };
@@ -358,7 +358,7 @@ export default function ClaimSettlementPredictor() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
                     className={`text-6xl sm:text-7xl font-bold ${result.rating.color.replace('text-', 'text-')}`}
-                    style={{ color: result.score >= 90 ? '#10b981' : result.score >= 75 ? '#eab308' : result.score >= 60 ? '#f97316' : '#ef4444' }}
+                    style={{ color: result.score >= 90 ? '#2563EB' : result.score >= 75 ? '#eab308' : result.score >= 60 ? '#f97316' : '#ef4444' }}
                   >
                     {result.score}
                   </motion.div>
@@ -366,7 +366,7 @@ export default function ClaimSettlementPredictor() {
                 <p className="text-sm mt-2 opacity-75">out of 100</p>
                 <Badge
                   className={`mt-3 text-sm font-semibold ${
-                    result.score >= 90 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' :
+                    result.score >= 90 ? 'bg-blue-500/20 text-blue-300 border-blue-500/30' :
                     result.score >= 75 ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' :
                     result.score >= 60 ? 'bg-orange-500/20 text-orange-300 border-orange-500/30' :
                     'bg-red-500/20 text-red-300 border-red-500/30'
@@ -395,7 +395,7 @@ export default function ClaimSettlementPredictor() {
                         initial={{ width: 0 }}
                         animate={{ width: `${result.breakdown.csr}%` }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="h-full bg-emerald-500 rounded-full"
+                        className="h-full bg-blue-500 rounded-full"
                       />
                     </div>
                   </div>
@@ -468,7 +468,7 @@ export default function ClaimSettlementPredictor() {
 
               {/* Recommendation */}
               <div className={`rounded-lg p-3 ${
-                result.score >= 90 ? 'bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800' :
+                result.score >= 90 ? 'bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800' :
                 result.score >= 75 ? 'bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800' :
                 result.score >= 60 ? 'bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800' :
                 'bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800'
@@ -499,7 +499,7 @@ export default function ClaimSettlementPredictor() {
                       }`}
                     >
                       <div className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${
-                        ins.score >= 90 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300' :
+                        ins.score >= 90 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' :
                         ins.score >= 75 ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-300' :
                         ins.score >= 60 ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300' :
                         'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'
@@ -517,7 +517,7 @@ export default function ClaimSettlementPredictor() {
                       </div>
                       <div className="text-right shrink-0">
                         <p className={`text-lg font-bold ${
-                          ins.score >= 90 ? 'text-emerald-600' :
+                          ins.score >= 90 ? 'text-blue-600' :
                           ins.score >= 75 ? 'text-yellow-600' :
                           ins.score >= 60 ? 'text-orange-600' :
                           'text-red-600'

@@ -409,7 +409,7 @@ export default function MotorPremiumCalculator() {
                   {result.ncbDiscount > 0 && (
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">NCB Discount ({result.ncbPercent}%)</span>
-                      <span className="font-medium text-emerald-600">- {formatCurrencyFull(result.ncbDiscount)}</span>
+                      <span className="font-medium text-blue-600">- {formatCurrencyFull(result.ncbDiscount)}</span>
                     </div>
                   )}
                   {result.addOns.total > 0 && (
@@ -474,8 +474,8 @@ export default function MotorPremiumCalculator() {
 
               {/* NCB Savings Highlight */}
               {result.ncbDiscount > 0 && (
-                <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-3">
-                  <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+                <div className="rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 p-3">
+                  <p className="text-sm font-medium text-blue-700 dark:text-blue-300 flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4" />
                     NCB se aapne {formatCurrencyFull(result.ncbDiscount)} bachaye! Claim-free driving ka reward.
                   </p>

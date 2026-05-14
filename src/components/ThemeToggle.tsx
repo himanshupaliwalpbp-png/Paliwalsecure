@@ -43,7 +43,7 @@ export function ThemeToggle() {
           <Sun className="size-4" />
           <span>Light</span>
           {mounted && theme === 'light' && (
-            <span className="ml-auto flex size-2 rounded-full bg-emerald-500" />
+            <span className="ml-auto flex size-2 rounded-full bg-blue-500" />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -53,7 +53,7 @@ export function ThemeToggle() {
           <Moon className="size-4" />
           <span>Dark</span>
           {mounted && theme === 'dark' && (
-            <span className="ml-auto flex size-2 rounded-full bg-emerald-500" />
+            <span className="ml-auto flex size-2 rounded-full bg-blue-500" />
           )}
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -63,7 +63,7 @@ export function ThemeToggle() {
           <Monitor className="size-4" />
           <span>System</span>
           {mounted && theme === 'system' && (
-            <span className="ml-auto flex size-2 rounded-full bg-emerald-500" />
+            <span className="ml-auto flex size-2 rounded-full bg-blue-500" />
           )}
         </DropdownMenuItem>
       </DropdownMenuContent>

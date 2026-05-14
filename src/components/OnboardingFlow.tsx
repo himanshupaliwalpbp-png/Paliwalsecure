@@ -57,8 +57,8 @@ const STEP_CONFIGS: Omit<StepConfig, 'questions'>[] = [
     category: 'personal',
     label: 'Personal Details',
     icon: User,
-    color: 'text-emerald-600',
-    bgColor: 'bg-emerald-50',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
   },
   {
     category: 'financial',
@@ -138,13 +138,13 @@ function AnimatedCheckmark() {
   return (
     <div className="relative w-24 h-24 mx-auto">
       <motion.div
-        className="absolute inset-0 rounded-full bg-emerald-100"
+        className="absolute inset-0 rounded-full bg-blue-100"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', stiffness: 200, damping: 15 }}
       />
       <motion.div
-        className="absolute inset-2 rounded-full bg-emerald-500 flex items-center justify-center"
+        className="absolute inset-2 rounded-full bg-blue-500 flex items-center justify-center"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
@@ -247,7 +247,7 @@ function SelectQuestion({
               min-h-[56px] flex items-center
               ${
                 isSelected
-                  ? `border-emerald-500 bg-emerald-50 shadow-md ring-1 ring-emerald-200`
+                  ? `border-blue-500 bg-blue-50 shadow-md ring-1 ring-blue-200`
                   : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
               }
             `}
@@ -258,14 +258,14 @@ function SelectQuestion({
               <div
                 className={`
                   w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0
-                  ${isSelected ? 'border-emerald-500 bg-emerald-500' : 'border-gray-300'}
+                  ${isSelected ? 'border-blue-500 bg-blue-500' : 'border-gray-300'}
                 `}
               >
                 {isSelected && <Check className="w-3 h-3 text-white" />}
               </div>
               <span
                 className={`text-sm font-medium ${
-                  isSelected ? 'text-emerald-700' : 'text-gray-700'
+                  isSelected ? 'text-blue-700' : 'text-gray-700'
                 }`}
               >
                 {option.label}
@@ -324,8 +324,8 @@ function MultiSelectQuestion({
                 px-4 py-2.5 text-sm font-medium cursor-pointer transition-all duration-200 border-2
                 ${
                   isSelected
-                    ? 'bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600 shadow-md'
-                    : 'bg-white text-gray-700 border-gray-200 hover:border-emerald-300 hover:bg-emerald-50'
+                    ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600 shadow-md'
+                    : 'bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50'
                 }
               `}
               variant="outline"
@@ -509,7 +509,7 @@ export default function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowPro
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.9 }}
-                      className="flex items-center justify-center gap-2 text-emerald-600 font-medium"
+                      className="flex items-center justify-center gap-2 text-blue-600 font-medium"
                     >
                       <Sparkles className="w-5 h-5" />
                       <span>Tailored just for you with AI-powered insights</span>
@@ -576,7 +576,7 @@ export default function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowPro
                         <Label className="text-base font-semibold text-gray-800">
                           {question.question}
                           {question.required && (
-                            <span className="text-emerald-500 ml-1">*</span>
+                            <span className="text-blue-500 ml-1">*</span>
                           )}
                         </Label>
 
@@ -643,7 +643,7 @@ export default function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowPro
                     )}
                     <Button
                       onClick={handleNext}
-                      className="gap-1 bg-emerald-600 hover:bg-emerald-700 text-white px-6 h-11 text-base font-semibold rounded-xl shadow-lg shadow-emerald-200"
+                      className="gap-1 bg-blue-600 hover:bg-blue-700 text-white px-6 h-11 text-base font-semibold rounded-xl shadow-lg shadow-blue-200"
                     >
                       {currentStep === totalSteps - 1 ? 'Get Recommendations' : 'Continue'}
                       <ChevronRight className="w-4 h-4" />

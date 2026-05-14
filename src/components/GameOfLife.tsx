@@ -135,7 +135,7 @@ export default function GameOfLife() {
   // ── Start Screen ──────────────────────────────────────────────────────────
   if (!started) {
     return (
-      <div className="flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 py-4">
+      <div className="flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-red-50 py-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export default function GameOfLife() {
           className="w-full max-w-lg"
         >
           <Card className="border-0 shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-5 sm:p-8 text-white text-center">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-5 sm:p-8 text-white text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -153,7 +153,7 @@ export default function GameOfLife() {
                 <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </motion.div>
               <h1 className="text-2xl sm:text-3xl font-bold mb-2">Game of Life</h1>
-              <p className="text-emerald-100 text-sm sm:text-base">
+              <p className="text-blue-100 text-sm sm:text-base">
                 Walk through 30 years of life events and discover how insurance protects your finances
               </p>
             </div>
@@ -163,9 +163,9 @@ export default function GameOfLife() {
                   <p className="text-[10px] sm:text-xs text-red-600 font-medium">Without Insurance</p>
                   <p className="text-sm sm:text-lg font-bold text-red-700">{formatCurrency(grandTotalWithout)}</p>
                 </div>
-                <div className="rounded-lg bg-emerald-50 p-2 sm:p-3">
-                  <p className="text-[10px] sm:text-xs text-emerald-600 font-medium">With Insurance</p>
-                  <p className="text-sm sm:text-lg font-bold text-emerald-700">{formatCurrency(grandTotalWith)}</p>
+                <div className="rounded-lg bg-blue-50 p-2 sm:p-3">
+                  <p className="text-[10px] sm:text-xs text-blue-600 font-medium">With Insurance</p>
+                  <p className="text-sm sm:text-lg font-bold text-blue-700">{formatCurrency(grandTotalWith)}</p>
                 </div>
                 <div className="rounded-lg bg-amber-50 p-2 sm:p-3">
                   <p className="text-[10px] sm:text-xs text-amber-600 font-medium">You Save</p>
@@ -180,7 +180,7 @@ export default function GameOfLife() {
               <Button
                 size="lg"
                 onClick={handleStart}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 text-base gap-2"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 text-base gap-2"
               >
                 <Play className="w-5 h-5" />
                 Start Life Journey
@@ -195,7 +195,7 @@ export default function GameOfLife() {
   // ── Finished Screen ───────────────────────────────────────────────────────
   if (isFinished) {
     return (
-      <div className="flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 py-4">
+      <div className="flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-red-50 py-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -203,7 +203,7 @@ export default function GameOfLife() {
           className="w-full max-w-lg"
         >
           <Card className="border-0 shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-5 sm:p-8 text-white text-center">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-5 sm:p-8 text-white text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -213,7 +213,7 @@ export default function GameOfLife() {
                 <PiggyBank className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </motion.div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-1">Journey Complete!</h2>
-              <p className="text-emerald-100 text-sm sm:text-base">
+              <p className="text-blue-100 text-sm sm:text-base">
                 30 years of life — here&apos;s your financial report card
               </p>
             </div>
@@ -239,14 +239,14 @@ export default function GameOfLife() {
                   initial={{ x: 20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="rounded-xl bg-emerald-50 border border-emerald-200 p-4 text-center"
+                  className="rounded-xl bg-blue-50 border border-blue-200 p-4 text-center"
                 >
-                  <TrendingUp className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
-                  <p className="text-xs font-medium text-emerald-600 mb-1">With Insurance</p>
-                  <p className="text-2xl font-bold text-emerald-700">
+                  <TrendingUp className="w-6 h-6 text-blue-500 mx-auto mb-2" />
+                  <p className="text-xs font-medium text-blue-600 mb-1">With Insurance</p>
+                  <p className="text-2xl font-bold text-blue-700">
                     {formatCurrency(grandTotalWith)}
                   </p>
-                  <p className="text-[11px] text-emerald-500 mt-1">
+                  <p className="text-[11px] text-blue-500 mt-1">
                     Your share with comprehensive coverage
                   </p>
                 </motion.div>
@@ -257,7 +257,7 @@ export default function GameOfLife() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.7 }}
-                className="rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 p-5 text-center text-white"
+                className="rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 p-5 text-center text-white"
               >
                 <PiggyBank className="w-8 h-8 mx-auto mb-2 opacity-90" />
                 <p className="text-sm font-medium opacity-90">Total Savings with Insurance</p>
@@ -292,7 +292,7 @@ export default function GameOfLife() {
                         <span className="text-red-600 line-through">
                           {formatCurrency(s.costWithoutInsurance)}
                         </span>
-                        <span className="text-emerald-600 font-semibold">
+                        <span className="text-blue-600 font-semibold">
                           {formatCurrency(s.costWithInsurance)}
                         </span>
                       </div>
@@ -305,7 +305,7 @@ export default function GameOfLife() {
               <Button
                 size="lg"
                 onClick={handleRestart}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2 w-full sm:w-auto"
+                className="bg-blue-600 hover:bg-blue-700 text-white gap-2 w-full sm:w-auto"
               >
                 <RotateCcw className="w-5 h-5" />
                 Play Again
@@ -324,7 +324,7 @@ export default function GameOfLife() {
 
   // ── Active Scenario Screen ────────────────────────────────────────────────
   return (
-    <div className="flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-red-50 py-4">
+    <div className="flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-red-50 py-4">
       <div className="w-full max-w-lg">
         {/* Progress bar section */}
         <motion.div
@@ -338,7 +338,7 @@ export default function GameOfLife() {
             </span>
             <span className="font-medium">Age {currentScenario?.age ?? 25}</span>
           </div>
-          <Progress value={ageProgress} className="h-2 sm:h-3 bg-emerald-100" />
+          <Progress value={ageProgress} className="h-2 sm:h-3 bg-blue-100" />
           <div className="flex justify-between mt-1 sm:mt-1.5 text-[10px] text-muted-foreground">
             <span>Age 25</span>
             <span>Age 55</span>
@@ -359,11 +359,11 @@ export default function GameOfLife() {
               {formatCurrency(animatedWithout)}
             </p>
           </div>
-          <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-2 sm:p-3 text-center">
-            <p className="text-[10px] sm:text-xs font-medium text-emerald-600 mb-0.5">
+          <div className="rounded-lg bg-blue-50 border border-blue-100 p-2 sm:p-3 text-center">
+            <p className="text-[10px] sm:text-xs font-medium text-blue-600 mb-0.5">
               With Insurance
             </p>
-            <p className="text-sm sm:text-xl font-bold text-emerald-700">
+            <p className="text-sm sm:text-xl font-bold text-blue-700">
               {formatCurrency(animatedWith)}
             </p>
           </div>
@@ -456,15 +456,15 @@ export default function GameOfLife() {
                     {/* With insurance */}
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-xs font-medium text-emerald-600 flex items-center gap-1">
+                        <span className="text-xs font-medium text-blue-600 flex items-center gap-1">
                           <Shield className="w-3.5 h-3.5" />
                           With Insurance
                         </span>
-                        <span className="text-sm font-bold text-emerald-700">
+                        <span className="text-sm font-bold text-blue-700">
                           {formatCurrency(currentScenario.costWithInsurance)}
                         </span>
                       </div>
-                      <div className="h-3 rounded-full bg-emerald-100 overflow-hidden">
+                      <div className="h-3 rounded-full bg-blue-100 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{
@@ -474,7 +474,7 @@ export default function GameOfLife() {
                             )}%`,
                           }}
                           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-                          className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500"
+                          className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-500"
                         />
                       </div>
                     </div>
@@ -485,14 +485,14 @@ export default function GameOfLife() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-3"
+                    className="rounded-lg bg-blue-50 border border-blue-200 p-3 flex items-center gap-3"
                   >
-                    <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                      <PiggyBank className="w-5 h-5 text-emerald-600" />
+                    <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                      <PiggyBank className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-xs text-emerald-600 font-medium">You save on this event</p>
-                      <p className="text-lg font-bold text-emerald-700">
+                      <p className="text-xs text-blue-600 font-medium">You save on this event</p>
+                      <p className="text-lg font-bold text-blue-700">
                         {formatCurrency(
                           currentScenario.costWithoutInsurance - currentScenario.costWithInsurance
                         )}
@@ -505,7 +505,7 @@ export default function GameOfLife() {
                   <Button
                     size="lg"
                     onClick={handleNext}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white gap-2"
                   >
                     {currentStep < gameOfLifeScenarios.length - 1 ? (
                       <>

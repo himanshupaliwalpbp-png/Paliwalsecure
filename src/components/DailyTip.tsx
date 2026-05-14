@@ -53,7 +53,7 @@ export function DailyTip() {
   const currentTip = insuranceTips[currentIndex]
 
   return (
-    <Card className="relative overflow-hidden border-emerald-200 dark:border-emerald-900 bg-gradient-to-br from-emerald-50/60 via-white to-amber-50/40 dark:from-emerald-950/30 dark:via-card dark:to-amber-950/20">
+    <Card className="relative overflow-hidden border-blue-200 dark:border-blue-900 bg-gradient-to-br from-blue-50/60 via-white to-amber-50/40 dark:from-blue-950/30 dark:via-card dark:to-amber-950/20">
       <CardContent className="p-4 sm:p-5">
         <AnimatePresence mode="wait">
           <motion.div
@@ -67,10 +67,10 @@ export function DailyTip() {
             {/* Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="flex size-8 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50">
-                  <Lightbulb className="size-4 text-emerald-600 dark:text-emerald-400" />
+                <div className="flex size-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50">
+                  <Lightbulb className="size-4 text-blue-600 dark:text-blue-400" />
                 </div>
-                <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">
                   Aaj Ka Bima Tip
                 </span>
               </div>
@@ -78,7 +78,7 @@ export function DailyTip() {
                 variant="ghost"
                 size="sm"
                 onClick={handleNextTip}
-                className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400"
+                className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400"
                 aria-label="Next tip"
               >
                 <RefreshCw

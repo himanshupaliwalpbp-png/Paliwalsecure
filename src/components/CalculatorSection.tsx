@@ -11,7 +11,7 @@ const HealthPremiumCalculator = dynamic(() => import('@/components/calculators/H
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -19,7 +19,7 @@ const MotorPremiumCalculator = dynamic(() => import('@/components/calculators/Mo
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -27,7 +27,7 @@ const TermLifeCalculator = dynamic(() => import('@/components/calculators/TermLi
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -35,7 +35,7 @@ const TaxSavingsCalculator = dynamic(() => import('@/components/calculators/TaxS
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -43,7 +43,7 @@ const ClaimSettlementPredictor = dynamic(() => import('@/components/calculators/
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
-      <div className="animate-spin w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full" />
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
     </div>
   ),
 });
@@ -55,23 +55,23 @@ export default function CalculatorSection() {
     <div className="w-full">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-5 h-auto gap-1 bg-muted/50 p-1">
-          <TabsTrigger value="health" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-emerald-600 data-[state=active]:text-white">
+          <TabsTrigger value="health" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <Heart className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Health</span>
           </TabsTrigger>
-          <TabsTrigger value="motor" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-emerald-600 data-[state=active]:text-white">
+          <TabsTrigger value="motor" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <Car className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Motor</span>
           </TabsTrigger>
-          <TabsTrigger value="term" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-emerald-600 data-[state=active]:text-white">
+          <TabsTrigger value="term" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <UserCheck className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Term</span>
           </TabsTrigger>
-          <TabsTrigger value="tax" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-emerald-600 data-[state=active]:text-white">
+          <TabsTrigger value="tax" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <IndianRupee className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Tax</span>
           </TabsTrigger>
-          <TabsTrigger value="claim" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-emerald-600 data-[state=active]:text-white">
+          <TabsTrigger value="claim" className="text-xs sm:text-sm py-2 gap-1 data-[state=active]:bg-blue-600 data-[state=active]:text-white">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Claim</span>
           </TabsTrigger>

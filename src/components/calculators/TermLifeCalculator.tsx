@@ -150,10 +150,10 @@ export default function TermLifeCalculator() {
   };
 
   return (
-    <Card className="w-full border-0 shadow-lg shadow-emerald-500/5">
+    <Card className="w-full border-0 shadow-lg shadow-blue-500/5">
       <CardHeader className="pb-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div>
@@ -292,7 +292,7 @@ export default function TermLifeCalculator() {
               variant={!smoker ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSmoker(false)}
-              className={!smoker ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
+              className={!smoker ? 'bg-blue-600 hover:bg-blue-700' : ''}
             >
               Non-Smoker
             </Button>
@@ -311,7 +311,7 @@ export default function TermLifeCalculator() {
         {/* Calculate Button */}
         <Button
           onClick={handleCalculate}
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white gap-2"
           size="lg"
         >
           <Calculator className="h-4 w-4" />
@@ -331,8 +331,8 @@ export default function TermLifeCalculator() {
               <Separator />
 
               {/* HLV Calculation */}
-              <div className="rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 p-4 sm:p-5 dark:from-emerald-950/30 dark:to-teal-950/30">
-                <h3 className="text-sm font-semibold text-emerald-800 dark:text-emerald-300 mb-3 flex items-center gap-2">
+              <div className="rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-5 dark:from-blue-950/30 dark:to-indigo-950/30">
+                <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
                   <TrendingDown className="h-4 w-4" />
                   Human Life Value (HLV) Breakdown
                 </h3>
@@ -347,14 +347,14 @@ export default function TermLifeCalculator() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Annual Savings (Income - Expenses)</span>
-                    <span className="font-medium text-emerald-600">{formatCurrencyFull(result.annualIncome - result.annualExpenses)}</span>
+                    <span className="font-medium text-blue-600">{formatCurrencyFull(result.annualIncome - result.annualExpenses)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Years to Retirement</span>
                     <span className="font-medium">{result.yearsToRetirement} years</span>
                   </div>
                   <Separator />
-                  <div className="flex justify-between font-bold text-emerald-700 dark:text-emerald-300">
+                  <div className="flex justify-between font-bold text-blue-700 dark:text-blue-300">
                     <span>HLV (Savings × Years)</span>
                     <span>{formatLakhsCrores(result.hlv)}</span>
                   </div>
@@ -364,7 +364,7 @@ export default function TermLifeCalculator() {
               {/* Recommended Cover */}
               <div className="rounded-xl bg-white/50 dark:bg-white/5 p-4 border">
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                  <ShieldCheck className="h-4 w-4 text-blue-600" />
                   Recommended Cover Calculation
                 </h3>
                 <div className="space-y-2 text-sm">
@@ -385,7 +385,7 @@ export default function TermLifeCalculator() {
                     </div>
                   )}
                   <Separator />
-                  <div className="flex justify-between font-bold text-base text-emerald-700 dark:text-emerald-300">
+                  <div className="flex justify-between font-bold text-base text-blue-700 dark:text-blue-300">
                     <span>Total Recommended Cover</span>
                     <span>{formatLakhsCrores(result.recommendedCover)}</span>
                   </div>
@@ -397,7 +397,7 @@ export default function TermLifeCalculator() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 p-4 text-white text-center"
+                className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white text-center"
               >
                 <p className="text-sm opacity-90">Estimated Premium (for recommended cover)</p>
                 <p className="text-2xl sm:text-3xl font-bold">{formatCurrencyFull(Math.round(result.annualPremium))}/yr</p>
@@ -409,8 +409,8 @@ export default function TermLifeCalculator() {
               </motion.div>
 
               {/* Hinglish Message */}
-              <div className="rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 p-3">
-                <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300 flex items-start gap-2">
+              <div className="rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 p-3">
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-300 flex items-start gap-2">
                   <Info className="h-4 w-4 mt-0.5 shrink-0" />
                   {result.hinglishMessage}
                 </p>
@@ -419,7 +419,7 @@ export default function TermLifeCalculator() {
               {/* Insurer Comparison Table */}
               <div className="rounded-xl bg-white/50 dark:bg-white/5 p-4 border">
                 <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                  <Users className="h-4 w-4 text-emerald-600" />
+                  <Users className="h-4 w-4 text-blue-600" />
                   Insurer Comparison (Term Insurance)
                 </h3>
                 <div className="overflow-x-auto -mx-4 px-4">
@@ -499,7 +499,7 @@ export default function TermLifeCalculator() {
 
               {/* Branding */}
               <p className="text-center text-xs text-muted-foreground pt-1">
-                Powered by <span className="font-semibold text-emerald-600">Himanshu Paliwal</span>
+                Powered by <span className="font-semibold text-blue-600">Himanshu Paliwal</span>
               </p>
             </motion.div>
           )}

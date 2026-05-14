@@ -40,14 +40,14 @@ export default function MobileBottomNav({ onNavigate }: MobileBottomNavProps) {
               <div className="relative">
                 <IconComp
                   className={`w-5 h-5 transition-colors duration-200 ${
-                    isActive ? 'text-emerald-600' : 'text-muted-foreground'
+                    isActive ? 'text-blue-600' : 'text-muted-foreground'
                   }`}
                 />
                 <AnimatePresence>
                   {isActive && (
                     <motion.div
                       layoutId="bottomNavIndicator"
-                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-600"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-blue-600"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
@@ -58,7 +58,7 @@ export default function MobileBottomNav({ onNavigate }: MobileBottomNavProps) {
               </div>
               <span
                 className={`text-[10px] font-medium transition-colors duration-200 ${
-                  isActive ? 'text-emerald-600' : 'text-muted-foreground'
+                  isActive ? 'text-blue-600' : 'text-muted-foreground'
                 }`}
               >
                 {item.label}
