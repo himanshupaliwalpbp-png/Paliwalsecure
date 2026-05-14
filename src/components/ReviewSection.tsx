@@ -12,6 +12,7 @@ import {
   ChevronDown,
   Loader2,
   Filter,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -494,6 +495,10 @@ export default function ReviewSection() {
     ? Math.max(...Object.values(stats.ratingDistribution), 1)
     : 1;
 
+  // ── Inline form state ──────────────────────────────────────────────────
+  const [inlineFormOpen, setInlineFormOpen] = useState(false);
+  const ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
   return (
     <section id="reviews" className="py-16 sm:py-24 bg-gradient-to-b from-background via-blue-50/30 to-background dark:via-blue-950/10 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -516,6 +521,257 @@ export default function ReviewSection() {
           <p className="mt-3 text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
             Real experiences from real customers — honest feedback you can trust
           </p>
+        </motion.div>
+
+        {/* ── 5-Star Review Submit CTA Card ────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mb-10"
+        >
+          <Card className="border-0 shadow-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 dark:from-amber-950/30 dark:via-orange-950/20 dark:to-amber-950/30">
+              <CardContent className="p-5 sm:p-6">
+                {!inlineFormOpen ? (
+                  /* ── Collapsed CTA ────────────────────────────────────── */
+                  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star key={s} className="w-7 h-7 text-amber-400 fill-amber-400 drop-shadow-sm" />
+                        ))}
+                      </div>
+                      <span className="text-2xl font-bold text-amber-700 dark:text-amber-300">5.0</span>
+                    </div>
+                    <div className="text-center sm:text-left flex-1">
+                      <h3 className="font-bold text-foreground text-lg">Rate Your Insurance Experience</h3>
+                      <p className="text-sm text-muted-foreground mt-0.5">
+                        Your honest review helps 700M+ Indians make better insurance decisions 🇮🇳
+                      </p>
+                    </div>
+                    <Button
+                      onClick={() => { setInlineFormOpen(true); setForm({ ...form, rating: 5 }); }}
+                      className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-bold shadow-lg shadow-amber-500/25 gap-2 h-11 px-6 text-sm"
+                    >
+                      <PenLine className="w-4 h-4" />
+                      Submit Review
+                    </Button>
+                  </div>
+                ) : (
+                  /* ── Expanded Inline Form ─────────────────────────────── */
+                  <div className="space-y-5">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-bold text-foreground text-lg flex items-center gap-2">
+                        <PenLine className="w-4 h-4 text-amber-600" />
+                        Write Your Review
+                      </h3>
+                      <button
+                        onClick={() => { setInlineFormOpen(false); setFormErrors({}); }}
+                        className="text-muted-foreground hover:text-foreground transition-colors p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    {submitSuccess ? (
+                      <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="py-8 text-center space-y-3"
+                      >
+                        <div className="w-16 h-16 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
+                          <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground">Thank You! 🎉</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Your review has been submitted and is pending approval. We appreciate your feedback!
+                        </p>
+                        <Button
+                          onClick={() => { setInlineFormOpen(false); setSubmitSuccess(false); }}
+                          className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
+                        >
+                          Done
+                        </Button>
+                      </motion.div>
+                    ) : (
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* ── Row 1: Rating + Insurance Type ──────────── */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {/* Rating */}
+                          <div className="space-y-2">
+                            <Label className="text-xs font-semibold flex items-center gap-1.5">
+                              Your Rating <span className="text-red-500">*</span>
+                              {form.rating > 0 && (
+                                <Badge className="text-[10px] bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border-0 px-2 py-0.5 rounded-full">
+                                  {form.rating}/5 — {ratingLabels[form.rating]}
+                                </Badge>
+                              )}
+                            </Label>
+                            <div className="flex items-center gap-2 p-3 bg-white dark:bg-slate-900 rounded-xl border border-border/60">
+                              <StarRating rating={form.rating} size="lg" interactive onChange={(r) => setForm({ ...form, rating: r })} />
+                              {form.rating > 0 && (
+                                <span className="text-sm font-bold text-amber-600 dark:text-amber-400 ml-1">{form.rating}.0</span>
+                              )}
+                            </div>
+                            {formErrors.rating && <p className="text-xs text-red-500">{formErrors.rating}</p>}
+                          </div>
+                          {/* Insurance Type */}
+                          <div className="space-y-2">
+                            <Label className="text-xs font-semibold">
+                              Insurance Type <span className="text-red-500">*</span>
+                            </Label>
+                            <Select value={form.insuranceType} onValueChange={(v) => setForm({ ...form, insuranceType: v })}>
+                              <SelectTrigger className={`text-sm rounded-xl h-[52px] ${formErrors.insuranceType ? 'border-red-400' : ''}`}>
+                                <SelectValue placeholder="Select type" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="health">🏥 Health Insurance</SelectItem>
+                                <SelectItem value="life">🛡️ Life Insurance</SelectItem>
+                                <SelectItem value="motor">🚗 Motor Insurance</SelectItem>
+                                <SelectItem value="travel">✈️ Travel Insurance</SelectItem>
+                                <SelectItem value="home">🏠 Home Insurance</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {formErrors.insuranceType && <p className="text-xs text-red-500">{formErrors.insuranceType}</p>}
+                          </div>
+                        </div>
+
+                        {/* ── Row 2: Product Name ─────────────────────── */}
+                        <div className="space-y-2">
+                          <Label htmlFor="inlineProductName" className="text-xs font-semibold">
+                            Product / Plan Name <span className="text-red-500">*</span>
+                          </Label>
+                          <Input
+                            id="inlineProductName"
+                            placeholder="e.g., Star Health Comprehensive, HDFC ERGO Motor Plus"
+                            value={form.productName}
+                            onChange={(e) => setForm({ ...form, productName: e.target.value })}
+                            className={`text-sm rounded-xl ${formErrors.productName ? 'border-red-400' : ''}`}
+                          />
+                          {formErrors.productName && <p className="text-xs text-red-500">{formErrors.productName}</p>}
+                        </div>
+
+                        {/* ── Row 3: Title + Body ──────────────────────── */}
+                        <div className="space-y-2">
+                          <Label htmlFor="inlineTitle" className="text-xs font-semibold">
+                            Review Title <span className="text-red-500">*</span>
+                          </Label>
+                          <Input
+                            id="inlineTitle"
+                            placeholder="Summarize your experience in one line"
+                            maxLength={100}
+                            value={form.title}
+                            onChange={(e) => setForm({ ...form, title: e.target.value })}
+                            className={`text-sm rounded-xl ${formErrors.title ? 'border-red-400' : ''}`}
+                          />
+                          {formErrors.title && <p className="text-xs text-red-500">{formErrors.title}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="inlineBody" className="text-xs font-semibold">
+                            Your Review <span className="text-red-500">*</span>
+                          </Label>
+                          <Textarea
+                            id="inlineBody"
+                            placeholder="Tell us about your experience — claim process, customer service, coverage, etc."
+                            rows={3}
+                            maxLength={2000}
+                            value={form.body}
+                            onChange={(e) => setForm({ ...form, body: e.target.value })}
+                            className={`text-sm rounded-xl resize-none ${formErrors.body ? 'border-red-400' : ''}`}
+                          />
+                          <div className="flex justify-between">
+                            {formErrors.body ? (
+                              <p className="text-xs text-red-500">{formErrors.body}</p>
+                            ) : (
+                              <span />
+                            )}
+                            <span className="text-[10px] text-muted-foreground">{form.body.length}/2000</span>
+                          </div>
+                        </div>
+
+                        {/* ── Row 4: Name + Email ──────────────────────── */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="inlineName" className="text-xs font-semibold">
+                              Your Name <span className="text-red-500">*</span>
+                            </Label>
+                            <Input
+                              id="inlineName"
+                              placeholder="e.g., Rajesh Kumar"
+                              value={form.reviewerName}
+                              onChange={(e) => setForm({ ...form, reviewerName: e.target.value })}
+                              className={`text-sm rounded-xl ${formErrors.reviewerName ? 'border-red-400' : ''}`}
+                            />
+                            {formErrors.reviewerName && <p className="text-xs text-red-500">{formErrors.reviewerName}</p>}
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="inlineEmail" className="text-xs font-semibold">
+                              Email <span className="text-red-500">*</span>
+                            </Label>
+                            <Input
+                              id="inlineEmail"
+                              type="email"
+                              placeholder="you@email.com"
+                              value={form.reviewerEmail}
+                              onChange={(e) => setForm({ ...form, reviewerEmail: e.target.value })}
+                              className={`text-sm rounded-xl ${formErrors.reviewerEmail ? 'border-red-400' : ''}`}
+                            />
+                            {formErrors.reviewerEmail && <p className="text-xs text-red-500">{formErrors.reviewerEmail}</p>}
+                          </div>
+                        </div>
+
+                        {/* ── Row 5: Phone (optional) ──────────────────── */}
+                        <div className="space-y-2">
+                          <Label htmlFor="inlinePhone" className="text-xs font-semibold">
+                            Phone <span className="text-muted-foreground font-normal">(optional)</span>
+                          </Label>
+                          <Input
+                            id="inlinePhone"
+                            placeholder="10-digit mobile number"
+                            value={form.reviewerPhone}
+                            onChange={(e) => setForm({ ...form, reviewerPhone: e.target.value })}
+                            className={`text-sm rounded-xl ${formErrors.reviewerPhone ? 'border-red-400' : ''}`}
+                          />
+                          {formErrors.reviewerPhone && <p className="text-xs text-red-500">{formErrors.reviewerPhone}</p>}
+                        </div>
+
+                        {/* ── Submit ────────────────────────────────────── */}
+                        <div className="flex items-center gap-3 pt-2">
+                          <Button
+                            type="submit"
+                            disabled={submitting}
+                            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-bold gap-2 shadow-lg shadow-amber-500/25 h-11 px-8"
+                          >
+                            {submitting ? (
+                              <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                Submitting...
+                              </>
+                            ) : (
+                              <>
+                                <Star className="w-4 h-4 fill-white" />
+                                Submit {form.rating}-Star Review
+                              </>
+                            )}
+                          </Button>
+                          <button
+                            type="button"
+                            onClick={() => { setInlineFormOpen(false); setFormErrors({}); }}
+                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </div>
+          </Card>
         </motion.div>
 
         {/* ── Stats Bar ──────────────────────────────────────────────────── */}
