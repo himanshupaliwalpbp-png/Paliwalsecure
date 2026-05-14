@@ -75,7 +75,7 @@ const ClaimStatusChecker = dynamic(() => import('@/components/ClaimStatusChecker
 const HeroShield3D = dynamic(() => import('@/components/HeroShield3D'), { ssr: false });
 const HeroParallaxParticles = dynamic(() => import('@/components/HeroParallaxParticles'), { ssr: false });
 
-const CalculatorSection = dynamic(() => import('@/components/CalculatorSection'), {
+const PremiumCalculator = dynamic(() => import('@/components/PremiumCalculator'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
@@ -879,7 +879,7 @@ export default function PaliwalSecurePage() {
             </p>
           </motion.div>
 
-          <CalculatorSection />
+          <PremiumCalculator />
         </div>
       </section>
 

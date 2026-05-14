@@ -145,3 +145,76 @@ Stage Summary:
 - All security features implemented: MFA/TOTP, IP Whitelisting, Rate Limiting, Zod Validation, Login Attempt Limiting, Security Headers, Audit Logging, Account Lockout
 - Admin Dashboard: Audit Logs page, Security/MFA page added
 - Lint: PASS | Dev Server: Running
+
+---
+Task ID: 2-a
+Agent: Premium Calculator Agent
+Task: Create Premium Calculator Feature (Health, Term Life, Motor tabs)
+
+Work Log:
+- Created /home/z/my-project/src/lib/premiumUtils.ts with:
+  - TypeScript interfaces: HealthCalcInput, TermCalcInput, MotorCalcInput, PremiumBreakdown
+  - calculateHealthPremium(): Base ₹500/mo with age bands (+5%/5yrs), SI loading, family composition, PED loading (heart/diabetes/bp), city tier (1/2/3), smoker loading
+  - calculateTermPremium(): Base ₹750/mo with age loading (+8%/yr), sum assured scaling, female discount (10%), smoker loading
+  - calculateMotorPremium(): OD premium (3.5% car/5% bike), NCB discount, TP premium (IRDAI rates), add-ons (Zero Dep/Engine Cover/RSA)
+  - formatIndianCurrency() and formatRupees() for Indian comma number formatting
+- Created /home/z/my-project/src/components/PremiumCalculator.tsx with:
+  - 3-tab layout (Health, Term Life, Motor) using shadcn/ui Tabs
+  - HealthTab: Age slider (18-80), Sum Insured dropdown (₹5L-1Cr), Family composition radio buttons (4 options), PED checkboxes (Diabetes/BP/Heart), City Tier selector, Smoker toggle
+  - TermTab: Age slider (18-65), Sum Assured dropdown (₹50L-5Cr), Policy term dropdown (10-40yr), Gender toggle, Smoker toggle
+  - MotorTab: Vehicle type toggle (Car/Bike), Registration year dropdown (2015-current), IDV input with ₹ formatting, NCB dropdown (0-50%), Add-on checkboxes with pricing
+  - BreakdownCard: Animated result card with gradient header, monthly/yearly premium display, itemized breakdown with +/- indicators, GST line, "Get Personalized Plans from InsureGPT →" CTA button
+  - InfoTip component for insurance term tooltips (IDV, NCB, PED, CSR, Sum Insured, etc.)
+  - Glassmorphic card styling, responsive grid layout (3-col form + 2-col result), Framer Motion animations
+  - Hinglish text throughout matching site style
+  - All Indian number formatting with ₹ and commas
+- Updated /home/z/my-project/src/app/page.tsx:
+  - Replaced CalculatorSection dynamic import with PremiumCalculator
+  - Replaced <CalculatorSection /> with <PremiumCalculator />
+- ESLint: PASS (0 errors)
+- Dev server: Running correctly (HTTP 200)
+
+Stage Summary:
+- premiumUtils.ts: 3 calculation engines with detailed loading/breakdown logic, Indian number formatting
+- PremiumCalculator.tsx: Full 3-tab calculator UI with form inputs, tooltips, animated breakdown cards, InsureGPT CTA
+- Integration: Replaced old CalculatorSection in page.tsx, all existing calculator sub-components preserved
+- Lint: PASS | Dev Server: Running
+
+---
+Task ID: 2-b
+Agent: Live Chat Escalation Agent
+Task: Add Live Chat Escalation with WhatsApp + Callback Request
+
+Work Log:
+- Added CallbackRequest model to Prisma schema (id, name, mobile, preferredTime, message, status, source, createdAt, updatedAt) with @@map("callback_requests")
+- Ran prisma db push successfully — new table created
+- Created Callback API route (POST /api/callback) with Zod validation: name (2-50 chars), mobile (Indian 10-digit starting 6-9), preferredTime (asap/1hour/2-5pm), message (optional, max 500), source (chatbot/website/whatsapp)
+- Created Callback API route (GET /api/callback) with pagination, status filtering, ordered by createdAt DESC
+- Created Callback PATCH route (/api/callback/[id]) for updating status (PENDING/COMPLETED/CANCELLED) with Zod validation and 404 handling
+- Created CallbackRequestForm.tsx component: glassmorphic form with name, mobile (+91 prefix), preferred time dropdown, optional message textarea, client-side validation, loading state, success state with confetti animation, trust indicator
+- Updated EmbeddedChatBot.tsx with escalation detection:
+  - Added shouldEscalate() function with 16 keywords (agent, human, call me, callback, talk to person, bahut pareshan, agent se baat, insaan se baat, live agent, real person, frustrated, not helping, waste of time, useless, complaint, grievance)
+  - Added isEscalation field to ChatMessage interface
+  - After bot response, checks shouldEscalate() and adds escalation message with inline options
+  - Created EscalationOptions inline component with 3 clickable buttons: WhatsApp Chat (opens wa.me link), Request Callback (opens dialog), Email Us (opens mailto link)
+  - WhatsApp number reads from NEXT_PUBLIC_WHATSAPP_NUMBER env with fallback to 919999999999
+  - Added CallbackRequestForm in a Dialog component
+- Created Admin Callbacks page (/admin/dashboard/callbacks):
+  - Stats cards: Total Requests, Pending Callbacks, Completed
+  - Status filter pills (ALL, PENDING, COMPLETED, CANCELLED)
+  - Table with Name, Mobile (clickable tel: link), Preferred Time, Source, Status, Message, Created At, Actions
+  - Status update buttons (Done/Cancel for PENDING, dropdown for others)
+  - Color-coded status badges (amber=PENDING, emerald=COMPLETED, red=CANCELLED)
+  - Source badges (indigo=chatbot, blue=website, green=whatsapp)
+  - Pagination support
+- Added "Callbacks" nav item to admin sidebar (AdminDashboardLayout.tsx) with Phone icon, route /admin/dashboard/callbacks
+- ESLint: PASS (0 errors, 0 warnings)
+- Dev server: Running correctly (HTTP 200)
+
+Stage Summary:
+- CallbackRequest Model: Full Prisma model with status tracking, source attribution, preferred time slots
+- Callback API: POST (create with Zod validation), GET (list with pagination/filtering), PATCH (update status)
+- CallbackRequestForm: Glassmorphic form with mobile validation, preferred time select, confetti success state, supports inline and dialog modes
+- Chat Escalation: 16-keyword detection in English/Hinglish, inline escalation options (WhatsApp/Callback/Email), dialog-based callback form
+- Admin Callbacks Page: Stats dashboard, filterable table, status management, color-coded badges
+- Sidebar: Callbacks nav item added with Phone icon

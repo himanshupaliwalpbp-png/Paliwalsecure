@@ -24,6 +24,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
+import CallbackRequestForm from '@/components/CallbackRequestForm';
 import { GAEvents } from '@/lib/ga-events';
 import {
   loadChatMemory,
@@ -53,6 +54,8 @@ interface ChatMessage {
   csatFeedback: CSATState;
   /** True if the bot message contains a plan recommendation */
   isRecommendation: boolean;
+  /** True if this message shows escalation options */
+  isEscalation: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -225,6 +228,74 @@ function renderInlineMarkdown(text: string): React.ReactNode[] {
   }
 
   return parts;
+}
+
+// ---------------------------------------------------------------------------
+// Escalation keyword detection
+// ---------------------------------------------------------------------------
+function shouldEscalate(message: string): boolean {
+  const lower = message.toLowerCase();
+  const keywords = [
+    'agent', 'human', 'call me', 'callback', 'talk to person',
+    'bahut pareshan', 'agent se baat', 'insaan se baat',
+    'live agent', 'real person', 'frustrated', 'not helping',
+    'waste of time', 'useless', 'complaint', 'grievance'
+  ];
+  return keywords.some(kw => lower.includes(kw));
+}
+
+// ---------------------------------------------------------------------------
+// Escalation Options — inline buttons inside chat
+// ---------------------------------------------------------------------------
+function EscalationOptions({
+  onWhatsApp,
+  onCallback,
+  onEmail,
+}: {
+  onWhatsApp: () => void;
+  onCallback: () => void;
+  onEmail: () => void;
+}) {
+  return (
+    <div className="mt-3 space-y-2">
+      <div className="flex items-center gap-1.5 mb-2">
+        <Headset className="w-3.5 h-3.5 text-indigo-500" />
+        <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">Expert se connect karein:</span>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <button
+          onClick={onWhatsApp}
+          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800/40 hover:shadow-md transition-all text-left group"
+        >
+          <span className="text-base">🟢</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">WhatsApp Chat</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400">Instant messaging pe baat karein</p>
+          </div>
+        </button>
+        <button
+          onClick={onCallback}
+          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 border border-indigo-200 dark:border-indigo-800/40 hover:shadow-md transition-all text-left group"
+        >
+          <span className="text-base">📞</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">Request Callback</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400">Hum aapko call karenge</p>
+          </div>
+        </button>
+        <button
+          onClick={onEmail}
+          className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-200 dark:border-amber-800/40 hover:shadow-md transition-all text-left group"
+        >
+          <span className="text-base">✉️</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">Email Us</p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400">Detailed query bhejiye</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -483,6 +554,7 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
   const [isRecording, setIsRecording] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
   const [showHandoffDialog, setShowHandoffDialog] = useState(false);
+  const [showCallbackDialog, setShowCallbackDialog] = useState(false);
   const [currentQuickReplies, setCurrentQuickReplies] = useState<string[]>(INITIAL_QUICK_REPLIES);
   const [chatMemory, setChatMemory] = useState<ChatMemory | null>(null);
   const [isReturning, setIsReturning] = useState(false);
@@ -525,6 +597,7 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
           timestamp: new Date(),
           csatFeedback: 'neutral',
           isRecommendation: false,
+          isEscalation: false,
         },
       ]);
     }
@@ -562,6 +635,7 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
         timestamp: new Date(),
         csatFeedback: 'neutral',
         isRecommendation: false,
+        isEscalation: false,
       };
 
       setMessages((prev) => [...prev, userMessage]);
@@ -611,8 +685,23 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
             timestamp: new Date(),
             csatFeedback: 'neutral',
             isRecommendation: isRecommendationMessage(data.response),
+            isEscalation: false,
           };
           setMessages((prev) => [...prev, botMessage]);
+
+          // Check for escalation after bot response
+          if (shouldEscalate(text.trim())) {
+            const escalationMessage: ChatMessage = {
+              id: generateId(),
+              role: 'bot',
+              content: 'Samajh gaya! Aap ek expert se baat karna chahte hain. Neeche option choose karein:',
+              timestamp: new Date(),
+              csatFeedback: 'neutral',
+              isRecommendation: false,
+              isEscalation: true,
+            };
+            setMessages((prev) => [...prev, escalationMessage]);
+          }
         } else {
           const errorMessage: ChatMessage = {
             id: generateId(),
@@ -622,6 +711,7 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
             timestamp: new Date(),
             csatFeedback: 'neutral',
             isRecommendation: false,
+            isEscalation: false,
           };
           setMessages((prev) => [...prev, errorMessage]);
         }
@@ -634,6 +724,7 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
           timestamp: new Date(),
           csatFeedback: 'neutral',
           isRecommendation: false,
+          isEscalation: false,
         };
         setMessages((prev) => [...prev, errorMessage]);
       } finally {
@@ -794,6 +885,21 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
                 {msg.role === 'bot' ? (
                   <div>
                     <div className="space-y-1">{renderBotContent(msg.content)}</div>
+                    {/* Escalation Options */}
+                    {msg.isEscalation && (
+                      <EscalationOptions
+                        onWhatsApp={() => {
+                          const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919999999999';
+                          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Namaste! Mujhe insurance ke baare mein jaankari chahiye. Paliwal Secure se contact kar raha/rahi hoon.')}`;
+                          window.open(whatsappUrl, '_blank');
+                        }}
+                        onCallback={() => setShowCallbackDialog(true)}
+                        onEmail={() => {
+                          const mailtoUrl = 'mailto:support@paliwalsecure.com?subject=Insurance%20Query%20-%20Callback%20Requested&body=Namaste%2C%0A%0AMujhe%20insurance%20ke%20baare%20mein%20jaankari%20chahiye.%0A%0ADhanyavaad';
+                          window.open(mailtoUrl);
+                        }}
+                      />
+                    )}
                     {/* Explainability Section for recommendations */}
                     {msg.isRecommendation && <ExplainabilitySection />}
                     {/* CSAT Feedback */}
@@ -934,6 +1040,27 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
         open={showHandoffDialog}
         onOpenChange={setShowHandoffDialog}
       />
+
+      {/* Callback Request Dialog */}
+      <Dialog open={showCallbackDialog} onOpenChange={setShowCallbackDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-lg">
+              <Phone className="w-5 h-5 text-indigo-600" />
+              Callback Request
+            </DialogTitle>
+            <DialogDescription>
+              Apna details daalein, hamari expert team aapko call karegi.
+            </DialogDescription>
+          </DialogHeader>
+          <CallbackRequestForm
+            source="chatbot"
+            onSuccess={() => {
+              setTimeout(() => setShowCallbackDialog(false), 2000);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

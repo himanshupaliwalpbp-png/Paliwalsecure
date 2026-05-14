@@ -15,6 +15,7 @@ import {
   ChevronRight,
   ClipboardList,
   ShieldCheck,
+  Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -59,6 +60,11 @@ const NAV_ITEMS = [
     label: "Settings",
     href: "/admin/dashboard/settings",
     icon: Settings,
+  },
+  {
+    label: "Callbacks",
+    href: "/admin/dashboard/callbacks",
+    icon: Phone,
   },
   {
     label: "Audit Logs",
