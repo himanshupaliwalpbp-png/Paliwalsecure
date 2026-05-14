@@ -1,0 +1,501 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "lastUpdated": "2025-06-15",
+    "source": "IRDAI Annual Report 2025-26, IRDAI Life Insurance CSR Report 2025-26, Market Research 2025",
+    "disclaimer": "For more details on risk factors, terms and conditions, please read the sales brochure/policy wording carefully before concluding a sale. Insurance is the subject matter of solicitation.",
+    "irdaiRegistration": "Paliwal Secure is an IRDAI-registered insurance advisory platform"
+  },
+  "glossary": [
+    {
+      "term": "CSR (Claim Settlement Ratio)",
+      "hindiTerm": "क्लेम सेटलमेंट रेश्यो",
+      "explanation": "CSR matlab kitne percent claims insurance company ne approve kiye. Jaise agar 100 claims aaye aur 97 settle hue, toh CSR 97% hoga. Jitna zyada CSR, utna reliable company.",
+      "example": "PNB MetLife ka CSR 99.50% hai — matlab 1000 mein se 995 claims settle hote hain. Yeh trust dilaata hai.",
+      "category": "general",
+      "importance": "critical"
+    },
+    {
+      "term": "PED (Pre-Existing Disease)",
+      "hindiTerm": "पहले से मौजूद बीमारी",
+      "explanation": "PED woh beemari hai jo policy lene se pehle se aapke mein maujood thi — jaise diabetes, blood pressure. Inka cover waiting period ke baad hi milta hai.",
+      "example": "Agar aapko policy lene se 2 saal pehle diabetes thi, toh uska cover 24-36 mahine ke waiting period ke baad milega.",
+      "category": "health",
+      "importance": "critical"
+    },
+    {
+      "term": "Waiting Period",
+      "hindiTerm": "इंतज़ार की अवधि",
+      "explanation": "Waiting period woh samay hai jab aapko policy ki poori benefits nahi milti. Initial 30 din, PED ke liye 24-36 mahine, aur kuch specific diseases ke liye 1-2 saal.",
+      "example": "Aaj policy li, toh pehle 30 din koi claim nahi hoga (emergency ke alawa). PED ka cover 2-3 saal baad shuru hoga.",
+      "category": "health",
+      "importance": "critical"
+    },
+    {
+      "term": "Deductible",
+      "hindiTerm": "डिडक्टिबल (अपनी जेब से)",
+      "explanation": "Deductible woh amount hai jo claim karne par aapko khud pay karna padta hai, baaki insurance company deti hai. Yeh premium kam karne mein help karta hai.",
+      "example": "Agar deductible ₹5,000 hai aur bill ₹50,000 ka aaya, toh aap ₹5,000 denge aur company ₹45,000 degi.",
+      "category": "general",
+      "importance": "high"
+    },
+    {
+      "term": "Sum Insured",
+      "hindiTerm": "बीमा राशि",
+      "explanation": "Sum Insured woh maximum amount hai jo insurance company ek claim par pay kar sakti hai. Yeh aapka coverage limit hai — isse zyada ka bill aapko khud bharna padega.",
+      "example": "Agar Sum Insured ₹5 Lakh hai aur hospital bill ₹6 Lakh ka aaya, toh ₹5 Lakh company degi aur ₹1 Lakh aap denge.",
+      "category": "health",
+      "importance": "critical"
+    },
+    {
+      "term": "Premium",
+      "hindiTerm": "प्रीमियम (प्रीमियम राशि)",
+      "explanation": "Premium woh fixed amount hai jo aapko insurance cover ke liye regularly pay karna hota hai — monthly, quarterly, ya annually. Iske badle company aapko risk se protect karti hai.",
+      "example": "ACKO Health Plan ka monthly premium ₹475 hai — yani ₹475/month dekar aapko ₹5 Lakh tak ka health cover milta hai.",
+      "category": "general",
+      "importance": "critical"
+    },
+    {
+      "term": "Co-payment",
+      "hindiTerm": "को-पेमेंट (साझा भुगतान)",
+      "explanation": "Co-payment mein aapko har bill ka ek fixed percentage khud pay karna padta hai. Yeh usually 10-20% hota hai. Premium kam hota hai lekin har claim mein aapka hissa aata hai.",
+      "example": "Agar 20% co-pay hai aur bill ₹1 Lakh ka hai, toh aap ₹20,000 denge aur company ₹80,000 degi.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Network Hospital",
+      "hindiTerm": "नेटवर्क अस्पताल",
+      "explanation": "Network hospitals woh hospitals hain jo insurance company se tied-up hain. Inmein cashless treatment milti hai — aapko bill pay nahi karna padta, company directly settle karti hai.",
+      "example": "ACKO ke 8,000+ network hospitals hain. Agar aap inmein kisi mein admit hue, toh bill directly ACKO pay karega.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Cashless Claim",
+      "hindiTerm": "कैशलेस क्लेम",
+      "explanation": "Cashless claim mein aapko hospital mein paisa pay nahi karna padta. Insurance company directly hospital ko pay karti hai. Sirf network hospitals mein yeh facility milti hai.",
+      "example": "Aap network hospital mein admit hue — ₹3 Lakh ka bill aaya. Aapne kuch nahi pay kiya, company ne directly settle kiya.",
+      "category": "health",
+      "importance": "critical"
+    },
+    {
+      "term": "Rider",
+      "hindiTerm": "राइडर (अतिरिक्त लाभ)",
+      "explanation": "Rider ek add-on benefit hai jo aap apni base policy mein extra premium dekar jod sakte hain — jaise Critical Illness, Accidental Death, Waiver of Premium.",
+      "example": "Aapne term plan li ₹1,000/month mein. Critical Illness rider add kiya +₹200/month. Ab aapko critical illness diagnosis par additional ₹10 Lakh milega.",
+      "category": "life",
+      "importance": "high"
+    },
+    {
+      "term": "No Claim Bonus (NCB)",
+      "hindiTerm": "नो क्लेम बोनस",
+      "explanation": "Jab aap saal bhar koi claim nahi karte, toh company aapko reward deti hai. Health mein sum insured badhta hai, motor mein premium kam hota hai.",
+      "example": "Motor insurance mein 5 saal tak claim nahi kiya = 50% discount on renewal premium. Health mein 10-100% sum insured badh jaata hai.",
+      "category": "general",
+      "importance": "high"
+    },
+    {
+      "term": "IDV (Insured Declared Value)",
+      "hindiTerm": "आईडीवी (गाड़ी का बीमा मूल्य)",
+      "explanation": "IDV aapki gaadi ki current market value hai — yahi woh maximum amount hai jo theft ya total loss mein company pay karegi. Har saal depreciation ke saath IDV kam hota hai.",
+      "example": "Nayi gaadi ₹10 Lakh ki — IDV ₹8.5 Lakh (85%). Agar gaadi chori ho gayi, toh ₹8.5 Lakh mileage.",
+      "category": "motor",
+      "importance": "critical"
+    },
+    {
+      "term": "Third Party Insurance",
+      "hindiTerm": "थर्ड पार्टी बीमा",
+      "explanation": "Third party insurance woh hai jo dusre ko hui nuksan ko cover karta hai — legally mandatory hai. Isme aapki gaadi ka nuksan cover nahi hota, sirf dusron ka nuksan cover hota hai.",
+      "example": "Aapki gaadi se kisi ki gaadi takkar gayi — dusre ki repair cost third party insurance dega. Aapki gaadi ka nuksan nahi milega.",
+      "category": "motor",
+      "importance": "critical"
+    },
+    {
+      "term": "Comprehensive Insurance",
+      "hindiTerm": "कॉम्प्रिहेंसिव बीमा (पूर्ण बीमा)",
+      "explanation": "Comprehensive insurance mein third party + aapki gaadi ka nuksan dono covered hota hai. Yeh zyada expensive hai lekin complete protection deta hai.",
+      "example": "Flood mein gaadi kharab hui — comprehensive insurance repair cost dega. Third party mein yeh nahi milta.",
+      "category": "motor",
+      "importance": "high"
+    },
+    {
+      "term": "Endorsement",
+      "hindiTerm": "एंडोर्समेंट (पॉलिसी में बदलाव)",
+      "explanation": "Endorsement woh hai jab aap apni policy mein koi change karwate hain — naam, address, coverage change, ya koi add-on jodna. Company ka approval chahiye hota hai.",
+      "example": "Shaadi ke baad spouse ka naam policy mein add karwana = endorsement. Car ka color change karwana bhi endorsement hai.",
+      "category": "general",
+      "importance": "medium"
+    },
+    {
+      "term": "Grace Period",
+      "hindiTerm": "ग्रेस पीरियड (अतिरिक्त समय)",
+      "explanation": "Grace period woh extra time hai jo aapko premium pay karne ke liye milta hai after due date — usually 15-30 din. Iske andar pay karo toh policy lapse nahi hoti.",
+      "example": "Premium due date 5 March hai. 15 din grace period hai. Agar 20 March tak pay kiya, toh policy continue rahegi.",
+      "category": "general",
+      "importance": "high"
+    },
+    {
+      "term": "Free Look Period",
+      "hindiTerm": "फ्री लुक पीरियड (समीक्षा अवधि)",
+      "explanation": "Free look period mein aap policy ko padh ke pasand nahi aaye toh cancel kar sakte hain bina penalty ke — 15 din (offline) ya 30 din (online). Premium refund hota hai deductibles ke baad.",
+      "example": "Online policy li, 20 din baad terms pasand nahi aaye. Free look mein cancel kiya — premium wapas mil gaya (medical test charges kata).",
+      "category": "general",
+      "importance": "high"
+    },
+    {
+      "term": "Portability",
+      "hindiTerm": "पोर्टेबिलिटी (कंपनी बदलना)",
+      "explanation": "Portability ka matlab hai aap apni health insurance dusri company mein shift kar sakte hain bina waiting period ke benefits khoiye. At least 45 din pehle apply karna padta hai.",
+      "example": "Aapki 2 saal purani policy hai — PED waiting 24 mahine mein se 24 ho chuke. Ab port kiya — naye company mein bhi PED cover turant milega.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Sub-limit",
+      "hindiTerm": "सब-लिमिट (उप-सीमा)",
+      "explanation": "Sub-limit woh restriction hai jismein sum insured ke andar bhi kuch services par max limit hoti hai — jaise room rent par ₹5,000/day ki limit.",
+      "example": "Sum Insured ₹5 Lakh hai lekin room rent limit ₹5,000/day hai. Agar ₹10,000/day ka room liya, toh ₹5,000 aapko dena padega.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Room Rent Limit",
+      "hindiTerm": "रूम रेंट लिमिट",
+      "explanation": "Room rent limit woh maximum amount hai jo hospital room ke liye company pay karegi. Kuch plans mein koi limit nahi hoti, kuch mein 1-2% of sum insured hoti hai.",
+      "example": "ACKO mein no room rent limit — koi bhi room lein. Star Health mein single room limit hai — deluxe room ka extra paisa aapko dena padega.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Restoration",
+      "hindiTerm": "रिस्टोरेशन (कवर वापस)",
+      "explanation": "Restoration benefit mein agar saal mein sum insured khatam ho gaya, toh company use refill kar deti hai — 100% ya unlimited. Same illness ke liye nahi, alag illness ke liye milta hai.",
+      "example": "₹5 Lakh ka plan liya. Pehle claim mein ₹5 Lakh use ho gaye. Restoration se phir ₹5 Lakh mil gaye dusri illness ke liye.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Family Floater",
+      "hindiTerm": "फैमिली फ्लोटर",
+      "explanation": "Family floater mein ek hi policy mein poore family ko cover kiya jaata hai — sum insured sab shared karte hain. Individual plan se sasta padta hai.",
+      "example": "₹10 Lakh family floater liya — pati, patni, 2 bacche sab covered. Koi bhi member ₹10 Lakh tak claim kar sakta hai.",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "Critical Illness Cover",
+      "hindiTerm": "क्रिटिकल इलनेस कवर",
+      "explanation": "Critical Illness cover mein agar aapko listed serious beemari (cancer, heart attack, stroke) diagnosis hoti hai, toh lump sum amount milta hai — hospitalization ki zaroorat nahi.",
+      "example": "Aapko cancer diagnose hua — ₹10 Lakh lump sum mil gaya. Yeh amount treatment ke liye bhi use kar sakte hain ya kisi bhi zaroorat ke liye.",
+      "category": "life",
+      "importance": "high"
+    },
+    {
+      "term": "Term Plan",
+      "hindiTerm": "टर्म प्लान",
+      "explanation": "Term plan sabse sasta life insurance hai — chhota premium, bada cover. Agar policy ke dauran death ho gayi toh family ko lump sum milta hai. Koi maturity benefit nahi.",
+      "example": "₹1,057/month dekar ₹1 Crore ka term plan liya. 30 saal tak yeh cover rahega. Agar kuch hua toh family ko ₹1 Crore milega.",
+      "category": "life",
+      "importance": "critical"
+    },
+    {
+      "term": "Endowment Plan",
+      "hindiTerm": "एंडोमेंट प्लान",
+      "explanation": "Endowment plan mein insurance + savings dono hote hain. Agar policy term mein death ho gayi toh sum assured + bonus milta hai. Agar zinda rahe toh maturity par sum assured + bonus milta hai.",
+      "example": "₹5 Lakh ka endowment plan liya 20 saal ke liye. Zinda rahe toh ₹5 Lakh + bonus milega. Death ho gayi toh bhi ₹5 Lakh + bonus family ko milega.",
+      "category": "life",
+      "importance": "medium"
+    },
+    {
+      "term": "ULIP (Unit Linked Insurance Plan)",
+      "hindiTerm": "यूलिप",
+      "explanation": "ULIP mein insurance + investment dono hote hain. Premium ka ek part insurance ke liye jaata hai, baaki stock/debt market mein invest hota hai. Returns market par depend karta hai.",
+      "example": "₹50,000/year premium — ₹10,000 insurance ke liye, ₹40,000 market mein invest. 10 saal baad fund value market performance ke hisaab se milegi.",
+      "category": "life",
+      "importance": "medium"
+    },
+    {
+      "term": "Money Back Policy",
+      "hindiTerm": "मनी बैक पॉलिसी",
+      "explanation": "Money Back policy mein policy term ke dauran regular intervals par aapko kuch percent amount wapas milta hai. Baaki balance maturity par milta hai.",
+      "example": "₹10 Lakh ki 20 saal ki policy — har 5 saal mein ₹2 Lakh milenge. 20 saal baad baki ₹4 Lakh + bonus milega.",
+      "category": "life",
+      "importance": "medium"
+    },
+    {
+      "term": "Solvency Ratio",
+      "hindiTerm": "सॉल्वेंसी रेश्यो",
+      "explanation": "बीमा कंपनी की उसकी देनदारियों (लायबिलिटीज) का भुगतान करने की क्षमता। IRDAI के अनुसार न्यूनतम 1.5 होना चाहिए। जितना ज्यादा, उतनी वित्तीय सुरक्षा।",
+      "example": "Bajaj Allianz का Solvency Ratio 3.0 है (बहुत अच्छा), LIC का 1.85 है (acceptable)।",
+      "category": "general",
+      "importance": "high"
+    },
+    {
+      "term": "Incurred Claim Ratio (ICR)",
+      "hindiTerm": "इनकर्ड क्लेम रेश्यो",
+      "explanation": "बीमा कंपनी द्वारा प्रीमियम के रूप में ली गई रकम के सापेक्ष क्लेम पर खर्च किए गए पैसे का प्रतिशत। ICR 50-90% के बीच होना अच्छा माना जाता है।",
+      "example": "Star Health का ICR 67.26% है — मतलब ₹100 प्रीमियम में से ₹67.26 क्लेम पर खर्च किए।",
+      "category": "general",
+      "importance": "high"
+    },
+    {
+      "term": "Moratorium Period",
+      "hindiTerm": "मोरेटोरियम पीरियड",
+      "explanation": "वह समय सीमा (IRDAI के अनुसार 5 साल) जिसके बाद इंश्योरर मेडिकल हिस्ट्री की जांच नहीं कर सकता। 5 साल continuously रिन्यू करने के बाद कोई भी बीमारी pre-existing नहीं मानी जा सकती।",
+      "example": "5 साल तक पॉलिसी चलाने के बाद, अगर कोई नई बीमारी पता चले तो भी कंपनी उसे PED नहीं मान सकती।",
+      "category": "health",
+      "importance": "high"
+    },
+    {
+      "term": "AYUSH Treatment",
+      "hindiTerm": "आयुष उपचार",
+      "explanation": "AYUSH ka matlab Ayurveda, Yoga, Unani, Siddha, aur Homeopathy. IRDAI ne mandate kiya hai ki sabhi health plans mein AYUSH treatments cover hona chahiye.",
+      "example": "Aapko Ayurvedic treatment chahiye — yeh bhi insurance se cover hoga, lekin sirf government-recognized hospital mein.",
+      "category": "health",
+      "importance": "medium"
+    },
+    {
+      "term": "Day Care Procedure",
+      "hindiTerm": "डे केयर प्रोसीजर",
+      "explanation": "Day care procedures woh hain jismein 24 ghante se kam hospital stay hota hai — jaise cataract surgery, piles surgery. Ab IRDAI ne 500+ day care procedures cover karne mandatory kiya hai.",
+      "example": "Cataract surgery — subah gaye, dopahar mein wapas aaye. Yeh day care procedure hai, pura cover hoga.",
+      "category": "health",
+      "importance": "medium"
+    },
+    {
+      "term": "Maternity Cover",
+      "hindiTerm": "मैटरनिटी कवर",
+      "explanation": "Maternity cover mein pregnancy aur delivery ke expenses cover hote hain — normal delivery, C-section, aur newborn baby care. Usually waiting period 9-36 mahine hoti hai.",
+      "example": "Policy lene ke 2 saal baad pregnancy hui — delivery ka ₹50,000-1,50,000 bill insurance se cover hoga.",
+      "category": "health",
+      "importance": "medium"
+    },
+    {
+      "term": "Top-up Plan",
+      "hindiTerm": "टॉप-अप प्लान",
+      "explanation": "Top-up plan ek extra cover hai jo aapki existing policy ke upar lagta hai. Jab bills ek certain threshold (deductible) cross karti hain, tab yeh activate hota hai. Bahut kam premium mein zyada cover.",
+      "example": "Base policy ₹5 Lakh hai. ₹5 Lakh deductible wala top-up liya ₹15 Lakh ka. Total cover = ₹20 Lakh, sasta mein.",
+      "category": "health",
+      "importance": "medium"
+    },
+    {
+      "term": "Super Top-up Plan",
+      "hindiTerm": "सुपर टॉप-अप प्लान",
+      "explanation": "Super top-up bhi top-up jaisa hai, lekin ismein saal bhar ki TOTAL bills deductible cross karti hain — ek bill nahi. Yeh top-up se better hai kyunki multiple claims combine hote hain.",
+      "example": "₹5 Lakh deductible hai. Pehla bill ₹3 Lakh, dusra bill ₹4 Lakh — total ₹7 Lakh. Super top-up ₹2 Lakh dega (7-5). Normal top-up mein kuch nahi milta.",
+      "category": "health",
+      "importance": "medium"
+    },
+    {
+      "term": "Annuity",
+      "hindiTerm": "एन्युिटी (वार्षिक आय)",
+      "explanation": "Annuity mein aap ek lump sum invest karte hain aur uske badle aapko regular monthly/quarterly income milti hai — usually retirement ke baad. Pension plan ka base yahi hai.",
+      "example": "Retirement par ₹50 Lakh invest kiya annuity mein — ab har mahine ₹25,000 pension mil rahi hai zindagi bhar.",
+      "category": "life",
+      "importance": "medium"
+    },
+    {
+      "term": "IRDAI",
+      "hindiTerm": "आईआरडीएआई",
+      "explanation": "IRDAI (Insurance Regulatory and Development Authority of India) woh sarkari body hai jo insurance companies ko regulate karti hai — policyholders ki protection, rules banana, complaints sunna.",
+      "example": "IRDAI ne rule banaya ki sab insurance companies ka solvency ratio 1.5 se zyada hona chahiye — taaki claims pay ho sakein.",
+      "category": "general",
+      "importance": "critical"
+    },
+    {
+      "term": "TPA (Third Party Administrator)",
+      "hindiTerm": "टीपीए (थर्ड पार्टी एडमिनिस्ट्रेटर)",
+      "explanation": "TPA woh intermediate body hai jo insurance company aur hospital ke beech mein kaam karti hai — cashless claims process karna, pre-authorization lena, bills verify karna.",
+      "example": "Aap hospital mein admit hue. Hospital ne TPA ko pre-auth request bheja. TPA ne approve kiya. Cashless treatment shuru hui.",
+      "category": "health",
+      "importance": "medium"
+    },
+    {
+      "term": "Personal Accident Cover",
+      "hindiTerm": "पर्सनल एक्सीडेंट कवर",
+      "explanation": "Personal accident cover mein accident ki wajah se death, disability, ya injury par lump sum amount milta hai — 24-hour coverage, duniya mein kahin bhi.",
+      "example": "Accident mein leg fracture hua — personal accident cover se ₹5 Lakh mila. Separate health insurance se hospital bill bhi cover hua.",
+      "category": "general",
+      "importance": "medium"
+    }
+  ],
+  "educational_articles": [
+    {
+      "id": "article-001",
+      "title": "2025 में सीखे गए सबक: हेल्थ इंश्योरेंस क्लेम का सही तरीका",
+      "category": "Health",
+      "excerpt": "साल 2025 में हेल्थ इंश्योरेंस क्लेम में 15% की बढ़ोतरी हुई। सीख: हमेशा कैशलेस का ऑप्शन चुनें और क्लेम के लिए एडवांस में इंफॉर्म करें।",
+      "readTime": 5,
+      "keyTakeaways": [
+        "हर हॉस्पिटलाइजेशन से पहले या 24 घंटे में क्लेम इंटीमेट करें",
+        "IRDAI के नियमों के अनुसार, कैशलेस क्लेम के लिए एप्रूवल 1 घंटे में मिलना चाहिए",
+        "CSR और TAT (Turn Around Time) पर ध्यान दें प्लान चुनते समय"
+      ],
+      "source": "PayBima 2025"
+    },
+    {
+      "id": "article-002",
+      "title": "₹1000 प्रति माह में कैसे मिलता है 1 करोड़ का टर्म कवर?",
+      "category": "Life",
+      "excerpt": "टर्म इंश्योरेंस के प्रीमियम बहुत कम होते हैं। एक 30 साल के युवा के लिए ₹1 करोड़ का टर्म प्लान ₹500 से ₹700 प्रति माह में मिल जाता है।",
+      "readTime": 4,
+      "keyTakeaways": [
+        "टर्म प्लान सिर्फ आय की सुरक्षा के लिए है, निवेश के लिए नहीं",
+        "कम उम्र में लेने पर प्रीमियम बहुत कम हो जाता है",
+        "₹1 Cr cover: HDFC Life ~₹933/mo, Max Life ~₹867/mo, SBI Life ~₹800/mo"
+      ],
+      "source": "Outlook Money 2025"
+    },
+    {
+      "id": "article-003",
+      "title": "कार इंश्योरेंस समझें: थर्ड पार्टी बनाम कॉम्प्रिहेंसिव",
+      "category": "Motor",
+      "excerpt": "थर्ड पार्टी इंश्योरेंस कानूनी तौर पर ज़रूरी है, लेकिन यह आपकी खुद की कार को कवर नहीं करता। कॉम्प्रिहेंसिव पॉलिसी में ज़ीरो डेप्रिसिएशन, RSA और इंजन कवर जैसे ऐड-ऑन जोड़े जा सकते हैं।",
+      "readTime": 3,
+      "keyTakeaways": [
+        "कॉम्प्रिहेंसिव प्लान से IDV और ऐड-ऑन का ज्ञान भी महत्वपूर्ण है",
+        "Zero Depreciation add-on new cars ke liye must hai",
+        "NCB (No Claim Bonus) se 50% tak discount mil sakta hai"
+      ],
+      "source": "IRDAI 2025"
+    },
+    {
+      "id": "article-004",
+      "title": "How to Claim Health Insurance in India — Step by Step",
+      "category": "Health",
+      "excerpt": "Step-by-step guide: Intimate claim → Choose type (Cashless vs Reimbursement) → Submit documents → Insurer processes claim. IRDAI 2025 rules mandate 1-hour cashless approval.",
+      "readTime": 6,
+      "keyTakeaways": [
+        "Pre-authorization for cashless claims must be approved within 1 hour as per IRDAI 2025 rules",
+        "Keep copies of all medical documents and bills for reimbursement claims",
+        "Discharge summary is the most critical document for claim processing"
+      ],
+      "source": "HDFC ERGO 2025"
+    },
+    {
+      "id": "article-005",
+      "title": "डायबिटीज़ और BP के लिए स्पेशल इंश्योरेंस प्लान 2025",
+      "category": "Health",
+      "excerpt": "IRDAI 2024 नियमों के बाद अब डायबिटीज़ और BP मरीजों के लिए विशेष प्लान उपलब्ध हैं — HDFC ERGO Energy, Star Diabetes Safe, और Aditya Birla Activ Health।",
+      "readTime": 5,
+      "keyTakeaways": [
+        "HDFC ERGO Energy: Day 1 coverage, HbA1c checkup reimbursed, ~₹650/month",
+        "Star Diabetes Safe: Zero-day waiting for Plan B, Diabetes care package, ~₹580/month",
+        "Aditya Birla Activ Health: 30-day waiting, 100% restoration, Health rewards"
+      ],
+      "source": "Market Research 2025"
+    },
+    {
+      "id": "article-006",
+      "title": "Section 80D: हेल्थ इंश्योरेंस से टैक्स बचाने का पूरा गाइड",
+      "category": "General",
+      "excerpt": "Section 80D में ₹25,000 (self/family) + ₹25,000 (parents) = कुल ₹50,000 तक की छूट। Senior parents के लिए ₹50,000 — यानी कुल ₹75,000 तक टैक्स बचाना संभव।",
+      "readTime": 4,
+      "keyTakeaways": [
+        "Self + family: ₹25,000 deduction under 80D",
+        "Parents (senior citizen): ₹50,000 additional deduction",
+        "Preventive health checkup: ₹5,000 within overall limit"
+      ],
+      "source": "Income Tax Act 2025-26"
+    }
+  ],
+  "myth_busters": [
+    {
+      "id": "myth-001",
+      "myth": "सिर्फ बुजुर्गों को ही हेल्थ इंश्योरेंस की ज़रूरत होती है।",
+      "fact": "यह सबसे बड़ा मिथ है। 65% पॉलिसी होल्डर अपनी पॉलिसी को सही से समझ नहीं पाते। युवाओं में भी अनहेल्दी लाइफस्टाइल की वजह से बीमारियों का खतरा काफी बढ़ गया है। कम उम्र में पॉलिसी लेने से प्रीमियम भी कम आता है।",
+      "category": "health",
+      "statistic": "65% policyholders don't fully understand their policy",
+      "source": "India Today / PolicyBachat 2025"
+    },
+    {
+      "id": "myth-002",
+      "myth": "हेल्थ इंश्योरेंस के क्लेम बहुत रिजेक्ट होते हैं।",
+      "fact": "2025-26 IRDAI के डेटा के अनुसार, स्टैंडअलोन हेल्थ इंश्योरेंस (SAHI) का क्लेम सेटलमेंट रेश्यो 99% के ऊपर है। लेकिन इसके बावजूद हेल्थ इंश्योरेंस क्लेम में रिजेक्शन की शिकायतों में 14.5% की बढ़ोतरी हुई है। इसलिए कंपनी के CSR पर ध्यान देना बहुत जरूरी है।",
+      "category": "health",
+      "statistic": "SAHI CSR 99%+ but complaints up 14.5%",
+      "source": "IRDAI Annual Report 2025-26 / Business Standard"
+    },
+    {
+      "id": "myth-003",
+      "myth": "मेरे पास पहले से कंपनी का इंश्योरेंस है, मुझे अलग से लेने की ज़रूरत नहीं है।",
+      "fact": "कंपनी का इंश्योरेंस (ग्रुप हेल्थ पॉलिसी) आमतौर पर बेसिक होता है। उसके कवर की सीमाएं (सब-लिमिट्स) होती हैं और जॉब छोड़ने के बाद यह पॉलिसी खत्म हो जाती है। रिटायरमेंट के बाद कोई कवर नहीं होता। इसलिए हमेशा एक व्यक्तिगत हेल्थ पॉलिसी ज़रूर लेनी चाहिए।",
+      "category": "health",
+      "statistic": "Group policies end when you leave the job",
+      "source": "PolicyBachat / Finowings 2025"
+    },
+    {
+      "id": "myth-004",
+      "myth": "हेल्थ इंश्योरेंस और क्रिटिकल इलनेस का कवर एक ही है।",
+      "fact": "यह दोनों अलग-अलग हैं। हेल्थ इंश्योरेंस हॉस्पिटलाइजेशन के खर्चों को कवर करता है, जबकि क्रिटिकल इलनेस पॉलिसी डायग्नोसिस मिलते ही लम्पसम एक बड़ी रकम दे देती है।",
+      "category": "health",
+      "statistic": null,
+      "source": "Canara HSBC 2025"
+    },
+    {
+      "id": "myth-005",
+      "myth": "Term insurance का पैसा बर्बाद है — अगर कुछ नहीं हुआ तो पैसे डूब जाते हैं।",
+      "fact": "Term insurance सबसे सस्ता जीवन बीमा है — ₹1 करोड़ का कवर ₹500-700/माह में मिलता है। यह investment नहीं, protection है। अगर कुछ नहीं हुआ तो यह खुशी की बात है!",
+      "category": "life",
+      "statistic": "₹1 Cr term cover from just ₹500-700/month for age 30",
+      "source": "Outlook Money 2025"
+    },
+    {
+      "id": "myth-006",
+      "myth": "थर्ड पार्टी इंश्योरेंस काफी है, कॉम्प्रिहेंसिव की ज़रूरत नहीं।",
+      "fact": "थर्ड पार्टी इंश्योरेंस कानूनी तौर पर ज़रूरी है, लेकिन यह आपकी खुद की कार को कवर नहीं करता। कॉम्प्रिहेंसिव पॉलिसी में ज़ीरो डेप्रिसिएशन, RSA और इंजन कवर जैसे ऐड-ऑन जोड़े जा सकते हैं।",
+      "category": "motor",
+      "statistic": null,
+      "source": "IRDAI 2025"
+    },
+    {
+      "id": "myth-007",
+      "myth": "ऑनलाइन खरीदी गई पॉलिसी पर क्लेम नहीं मिलता।",
+      "fact": "ऑनलाइन और ऑफलाइन पॉलिसी में क्लेम प्रोसेस बिल्कुल एक जैसा है। IRDAI के नियम दोनों पर समान लागू होते हैं। ऑनलाइन पॉलिसी अक्सर सस्ती होती है क्योंकि agent commission नहीं होता।",
+      "category": "general",
+      "statistic": null,
+      "source": "IRDAI Guidelines 2025"
+    },
+    {
+      "id": "myth-008",
+      "myth": "अगर मुझे डायबिटीज़ है तो मुझे हेल्थ इंश्योरेंस नहीं मिलेगा।",
+      "fact": "IRDAI 2024 के नियमों के अनुसार, डायबिटीज़ और BP जैसी बीमारियों के लिए अब specific disease plans उपलब्ध हैं। HDFC ERGO Energy, Star Diabetes Safe जैसे प्लान Day 1 से कवर देते हैं।",
+      "category": "health",
+      "statistic": "HDFC ERGO Energy, Star Diabetes Safe — Day 1 coverage for diabetes",
+      "source": "IRDAI 2024 / Market Research 2025"
+    }
+  ],
+  "insurance_companies": {
+    "health_general": [
+      { "name": "Acko General Insurance", "csr2026": 99.98, "icr2026": 57.82, "solvencyRatio": 1.7, "networkHospitals": 10000, "complaintsPer10k": 15, "features": ["Digital-first claims", "Cashless everywhere", "Quick settlement", "No room rent limit"], "rating": 4.7 },
+      { "name": "HDFC ERGO General Insurance", "csr2026": 98.85, "icr2026": 84.85, "solvencyRatio": 1.9, "networkHospitals": 10000, "complaintsPer10k": 10.67, "features": ["Optima Restore", "100% Sum Insured Restoration", "Fastest claim approval TAT", "No claim bonus up to 100%"], "rating": 4.7 },
+      { "name": "Care Health Insurance", "csr2026": 99.95, "icr2026": 58.68, "solvencyRatio": 1.8, "networkHospitals": 21700, "complaintsPer10k": 27.06, "features": ["Largest network: 21,700+ hospitals", "Care Supreme plan", "Ayurveda coverage", "Health checkup included"], "rating": 4.6 },
+      { "name": "Star Health & Allied Insurance", "csr2026": 99.81, "icr2026": 67.26, "solvencyRatio": 2.1, "networkHospitals": 14000, "complaintsPer10k": 52.31, "features": ["Standalone health insurer", "Diabetes care package", "Maternity cover", "Family Health Optima"], "rating": 4.3 },
+      { "name": "Niva Bupa Health Insurance", "csr2026": 100.00, "icr2026": 58.10, "solvencyRatio": 1.9, "networkHospitals": 10000, "complaintsPer10k": 42.85, "features": ["ReAssure 2.0", "100% CSR", "Health return benefit", "Wellness benefits"], "rating": 4.5 },
+      { "name": "Bajaj Allianz General Insurance", "csr2026": 98.56, "icr2026": 87.31, "solvencyRatio": 3.0, "networkHospitals": 8500, "complaintsPer10k": 25, "features": ["Health Guard plan", "Wellness program", "NCB up to 50%", "Highest solvency ratio (3.0)"], "rating": 4.5 },
+      { "name": "ICICI Lombard General Insurance", "csr2026": 98.45, "icr2026": 82.24, "solvencyRatio": 1.8, "networkHospitals": 7500, "complaintsPer10k": 27.06, "features": ["Elevate plan", "Global coverage add-on", "Telemedicine", "Complete Health Insurance"], "rating": 4.4 },
+      { "name": "TATA AIG General Insurance", "csr2026": 94.14, "icr2026": 76.24, "solvencyRatio": 2.0, "networkHospitals": 6500, "complaintsPer10k": 20, "features": ["MediCare plan", "Critical illness rider", "Health coach", "TATA brand trust"], "rating": 4.6 }
+    ],
+    "life": [
+      { "name": "HDFC Life Insurance", "csr2026": 99.7, "solvencyRatio": 2.1, "premium1crTerm": "₹933/month", "features": ["Click2Protect Super", "Return of premium option", "Critical illness rider", "Flexible payout options"], "rating": 4.8 },
+      { "name": "Max Life Insurance", "csr2026": 99.6, "solvencyRatio": 2.1, "premium1crTerm": "₹867/month", "features": ["Smart Term Plan", "Critical illness add-on", "Waiver of premium", "Smart Secure Plus"], "rating": 4.7 },
+      { "name": "ICICI Prudential Life", "csr2026": 99.5, "solvencyRatio": 2.0, "premium1crTerm": "₹908/month", "features": ["iProtect Smart", "Multiple life stage cover", "Critical illness", "Wealth+protection"], "rating": 4.6 },
+      { "name": "SBI Life Insurance", "csr2026": 98.9, "solvencyRatio": 2.0, "premium1crTerm": "₹800/month", "features": ["eShield Next", "Government-backed trust", "Lowest premium ₹1 Cr term", "Multi-protection rider"], "rating": 4.7 },
+      { "name": "Bajaj Allianz Life", "csr2026": 99.3, "solvencyRatio": 5.41, "premium1crTerm": "₹825/month", "features": ["eTouch Term Plan", "Highest solvency ratio (5.41)", "Payout options", "Accidental death cover"], "rating": 4.5 },
+      { "name": "Tata AIA Life", "csr2026": 99.4, "solvencyRatio": 2.2, "premium1crTerm": "₹892/month", "features": ["Sampoorna Raksha", "Critical illness", "Accidental disability", "TATA brand trust"], "rating": 4.6 }
+    ]
+  },
+  "disease_specific_plans": [
+    { "name": "HDFC ERGO Energy", "insurer": "HDFC ERGO", "disease": "Diabetes & BP", "features": ["Day 1 coverage for Diabetes & BP", "HbA1c checkup reimbursed", "No co-payment", "Wellness rewards"], "startingPremium": "₹650/month", "waitingPeriod": "Day 1 (no waiting for diabetes/BP)", "source": "Market Research 2025" },
+    { "name": "Star Diabetes Safe (Plan A/B)", "insurer": "Star Health", "disease": "Diabetes", "features": ["Plan B: Zero-day waiting period", "Diabetes care package", "Regular health checkups", "Dialysis cover"], "startingPremium": "₹580/month", "waitingPeriod": "Plan A: 12 months, Plan B: Day 1", "source": "Market Research 2025" },
+    { "name": "Aditya Birla Activ Health (Diabetes)", "insurer": "Aditya Birla Health", "disease": "Diabetes", "features": ["30-day waiting period", "100% Sum Insured restoration", "Health returns", "Wellness rewards program"], "startingPremium": "₹700/month", "waitingPeriod": "30 days", "source": "Market Research 2025" }
+  ],
+  "market_comparison": [
+    { "planName": "HDFC ERGO Optima Restore", "insurer": "HDFC ERGO", "coverage": "₹5L - ₹50L", "premium": "₹13,500/year (₹5L cover)", "waitingPeriod": "30 days initial, 24-48 months PED", "uniqueBenefits": ["100% Sum Insured Restoration", "No Claim Bonus up to 100%", "Fastest claim approval TAT"], "csr": 98.85, "category": "health" },
+    { "planName": "Star Family Health Optima", "insurer": "Star Health", "coverage": "₹5L - ₹25L", "premium": "₹10,200/year (₹10L cover)", "waitingPeriod": "30 days initial, 36 months PED", "uniqueBenefits": ["NCB up to 100%", "Automatic restoration", "Maternity cover add-on"], "csr": 99.81, "category": "health" },
+    { "planName": "Niva Bupa Health Companion", "insurer": "Niva Bupa", "coverage": "₹3L - ₹25L", "premium": "₹11,000/year (₹5L cover)", "waitingPeriod": "30 days initial, 24 months PED", "uniqueBenefits": ["Lifetime renewability", "Health return benefit", "Wellness benefits", "100% CSR"], "csr": 100.00, "category": "health" },
+    { "planName": "Care Supreme", "insurer": "Care Health", "coverage": "₹5L - ₹25L", "premium": "₹9,800/year (₹5L cover)", "waitingPeriod": "30 days initial, 24 months PED", "uniqueBenefits": ["21,700+ network hospitals", "Unlimited restoration", "AYUSH coverage", "Health checkup"], "csr": 99.95, "category": "health" },
+    { "planName": "ACKO Platinum", "insurer": "Acko General", "coverage": "₹5L - ₹1Cr", "premium": "₹6,200/year (₹5L cover)", "waitingPeriod": "30 days initial, 24 months PED", "uniqueBenefits": ["No room rent limit", "Cashless everywhere", "Digital claims in minutes", "No co-pay"], "csr": 99.98, "category": "health" }
+  ]
+}

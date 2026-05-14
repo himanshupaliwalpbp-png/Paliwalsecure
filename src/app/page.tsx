@@ -44,17 +44,14 @@ import {
   type InsuranceCategory,
   type UserProfile,
   IRDAI_MANDATORY_DISCLAIMER,
-  policyGlossary,
-  blogArticles,
-  mythBusters,
   dripCampaigns,
   complianceChecklist,
   marketInsights,
   insuranceCompanies,
   diseaseSpecificPlans,
-  marketComparisons,
 } from '@/lib/insurance-data';
 import CompanyComparisonTable from '@/components/CompanyComparisonTable';
+import KnowledgeBaseSection from '@/components/KnowledgeBaseSection';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { DailyTip } from '@/components/DailyTip';
 import { fireConfetti } from '@/components/Confetti';
@@ -231,20 +228,6 @@ const testimonials = [
   { name: 'Meera Reddy', role: 'Doctor, Hyderabad', rating: 5, quote: 'As a doctor, I appreciate their IRDAI compliance and transparent recommendations. Highly trustworthy!', avatar: 'MR' },
 ];
 
-// ── Glossary Category Colors ───────────────────────────────────────────────
-function getGlossaryCategoryColor(cat: string) {
-  switch (cat) {
-    case 'health':
-      return 'bg-rose-50 text-rose-700 border-rose-200';
-    case 'life':
-      return 'bg-blue-50 text-blue-700 border-blue-200';
-    case 'motor':
-      return 'bg-amber-50 text-amber-700 border-amber-200';
-    default:
-      return 'bg-slate-50 text-slate-700 border-slate-200';
-  }
-}
-
 // ── Market Insight Category Config ─────────────────────────────────────────
 function getInsightStyle(cat: string) {
   switch (cat) {
@@ -278,7 +261,6 @@ export default function PaliwalSecurePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
-  const [glossarySearch, setGlossarySearch] = useState('');
   const [whatsappPhone, setWhatsappPhone] = useState('');
 
   const [contactForm, setContactForm] = useState({
@@ -394,21 +376,10 @@ export default function PaliwalSecurePage() {
   const currentPlans = getPlansByCategory(activeCategory);
   const currentCategoryInfo = categoryInfo.find((c) => c.id === activeCategory);
 
-  // Filtered glossary
-  const filteredGlossary = glossarySearch.trim()
-    ? policyGlossary.filter(
-        (g) =>
-          g.term.toLowerCase().includes(glossarySearch.toLowerCase()) ||
-          (g.hindiTerm && g.hindiTerm.includes(glossarySearch)) ||
-          g.explanation.toLowerCase().includes(glossarySearch.toLowerCase()) ||
-          g.category.toLowerCase().includes(glossarySearch.toLowerCase())
-      )
-    : policyGlossary;
-
   // Nav links
   const navLinks = [
     { id: 'insuregpt-chat', label: 'InsureGPT' },
-    { id: 'company-comparison', label: 'Compare' },
+    { id: 'knowledge-base', label: 'InsureGyaan' },
     { id: 'calculators', label: 'Calculators' },
     { id: 'features', label: 'Features' },
     { id: 'products', label: 'Products' },
@@ -1284,149 +1255,31 @@ export default function PaliwalSecurePage() {
       </section>
 
       {/* ================================================================== */}
-      {/* INSUREGYAAN SECTION                                                 */}
+      {/* KNOWLEDGE BASE SECTION — Comprehensive                              */}
       {/* ================================================================== */}
-      <section id="insuregyaan" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
+      <section id="knowledge-base" className="py-16 sm:py-24 lg:py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="text-center max-w-3xl mx-auto mb-12"
+            className="text-center max-w-3xl mx-auto mb-10"
           >
-            <Badge className="mb-4 bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800 rounded-full px-4 py-1">
+            <Badge className="badge-shimmer mb-4 bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800 rounded-full px-4 py-1">
               <BookOpen className="w-3.5 h-3.5 mr-1" />
               InsureGyaan
             </Badge>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
               Insurance Ki{' '}
-              <span className="gradient-text">Aasan Bhasha</span>
+              <span className="gradient-text">Complete Knowledge Base</span>
             </h2>
             <p className="mt-4 text-sm sm:text-lg text-muted-foreground">
-              Glossary, blogs aur myth busters — sab Hinglish mein, koi jargon nahi!
+              Glossary, Articles, Myth Busters aur Company Comparison — sab Hinglish mein, koi jargon nahi!
             </p>
           </motion.div>
 
-          {/* Glossary Search + Accordion */}
-          <motion.div
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
-            <Card className="card-premium rounded-3xl p-6 sm:p-8 bg-card mb-8">
-              <CardHeader className="p-0 mb-6">
-                <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
-                  <Search className="w-5 h-5 text-blue-600" />
-                  Insurance Glossary
-                </CardTitle>
-                <CardDescription>
-                  Complex terms ko aasan Hindi/Hinglish mein samjhiye
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-0">
-                <div className="relative mb-6 max-w-md">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search terms... (e.g., 'premium', 'deductible')"
-                    value={glossarySearch}
-                    onChange={(e) => setGlossarySearch(e.target.value)}
-                    className="pl-9 rounded-xl border-blue-200 focus:border-blue-500 dark:border-blue-800 dark:focus:border-blue-500"
-                  />
-                </div>
-
-                <div className="max-h-96 overflow-y-auto pr-2">
-                  <Accordion type="multiple" className="space-y-2">
-                    {filteredGlossary.slice(0, 20).map((term) => (
-                      <AccordionItem
-                        key={term.term}
-                        value={term.term}
-                        className="border border-border/50 rounded-2xl px-4 data-[state=open]:border-blue-300 data-[state=open]:bg-blue-50/30 dark:data-[state=open]:bg-blue-950/20 transition-all"
-                      >
-                        <AccordionTrigger className="hover:no-underline py-3">
-                          <div className="flex items-center gap-3 text-left">
-                            <span className="font-semibold text-foreground">{term.term}</span>
-                            {term.hindiTerm && (
-                              <span className="text-xs text-blue-600 dark:text-blue-400">({term.hindiTerm})</span>
-                            )}
-                            <Badge className={`text-[10px] px-1.5 py-0 border ${getGlossaryCategoryColor(term.category)}`}>
-                              {term.category}
-                            </Badge>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-sm text-muted-foreground pb-4">
-                          {term.explanation}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                  {filteredGlossary.length > 20 && (
-                    <p className="text-center text-xs text-muted-foreground mt-4">
-                      Showing 20 of {filteredGlossary.length} terms. Search to filter more.
-                    </p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Blog Articles */}
-          <motion.div
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="mb-8"
-          >
-            <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-blue-600" />
-              Latest Articles
-            </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {blogArticles.slice(0, 3).map((article) => (
-                <motion.div key={article.id} whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card cursor-pointer group">
-                  <Badge className="mb-3 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800 text-[10px] rounded-full">
-                    {article.category}
-                  </Badge>
-                  <h4 className="font-bold text-foreground mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {article.title}
-                  </h4>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{article.excerpt}</p>
-                  <p className="text-[10px] text-muted-foreground/60 mt-3">{article.readTime} min read</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Myth Busters */}
-          <motion.div
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
-            <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-amber-600" />
-              Myth Busters
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {mythBusters.slice(0, 4).map((myth) => (
-                <motion.div key={myth.id} whileHover={{ y: -4 }} className="card-premium rounded-2xl p-5 bg-card">
-                  <div className="flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-semibold text-foreground mb-1">Myth: {myth.myth}</p>
-                      <div className="flex items-start gap-2 mt-2">
-                        <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                        <p className="text-sm text-muted-foreground">{myth.fact}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+          <KnowledgeBaseSection />
         </div>
       </section>
 
