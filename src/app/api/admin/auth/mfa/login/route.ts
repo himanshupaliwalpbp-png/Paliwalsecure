@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       ipAddress: clientIp,
     });
 
-    // Set refresh token cookie
+    // Set access token + refresh token cookies
     const response = NextResponse.json({
       success: true,
       accessToken,
@@ -146,11 +146,20 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Set access token as cookie so middleware can read it
+    response.cookies.set('admin_access_token', accessToken, {
+      path: '/',
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 15 * 60, // 15 min
+    });
+
     response.cookies.set('admin_refresh_token', refreshToken, {
       path: '/api/admin/auth/refresh',
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60,
     });
 

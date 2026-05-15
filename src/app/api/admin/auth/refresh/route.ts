@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       role: adminUser.role,
     });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       accessToken,
       user: {
@@ -52,6 +52,17 @@ export async function POST(request: NextRequest) {
         name: adminUser.name,
       },
     });
+
+    // Set access token as cookie so middleware can read it
+    response.cookies.set("admin_access_token", accessToken, {
+      path: "/",
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 15 * 60, // 15 min
+    });
+
+    return response;
   } catch (error) {
     console.error("[REFRESH_ERROR]", error);
     return NextResponse.json(
