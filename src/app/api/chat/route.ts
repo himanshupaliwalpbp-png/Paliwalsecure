@@ -130,20 +130,29 @@ export async function POST(request: NextRequest) {
       const ZAI = (await import('z-ai-web-dev-sdk')).default;
       const zai = await ZAI.create();
 
-      // Race with a 10-second timeout
+      // Use thinking mode for complex insurance queries (better reasoning like Claude)
+      const isComplexQuery = /compare|vs|versus|recommend|suggest|which.*plan|better|kaise|konsa|best|suitable|difference|compare.*karo/i.test(sanitizedMessage);
+      const thinkingType = isComplexQuery ? { type: 'enabled' } : { type: 'disabled' };
+
+      // Race with a 15-second timeout (thinking needs more time)
       const completionPromise = zai.chat.completions.create({
         messages: trimmedMessages,
-        thinking: { type: 'disabled' },
+        thinking: thinkingType,
       });
 
+      const timeoutMs = isComplexQuery ? 15000 : 10000;
       const timeoutPromise = new Promise<null>((resolve) => {
-        setTimeout(() => resolve(null), 10000);
+        setTimeout(() => resolve(null), timeoutMs);
       });
 
       const completion = await Promise.race([completionPromise, timeoutPromise]);
 
       if (completion && completion.choices?.[0]?.message?.content) {
         aiResponse = completion.choices[0].message.content;
+        // If thinking was used, prepend a brief indicator for transparency
+        if (isComplexQuery && completion.choices[0].message?.thinking) {
+          // Don't expose thinking content, just note it was used for quality
+        }
       }
     } catch (llmError) {
       console.error('LLM Error:', llmError);

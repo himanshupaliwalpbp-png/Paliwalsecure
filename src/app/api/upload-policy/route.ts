@@ -82,8 +82,62 @@ export async function POST(request: NextRequest) {
     }
 
     if (!extractedText || extractedText.trim().length < 20) {
+      // Text extraction failed — likely a scanned/image-based PDF
+      // Try VLM (Vision Language Model) for document analysis directly
+      console.log('PDF text extraction failed, using VLM for scanned document...');
+      try {
+        const vlmData = await extractPolicyDataWithVLM(buffer, file.name);
+        if (vlmData.insurer !== 'Unknown' || vlmData.sumInsured !== null) {
+          // VLM succeeded — store and return
+          const uploadedPolicy = await db.uploadedPolicy.create({
+            data: {
+              userId: userId || null,
+              insurer: vlmData.insurer,
+              policyType: vlmData.policyType,
+              sumInsured: vlmData.sumInsured,
+              premium: vlmData.premium,
+              premiumFrequency: vlmData.premiumFrequency,
+              waitingPeriods: JSON.stringify(vlmData.waitingPeriods),
+              exclusions: JSON.stringify(vlmData.exclusions),
+              keyCoverages: JSON.stringify(vlmData.keyCoverages),
+              ncbDetails: vlmData.ncbDetails,
+              networkHospitals: vlmData.networkHospitals,
+              startDate: vlmData.startDate ? new Date(vlmData.startDate) : null,
+              endDate: vlmData.endDate ? new Date(vlmData.endDate) : null,
+              missingBenefits: JSON.stringify(vlmData.missingBenefits),
+              extractedText: '[Scanned PDF - analyzed via Vision AI]',
+              llmSummary: vlmData.llmSummary,
+            },
+          });
+
+          return NextResponse.json({
+            success: true,
+            policy: {
+              id: uploadedPolicy.id,
+              insurer: uploadedPolicy.insurer,
+              policyType: uploadedPolicy.policyType,
+              sumInsured: uploadedPolicy.sumInsured,
+              premium: uploadedPolicy.premium,
+              premiumFrequency: uploadedPolicy.premiumFrequency,
+              waitingPeriods: vlmData.waitingPeriods,
+              exclusions: vlmData.exclusions,
+              keyCoverages: vlmData.keyCoverages,
+              ncbDetails: uploadedPolicy.ncbDetails,
+              networkHospitals: uploadedPolicy.networkHospitals,
+              startDate: uploadedPolicy.startDate,
+              endDate: uploadedPolicy.endDate,
+              missingBenefits: vlmData.missingBenefits,
+              llmSummary: vlmData.llmSummary,
+              analyzedWith: 'Vision AI (VLM)',
+            },
+          });
+        }
+      } catch (vlmError) {
+        console.error('VLM fallback also failed:', vlmError);
+      }
+
       return NextResponse.json(
-        { error: 'Could not extract meaningful text from the PDF. The document may be scanned/image-based. Please upload a text-based PDF.' },
+        { error: 'Could not extract data from this PDF. The document appears to be image-based and our Vision AI could not read it. Please upload a text-based PDF or a clearer scan.' },
         { status: 400 }
       );
     }
@@ -91,8 +145,19 @@ export async function POST(request: NextRequest) {
     // Truncate text to ~4000 chars to stay within LLM context limits
     const truncatedText = extractedText.substring(0, 4000);
 
-    // ── Step 2: Use LLM to extract structured data ────────────────────────
-    const extractedData = await extractPolicyDataWithLLM(truncatedText);
+    // ── Step 2: Use AI (LLM + VLM) to extract structured data ────────────
+    // Try text-based LLM first, then VLM for image-heavy documents
+    let extractedData = await extractPolicyDataWithLLM(truncatedText);
+
+    // If LLM extraction returned mostly defaults (low confidence),
+    // try VLM with the PDF as a document for better analysis
+    if (extractedData.insurer === 'Unknown' && extractedData.sumInsured === null) {
+      console.log('LLM extraction low confidence, trying VLM document analysis...');
+      const vlmData = await extractPolicyDataWithVLM(buffer, file.name);
+      if (vlmData.insurer !== 'Unknown' || vlmData.sumInsured !== null) {
+        extractedData = vlmData; // VLM gave better results
+      }
+    }
 
     // ── Step 3: Store in database ─────────────────────────────────────────
     const uploadedPolicy = await db.uploadedPolicy.create({
@@ -393,4 +458,99 @@ function validatePolicyType(type: string): string {
   if (lower.includes('travel') || lower.includes('trip')) return 'travel';
   if (lower.includes('home') || lower.includes('property')) return 'home';
   return 'health';
+}
+
+// ── VLM (Vision Language Model) Extraction for scanned/image-based PDFs ────
+async function extractPolicyDataWithVLM(pdfBuffer: Buffer, fileName: string): Promise<ExtractedPolicyData> {
+  const defaultData: ExtractedPolicyData = {
+    insurer: 'Unknown',
+    policyType: 'health',
+    sumInsured: null,
+    premium: null,
+    premiumFrequency: 'yearly',
+    waitingPeriods: {},
+    exclusions: [],
+    keyCoverages: [],
+    ncbDetails: null,
+    networkHospitals: null,
+    startDate: null,
+    endDate: null,
+    missingBenefits: [],
+    llmSummary: 'VLM document analysis could not extract data. Kripaya apni policy document ko dhyan se padhein.',
+  };
+
+  try {
+    const ZAI = (await import('z-ai-web-dev-sdk')).default;
+    const zai = await ZAI.create();
+
+    // Convert PDF buffer to base64 for VLM
+    const base64Pdf = pdfBuffer.toString('base64');
+    const pdfDataUrl = `data:application/pdf;base64,${base64Pdf}`;
+
+    const systemPrompt = `You are InsureGPT, an AI insurance policy document analyzer by Paliwal Secure. You are analyzing a PDF document (possibly scanned/image-based) of an Indian insurance policy.
+
+Extract ALL structured data from this document. Be thorough - check every page for:
+1. Insurer/Company name
+2. Policy type (health/life/motor/travel/home)
+3. Sum insured/coverage amount
+4. Premium amount and frequency
+5. Waiting periods for pre-existing diseases (diabetes, BP, heart, etc.)
+6. Exclusions list
+7. Key coverages/benefits
+8. NCB (No Claim Bonus) details
+9. Network hospitals info
+10. Policy start and end dates
+11. Missing benefits that should be there but aren't
+
+Respond with valid JSON only. The llmSummary must be in Hinglish (Hindi-English mix).`;
+
+    const completion = await zai.chat.completions.createVision({
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: systemPrompt },
+            { type: 'file_url', file_url: { url: pdfDataUrl } },
+          ],
+        },
+      ],
+      thinking: { type: 'disabled' },
+    });
+
+    const response = completion.choices?.[0]?.message?.content;
+    if (!response) return defaultData;
+
+    // Parse JSON from the response
+    let jsonStr = response.trim();
+    const jsonMatch = jsonStr.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (jsonMatch) {
+      jsonStr = jsonMatch[1].trim();
+    }
+
+    // Try to find JSON object in the response
+    const jsonObjMatch = jsonStr.match(/\{[\s\S]*\}/);
+    if (!jsonObjMatch) return defaultData;
+
+    const parsed = JSON.parse(jsonObjMatch[0]);
+
+    return {
+      insurer: parsed.insurer || defaultData.insurer,
+      policyType: validatePolicyType(parsed.policyType),
+      sumInsured: typeof parsed.sumInsured === 'number' ? parsed.sumInsured : null,
+      premium: typeof parsed.premium === 'number' ? parsed.premium : null,
+      premiumFrequency: parsed.premiumFrequency === 'monthly' ? 'monthly' : 'yearly',
+      waitingPeriods: typeof parsed.waitingPeriods === 'object' && parsed.waitingPeriods !== null ? parsed.waitingPeriods : {},
+      exclusions: Array.isArray(parsed.exclusions) ? parsed.exclusions.slice(0, 10) : [],
+      keyCoverages: Array.isArray(parsed.keyCoverages) ? parsed.keyCoverages.slice(0, 10) : [],
+      ncbDetails: parsed.ncbDetails || null,
+      networkHospitals: parsed.networkHospitals || null,
+      startDate: parsed.startDate || null,
+      endDate: parsed.endDate || null,
+      missingBenefits: Array.isArray(parsed.missingBenefits) ? parsed.missingBenefits.slice(0, 10) : [],
+      llmSummary: parsed.llmSummary || defaultData.llmSummary,
+    };
+  } catch (error) {
+    console.error('VLM extraction error:', error);
+    return defaultData;
+  }
 }
