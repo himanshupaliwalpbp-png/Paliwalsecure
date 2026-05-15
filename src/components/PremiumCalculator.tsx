@@ -80,31 +80,31 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
     >
       <Card className="overflow-hidden border-0 shadow-xl rounded-2xl bg-card">
         {/* Header gradient */}
-        <div className={`bg-gradient-to-r ${gradientMap[type]} px-6 py-4`}>
+        <div className={`bg-gradient-to-r ${gradientMap[type]} px-4 sm:px-6 py-3 sm:py-4`}>
           <div className="flex items-center gap-3 text-white">
-            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <Icon className="w-5 h-5" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <p className="font-bold text-lg">{labelMap[type]} Premium</p>
-              <p className="text-white/80 text-xs">Estimated quote based on your details</p>
+            <div className="min-w-0">
+              <p className="font-bold text-sm sm:text-lg truncate">{labelMap[type]} Premium</p>
+              <p className="text-white/80 text-[10px] sm:text-xs">Estimated quote based on your details</p>
             </div>
           </div>
         </div>
 
-        <CardContent className="p-6 space-y-5">
+        <CardContent className="p-4 sm:p-6 space-y-5">
           {/* Premium highlight */}
-          <div className="flex items-end gap-6">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6">
             <div>
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Monthly</p>
-              <p className="text-3xl sm:text-4xl font-extrabold gradient-text tracking-tight">
+              <p className="text-2xl sm:text-4xl font-extrabold gradient-text tracking-tight">
                 {formatRupees(breakdown.totalMonthly)}
               </p>
               <p className="text-xs text-muted-foreground">incl. GST</p>
             </div>
-            <div className="border-l border-border pl-6">
+            <div className="border-l border-border pl-4 sm:pl-6">
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Yearly</p>
-              <p className="text-xl sm:text-2xl font-bold text-foreground">
+              <p className="text-lg sm:text-2xl font-bold text-foreground">
                 {formatRupees(breakdown.totalYearly)}
               </p>
               <p className="text-xs text-muted-foreground">incl. GST</p>
@@ -166,11 +166,11 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
               const el = document.getElementById('insuregpt-chat');
               if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl h-11 sm:h-12 text-sm sm:text-base font-semibold gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-300"
           >
             <Sparkles className="w-4 h-4" />
-            Get Personalized Plans from InsureGPT
-            <ChevronRight className="w-4 h-4" />
+            <span className="truncate">Get Personalized Plans from InsureGPT</span>
+            <ChevronRight className="w-4 h-4 shrink-0" />
           </Button>
           <p className="text-[10px] text-center text-muted-foreground">
             *Yeh estimated premium hai. Actual premium insurer ke underwriting rules pe depend karta hai.
@@ -215,11 +215,11 @@ function HealthTab() {
   ];
 
   return (
-    <div className="grid lg:grid-cols-5 gap-6">
+    <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-6">
       {/* Form */}
       <div className="lg:col-span-3 space-y-6">
         <Card className="glass-card rounded-2xl border-0 shadow-lg bg-card">
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="p-4 sm:p-6 space-y-5 sm:space-y-6">
             {/* Age slider */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -357,7 +357,14 @@ function HealthTab() {
 
             {/* Calculate button */}
             <Button
-              onClick={calculate}
+              onClick={() => {
+                calculate();
+                // Scroll to result on mobile after short delay
+                setTimeout(() => {
+                  const resultEl = document.getElementById('health-result');
+                  if (resultEl) resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 300);
+              }}
               className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-rose-500/20 transition-all duration-300"
             >
               <Calculator className="w-4 h-4" />
@@ -368,7 +375,7 @@ function HealthTab() {
       </div>
 
       {/* Result */}
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-2" id="health-result">
         <AnimatePresence mode="wait">
           {result ? (
             <BreakdownCard breakdown={result} type="health" />
@@ -380,9 +387,9 @@ function HealthTab() {
               exit={{ opacity: 0 }}
             >
               <Card className="glass-card rounded-2xl border-0 shadow-lg bg-card">
-                <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500/10 to-pink-500/10 flex items-center justify-center mx-auto">
-                    <Heart className="w-8 h-8 text-rose-400" />
+                <CardContent className="p-6 sm:p-8 text-center space-y-4">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-rose-500/10 to-pink-500/10 flex items-center justify-center mx-auto">
+                    <Heart className="w-7 h-7 sm:w-8 sm:h-8 text-rose-400" />
                   </div>
                   <p className="text-sm text-muted-foreground font-medium">
                     Apni details bhariye aur <span className="gradient-text font-semibold">Health Premium</span> calculate karein
@@ -421,11 +428,11 @@ function TermTab() {
   }, [age, sumAssured, policyTerm, gender, smoker]);
 
   return (
-    <div className="grid lg:grid-cols-5 gap-6">
+    <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-6">
       {/* Form */}
       <div className="lg:col-span-3 space-y-6">
         <Card className="glass-card rounded-2xl border-0 shadow-lg bg-card">
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="p-4 sm:p-6 space-y-5 sm:space-y-6">
             {/* Age slider */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -533,7 +540,13 @@ function TermTab() {
 
             {/* Calculate button */}
             <Button
-              onClick={calculate}
+              onClick={() => {
+                calculate();
+                setTimeout(() => {
+                  const resultEl = document.getElementById('term-result');
+                  if (resultEl) resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 300);
+              }}
               className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-blue-500/20 transition-all duration-300"
             >
               <Calculator className="w-4 h-4" />
@@ -544,7 +557,7 @@ function TermTab() {
       </div>
 
       {/* Result */}
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-2" id="term-result">
         <AnimatePresence mode="wait">
           {result ? (
             <BreakdownCard breakdown={result} type="term" />
@@ -556,9 +569,9 @@ function TermTab() {
               exit={{ opacity: 0 }}
             >
               <Card className="glass-card rounded-2xl border-0 shadow-lg bg-card">
-                <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 flex items-center justify-center mx-auto">
-                    <Shield className="w-8 h-8 text-blue-400" />
+                <CardContent className="p-6 sm:p-8 text-center space-y-4">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 flex items-center justify-center mx-auto">
+                    <Shield className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
                   </div>
                   <p className="text-sm text-muted-foreground font-medium">
                     Apni details bhariye aur <span className="gradient-text font-semibold">Term Life Premium</span> calculate karein
@@ -614,11 +627,11 @@ function MotorTab() {
   ];
 
   return (
-    <div className="grid lg:grid-cols-5 gap-6">
+    <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-6">
       {/* Form */}
       <div className="lg:col-span-3 space-y-6">
         <Card className="glass-card rounded-2xl border-0 shadow-lg bg-card">
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="p-4 sm:p-6 space-y-5 sm:space-y-6">
             {/* Vehicle Type toggle */}
             <div className="space-y-2">
               <Label className="text-sm font-semibold">Vehicle Type</Label>
@@ -747,7 +760,13 @@ function MotorTab() {
 
             {/* Calculate button */}
             <Button
-              onClick={calculate}
+              onClick={() => {
+                calculate();
+                setTimeout(() => {
+                  const resultEl = document.getElementById('motor-result');
+                  if (resultEl) resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 300);
+              }}
               className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-amber-500/20 transition-all duration-300"
             >
               <Calculator className="w-4 h-4" />
@@ -758,7 +777,7 @@ function MotorTab() {
       </div>
 
       {/* Result */}
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-2" id="motor-result">
         <AnimatePresence mode="wait">
           {result ? (
             <BreakdownCard breakdown={result} type="motor" />
@@ -770,9 +789,9 @@ function MotorTab() {
               exit={{ opacity: 0 }}
             >
               <Card className="glass-card rounded-2xl border-0 shadow-lg bg-card">
-                <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 flex items-center justify-center mx-auto">
-                    <Car className="w-8 h-8 text-amber-400" />
+                <CardContent className="p-6 sm:p-8 text-center space-y-4">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 flex items-center justify-center mx-auto">
+                    <Car className="w-7 h-7 sm:w-8 sm:h-8 text-amber-400" />
                   </div>
                   <p className="text-sm text-muted-foreground font-medium">
                     Apni gaadi/bike details bhariye aur <span className="gradient-text font-semibold">Motor Premium</span> calculate karein
