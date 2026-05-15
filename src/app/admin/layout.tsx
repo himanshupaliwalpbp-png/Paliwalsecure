@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth-store";
 import { AdminDashboardLayout } from "@/components/admin/AdminDashboardLayout";
@@ -13,25 +13,38 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated, initialize, isLoading } = useAuthStore();
+  const { isAuthenticated, isLoading } = useAuthStore();
+  const [initDone, setInitDone] = useState(false);
 
-  // Initialize auth store on mount — checks for refresh cookie
+  // Initialize auth store on mount — try refresh, but don't block on failure
   useEffect(() => {
-    initialize();
-  }, [initialize]);
+    const tryInit = async () => {
+      try {
+        const state = useAuthStore.getState();
+        if (!state.isAuthenticated) {
+          await state.refreshTokenFn();
+        }
+      } catch {
+        // Silently fail — user just needs to log in
+      } finally {
+        setInitDone(true);
+      }
+    };
+    tryInit();
+  }, []);
 
   // Login page is rendered without the dashboard shell
   const isLoginPage = pathname === "/admin/login";
 
   // Redirect unauthenticated users to login (except when already on login)
   useEffect(() => {
-    if (!isLoginPage && !isAuthenticated && !isLoading) {
+    if (initDone && !isLoginPage && !isAuthenticated) {
       router.push("/admin/login");
     }
-  }, [isLoginPage, isAuthenticated, isLoading, router]);
+  }, [initDone, isLoginPage, isAuthenticated, router]);
 
-  // Show loading while checking auth
-  if (isLoading && !isLoginPage) {
+  // Show loading while initializing auth (only for non-login pages)
+  if (!initDone && !isLoginPage) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-900">
         <div className="flex flex-col items-center gap-3">
@@ -52,6 +65,6 @@ export default function AdminLayout({
     return <AdminDashboardLayout>{children}</AdminDashboardLayout>;
   }
 
-  // Fallback: still loading or redirecting
+  // Not authenticated & init done — will redirect to login
   return null;
 }

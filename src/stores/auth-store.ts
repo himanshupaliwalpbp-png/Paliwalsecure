@@ -151,8 +151,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        // Refresh failed — clear everything
-        get().logout();
+        // Refresh failed — just don't set authenticated, don't force logout
+        // User just needs to log in again
         return;
       }
 
@@ -160,7 +160,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       setClientCookie("admin_access_token", data.accessToken, 15 * 60);
       set({ accessToken: data.accessToken, isAuthenticated: true });
     } catch {
-      get().logout();
+      // Silently fail — don't force logout on network errors
     }
   },
 
