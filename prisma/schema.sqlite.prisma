@@ -1,14 +1,12 @@
-// ============================================================================
-// Paliwal Secure - Complete Database Schema
-// Models: AdminUser, Review, ReviewVote, Lead, LeadNote, GlossaryTerm, Article, AuditLog
-// ============================================================================
+// Prisma schema for SQLite (local development)
+// This is the default schema used during local development
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
