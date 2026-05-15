@@ -26,15 +26,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Only protect /admin/* and /api/admin/* routes
-  const isAdminPage = pathname.startsWith("/admin/");
+  // Only protect API routes (admin pages are protected by client-side auth)
   const isAdminApi = pathname.startsWith("/api/admin/");
 
-  if (!isAdminPage && !isAdminApi) {
+  if (!isAdminApi) {
+    // Allow admin PAGE routes through — client-side auth handles redirect
     return NextResponse.next();
   }
 
-  // ── Extract token ─────────────────────────────────────────────────────────
+  // ── Extract token for API routes ──────────────────────────────────────────
   let token: string | null = null;
 
   // 1. Check Authorization: Bearer <token>
@@ -52,18 +52,10 @@ export async function middleware(request: NextRequest) {
   const payload = token ? await verifyAccessTokenEdge(token) : null;
 
   if (!payload) {
-    // For API routes, return 401 JSON
-    if (isAdminApi) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
-
-    // For page routes, redirect to login
-    const loginUrl = new URL("/admin/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.json(
+      { success: false, error: "Unauthorized" },
+      { status: 401 }
+    );
   }
 
   return NextResponse.next();

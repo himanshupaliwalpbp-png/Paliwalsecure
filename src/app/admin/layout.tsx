@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/auth-store";
 import { AdminDashboardLayout } from "@/components/admin/AdminDashboardLayout";
@@ -13,58 +13,47 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuthStore();
-  const [initDone, setInitDone] = useState(false);
+  const { isAuthenticated, initialize } = useAuthStore();
+  const initRef = useRef(false);
 
-  // Initialize auth store on mount — try refresh, but don't block on failure
+  // Initialize auth store once on mount — restore from localStorage or try refresh
   useEffect(() => {
-    const tryInit = async () => {
-      try {
-        const state = useAuthStore.getState();
-        if (!state.isAuthenticated) {
-          await state.refreshTokenFn();
-        }
-      } catch {
-        // Silently fail — user just needs to log in
-      } finally {
-        setInitDone(true);
-      }
-    };
-    tryInit();
-  }, []);
+    if (initRef.current) return;
+    initRef.current = true;
+    try {
+      initialize();
+    } catch {
+      // Silently fail
+    }
+  }, [initialize]);
 
   // Login page is rendered without the dashboard shell
   const isLoginPage = pathname === "/admin/login";
 
   // Redirect unauthenticated users to login (except when already on login)
   useEffect(() => {
-    if (initDone && !isLoginPage && !isAuthenticated) {
+    if (!isLoginPage && !isAuthenticated) {
       router.push("/admin/login");
     }
-  }, [initDone, isLoginPage, isAuthenticated, router]);
-
-  // Show loading while initializing auth (only for non-login pages)
-  if (!initDone && !isLoginPage) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-900">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
-          <p className="text-slate-400 text-sm">Verifying authentication...</p>
-        </div>
-      </div>
-    );
-  }
+  }, [isLoginPage, isAuthenticated, router]);
 
   // Login page renders directly without dashboard chrome
   if (isLoginPage) {
     return <>{children}</>;
   }
 
-  // Authenticated pages get the dashboard layout
-  if (isAuthenticated) {
-    return <AdminDashboardLayout>{children}</AdminDashboardLayout>;
+  // Not authenticated — show loading (will redirect to login via effect above)
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
+          <p className="text-slate-400 text-sm">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
-  // Not authenticated & init done — will redirect to login
-  return null;
+  // Authenticated pages get the dashboard layout
+  return <AdminDashboardLayout>{children}</AdminDashboardLayout>;
 }

@@ -24,9 +24,38 @@ interface AuthState {
   initialize: () => void;
 }
 
+// ── localStorage helpers (more reliable than cookies in proxy env) ──────────
+const STORAGE_KEY = "paliwal_admin_auth";
+
+function saveToStorage(token: string, user: AuthUser) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, user }));
+  } catch {
+    // localStorage not available
+  }
+}
+
+function loadFromStorage(): { token: string; user: AuthUser } | null {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) return JSON.parse(data);
+  } catch {
+    // localStorage not available or invalid data
+  }
+  return null;
+}
+
+function clearStorage() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // localStorage not available
+  }
+}
+
 // ── Helper: set client-side cookie ──────────────────────────────────────────
 function setClientCookie(name: string, value: string, maxAge: number) {
-  document.cookie = `${name}=${value}; path=/; max-age=${maxAge}; sameSite=strict`;
+  document.cookie = `${name}=${value}; path=/; max-age=${maxAge}; sameSite=lax`;
 }
 
 function deleteClientCookie(name: string) {
@@ -70,8 +99,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return;
       }
 
-      // Store access token in memory + cookie for middleware
-      setClientCookie("admin_access_token", data.accessToken, 15 * 60); // 15 min
+      // Store in cookie (for middleware) + localStorage (for persistence)
+      setClientCookie("admin_access_token", data.accessToken, 15 * 60);
+      saveToStorage(data.accessToken, data.user);
+
       set({
         accessToken: data.accessToken,
         user: data.user,
@@ -107,8 +138,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw new Error(data.error || "MFA verification failed");
       }
 
-      // Store access token in memory + cookie for middleware
-      setClientCookie("admin_access_token", data.accessToken, 15 * 60); // 15 min
+      // Store in cookie + localStorage
+      setClientCookie("admin_access_token", data.accessToken, 15 * 60);
+      saveToStorage(data.accessToken, data.user);
+
       set({
         accessToken: data.accessToken,
         user: data.user,
@@ -128,8 +161,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     // Call logout API (fire and forget)
     fetch("/api/admin/auth/logout", { method: "POST" }).catch(() => {});
 
-    // Clear client state
+    // Clear everything
     deleteClientCookie("admin_access_token");
+    clearStorage();
     set({
       accessToken: null,
       refreshToken: null,
@@ -151,21 +185,33 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        // Refresh failed — just don't set authenticated, don't force logout
-        // User just needs to log in again
         return;
       }
 
-      // Update access token
+      // Update access token in cookie + localStorage
       setClientCookie("admin_access_token", data.accessToken, 15 * 60);
-      set({ accessToken: data.accessToken, isAuthenticated: true });
+      saveToStorage(data.accessToken, data.user);
+      set({ accessToken: data.accessToken, user: data.user, isAuthenticated: true });
     } catch {
-      // Silently fail — don't force logout on network errors
+      // Silently fail
     }
   },
 
   initialize: () => {
-    // Try to refresh on mount — if there's a refresh cookie the server will renew
+    // First try to restore from localStorage
+    const stored = loadFromStorage();
+    if (stored?.token && stored?.user) {
+      set({
+        accessToken: stored.token,
+        user: stored.user,
+        isAuthenticated: true,
+      });
+      // Also set the cookie for middleware/API
+      setClientCookie("admin_access_token", stored.token, 15 * 60);
+      return;
+    }
+
+    // If no localStorage data, try refresh token
     const state = get();
     if (!state.isAuthenticated) {
       get().refreshTokenFn();
