@@ -202,3 +202,28 @@ model CallbackRequest {
 
   @@map("callback_requests")
 }
+
+// ── Uploaded Policy Model (Policy Document Analysis) ──────────────────────
+model UploadedPolicy {
+  id               String   @id @default(cuid())
+  userId           String?  // optional, from session/localStorage
+  insurer          String   @default("Unknown")
+  policyType       String   @default("health") // health | life | motor | travel | home
+  sumInsured       Float?
+  premium          Float?
+  premiumFrequency String   @default("yearly") // monthly | yearly
+  waitingPeriods   String   @default("{}") // JSON: { diabetes: 24, bp: 12, heart: 36 }
+  exclusions       String   @default("[]") // JSON array of exclusion strings
+  keyCoverages     String   @default("[]") // JSON array of coverage strings
+  ncbDetails       String?  // No Claim Bonus details
+  networkHospitals String?  // Network hospitals info
+  startDate        DateTime?
+  endDate          DateTime?
+  missingBenefits  String   @default("[]") // JSON array of missing benefit strings
+  extractedText    String?  // raw text for audit
+  llmSummary       String?  // Hinglish summary from AI
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("uploaded_policies")
+}

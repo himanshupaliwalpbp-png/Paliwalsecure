@@ -8,7 +8,7 @@ import {
   Home as HomeIcon, Search, BookOpen, AlertTriangle, TrendingUp,
   QrCode, ExternalLink, CheckCircle2, XCircle, Clock, Sparkles,
   Calculator, Zap, Users, Target, Handshake, ChevronDown, Award,
-  ArrowUpRight, Globe, Play, Lock,
+  ArrowUpRight, Globe, Play, Lock, FileText,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -82,6 +82,14 @@ const PlanComparison = dynamic(() => import('@/components/PlanComparison'), {
   ),
 });
 const InsurerPerformanceChart = dynamic(() => import('@/components/InsurerPerformanceChart'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full" />
+    </div>
+  ),
+});
+const PolicyAnalysisSection = dynamic(() => import('@/components/PolicyAnalysisSection'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-20">
@@ -411,6 +419,7 @@ export default function PaliwalSecurePage() {
     { id: 'insuregpt-chat', label: 'InsureGPT', icon: Brain },
     { id: 'calculators', label: 'Calculators', icon: Calculator },
     { id: 'plan-compare', label: 'Compare', icon: Target },
+    { id: 'policy-analysis', label: 'Analyze', icon: FileText },
     { id: 'insurer-charts', label: 'CSR Trends', icon: TrendingUp },
     { id: 'products', label: 'Products', icon: Shield },
     { id: 'claim-status', label: 'Claim', icon: Clock },
@@ -929,6 +938,36 @@ export default function PaliwalSecurePage() {
           </motion.div>
 
           <PlanComparison />
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* POLICY DOCUMENT UPLOAD & AI ANALYSIS                                */}
+      {/* ================================================================== */}
+      <section id="policy-analysis" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-slate-50 via-background to-background dark:from-slate-900/50 dark:via-background dark:to-background scroll-mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
+          >
+            <Badge className="mb-4 bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800 rounded-full px-4 py-1">
+              <FileText className="w-3.5 h-3.5 mr-1" />
+              Policy Analysis
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
+              Apni Policy{' '}
+              <span className="gradient-text">AI se Analyze</span>{' '}
+              Karayein
+            </h2>
+            <p className="mt-3 text-sm sm:text-base lg:text-lg text-muted-foreground">
+              Insurance policy PDF upload karein — InsureGPT key details nikalega, Hinglish mein samjhayega, aur top 3 plans se compare karega!
+            </p>
+          </motion.div>
+
+          <PolicyAnalysisSection userProfile={userProfile} />
         </div>
       </section>
 

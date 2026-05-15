@@ -54,6 +54,7 @@ export const loginRateLimiter = new ServerRateLimiter();     // 5 attempts per 1
 export const apiRateLimiter = new ServerRateLimiter();        // 30 requests per minute per IP
 export const contactRateLimiter = new ServerRateLimiter();    // 3 submissions per 15 min per IP
 export const chatRateLimiter = new ServerRateLimiter();       // 20 messages per minute per IP
+export const uploadRateLimiter = new ServerRateLimiter();     // 5 uploads per minute per IP
 
 // ── Helper to get client IP ──────────────────────────────────────────────────
 export function getClientIp(request: Request): string {

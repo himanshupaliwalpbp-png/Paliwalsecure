@@ -378,3 +378,36 @@ Stage Summary:
 - All Insurers compare mode: 5 overlaid CSR lines with individual colors, ICR hidden note
 - Data table: Year-wise exact values with assessment badges in single mode, 5-column CSR comparison in all mode
 - Lint: PASS | Dev Server: Running
+
+---
+Task ID: 8
+Agent: Main Agent
+Task: Implement Policy Document Upload & AI Analysis Feature
+
+Work Log:
+- Installed react-dropzone and pdf-parse packages
+- Added UploadedPolicy model to Prisma schema with 18 fields including JSON storage for waitingPeriods, exclusions, keyCoverages, missingBenefits
+- Ran prisma db push to sync schema, prisma generate for client
+- Added uploadRateLimiter singleton to server-rate-limiter.ts (5 uploads/min/IP)
+- Created /api/upload-policy API route (POST + GET):
+  - POST: PDF validation, pdf-parse text extraction, LLM structured data extraction via z-ai-web-dev-sdk, DB storage, returns extracted policy data
+  - GET: Lists uploaded policies with optional userId filter and pagination
+  - LLM prompts insurer/policy type/sum insured/premium/waiting periods/exclusions/coverages/NCB/dates/missing benefits/Hinglish summary
+  - Regex fallback with 20+ insurer patterns and field extraction if LLM fails
+- Created PolicyUpload.tsx: react-dropzone drag & drop, PDF-only/10MB validation, simulated progress, 5 states (idle/selected/uploading/analyzing/success)
+- Created PolicySummary.tsx: 6-section display (Policy at a Glance, AI Summary, Key Coverages, Waiting Periods, Exclusions, Missing Benefits), Hinglish explanations, color-coded severity badges
+- Created PolicyComparison.tsx: Top 3 recommended plans from scoring engine, comparison table (premium/CSR/waiting periods/coverage gaps), action buttons (Buy/Keep/Share)
+- Created PolicyAnalysisSection.tsx: 3-step wizard flow (Upload → Summary → Comparison) with step progress bar and navigation
+- Updated page.tsx: Dynamic import for PolicyAnalysisSection, new section between Plan Comparison and CSR Trends, "Analyze" nav link
+- Fixed GET API 500 error: Prisma client needed regeneration after schema change, server restart required
+- ESLint: PASS (0 errors)
+- Dev server: Running correctly (HTTP 200, API 200)
+
+Stage Summary:
+- Policy Upload & AI Analysis feature fully implemented
+- 4 new components: PolicyUpload, PolicySummary, PolicyComparison, PolicyAnalysisSection
+- 1 new API route: /api/upload-policy (POST + GET)
+- 1 new Prisma model: UploadedPolicy
+- Full LLM integration for policy data extraction with regex fallback
+- 3-step flow: Upload PDF → View AI Summary in Hinglish → Compare with Top 3 Plans
+- Lint: PASS | Dev Server: Running | API: Working
