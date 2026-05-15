@@ -171,7 +171,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               {user?.name || "Admin User"}
             </p>
             <p className="text-xs text-slate-400 truncate">
-              {user?.email || "admin@paliwalsecure.com"}
+              {user?.email || "himanshupaliwalpbp@gmail.com"}
             </p>
           </div>
         </div>

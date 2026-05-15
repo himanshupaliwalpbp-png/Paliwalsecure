@@ -333,7 +333,7 @@ export default function PaliwalSecurePage() {
   const handleWhatsAppClick = useCallback(() => {
     GAEvents.whatsappClick('navbar');
     const welcomeMsg = dripCampaigns[0]?.welcomeMessage || 'Namaste! 🙏 Main Paliwal Secure hoon — aapka insurance guide. Kaise madad kar sakta hoon?';
-    const waUrl = `https://wa.me/919999999999?text=${encodeURIComponent(welcomeMsg)}`;
+    const waUrl = `https://wa.me/919257877312?text=${encodeURIComponent(welcomeMsg)}`;
     window.open(waUrl, '_blank');
   }, [whatsappPhone]);
 
@@ -1606,7 +1606,7 @@ export default function PaliwalSecurePage() {
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="+91 99999 99999"
+                        placeholder="+91 92578 77312"
                         value={contactForm.phone}
                         onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
                         className="rounded-xl"
@@ -1692,7 +1692,7 @@ export default function PaliwalSecurePage() {
                       className="text-blue-600 p-0 h-auto text-sm font-semibold mt-1"
                       onClick={handleWhatsAppClick}
                     >
-                      +91 99999 99999
+                      +91 92578 77312
                     </Button>
                   </div>
                 </div>
@@ -1706,7 +1706,7 @@ export default function PaliwalSecurePage() {
                   <div>
                     <h4 className="font-semibold text-foreground text-sm">Email</h4>
                     <p className="text-xs text-muted-foreground mt-1">24hr response time</p>
-                    <p className="text-sm text-blue-600 font-semibold mt-1">hello@paliwalsecure.com</p>
+                    <p className="text-sm text-blue-600 font-semibold mt-1">himanshupaliwalpbp@gmail.com</p>
                   </div>
                 </div>
               </motion.div>

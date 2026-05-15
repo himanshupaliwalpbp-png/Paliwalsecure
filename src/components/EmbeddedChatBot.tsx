@@ -456,7 +456,7 @@ function HumanHandoffDialog({
         <div className="space-y-3 mt-2">
           {/* Live Agent */}
           <a
-            href="tel:+919999999999"
+            href="tel:+919257877312"
             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 border border-indigo-100 dark:border-indigo-800/40 hover:shadow-md transition-all group"
           >
             <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center shrink-0 group-hover:bg-indigo-200 dark:group-hover:bg-indigo-800/50 transition-colors">
@@ -464,14 +464,14 @@ function HumanHandoffDialog({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Live Agent</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">+91-9999-999-999</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">+91-9257-877-312</p>
             </div>
             <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
           </a>
 
           {/* WhatsApp */}
           <a
-            href="https://wa.me/919999999999"
+            href="https://wa.me/919257877312"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-100 dark:border-green-800/40 hover:shadow-md transition-all group"
@@ -481,14 +481,14 @@ function HumanHandoffDialog({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">WhatsApp</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">wa.me/919999999999</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">wa.me/919257877312</p>
             </div>
             <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
           </a>
 
           {/* Email */}
           <a
-            href="mailto:support@paliwalsecure.com"
+            href="mailto:himanshupaliwalpbp@gmail.com"
             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-100 dark:border-amber-800/40 hover:shadow-md transition-all group"
           >
             <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/50 flex items-center justify-center shrink-0 group-hover:bg-amber-200 dark:group-hover:bg-amber-800/50 transition-colors">
@@ -496,7 +496,7 @@ function HumanHandoffDialog({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Email</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">support@paliwalsecure.com</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">himanshupaliwalpbp@gmail.com</p>
             </div>
             <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
           </a>
@@ -889,13 +889,13 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger }: Embedd
                     {msg.isEscalation && (
                       <EscalationOptions
                         onWhatsApp={() => {
-                          const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919999999999';
+                          const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919257877312';
                           const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Namaste! Mujhe insurance ke baare mein jaankari chahiye. Paliwal Secure se contact kar raha/rahi hoon.')}`;
                           window.open(whatsappUrl, '_blank');
                         }}
                         onCallback={() => setShowCallbackDialog(true)}
                         onEmail={() => {
-                          const mailtoUrl = 'mailto:support@paliwalsecure.com?subject=Insurance%20Query%20-%20Callback%20Requested&body=Namaste%2C%0A%0AMujhe%20insurance%20ke%20baare%20mein%20jaankari%20chahiye.%0A%0ADhanyavaad';
+                          const mailtoUrl = 'mailto:himanshupaliwalpbp@gmail.com?subject=Insurance%20Query%20-%20Callback%20Requested&body=Namaste%2C%0A%0AMujhe%20insurance%20ke%20baare%20mein%20jaankari%20chahiye.%0A%0ADhanyavaad';
                           window.open(mailtoUrl);
                         }}
                       />
