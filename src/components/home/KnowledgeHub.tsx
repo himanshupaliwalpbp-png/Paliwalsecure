@@ -97,7 +97,7 @@ const articles: ArticleData[] = [
         '₹10-15 लाख फैमिली फ्लोटर जयपुर के 4-सदस्य परिवार के लिए न्यूनतम है',
         'जयपुर में प्राइवेट हॉस्पिटल रूम रेंट: ₹3,000-₹8,000/दिन',
         'सुपर टॉप-अप सिर्फ ₹3,000/साल में ₹1 करोड़ कवर जोड़ सकता है',
-        'रूम रेंट कैपिंग बहुत जरूरी — नो-लिमिट या वेवर प्लान चुनें',
+        'रूम रेंट कैपिंग बहुक जरूरी — नो-लिमिट या वेवर प्लान चुनें',
         'माता-पिता को अलग शामिल करें — फ्लोटर जल्दी खत्म हो जाता है',
       ],
       hg: [
@@ -193,21 +193,21 @@ function ArticleCard({
   return (
     <motion.a
       href={`/blog/${article.slug}`}
-      className="bg-card border border-border rounded-2xl overflow-hidden relative p-5 sm:p-6 flex flex-col h-full group cursor-pointer block transition-all duration-300 hover:-translate-y-0.5 hover:border-foreground/20"
-      initial={{ opacity: 0, y: 30 }}
+      className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden relative p-6 sm:p-7 flex flex-col h-full group cursor-pointer block transition-all duration-500 hover:-translate-y-1 hover:border-primary/20 hover:shadow-[0_12px_48px_-12px_rgba(var(--primary),0.08)]"
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Category tag + icon + "Read in Hindi" badge */}
-      <div className="flex items-center gap-2 mb-3 flex-wrap">
+      <div className="flex items-center gap-2.5 mb-4 flex-wrap">
         <span
-          className="w-7 h-7 rounded-lg flex items-center justify-center bg-primary/10 text-primary"
+          className="w-8 h-8 rounded-lg flex items-center justify-center bg-primary/[0.07] border border-primary/[0.10] text-primary transition-transform duration-300 group-hover:scale-105"
         >
           {article.icon}
         </span>
         <span
-          className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full text-muted-foreground border border-border"
+          className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full text-muted-foreground bg-muted/40 border border-border/50"
         >
           {category}
         </span>
@@ -220,39 +220,39 @@ function ArticleCard({
 
       {/* Title */}
       <h3
-        className="font-heading text-sm sm:text-base lg:text-lg font-bold text-foreground leading-snug mb-2"
+        className="font-heading text-sm sm:text-base lg:text-lg font-bold text-foreground leading-snug mb-2.5 tracking-tight"
       >
         {title}
       </h3>
 
       {/* Summary */}
-      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
         {summary}
       </p>
 
       {/* Key Takeaways */}
-      <div className="space-y-1.5 mb-4 flex-1">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-primary flex items-center gap-1">
+      <div className="space-y-2 mb-5 flex-1">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-1.5">
           <TrendingUp className="w-3 h-3" />
           {keyTakeawayLabel}
         </p>
         {keyPoints.slice(0, 3).map((point, i) => (
-          <div key={i} className="flex items-start gap-1.5">
-            <CheckCircle2 className="w-3 h-3 text-primary shrink-0 mt-0.5" />
+          <div key={i} className="flex items-start gap-2">
+            <CheckCircle2 className="w-3 h-3 text-primary/70 shrink-0 mt-0.5" />
             <span className="text-[11px] text-muted-foreground leading-snug">{point}</span>
           </div>
         ))}
       </div>
 
       {/* Read guide link */}
-      <div className="flex items-center justify-between pt-3 border-t border-border">
+      <div className="flex items-center justify-between pt-4 border-t border-border/40">
         <span
-          className="text-sm font-semibold flex items-center gap-1 transition-all duration-300 group-hover:gap-2 text-primary underline-offset-4 hover:underline"
+          className="text-sm font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 text-primary underline-offset-4 hover:underline"
         >
           {readGuide}
           <ArrowRight className="w-3.5 h-3.5" />
         </span>
-        <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+        <span className="text-[10px] text-muted-foreground flex items-center gap-1 font-mono">
           <Clock className="w-3 h-3" />
           {readTime}
         </span>
@@ -278,21 +278,24 @@ export default function KnowledgeHub() {
   return (
     <section
       dir="ltr"
-      className="relative py-24 md:py-32 overflow-hidden bg-background text-foreground"
+      className="relative py-28 md:py-36 overflow-hidden bg-background text-foreground"
       aria-label="Insurance knowledge hub"
     >
+      {/* Subtle section divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Badge */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4 bg-card border border-border text-primary"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary"
           >
             <BookOpen className="w-3.5 h-3.5" />
             InsureGyaan
@@ -300,7 +303,7 @@ export default function KnowledgeHub() {
 
           {/* Heading */}
           <h2
-            className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3"
+            className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-[1.1]"
           >
             {heading
               .split(' ')
@@ -317,7 +320,7 @@ export default function KnowledgeHub() {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto mt-4 leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
@@ -331,15 +334,15 @@ export default function KnowledgeHub() {
 
         {/* Browse all guides CTA */}
         <motion.div
-          className="text-center mt-10 sm:mt-14"
+          className="text-center mt-12 sm:mt-16"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <a
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3 text-primary underline-offset-4 hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3 text-primary underline-offset-4 hover:underline"
           >
             {cta}
             <ArrowRight className="w-4 h-4" />

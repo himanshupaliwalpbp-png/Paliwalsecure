@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, X, Minus } from 'lucide-react';
+import { Check, X, Minus, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Data ──────────────────────────────────────────────────────────── */
@@ -99,31 +99,28 @@ const featureLabels: Record<string, { en: string; hi: string; hg: string }> = {
 
 /* ── Cell renderer ─────────────────────────────────────────────────── */
 function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean }) {
-  const accentColor = isPaliwal ? 'text-primary' : 'text-muted-foreground';
-  const textColor = isPaliwal ? 'text-primary' : 'text-muted-foreground';
-
   switch (cell.type) {
     case 'check':
       return (
-        <span className={`inline-flex items-center justify-center ${accentColor}`}>
-          <Check className="w-5 h-5" strokeWidth={2.5} />
+        <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${isPaliwal ? 'bg-primary/10 border border-primary/20' : 'bg-muted/50'}`}>
+          <Check className={`w-4 h-4 ${isPaliwal ? 'text-primary' : 'text-muted-foreground'}`} strokeWidth={2.5} />
         </span>
       );
     case 'cross':
       return (
-        <span className="inline-flex items-center justify-center text-muted-foreground/40">
-          <X className="w-5 h-5" strokeWidth={2.5} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-muted/30">
+          <X className="w-4 h-4 text-muted-foreground/30" strokeWidth={2.5} />
         </span>
       );
     case 'dash':
       return (
-        <span className="inline-flex items-center justify-center text-muted-foreground/50">
-          <Minus className="w-5 h-5" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-muted/30">
+          <Minus className="w-4 h-4 text-muted-foreground/30" strokeWidth={2} />
         </span>
       );
     case 'text':
       return (
-        <span className={`text-xs font-medium capitalize ${textColor}`}>
+        <span className={`text-xs font-medium capitalize ${isPaliwal ? 'text-primary' : 'text-muted-foreground/70'}`}>
           {cell.value}
         </span>
       );
@@ -152,20 +149,30 @@ export default function ComparisonMatrix() {
       : col.label.hg;
 
   return (
-    <section className="py-24 px-4">
+    <section className="py-28 md:py-36 px-4 relative overflow-hidden">
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      </div>
+
       <div className="mx-auto max-w-5xl">
         {/* ── Header ──────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mb-12 text-center"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mb-14 text-center"
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary">
+            <Sparkles className="w-3 h-3" />
+            Comparison
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.1]">
             {heading}
           </h2>
-          <p className="mt-3 text-muted-foreground text-sm md:text-base max-w-lg mx-auto">
+          <p className="mt-4 text-muted-foreground text-sm md:text-base max-w-md mx-auto leading-relaxed">
             {isHindi
               ? 'देखें कि Paliwal Secure कैसे अलग है'
               : isEnglish
@@ -176,29 +183,36 @@ export default function ComparisonMatrix() {
 
         {/* ── Table ───────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="overflow-x-auto border border-border rounded-2xl"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          className="overflow-x-auto rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm"
         >
           <table className="w-full min-w-[680px] text-sm">
             {/* Head */}
             <thead>
-              <tr className="bg-card border-b border-border">
-                <th className="text-left px-6 py-4 font-medium text-foreground">
+              <tr className="border-b border-border/60">
+                <th className="text-left px-6 py-5 font-medium text-muted-foreground text-xs uppercase tracking-wider">
                   {featureLabel}
                 </th>
                 {columns.map((col) => (
                   <th
                     key={col.key}
-                    className={`px-6 py-4 text-center font-medium ${
+                    className={`px-6 py-5 text-center font-medium text-xs uppercase tracking-wider ${
                       col.highlight
-                        ? 'text-primary font-semibold bg-primary/5 border-x border-primary/20'
-                        : 'text-foreground'
+                        ? 'text-primary font-bold bg-primary/[0.04] border-x border-primary/[0.08]'
+                        : 'text-muted-foreground'
                     }`}
                   >
-                    {getColumnLabel(col)}
+                    <div className="flex flex-col items-center gap-1">
+                      <span>{getColumnLabel(col)}</span>
+                      {col.highlight && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-primary/10 border border-primary/20 text-primary normal-case tracking-normal">
+                          Recommended
+                        </span>
+                      )}
+                    </div>
                   </th>
                 ))}
               </tr>
@@ -209,7 +223,7 @@ export default function ComparisonMatrix() {
               {features.map((row, i) => (
                 <tr
                   key={row.key}
-                  className={`border-b border-border last:border-b-0 transition-colors duration-200`}
+                  className={`border-b border-border/40 last:border-b-0 transition-colors duration-300 hover:bg-muted/[0.03]`}
                 >
                   <td className="px-6 py-4 text-foreground font-medium text-sm">
                     {getFeatureLabel(row.key)}
@@ -221,8 +235,8 @@ export default function ComparisonMatrix() {
                     return (
                       <td
                         key={col.key}
-                        className={`px-6 py-4 text-center ${
-                          isPaliwal ? 'bg-primary/5 border-x border-primary/20' : ''
+                        className={`px-6 py-4 text-center transition-colors duration-300 ${
+                          isPaliwal ? 'bg-primary/[0.02] border-x border-primary/[0.06]' : ''
                         }`}
                       >
                         <CellRenderer cell={cell} isPaliwal={isPaliwal} />

@@ -271,33 +271,31 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 glass-nav-universal border-b border-border ${scrolled ? 'scrolled' : ''}`}
+      className={`sticky top-0 z-50 glass-nav-premium ${scrolled ? 'nav-scrolled' : ''}`}
       role="banner"
     >
-      {/* Clean hairline bottom border — no glow animation */}
-
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
-        <div className="flex items-center justify-between h-16 sm:h-18">
+        <div className="flex items-center justify-between h-16 sm:h-[68px]">
           {/* ── Logo on LEFT ───────────────────────────── */}
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-2.5 group"
               aria-label="Paliwal Secure AI – Home"
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center transition-shadow duration-300 relative"
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.96 }}
+                className="w-8 h-8 rounded-xl bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.25)] flex items-center justify-center transition-shadow duration-300 relative group-hover:shadow-[0_0_0_1px_rgba(212,168,83,0.35),0_4px_14px_-2px_rgba(212,168,83,0.3)]"
               >
-                <span className="font-heading font-bold text-primary-foreground text-lg leading-none">
+                <span className="font-heading font-bold text-primary-foreground text-base leading-none">
                   P
                 </span>
               </motion.div>
-              <span className={`font-heading text-lg sm:text-xl font-bold tracking-tight ${textFg}`}>
+              <span className={`font-heading text-lg sm:text-xl font-bold tracking-[-0.02em] ${textFg}`}>
                 Paliwal{' '}
                 <span className="text-primary">
                   Secure
@@ -308,12 +306,12 @@ export default function SiteHeader() {
           </div>
 
           {/* ── Desktop Nav Links ────────────────────────────────────────────── */}
-          <div ref={navContainerRef} className="hidden xl:flex items-center gap-0.5 relative overflow-x-auto flex-1 min-w-0">
-            {/* FloatingNav-style Sliding Active Indicator */}
+          <div ref={navContainerRef} className="hidden xl:flex items-center gap-0.5 relative overflow-x-auto flex-1 min-w-0 justify-center">
+            {/* Premium sliding indicator pill */}
             <motion.div
               animate={navIndicator}
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className="absolute bottom-0 h-[2px] rounded-full bg-primary"
+              transition={{ type: "spring", stiffness: 380, damping: 28 }}
+              className="absolute top-1/2 -translate-y-1/2 h-[30px] rounded-lg bg-primary/[0.07]"
             />
             {NAV_LINKS.map((link) => {
               const LinkIcon = link.icon;
@@ -327,9 +325,9 @@ export default function SiteHeader() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`relative flex items-center gap-1 min-h-[32px] px-2 py-1 text-xs font-medium rounded-lg transition-all duration-200 group ${textMuted} hover:text-primary ${hoverBg} whitespace-nowrap`}
+                    className={`relative flex items-center gap-1.5 h-8 px-2.5 text-[13px] font-medium rounded-lg transition-all duration-200 group ${textMuted} hover:text-primary ${hoverBg} whitespace-nowrap`}
                   >
-                    <LinkIcon className="w-3 h-3 shrink-0" />
+                    <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity" />
                     <span>{t(link.labelKey) || link.label}</span>
                   </a>
                 );
@@ -340,29 +338,28 @@ export default function SiteHeader() {
                   key={link.href}
                   href={link.href}
                   ref={(el) => { navBtnRefs.current[NAV_LINKS.indexOf(link)] = el; }}
-                  className={`relative flex items-center gap-1 min-h-[32px] px-2 py-1 text-xs font-medium rounded-lg transition-all duration-200 group ${
+                  className={`relative flex items-center gap-1.5 h-8 px-2.5 text-[13px] font-medium rounded-lg transition-all duration-200 group ${
                     active
-                      ? 'nav-link-active font-semibold text-primary'
+                      ? 'font-semibold text-primary'
                       : `${textMuted} hover:text-primary ${hoverBg}`
                   } whitespace-nowrap`}
                   aria-current={active ? 'page' : undefined}
                 >
-                  <LinkIcon className="w-3.5 h-3.5 shrink-0" />
+                  <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-opacity ${active ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`} />
                   <span>{t(link.labelKey) || link.label}</span>
-                  {active && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4/5 h-[2px] bg-primary rounded-full" />
-                  )}
+                  {/* Subtle hover underline */}
+                  <span className={`absolute bottom-0.5 left-2.5 right-2.5 h-[1.5px] rounded-full bg-primary origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ${active ? '!scale-x-100' : ''}`} />
                 </Link>
               );
             })}
           </div>
 
           {/* ── Right Side: Toggle + Get Quote + Mobile ──── */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             {/* Phone icon — desktop */}
             <a
               href="tel:+919257877312"
-              className={`hidden xl:flex items-center justify-center w-7 h-7 rounded-full ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200`}
+              className={`hidden xl:flex items-center justify-center w-8 h-8 rounded-full ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200`}
               aria-label="Call us"
             >
               <Phone className="w-3.5 h-3.5" />
@@ -380,7 +377,7 @@ export default function SiteHeader() {
 
             {/* Get Quote CTA — Desktop */}
             <Button
-              className="hidden xl:inline-flex px-5 py-2.5 rounded-full font-medium text-sm tracking-tight bg-primary text-primary-foreground shadow-[0_1px_0_inset_rgba(255,255,255,.15),0_4px_12px_-4px_rgba(194,86,44,0.3)] hover:bg-primary/90 h-auto"
+              className="hidden xl:inline-flex items-center px-5 py-2 rounded-full font-semibold text-[13px] tracking-[-0.01em] bg-primary text-primary-foreground shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.3)] hover:shadow-[0_0_0_1px_rgba(212,168,83,0.35),0_4px_16px_-2px_rgba(212,168,83,0.4)] hover:bg-primary/90 h-auto transition-all duration-200"
               onClick={() => {
                 const el = document.getElementById('motor-comparison');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -389,20 +386,20 @@ export default function SiteHeader() {
               {t('v2.header.getQuote')}
             </Button>
 
-            {/* InsureGPT AI Button — Desktop (regular nav item style) */}
+            {/* InsureGPT AI Button — Desktop */}
             <button
               onClick={() => openInsureGPT()}
-              className="hidden lg:flex items-center gap-1 h-7 px-2.5 rounded-full text-xs font-medium text-muted-foreground hover:text-primary hover:bg-muted transition-all duration-200 cursor-pointer"
+              className="hidden lg:flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-medium text-muted-foreground hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 cursor-pointer border border-transparent hover:border-primary/20"
               aria-label="Open InsureGPT AI Chat"
             >
-              <Sparkles className="w-3 h-3" />
+              <Sparkles className="w-3.5 h-3.5" />
               <span>InsureGPT</span>
             </button>
 
             {/* InsureGPT AI Button — Mobile (icon only) */}
             <button
               onClick={() => openInsureGPT()}
-              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 text-muted-foreground hover:text-primary hover:bg-muted"
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 text-muted-foreground hover:text-primary hover:bg-primary/[0.06]"
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-4 h-4" />
@@ -412,11 +409,11 @@ export default function SiteHeader() {
             <Button
               variant="ghost"
               size="icon"
-              className={`lg:hidden ${textMuted} hover:text-primary ${hoverBg} rounded-lg w-10 h-10`}
+              className={`lg:hidden ${textMuted} hover:text-primary hover:bg-primary/[0.06] rounded-xl w-9 h-9 transition-all duration-200`}
               onClick={() => setSheetOpen(true)}
               aria-label={t('v2.header.openMenu')}
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-[18px] h-[18px]" />
             </Button>
           </div>
         </div>
@@ -426,16 +423,16 @@ export default function SiteHeader() {
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent
           side="right"
-          className={`sheet-menu-dark ${textFg} w-[300px] sm:max-w-sm p-0`}
+          className={`sheet-menu-premium ${textFg} w-[300px] sm:max-w-sm p-0`}
         >
-          <SheetHeader className={`p-4 border-b border-border`}>
-            <SheetTitle className={`flex items-center gap-2 ${textFg}`}>
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+          <SheetHeader className={`p-5 border-b border-border/60`}>
+            <SheetTitle className={`flex items-center gap-2.5 ${textFg}`}>
+              <div className="w-8 h-8 rounded-xl bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.25)] flex items-center justify-center">
                 <span className="font-heading font-bold text-primary-foreground text-sm leading-none">
                   P
                 </span>
               </div>
-              <span className="font-heading font-bold">
+              <span className="font-heading font-bold tracking-[-0.02em]">
                 Paliwal{' '}
                 <span className="text-primary">
                   Secure
@@ -445,7 +442,7 @@ export default function SiteHeader() {
           </SheetHeader>
 
           {/* Nav Links */}
-          <div className="py-3 px-2 space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-chat">
+          <div className="py-4 px-3 space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-chat">
             {NAV_LINKS.map((link, index) => {
               const LinkIcon = link.icon;
               const active = isActive(link.href);
@@ -455,18 +452,20 @@ export default function SiteHeader() {
                 return (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.04, duration: 0.2 }}
+                    transition={{ delay: index * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <SheetClose asChild>
                       <a
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200 gap-3 min-h-[44px]`}
+                        className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
                       >
-                        <LinkIcon className="w-4 h-4 shrink-0" />
+                        <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted/50">
+                          <LinkIcon className="w-3.5 h-3.5" />
+                        </span>
                         {t(link.labelKey) || link.label}
                       </a>
                     </SheetClose>
@@ -477,21 +476,23 @@ export default function SiteHeader() {
               return (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (index + 1) * 0.04, duration: 0.2 }}
+                  transition={{ delay: (index + 1) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <SheetClose asChild>
                     <Link
                       href={link.href}
                       className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                         active
-                          ? 'nav-link-active font-semibold text-primary'
-                          : `${textMuted} hover:text-primary ${hoverBg}`
+                          ? 'bg-primary/[0.08] font-semibold text-primary'
+                          : `${textMuted} hover:text-primary hover:bg-primary/[0.06]`
                       }`}
                       aria-current={active ? 'page' : undefined}
                     >
-                      <LinkIcon className="w-4 h-4 shrink-0" />
+                      <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${active ? 'bg-primary/15' : 'bg-muted/50'}`}>
+                        <LinkIcon className="w-3.5 h-3.5" />
+                      </span>
                       {t(link.labelKey) || link.label}
                     </Link>
                   </SheetClose>
@@ -501,9 +502,9 @@ export default function SiteHeader() {
 
             {/* Extra links in mobile: InsureGPT, About, Contact, WhatsApp */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 1) * 0.04, duration: 0.2 }}
+              transition={{ delay: (NAV_LINKS.length + 1) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
               <SheetClose asChild>
                 <button
@@ -511,43 +512,49 @@ export default function SiteHeader() {
                     setSheetOpen(false);
                     setTimeout(() => openInsureGPT(), 300);
                   }}
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200 gap-3 min-h-[44px]`}
+                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
                 >
-                  <Sparkles className="w-4 h-4 shrink-0 text-primary" />
+                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10">
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                  </span>
                   <span className="flex-1 text-left">InsureGPT AI</span>
                 </button>
               </SheetClose>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 2) * 0.04, duration: 0.2 }}
+              transition={{ delay: (NAV_LINKS.length + 2) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
               <SheetClose asChild>
                 <a
                   href="https://wa.me/919257877312"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200 gap-3 min-h-[44px]`}
+                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
                 >
-                  <MessageCircle className="w-4 h-4 shrink-0" />
+                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted/50">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                  </span>
                   {t('nav.chatWhatsApp')}
                 </a>
               </SheetClose>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 3) * 0.04, duration: 0.2 }}
+              transition={{ delay: (NAV_LINKS.length + 3) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             >
               <SheetClose asChild>
                 <a
                   href="tel:+919257877312"
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200 gap-3 min-h-[44px]`}
+                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
                 >
-                  <Phone className="w-4 h-4 shrink-0" />
+                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted/50">
+                    <Phone className="w-3.5 h-3.5" />
+                  </span>
                   {t('nav.callNow')}: 9257877312
                 </a>
               </SheetClose>
@@ -555,7 +562,7 @@ export default function SiteHeader() {
           </div>
 
           {/* Bottom section — Language + Theme + CTA */}
-          <div className={`mt-auto border-t border-border p-4 space-y-3`}>
+          <div className={`mt-auto border-t border-border/60 p-5 space-y-4`}>
             {/* Language Toggle + Theme Toggle */}
             <div className="flex items-center gap-2">
               <Globe className={`w-4 h-4 ${textMuted}`} />
@@ -569,7 +576,7 @@ export default function SiteHeader() {
             {/* Get Quote CTA */}
             <SheetClose asChild>
               <Button
-                className="w-full rounded-xl font-bold h-11 bg-primary text-primary-foreground shadow-[0_1px_0_inset_rgba(255,255,255,.15),0_4px_12px_-4px_rgba(194,86,44,0.3)] hover:bg-primary/90"
+                className="w-full rounded-xl font-bold h-12 bg-primary text-primary-foreground shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.3)] hover:shadow-[0_0_0_1px_rgba(212,168,83,0.35),0_4px_16px_-2px_rgba(212,168,83,0.4)] hover:bg-primary/90 transition-all duration-200"
                 onClick={() => {
                   setSheetOpen(false);
                   setTimeout(() => {

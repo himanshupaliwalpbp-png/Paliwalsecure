@@ -10,7 +10,7 @@ import {
   ReviewStars,
 } from '@/components/ui/animated-cards-stack';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Shield } from 'lucide-react';
+import { Shield, Quote } from 'lucide-react';
 
 /* ── PaliwalSecure Testimonials Data — Bilingual EN/HI/HG ──────────────── */
 const TESTIMONIALS = [
@@ -131,11 +131,11 @@ export default function TestimonialsSection() {
 
   const nameColor = undefined;
 
-  const avatarBorder = '!size-12 border border-border';
+  const avatarBorder = '!size-12 border border-border/60 shadow-sm';
 
   const subtitleColor = 'text-muted-foreground';
 
-  const policyClass = 'text-xs font-mono text-muted-foreground uppercase tracking-wider';
+  const policyClass = 'text-[10px] font-mono text-primary/80 uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/[0.07] border border-primary/[0.10]';
 
   const professionColor = 'text-muted-foreground';
 
@@ -146,22 +146,28 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       dir="ltr"
-      className={`relative w-full px-4 sm:px-8 py-24 md:py-32 ${sectionBg}`}
+      className={`relative w-full px-4 sm:px-8 py-28 md:py-36 ${sectionBg}`}
       aria-label="Customer testimonials"
     >
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/[0.02] rounded-full blur-[120px]" />
+      </div>
+
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          {/* Badge */}
+          {/* Badge — premium pill */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-3 bg-card border border-border text-primary"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary"
           >
+            <Quote className="w-3 h-3" />
             {badge}
           </div>
 
           {/* Heading */}
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1]"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             {heading
@@ -178,15 +184,15 @@ export default function TestimonialsSection() {
           </h2>
 
           {/* Subtitle */}
-          <p className={`mx-auto mt-2 max-w-lg text-sm sm:text-base ${subtitleColor}`}>
+          <p className={`mx-auto mt-4 max-w-md text-sm sm:text-base leading-relaxed ${subtitleColor}`}>
             {subtitle}
           </p>
 
           {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-4 mt-3">
-            <div className="flex items-center gap-1">
-              <Shield className={`w-4 h-4 ${shieldColor}`} />
-              <span className={`text-xs font-medium ${shieldTextColor}`}>
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-card/60 backdrop-blur-sm border border-border/40">
+              <Shield className={`w-3.5 h-3.5 ${shieldColor}`} />
+              <span className={`text-[11px] font-semibold ${shieldTextColor}`}>
                 {verified}
               </span>
             </div>
@@ -208,7 +214,7 @@ export default function TestimonialsSection() {
                   role="article"
                   aria-labelledby={`card-${testimonial.id}-title`}
                   aria-describedby={`card-${testimonial.id}-content`}
-                  className="!border-border"
+                  className="!border-border/50"
                 >
                   <div className="flex flex-col items-center space-y-3 text-center">
                     <ReviewStars
@@ -245,7 +251,7 @@ export default function TestimonialsSection() {
                         {tr(testimonial.profession, isHindi, isEnglish)} · {tr(testimonial.city, isHindi, isEnglish)}
                       </span>
                       <span
-                        className={`inline-block mt-1 px-2 py-0.5 rounded-full ${policyClass}`}
+                        className={`inline-block mt-1.5 ${policyClass}`}
                       >
                         {testimonial.policy}
                       </span>

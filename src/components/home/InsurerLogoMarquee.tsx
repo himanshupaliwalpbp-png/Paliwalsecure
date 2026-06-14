@@ -47,9 +47,13 @@ export default function InsurerLogoMarquee() {
   return (
     <section
       dir="ltr"
-      className="relative w-full py-6 sm:py-8 overflow-hidden border-y border-border"
+      className="relative w-full py-8 sm:py-10 overflow-hidden border-y border-border/40"
       aria-label={ariaLabel}
     >
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
       <div ref={ref} className="relative">
         <motion.div
           initial={{ opacity: 0 }}
@@ -61,23 +65,23 @@ export default function InsurerLogoMarquee() {
           {/* Marquee track — pauses on hover via CSS */}
           <div
             className="flex animate-marquee-left group-hover:[animation-play-state:paused]"
-            style={{ animationDuration: '40s' }}
+            style={{ animationDuration: '45s' }}
           >
             {allInsurers.map((insurer, idx) => (
               <div
                 key={`insurer-${idx}`}
-                className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 shrink-0 mx-1.5 sm:mx-2 rounded-full bg-card border border-border"
+                className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 shrink-0 mx-1.5 sm:mx-2 rounded-xl bg-card/60 backdrop-blur-sm border border-border/40 transition-all duration-300 hover:bg-card hover:border-border/70 grayscale hover:grayscale-0 cursor-default"
               >
                 {/* Logo circle */}
                 <div
-                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-sm`}
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-sm ring-1 ring-white/10`}
                 >
                   <span className="text-[9px] sm:text-[10px] font-bold text-white font-mono leading-none">
                     {insurer.shortName}
                   </span>
                 </div>
                 {/* Name */}
-                <span className="text-xs sm:text-sm font-medium text-foreground whitespace-nowrap">
+                <span className="text-xs sm:text-sm font-medium text-foreground/70 group-hover/item:text-foreground whitespace-nowrap transition-colors duration-300">
                   {insurer.name}
                 </span>
               </div>

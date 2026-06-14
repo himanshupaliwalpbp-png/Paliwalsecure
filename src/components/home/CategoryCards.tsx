@@ -60,16 +60,17 @@ const categoryBenefits: Record<string, { en: string; hi: string; hg: string }> =
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.07 },
+    transition: { staggerChildren: 0.06 },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24, scale: 0.97 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -87,16 +88,16 @@ export default function CategoryCards() {
       <div className="mx-auto max-w-7xl">
         {/* ── Section Header ──────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 text-center"
+          className="mb-14 text-center"
         >
           <h2 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-foreground">
             {heading}
           </h2>
-          <p className="mt-3 text-muted-foreground text-base md:text-lg max-w-xl mx-auto">
+          <p className="mt-3 text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
@@ -107,7 +108,7 @@ export default function CategoryCards() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-5"
+          className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4"
         >
           {categories.map((cat) => (
             <CategoryCard key={cat.key} item={cat} isHindi={isHindi} isEnglish={isEnglish} />
@@ -157,38 +158,41 @@ function CategoryCard({ item, isHindi, isEnglish }: { item: CategoryItem; isHind
     <Link href={item.href} className="block group">
       <motion.div
         variants={cardVariants}
-        whileHover={{ y: -2 }}
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] as const }}
-        className="bg-card border border-border rounded-2xl p-6 flex flex-col gap-3 h-full cursor-pointer transition-all duration-250 hover:border-foreground/20"
+        whileHover={{ y: -4, scale: 1.01 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+        className="relative bg-card/80 backdrop-blur-sm border border-border/60 rounded-2xl p-6 flex flex-col gap-3 h-full cursor-pointer transition-all duration-300 hover:border-primary/25 hover:bg-card hover:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(var(--primary),0.08)]"
       >
+        {/* Subtle glow on hover */}
+        <div className="absolute inset-0 rounded-2xl bg-primary/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
         {/* AI Pick Badge */}
-        <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground uppercase tracking-wider">
+        <div className="relative flex items-center justify-between">
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground/60 uppercase tracking-widest">
             <Sparkles className="w-3 h-3" />
             AI Pick
           </span>
         </div>
 
         {/* Icon */}
-        <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center">
-          <Icon className="w-5 h-5 text-primary" strokeWidth={1.8} />
+        <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center ring-1 ring-primary/10 group-hover:ring-primary/20 transition-all duration-300">
+          <Icon className="w-5.5 h-5.5 text-primary" strokeWidth={1.8} />
         </div>
 
         {/* Title */}
-        <h3 className="font-heading font-semibold text-foreground text-base leading-snug">
+        <h3 className="relative font-heading font-semibold text-foreground text-base leading-snug">
           {title}
         </h3>
 
         {/* Benefit */}
-        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+        <p className="relative text-sm text-muted-foreground leading-relaxed line-clamp-2">
           {benefit}
         </p>
 
         {/* Subtle accent line */}
-        <div className="w-8 h-[2px] rounded-full bg-primary/40" />
+        <div className="relative w-8 h-[2px] rounded-full bg-gradient-to-r from-primary/50 to-primary/20 group-hover:from-primary/70 group-hover:to-primary/30 transition-all duration-300" />
 
         {/* Price + Quick Stat */}
-        <div className="mt-auto flex items-end justify-between gap-2">
+        <div className="relative mt-auto flex items-end justify-between gap-2">
           <p className="text-sm font-mono font-semibold text-primary">
             {item.key === 'business' ? (
               price
@@ -201,7 +205,7 @@ function CategoryCard({ item, isHindi, isEnglish }: { item: CategoryItem; isHind
               </>
             )}
           </p>
-          <span className="text-[10px] text-[var(--trust)] font-mono font-medium bg-primary/5 px-2 py-0.5 rounded-full border border-primary/10">
+          <span className="text-[10px] text-[var(--trust)] font-mono font-medium bg-primary/[0.06] px-2.5 py-1 rounded-full border border-primary/10 group-hover:border-primary/20 transition-colors duration-300">
             {item.quickStat}
           </span>
         </div>

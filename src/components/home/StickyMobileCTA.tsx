@@ -45,32 +45,38 @@ export default function StickyMobileCTA() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-md border-t border-border"
+          transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+          className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
         >
-          <div
-            className="flex items-stretch gap-2 p-3"
-            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-          >
-            {/* Quick Adviser button */}
-            <button
-              onClick={handleAIDvisorClick}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-medium text-sm bg-primary text-primary-foreground"
-            >
-              <Brain className="w-4 h-4" />
-              {aiAdvisorLabel}
-            </button>
+          {/* Frosted glass bar */}
+          <div className="bg-background/80 backdrop-blur-xl border-t border-border/60">
+            {/* Subtle top glow line */}
+            <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-            {/* WhatsApp button */}
-            <a
-              href="https://wa.me/919257877312"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-medium text-sm bg-[#25D366] text-white"
+            <div
+              className="flex items-stretch gap-2.5 p-3"
+              style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
             >
-              <MessageCircle className="w-4 h-4" />
-              {whatsAppLabel}
-            </a>
+              {/* Quick Adviser button — premium */}
+              <button
+                onClick={handleAIDvisorClick}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-primary text-primary-foreground shadow-[0_4px_20px_-4px_rgba(var(--primary),0.25)] active:scale-[0.97] transition-transform duration-150"
+              >
+                <Brain className="w-4 h-4" strokeWidth={2} />
+                {aiAdvisorLabel}
+              </button>
+
+              {/* WhatsApp button — refined */}
+              <a
+                href="https://wa.me/919257877312"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#25D366] text-white shadow-[0_4px_20px_-4px_rgba(37,211,102,0.25)] active:scale-[0.97] transition-transform duration-150"
+              >
+                <MessageCircle className="w-4 h-4" strokeWidth={2} />
+                {whatsAppLabel}
+              </a>
+            </div>
           </div>
         </motion.div>
       )}

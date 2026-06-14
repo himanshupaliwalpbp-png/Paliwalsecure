@@ -334,27 +334,27 @@ function StreamingMessage({
 // ---------------------------------------------------------------------------
 function TypingIndicator({ thinkingText }: { thinkingText: string }) {
   return (
-    <div className="flex items-start gap-2.5 mb-2">
+    <div className="flex items-start gap-3 mb-3">
       <motion.div
-        className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-primary/15"
+        className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-primary/20 ring-1 ring-primary/10"
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
       >
         <Bot className="w-4 h-4 text-primary-foreground" />
       </motion.div>
-      <div className="bg-card rounded-2xl rounded-tl-md px-4 py-3 border border-border">
+      <div className="bg-card/80 backdrop-blur-sm rounded-2xl rounded-tl-sm px-4 py-3 border border-border/60 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
             {[0, 1, 2].map((i) => (
               <motion.span
                 key={i}
-                className="w-1.5 h-1.5 rounded-full bg-primary"
-                animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+                className="w-1.5 h-1.5 rounded-full bg-primary/70"
+                animate={{ opacity: [0.2, 1, 0.2], scale: [0.7, 1.15, 0.7] }}
                 transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
               />
             ))}
           </div>
-          <span className="text-[10px] text-primary font-medium">{thinkingText}</span>
+          <span className="text-[10px] text-primary/70 font-medium">{thinkingText}</span>
         </div>
       </div>
     </div>
@@ -1185,18 +1185,18 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             />
             <motion.button
               onClick={openChat}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.92 }}
-              className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary text-primary-foreground shadow-2xl cursor-pointer flex items-center justify-center gap-1.5"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary via-primary to-primary/90 text-primary-foreground shadow-2xl cursor-pointer flex items-center justify-center gap-1.5 ring-1 ring-white/10"
               style={{
-                boxShadow: '0 4px 24px rgba(194,86,44,0.3), 0 0 40px rgba(194,86,44,0.1)',
+                boxShadow: '0 8px 32px -4px rgba(194,86,44,0.35), 0 0 48px -8px rgba(194,86,44,0.12)',
               }}
               aria-label="Open InsureGPT AI Chat"
             >
-              <Brain className="w-6 h-6 md:w-7 md:h-7 text-primary-foreground" />
+              <Brain className="w-6 h-6 md:w-7 md:h-7 text-primary-foreground drop-shadow-sm" />
             </motion.button>
             {/* Label */}
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-1 rounded-lg bg-card/90 border border-border text-[10px] font-bold text-primary tracking-wider">
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-1 rounded-md bg-card/95 backdrop-blur-sm border border-border/60 text-[10px] font-bold text-primary tracking-wider shadow-lg shadow-black/10">
               InsureGPT
             </div>
           </motion.div>
@@ -1210,7 +1210,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed left-1/2 -translate-x-1/2 z-[45] md:z-[70] flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-full shadow-xl cursor-pointer transition-bottom duration-300"
+            className="fixed left-1/2 -translate-x-1/2 z-[45] md:z-[70] flex items-center gap-2 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground px-4 py-2.5 rounded-full shadow-xl cursor-pointer transition-bottom duration-300 ring-1 ring-white/10"
             style={{
               bottom: stickyCTAVisible ? '88px' : '24px',
             }}
@@ -1239,21 +1239,21 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
           />
           <motion.div
             key="chat-window"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 16, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            exit={{ opacity: 0, y: 16, scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 22 }}
             className="fixed inset-0 md:inset-auto md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-[70]
                        w-full md:w-[440px]
                        h-full md:h-[660px]
-                       md:rounded-2xl
+                       md:rounded-3xl
                        flex flex-col overflow-hidden rounded-2xl
-                       border border-border
-                       bg-card
-                       shadow-2xl shadow-black/30"
+                       border border-border/50
+                       bg-card/95 backdrop-blur-2xl
+                       shadow-[0_24px_80px_-12px_rgba(0,0,0,0.4),0_0_1px_0_rgba(255,255,255,0.05)_inset]"
           >
             {/* ── Chat Header ── */}
-            <div className="relative shrink-0 bg-card border-b border-border">
+            <div className="relative shrink-0 bg-card/80 backdrop-blur-md border-b border-border/50">
 
               <div className="relative z-10 px-4 py-3 flex items-center justify-between">
                 {/* Left: Avatar + Info */}
@@ -1269,10 +1269,10 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     <History className="w-3.5 h-3.5" />
                   </Button>
                   <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-md shadow-primary/20">
-                      <Brain className="w-5 h-5 text-primary-foreground" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/25 ring-1 ring-white/10">
+                      <Brain className="w-5 h-5 text-primary-foreground drop-shadow-sm" />
                     </div>
-                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-card" />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-card ring-1 ring-emerald-400/30" />
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-base leading-tight text-foreground whitespace-nowrap">InsureGPT</h3>
@@ -1343,7 +1343,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             </div>
 
             {/* ── Quick Action Pills ── */}
-            <div className="px-3 py-2 border-b border-border shrink-0 bg-muted/30">
+            <div className="px-3 py-2.5 border-b border-border/40 shrink-0 bg-muted/20">
               <QuickReplyCarousel
                 actions={langConfig.quickActions}
                 onReply={handleQuickAction}
@@ -1354,13 +1354,13 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             {/* ── Messages Area ── */}
             <div
               ref={scrollContainerRef}
-              className="flex-1 overflow-y-auto px-4 py-4 scroll-smooth"
+              className="flex-1 overflow-y-auto px-4 py-5 scroll-smooth"
               style={{
                 scrollbarWidth: 'thin',
-                scrollbarColor: 'hsl(var(--primary) / 0.2) transparent',
+                scrollbarColor: 'hsl(var(--primary) / 0.15) transparent',
               }}
             >
-              <div className="space-y-1">
+              <div className="space-y-0">
                 {messages.map((msg) => {
                   const isCurrentlyStreaming = msg.id === streamingMsgId;
                   const isPlayingTTS = playingTTSId === msg.id;
@@ -1379,15 +1379,15 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                       {/* Avatar */}
                       {msg.role === 'bot' ? (
                         <motion.div
-                          className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-primary/15"
+                          className="w-8 h-8 rounded-full bg-gradient-to-br from-primary via-primary to-primary/80 flex items-center justify-center shrink-0 mt-0.5 shadow-lg shadow-primary/20 ring-1 ring-primary/10"
                           animate={isCurrentlyStreaming ? { scale: [1, 1.06, 1] } : {}}
                           transition={isCurrentlyStreaming ? { duration: 1.5, repeat: Infinity, ease: 'easeInOut' } : {}}
                         >
-                          <Bot className="w-4 h-4 text-primary-foreground" />
+                          <Bot className="w-4 h-4 text-primary-foreground drop-shadow-sm" />
                         </motion.div>
                       ) : (
-                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-primary/15">
-                          <User className="w-4 h-4 text-primary-foreground" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-muted to-muted/80 flex items-center justify-center shrink-0 mt-0.5 shadow-sm ring-1 ring-border/50">
+                          <User className="w-4 h-4 text-muted-foreground" />
                         </div>
                       )}
 
@@ -1395,8 +1395,8 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                       <div
                         className={`max-w-[80%] relative break-words ${
                           msg.role === 'user'
-                            ? 'bg-primary text-primary-foreground rounded-2xl rounded-tr-sm px-4 py-2.5 shadow-md shadow-primary/15'
-                            : 'bg-card text-foreground rounded-2xl rounded-tl-sm px-4 py-2.5 border border-border'
+                            ? 'bg-gradient-to-br from-primary to-primary/90 text-primary-foreground rounded-2xl rounded-tr-sm px-4 py-3 shadow-lg shadow-primary/20 ring-1 ring-white/10'
+                            : 'bg-card/70 backdrop-blur-sm text-foreground rounded-2xl rounded-tl-sm px-4 py-3 border border-border/40 shadow-sm'
                         }`}
                       >
                         {msg.role === 'bot' ? (
@@ -1506,7 +1506,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             </AnimatePresence>
 
             {/* ── Input Area ── */}
-            <div className="px-3 py-3 border-t border-border bg-card shrink-0">
+            <div className="px-3 py-3 border-t border-border/40 bg-card/80 backdrop-blur-md shrink-0">
               <form onSubmit={handleSubmit} className="flex items-center gap-2">
                 {/* Voice Input Button */}
                 <Button
@@ -1529,7 +1529,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder={langConfig.placeholder}
                   disabled={isLoading || !!streamingMsgId}
-                  className="flex-1 h-10 rounded-full text-sm border-border bg-muted text-foreground placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-primary/10 px-4"
+                  className="flex-1 h-10 rounded-full text-sm border-border/60 bg-muted/80 text-foreground placeholder:text-muted-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/15 px-4 transition-all duration-200"
                 />
                 <InlineSendStopButton
                   isLoading={isLoading || !!streamingMsgId}

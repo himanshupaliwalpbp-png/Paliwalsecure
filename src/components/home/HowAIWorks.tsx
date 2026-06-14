@@ -33,11 +33,20 @@ const stepDescs: Record<string, { en: string; hi: string; hg: string }> = {
 
 /* ── Animation ─────────────────────────────────────────────────────── */
 const stepVariants: Variants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 40, scale: 0.96 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.18, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+    scale: 1,
+    transition: { delay: i * 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
+
+const lineVariants: Variants = {
+  hidden: { scaleX: 0, originX: 0 },
+  visible: (i: number) => ({
+    scaleX: 1,
+    transition: { delay: i * 0.2 + 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
@@ -51,27 +60,34 @@ export default function HowAIWorks() {
   const subtitle = isHindi ? 'आपके आदर्श प्लान के लिए 3 आसान कदम' : isEnglish ? '3 simple steps to your perfect plan' : 'Aapke perfect plan ke liye 3 aasan steps';
 
   return (
-    <section className="py-24 px-4">
+    <section className="py-28 md:py-36 px-4 relative overflow-hidden">
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/[0.03] rounded-full blur-[120px]" />
+      </div>
+
       <div className="mx-auto max-w-5xl">
         {/* ── Header ──────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-          className="mb-14 text-center"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mb-16 md:mb-20 text-center"
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary">
+            How it works
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.1]">
             {heading}
           </h2>
-          <p className="mt-3 text-muted-foreground text-base md:text-lg max-w-lg mx-auto">
+          <p className="mt-4 text-muted-foreground text-base md:text-lg max-w-md mx-auto leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
 
         {/* ── Steps ───────────────────────────────────────────────── */}
-        {/* Desktop: horizontal, Mobile: vertical */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-start gap-6 md:gap-0 relative">
+        <div className="flex flex-col md:flex-row items-stretch md:items-start gap-8 md:gap-0 relative">
           {steps.map((step, i) => {
             const Icon = step.icon;
             const isLast = i === steps.length - 1;
@@ -97,41 +113,62 @@ export default function HowAIWorks() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-80px" }}
-                  className="flex-1 flex flex-col items-center text-center relative z-10"
+                  className="flex-1 flex flex-col items-center text-center relative z-10 group"
                 >
-                  {/* Numbered circle — clean primary */}
-                  <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-mono text-sm mb-5">
-                    {step.number}
+                  {/* Premium glass card */}
+                  <div className="relative bg-card/60 backdrop-blur-sm border border-border/60 rounded-2xl p-6 md:p-8 w-full transition-all duration-500 hover:border-primary/20 hover:shadow-[0_8px_40px_-12px_rgba(var(--primary),0.08)] hover:bg-card/80">
+                    {/* Step number — premium mono badge */}
+                    <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-mono text-xs font-bold mb-5">
+                      {String(step.number).padStart(2, '0')}
+                    </div>
+
+                    {/* Icon — refined treatment */}
+                    <div className="w-12 h-12 rounded-xl bg-primary/[0.07] border border-primary/[0.10] flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105">
+                      <Icon className="w-5 h-5 text-primary" strokeWidth={1.6} />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-heading font-semibold text-foreground text-base md:text-lg mb-2 tracking-tight">
+                      {stepTitle}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground leading-relaxed max-w-[62ch]">
+                      {stepDesc}
+                    </p>
                   </div>
-
-                  {/* Icon */}
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                    <Icon className="w-5 h-5 text-primary" strokeWidth={1.8} />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="font-heading font-semibold text-foreground text-base mb-2">
-                    {stepTitle}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-muted-foreground leading-relaxed max-w-[62ch]">
-                    {stepDesc}
-                  </p>
                 </motion.div>
 
-                {/* Connecting hairline */}
+                {/* Connecting line */}
                 {!isLast && (
                   <>
-                    {/* Desktop: horizontal hairline */}
-                    <div className="hidden md:flex flex-1 items-center relative top-5">
-                      <div className="w-full border-t border-border" />
-                    </div>
+                    {/* Desktop: animated horizontal line */}
+                    <motion.div
+                      custom={i}
+                      variants={lineVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: "-80px" }}
+                      className="hidden md:flex flex-1 items-center relative top-16 px-2"
+                    >
+                      <div className="w-full h-px bg-gradient-to-r from-primary/30 via-primary/15 to-primary/30" />
+                      <div className="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary/40" />
+                    </motion.div>
 
-                    {/* Mobile: vertical hairline */}
-                    <div className="flex md:hidden items-center justify-center h-8">
-                      <div className="h-full border-l border-border" />
-                    </div>
+                    {/* Mobile: animated vertical line */}
+                    <motion.div
+                      custom={i}
+                      variants={{
+                        hidden: { scaleY: 0, originY: 0 },
+                        visible: { scaleY: 1, transition: { delay: i * 0.2 + 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+                      }}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: "-80px" }}
+                      className="flex md:hidden items-center justify-center h-6"
+                    >
+                      <div className="h-full w-px bg-gradient-to-b from-primary/30 via-primary/15 to-primary/30" />
+                    </motion.div>
                   </>
                 )}
               </React.Fragment>
