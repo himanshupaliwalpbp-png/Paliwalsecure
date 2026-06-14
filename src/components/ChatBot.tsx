@@ -1,0 +1,741 @@
+'use client';
+
+import { useState, useRef, useEffect, useCallback, type FormEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MessageCircle, X, Send, Mic, MicOff, Bot, User, AlertTriangle, Phone, RotateCcw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
+import { type UserProfile, IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
+import {
+  loadChatMemory,
+  recordVisit,
+  extractInfoFromMessage,
+  updateChatMemory,
+  buildPersonalizedGreeting,
+  buildMemoryContextString,
+  type ChatMemory,
+} from '@/lib/chat-memory';
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+interface ChatBotProps {
+  profile?: UserProfile | null;
+}
+
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'bot';
+  content: string;
+  timestamp: Date;
+}
+
+// ---------------------------------------------------------------------------
+// Speech Recognition types (not in standard TS libs)
+// ---------------------------------------------------------------------------
+interface SpeechRecognitionEvent {
+  results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionResultList {
+  [index: number]: SpeechRecognitionResult;
+  length: number;
+}
+
+interface SpeechRecognitionResult {
+  [index: number]: SpeechRecognitionAlternative;
+  isFinal: boolean;
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string;
+}
+
+interface ISpeechRecognition extends EventTarget {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+function generateId(): string {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+const QUICK_SUGGESTIONS = [
+  'Health insurance kya hai?',
+  'Mujhe plan recommend karo',
+  'Claim kaise file karein?',
+  '80D mein tax benefit?',
+  'Term insurance kya hota hai?',
+];
+
+// ---------------------------------------------------------------------------
+// Claim Rejection Detection
+// ---------------------------------------------------------------------------
+const CLAIM_REJECTION_KEYWORDS = [
+  'claim rejected', 'claim reject', 'claim repudiated', 'claim denial',
+  'insurer not paying', 'insurance not paying', 'claim not settled',
+  'claim refused', 'claim declined', 'claim dismissed',
+  'company ne claim reject', 'claim nahi mila', 'paisa nahi mila',
+  'mera claim reject', 'claim reject ho gaya', 'claim rejected kya kare',
+  'insurance company ne mana', 'claim reject kaise appeal',
+  'ombudsman', 'grievance', 'bima bharosa',
+];
+
+function isClaimRejectionQuery(text: string): boolean {
+  const lower = text.toLowerCase();
+  return CLAIM_REJECTION_KEYWORDS.some(keyword => lower.includes(keyword));
+}
+
+/**
+ * Lightweight markdown-like renderer for bot messages.
+ * Supports: **bold**, *italic*, `code`, - lists, numbered lists
+ */
+function renderBotContent(content: string): React.ReactNode[] {
+  const lines = content.split('\n');
+  const nodes: React.ReactNode[] = [];
+
+  lines.forEach((line, lineIdx) => {
+    if (line.trim() === '') {
+      nodes.push(<br key={`br-${lineIdx}`} />);
+      return;
+    }
+
+    // Handle list items
+    const ulMatch = line.match(/^[\-\*]\s+(.*)/);
+    const olMatch = line.match(/^\d+\.\s+(.*)/);
+
+    if (ulMatch || olMatch) {
+      const text = ulMatch ? ulMatch[1] : (olMatch as RegExpMatchArray)[1];
+      nodes.push(
+        <div key={`li-${lineIdx}`} className="flex gap-2 ml-1">
+          <span className="text-blue-600 shrink-0">{ulMatch ? '\u2022' : line.match(/^\d+/)?.[0] + '.'}</span>
+          <span>{renderInlineMarkdown(text)}</span>
+        </div>
+      );
+      return;
+    }
+
+    nodes.push(<span key={`line-${lineIdx}`}>{renderInlineMarkdown(line)}</span>);
+
+    // Add newline between lines (but not after the last one)
+    if (lineIdx < lines.length - 1) {
+      nodes.push(<br key={`br-after-${lineIdx}`} />);
+    }
+  });
+
+  return nodes;
+}
+
+function renderInlineMarkdown(text: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  // Pattern: **bold**, *italic*, `code`
+  const regex = /(\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(text)) !== null) {
+    // Text before match
+    if (match.index > lastIndex) {
+      parts.push(<span key={`t-${lastIndex}`}>{text.slice(lastIndex, match.index)}</span>);
+    }
+
+    if (match[2]) {
+      // **bold**
+      parts.push(<strong key={`b-${match.index}`} className="font-semibold text-indigo-700">{match[2]}</strong>);
+    } else if (match[3]) {
+      // *italic*
+      parts.push(<em key={`i-${match.index}`}>{match[3]}</em>);
+    } else if (match[4]) {
+      // `code`
+      parts.push(
+        <code key={`c-${match.index}`} className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">
+          {match[4]}
+        </code>
+      );
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Remaining text
+  if (lastIndex < text.length) {
+    parts.push(<span key={`t-${lastIndex}`}>{text.slice(lastIndex)}</span>);
+  }
+
+  return parts;
+}
+
+// ---------------------------------------------------------------------------
+// Typing Indicator
+// ---------------------------------------------------------------------------
+function TypingIndicator() {
+  return (
+    <div className="flex items-start gap-2 mb-4">
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-sm">
+        <Bot className="w-4 h-4 text-white" />
+      </div>
+      <div className="bg-muted rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%]">
+        <div className="flex items-center gap-1.5">
+          <motion.span
+            className="w-2 h-2 bg-indigo-500 rounded-full"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+          />
+          <motion.span
+            className="w-2 h-2 bg-indigo-500 rounded-full"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
+          />
+          <motion.span
+            className="w-2 h-2 bg-indigo-500 rounded-full"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Claim Rejection Alert
+// ---------------------------------------------------------------------------
+function ClaimRejectionAlert() {
+  return (
+    <div className="mt-3 rounded-xl border border-red-200 dark:border-red-800/40 bg-red-50 dark:bg-red-950/30 p-4 space-y-3">
+      <div className="flex items-center gap-2">
+        <AlertTriangle className="h-4 w-4 text-red-600 dark:text-red-400" />
+        <h4 className="text-sm font-bold text-red-700 dark:text-red-300">
+          Claim Rejected? Know Your Rights
+        </h4>
+      </div>
+      <div className="space-y-2">
+        <div className="flex items-start gap-2">
+          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
+          <p className="text-xs text-red-700 dark:text-red-300 leading-relaxed">
+            <strong>Step 1:</strong> Contact your insurer&apos;s <strong>Grievance Redressal Officer</strong> — they must respond within 30 days
+          </p>
+        </div>
+        <div className="flex items-start gap-2">
+          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+          <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+            <strong>Step 2:</strong> File complaint on <strong>Bima Bharosa Portal</strong> (IRDAI) — <a href="https://bimabharosa.irdai.gov.in" target="_blank" rel="noopener noreferrer" className="underline font-semibold">bimabharosa.irdai.gov.in</a>
+          </p>
+        </div>
+        <div className="flex items-start gap-2">
+          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+          <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+            <strong>Step 3:</strong> Approach <strong>Insurance Ombudsman</strong> — for claims up to ₹50 Lakh, free of cost
+          </p>
+        </div>
+      </div>
+      <div className="pt-2 border-t border-red-200 dark:border-red-800/30">
+        <p className="text-[11px] text-red-600 dark:text-red-400 font-medium">
+          ⚖️ IRDAI Moratorium: After 5 continuous years, no claim can be rejected for non-disclosure (except proven fraud)
+        </p>
+      </div>
+      <div className="flex items-center gap-2 pt-1">
+        <Phone className="h-3 w-3 text-red-500" />
+        <p className="text-[11px] text-red-600 dark:text-red-400">
+          IRDAI Toll-Free: <strong>1800-425-4732</strong> | Ombudsman: <strong>info@cioins.co.in</strong>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// ChatBot Component
+// ---------------------------------------------------------------------------
+export default function ChatBot({ profile }: ChatBotProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const [chatMemory, setChatMemory] = useState<ChatMemory | null>(null);
+  const [isReturning, setIsReturning] = useState(false);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const recognitionRef = useRef<ISpeechRecognition | null>(null);
+
+  // Check Speech API support on mount
+  useEffect(() => {
+    const SpeechRecognitionAPI =
+      (window as unknown as Record<string, unknown>).SpeechRecognition ||
+      (window as unknown as Record<string, unknown>).webkitSpeechRecognition;
+    setSpeechSupported(!!SpeechRecognitionAPI);
+  }, []);
+
+  // Load chat memory and record visit on mount
+  useEffect(() => {
+    const memory = loadChatMemory();
+    const returning = memory.visitCount > 0;
+    setIsReturning(returning);
+    setChatMemory(memory);
+
+    // Record this visit
+    const updated = recordVisit();
+    setChatMemory(updated);
+  }, []);
+
+  // Initial welcome message (with personalization)
+  useEffect(() => {
+    if (messages.length === 0 && chatMemory !== null) {
+      const greeting = buildPersonalizedGreeting();
+
+      setMessages([
+        {
+          id: generateId(),
+          role: 'bot',
+          content: greeting,
+          timestamp: new Date(),
+        },
+      ]);
+    }
+  }, [chatMemory]);
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (scrollRef.current) {
+      const viewport = scrollRef.current.querySelector('[data-slot="scroll-area-viewport"]');
+      if (viewport) {
+        viewport.scrollTop = viewport.scrollHeight;
+      }
+    }
+  }, [messages, isLoading]);
+
+  // Focus input when chat opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 300);
+    }
+  }, [isOpen]);
+
+  // ---------------------------------------------------------------------------
+  // Send message
+  // ---------------------------------------------------------------------------
+  const sendMessage = useCallback(
+    async (text: string) => {
+      if (!text.trim() || isLoading) return;
+
+      const userMessage: ChatMessage = {
+        id: generateId(),
+        role: 'user',
+        content: text.trim(),
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, userMessage]);
+      setInputValue('');
+      setIsLoading(true);
+
+      // Extract info from message and update chat memory
+      const extracted = extractInfoFromMessage(text.trim());
+      const hasExtractedInfo = Object.keys(extracted).length > 0;
+      if (hasExtractedInfo) {
+        const updated = updateChatMemory(extracted);
+        setChatMemory(updated);
+      }
+
+      try {
+        const history = messages.map((m) => ({
+          role: m.role,
+          content: m.content,
+        }));
+
+        // Build memory context for API
+        const currentMemory = loadChatMemory();
+        const memoryContext = buildMemoryContextString();
+
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text.trim(),
+            profile: profile ?? undefined,
+            history,
+            memory: memoryContext || undefined,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.success && data.response) {
+          const botMessage: ChatMessage = {
+            id: generateId(),
+            role: 'bot',
+            content: data.response,
+            timestamp: new Date(),
+          };
+          setMessages((prev) => [...prev, botMessage]);
+        } else {
+          const errorMessage: ChatMessage = {
+            id: generateId(),
+            role: 'bot',
+            content:
+              "I'm sorry, I couldn't process your request. Please try again or rephrase your question.",
+            timestamp: new Date(),
+          };
+          setMessages((prev) => [...prev, errorMessage]);
+        }
+      } catch {
+        const errorMessage: ChatMessage = {
+          id: generateId(),
+          role: 'bot',
+          content:
+            "I'm having trouble connecting right now. Please check your internet connection and try again.",
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, errorMessage]);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isLoading, messages, profile]
+  );
+
+  // ---------------------------------------------------------------------------
+  // Form submit
+  // ---------------------------------------------------------------------------
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    sendMessage(inputValue);
+  };
+
+  // ---------------------------------------------------------------------------
+  // Voice input
+  // ---------------------------------------------------------------------------
+  const toggleVoice = useCallback(() => {
+    if (!speechSupported) return;
+
+    if (isRecording && recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsRecording(false);
+      return;
+    }
+
+    const SpeechRecognitionAPI =
+      (window as unknown as Record<string, unknown>).SpeechRecognition ||
+      (window as unknown as Record<string, unknown>).webkitSpeechRecognition;
+
+    if (!SpeechRecognitionAPI) return;
+
+    const recognition = new (SpeechRecognitionAPI as new () => ISpeechRecognition)();
+    recognition.lang = 'en-IN';
+    recognition.interimResults = false;
+    recognition.continuous = false;
+
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const transcript = event.results[0][0].transcript;
+      setInputValue(transcript);
+      setIsRecording(false);
+    };
+
+    recognition.onerror = () => {
+      setIsRecording(false);
+    };
+
+    recognition.onend = () => {
+      setIsRecording(false);
+    };
+
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsRecording(true);
+  }, [isRecording, speechSupported]);
+
+  // ---------------------------------------------------------------------------
+  // Quick suggestion click
+  // ---------------------------------------------------------------------------
+  const handleSuggestion = (suggestion: string) => {
+    sendMessage(suggestion);
+  };
+
+  // ---------------------------------------------------------------------------
+  // Render
+  // ---------------------------------------------------------------------------
+  return (
+    <>
+      {/* Floating Chat Button */}
+      <AnimatePresence>
+        {!isOpen && (
+          <div className="fixed bottom-6 right-6 z-[60] flex items-center gap-3">
+            {/* Paliwal Secure AI Label Badge - visible on sm+ screens */}
+            <motion.div
+              key="chat-label"
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ delay: 0.5, duration: 0.3 }}
+              className="hidden sm:flex items-center"
+            >
+              <span className="bg-white shadow-md rounded-full px-3 py-1.5 text-xs font-semibold text-blue-700 border border-blue-200">
+                InsureGPT
+              </span>
+            </motion.div>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <motion.button
+                  key="chat-fab"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: 'spring' as const, stiffness: 260, damping: 20 }}
+                  onClick={() => setIsOpen(true)}
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 text-white shadow-lg hover:shadow-xl hover:from-indigo-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center group cursor-pointer relative"
+                  aria-label="Open chat"
+                >
+                  <MessageCircle className="w-7 h-7 group-hover:scale-110 transition-transform" />
+                  {/* Pulse ring */}
+                  <span className="absolute inset-0 rounded-full bg-indigo-500 animate-ping opacity-20" />
+                </motion.button>
+              </TooltipTrigger>
+              <TooltipContent side="left" sideOffset={8}>
+                <p>Chat with InsureGPT</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Chat Panel */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="chat-panel"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
+            className="fixed bottom-0 right-0 sm:bottom-6 sm:right-6 z-[60] w-full sm:w-[400px] h-full sm:h-[600px] sm:max-h-[calc(100vh-3rem)] bg-white sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-border/50"
+          >
+            {/* Header */}
+            <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 text-white px-4 py-3 flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <Bot className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base leading-tight">InsureGPT</h3>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 bg-indigo-200 rounded-full animate-pulse" />
+                    <span className="text-xs text-indigo-100">AI Insurance Advisor</span>
+                  </div>
+                  <span className="text-[11px] text-indigo-100 font-medium">Powered by Himanshu Paliwal</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-1">
+                {profile && (
+                  <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs mr-1 gap-1">
+                    🧠 Personalized
+                  </Badge>
+                )}
+                {isReturning && !profile && (
+                  <Badge variant="secondary" className="bg-white/20 text-white border-0 text-xs mr-1 gap-1">
+                    🧠 Remembered
+                  </Badge>
+                )}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        const greeting = buildPersonalizedGreeting();
+                        setMessages([
+                          {
+                            id: generateId(),
+                            role: 'bot',
+                            content: greeting,
+                            timestamp: new Date(),
+                          },
+                        ]);
+                      }}
+                      className="text-white hover:bg-white/20 h-8 w-8"
+                      aria-label="Reset chat"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Chat reset karein</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsOpen(false)}
+                  className="text-white hover:bg-white/20 h-8 w-8"
+                  aria-label="Close chat"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Messages Area */}
+            <ScrollArea ref={scrollRef} className="flex-1 px-4 py-4">
+              <div className="space-y-1">
+                {messages.map((msg, msgIdx) => (
+                  <div
+                    key={msg.id}
+                    className={`flex items-start gap-2 mb-4 ${
+                      msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
+                    }`}
+                  >
+                    {/* Avatar */}
+                    {msg.role === 'bot' ? (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shrink-0 shadow-sm">
+                        <Bot className="w-4 h-4 text-white" />
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 flex items-center justify-center shrink-0 shadow-sm">
+                        <User className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+
+                    {/* Bubble */}
+                    <div
+                      className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                        msg.role === 'user'
+                          ? 'bg-gradient-to-br from-indigo-500 to-blue-600 text-white rounded-tr-sm'
+                          : 'bg-muted text-foreground rounded-tl-sm'
+                      }`}
+                    >
+                      {msg.role === 'bot' ? (
+                        <div className="space-y-1">{renderBotContent(msg.content)}</div>
+                      ) : (
+                        <p>{msg.content}</p>
+                      )}
+                    </div>
+
+                    {/* Claim rejection alert — shown after bot response to claim rejection queries */}
+                    {msg.role === 'bot' && msgIdx > 0 && messages[msgIdx - 1]?.role === 'user' && isClaimRejectionQuery(messages[msgIdx - 1].content) && (
+                      <ClaimRejectionAlert />
+                    )}
+                  </div>
+                ))}
+
+                {/* Typing indicator */}
+                {isLoading && <TypingIndicator />}
+              </div>
+
+              {/* IRDAI Disclaimer */}
+              {messages.length > 1 && (
+                <div className="mt-4 mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-xs text-amber-700 leading-snug">
+                    ⚠️ <strong>IRDAI Disclaimer:</strong> {IRDAI_MANDATORY_DISCLAIMER}
+                  </p>
+                </div>
+              )}
+            </ScrollArea>
+
+            {/* Quick Suggestions */}
+            {messages.length <= 2 && !isLoading && (
+              <div className="px-4 pb-2 shrink-0">
+                <p className="text-xs text-muted-foreground mb-2 font-medium">Quick questions:</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {QUICK_SUGGESTIONS.map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      onClick={() => handleSuggestion(suggestion)}
+                      className="px-3 py-2 text-xs rounded-full border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-300 transition-colors cursor-pointer whitespace-nowrap min-h-[32px]"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Input Area */}
+            <div className="border-t bg-white px-3 sm:px-4 py-3 shrink-0">
+              <form onSubmit={handleSubmit} className="flex items-center gap-2">
+                <div className="relative flex-1">
+                  <Input
+                    ref={inputRef}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Ask about insurance..."
+                    disabled={isLoading}
+                    className="pr-0 h-10 rounded-full border-border/60 focus-visible:ring-indigo-500/30 text-sm"
+                  />
+                </div>
+
+                {/* Voice Button */}
+                {speechSupported ? (
+                  <Button
+                    type="button"
+                    variant={isRecording ? 'destructive' : 'ghost'}
+                    size="icon"
+                    onClick={toggleVoice}
+                    className={`h-10 w-10 rounded-full shrink-0 transition-all ${
+                      isRecording
+                        ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
+                        : 'hover:bg-indigo-50 hover:text-indigo-600'
+                    }`}
+                    aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
+                  >
+                    {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                  </Button>
+                ) : (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        disabled
+                        className="h-10 w-10 rounded-full shrink-0 opacity-50"
+                        aria-label="Voice not supported"
+                      >
+                        <MicOff className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">
+                      <p>Voice input not supported in this browser</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+
+                {/* Send Button */}
+                <Button
+                  type="submit"
+                  disabled={!inputValue.trim() || isLoading}
+                  className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white shrink-0 shadow-sm disabled:opacity-50"
+                  size="icon"
+                  aria-label="Send message"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </form>
+              {/* Powered by branding */}
+              <div className="flex items-center justify-center gap-1.5 mt-2">
+                <span className="h-px flex-1 bg-slate-200" />
+                <p className="text-center text-[10px] sm:text-xs text-slate-400 font-medium whitespace-nowrap">Powered by Himanshu Paliwal</p>
+                <span className="h-px flex-1 bg-slate-200" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

@@ -1,0 +1,262 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { useSafeTheme } from '@/lib/safe-theme-provider';
+import { useLanguage } from '@/lib/i18n';
+import {
+  CardTransformed,
+  CardsContainer,
+  ContainerScroll,
+  ReviewStars,
+} from '@/components/ui/animated-cards-stack';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Shield } from 'lucide-react';
+
+/* ── PaliwalSecure Testimonials Data — Bilingual EN/HI/HG ──────────────── */
+const TESTIMONIALS = [
+  {
+    id: 'rajesh-health',
+    name: { en: 'Rajesh Sharma', hi: 'राजेश शर्मा', hg: 'Rajesh Sharma' },
+    profession: { en: 'Business Owner', hi: 'व्यवसायी', hg: 'Business Owner' },
+    city: { en: 'Jaipur', hi: 'जयपुर', hg: 'Jaipur' },
+    rating: 5,
+    description: {
+      en: 'Paliwal ji ne meri health insurance mein ₹15,000 bachaye. Unka AI recommendation ekdum sahi tha!',
+      hi: 'पालीवाल जी ने मेरी हेल्थ इंश्योरेंस में ₹15,000 बचाए। उनका AI सुझाव एकदम सही था!',
+      hg: 'Paliwal ji ne meri health insurance mein ₹15,000 bachaye. Unka AI recommendation ekdum sahi tha!',
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
+    policy: 'Health Insurance',
+  },
+  {
+    id: 'priya-car',
+    name: { en: 'Priya Patel', hi: 'प्रिया पटेल', hg: 'Priya Patel' },
+    profession: { en: 'Teacher', hi: 'शिक्षिका', hg: 'Teacher' },
+    city: { en: 'Kota', hi: 'कोटा', hg: 'Kota' },
+    rating: 5,
+    description: {
+      en: 'Car insurance claim mein itni aasani se madad mili. WhatsApp pe hi sab ho gaya!',
+      hi: 'कार इंश्योरेंस क्लेम में इतनी आसानी से मदद मिली। WhatsApp पर ही सब हो गया!',
+      hg: 'Car insurance claim mein itni aasani se madad mili. WhatsApp pe hi sab ho gaya!',
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
+    policy: 'Car Insurance',
+  },
+  {
+    id: 'amit-term',
+    name: { en: 'Amit Kumar', hi: 'अमित कुमार', hg: 'Amit Kumar' },
+    profession: { en: 'Software Engineer', hi: 'सॉफ्टवेयर इंजीनियर', hg: 'Software Engineer' },
+    city: { en: 'Delhi', hi: 'दिल्ली', hg: 'Delhi' },
+    rating: 5,
+    description: {
+      en: 'Term insurance ke liye Paliwal Secure se better koi nahi. Transparent aur reliable.',
+      hi: 'टर्म इंश्योरेंस के लिए पालीवाल सेक्योर से बेहतर कोई नहीं। पारदर्शी और विश्वसनीय।',
+      hg: 'Term insurance ke liye Paliwal Secure se better koi nahi. Transparent aur reliable.',
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+    policy: 'Term Insurance',
+  },
+  {
+    id: 'sunita-family',
+    name: { en: 'Sunita Meena', hi: 'सुनीता मीणा', hg: 'Sunita Meena' },
+    profession: { en: 'Government Employee', hi: 'सरकारी कर्मचारी', hg: 'Government Employee' },
+    city: { en: 'Jaipur', hi: 'जयपुर', hg: 'Jaipur' },
+    rating: 5,
+    description: {
+      en: 'Family floater health insurance ka comparison itna easy tha. 10 minute mein best plan mil gaya!',
+      hi: 'फैमिली फ्लोटर हेल्थ इंश्योरेंस का कम्पेरिज़न इतना आसान था। 10 मिनट में बेस्ट प्लान मिल गया!',
+      hg: 'Family floater health insurance ka comparison itna easy tha. 10 minute mein best plan mil gaya!',
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
+    policy: 'Family Health',
+  },
+  {
+    id: 'vikram-bike',
+    name: { en: 'Vikram Singh', hi: 'विक्रम सिंह', hg: 'Vikram Singh' },
+    profession: { en: 'Student', hi: 'छात्र', hg: 'Student' },
+    city: { en: 'Kota', hi: 'कोटा', hg: 'Kota' },
+    rating: 4.5,
+    description: {
+      en: 'Bike insurance renewal kabhi itni simple nahi thi. Paliwal ji ke AI ne best rate dhoondh liya!',
+      hi: 'बाइक इंश्योरेंस रिन्यूअल कभी इतनी सिंपल नहीं थी। पालीवाल जी के AI ने बेस्ट रेट ढूंढ लिया!',
+      hg: 'Bike insurance renewal kabhi itni simple nahi thi. Paliwal ji ke AI ne best rate dhoondh liya!',
+    },
+    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face',
+    policy: 'Bike Insurance',
+  },
+];
+
+/* ── Helper ────────────────────────────────────────────────────────────── */
+function tr(data: { en: string; hi: string; hg: string }, isHindi: boolean, isEnglish: boolean) {
+  return isHindi ? data.hi : isEnglish ? data.en : data.hg;
+}
+
+/* ── Main Component ────────────────────────────────────────────────────── */
+export default function TestimonialsSection() {
+  const { resolvedTheme } = useSafeTheme();
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
+  // Wait for mount to avoid hydration mismatch with next-themes
+  const [mounted, setMounted] = useState(false);
+  const mountRef = useRef(false);
+  useEffect(() => {
+    if (!mountRef.current) {
+      mountRef.current = true;
+      // Defer state update to avoid synchronous setState in effect
+      requestAnimationFrame(() => setMounted(true));
+    }
+  }, []);
+  // Hydration-safe: default to dark, only treat as light when explicitly 'light'
+  const isLight = mounted && resolvedTheme === 'light';
+
+  const badge = isHindi ? 'विश्वसनीय समीक्षाएँ' : 'Trusted Reviews';
+  const heading = isHindi ? 'असली परिवार, असली बचत' : isEnglish ? 'Real families, real savings' : 'Asli parivaar, asli bachat';
+  const subtitle = isHindi
+    ? 'हज़ारों परिवारों ने Paliwal Secure पर भरोसा किया'
+    : isEnglish
+    ? 'Thousands of families trust Paliwal Secure for their insurance needs'
+    : 'Hazaaron parivaron ne Paliwal Secure par bharosa kiya';
+  const verified = isHindi ? 'IRDAI सत्यापित' : 'IRDAI Verified';
+
+  /* ── Theme-aware styles ─────────────────────────────────────────────── */
+  const sectionBg = 'bg-background text-foreground';
+
+  const cardVariant = isLight ? 'light' : 'dark';
+
+  const starsColor = 'text-primary';
+
+  const quoteColor = 'text-muted-foreground';
+
+  const nameColor = undefined;
+
+  const avatarBorder = '!size-12 border border-border';
+
+  const subtitleColor = 'text-muted-foreground';
+
+  const policyClass = 'text-xs font-mono text-muted-foreground uppercase tracking-wider';
+
+  const professionColor = 'text-muted-foreground';
+
+  const shieldColor = 'text-[var(--trust)]';
+  const shieldTextColor = 'text-[var(--trust)]';
+
+  return (
+    <section
+      id="testimonials"
+      dir="ltr"
+      className={`relative w-full px-4 sm:px-8 py-24 md:py-32 ${sectionBg}`}
+      aria-label="Customer testimonials"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+          {/* Badge */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-3 bg-card border border-border text-primary"
+          >
+            {badge}
+          </div>
+
+          {/* Heading */}
+          <h2
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight"
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
+            {heading
+              .split(' ')
+              .map((word: string, i: number, arr: string[]) =>
+                i === arr.length - 1 ? (
+                  <span key={i} className="italic text-primary">
+                    {' '}{word}
+                  </span>
+                ) : (
+                  <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
+                )
+              )}
+          </h2>
+
+          {/* Subtitle */}
+          <p className={`mx-auto mt-2 max-w-lg text-sm sm:text-base ${subtitleColor}`}>
+            {subtitle}
+          </p>
+
+          {/* Trust indicators */}
+          <div className="flex items-center justify-center gap-4 mt-3">
+            <div className="flex items-center gap-1">
+              <Shield className={`w-4 h-4 ${shieldColor}`} />
+              <span className={`text-xs font-medium ${shieldTextColor}`}>
+                {verified}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Animated Scrolling Cards Stack */}
+        <ContainerScroll className="container h-[180vh]">
+          <div className="sticky left-0 top-0 h-svh w-full flex items-center justify-center py-4">
+            <CardsContainer className="mx-auto h-[400px] w-[320px] sm:h-[440px] sm:w-[360px] lg:h-[460px] lg:w-[400px]">
+              {TESTIMONIALS.map((testimonial, index) => (
+                <CardTransformed
+                  arrayLength={TESTIMONIALS.length}
+                  key={testimonial.id}
+                  variant={cardVariant}
+                  index={index + 2}
+                  incrementY={8}
+                  incrementZ={8}
+                  role="article"
+                  aria-labelledby={`card-${testimonial.id}-title`}
+                  aria-describedby={`card-${testimonial.id}-content`}
+                  className="!border-border"
+                >
+                  <div className="flex flex-col items-center space-y-3 text-center">
+                    <ReviewStars
+                      className={starsColor}
+                      rating={testimonial.rating}
+                    />
+                    <div className={`mx-auto w-4/5 text-sm sm:text-base leading-relaxed ${quoteColor}`}>
+                      <blockquote cite="#" id={`card-${testimonial.id}-content`}>
+                        &ldquo;{tr(testimonial.description, isHindi, isEnglish)}&rdquo;
+                      </blockquote>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Avatar className={avatarBorder}>
+                      <AvatarImage
+                        src={testimonial.avatarUrl}
+                        alt={`Portrait of ${tr(testimonial.name, isHindi, isEnglish)}`}
+                      />
+                      <AvatarFallback>
+                        {tr(testimonial.name, isHindi, isEnglish)
+                          .split(' ')
+                          .map((n: string) => n[0])
+                          .join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-left">
+                      <span
+                        id={`card-${testimonial.id}-title`}
+                        className="block text-base font-semibold tracking-tight sm:text-lg text-foreground"
+                      >
+                        {tr(testimonial.name, isHindi, isEnglish)}
+                      </span>
+                      <span className={`block text-xs ${professionColor}`}>
+                        {tr(testimonial.profession, isHindi, isEnglish)} · {tr(testimonial.city, isHindi, isEnglish)}
+                      </span>
+                      <span
+                        className={`inline-block mt-1 px-2 py-0.5 rounded-full ${policyClass}`}
+                      >
+                        {testimonial.policy}
+                      </span>
+                    </div>
+                  </div>
+                </CardTransformed>
+              ))}
+            </CardsContainer>
+          </div>
+        </ContainerScroll>
+      </div>
+    </section>
+  );
+}

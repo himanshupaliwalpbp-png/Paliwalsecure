@@ -1,0 +1,862 @@
+'use client';
+
+import React, { useState, useCallback, useEffect } from 'react';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import {
+  Sparkles,
+  ArrowRight,
+  MessageCircle,
+  Users,
+  MapPin,
+  IndianRupee,
+  ChevronRight,
+  Star,
+  RotateCcw,
+  ShieldCheck,
+  TrendingUp,
+  Zap,
+} from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
+import { Input } from '@/components/ui/input';
+import { Slider } from '@/components/ui/slider';
+import { Progress } from '@/components/ui/progress';
+
+// ── Types ──────────────────────────────────────────────────────────────────────
+interface AdvisorFormData {
+  age: number;
+  familySize: number;
+  city: string;
+  budget: number;
+}
+
+interface PlanRecommendation {
+  insurer: string;
+  plan: string;
+  monthlyPremium: string;
+  sumInsured: string;
+  whyItFits: string;
+  claimRatio: string;
+  rating: number;
+}
+
+interface AdvisorResult {
+  success: boolean;
+  plans?: PlanRecommendation[];
+  advisorMessage?: string;
+  followUpQuestion?: string;
+  leadId?: string;
+}
+
+type Step = 1 | 2 | 3 | 4;
+
+// ── Indian Cities for autocomplete ─────────────────────────────────────────────
+const INDIAN_CITIES = [
+  'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai',
+  'Kolkata', 'Pune', 'Jaipur', 'Ahmedabad', 'Lucknow',
+  'Chandigarh', 'Indore', 'Bhopal', 'Coimbatore', 'Kochi',
+  'Nagpur', 'Surat', 'Vadodara', 'Visakhapatnam', 'Kota',
+];
+
+// ── Animation Variants ─────────────────────────────────────────────────────────
+const easeOutQuart: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const wordReveal: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.03, duration: 0.5, ease: easeOutQuart },
+  }),
+};
+
+const stepVariants: Variants = {
+  enter: { opacity: 0, x: 40 },
+  center: { opacity: 1, x: 0, transition: { duration: 0.4, ease: easeOutQuart } },
+  exit: { opacity: 0, x: -40, transition: { duration: 0.3, ease: 'easeIn' as const } },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.45, ease: easeOutQuart },
+  }),
+};
+
+// ── Typing Dots Component ─────────────────────────────────────────────────────
+function TypingDots() {
+  const [dots, setDots] = useState(1);
+  useEffect(() => {
+    const interval = setInterval(() => setDots((d) => (d % 3) + 1), 400);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <span className="inline-flex items-center gap-1">
+      <span className="text-primary">Analyzing</span>
+      {'.'.repeat(dots)}
+    </span>
+  );
+}
+
+// ── Star Rating Display ────────────────────────────────────────────────────────
+function StarRating({ rating }: { rating: number }) {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating - fullStars >= 0.3;
+  return (
+    <div className="flex items-center gap-0.5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          className={`w-3.5 h-3.5 ${
+            i < fullStars
+              ? 'text-primary fill-primary'
+              : i === fullStars && hasHalf
+              ? 'text-primary fill-primary/50'
+              : 'text-muted-foreground/20'
+          }`}
+        />
+      ))}
+      <span className="ml-1 text-xs text-muted-foreground font-mono">{rating.toFixed(1)}</span>
+    </div>
+  );
+}
+
+// ── Word-split helper for headline stagger ─────────────────────────────────────
+function splitToWords(text: string): string[] {
+  return text.split(/(\s+)/).filter((w) => w.length > 0);
+}
+
+// ── Component ──────────────────────────────────────────────────────────────────
+export default function HeroAdvisor() {
+  const { t, language } = useLanguage();
+
+  // Form state
+  const [step, setStep] = useState<Step>(1);
+  const [formData, setFormData] = useState<AdvisorFormData>({
+    age: 30,
+    familySize: 2,
+    city: '',
+    budget: 2000,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Results state
+  const [result, setResult] = useState<AdvisorResult | null>(null);
+  const [showResults, setShowResults] = useState(false);
+
+  const isHindi = language === 'hi';
+
+  // ── Localized strings ─────────────────────────────────────
+  const headlineLine1 = isHindi
+    ? 'Insurance ko samjho.'
+    : 'Insurance ko samjho.';
+  const headlineLine2 = isHindi
+    ? 'Sahi faisla chuno.'
+    : 'Sahi faisla chuno.';
+
+  const subtext = isHindi
+    ? 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.'
+    : 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.';
+
+  const primaryCTA = isHindi ? 'Quick Adviser Shuru karein →' : 'Start Quick Adviser →';
+
+  const stepLabels: Record<Step, string> = isHindi
+    ? { 1: 'Aapki umar?', 2: 'Parivaar ki sankhya?', 3: 'Shehar?', 4: 'Masik budget?' }
+    : { 1: 'Your age?', 2: 'Family size?', 3: 'Your city?', 4: 'Monthly budget?' };
+
+  const getPlanLabel = isHindi ? 'Mera plan lo →' : 'Get my plan →';
+  const orDivider = isHindi ? '─ ya ─' : '─ or ─';
+  const whatsAppInstead = isHindi ? 'WhatsApp par baat karein' : 'WhatsApp instead';
+
+  // Results view localized strings
+  const resultsTitle = isHindi ? 'AI Recommendations' : 'Your AI Recommendations';
+  const resultsSubtitle = isHindi
+    ? 'Aapke profile ke liye top plans'
+    : 'Top plans picked for your profile';
+  const advisorMessageLabel = isHindi ? 'Advisor ka sandesh' : "Advisor's Note";
+  const followUpLabel = isHindi ? 'Aage ka sawaal' : 'Follow-up Question';
+  const whatsappCTA = isHindi
+    ? 'WhatsApp par detail mein baat karein'
+    : 'Discuss details on WhatsApp';
+  const startOverLabel = isHindi ? 'Phir se shuru karein' : 'Start Over';
+  const indicativeLabel = isHindi ? '(aadharit)' : '(indicative)';
+  const claimRatioLabel = isHindi ? 'Claim Settlement Ratio' : 'Claim Settlement Ratio';
+  const whyFitsLabel = isHindi ? 'Yeh kyun fit hai' : 'Why it fits you';
+  const sumInsuredLabel = isHindi ? 'Sum Insured' : 'Sum Insured';
+  const premiumLabel = isHindi ? 'Masik premium' : 'Monthly premium';
+  const noPlansMsg = isHindi
+    ? 'Abhi plans nahi mil paaye. WhatsApp par baat karein!'
+    : 'Could not fetch plans right now. Chat with us on WhatsApp!';
+
+  // ── Handlers ──────────────────────────────────────────────
+  const handleNext = useCallback(() => {
+    if (step < 4) setStep((s) => (s + 1) as Step);
+  }, [step]);
+
+  const handleBack = useCallback(() => {
+    if (step > 1) setStep((s) => (s - 1) as Step);
+  }, [step]);
+
+  const handleCityInput = useCallback((value: string) => {
+    setFormData((prev) => ({ ...prev, city: value }));
+    if (value.length > 0) {
+      const filtered = INDIAN_CITIES.filter((c) =>
+        c.toLowerCase().startsWith(value.toLowerCase())
+      ).slice(0, 5);
+      setCitySuggestions(filtered);
+      setShowSuggestions(filtered.length > 0);
+    } else {
+      setShowSuggestions(false);
+    }
+  }, []);
+
+  const selectCity = useCallback((city: string) => {
+    setFormData((prev) => ({ ...prev, city }));
+    setShowSuggestions(false);
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
+    setIsSubmitting(true);
+    setShowResults(true);
+    setResult(null);
+    try {
+      const res = await fetch('/api/advisor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data: AdvisorResult = await res.json();
+      setResult(data);
+    } catch {
+      setResult({ success: false, plans: [], advisorMessage: noPlansMsg });
+    }
+    setIsSubmitting(false);
+  }, [formData, noPlansMsg]);
+
+  const handleStartOver = useCallback(() => {
+    setShowResults(false);
+    setResult(null);
+    setStep(1);
+    setFormData({ age: 30, familySize: 2, city: '', budget: 2000 });
+  }, []);
+
+  const progressPercent = ((step) / 4) * 100;
+
+  // ── Family size options ───────────────────────────────────
+  const familySizes = [1, 2, 3, 4, 5, 6];
+
+  // ── Headline word arrays for stagger ──────────────────────
+  const line1Words = splitToWords(headlineLine1);
+  const line2Words = splitToWords(headlineLine2);
+
+  // ── Results View ──────────────────────────────────────────
+  const renderResults = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: easeOutQuart }}
+      className="rounded-2xl overflow-hidden bg-card border border-border"
+      style={{
+        boxShadow: '0 1px 2px rgba(0,0,0,.04), 0 12px 32px -16px rgba(0,0,0,.08)',
+      }}
+    >
+      {/* Header */}
+      <div className="px-6 py-5 border-b border-border">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Sparkles className="w-5 h-5 text-primary" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: 'var(--font-heading), Fraunces, serif' }}>
+              {resultsTitle}
+            </h2>
+            <p className="text-xs text-muted-foreground mt-0.5">{resultsSubtitle}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="px-5 py-5 max-h-[520px] overflow-y-auto custom-scrollbar space-y-4">
+        {/* Loading state */}
+        {isSubmitting && !result && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col items-center justify-center py-12 gap-4"
+          >
+            <div className="relative">
+              <div className="w-16 h-16 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+              <Sparkles className="w-6 h-6 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            </div>
+            <p className="text-lg text-foreground font-medium">
+              <TypingDots />
+            </p>
+            <p className="text-sm text-muted-foreground text-center max-w-xs">
+              {isHindi
+                ? '51+ insurers scan ho rahe hain aapke liye best plan dhundhne ke liye...'
+                : 'Scanning 51+ insurers to find your best match...'}
+            </p>
+          </motion.div>
+        )}
+
+        {/* Error / No plans state */}
+        {!isSubmitting && result && (!result.plans || result.plans.length === 0) && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center py-8 gap-4 text-center"
+          >
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <ShieldCheck className="w-6 h-6 text-primary" />
+            </div>
+            <p className="text-foreground text-sm max-w-sm">
+              {result.advisorMessage || noPlansMsg}
+            </p>
+            <a
+              href="https://wa.me/919257877312"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 flex items-center gap-2 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-sm transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              {whatsappCTA}
+            </a>
+          </motion.div>
+        )}
+
+        {/* Plan cards */}
+        {!isSubmitting && result && result.plans && result.plans.length > 0 && (
+          <>
+            <div className="space-y-3">
+              {result.plans.map((plan, i) => (
+                <motion.div
+                  key={`${plan.insurer}-${plan.plan}`}
+                  custom={i}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="rounded-xl overflow-hidden bg-background border border-border"
+                >
+                  <div className="p-4">
+                    {/* Top row: insurer + rating */}
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-bold text-foreground truncate">
+                          {plan.insurer}
+                        </h3>
+                        <p
+                          className="text-xs text-primary mt-0.5 truncate"
+                          style={{ fontFamily: 'var(--font-heading), Fraunces, serif' }}
+                        >
+                          {plan.plan}
+                        </p>
+                      </div>
+                      <StarRating rating={plan.rating} />
+                    </div>
+
+                    {/* Premium & Sum Insured */}
+                    <div className="grid grid-cols-2 gap-3 mb-3">
+                      <div className="rounded-lg px-3 py-2 bg-surface border border-border">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                          {premiumLabel}
+                        </p>
+                        <p className="text-base font-bold gradient-text font-mono">
+                          {plan.monthlyPremium}
+                        </p>
+                        <p className="text-[9px] text-muted-foreground/60 italic">{indicativeLabel}</p>
+                      </div>
+                      <div className="rounded-lg px-3 py-2 bg-surface border border-border">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                          {sumInsuredLabel}
+                        </p>
+                        <p className="text-base font-bold text-foreground font-mono">
+                          {plan.sumInsured}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Why it fits */}
+                    <div className="flex items-start gap-2 mb-3">
+                      <Zap className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">
+                          {whyFitsLabel}
+                        </p>
+                        <p className="text-xs text-foreground/90 leading-relaxed">{plan.whyItFits}</p>
+                      </div>
+                    </div>
+
+                    {/* Claim ratio */}
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="w-3.5 h-3.5 text-[var(--trust)] shrink-0" />
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                        {claimRatioLabel}:
+                      </p>
+                      <p className="text-xs font-semibold text-[var(--trust)] font-mono">
+                        {plan.claimRatio}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Advisor message */}
+            {result.advisorMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.4 }}
+                className="rounded-xl p-4 bg-primary/5 border border-primary/15"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-6 h-6 rounded-md bg-primary/15 flex items-center justify-center">
+                    <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                  </div>
+                  <span className="text-xs font-bold text-primary uppercase tracking-wider">
+                    {advisorMessageLabel}
+                  </span>
+                </div>
+                <p className="text-sm text-foreground/90 leading-relaxed">
+                  {result.advisorMessage}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Follow-up question */}
+            {result.followUpQuestion && (
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.4 }}
+                className="rounded-xl p-3 bg-muted/50 border border-border"
+              >
+                <p className="text-xs text-muted-foreground mb-1 font-medium">
+                  {followUpLabel}:
+                </p>
+                <p className="text-sm text-foreground/80 italic">
+                  &ldquo;{result.followUpQuestion}&rdquo;
+                </p>
+              </motion.div>
+            )}
+
+            {/* Disclaimer */}
+            <p className="text-[10px] text-muted-foreground/50 text-center leading-relaxed">
+              {isHindi
+                ? '* Premium indicative hain. Exact quote ke liye human advisor se baat karein.'
+                : '* Premiums are indicative. Talk to a human advisor for exact quotes.'}
+            </p>
+          </>
+        )}
+      </div>
+
+      {/* Footer: WhatsApp CTA + Start Over */}
+      <div className="px-5 pb-5 space-y-3">
+        {/* WhatsApp CTA */}
+        <a
+          href="https://wa.me/919257877312"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-sm transition-colors"
+        >
+          <MessageCircle className="w-4 h-4" />
+          {whatsappCTA}
+        </a>
+
+        {/* Start Over */}
+        <button
+          onClick={handleStartOver}
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-border text-muted-foreground text-xs hover:text-foreground hover:border-foreground/20 transition-colors"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          {startOverLabel}
+        </button>
+      </div>
+    </motion.div>
+  );
+
+  return (
+    <section
+      id="advisor-form"
+      className="relative w-full min-h-[90vh] flex items-center overflow-hidden bg-background"
+    >
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start lg:items-center">
+          {/* ── LEFT COLUMN (55%): Headline + Subtext + CTA + Trust Stats ── */}
+          <div className="flex-1 lg:w-[55%] lg:max-w-[55%] flex flex-col gap-6 sm:gap-8">
+            {/* Headline — editorial mixed-weight with word stagger */}
+            <motion.h1
+              initial="hidden"
+              animate="visible"
+              className="text-foreground"
+              style={{
+                fontFamily: 'var(--font-heading), Fraunces, serif',
+                fontSize: 'clamp(2.75rem, 6vw, 4.75rem)',
+                lineHeight: 0.95,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {/* Line 1: "Insurance ko samjho." — all bold */}
+              <span className="block">
+                {line1Words.map((word, i) => (
+                  <motion.span
+                    key={`l1-${i}`}
+                    custom={i}
+                    variants={wordReveal}
+                    className="inline-block font-bold"
+                    style={{ marginRight: word.match(/^\s+$/) ? '0.3em' : '0' }}
+                  >
+                    {word.match(/^\s+$/) ? '\u00A0' : word}
+                  </motion.span>
+                ))}
+              </span>
+
+              {/* Line 2: "Sahi faisla chuno." — mixed weight */}
+              <span className="block">
+                {line2Words.map((word, i) => {
+                  const isItalic = ['samjho.', 'Sahi', 'faisla', 'chuno.'].includes(word);
+                  return (
+                    <motion.span
+                      key={`l2-${i}`}
+                      custom={line1Words.length + i}
+                      variants={wordReveal}
+                      className={`inline-block ${isItalic ? 'italic font-normal' : 'font-bold'}`}
+                      style={{ marginRight: word.match(/^\s+$/) ? '0.3em' : '0' }}
+                    >
+                      {word.match(/^\s+$/) ? '\u00A0' : word}
+                    </motion.span>
+                  );
+                })}
+              </span>
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: line1Words.length * 0.03 + line2Words.length * 0.03 + 0.1, duration: 0.5, ease: easeOutQuart }}
+              className="text-lg text-muted-foreground max-w-[62ch] leading-[1.6]"
+            >
+              {subtext}
+            </motion.p>
+
+            {/* Primary CTA — single solid accent button */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: line1Words.length * 0.03 + line2Words.length * 0.03 + 0.2, duration: 0.5, ease: easeOutQuart }}
+            >
+              <button
+                onClick={() => {
+                  const el = document.getElementById('advisor-form');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+                className="rounded-full bg-primary text-primary-foreground px-7 py-4 font-medium tracking-tight hover:brightness-105 hover:-translate-y-px transition-all duration-200"
+                style={{
+                  boxShadow:
+                    '0 1px 0 inset rgba(255,255,255,.15), 0 8px 24px -8px rgba(194,86,44,0.4)',
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5" />
+                  {primaryCTA}
+                </span>
+              </button>
+            </motion.div>
+
+            {/* Trust stats row — mono, muted, hairline dividers */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: line1Words.length * 0.03 + line2Words.length * 0.03 + 0.3, duration: 0.5, ease: easeOutQuart }}
+              className="font-mono text-xs text-muted-foreground tracking-[0.02em]"
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-trust" />
+                IRDAI POSP IP429834
+              </span>
+              <span className="mx-2 text-border">·</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Star className="w-3.5 h-3.5 text-primary" />
+                4.8 (Google, 247 reviews)
+              </span>
+              <span className="mx-2 text-border">·</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-muted-foreground" />
+                500+ families covered
+              </span>
+            </motion.p>
+          </div>
+
+          {/* ── RIGHT COLUMN (45%): Quick Adviser Form Card ────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: easeOutQuart }}
+            className="w-full lg:w-[45%] lg:max-w-[45%] lg:sticky lg:top-8"
+          >
+            <AnimatePresence mode="wait">
+              {showResults ? (
+                <motion.div
+                  key="results"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.4, ease: easeOutQuart }}
+                >
+                  {renderResults()}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.4, ease: easeOutQuart }}
+                >
+                  {/* Clean form card */}
+                  <div
+                    className="rounded-2xl overflow-hidden bg-card border border-border"
+                    style={{
+                      boxShadow: '0 1px 2px rgba(0,0,0,.04), 0 12px 32px -16px rgba(0,0,0,.08)',
+                    }}
+                  >
+                    {/* Card header */}
+                    <div className="flex items-center gap-3 px-6 py-4 border-b border-border">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-sm font-bold tracking-widest text-foreground uppercase">
+                        AI Quick Adviser
+                      </span>
+                      <span className="ml-1 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-[10px] font-bold text-primary border border-primary/15">
+                        <Sparkles className="w-2.5 h-2.5" />
+                        AI
+                      </span>
+                      <div className="ml-auto text-xs text-muted-foreground font-mono">
+                        {step}/4
+                      </div>
+                    </div>
+
+                    {/* Progress bar */}
+                    <div className="px-6 pt-2">
+                      <Progress value={progressPercent} className="h-1.5 bg-border" />
+                    </div>
+
+                    {/* Step content */}
+                    <div className="px-6 py-6 min-h-[240px] flex flex-col justify-center">
+                      <AnimatePresence mode="wait">
+                        {/* STEP 1: Age */}
+                        {step === 1 && (
+                          <motion.div
+                            key="step1"
+                            variants={stepVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            className="flex flex-col gap-4"
+                          >
+                            <label className="text-lg font-semibold text-foreground">
+                              {stepLabels[1]}
+                            </label>
+                            <div className="relative">
+                              <Input
+                                type="number"
+                                min={18}
+                                max={75}
+                                value={formData.age}
+                                onChange={(e) =>
+                                  setFormData((p) => ({ ...p, age: Number(e.target.value) }))
+                                }
+                                onKeyDown={(e) => e.key === 'Enter' && handleNext()}
+                                placeholder="25 - 65"
+                                className="h-12 text-lg bg-transparent border-0 border-b border-border rounded-none focus:border-b-2 focus:border-primary focus:ring-0 px-0 text-foreground placeholder:text-muted-foreground/50"
+                              />
+                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+                                yrs
+                              </span>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 2: Family size */}
+                        {step === 2 && (
+                          <motion.div
+                            key="step2"
+                            variants={stepVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            className="flex flex-col gap-4"
+                          >
+                            <label className="text-lg font-semibold text-foreground">
+                              {stepLabels[2]}
+                            </label>
+                            <div className="flex gap-3 flex-wrap">
+                              {familySizes.map((size) => (
+                                <button
+                                  key={size}
+                                  onClick={() =>
+                                    setFormData((p) => ({ ...p, familySize: size }))
+                                  }
+                                  className={`flex items-center gap-2 px-4 py-3 rounded-xl border transition-all duration-200 ${
+                                    formData.familySize === size
+                                      ? 'border-primary bg-primary/10 text-primary'
+                                      : 'border-border bg-transparent text-muted-foreground hover:border-foreground/20'
+                                  }`}
+                                >
+                                  <Users className="w-4 h-4" />
+                                  <span className="text-sm font-semibold">{size}</span>
+                                </button>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 3: City */}
+                        {step === 3 && (
+                          <motion.div
+                            key="step3"
+                            variants={stepVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            className="flex flex-col gap-4 relative"
+                          >
+                            <label className="text-lg font-semibold text-foreground">
+                              {stepLabels[3]}
+                            </label>
+                            <div className="relative">
+                              <MapPin className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                              <Input
+                                type="text"
+                                value={formData.city}
+                                onChange={(e) => handleCityInput(e.target.value)}
+                                onFocus={() => {
+                                  if (citySuggestions.length > 0) setShowSuggestions(true);
+                                }}
+                                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleNext()}
+                                placeholder="Type your city..."
+                                className="h-12 text-lg bg-transparent border-0 border-b border-border rounded-none focus:border-b-2 focus:border-primary focus:ring-0 pl-7 px-0 text-foreground placeholder:text-muted-foreground/50"
+                              />
+                            </div>
+                            {/* City suggestions dropdown */}
+                            {showSuggestions && (
+                              <div className="absolute top-full left-0 right-0 mt-1 z-20 rounded-xl border border-border bg-card overflow-hidden shadow-lg">
+                                {citySuggestions.map((city) => (
+                                  <button
+                                    key={city}
+                                    onClick={() => selectCity(city)}
+                                    className="w-full px-4 py-2.5 text-left text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                                  >
+                                    <MapPin className="w-3.5 h-3.5 inline mr-2 text-muted-foreground" />
+                                    {city}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </motion.div>
+                        )}
+
+                        {/* STEP 4: Budget slider */}
+                        {step === 4 && (
+                          <motion.div
+                            key="step4"
+                            variants={stepVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            className="flex flex-col gap-5"
+                          >
+                            <label className="text-lg font-semibold text-foreground">
+                              {stepLabels[4]}
+                            </label>
+                            <div className="flex items-center gap-3">
+                              <IndianRupee className="w-5 h-5 text-primary shrink-0" />
+                              <Slider
+                                min={500}
+                                max={10000}
+                                step={100}
+                                value={[formData.budget]}
+                                onValueChange={([v]) =>
+                                  setFormData((p) => ({ ...p, budget: v }))
+                                }
+                                className="flex-1"
+                              />
+                            </div>
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-muted-foreground">₹500</span>
+                              <span className="text-xl font-bold text-foreground font-mono">
+                                ₹{formData.budget.toLocaleString('en-IN')}
+                              </span>
+                              <span className="text-muted-foreground">₹10,000</span>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {/* Navigation buttons */}
+                      <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
+                        {step > 1 ? (
+                          <button
+                            onClick={handleBack}
+                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            ← Back
+                          </button>
+                        ) : (
+                          <div />
+                        )}
+
+                        {step < 4 ? (
+                          <button
+                            onClick={handleNext}
+                            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:brightness-105 transition-all"
+                          >
+                            Next
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+                        ) : (
+                          <button
+                            onClick={handleSubmit}
+                            disabled={isSubmitting}
+                            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:brightness-105 transition-all disabled:opacity-50"
+                          >
+                            {isSubmitting ? '...' : getPlanLabel}
+                            <ArrowRight className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Divider + WhatsApp link */}
+                    <div className="px-6 pb-5">
+                      <div className="flex items-center gap-3 text-muted-foreground text-xs">
+                        <div className="flex-1 h-px bg-border" />
+                        {orDivider}
+                        <div className="flex-1 h-px bg-border" />
+                      </div>
+                      <a
+                        href="https://wa.me/919257877312"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-border text-muted-foreground text-sm font-medium hover:text-foreground hover:border-foreground/20 transition-colors"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        {whatsAppInstead}
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
