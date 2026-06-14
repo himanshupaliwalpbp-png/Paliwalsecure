@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useCallback, useState, useSyncExternalStore } from 'react';
+import React, { createContext, useContext, useEffect, useCallback, useSyncExternalStore } from 'react';
 import { translations, type Language } from '@/lib/i18n-strings';
 
 // ── Re-export types and data ────────────────────────────────────────────────
@@ -8,11 +8,6 @@ export type { Language } from '@/lib/i18n-strings';
 export { translations } from '@/lib/i18n-strings';
 
 // ── Standalone t() function for non-hook usage ──────────────────────────────
-/**
- * Look up a translation key in the given language.
- * Falls back to English if the key or language is missing.
- * Falls back to the key itself if not found at all.
- */
 export function t(key: string, lang: Language): string {
   const entry = translations[key];
   if (!entry) {
@@ -54,17 +49,25 @@ function storeLanguage(lang: Language): void {
   }
 }
 
-// ── External store for language (avoids setState-in-effect lint error) ──────
+// ── External store for language ──────────────────────────────────────────────
 let languageListeners: (() => void)[] = [];
-let currentLanguage: Language = DEFAULT_LANGUAGE;
-let isInitialized = false;
 
-function initLanguage(): void {
-  if (isInitialized) return;
-  isInitialized = true;
-  const stored = getStoredLanguage();
-  if (stored !== DEFAULT_LANGUAGE) {
-    currentLanguage = stored;
+// IMPORTANT: Initialize from localStorage IMMEDIATELY at module load time
+// This ensures the first client snapshot matches the stored preference,
+// preventing the flash from Hinglish (server default) to English (stored).
+let currentLanguage: Language = DEFAULT_LANGUAGE;
+let isClientInitialized = false;
+
+// Immediately try to read localStorage on the client
+if (typeof window !== 'undefined') {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'en' || stored === 'hi' || stored === 'hinglish') {
+      currentLanguage = stored;
+    }
+    isClientInitialized = true;
+  } catch {
+    // localStorage not available
   }
 }
 
@@ -76,7 +79,6 @@ function subscribeLanguage(listener: () => void) {
 }
 
 function getLanguageSnapshot(): Language {
-  initLanguage();
   return currentLanguage;
 }
 
@@ -92,10 +94,14 @@ function setLanguageAndNotify(lang: Language): void {
 
 /**
  * LanguageProvider using useSyncExternalStore for reliable SSR hydration.
- * 
+ *
  * - SSR: renders with DEFAULT_LANGUAGE (hinglish)
- * - Client: reads localStorage on first snapshot access
+ * - Client: reads localStorage at module load time
  * - Language changes: updates external store + localStorage + DOM attributes
+ *
+ * The flash issue is resolved because currentLanguage is initialized from
+ * localStorage BEFORE React hydration, so the first client snapshot
+ * matches the stored preference.
  */
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const language = useSyncExternalStore(
@@ -112,7 +118,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.lang = 'hi';
     } else {
       document.body.classList.remove('hindi-active');
-      document.documentElement.lang = 'en';
+      document.documentElement.lang = language === 'hinglish' ? 'hi' : 'en';
     }
   }, [language]);
 

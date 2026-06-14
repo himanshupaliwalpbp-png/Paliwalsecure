@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { SlidersHorizontal, ShieldCheck, Heart, Zap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/lib/i18n';
 
 const COVERAGE_MIN = 500000;
 const COVERAGE_MAX = 10000000;
@@ -24,6 +25,10 @@ function getTier(c: number) {
 }
 
 export default function InteractivePremiumSlider() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const [coverage, setCoverage] = useState(5000000);
   const premium = useMemo(() => Math.round(BASE_PREMIUM * (coverage / BASE_COVERAGE)), [coverage]);
   const yearlyPremium = useMemo(() => premium * 12, [premium]);
@@ -35,10 +40,10 @@ export default function InteractivePremiumSlider() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
           <Badge className="mb-4 bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/50 dark:text-teal-300 dark:border-teal-800 rounded-full px-4 py-1">
-            <SlidersHorizontal className="w-3.5 h-3.5 mr-1" />Premium Calculator
+            <SlidersHorizontal className="w-3.5 h-3.5 mr-1" />{isHindi ? 'प्रीमियम कैलकुलेटर' : 'Premium Calculator'}
           </Badge>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">Health Insurance — <span className="text-teal-700 dark:text-[#00A9A6]">Choose Coverage</span></h2>
-          <p className="mt-3 text-sm sm:text-base text-muted-foreground">Slide to pick your coverage amount and see your monthly premium in real-time</p>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground tracking-tight">{isHindi ? 'हेल्थ इंश्योरेंस' : 'Health Insurance'} — <span className="text-teal-700 dark:text-[#00A9A6]">{isHindi ? 'कवरेज चुनें' : 'Choose Coverage'}</span></h2>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground">{isHindi ? 'स्लाइड करें अपनी कवरेज राशि चुनने के लिए और रियल-टाइम में मासिक प्रीमियम देखें' : isEnglish ? 'Slide to pick your coverage amount and see your monthly premium in real-time' : 'Slide to pick your coverage amount and see your monthly premium in real-time'}</p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -50,8 +55,8 @@ export default function InteractivePremiumSlider() {
                     <Heart className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Health Coverage Selector</CardTitle>
-                    <CardDescription className="text-xs">Adjust coverage to see premium</CardDescription>
+                    <CardTitle className="text-lg">{isHindi ? 'हेल्थ कवरेज सिलेक्टर' : 'Health Coverage Selector'}</CardTitle>
+                    <CardDescription className="text-xs">{isHindi ? 'कवरेज एडजस्ट करें प्रीमियम देखने के लिए' : 'Adjust coverage to see premium'}</CardDescription>
                   </div>
                 </div>
                 <Badge className="rounded-full px-3 py-1 text-xs font-semibold" style={{ backgroundColor: tier.color + '20', color: tier.color, borderColor: tier.color + '40' }}>{tier.emoji} {tier.tier}</Badge>
@@ -59,7 +64,7 @@ export default function InteractivePremiumSlider() {
             </CardHeader>
             <CardContent className="pt-6 space-y-8">
               <div className="text-center">
-                <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-1">Coverage Amount</p>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-1">{isHindi ? 'कवरेज राशि' : 'Coverage Amount'}</p>
                 <motion.p key={coverage} initial={{ opacity: 0.7 }} animate={{ opacity: 1 }} className="text-4xl sm:text-5xl font-extrabold" style={{ color: tier.color }}>{fmtCurrency(coverage)}</motion.p>
               </div>
 
@@ -79,11 +84,11 @@ export default function InteractivePremiumSlider() {
               {/* Premium Display */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-4 rounded-2xl bg-muted/50">
-                  <div className="flex items-center justify-center gap-1.5 mb-1"><Zap className="w-4 h-4 text-teal-700 dark:text-[#00A9A6]" /><p className="text-xs text-muted-foreground uppercase tracking-wider">Monthly</p></div>
+                  <div className="flex items-center justify-center gap-1.5 mb-1"><Zap className="w-4 h-4 text-teal-700 dark:text-[#00A9A6]" /><p className="text-xs text-muted-foreground uppercase tracking-wider">{isHindi ? 'मासिक' : 'Monthly'}</p></div>
                   <motion.p key={premium} initial={{ opacity: 0.7 }} animate={{ opacity: 1 }} className="text-2xl sm:text-3xl font-extrabold text-foreground dark:text-white">₹{premium.toLocaleString('en-IN')}</motion.p>
                 </div>
                 <div className="text-center p-4 rounded-2xl bg-muted/50">
-                  <div className="flex items-center justify-center gap-1.5 mb-1"><ShieldCheck className="w-4 h-4 text-[#0A2540] dark:text-[#00A9A6]" /><p className="text-xs text-muted-foreground uppercase tracking-wider">Yearly</p></div>
+                  <div className="flex items-center justify-center gap-1.5 mb-1"><ShieldCheck className="w-4 h-4 text-[#0A2540] dark:text-[#00A9A6]" /><p className="text-xs text-muted-foreground uppercase tracking-wider">{isHindi ? 'वार्षिक' : 'Yearly'}</p></div>
                   <motion.p key={yearlyPremium} initial={{ opacity: 0.7 }} animate={{ opacity: 1 }} className="text-2xl sm:text-3xl font-extrabold text-foreground dark:text-white">₹{yearlyPremium.toLocaleString('en-IN')}</motion.p>
                 </div>
               </div>

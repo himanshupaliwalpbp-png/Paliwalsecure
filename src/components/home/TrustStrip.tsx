@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Star, Users } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 // ── Ease curve ────────────────────────────────────────────────────────────────
 const easeOutQuart: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -83,6 +84,12 @@ function StatChip({
 // ── Main component ────────────────────────────────────────────────────────────
 export default function TrustStrip() {
   const [inView, setInView] = useState(false);
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
+  const familiesLabel = isHindi ? 'परिवार कवर' : isEnglish ? 'families covered' : 'parivaar covered';
+  const reviewsLabel = isHindi ? '(Google, 247 समीक्षाएँ)' : isEnglish ? '(Google, 247 reviews)' : '(Google, 247 reviews)';
 
   return (
     <motion.section
@@ -105,7 +112,7 @@ export default function TrustStrip() {
           {(animated) => (
             <>
               <span className="font-mono font-semibold text-foreground">{animated.toFixed(1)}</span>
-              <span className="text-muted-foreground/70">(Google, 247 reviews)</span>
+              <span className="text-muted-foreground/70">{reviewsLabel}</span>
             </>
           )}
         </StatChip>
@@ -115,7 +122,7 @@ export default function TrustStrip() {
           {(animated) => (
             <>
               <span className="font-mono font-semibold text-foreground">{Math.round(animated)}</span>+
-              {' '}families covered
+              {' '}{familiesLabel}
             </>
           )}
         </StatChip>

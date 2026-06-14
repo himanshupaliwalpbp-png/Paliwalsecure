@@ -77,19 +77,19 @@ export default function InsuranceCompareTool() {
 
   // Labels
   const labels = useMemo(() => ({
-    title: language === 'hi' ? 'बीमा तुलना उपकरण' : language === 'hinglish' ? 'Insurance Compare Tool' : 'Insurance Compare Tool',
+    title: language === 'hi' ? 'बीमा तुलना उपकरण' : language === 'hinglish' ? 'Insurance Tulna Tool' : 'Insurance Compare Tool',
     subtitle: language === 'hi' ? 'शीर्ष योजनाओं की साइड-बाय-साइड तुलना करें' : language === 'hinglish' ? 'Top plans ko side-by-side compare karein' : 'Compare top plans side-by-side',
-    bestValue: language === 'hi' ? 'सर्वोत्तम मूल्य' : language === 'hinglish' ? 'Best Value' : 'Best Value',
+    bestValue: language === 'hi' ? 'सर्वोत्तम मूल्य' : language === 'hinglish' ? 'Sabse Achha' : 'Best Value',
     premium: language === 'hi' ? 'प्रीमियम' : language === 'hinglish' ? 'Premium' : 'Premium',
-    perMonth: language === 'hi' ? '/माह' : language === 'hinglish' ? '/mo' : '/mo',
+    perMonth: language === 'hi' ? '/माह' : language === 'hinglish' ? '/mahine' : '/mo',
     csr: language === 'hi' ? 'क्लेम सेटलमेंट' : language === 'hinglish' ? 'Claim Settlement' : 'Claim Settlement',
     keyFeatures: language === 'hi' ? 'मुख्य विशेषताएँ' : language === 'hinglish' ? 'Key Features' : 'Key Features',
     waitingPeriod: language === 'hi' ? 'वेटिंग पीरियड' : language === 'hinglish' ? 'Waiting Period' : 'Waiting Period',
     addOns: language === 'hi' ? 'ऐड-ऑन' : language === 'hinglish' ? 'Add-ons' : 'Add-ons',
     network: language === 'hi' ? 'नेटवर्क' : language === 'hinglish' ? 'Network' : 'Network',
-    getQuote: language === 'hi' ? 'कोटेशन लें' : language === 'hinglish' ? 'Get Quote' : 'Get Quote',
-    hospitals: language === 'hi' ? 'अस्पताल' : language === 'hinglish' ? 'hospitals' : 'hospitals',
-    garages: language === 'hi' ? 'गैरेज' : language === 'hinglish' ? 'garages' : 'garages',
+    getQuote: language === 'hi' ? 'कोटेशन लें' : language === 'hinglish' ? 'Quote Lo' : 'Get Quote',
+    hospitals: language === 'hi' ? 'अस्पताल' : language === 'hinglish' ? 'aspataal' : 'hospitals',
+    garages: language === 'hi' ? 'गैरेज' : language === 'hinglish' ? 'garage' : 'garages',
     rating: language === 'hi' ? 'रेटिंग' : language === 'hinglish' ? 'Rating' : 'Rating',
     sumInsured: language === 'hi' ? 'सम इंश्योर्ड' : language === 'hinglish' ? 'Sum Insured' : 'Sum Insured',
   }), [language]);
@@ -287,7 +287,7 @@ export default function InsuranceCompareTool() {
           {language === 'hi'
             ? '* तुलना सामान्य जानकारी के लिए है। वास्तविक प्रीमियम भिन्न हो सकता है।'
             : language === 'hinglish'
-            ? '* Comparison is for general info. Actual premium may vary.'
+            ? '* Tulna sirf general info ke liye hai. Actual premium alag ho sakta hai.'
             : '* Comparison for general guidance only. Actual premiums may vary based on age, health, and location.'}
         </p>
       </div>

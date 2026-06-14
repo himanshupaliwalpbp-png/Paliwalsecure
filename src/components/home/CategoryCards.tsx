@@ -138,7 +138,7 @@ export default function CategoryCards() {
 /* ── Card Sub-component — Clean card, no glassmorphism ───────────────── */
 function CategoryCard({ item, isHindi, isEnglish }: { item: CategoryItem; isHindi: boolean; isEnglish: boolean }) {
   const Icon = item.icon;
-  const customQuote = isHindi ? 'कस्टम कोट' : 'Custom quote';
+  const customQuote = isHindi ? 'कस्टम कोट' : isEnglish ? 'Custom quote' : 'Custom quote';
   const fromLabel = isHindi ? 'से' : isEnglish ? 'From' : 'Se';
   const price = item.price || customQuote;
 

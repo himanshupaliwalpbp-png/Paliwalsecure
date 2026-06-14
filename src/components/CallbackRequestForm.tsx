@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useLanguage } from '@/lib/i18n';
 
 interface CallbackRequestFormProps {
   source?: 'chatbot' | 'website' | 'whatsapp';
@@ -21,17 +22,15 @@ interface CallbackRequestFormProps {
   className?: string;
 }
 
-const PREFERRED_TIME_OPTIONS = [
-  { value: 'asap', label: 'ASAP - Jaldi se jaldi', icon: '⚡' },
-  { value: '1hour', label: 'Within 1 Hour', icon: '🕐' },
-  { value: '2-5pm', label: 'Between 2-5 PM', icon: '📅' },
-] as const;
-
 export default function CallbackRequestForm({
   source = 'chatbot',
   onSuccess,
   className = '',
 }: CallbackRequestFormProps) {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [preferredTime, setPreferredTime] = useState('');
@@ -39,6 +38,43 @@ export default function CallbackRequestForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  // Localized strings
+  const t = {
+    headerBadge: isHindi ? 'कॉलबैक अनुरोध' : isEnglish ? 'Callback Request' : 'Callback Request',
+    heading: isHindi ? 'हम आपको कॉल करें! 📞' : isEnglish ? 'We\'ll Call You! 📞' : 'Hum Aapko Call Karein! 📞',
+    subheading: isHindi ? 'अपना विवरण भरें, हमारी विशेषज्ञ टीम आपको कॉल करेगी' : isEnglish ? 'Fill in your details, our expert team will call you' : 'Apna details daalein, hamari expert team aapko call karegi',
+    nameLabel: isHindi ? 'आपका नाम' : isEnglish ? 'Your Name' : 'Aapka Naam',
+    namePlaceholder: isHindi ? 'अपना नाम लिखें' : isEnglish ? 'Enter your name' : 'Apna naam likhiye',
+    mobileLabel: isHindi ? 'मोबाइल नंबर' : isEnglish ? 'Mobile Number' : 'Mobile Number',
+    timeLabel: isHindi ? 'कब कॉल करें?' : isEnglish ? 'When to Call?' : 'Kab Call Karein?',
+    timePlaceholder: isHindi ? 'पसंदीदा समय चुनें' : isEnglish ? 'Choose preferred time' : 'Preferred time choose karein',
+    messageLabel: isHindi ? 'संदेश' : isEnglish ? 'Message' : 'Message',
+    messageOptional: isHindi ? '(वैकल्पिक)' : isEnglish ? '(optional)' : '(optional)',
+    messagePlaceholder: isHindi ? 'कोई विशिष्ट प्रश्न या संदर्भ लिखें...' : isEnglish ? 'Any specific question or context...' : 'Koi specific sawaal ya context likhiye...',
+    submitBtn: isHindi ? 'कॉलबैक अनुरोध भेजें' : isEnglish ? 'Send Callback Request' : 'Callback Request Bhejein',
+    submitting: isHindi ? 'भेज रहे हैं...' : isEnglish ? 'Sending...' : 'Bhej rahe hain...',
+    trustNote: isHindi ? '🔒 आपका डेटा सुरक्षित है। हम स्पैम नहीं करेंगे।' : isEnglish ? '🔒 Your data is safe. We won\'t spam you.' : '🔒 Aapka data safe hai. Hum spam nahi karenge.',
+    successHeading: isHindi ? 'कॉलबैक अनुरोध भेज दिया! 🎉' : isEnglish ? 'Callback Request Sent! 🎉' : 'Callback Request Bhej Diya! 🎉',
+    successSubtext: isHindi ? 'हमारी टीम जल्द आपको कॉल करेगी। धन्यवाद!' : isEnglish ? 'Our team will call you soon. Thank you!' : 'Hamari team jaldi aapko call karegi. Dhanyavaad!',
+    asapCall: isHindi ? 'जल्द से जल्द कॉल होगा' : isEnglish ? 'Call as soon as possible' : 'Jaldi se jaldi call hoga',
+    within1hr: isHindi ? '1 घंटे के भीतर' : isEnglish ? 'Within 1 hour' : '1 ghante ke andar',
+    between2to5: isHindi ? 'दोपहर 2-5 बजे के बीच' : isEnglish ? 'Between 2-5 PM' : '2-5 PM ke beech',
+    nameError: isHindi ? 'नाम कम से कम 2 अक्षर का होना चाहिए' : isEnglish ? 'Name must be at least 2 characters' : 'Naam kam se kam 2 characters ka hona chahiye',
+    mobileError: isHindi ? 'सही 10-अंकीय भारतीय मोबाइल नंबर डालें (6-9 से शुरू)' : isEnglish ? 'Enter a valid 10-digit Indian mobile number (starts with 6-9)' : 'Sahi 10-digit Indian mobile number daalein (6-9 se shuru)',
+    timeError: isHindi ? 'कृपया पसंदीदा समय चुनें' : isEnglish ? 'Please select preferred time' : 'Kripya preferred time select karein',
+    connectionError: isHindi ? 'कनेक्शन में समस्या है। दोबारा प्रयास करें।' : isEnglish ? 'Connection issue. Please try again.' : 'Connection mein dikkat aa rahi hai. Dobara try karein.',
+    genericError: isHindi ? 'कुछ गड़बड़ हो गई। दोबारा प्रयास करें।' : isEnglish ? 'Something went wrong. Please try again.' : 'Kuch gadbad ho gayi. Dobara try karein.',
+    digitsRemaining: (n: number) => isHindi ? `${n} और अंक डालें` : isEnglish ? `${n} more digits needed` : `${n} aur digit daalein`,
+    invalidStart: isHindi ? 'नंबर 6-9 से शुरू होना चाहिए' : isEnglish ? 'Number should start with 6-9' : 'Number 6-9 se shuru hona chahiye',
+    validNumber: isHindi ? '✓ सही नंबर है' : isEnglish ? '✓ Valid number' : '✓ Sahi number hai',
+  };
+
+  const PREFERRED_TIME_OPTIONS = [
+    { value: 'asap', label: isHindi ? 'जल्द से जल्द' : isEnglish ? 'ASAP' : 'ASAP - Jaldi se jaldi', icon: '⚡' },
+    { value: '1hour', label: isHindi ? '1 घंटे के भीतर' : isEnglish ? 'Within 1 Hour' : 'Within 1 Hour', icon: '🕐' },
+    { value: '2-5pm', label: isHindi ? 'दोपहर 2-5 बजे' : isEnglish ? 'Between 2-5 PM' : 'Between 2-5 PM', icon: '📅' },
+  ] as const;
 
   const validateMobile = (value: string): boolean => {
     return /^[6-9]\d{9}$/.test(value);
@@ -50,17 +86,17 @@ export default function CallbackRequestForm({
 
     // Client-side validation
     if (name.trim().length < 2) {
-      setError('Naam kam se kam 2 characters ka hona chahiye');
+      setError(t.nameError);
       return;
     }
 
     if (!validateMobile(mobile)) {
-      setError('Sahi 10-digit Indian mobile number daalein (6-9 se shuru)');
+      setError(t.mobileError);
       return;
     }
 
     if (!preferredTime) {
-      setError('Kripya preferred time select karein');
+      setError(t.timeError);
       return;
     }
 
@@ -85,10 +121,10 @@ export default function CallbackRequestForm({
         setIsSuccess(true);
         onSuccess?.();
       } else {
-        setError(data.error || 'Kuch gadbad ho gayi. Dobara try karein.');
+        setError(data.error || t.genericError);
       }
     } catch {
-      setError('Connection mein dikkat aa rahi hai. Dobara try karein.');
+      setError(t.connectionError);
     } finally {
       setIsSubmitting(false);
     }
@@ -135,17 +171,17 @@ export default function CallbackRequestForm({
         </motion.div>
 
         <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">
-          Callback Request Bhej Diya! 🎉
+          {t.successHeading}
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-          Hamari team jaldi aapko call karegi. Dhanyavaad!
+          {t.successSubtext}
         </p>
 
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800">
           <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span className="text-xs font-medium text-emerald-700 dark:text-emerald-300">
-            {preferredTime === 'asap' ? 'Jaldi se jaldi call hoga' :
-             preferredTime === '1hour' ? '1 ghante ke andar' : '2-5 PM ke beech'}
+            {preferredTime === 'asap' ? t.asapCall :
+             preferredTime === '1hour' ? t.within1hr : t.between2to5}
           </span>
         </div>
       </motion.div>
@@ -158,13 +194,13 @@ export default function CallbackRequestForm({
       <div className="text-center mb-2">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 mb-3">
           <Phone className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-          <span className="text-xs font-medium text-indigo-700 dark:text-indigo-300">Callback Request</span>
+          <span className="text-xs font-medium text-indigo-700 dark:text-indigo-300">{t.headerBadge}</span>
         </div>
         <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">
-          Hum Aapko Call Karein! 📞
+          {t.heading}
         </h3>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Apna details daalein, hamari expert team aapko call karegi
+          {t.subheading}
         </p>
       </div>
 
@@ -172,13 +208,13 @@ export default function CallbackRequestForm({
       <div className="space-y-1.5">
         <Label htmlFor="cb-name" className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
           <User className="w-3.5 h-3.5" />
-          Aapka Naam
+          {t.nameLabel}
         </Label>
         <Input
           id="cb-name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Apna naam likhiye"
+          placeholder={t.namePlaceholder}
           disabled={isSubmitting}
           className="h-10 rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 focus-visible:ring-indigo-500/30 focus-visible:border-indigo-300 text-sm"
         />
@@ -188,7 +224,7 @@ export default function CallbackRequestForm({
       <div className="space-y-1.5">
         <Label htmlFor="cb-mobile" className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
           <Phone className="w-3.5 h-3.5" />
-          Mobile Number
+          {t.mobileLabel}
         </Label>
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400 font-medium">+91</span>
@@ -206,13 +242,13 @@ export default function CallbackRequestForm({
           />
         </div>
         {mobile.length > 0 && mobile.length < 10 && (
-          <p className="text-[11px] text-amber-600 dark:text-amber-400">{10 - mobile.length} aur digit daalein</p>
+          <p className="text-[11px] text-amber-600 dark:text-amber-400">{t.digitsRemaining(10 - mobile.length)}</p>
         )}
         {mobile.length === 10 && !validateMobile(mobile) && (
-          <p className="text-[11px] text-red-500">Number 6-9 se shuru hona chahiye</p>
+          <p className="text-[11px] text-red-500">{t.invalidStart}</p>
         )}
         {mobile.length === 10 && validateMobile(mobile) && (
-          <p className="text-[11px] text-emerald-600 dark:text-emerald-400">✓ Sahi number hai</p>
+          <p className="text-[11px] text-emerald-600 dark:text-emerald-400">{t.validNumber}</p>
         )}
       </div>
 
@@ -220,11 +256,11 @@ export default function CallbackRequestForm({
       <div className="space-y-1.5">
         <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
           <Clock className="w-3.5 h-3.5" />
-          Kab Call Karein?
+          {t.timeLabel}
         </Label>
         <Select value={preferredTime} onValueChange={setPreferredTime} disabled={isSubmitting}>
           <SelectTrigger className="w-full h-10 rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-sm">
-            <SelectValue placeholder="Preferred time choose karein" />
+            <SelectValue placeholder={t.timePlaceholder} />
           </SelectTrigger>
           <SelectContent>
             {PREFERRED_TIME_OPTIONS.map((opt) => (
@@ -243,13 +279,13 @@ export default function CallbackRequestForm({
       <div className="space-y-1.5">
         <Label htmlFor="cb-message" className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
           <MessageSquare className="w-3.5 h-3.5" />
-          Message <span className="text-slate-400 font-normal">(optional)</span>
+          {t.messageLabel} <span className="text-slate-400 font-normal">{t.messageOptional}</span>
         </Label>
         <Textarea
           id="cb-message"
           value={message}
           onChange={(e) => setMessage(e.target.value.slice(0, 500))}
-          placeholder="Koi specific sawaal ya context likhiye..."
+          placeholder={t.messagePlaceholder}
           disabled={isSubmitting}
           rows={3}
           className="rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 focus-visible:ring-indigo-500/30 focus-visible:border-indigo-300 text-sm resize-none"
@@ -280,19 +316,19 @@ export default function CallbackRequestForm({
         {isSubmitting ? (
           <span className="flex items-center gap-2">
             <Loader2 className="w-4 h-4 animate-spin" />
-            Bhej rahe hain...
+            {t.submitting}
           </span>
         ) : (
           <span className="flex items-center gap-2">
             <Phone className="w-4 h-4" />
-            Callback Request Bhejein
+            {t.submitBtn}
           </span>
         )}
       </Button>
 
       {/* Trust indicator */}
       <p className="text-center text-[10px] text-slate-400 mt-1">
-        🔒 Aapka data safe hai. Hum spam nahi karenge.
+        {t.trustNote}
       </p>
     </form>
   );

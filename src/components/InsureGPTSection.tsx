@@ -768,17 +768,17 @@ export default function InsureGPTSection() {
                                 {ttsLoadingIdx === idx ? (
                                   <>
                                     <motion.div className="w-3 h-3 border border-primary/40 border-t-primary rounded-full" animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} />
-                                    <span>Loading</span>
+                                    <span>{t('insureGPT.ttsLoading')}</span>
                                   </>
                                 ) : playingTTSIdx === idx ? (
                                   <>
                                     <VolumeX className="w-3 h-3" />
-                                    <span>Playing</span>
+                                    <span>{t('insureGPT.ttsPlaying')}</span>
                                   </>
                                 ) : (
                                   <>
                                     <Volume2 className="w-3 h-3" />
-                                    <span>Listen</span>
+                                    <span>{t('insureGPT.ttsListen')}</span>
                                   </>
                                 )}
                               </button>
@@ -854,12 +854,12 @@ export default function InsureGPTSection() {
                         {isTranscribing ? (
                           <>
                             <motion.div className="w-3 h-3 border border-primary/40 border-t-primary rounded-full" animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} />
-                            <span className="text-xs text-primary font-medium">Transcribing...</span>
+                            <span className="text-xs text-primary font-medium">{t('insureGPT.transcribing')}</span>
                           </>
                         ) : (
                           <>
                             <motion.div className="w-3 h-3 rounded-full bg-red-500" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1, repeat: Infinity }} />
-                            <span className="text-xs text-primary font-medium">Listening...</span>
+                            <span className="text-xs text-primary font-medium">{t('insureGPT.listening')}</span>
                           </>
                         )}
                       </div>
@@ -868,7 +868,7 @@ export default function InsureGPTSection() {
                           <>
                             <span className={`text-xs ${isDark ? 'text-white/50' : 'text-gray-500'} font-mono`}>{recordingDuration}s / 10s</span>
                             <Button onClick={stopRecording} className="h-6 px-2 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-[10px] font-medium hover:bg-red-500/30">
-                              <Square className="w-2 h-2 mr-1 fill-current" />Stop
+                              <Square className="w-2 h-2 mr-1 fill-current" />{t('insureGPT.stop')}
                             </Button>
                           </>
                         )}
@@ -913,7 +913,7 @@ export default function InsureGPTSection() {
                     disabled={!input.trim() && !isLoading}
                     className="disabled:opacity-40"
                   >
-                    Send
+                    {t('insureGPT.send')}
                   </SendStopButton>
                 </form>
                 <p className={`text-[10px] ${isDark ? 'text-white/40' : 'text-gray-400'} mt-2 text-center`}>

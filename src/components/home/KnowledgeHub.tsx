@@ -188,7 +188,7 @@ function ArticleCard({
   const keyPoints = isHindi ? article.keyPoints.hi : isEnglish ? article.keyPoints.en : article.keyPoints.hg;
   const readGuide = isHindi ? 'गाइड पढ़ें →' : isEnglish ? 'Read guide →' : 'Guide padhein →';
   const keyTakeawayLabel = isHindi ? 'मुख्य बातें' : isEnglish ? 'Key Takeaways' : 'Key Takeaways';
-  const readHindiLabel = isHindi ? 'हिंदी में पढ़ें' : 'Read in Hindi';
+  const readHindiLabel = isHindi ? 'हिंदी में पढ़ें' : isEnglish ? 'Read in Hindi' : 'Hindi mein padhein';
 
   return (
     <motion.a

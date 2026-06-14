@@ -11,8 +11,9 @@ export default function StickyMobileCTA() {
   const [isVisible, setIsVisible] = useState(false);
 
   const isHindi = language === 'hi';
-  const aiAdvisorLabel = isHindi ? 'Quick Adviser' : 'Quick Adviser';
-  const whatsAppLabel = isHindi ? 'WhatsApp' : 'WhatsApp';
+  const isEnglish = language === 'en';
+  const aiAdvisorLabel = isHindi ? 'क्विक एडवाइज़र' : isEnglish ? 'Quick Adviser' : 'Quick Adviser';
+  const whatsAppLabel = isHindi ? 'व्हाट्सएप' : isEnglish ? 'WhatsApp' : 'WhatsApp';
 
   useEffect(() => {
     let ticking = false;

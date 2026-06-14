@@ -37,6 +37,7 @@ interface ComparisonColumn {
   key: string;
   label: string;
   labelHindi?: string;
+  labelHinglish?: string;
   highlight?: boolean;
 }
 
@@ -52,10 +53,10 @@ interface ComparisonTableProps {
 
 // ── Translation Maps ─────────────────────────────────────────────────────
 const typeLabels: Record<string, Record<string, string>> = {
-  premium: { en: 'Premium Comparison', hi: 'प्रीमियम तुलना', hinglish: 'Premium Comparison' },
-  features: { en: 'Feature Comparison', hi: 'फीचर तुलना', hinglish: 'Feature Comparison' },
-  'claim-steps': { en: 'Claim Process Steps', hi: 'क्लेम प्रक्रिया', hinglish: 'Claim Process Steps' },
-  'tax-saving': { en: 'Tax Saving Comparison', hi: 'टैक्स बचत तुलना', hinglish: 'Tax Saving Comparison' },
+  premium: { en: 'Premium Comparison', hi: 'प्रीमियम तुलना', hinglish: 'Premium Tulna' },
+  features: { en: 'Feature Comparison', hi: 'फीचर तुलना', hinglish: 'Feature Tulna' },
+  'claim-steps': { en: 'Claim Process Steps', hi: 'क्लेम प्रक्रिया', hinglish: 'Claim Process Ke Steps' },
+  'tax-saving': { en: 'Tax Saving Comparison', hi: 'टैक्स बचत तुलना', hinglish: 'Tax Bachat Tulna' },
 };
 
 const typeIcons: Record<string, React.ReactNode> = {
@@ -183,7 +184,7 @@ function FeatureComparisonRenderer({
                       : 'text-muted-foreground'
                   )}
                 >
-                  {language === 'hi' && col.labelHindi ? col.labelHindi : col.label}
+                  {language === 'hi' && col.labelHindi ? col.labelHindi : language === 'hinglish' && col.labelHinglish ? col.labelHinglish : col.label}
                   {col.highlight && (
                     <Badge className="ml-1.5 text-[8px] px-1 py-0 bg-[#C98A1C] text-white">
                       Best
@@ -272,7 +273,7 @@ function FeatureComparisonRenderer({
                       className="flex items-center justify-between py-1.5 border-b border-border/20 last:border-0"
                     >
                       <span className="text-xs text-muted-foreground">
-                        {language === 'hi' && col.labelHindi ? col.labelHindi : col.label}
+                        {language === 'hi' && col.labelHindi ? col.labelHindi : language === 'hinglish' && col.labelHinglish ? col.labelHinglish : col.label}
                       </span>
                       {typeof val === 'boolean' ? (
                         val ? (
@@ -320,7 +321,7 @@ function TaxSavingRenderer({
                   scope="col"
                   className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap"
                 >
-                  {language === 'hi' && col.labelHindi ? col.labelHindi : col.label}
+                  {language === 'hi' && col.labelHindi ? col.labelHindi : language === 'hinglish' && col.labelHinglish ? col.labelHinglish : col.label}
                 </th>
               ))}
             </tr>
@@ -388,7 +389,7 @@ function TaxSavingRenderer({
                       className="flex items-center justify-between py-1.5 border-b border-border/20 last:border-0"
                     >
                       <span className="text-xs text-muted-foreground">
-                        {language === 'hi' && col.labelHindi ? col.labelHindi : col.label}
+                        {language === 'hi' && col.labelHindi ? col.labelHindi : language === 'hinglish' && col.labelHinglish ? col.labelHinglish : col.label}
                       </span>
                       <span
                         className={cn(
@@ -442,7 +443,7 @@ function PremiumRenderer({
                       : 'text-muted-foreground'
                   )}
                 >
-                  {language === 'hi' && col.labelHindi ? col.labelHindi : col.label}
+                  {language === 'hi' && col.labelHindi ? col.labelHindi : language === 'hinglish' && col.labelHinglish ? col.labelHinglish : col.label}
                   {col.highlight && (
                     <Badge className="ml-1.5 text-[8px] px-1 py-0 bg-[#C98A1C] text-white">
                       Best
@@ -584,7 +585,7 @@ function PremiumRenderer({
                       className="flex items-center justify-between py-1.5 border-b border-border/20 last:border-0"
                     >
                       <span className="text-xs text-muted-foreground">
-                        {language === 'hi' && col.labelHindi ? col.labelHindi : col.label}
+                        {language === 'hi' && col.labelHindi ? col.labelHindi : language === 'hinglish' && col.labelHinglish ? col.labelHinglish : col.label}
                       </span>
                       {isCsr && typeof val === 'number' ? (
                         <span
@@ -640,7 +641,7 @@ export function InsuranceComparisonTable({
   language = 'hinglish',
 }: ComparisonTableProps) {
   const displayTitle =
-    title || (language === 'hi' && titleHindi ? titleHindi : typeLabels[type]?.[language] || typeLabels[type]?.en || 'Comparison');
+    title || (language === 'hi' && titleHindi ? titleHindi : typeLabels[type]?.[language] || typeLabels[type]?.hinglish || typeLabels[type]?.en || 'Comparison');
 
   return (
     <motion.div

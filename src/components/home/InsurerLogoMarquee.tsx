@@ -34,12 +34,15 @@ const INSURERS: InsurerItem[] = [
 export default function InsurerLogoMarquee() {
   const { language } = useLanguage();
   const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   const ariaLabel = isHindi
     ? 'AI तैयार | IRDAI सत्यापित | पूरे भारत में परिवारों का भरोसा'
-    : 'AI Ready | IRDAI Verified | Families trust across India';
+    : isEnglish
+      ? 'AI Ready | IRDAI Verified | Families trust across India'
+      : 'AI Ready | IRDAI Verified | Poori India mein parivaron ka bharosa';
 
   // Duplicate for seamless loop
   const allInsurers = [...INSURERS, ...INSURERS];

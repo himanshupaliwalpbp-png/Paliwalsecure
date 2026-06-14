@@ -45,6 +45,7 @@ import {
   type PremiumBreakdown,
 } from '@/lib/premiumUtils';
 import MotorCalculator from './MotorCalculator';
+import { useLanguage } from '@/lib/i18n';
 
 // ── Tooltip helper for insurance terms ────────────────────
 function InfoTip({ text }: { text: string }) {
@@ -66,13 +67,21 @@ function InfoTip({ text }: { text: string }) {
 
 // ── Breakdown Card ────────────────────────────────────────
 function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type: 'health' | 'term' | 'motor' }) {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const gradientMap = {
     health: 'from-rose-500 to-pink-600',
     term: 'from-blue-500 to-indigo-600',
     motor: 'from-amber-500 to-orange-600',
   };
   const iconMap = { health: Heart, term: Shield, motor: Car };
-  const labelMap = { health: 'Health Insurance', term: 'Term Life Insurance', motor: 'Motor Insurance' };
+  const labelMap = {
+    health: isHindi ? 'हेल्थ इंश्योरेंस' : 'Health Insurance',
+    term: isHindi ? 'टर्म लाइफ इंश्योरेंस' : 'Term Life Insurance',
+    motor: isHindi ? 'मोटर इंश्योरेंस' : 'Motor Insurance',
+  };
   const Icon = iconMap[type];
 
   return (
@@ -89,8 +98,8 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
               <Icon className="w-5 h-5" />
             </div>
             <div>
-              <p className="font-bold text-lg">{labelMap[type]} Premium</p>
-              <p className="text-white/80 text-xs">Estimated quote based on your details</p>
+              <p className="font-bold text-lg">{labelMap[type]} {isHindi ? 'प्रीमियम' : 'Premium'}</p>
+              <p className="text-white/80 text-xs">{isHindi ? 'आपकी जानकारी के आधार पर अनुमानित कोट' : isEnglish ? 'Estimated quote based on your details' : 'Estimated quote based on your details'}</p>
             </div>
           </div>
         </div>
@@ -99,18 +108,18 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
           {/* Premium highlight */}
           <div className="flex items-end gap-6">
             <div>
-              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Monthly</p>
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{isHindi ? 'मासिक' : isEnglish ? 'Monthly' : 'Monthly'}</p>
               <p className="text-3xl sm:text-4xl font-extrabold gradient-text tracking-tight">
                 {formatRupees(breakdown.totalMonthly)}
               </p>
-              <p className="text-xs text-muted-foreground">incl. GST</p>
+              <p className="text-xs text-muted-foreground">{isHindi ? 'GST सहित' : 'incl. GST'}</p>
             </div>
             <div className="border-l border-border pl-6">
-              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Yearly</p>
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{isHindi ? 'वार्षिक' : isEnglish ? 'Yearly' : 'Yearly'}</p>
               <p className="text-xl sm:text-2xl font-bold text-foreground">
                 {formatRupees(breakdown.totalYearly)}
               </p>
-              <p className="text-xs text-muted-foreground">incl. GST</p>
+              <p className="text-xs text-muted-foreground">{isHindi ? 'GST सहित' : 'incl. GST'}</p>
             </div>
           </div>
 
@@ -119,11 +128,11 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
 
           {/* Itemized breakdown */}
           <div className="space-y-2.5">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Breakdown</p>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{isHindi ? 'विवरण' : 'Breakdown'}</p>
 
             {/* Base premium */}
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Base premium</span>
+              <span className="text-muted-foreground">{isHindi ? 'बेस प्रीमियम' : 'Base premium'}</span>
               <span className="font-medium">+{formatRupees(breakdown.base)}</span>
             </div>
 
@@ -146,7 +155,7 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
 
             {/* Subtotal */}
             <div className="flex items-center justify-between text-sm pt-2 border-t border-dashed border-border">
-              <span className="font-semibold text-foreground">Subtotal</span>
+              <span className="font-semibold text-foreground">{isHindi ? 'उपकुल' : 'Subtotal'}</span>
               <span className="font-semibold text-foreground">{formatRupees(breakdown.subtotal)}</span>
             </div>
 
@@ -176,7 +185,7 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
             <ChevronRight className="w-4 h-4" />
           </Button>
           <p className="text-[10px] text-center text-muted-foreground">
-            *Yeh estimated premium hai. Actual premium insurer ke underwriting rules pe depend karta hai.
+            {isHindi ? '*यह अनुमानित प्रीमियम है। वास्तविक प्रीमियम इंश्योरर के अंडरराइटिंग नियमों पर निर्भर करता है।' : isEnglish ? '*This is an estimated premium. Actual premium depends on the insurer\'s underwriting rules.' : '*Yeh estimated premium hai. Actual premium insurer ke underwriting rules pe depend karta hai.'}
           </p>
         </CardContent>
       </Card>
@@ -186,6 +195,10 @@ function BreakdownCard({ breakdown, type }: { breakdown: PremiumBreakdown; type:
 
 // ── Health Tab ────────────────────────────────────────────
 function HealthTab() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const [age, setAge] = useState(30);
   const [sumInsured, setSumInsured] = useState('5');
   const [familyComp, setFamilyComp] = useState<HealthCalcInput['familyComposition']>('self');
@@ -369,7 +382,7 @@ function HealthTab() {
               className="w-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-rose-500/20 transition-all duration-300"
             >
               <Calculator className="w-4 h-4" />
-              Calculate Health Premium
+              Calculate {isHindi ? 'हेल्थ प्रीमियम' : 'Health Premium'}
             </Button>
           </CardContent>
         </Card>
@@ -404,10 +417,10 @@ function HealthTab() {
                     <Heart className="w-8 h-8 text-rose-400" />
                   </div>
                   <p className="text-sm text-muted-foreground font-medium">
-                    Apni details bhariye aur <span className="gradient-text font-semibold">Health Premium</span> calculate karein
+                    {isHindi ? 'अपनी जानकारी भरें और' : isEnglish ? 'Fill in your details and' : 'Apni details bhariye aur'} <span className="gradient-text font-semibold">{isHindi ? 'हेल्थ प्रीमियम' : 'Health Premium'}</span> {isHindi ? 'कैलकुलेट करें' : isEnglish ? 'calculate' : 'calculate karein'}
                   </p>
                   <p className="text-[10px] text-muted-foreground">
-                    IRDAI 2025-26 data ke saath accurate estimate
+                    {isHindi ? 'IRDAI 2025-26 डेटा के साथ सटीक अनुमान' : isEnglish ? 'Accurate estimate with IRDAI 2025-26 data' : 'IRDAI 2025-26 data ke saath accurate estimate'}
                   </p>
                 </CardContent>
               </Card>
@@ -421,6 +434,10 @@ function HealthTab() {
 
 // ── Term Life Tab ─────────────────────────────────────────
 function TermTab() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const [age, setAge] = useState(30);
   const [sumAssured, setSumAssured] = useState('1');
   const [policyTerm, setPolicyTerm] = useState('30');
@@ -561,7 +578,7 @@ function TermTab() {
               className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-blue-500/20 transition-all duration-300"
             >
               <Calculator className="w-4 h-4" />
-              Calculate Term Premium
+              Calculate {isHindi ? 'टर्म प्रीमियम' : 'Term Premium'}
             </Button>
           </CardContent>
         </Card>
@@ -596,10 +613,10 @@ function TermTab() {
                     <Shield className="w-8 h-8 text-blue-400" />
                   </div>
                   <p className="text-sm text-muted-foreground font-medium">
-                    Apni details bhariye aur <span className="gradient-text font-semibold">Term Life Premium</span> calculate karein
+                    {isHindi ? 'अपनी जानकारी भरें और' : isEnglish ? 'Fill in your details and' : 'Apni details bhariye aur'} <span className="gradient-text font-semibold">{isHindi ? 'टर्म लाइफ प्रीमियम' : 'Term Life Premium'}</span> {isHindi ? 'कैलकुलेट करें' : isEnglish ? 'calculate' : 'calculate karein'}
                   </p>
                   <p className="text-[10px] text-muted-foreground">
-                    Starting from just ₹750/month for ₹1Cr cover
+                    {isHindi ? 'महज ₹750/माह से शुरू, ₹1 करोड़ कवर के लिए' : 'Starting from just ₹750/month for ₹1Cr cover'}
                   </p>
                 </CardContent>
               </Card>
@@ -613,6 +630,10 @@ function TermTab() {
 
 // ── Motor Tab ─────────────────────────────────────────────
 function MotorTab() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const currentYear = new Date().getFullYear();
   const [vehicleType, setVehicleType] = useState<'car' | 'bike'>('car');
   const [regYear, setRegYear] = useState(String(currentYear - 2));
@@ -839,7 +860,7 @@ function MotorTab() {
               className="w-full bg-gradient-to-r from-[#C98A1C] to-[#0A1330] hover:from-[#0A1330] hover:to-[#0F1C40] text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-[#C98A1C]/20 transition-all duration-300"
             >
               <Calculator className="w-4 h-4" />
-              Calculate Motor Premium
+              Calculate {isHindi ? 'मोटर प्रीमियम' : 'Motor Premium'}
             </Button>
           </CardContent>
         </Card>
@@ -874,10 +895,10 @@ function MotorTab() {
                     <Car className="w-8 h-8 text-amber-400" />
                   </div>
                   <p className="text-sm text-muted-foreground font-medium">
-                    Apni gaadi/bike details bhariye aur <span className="gradient-text font-semibold">Motor Premium</span> calculate karein
+                    {isHindi ? 'अपनी गाड़ी/बाइक जानकारी भरें और' : isEnglish ? 'Fill in your vehicle details and' : 'Apni gaadi/bike details bhariye aur'} <span className="gradient-text font-semibold">{isHindi ? 'मोटर प्रीमियम' : 'Motor Premium'}</span> {isHindi ? 'कैलकुलेट करें' : isEnglish ? 'calculate' : 'calculate karein'}
                   </p>
                   <p className="text-[10px] text-muted-foreground">
-                    IRDAI 2025-26 TP rates ke saath accurate estimate
+                    {isHindi ? 'IRDAI 2025-26 TP दरों के साथ सटीक अनुमान' : isEnglish ? 'Accurate estimate with IRDAI 2025-26 TP rates' : 'IRDAI 2025-26 TP rates ke saath accurate estimate'}
                   </p>
                 </CardContent>
               </Card>

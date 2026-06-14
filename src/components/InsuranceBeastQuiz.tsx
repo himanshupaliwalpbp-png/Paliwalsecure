@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { fireConfetti } from '@/components/Confetti';
+import { useLanguage } from '@/lib/i18n';
 
 // ============================================================================
 // TYPES
@@ -405,6 +406,10 @@ function CircularTimer({ timeLeft, maxTime }: { timeLeft: number; maxTime: numbe
 // ============================================================================
 
 export default function InsuranceBeastQuiz() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const [phase, setPhase] = useState<QuizPhase>('modeSelect');
   const [currentQuestions, setCurrentQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -610,7 +615,7 @@ export default function InsuranceBeastQuiz() {
   // ── Handle Lead Submit ───────────────────────────────────────
   const handleLeadSubmit = useCallback(() => {
     if (!leadName.trim() || !leadCity.trim()) {
-      alert("Kripya naam aur sheher bharein!");
+      alert(isHindi ? "कृपया नाम और शहर भरें!" : isEnglish ? "Please fill in name and city!" : "Kripya naam aur sheher bharein!");
       return;
     }
 
@@ -671,7 +676,11 @@ export default function InsuranceBeastQuiz() {
   // ── WhatsApp Share ───────────────────────────────────────────
   const handleWhatsAppShare = useCallback(() => {
     const percentScore = Math.round((userScore / currentQuestions.length) * 100);
-    const msg = `Namaste! Maine Bima Beast quiz khela.\nMode: ${currentModeName}\nMera score: ${percentScore}/100\nMera Quiz Code: ${generatedCode}\nMujhe ${leadInterest} Insurance ke baare mein jaanna hai.\nKya aap beat kar sakte ho?`;
+    const msg = isHindi
+      ? `नमस्ते! मैंने बीमा बीस्ट क्विज़ खेला।\nमोड: ${currentModeName}\nमेरा स्कोर: ${percentScore}/100\nमेरा क्विज़ कोड: ${generatedCode}\nमुझे ${leadInterest} इंश्योरेंस के बारे में जानना है।\nक्या आप बीट कर सकते हैं?`
+      : isEnglish
+      ? `Hi! I played the Bima Beast quiz.\nMode: ${currentModeName}\nMy score: ${percentScore}/100\nMy Quiz Code: ${generatedCode}\nI want to know about ${leadInterest} Insurance.\nCan you beat my score?`
+      : `Namaste! Maine Bima Beast quiz khela.\nMode: ${currentModeName}\nMera score: ${percentScore}/100\nMera Quiz Code: ${generatedCode}\nMujhe ${leadInterest} Insurance ke baare mein jaanna hai.\nKya aap beat kar sakte ho?`;
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
   }, [userScore, currentQuestions.length, currentModeName, generatedCode, leadInterest]);
 
@@ -700,10 +709,10 @@ export default function InsuranceBeastQuiz() {
 
   // ── Score Badge ──
   const getScoreBadge = () => {
-    if (percentScore < 40) return { icon: 'beginner', title: 'Insurance Beginner', color: 'bg-yellow-500' };
-    if (percentScore < 61) return { icon: 'aware', title: 'Insurance Aware', color: 'bg-orange-500' };
-    if (percentScore < 81) return { icon: 'smart', title: 'Insurance Smart', color: 'bg-primary' };
-    return { icon: 'pro', title: 'Insurance Pro', color: 'bg-primary' };
+    if (percentScore < 40) return { icon: 'beginner', title: isHindi ? 'इंश्योरेंस बिगिनर' : isEnglish ? 'Insurance Beginner' : 'Insurance Beginner', color: 'bg-yellow-500' };
+    if (percentScore < 61) return { icon: 'aware', title: isHindi ? 'इंश्योरेंस अवेयर' : isEnglish ? 'Insurance Aware' : 'Insurance Aware', color: 'bg-orange-500' };
+    if (percentScore < 81) return { icon: 'smart', title: isHindi ? 'इंश्योरेंस स्मार्ट' : isEnglish ? 'Insurance Smart' : 'Insurance Smart', color: 'bg-primary' };
+    return { icon: 'pro', title: isHindi ? 'इंश्योरेंस प्रो' : isEnglish ? 'Insurance Pro' : 'Insurance Pro', color: 'bg-primary' };
   };
 
   const scoreBadge = getScoreBadge();
@@ -758,19 +767,19 @@ export default function InsuranceBeastQuiz() {
 
               <Badge className="mb-4 bg-primary/20 text-primary border-primary/30 rounded-full px-4 py-1 text-sm">
                 <Zap className="w-3.5 h-3.5 mr-1" />
-                Bima Beast – Insurance IQ Test
+                {isHindi ? 'बीमा बीस्ट – इंश्योरेंस IQ टेस्ट' : isEnglish ? 'Bima Beast – Insurance IQ Test' : 'Bima Beast – Insurance IQ Test'}
               </Badge>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight mt-2" style={{ fontFamily: 'Fraunces, serif' }}>
-                Insurance{' '}
+                {isHindi ? 'इंश्योरेंस' : 'Insurance'}{' '}
                 <span className="text-primary">
                   Beast
                 </span>{' '}
-                Quiz
+                {isHindi ? 'क्विज़' : 'Quiz'}
               </h2>
 
               <p className="mt-4 text-lg sm:text-xl text-muted-foreground font-medium">
-                Apna Insurance IQ Test Karo
+                {isHindi ? 'अपना इंश्योरेंस IQ टेस्ट करो' : isEnglish ? 'Test Your Insurance IQ' : 'Apna Insurance IQ Test Karo'}
               </p>
 
               <motion.div
@@ -785,7 +794,7 @@ export default function InsuranceBeastQuiz() {
                     size="lg"
                     className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full gap-2 h-12 px-8 text-base font-semibold shadow-lg"
                   >
-                    <Zap className="w-4 h-4" /> Single Mix (5 Questions – Quick)
+                    <Zap className="w-4 h-4" /> {isHindi ? 'सिंगल मिक्स (5 सवाल – तेज़)' : isEnglish ? 'Single Mix (5 Questions – Quick)' : 'Single Mix (5 Sawaal – Quick)'}
                   </Button>
                 </motion.div>
 
@@ -795,17 +804,17 @@ export default function InsuranceBeastQuiz() {
                     size="lg"
                     className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full gap-2 h-12 px-8 text-base font-semibold shadow-lg"
                   >
-                    <RotateCcw className="w-4 h-4" /> Full Mix (10 Questions)
+                    <RotateCcw className="w-4 h-4" /> {isHindi ? 'फुल मिक्स (10 सवाल)' : isEnglish ? 'Full Mix (10 Questions)' : 'Full Mix (10 Sawaal)'}
                   </Button>
                 </motion.div>
 
                 {/* Category Buttons */}
                 <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
                   {[
-                    { mode: 'categoryHealth' as QuizMode, icon: Heart, label: 'Health Only (8)' },
-                    { mode: 'categoryMotor' as QuizMode, icon: Car, label: 'Motor Only (8)' },
-                    { mode: 'categoryLife' as QuizMode, icon: ShieldCheck, label: 'Life Only (8)' },
-                    { mode: 'categoryHome' as QuizMode, icon: HomeIcon, label: 'Home Only (8)' },
+                    { mode: 'categoryHealth' as QuizMode, icon: Heart, label: isHindi ? 'हेल्थ ओनली (8)' : isEnglish ? 'Health Only (8)' : 'Health Only (8)' },
+                    { mode: 'categoryMotor' as QuizMode, icon: Car, label: isHindi ? 'मोटर ओनली (8)' : isEnglish ? 'Motor Only (8)' : 'Motor Only (8)' },
+                    { mode: 'categoryLife' as QuizMode, icon: ShieldCheck, label: isHindi ? 'लाइफ ओनली (8)' : isEnglish ? 'Life Only (8)' : 'Life Only (8)' },
+                    { mode: 'categoryHome' as QuizMode, icon: HomeIcon, label: isHindi ? 'होम ओनली (8)' : isEnglish ? 'Home Only (8)' : 'Home Only (8)' },
                   ].map((cat) => {
                     const CatIcon = cat.icon;
                     return (
@@ -827,7 +836,7 @@ export default function InsuranceBeastQuiz() {
               {/* Badges display */}
               {earnedBadges.length > 0 && (
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-                  <span className="text-xs text-muted-foreground font-medium flex items-center gap-1"><Trophy className="w-3 h-3" /> Your Badges:</span>
+                  <span className="text-xs text-muted-foreground font-medium flex items-center gap-1"><Trophy className="w-3 h-3" /> {isHindi ? 'आपके बैज:' : isEnglish ? 'Your Badges:' : 'Aapke Badges:'}</span>
                   {earnedBadges.map((badge, i) => (
                     <Badge key={i} className="bg-primary/20 text-primary border-primary/30 rounded-full px-2.5 py-0.5 text-xs">
                       {badge}
@@ -851,8 +860,8 @@ export default function InsuranceBeastQuiz() {
               {/* Progress Bar */}
               <div className="mb-6">
                 <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-                  <span>Sawaal {currentIndex + 1} / {currentQuestions.length}</span>
-                  <span>{Math.round(progress)}% complete</span>
+                  <span>{isHindi ? `सवाल ${currentIndex + 1} / ${currentQuestions.length}` : isEnglish ? `Question ${currentIndex + 1} / ${currentQuestions.length}` : `Sawaal ${currentIndex + 1} / ${currentQuestions.length}`}</span>
+                  <span>{Math.round(progress)}% {isHindi ? 'पूरा' : isEnglish ? 'complete' : 'complete'}</span>
                 </div>
                 <div className="h-2 bg-border rounded-full overflow-hidden">
                   <motion.div
@@ -957,8 +966,8 @@ export default function InsuranceBeastQuiz() {
                           }`}
                         >
                           {selectedOption !== null && currentQ && selectedOption === currentQ.correct
-                            ? <span className="flex items-center justify-center gap-1"><CheckCircle2 className="w-4 h-4" /> Sahi jawaab! Well done!</span>
-                            : <span className="flex items-center justify-center gap-1"><XCircle className="w-4 h-4" /> Galat! Sahi jawaab: {currentQ.options[currentQ.correct]}</span>}
+                            ? <span className="flex items-center justify-center gap-1"><CheckCircle2 className="w-4 h-4" /> {isHindi ? 'सही जवाब! बहुत अच्छे!' : isEnglish ? 'Correct! Well done!' : 'Sahi jawaab! Well done!'}</span>
+                            : <span className="flex items-center justify-center gap-1"><XCircle className="w-4 h-4" /> {isHindi ? `गलत! सही जवाब: ${currentQ.options[currentQ.correct]}` : isEnglish ? `Wrong! Correct answer: ${currentQ.options[currentQ.correct]}` : `Galat! Sahi jawaab: ${currentQ.options[currentQ.correct]}`}</span>}
                         </motion.div>
                       )}
                     </CardContent>
@@ -1015,10 +1024,10 @@ export default function InsuranceBeastQuiz() {
                     transition={{ delay: 0.4 }}
                   >
                     <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-                      Quiz Complete!
+                      {isHindi ? 'क्विज़ पूरा!' : isEnglish ? 'Quiz Complete!' : 'Quiz Complete!'}
                     </h3>
                     <p className="mt-2 text-muted-foreground">
-                      Score dekhne ke liye info bharein
+                      {isHindi ? 'स्कोर देखने के लिए जानकारी भरें' : isEnglish ? 'Fill in your info to see your score' : 'Score dekhne ke liye info bharein'}
                     </p>
                   </motion.div>
 
@@ -1032,12 +1041,12 @@ export default function InsuranceBeastQuiz() {
                     <div className="space-y-2 text-left">
                       <label className="text-sm text-muted-foreground font-medium flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5" />
-                        Poora Naam *
+                        {isHindi ? 'पूरा नाम *' : isEnglish ? 'Full Name *' : 'Poora Naam *'}
                       </label>
                       <Input
                         value={leadName}
                         onChange={(e) => setLeadName(e.target.value)}
-                        placeholder="Apna naam daalo"
+                        placeholder={isHindi ? 'अपना नाम डालो' : isEnglish ? 'Enter your name' : 'Apna naam daalo'}
                         className="bg-card border-border text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary/30 h-11"
                       />
                     </div>
@@ -1045,12 +1054,12 @@ export default function InsuranceBeastQuiz() {
                     <div className="space-y-2 text-left">
                       <label className="text-sm text-muted-foreground font-medium flex items-center gap-1.5">
                         <MapPin className="w-3.5 h-3.5" />
-                        Sheher *
+                        {isHindi ? 'शहर *' : isEnglish ? 'City *' : 'Sheher *'}
                       </label>
                       <Input
                         value={leadCity}
                         onChange={(e) => setLeadCity(e.target.value)}
-                        placeholder="Apna sheher daalo"
+                        placeholder={isHindi ? 'अपना शहर डालो' : isEnglish ? 'Enter your city' : 'Apna sheher daalo'}
                         className="bg-card border-border text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary/30 h-11"
                       />
                     </div>
@@ -1058,18 +1067,18 @@ export default function InsuranceBeastQuiz() {
                     <div className="space-y-2 text-left">
                       <label className="text-sm text-muted-foreground font-medium flex items-center gap-1.5">
                         <Shield className="w-3.5 h-3.5" />
-                        Insurance Interest
+                        {isHindi ? 'इंश्योरेंस में दिलचस्पी' : isEnglish ? 'Insurance Interest' : 'Insurance Interest'}
                       </label>
                       <select
                         value={leadInterest}
                         onChange={(e) => setLeadInterest(e.target.value)}
                         className="w-full h-11 rounded-xl bg-card border border-border text-foreground px-3 text-sm focus:outline-none focus:border-primary"
                       >
-                        <option value="Health">Health Insurance</option>
-                        <option value="Motor">Motor Insurance</option>
-                        <option value="Life">Life Insurance</option>
-                        <option value="Home">Home Insurance</option>
-                        <option value="Not sure">Pata nahi</option>
+                        <option value="Health">{isHindi ? 'हेल्थ इंश्योरेंस' : 'Health Insurance'}</option>
+                        <option value="Motor">{isHindi ? 'मोटर इंश्योरेंस' : 'Motor Insurance'}</option>
+                        <option value="Life">{isHindi ? 'लाइफ इंश्योरेंस' : 'Life Insurance'}</option>
+                        <option value="Home">{isHindi ? 'होम इंश्योरेंस' : 'Home Insurance'}</option>
+                        <option value="Not sure">{isHindi ? 'पता नहीं' : isEnglish ? 'Not sure' : 'Pata nahi'}</option>
                       </select>
                     </div>
 
@@ -1078,13 +1087,13 @@ export default function InsuranceBeastQuiz() {
                         onClick={handleLeadSubmit}
                         className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-11 text-base font-semibold shadow-lg gap-2"
                       >
-                        Score Dekho <ChevronRight className="w-4 h-4" />
+                        {isHindi ? 'स्कोर देखो' : isEnglish ? 'See Score' : 'Score Dekho'} <ChevronRight className="w-4 h-4" />
                       </Button>
                     </motion.div>
                   </motion.div>
 
                   <p className="text-xs text-muted-foreground">
-                    <Shield className="w-3 h-3 inline mr-1" /> Aapka data safe hai. Koi spam nahi.
+                    <Shield className="w-3 h-3 inline mr-1" /> {isHindi ? 'आपका डेटा सुरक्षित है। कोई स्पैम नहीं।' : isEnglish ? 'Your data is safe. No spam.' : 'Aapka data safe hai. Koi spam nahi.'}
                   </p>
                 </CardContent>
               </Card>
@@ -1137,7 +1146,7 @@ export default function InsuranceBeastQuiz() {
                     </Badge>
 
                     <p className="mt-3 text-base sm:text-lg font-medium text-muted-foreground">
-                      {currentModeName} mein aapka score: {userScore}/{currentQuestions.length} sahi
+                      {isHindi ? `${currentModeName} में आपका स्कोर: ${userScore}/${currentQuestions.length} सही` : isEnglish ? `Your score in ${currentModeName}: ${userScore}/${currentQuestions.length} correct` : `${currentModeName} mein aapka score: ${userScore}/${currentQuestions.length} sahi`}
                     </p>
                   </motion.div>
 
@@ -1159,7 +1168,7 @@ export default function InsuranceBeastQuiz() {
                       transition={{ delay: 1 }}
                       className="flex flex-wrap justify-center gap-2"
                     >
-                      <span className="text-xs text-muted-foreground w-full flex items-center justify-center gap-1"><Trophy className="w-3 h-3" /> Your Badges:</span>
+                      <span className="text-xs text-muted-foreground w-full flex items-center justify-center gap-1"><Trophy className="w-3 h-3" /> {isHindi ? 'आपके बैज:' : isEnglish ? 'Your Badges:' : 'Aapke Badges:'}</span>
                       {earnedBadges.map((badge, i) => (
                         <Badge key={i} className="bg-primary/20 text-primary border-primary/30 rounded-full px-2.5 py-0.5 text-xs">
                           {badge}
@@ -1175,7 +1184,7 @@ export default function InsuranceBeastQuiz() {
                     transition={{ delay: 1.1 }}
                     className="bg-card/80 rounded-2xl p-4 max-w-sm mx-auto"
                   >
-                    <p className="text-xs text-muted-foreground mb-1"><BookOpen className="w-3 h-3 inline mr-1" /> Unique Quiz Code</p>
+                    <p className="text-xs text-muted-foreground mb-1"><BookOpen className="w-3 h-3 inline mr-1" /> {isHindi ? 'यूनिक क्विज़ कोड' : isEnglish ? 'Unique Quiz Code' : 'Unique Quiz Code'}</p>
                     <p className="text-xl font-mono font-bold text-primary">{generatedCode}</p>
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <Button
@@ -1185,11 +1194,11 @@ export default function InsuranceBeastQuiz() {
                         className="border-primary/30 text-primary hover:bg-primary/10 rounded-full gap-1 text-xs"
                       >
                         {codeCopied ? <CheckCircle2 className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                        {codeCopied ? 'Copied!' : 'Copy Code'}
+                        {codeCopied ? (isHindi ? 'कॉपी हुआ!' : isEnglish ? 'Copied!' : 'Copied!') : (isHindi ? 'कोड कॉपी करो' : isEnglish ? 'Copy Code' : 'Copy Code')}
                       </Button>
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-2">
-                      <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Valid till: {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}</span>
+                      <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> {isHindi ? 'तब तक मान्य:' : 'Valid till:'} {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}</span>
                     </p>
                   </motion.div>
 
@@ -1205,7 +1214,7 @@ export default function InsuranceBeastQuiz() {
                       className="border-border text-foreground hover:bg-primary/5 hover:text-foreground rounded-full gap-2"
                     >
                       <BookOpen className="w-4 h-4" />
-                      Review Answers
+                      {isHindi ? 'जवाब देखें' : isEnglish ? 'Review Answers' : 'Review Answers'}
                     </Button>
                   </motion.div>
 
@@ -1221,7 +1230,7 @@ export default function InsuranceBeastQuiz() {
                       className="border-border text-foreground hover:bg-primary/5 hover:text-foreground rounded-full gap-2"
                     >
                       <RotateCcw className="w-4 h-4" />
-                      Phir Se Khelo
+                      {isHindi ? 'फिर से खेलो' : isEnglish ? 'Play Again' : 'Phir Se Khelo'}
                     </Button>
                   </motion.div>
 
@@ -1239,8 +1248,8 @@ export default function InsuranceBeastQuiz() {
               >
                 {/* Exclusive Deals Header */}
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><Sparkles className="w-5 h-5 text-primary" /> Special Offers For You!</h3>
-                  <p className="text-muted-foreground text-sm mt-1">Quiz complete — enjoy these exclusive deals!</p>
+                  <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><Sparkles className="w-5 h-5 text-primary" /> {isHindi ? 'आपके लिए खास ऑफ़र!' : isEnglish ? 'Special Offers For You!' : 'Special Offers For You!'}</h3>
+                  <p className="text-muted-foreground text-sm mt-1">{isHindi ? 'क्विज़ पूरा — इन खास डील्स का मज़ा लो!' : isEnglish ? 'Quiz complete — enjoy these exclusive deals!' : 'Quiz complete — enjoy these exclusive deals!'}</p>
                 </div>
 
                 {/* Ajio Deal */}
@@ -1318,7 +1327,7 @@ export default function InsuranceBeastQuiz() {
                     className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full h-12 text-base font-semibold gap-2 shadow-lg"
                   >
                     <Share2 className="w-5 h-5" />
-                    WhatsApp par share karein
+                    {isHindi ? 'WhatsApp पर शेयर करें' : isEnglish ? 'Share on WhatsApp' : 'WhatsApp par share karein'}
                   </Button>
                 </motion.div>
               </motion.div>
@@ -1338,13 +1347,13 @@ export default function InsuranceBeastQuiz() {
               className="space-y-4"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><BookOpen className="w-5 h-5 text-primary" /> Answer Review</h3>
+                <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><BookOpen className="w-5 h-5 text-primary" /> {isHindi ? 'जवाब रिव्यू' : isEnglish ? 'Answer Review' : 'Answer Review'}</h3>
                 <Button
                   onClick={() => setPhase('result')}
                   variant="outline"
                   className="border-border text-muted-foreground hover:bg-primary/5 rounded-full gap-2 text-sm"
                 >
-                  ← Back to Results
+                  ← {isHindi ? 'परिणामों पर वापस' : isEnglish ? 'Back to Results' : 'Back to Results'}
                 </Button>
               </div>
 
@@ -1367,11 +1376,11 @@ export default function InsuranceBeastQuiz() {
                       </div>
                       <div className="ml-8 space-y-1">
                         <p className={`text-xs ${answer.isCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
-                          Your answer: {answer.selected}
+                          {isHindi ? 'आपका जवाब' : isEnglish ? 'Your answer' : 'Your answer'}: {answer.selected}
                         </p>
                         {!answer.isCorrect && (
                           <p className="text-xs text-emerald-400">
-                            Correct answer: {answer.correctAns}
+                            {isHindi ? 'सही जवाब' : isEnglish ? 'Correct answer' : 'Correct answer'}: {answer.correctAns}
                           </p>
                         )}
                       </div>
@@ -1384,7 +1393,7 @@ export default function InsuranceBeastQuiz() {
                 onClick={() => setPhase('result')}
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full h-11 text-base font-semibold shadow-lg mt-4"
               >
-                ← Back to Results
+                ← {isHindi ? 'परिणामों पर वापस' : isEnglish ? 'Back to Results' : 'Back to Results'}
               </Button>
             </motion.div>
           )}
@@ -1393,7 +1402,7 @@ export default function InsuranceBeastQuiz() {
 
         {/* Footer */}
         <p className="text-center text-[10px] text-muted-foreground mt-8">
-          <Zap className="w-3 h-3 inline" /> Educational quiz only. No cashback. Affiliate deals are from third parties.
+          <Zap className="w-3 h-3 inline" /> {isHindi ? 'केवल शैक्षिक क्विज़। कोई कैशबैक नहीं। एफ़िलिएट डील्स तीसरे पक्ष की हैं।' : isEnglish ? 'Educational quiz only. No cashback. Affiliate deals are from third parties.' : 'Educational quiz only. No cashback. Affiliate deals are from third parties.'}
         </p>
       </div>
     </section>

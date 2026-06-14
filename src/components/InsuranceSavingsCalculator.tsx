@@ -158,17 +158,17 @@ export default function InsuranceSavingsCalculator() {
     ageGroup: language === 'hi' ? 'आयु वर्ग' : language === 'hinglish' ? 'Age Group' : 'Age Group',
     cityTier: language === 'hi' ? 'शहर प्रकार' : language === 'hinglish' ? 'City Type' : 'City Tier',
     familySize: language === 'hi' ? 'परिवार के सदस्य' : language === 'hinglish' ? 'Family Members' : 'Family Size',
-    without: language === 'hi' ? 'बीमे के बिना' : language === 'hinglish' ? 'Without Insurance' : 'Without Insurance',
-    withIns: language === 'hi' ? 'बीमे के साथ' : language === 'hinglish' ? 'With Insurance' : 'With Insurance',
+    without: language === 'hi' ? 'बीमे के बिना' : language === 'hinglish' ? 'Bima Ke Bina' : 'Without Insurance',
+    withIns: language === 'hi' ? 'बीमे के साथ' : language === 'hinglish' ? 'Bima Ke Saath' : 'With Insurance',
     youSave: language === 'hi' ? 'आपकी बचत' : language === 'hinglish' ? 'Aapki Bachat' : 'You Save',
-    medical: language === 'hi' ? 'चिकित्सा खर्च' : language === 'hinglish' ? 'Medical Costs' : 'Medical Costs',
-    accident: language === 'hi' ? 'दुर्घटना खर्च' : language === 'hinglish' ? 'Accident Costs' : 'Accident Costs',
-    critical: language === 'hi' ? 'गंभीर बीमारी' : language === 'hinglish' ? 'Critical Illness' : 'Critical Illness',
-    cta: language === 'hi' ? 'अपनी व्यक्तिगत योजना प्राप्त करें →' : language === 'hinglish' ? 'Get Your Personalized Plan →' : 'Get Your Personalized Plan →',
-    metro: language === 'hi' ? 'मेट्रो शहर' : language === 'hinglish' ? 'Metro City' : 'Metro City',
+    medical: language === 'hi' ? 'चिकित्सा खर्च' : language === 'hinglish' ? 'Medical Kharcha' : 'Medical Costs',
+    accident: language === 'hi' ? 'दुर्घटना खर्च' : language === 'hinglish' ? 'Accident Kharcha' : 'Accident Costs',
+    critical: language === 'hi' ? 'गंभीर बीमारी' : language === 'hinglish' ? 'Critical Bimari' : 'Critical Illness',
+    cta: language === 'hi' ? 'अपनी व्यक्तिगत योजना प्राप्त करें →' : language === 'hinglish' ? 'Apni Personalized Plan Lo →' : 'Get Your Personalized Plan →',
+    metro: language === 'hi' ? 'मेट्रो शहर' : language === 'hinglish' ? 'Metro Shehar' : 'Metro City',
     nonMetro: language === 'hi' ? 'गैर-मेट्रो' : language === 'hinglish' ? 'Non-Metro' : 'Non-Metro',
-    perYear: language === 'hi' ? 'प्रति वर्ष' : language === 'hinglish' ? 'per year' : 'per year',
-    estimated: language === 'hi' ? 'अनुमानित वार्षिक लागत' : language === 'hinglish' ? 'Estimated Annual Cost' : 'Estimated Annual Cost',
+    perYear: language === 'hi' ? 'प्रति वर्ष' : language === 'hinglish' ? 'prati saal' : 'per year',
+    estimated: language === 'hi' ? 'अनुमानित वार्षिक लागत' : language === 'hinglish' ? 'Estimated Saalana Lagat' : 'Estimated Annual Cost',
   }), [language]);
 
   const ageGroups: AgeGroup[] = ['20-30', '30-40', '40-50', '50-60'];
@@ -343,7 +343,7 @@ export default function InsuranceSavingsCalculator() {
                     {formatINR(itemSavings)}
                   </div>
                   <div className="text-[9px] text-muted-foreground">
-                    {language === 'hi' ? 'बचत' : 'saved'}
+                    {language === 'hi' ? 'बचत' : language === 'hinglish' ? 'bachat' : 'saved'}
                   </div>
                 </div>
               </div>

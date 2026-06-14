@@ -1650,6 +1650,17 @@ export const translations: TranslationStrings = {
   'insureGPT.langHing': { en: 'HING', hi: 'HING', hinglish: 'HING' },
   'insureGPT.langEn': { en: 'EN', hi: 'EN', hinglish: 'EN' },
   'insureGPT.langHi': { en: 'HI', hi: 'HI', hinglish: 'HI' },
+  'insureGPT.typing': { en: 'typing...', hi: 'टाइप कर रहा है...', hinglish: 'typing...' },
+  'insureGPT.irdaiPOSP': { en: 'IRDAI Registered POSP', hi: 'IRDAI पंजीकृत POSP', hinglish: 'IRDAI Registered POSP' },
+  'insureGPT.poweredByPaliwal': { en: 'Powered by Paliwal Secure', hi: 'Paliwal Secure द्वारा संचालित', hinglish: 'Powered by Paliwal Secure' },
+  'insureGPTTeaser.heading': { en: 'Chat with InsureGPT', hi: 'InsureGPT से चैट करें', hinglish: 'InsureGPT se Chat Karein' },
+  'insureGPT.ttsLoading': { en: 'Loading', hi: 'लोड हो रहा', hinglish: 'Loading' },
+  'insureGPT.ttsPlaying': { en: 'Playing', hi: 'चल रहा', hinglish: 'Playing' },
+  'insureGPT.ttsListen': { en: 'Listen', hi: 'सुनें', hinglish: 'Sunein' },
+  'insureGPT.transcribing': { en: 'Transcribing...', hi: 'ट्रांसक्राइब कर रहा है...', hinglish: 'Transcribing...' },
+  'insureGPT.listening': { en: 'Listening...', hi: 'सुन रहा है...', hinglish: 'Sun raha hai...' },
+  'insureGPT.stop': { en: 'Stop', hi: 'रुकें', hinglish: 'Ruko' },
+  'insureGPT.send': { en: 'Send', hi: 'भेजें', hinglish: 'Bhejein' },
 
   // ── InsureGPT Quick Actions ────────────────────────────────────────────
   'insureGPT.quickAction.health': { en: 'Health', hi: 'स्वास्थ्य', hinglish: 'Health' },

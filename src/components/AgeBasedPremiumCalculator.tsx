@@ -32,6 +32,7 @@ import {
   type AgeHealthCalcInput,
   type AgeHealthCalcResult,
 } from '@/data/ageBasedData';
+import { useLanguage } from '@/lib/i18n';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -146,6 +147,10 @@ function ToggleRow({
 // ─── Main Component ────────────────────────────────────────
 
 export default function AgeBasedPremiumCalculator() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   // Form state
   const [age, setAge] = useState(30);
   const [sumInsured, setSumInsured] = useState(10);
@@ -231,7 +236,7 @@ export default function AgeBasedPremiumCalculator() {
               </div>
               <div>
                 <CardTitle className="text-base" style={{ color: DEEP_BLUE }}>
-                  Age-wise Premium Table
+                  {isHindi ? 'उम्रवार प्रीमियम टेबल' : 'Age-wise Premium Table'}
                 </CardTitle>
                 <CardDescription className="text-xs">
                   ₹10L cover ke liye annual premium — click karein age set karne ke liye
@@ -287,7 +292,7 @@ export default function AgeBasedPremiumCalculator() {
               </div>
               <div>
                 <CardTitle className="text-base" style={{ color: DEEP_BLUE }}>
-                  Premium Calculator
+                  {isHindi ? 'प्रीमियम कैलकुलेटर' : 'Premium Calculator'}
                 </CardTitle>
                 <CardDescription className="text-xs">
                   Apni details daalein, exact premium jaanein
@@ -430,7 +435,7 @@ export default function AgeBasedPremiumCalculator() {
                 ) : (
                   <>
                     <Sparkles className="size-5 mr-2" />
-                    Premium Calculate Karein
+                    {isHindi ? 'प्रीमियम कैलकुलेट करें' : 'Premium Calculate Karein'}
                   </>
                 )}
               </Button>
@@ -455,11 +460,11 @@ export default function AgeBasedPremiumCalculator() {
                 <div className="bg-gradient-to-r from-rose-500 to-pink-600 p-5 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <Shield className="size-5" />
-                    <span className="text-sm font-medium opacity-90">Aapka Health Insurance Premium</span>
+                    <span className="text-sm font-medium opacity-90">{isHindi ? 'आपका हेल्थ इंश्योरेंस प्रीमियम' : 'Aapka Health Insurance Premium'}</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                     <div>
-                      <p className="text-xs opacity-80">Monthly Premium</p>
+                      <p className="text-xs opacity-80">{isHindi ? 'मासिक प्रीमियम' : 'Monthly Premium'}</p>
                       <motion.p
                         className="text-3xl sm:text-4xl font-extrabold"
                         initial={{ scale: 0.5 }}
@@ -471,7 +476,7 @@ export default function AgeBasedPremiumCalculator() {
                       </motion.p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs opacity-80">Yearly Premium (GST incl.)</p>
+                      <p className="text-xs opacity-80">{isHindi ? 'वार्षिक प्रीमियम (GST सहित)' : 'Yearly Premium (GST incl.)'}</p>
                       <p className="text-xl sm:text-2xl font-bold">
                         {formatRupeesFull(result.totalYearly)}
                         <span className="text-sm font-normal opacity-80">/year</span>
@@ -511,7 +516,7 @@ export default function AgeBasedPremiumCalculator() {
                     <BreakdownRow label="GST (18%)" amount={result.gst} isAddition />
                     <Separator />
                     <div className="flex items-center justify-between font-extrabold text-base pt-1" style={{ color: DEEP_BLUE }}>
-                      <span>Total Yearly</span>
+                      <span>{isHindi ? 'कुल वार्षिक' : 'Total Yearly'}</span>
                       <span>{formatRupeesFull(result.totalYearly)}</span>
                     </div>
                   </div>
@@ -539,7 +544,7 @@ export default function AgeBasedPremiumCalculator() {
                       <div className="flex items-center gap-2 mb-2">
                         <IndianRupee className="size-4" style={{ color: ACCENT_TEAL }} />
                         <span className="text-sm font-semibold" style={{ color: DEEP_BLUE }}>
-                          Age 25 se Compare
+                          {isHindi ? 'उम्र 25 से तुलना' : 'Age 25 se Compare'}
                         </span>
                       </div>
                       <div className="grid grid-cols-3 gap-3 text-center">

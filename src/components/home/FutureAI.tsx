@@ -73,7 +73,7 @@ function FeatureCard({
   const title = tr(featureTitles[fk], isHindi, isEnglish);
   const desc = tr(featureDescs[fk], isHindi, isEnglish);
   const timeline = tr(featureTimelines[fk], isHindi, isEnglish);
-  const comingSoon = isHindi ? 'जल्द आ रहा है' : 'Coming Soon';
+  const comingSoon = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
 
   return (
     <motion.div
@@ -132,7 +132,7 @@ export default function FutureAI() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  const badge = isHindi ? 'जल्द आ रहा है' : 'Coming Soon';
+  const badge = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
   const heading = isHindi ? 'आगे क्या आने वाला है' : isEnglish ? "What's coming next" : 'Aage kya aane wala hai';
 
   return (

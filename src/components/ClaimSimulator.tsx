@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { useLanguage } from '@/lib/i18n';
 
 // ============================================================================
 // TYPES & CONSTANTS
@@ -52,46 +53,6 @@ const SUM_INSURED_OPTIONS = [
   { value: '1000000', label: '₹10 Lakh' },
   { value: '2500000', label: '₹25 Lakh' },
   { value: '5000000', label: '₹50 Lakh' },
-];
-
-// Tips for better claim experience
-const CLAIM_TIPS = [
-  {
-    icon: CheckCircle2,
-    text: 'Medical documents complete rakhein — reports, prescriptions, discharge summary sab hona chahiye',
-    color: 'text-emerald-600 dark:text-emerald-400',
-    bg: 'bg-emerald-50 dark:bg-emerald-950/30',
-  },
-  {
-    icon: ShieldCheck,
-    text: 'Policy ke waiting period ke baad hi claim karein — PED claims within waiting period mostly reject hote hain',
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-50 dark:bg-blue-950/30',
-  },
-  {
-    icon: Info,
-    text: 'Cashless claim ke liye network hospital choose karein — approval fast hota hai aur payment direct hota hai',
-    color: 'text-teal-600 dark:text-teal-400',
-    bg: 'bg-teal-50 dark:bg-teal-950/30',
-  },
-  {
-    icon: AlertCircle,
-    text: 'Claim intimation 24-48 hours mein karein — late intimation se rejection ka risk badhta hai',
-    color: 'text-amber-600 dark:text-amber-400',
-    bg: 'bg-amber-50 dark:bg-amber-950/30',
-  },
-  {
-    icon: Lightbulb,
-    text: 'Room rent limit follow karein — agar zyada rent wala room liya toh proportionate deduction hoga',
-    color: 'text-violet-600 dark:text-violet-400',
-    bg: 'bg-violet-50 dark:bg-violet-950/30',
-  },
-  {
-    icon: CheckCircle2,
-    text: 'Pre-approval (cashless) lein — insurer pehle se approve karta hai, rejection ka kam risk',
-    color: 'text-rose-600 dark:text-rose-400',
-    bg: 'bg-rose-50 dark:bg-rose-950/30',
-  },
 ];
 
 // ============================================================================
@@ -136,11 +97,11 @@ function simulateClaim(
 
   // Factor 1: PED + Waiting period
   if (pedPresent && !waitingCompleted) {
-    const pedPenalty = -20; // -15 to -25%, using -20 as average
+    const pedPenalty = -20;
     factors.push({
       label: 'PED within Waiting Period',
       impact: pedPenalty,
-      description: `Agar aapki PED (Pre-existing Disease) ka waiting period (${insurer?.pedWaitingMonths ?? 24} months) complete nahi hua hai, toh related claims reject hone ka high risk hai.`,
+      description: `PED (Pre-existing Disease) ka waiting period (${insurer?.pedWaitingMonths ?? 24} months) complete nahi hua hai, toh related claims reject hone ka high risk hai.`,
       type: 'negative',
     });
     reasoning.push(
@@ -234,6 +195,10 @@ function simulateClaim(
 // ============================================================================
 
 export default function ClaimSimulator() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   // Form state
   const [age, setAge] = useState(35);
   const [sumInsured, setSumInsured] = useState('500000');
@@ -257,6 +222,75 @@ export default function ClaimSimulator() {
     if (claimAmountNum <= 0) return;
     setShowResult(true);
   };
+
+  // Localized strings
+  const t = {
+    heading: isHindi ? 'क्लेम सिम्युलेटर' : isEnglish ? 'Claim Simulator' : 'Claim Simulator',
+    subheading: isHindi ? 'अपना क्लेम सिमुलेट करें — पहले ही संभावना जानें' : isEnglish ? 'Simulate your claim — know the probability beforehand' : 'Apna Claim Simulate Karein — Probability jaanein pehle hi',
+    aiPoweredBadge: isHindi ? 'AI-संचालित' : isEnglish ? 'AI-Powered' : 'AI-Powered',
+    formSectionLabel: isHindi ? 'अपना विवरण भरें' : isEnglish ? 'Fill Your Details' : 'Apni Details Bhariye',
+    ageLabel: isHindi ? 'उम्र (Age)' : isEnglish ? 'Age' : 'Umari (Age)',
+    sumInsuredLabel: isHindi ? 'सम इंश्योर्ड (कवर राशि)' : isEnglish ? 'Sum Insured (Cover Amount)' : 'Sum Insured (Cover Amount)',
+    claimAmountLabel: isHindi ? 'क्लेम राशि (₹)' : isEnglish ? 'Claim Amount (₹)' : 'Claim Amount (₹)',
+    claimAmountWarning: isHindi ? 'क्लेम राशि सम इंश्योर्ड से ज़्यादा है — इंश्योरर इतना ही देगा' : isEnglish ? 'Claim amount exceeds sum insured — insurer will only pay up to sum insured' : 'Claim amount sum insured se zyada hai — insurer itna hi dega',
+    pedLabel: isHindi ? 'PED मौजूद है? (पूर्व-मौजूद बीमारी)' : isEnglish ? 'PED Present? (Pre-existing Disease)' : 'PED Present? (Pre-existing Disease)',
+    waitingLabel: isHindi ? 'वेटिंग पीरियड पूरा हुआ?' : isEnglish ? 'Waiting Period Complete?' : 'Waiting Period Complete?',
+    insurerLabel: isHindi ? 'कौनसा इंश्योरर?' : isEnglish ? 'Which Insurer?' : 'Kaunsa Insurer? (Which Insurer?)',
+    simulateBtn: isHindi ? 'क्लेम संभावना सिमुलेट करें' : isEnglish ? 'Simulate Claim Probability' : 'Claim Probability Simulate Karein',
+    enterClaimFirst: isHindi ? 'पहले क्लेम राशि डालें तभी सिमुलेट हो पाएगा' : isEnglish ? 'Enter claim amount first to simulate' : 'Pehle claim amount daalein toh simulate ho payega',
+    probabilityLabel: isHindi ? 'क्लेम संभावना' : isEnglish ? 'Claim Probability' : 'Claim Probability',
+    reasoningLabel: isHindi ? 'तर्क / विचार' : isEnglish ? 'Reasoning' : 'Reasoning / Vichar',
+    factorsLabel: isHindi ? 'संभावना को प्रभावित करने वाले कारक' : isEnglish ? 'Factors Affecting Probability' : 'Factors Affecting Probability',
+    tipsLabel: isHindi ? 'बेहतर क्लेम अनुभव के लिए सुझाव' : isEnglish ? 'Tips for Better Claim Experience' : 'Tips for Better Claim Experience',
+    placeholderText: isHindi ? 'अपना विवरण भरें और' : isEnglish ? 'Fill your details and' : 'Apni details bhariye aur',
+    placeholderHighlight: isHindi ? 'क्लेम संभावना' : isEnglish ? 'Claim Probability' : 'Claim Probability',
+    placeholderSubtext: isHindi ? 'इंश्योरर सीएसआर, पीईडी स्थिति, उम्र और क्लेम राशि के आधार पर सटीक अनुमान' : isEnglish ? 'Accurate estimate based on insurer CSR, PED status, age, and claim amount' : 'Insurer CSR, PED status, age aur claim amount ke basis pe accurate estimate',
+    disclaimer: isHindi ? 'यह शैक्षिक उपकरण है। वास्तविक क्लेम अनुमोदन इंश्योरर की अंडरराइटिंग नीति पर निर्भर करता है। पिछला सीएसआर प्रदर्शन भविष्य की गारंटी नहीं है।' : isEnglish ? 'This is an educational tool. Actual claim approval depends on the insurer\'s underwriting policy. Past CSR performance is not a guarantee of future results.' : 'Yeh educational tool hai. Actual claim approval insurer ki underwriting policy pe depend karta hai. Past CSR performance future guarantee nahi hai.',
+    high: isHindi ? 'उच्च' : isEnglish ? 'High' : 'High',
+    medium: isHindi ? 'मध्यम' : isEnglish ? 'Medium' : 'Medium',
+    low: isHindi ? 'निम्न' : isEnglish ? 'Low' : 'Low',
+    probabilitySuffix: isHindi ? ' संभावना' : isEnglish ? ' Probability' : ' Probability',
+  };
+
+  // Tips for better claim experience
+  const CLAIM_TIPS = [
+    {
+      icon: CheckCircle2,
+      text: isHindi ? 'मेडिकल दस्तावेज़ पूरे रखें — रिपोर्ट, पर्चे, डिस्चार्ज सारांश सब होना चाहिए' : isEnglish ? 'Keep medical documents complete — reports, prescriptions, discharge summary all required' : 'Medical documents complete rakhein — reports, prescriptions, discharge summary sab hona chahiye',
+      color: 'text-emerald-600 dark:text-emerald-400',
+      bg: 'bg-emerald-50 dark:bg-emerald-950/30',
+    },
+    {
+      icon: ShieldCheck,
+      text: isHindi ? 'पॉलिसी के वेटिंग पीरियड के बाद ही क्लेम करें — वेटिंग पीरियड में पीईडी क्लेम ज़्यादातर रिजेक्ट होते हैं' : isEnglish ? 'Claim only after the policy waiting period — PED claims within waiting period are mostly rejected' : 'Policy ke waiting period ke baad hi claim karein — PED claims within waiting period mostly reject hote hain',
+      color: 'text-blue-600 dark:text-blue-400',
+      bg: 'bg-blue-50 dark:bg-blue-950/30',
+    },
+    {
+      icon: Info,
+      text: isHindi ? 'कैशलेस क्लेम के लिए नेटवर्क अस्पताल चुनें — अप्रूवल तेज़ होता है और पेमेंट सीधा होता है' : isEnglish ? 'Choose network hospital for cashless claim — approval is faster and payment is direct' : 'Cashless claim ke liye network hospital choose karein — approval fast hota hai aur payment direct hota hai',
+      color: 'text-teal-600 dark:text-teal-400',
+      bg: 'bg-teal-50 dark:bg-teal-950/30',
+    },
+    {
+      icon: AlertCircle,
+      text: isHindi ? 'क्लेम इंटिमेशन 24-48 घंटे में करें — देरी से रिजेक्शन का जोखिम बढ़ता है' : isEnglish ? 'Submit claim intimation within 24-48 hours — late intimation increases rejection risk' : 'Claim intimation 24-48 hours mein karein — late intimation se rejection ka risk badhta hai',
+      color: 'text-amber-600 dark:text-amber-400',
+      bg: 'bg-amber-50 dark:bg-amber-950/30',
+    },
+    {
+      icon: Lightbulb,
+      text: isHindi ? 'रूम रेंट लिमिट का पालन करें — ज़्यादा किराये वाला कमरा लेने पर आनुपातिक कटौती होगी' : isEnglish ? 'Follow room rent limit — choosing a higher rent room leads to proportionate deduction' : 'Room rent limit follow karein — agar zyada rent wala room liya toh proportionate deduction hoga',
+      color: 'text-violet-600 dark:text-violet-400',
+      bg: 'bg-violet-50 dark:bg-violet-950/30',
+    },
+    {
+      icon: CheckCircle2,
+      text: isHindi ? 'प्री-अप्रूवल (कैशलेस) लें — इंश्योरर पहले से अप्रूव करता है, रिजेक्शन का कम जोखिम' : isEnglish ? 'Get pre-approval (cashless) — insurer approves beforehand, lower rejection risk' : 'Pre-approval (cashless) lein — insurer pehle se approve karta hai, rejection ka kam risk',
+      color: 'text-rose-600 dark:text-rose-400',
+      bg: 'bg-rose-50 dark:bg-rose-950/30',
+    },
+  ];
 
   // Progress bar color
   const getProgressColor = (prob: number) => {
@@ -293,6 +327,15 @@ export default function ClaimSimulator() {
     }
   };
 
+  const getLevelText = (level: string) => {
+    switch (level) {
+      case 'High': return t.high;
+      case 'Medium': return t.medium;
+      case 'Low': return t.low;
+      default: return level;
+    }
+  };
+
   const isClaimValid = claimAmountNum > 0;
 
   return (
@@ -305,12 +348,12 @@ export default function ClaimSimulator() {
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-bold">Claim Simulator</h2>
-              <p className="text-white/80 text-xs sm:text-sm">Apna Claim Simulate Karein — Probability jaanein pehle hi</p>
+              <h2 className="text-lg sm:text-xl font-bold">{t.heading}</h2>
+              <p className="text-white/80 text-xs sm:text-sm">{t.subheading}</p>
             </div>
             <Badge className="ml-auto bg-white/20 text-white border-white/30 text-[10px] hidden sm:inline-flex">
               <Sparkles className="w-3 h-3 mr-1" />
-              AI-Powered
+              {t.aiPoweredBadge}
             </Badge>
           </div>
         </div>
@@ -322,13 +365,13 @@ export default function ClaimSimulator() {
             <div className="p-5 sm:p-6 lg:border-r border-border space-y-5">
               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
                 <Info className="w-3.5 h-3.5" />
-                Apni Details Bhariye
+                {t.formSectionLabel}
               </p>
 
               {/* Age Slider */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-semibold">Umari (Age)</Label>
+                  <Label className="text-sm font-semibold">{t.ageLabel}</Label>
                   <Badge variant="secondary" className="text-sm font-bold px-3 py-1">
                     {age} years
                   </Badge>
@@ -349,7 +392,7 @@ export default function ClaimSimulator() {
 
               {/* Sum Insured Dropdown */}
               <div className="space-y-2">
-                <Label className="text-sm font-semibold">Sum Insured (Cover Amount)</Label>
+                <Label className="text-sm font-semibold">{t.sumInsuredLabel}</Label>
                 <Select value={sumInsured} onValueChange={(v) => { setSumInsured(v); setShowResult(false); }}>
                   <SelectTrigger className="rounded-xl h-11">
                     <SelectValue />
@@ -366,7 +409,7 @@ export default function ClaimSimulator() {
 
               {/* Claim Amount Input */}
               <div className="space-y-2">
-                <Label className="text-sm font-semibold">Claim Amount (₹)</Label>
+                <Label className="text-sm font-semibold">{t.claimAmountLabel}</Label>
                 <div className="relative">
                   <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
@@ -384,7 +427,7 @@ export default function ClaimSimulator() {
                 {claimAmountNum > sumInsuredNum && claimAmountNum > 0 && (
                   <p className="text-[10px] text-red-500 flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3" />
-                    Claim amount sum insured se zyada hai — insurer itna hi dega
+                    {t.claimAmountWarning}
                   </p>
                 )}
               </div>
@@ -394,7 +437,7 @@ export default function ClaimSimulator() {
                 <div className="flex items-center justify-between">
                   <Label className="text-sm font-semibold flex items-center gap-1.5">
                     <AlertCircle className="w-3.5 h-3.5 text-amber-500" />
-                    PED Present? (Pre-existing Disease)
+                    {t.pedLabel}
                   </Label>
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-medium ${!pedPresent ? 'text-emerald-600' : 'text-muted-foreground'}`}>No</span>
@@ -420,7 +463,7 @@ export default function ClaimSimulator() {
                     <div className="flex items-center justify-between p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800">
                       <Label className="text-sm font-semibold flex items-center gap-1.5 text-amber-700 dark:text-amber-300">
                         <ShieldCheck className="w-3.5 h-3.5" />
-                        Waiting Period Complete?
+                        {t.waitingLabel}
                       </Label>
                       <div className="flex items-center gap-2">
                         <span className={`text-xs font-medium ${!waitingCompleted ? 'text-red-600' : 'text-muted-foreground'}`}>No</span>
@@ -437,7 +480,7 @@ export default function ClaimSimulator() {
 
               {/* Insurer Dropdown */}
               <div className="space-y-2">
-                <Label className="text-sm font-semibold">Kaunsa Insurer? (Which Insurer?)</Label>
+                <Label className="text-sm font-semibold">{t.insurerLabel}</Label>
                 <Select value={insurer} onValueChange={(v) => { setInsurer(v); setShowResult(false); }}>
                   <SelectTrigger className="rounded-xl h-11">
                     <SelectValue />
@@ -467,12 +510,12 @@ export default function ClaimSimulator() {
                 className="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-600 hover:via-teal-600 hover:to-emerald-700 text-white rounded-xl h-12 text-base font-semibold gap-2 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ShieldCheck className="w-4 h-4" />
-                Claim Probability Simulate Karein
+                {t.simulateBtn}
                 <ArrowRight className="w-4 h-4" />
               </Button>
               {!isClaimValid && (
                 <p className="text-[10px] text-muted-foreground text-center">
-                  Pehle claim amount daalein toh simulate ho payega
+                  {t.enterClaimFirst}
                 </p>
               )}
             </div>
@@ -491,7 +534,7 @@ export default function ClaimSimulator() {
                   >
                     {/* Probability Header */}
                     <div className="rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-800 p-5 text-center text-foreground dark:text-white">
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-2">Claim Probability</p>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-2">{t.probabilityLabel}</p>
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
@@ -533,7 +576,7 @@ export default function ClaimSimulator() {
                             const LvlIcon = getLevelIcon(result.level);
                             return <LvlIcon className="w-3.5 h-3.5 mr-1.5" />;
                           })()}
-                          {result.level} Probability
+                          {getLevelText(result.level)}{t.probabilitySuffix}
                         </Badge>
                       </motion.div>
                     </div>
@@ -542,7 +585,7 @@ export default function ClaimSimulator() {
                     <div className="space-y-3">
                       <p className="text-sm font-semibold text-foreground flex items-center gap-2">
                         <Info className="w-4 h-4 text-teal-600" />
-                        Reasoning / Vichar
+                        {t.reasoningLabel}
                       </p>
                       <div className="space-y-2">
                         {result.reasoning.map((reason, idx) => (
@@ -566,7 +609,7 @@ export default function ClaimSimulator() {
                     <div className="space-y-3">
                       <p className="text-sm font-semibold text-foreground flex items-center gap-2">
                         <TrendingUp className="w-4 h-4 text-emerald-600" />
-                        Factors Affecting Probability
+                        {t.factorsLabel}
                       </p>
                       <div className="space-y-2">
                         {result.factors.map((factor, idx) => (
@@ -615,24 +658,24 @@ export default function ClaimSimulator() {
                     </div>
                     <div className="space-y-2">
                       <p className="text-sm text-muted-foreground font-medium">
-                        Apni details bhariye aur <span className="gradient-text font-semibold">Claim Probability</span> simulate karein
+                        {t.placeholderText} <span className="gradient-text font-semibold">{t.placeholderHighlight}</span> {isHindi ? 'सिमुलेट करें' : isEnglish ? 'simulate' : 'simulate karein'}
                       </p>
                       <p className="text-[10px] text-muted-foreground">
-                        Insurer CSR, PED status, age aur claim amount ke basis pe accurate estimate
+                        {t.placeholderSubtext}
                       </p>
                     </div>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground mt-2">
                       <div className="flex items-center gap-1.5">
                         <div className="w-3 h-3 rounded-full bg-emerald-400" />
-                        High (&gt;80%)
+                        {t.high} (&gt;80%)
                       </div>
                       <div className="flex items-center gap-1.5">
                         <div className="w-3 h-3 rounded-full bg-amber-400" />
-                        Medium (60-80%)
+                        {t.medium} (60-80%)
                       </div>
                       <div className="flex items-center gap-1.5">
                         <div className="w-3 h-3 rounded-full bg-red-400" />
-                        Low (&lt;60%)
+                        {t.low} (&lt;60%)
                       </div>
                     </div>
                   </motion.div>
@@ -653,7 +696,7 @@ export default function ClaimSimulator() {
                 <div className="p-5 sm:p-6 space-y-4">
                   <p className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <Lightbulb className="w-4 h-4 text-amber-500" />
-                    Tips for Better Claim Experience
+                    {t.tipsLabel}
                   </p>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {CLAIM_TIPS.map((tip, idx) => {
@@ -681,7 +724,7 @@ export default function ClaimSimulator() {
           <div className="border-t border-border px-5 sm:px-6 py-3 bg-muted/30">
             <p className="text-[10px] text-muted-foreground flex items-start gap-2">
               <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
-              Yeh educational tool hai. Actual claim approval insurer ki underwriting policy pe depend karta hai. Past CSR performance future guarantee nahi hai.
+              {t.disclaimer}
             </p>
           </div>
         </CardContent>

@@ -67,7 +67,7 @@ export default function InsureGPTTeaser() {
               <span className="text-xs sm:text-sm font-semibold text-[#C98A1C]">InsureGPT</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold font-heading dark:text-white text-slate-900">
-              Chat with <span className="gradient-text italic">InsureGPT</span>
+              {t('insureGPTTeaser.heading')} <span className="gradient-text italic">InsureGPT</span>
             </h2>
           </motion.div>
 

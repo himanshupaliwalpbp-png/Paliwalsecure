@@ -134,7 +134,7 @@ export default function ComparisonMatrix() {
   const isEnglish = language === 'en';
 
   const heading = isHindi ? 'परिवार हमें क्यों चुनते हैं' : isEnglish ? 'Why families choose us' : 'Parivaar humein kyun chunte hain';
-  const featureLabel = isHindi ? 'विशेषता' : 'Feature';
+  const featureLabel = isHindi ? 'विशेषता' : isEnglish ? 'Feature' : 'Feature';
 
   const getFeatureLabel = (key: string) => isHindi
     ? featureLabels[key]?.hi ?? featureLabels[key]?.en
@@ -209,7 +209,7 @@ export default function ComparisonMatrix() {
                       <span>{getColumnLabel(col)}</span>
                       {col.highlight && (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-primary/10 border border-primary/20 text-primary normal-case tracking-normal">
-                          Recommended
+                          {isHindi ? 'अनुशंसित' : isEnglish ? 'Recommended' : 'Recommended'}
                         </span>
                       )}
                     </div>

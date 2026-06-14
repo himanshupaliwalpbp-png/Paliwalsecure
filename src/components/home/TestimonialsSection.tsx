@@ -111,14 +111,14 @@ export default function TestimonialsSection() {
   // Hydration-safe: default to dark, only treat as light when explicitly 'light'
   const isLight = mounted && resolvedTheme === 'light';
 
-  const badge = isHindi ? 'विश्वसनीय समीक्षाएँ' : 'Trusted Reviews';
+  const badge = isHindi ? 'विश्वसनीय समीक्षाएँ' : isEnglish ? 'Trusted Reviews' : 'Trusted Reviews';
   const heading = isHindi ? 'असली परिवार, असली बचत' : isEnglish ? 'Real families, real savings' : 'Asli parivaar, asli bachat';
   const subtitle = isHindi
     ? 'हज़ारों परिवारों ने Paliwal Secure पर भरोसा किया'
     : isEnglish
     ? 'Thousands of families trust Paliwal Secure for their insurance needs'
     : 'Hazaaron parivaron ne Paliwal Secure par bharosa kiya';
-  const verified = isHindi ? 'IRDAI सत्यापित' : 'IRDAI Verified';
+  const verified = isHindi ? 'IRDAI सत्यापित' : isEnglish ? 'IRDAI Verified' : 'IRDAI Verified';
 
   /* ── Theme-aware styles ─────────────────────────────────────────────── */
   const sectionBg = 'bg-background text-foreground';

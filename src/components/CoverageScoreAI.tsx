@@ -60,11 +60,11 @@ const CATEGORIES: CategoryData[] = [
     icon: Heart,
     labelEn: 'Health Insurance',
     labelHi: 'स्वास्थ्य बीमा',
-    labelHinglish: 'Health Insurance',
+    labelHinglish: 'Health Insurance (Swasthya Bima)',
     score: 42,
     gapLabelEn: 'High Gap — Critical',
     gapLabelHi: 'उच्च अंतर — गंभीर',
-    gapLabelHinglish: 'High Gap — Critical',
+    gapLabelHinglish: 'Zyada Gap — Bahut Zaroori',
     severity: 'critical',
     colorFrom: 'from-rose-500',
     colorTo: 'to-red-500',
@@ -81,11 +81,11 @@ const CATEGORIES: CategoryData[] = [
     icon: Shield,
     labelEn: 'Life/Term Insurance',
     labelHi: 'जीवन/टर्म बीमा',
-    labelHinglish: 'Life/Term Insurance',
+    labelHinglish: 'Life/Term Insurance (Jeevan Bima)',
     score: 28,
     gapLabelEn: 'High Gap — Urgent',
     gapLabelHi: 'उच्च अंतर — तत्काल',
-    gapLabelHinglish: 'High Gap — Urgent',
+    gapLabelHinglish: 'Zyada Gap — Turant Karo',
     severity: 'urgent',
     colorFrom: 'from-emerald-500',
     colorTo: 'to-green-600',
@@ -102,11 +102,11 @@ const CATEGORIES: CategoryData[] = [
     icon: Car,
     labelEn: 'Motor Insurance',
     labelHi: 'मोटर बीमा',
-    labelHinglish: 'Motor Insurance',
+    labelHinglish: 'Motor Insurance (Gadi Bima)',
     score: 65,
     gapLabelEn: 'Moderate Gap',
     gapLabelHi: 'मध्यम अंतर',
-    gapLabelHinglish: 'Moderate Gap',
+    gapLabelHinglish: 'Thoda Gap Hai',
     severity: 'moderate',
     colorFrom: 'from-amber-400',
     colorTo: 'to-orange-500',
@@ -123,11 +123,11 @@ const CATEGORIES: CategoryData[] = [
     icon: Umbrella,
     labelEn: 'Other Insurance',
     labelHi: 'अन्य बीमा',
-    labelHinglish: 'Other Insurance',
+    labelHinglish: 'Other Insurance (Anya Bima)',
     score: 78,
     gapLabelEn: 'Low Gap',
     gapLabelHi: 'कम अंतर',
-    gapLabelHinglish: 'Low Gap',
+    gapLabelHinglish: 'Kam Gap — Achha Hai',
     severity: 'low',
     colorFrom: 'from-violet-500',
     colorTo: 'to-purple-600',
@@ -156,21 +156,21 @@ function getScoreColor(score: number): string {
 function getScoreLabel(score: number, lang: string): string {
   if (score >= 80) {
     if (lang === 'hi') return 'कम अंतर';
-    if (lang === 'hinglish') return 'Low Gap';
+    if (lang === 'hinglish') return 'Kam Gap — Achha Hai';
     return 'Low Gap';
   }
   if (score >= 50) {
     if (lang === 'hi') return 'मध्यम अंतर';
-    if (lang === 'hinglish') return 'Moderate Gap';
+    if (lang === 'hinglish') return 'Thoda Gap Hai';
     return 'Moderate Gap';
   }
   if (score >= 30) {
     if (lang === 'hi') return 'उच्च अंतर — तत्काल';
-    if (lang === 'hinglish') return 'High Gap — Urgent';
+    if (lang === 'hinglish') return 'Zyada Gap — Turant Karo';
     return 'High Gap — Urgent';
   }
   if (lang === 'hi') return 'उच्च अंतर — गंभीर';
-  if (lang === 'hinglish') return 'High Gap — Critical';
+  if (lang === 'hinglish') return 'Zyada Gap — Bahut Zaroori';
   return 'High Gap — Critical';
 }
 
@@ -192,18 +192,18 @@ function getSeverityBadgeClasses(severity: string): string {
 function getOverallScoreLevel(avg: number, lang: string): { label: string; color: string } {
   if (avg >= 80) {
     return {
-      label: lang === 'hi' ? 'उत्कृष्ट' : lang === 'hinglish' ? 'Excellent' : 'Excellent',
+      label: lang === 'hi' ? 'उत्कृष्ट' : lang === 'hinglish' ? 'Utkrisht' : 'Excellent',
       color: 'text-emerald-500',
     };
   }
   if (avg >= 50) {
     return {
-      label: lang === 'hi' ? 'औसत' : lang === 'hinglish' ? 'Average' : 'Average',
+      label: lang === 'hi' ? 'औसत' : lang === 'hinglish' ? 'Theek Hai' : 'Average',
       color: 'text-amber-500',
     };
   }
   return {
-    label: lang === 'hi' ? 'कमज़ोर' : lang === 'hinglish' ? 'Weak' : 'Weak',
+    label: lang === 'hi' ? 'कमज़ोर' : lang === 'hinglish' ? 'Kamzor' : 'Weak',
     color: 'text-red-500',
   };
 }
@@ -451,7 +451,12 @@ export default function CoverageScoreAI({ onGetRecommendations, onAskInsureGPT }
   }, [phase]);
 
   // Localized strings
-  const sectionTitle = 'Coverage Score AI Analysis';
+  const sectionTitle =
+    language === 'hi'
+      ? 'कवरेज स्कोर AI विश्लेषण'
+      : language === 'hinglish'
+        ? 'Coverage Score AI Analysis'
+        : 'Coverage Score AI Analysis';
   const sectionSubtitle =
     language === 'hi'
       ? 'आपका बीमा कवरेज कितना मजबूत है? AI से जानिए!'

@@ -232,7 +232,7 @@ export default function InsureGPTShowcase() {
               dir="ltr"
               style={{ writingMode: 'horizontal-tb' }}
             >
-              Powered by Paliwal Secure
+              {t('insureGPT.poweredByPaliwal')}
             </span>
           </motion.div>
         </motion.div>
@@ -365,7 +365,7 @@ export default function InsureGPTShowcase() {
                       style={{ writingMode: 'horizontal-tb' }}
                     >
                       <Zap className="w-2.5 h-2.5 text-[#F4B400]/60" />
-                      Powered by Paliwal Secure
+                      {t('insureGPT.poweredByPaliwal')}
                     </span>
                   </div>
                 </div>
@@ -459,7 +459,7 @@ export default function InsureGPTShowcase() {
                               transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
                             />
                           ))}
-                          <span className="text-[10px] text-slate-400 ml-1 whitespace-nowrap" dir="ltr" style={{ writingMode: 'horizontal-tb' }}>typing</span>
+                          <span className="text-[10px] text-slate-400 ml-1 whitespace-nowrap" dir="ltr" style={{ writingMode: 'horizontal-tb' }}>{t('insureGPT.typing')}</span>
                         </div>
                       </div>
                     </motion.div>
@@ -478,7 +478,7 @@ export default function InsureGPTShowcase() {
                 <div className="flex flex-row items-center justify-center gap-3 mt-2" dir="ltr" style={{ writingMode: 'horizontal-tb' }}>
                   <span className="text-[9px] text-white/25 flex flex-row items-center gap-1 whitespace-nowrap" dir="ltr" style={{ writingMode: 'horizontal-tb' }}>
                     <ShieldCheck className="w-2.5 h-2.5" />
-                    IRDAI Registered POSP
+                    {t('insureGPT.irdaiPOSP')}
                   </span>
                 </div>
               </div>

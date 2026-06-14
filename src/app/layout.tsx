@@ -309,6 +309,22 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        {/* Blocking script: read language from localStorage BEFORE React hydrates to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var lang = localStorage.getItem('paliwal-language');
+                if (lang === 'hi') {
+                  document.documentElement.lang = 'hi';
+                  document.documentElement.classList.add('hindi-active');
+                } else if (lang === 'hinglish') {
+                  document.documentElement.lang = 'hi';
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         {/* Preconnect hints for performance — DNS resolve & TCP handshake early */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

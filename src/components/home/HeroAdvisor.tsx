@@ -150,48 +150,55 @@ export default function HeroAdvisor() {
   const [showResults, setShowResults] = useState(false);
 
   const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
 
   // ── Localized strings ─────────────────────────────────────
-  const headlineLine1 = isHindi
-    ? 'Insurance ko samjho.'
-    : 'Insurance ko samjho.';
-  const headlineLine2 = isHindi
-    ? 'Sahi faisla chuno.'
-    : 'Sahi faisla chuno.';
+  const headlineLine1 = isHindi ? 'Insurance ko samjho.' : isEnglish ? 'Understand Insurance.' : 'Insurance ko samjho.';
+  const headlineLine2 = isHindi ? 'Sahi faisla chuno.' : isEnglish ? 'Choose the right plan.' : 'Sahi faisla chuno.';
 
   const subtext = isHindi
     ? 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.'
-    : 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.';
+    : isEnglish
+      ? 'Compare policies with AI guidance, understand benefits, and make claims easy.'
+      : 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.';
 
-  const primaryCTA = isHindi ? 'Quick Adviser Shuru karein →' : 'Start Quick Adviser →';
+  const primaryCTA = isHindi ? 'Quick Adviser Shuru karein →' : isEnglish ? 'Start Quick Adviser →' : 'Quick Adviser Shuru karein →';
 
   const stepLabels: Record<Step, string> = isHindi
     ? { 1: 'Aapki umar?', 2: 'Parivaar ki sankhya?', 3: 'Shehar?', 4: 'Masik budget?' }
-    : { 1: 'Your age?', 2: 'Family size?', 3: 'Your city?', 4: 'Monthly budget?' };
+    : isEnglish
+      ? { 1: 'Your age?', 2: 'Family size?', 3: 'Your city?', 4: 'Monthly budget?' }
+      : { 1: 'Aapki umar?', 2: 'Parivaar ki sankhya?', 3: 'Shehar?', 4: 'Masik budget?' };
 
-  const getPlanLabel = isHindi ? 'Mera plan lo →' : 'Get my plan →';
-  const orDivider = isHindi ? '─ ya ─' : '─ or ─';
-  const whatsAppInstead = isHindi ? 'WhatsApp par baat karein' : 'WhatsApp instead';
+  const getPlanLabel = isHindi ? 'Mera plan lo →' : isEnglish ? 'Get my plan →' : 'Mera plan lo →';
+  const orDivider = isHindi ? '─ ya ─' : isEnglish ? '─ or ─' : '─ ya ─';
+  const whatsAppInstead = isHindi ? 'WhatsApp par baat karein' : isEnglish ? 'WhatsApp instead' : 'WhatsApp par baat karein';
 
   // Results view localized strings
-  const resultsTitle = isHindi ? 'AI Recommendations' : 'Your AI Recommendations';
+  const resultsTitle = isHindi ? 'AI Recommendations' : isEnglish ? 'Your AI Recommendations' : 'AI Recommendations';
   const resultsSubtitle = isHindi
     ? 'Aapke profile ke liye top plans'
-    : 'Top plans picked for your profile';
-  const advisorMessageLabel = isHindi ? 'Advisor ka sandesh' : "Advisor's Note";
-  const followUpLabel = isHindi ? 'Aage ka sawaal' : 'Follow-up Question';
+    : isEnglish
+      ? 'Top plans picked for your profile'
+      : 'Aapke profile ke liye top plans';
+  const advisorMessageLabel = isHindi ? 'Advisor ka sandesh' : isEnglish ? "Advisor's Note" : 'Advisor ka sandesh';
+  const followUpLabel = isHindi ? 'Aage ka sawaal' : isEnglish ? 'Follow-up Question' : 'Aage ka sawaal';
   const whatsappCTA = isHindi
     ? 'WhatsApp par detail mein baat karein'
-    : 'Discuss details on WhatsApp';
-  const startOverLabel = isHindi ? 'Phir se shuru karein' : 'Start Over';
-  const indicativeLabel = isHindi ? '(aadharit)' : '(indicative)';
-  const claimRatioLabel = isHindi ? 'Claim Settlement Ratio' : 'Claim Settlement Ratio';
-  const whyFitsLabel = isHindi ? 'Yeh kyun fit hai' : 'Why it fits you';
-  const sumInsuredLabel = isHindi ? 'Sum Insured' : 'Sum Insured';
-  const premiumLabel = isHindi ? 'Masik premium' : 'Monthly premium';
+    : isEnglish
+      ? 'Discuss details on WhatsApp'
+      : 'WhatsApp par detail mein baat karein';
+  const startOverLabel = isHindi ? 'Phir se shuru karein' : isEnglish ? 'Start Over' : 'Phir se shuru karein';
+  const indicativeLabel = isHindi ? '(aadharit)' : isEnglish ? '(indicative)' : '(aadharit)';
+  const claimRatioLabel = isHindi ? 'Claim Settlement Ratio' : isEnglish ? 'Claim Settlement Ratio' : 'Claim Settlement Ratio';
+  const whyFitsLabel = isHindi ? 'Yeh kyun fit hai' : isEnglish ? 'Why it fits you' : 'Yeh kyun fit hai';
+  const sumInsuredLabel = isHindi ? 'Sum Insured' : isEnglish ? 'Sum Insured' : 'Sum Insured';
+  const premiumLabel = isHindi ? 'Masik premium' : isEnglish ? 'Monthly premium' : 'Masik premium';
   const noPlansMsg = isHindi
     ? 'Abhi plans nahi mil paaye. WhatsApp par baat karein!'
-    : 'Could not fetch plans right now. Chat with us on WhatsApp!';
+    : isEnglish
+      ? 'Could not fetch plans right now. Chat with us on WhatsApp!'
+      : 'Abhi plans nahi mil paaye. WhatsApp par baat karein!';
 
   // ── Handlers ──────────────────────────────────────────────
   const handleNext = useCallback(() => {
@@ -300,7 +307,9 @@ export default function HeroAdvisor() {
             <p className="text-sm text-muted-foreground/70 text-center max-w-xs leading-relaxed">
               {isHindi
                 ? '51+ insurers scan ho rahe hain aapke liye best plan dhundhne ke liye...'
-                : 'Scanning 51+ insurers to find your best match...'}
+                : isEnglish
+                  ? 'Scanning 51+ insurers to find your best match...'
+                  : '51+ insurers scan ho rahe hain aapke liye best plan dhundhne ke liye...'}
             </p>
           </motion.div>
         )}
@@ -453,7 +462,9 @@ export default function HeroAdvisor() {
             <p className="text-[10px] text-muted-foreground/40 text-center leading-relaxed pt-1">
               {isHindi
                 ? '* Premium indicative hain. Exact quote ke liye human advisor se baat karein.'
-                : '* Premiums are indicative. Talk to a human advisor for exact quotes.'}
+                : isEnglish
+                  ? '* Premiums are indicative. Talk to a human advisor for exact quotes.'
+                  : '* Premium indicative hain. Exact quote ke liye human advisor se baat karein.'}
             </p>
           </>
         )}

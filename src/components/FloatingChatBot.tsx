@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { InlineSendStopButton } from '@/components/ui/send-stop-button';
 import { useLanguage } from '@/lib/i18n';
 import { registerInsureGPTHandlers, closeInsureGPT } from '@/lib/insuregpt-state';
+import type { Language } from '@/lib/i18n-strings';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -34,6 +35,13 @@ interface ChatSession {
 }
 
 type ChatLanguage = 'hing' | 'en' | 'hi';
+
+// ── Map site Language → internal ChatLanguage ──────────────────────────────
+const siteLangToChatLang: Record<Language, ChatLanguage> = {
+  hinglish: 'hing',
+  en: 'en',
+  hi: 'hi',
+};
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -62,6 +70,10 @@ const LANGUAGE_CONFIG: Record<ChatLanguage, {
   deleteChat: string;
   chatHistory: string;
   noHistory: string;
+  msgs: string;
+  stop: string;
+  whatsappExpert: string;
+  irdaiPOSP: string;
 }> = {
   hing: {
     welcome: 'Namaste! 🙏 Main hoon **InsureGPT** — aapka AI insurance advisor! Health, Life, Motor — koi bhi sawal puchhiye, main madad karunga.',
@@ -91,6 +103,10 @@ const LANGUAGE_CONFIG: Record<ChatLanguage, {
     deleteChat: 'Delete Karein',
     chatHistory: 'Chat History',
     noHistory: 'Koi chat nahi hai',
+    msgs: 'msgs',
+    stop: 'Ruko',
+    whatsappExpert: 'WhatsApp Expert',
+    irdaiPOSP: 'IRDAI Registered POSP',
   },
   en: {
     welcome: 'Hello! 👋 I\'m **InsureGPT** — your AI insurance advisor! I can help you understand insurance, compare plans, and find the right coverage. What would you like to know?',
@@ -120,6 +136,10 @@ const LANGUAGE_CONFIG: Record<ChatLanguage, {
     deleteChat: 'Delete',
     chatHistory: 'Chat History',
     noHistory: 'No chat history',
+    msgs: 'msgs',
+    stop: 'Stop',
+    whatsappExpert: 'WhatsApp Expert',
+    irdaiPOSP: 'IRDAI Registered POSP',
   },
   hi: {
     welcome: 'नमस्ते! 🙏 मैं हूं **InsureGPT** — आपका AI बीमा सलाहकार! स्वास्थ्य, जीवन, मोटर — कोई भी प्रश्न पूछिए, मैं मदद करूंगा।',
@@ -149,6 +169,10 @@ const LANGUAGE_CONFIG: Record<ChatLanguage, {
     deleteChat: 'हटाएं',
     chatHistory: 'चैट इतिहास',
     noHistory: 'कोई चैट नहीं है',
+    msgs: 'संदेश',
+    stop: 'रुकें',
+    whatsappExpert: 'WhatsApp विशेषज्ञ',
+    irdaiPOSP: 'IRDAI पंजीकृत POSP',
   },
 };
 
@@ -194,7 +218,7 @@ function createSession(language: ChatLanguage): ChatSession {
   const welcomeMsg = LANGUAGE_CONFIG[language].welcome;
   return {
     id,
-    title: 'New Chat',
+    title: LANGUAGE_CONFIG[language].newChat,
     messages: [{
       id: generateId(),
       role: 'bot',
@@ -536,7 +560,7 @@ function ChatHistorySidebar({
                 <p className="text-[10px] text-muted-foreground mt-0.5">
                   {formatTimestamp(session.updatedAt)}
                   {' · '}
-                  {session.messages.length - 1} msgs
+                  {session.messages.length - 1} {LANGUAGE_CONFIG[session.language || language].msgs}
                 </p>
               </div>
               <Button
@@ -567,7 +591,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const [language, setLanguage] = useState<ChatLanguage>('hing');
-  const { t } = useLanguage();
+  const { t, language: siteLanguage } = useLanguage();
 
   // Chat state
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -616,6 +640,20 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
   const handleStreamComplete = useCallback(() => {
     setStreamingMsgId(null);
   }, []);
+
+  // ── Sync chat language with site language ──────────────────────────
+  // When site language changes, update the chat language to match.
+  // This ensures the chat defaults to the correct language on first load
+  // and stays in sync when the user changes site language.
+  const siteLangRef = useRef<Language | null>(null);
+  useEffect(() => {
+    const chatLang = siteLangToChatLang[siteLanguage];
+    // Only sync if site language actually changed (avoid loops)
+    if (siteLangRef.current !== siteLanguage) {
+      siteLangRef.current = siteLanguage;
+      setLanguage(chatLang);
+    }
+  }, [siteLanguage]);
 
   // ── Load sessions from localStorage on mount ──────────────────────────
   useEffect(() => {
@@ -1497,7 +1535,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                         className="h-6 px-2 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-[10px] font-medium hover:bg-red-500/30"
                       >
                         <Square className="w-2 h-2 mr-1 fill-current" />
-                        Stop
+                        {langConfig.stop}
                       </Button>
                     </div>
                   </div>
@@ -1542,7 +1580,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
               <div className="flex items-center justify-center gap-3 mt-2">
                 <span className="text-[9px] text-muted-foreground flex items-center gap-1">
                   <ShieldCheck className="w-2.5 h-2.5" />
-                  IRDAI Registered POSP
+                  {langConfig.irdaiPOSP}
                 </span>
                 <span className="text-[9px] text-muted-foreground/30">|</span>
                 <a
@@ -1552,7 +1590,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   className="text-[9px] text-primary/60 hover:text-primary hover:underline flex items-center gap-1"
                 >
                   <MessageCircle className="w-2.5 h-2.5" />
-                  WhatsApp Expert
+                  {langConfig.whatsappExpert}
                 </a>
               </div>
             </div>

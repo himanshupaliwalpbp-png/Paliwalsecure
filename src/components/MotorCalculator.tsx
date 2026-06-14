@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calculator, Car, Bike, AlertTriangle, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/lib/i18n';
 
 // ============================================
 // DATA (Source: IRDAI 2025-26 Motor TP Rates)
@@ -93,6 +94,10 @@ function formatINR(amount: number): string {
 // ============================================
 
 export default function MotorCalculator() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   const [vehicleType, setVehicleType] = useState<'car' | 'bike'>('car');
   const [exShowroomPrice, setExShowroomPrice] = useState<number>(800000);
   const [vehicleAge, setVehicleAge] = useState<number>(1);
@@ -168,10 +173,10 @@ export default function MotorCalculator() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-slate-800 dark:text-white">
             <Calculator className="h-5 w-5 text-teal-700 dark:text-[#00A9A6]" />
-            Motor Insurance Premium Calculator
+            {isHindi ? 'मोटर इंश्योरेंस प्रीमियम कैलकुलेटर' : 'Motor Insurance Premium Calculator'}
           </CardTitle>
           <CardDescription className="text-slate-500 dark:text-slate-400">
-            Calculate your car or bike insurance premium as per IRDAI 2025-26 rates.
+            {isHindi ? 'IRDAI 2025-26 दरों के अनुसार अपना कार या बाइक इंश्योरेंस प्रीमियम कैलकुलेट करें।' : isEnglish ? 'Calculate your car or bike insurance premium as per IRDAI 2025-26 rates.' : 'Calculate your car or bike insurance premium as per IRDAI 2025-26 rates.'}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -305,7 +310,7 @@ export default function MotorCalculator() {
             onClick={calculate}
             className="w-full bg-teal-700 hover:bg-teal-800 dark:bg-[#00A9A6] dark:hover:bg-[#009090] text-white font-semibold"
           >
-            Calculate Premium
+            {isHindi ? 'प्रीमियम कैलकुलेट करें' : 'Calculate Premium'}
           </Button>
 
           {/* Results */}
@@ -318,7 +323,7 @@ export default function MotorCalculator() {
                 transition={{ duration: 0.3 }}
                 className="mt-4 p-4 bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 rounded-xl border border-teal-200 dark:border-teal-800/30 space-y-3"
               >
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">Premium Summary</h3>
+                <h3 className="font-bold text-lg text-slate-800 dark:text-white">{isHindi ? 'प्रीमियम सारांश' : 'Premium Summary'}</h3>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                   <span className="text-slate-600 dark:text-slate-400">Insured Declared Value (IDV):</span>
                   <span className="font-medium text-slate-800 dark:text-white">₹{formatINR(result.idv)}</span>

@@ -37,6 +37,7 @@ import {
   formatIndianCurrency,
   type HLVResult,
 } from '@/data/ageBasedData';
+import { useLanguage } from '@/lib/i18n';
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const INCOME_MIN = 200000;       // ₹2L
@@ -419,6 +420,10 @@ function ComparisonTable({
 // MAIN COMPONENT
 // ══════════════════════════════════════════════════════════════════════════
 export default function HLVCalculator() {
+  const { language } = useLanguage();
+  const isHindi = language === 'hi';
+  const isEnglish = language === 'en';
+
   // ── State ─────────────────────────────────────────────────────────────
   const [currentAge, setCurrentAge] = useState(30);
   const [annualIncome, setAnnualIncome] = useState(1000000); // ₹10L
@@ -476,7 +481,7 @@ export default function HLVCalculator() {
           >
             <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium">
               <Calculator className="w-3.5 h-3.5 mr-1" />
-              Insurance Calculator
+              {isHindi ? 'इंश्योरेंस कैलकुलेटर' : 'Insurance Calculator'}
             </Badge>
           </motion.div>
 
@@ -486,9 +491,9 @@ export default function HLVCalculator() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight"
           >
-            Human Life Value{' '}
+            {isHindi ? 'ह्यूमन लाइफ वैल्यू' : 'Human Life Value'}{' '}
             <span className="text-yellow-300">(HLV)</span>{' '}
-            Calculator
+            {isHindi ? 'कैलकुलेटर' : 'Calculator'}
           </motion.h2>
 
           <motion.p
@@ -497,7 +502,7 @@ export default function HLVCalculator() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="mt-3 text-sm sm:text-base text-white/80 max-w-xl mx-auto"
           >
-            Jaanein aapki life kitni valuable hai — aur kitna insurance chahiye
+            {isHindi ? 'जानें आपकी लाइफ कितनी कीमती है — और कितना इंश्योरेंस चाहिए' : isEnglish ? 'Know how valuable your life is — and how much insurance you need' : 'Jaanein aapki life kitni valuable hai — aur kitna insurance chahiye'}
           </motion.p>
 
           {/* Formula Display */}
@@ -532,10 +537,10 @@ export default function HLVCalculator() {
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
                   <Calculator className="w-4 h-4 text-white" />
                 </div>
-                Apni Details Daalein
+                {isHindi ? 'अपनी जानकारी डालें' : 'Apni Details Daalein'}
               </CardTitle>
               <CardDescription className="text-xs">
-                Sliders adjust karein — calculation live update hogi
+                {isHindi ? 'स्लाइडर एडजस्ट करें — कैलकुलेशन लाइव अपडेट होगी' : 'Sliders adjust karein — calculation live update hogi'}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 pt-2">
@@ -657,7 +662,7 @@ export default function HLVCalculator() {
                   {/* HLV Big Number */}
                   <div className="text-center">
                     <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
-                      Your Human Life Value
+                      {isHindi ? 'आपकी ह्यूमन लाइफ वैल्यू' : 'Your Human Life Value'}
                     </p>
                     <motion.p
                       className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent"
@@ -677,7 +682,7 @@ export default function HLVCalculator() {
                       <div className="flex items-center justify-center gap-1 mb-1">
                         <Shield className="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" />
                         <span className="text-[10px] font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wide">
-                          Recommended Cover
+                          {isHindi ? 'रिकमेंडेड कवर' : 'Recommended Cover'}
                         </span>
                       </div>
                       <p className="text-lg font-bold text-foreground">
@@ -690,7 +695,7 @@ export default function HLVCalculator() {
                       <div className="flex items-center justify-center gap-1 mb-1">
                         <TrendingUp className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                         <span className="text-[10px] font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wide">
-                          Age Multiplier
+                          {isHindi ? 'एज मल्टीप्लायर' : 'Age Multiplier'}
                         </span>
                       </div>
                       <p className="text-lg font-bold text-foreground">{ageMultiplier}×</p>
@@ -702,7 +707,7 @@ export default function HLVCalculator() {
                       <div className="flex items-center justify-center gap-1 mb-1">
                         <IndianRupee className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                         <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide">
-                          Est. Annual Premium
+                          {isHindi ? 'अनुमा. वार्षिक प्रीमियम' : 'Est. Annual Premium'}
                         </span>
                       </div>
                       <p className="text-lg font-bold text-foreground">
@@ -714,7 +719,7 @@ export default function HLVCalculator() {
                   {/* Visual Breakdown */}
                   <div className="space-y-3">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                      Income vs Expenses Breakdown
+                      {isHindi ? 'आय बनाम खर्च विवरण' : 'Income vs Expenses Breakdown'}
                     </p>
                     <BreakdownBar
                       income={annualIncome}
@@ -726,7 +731,7 @@ export default function HLVCalculator() {
                   {/* Visual Calculation */}
                   <div className="rounded-xl bg-muted/50 border border-border/40 p-4 space-y-2">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                      HLV Calculation
+                      {isHindi ? 'HLV कैलकुलेशन' : 'HLV Calculation'}
                     </p>
                     <div className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm">
                       <span className="bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-400 px-2 py-1 rounded-md font-medium">
@@ -764,10 +769,7 @@ export default function HLVCalculator() {
                   <div className="flex items-center gap-2 bg-violet-50 dark:bg-violet-950/20 rounded-xl p-3 border border-violet-200/40 dark:border-violet-800/30">
                     <Target className="w-5 h-5 text-violet-600 dark:text-violet-400 shrink-0" />
                     <p className="text-xs sm:text-sm text-violet-800 dark:text-violet-300">
-                      Aapki HLV <strong>{formatRupees(result.hlv)}</strong> hai.
-                      Outstanding debts ke saath recommended insurance cover{' '}
-                      <strong>{formatRupees(result.recommendedCover)}</strong> hai,
-                      jo approximately <strong>{formatRupees(result.premiumEstimate)}/yr</strong> premium mein available hai.
+                    {isHindi ? `आपकी HLV ${formatRupees(result.hlv)} hai. Outstanding debts ke saath recommended insurance cover ${formatRupees(result.recommendedCover)} hai, jo approximately ${formatRupees(result.premiumEstimate)}/yr premium mein available hai.` : `Aapki HLV ${formatRupees(result.hlv)} hai. Outstanding debts ke saath recommended insurance cover ${formatRupees(result.recommendedCover)} hai, jo approximately ${formatRupees(result.premiumEstimate)}/yr premium mein available hai.`}
                     </p>
                   </div>
                 </CardContent>
@@ -793,9 +795,9 @@ export default function HLVCalculator() {
                 <Clock className="w-4 h-4 text-white" />
               </div>
               <div>
-                <CardTitle className="text-base">Age-Based Recommendations</CardTitle>
+                <CardTitle className="text-base">{isHindi ? 'उम्र के हिसाब से सुझाव' : 'Age-Based Recommendations'}</CardTitle>
                 <CardDescription className="text-xs">
-                  Har age bracket ka recommended cover aapki current income pe
+                  {isHindi ? 'हर उम्र ब्रैकेट का रिकमेंडेड कवर आपकी करंट इनकम पर' : 'Har age bracket ka recommended cover aapki current income pe'}
                 </CardDescription>
               </div>
             </div>
@@ -829,10 +831,10 @@ export default function HLVCalculator() {
               </div>
               <div>
                 <CardTitle className="text-base">
-                  Comparison at Different Ages
+                  {isHindi ? 'अलग-अलग उम्र में तुलना' : 'Comparison at Different Ages'}
                 </CardTitle>
                 <CardDescription className="text-xs">
-                  Same income & expenses — bas age badhne se cover kaise change hota hai
+                  {isHindi ? 'सेम इनकम और खर्च — बस उम्र बढ़ने से कवर कैसे बदलता है' : 'Same income & expenses — bas age badhne se cover kaise change hota hai'}
                 </CardDescription>
               </div>
             </div>
@@ -865,9 +867,9 @@ export default function HLVCalculator() {
                 <Lightbulb className="w-4 h-4 text-white" />
               </div>
               <div>
-                <CardTitle className="text-base">Key Insights</CardTitle>
+                <CardTitle className="text-base">{isHindi ? 'मुख्य बातें' : 'Key Insights'}</CardTitle>
                 <CardDescription className="text-xs">
-                  Insurance lena shaan, bewkoofi nahi — samjho aur sahi decision lo
+                  {isHindi ? 'इंश्योरेंस लेना शान, बेवकूफ़ी नहीं — समझो और सही डिसीज़न लो' : 'Insurance lena shaan, bewkoofi nahi — samjho aur sahi decision lo'}
                 </CardDescription>
               </div>
             </div>
