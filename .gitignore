@@ -40,7 +40,8 @@ download/
 scripts/
 screenshots/
 data/
-components/
+# Only ignore top-level components/ folder (dev artifact), NOT src/ nested components
+/components/
 
 # Screenshot files from dev sessions
 *.screenshot*.png
