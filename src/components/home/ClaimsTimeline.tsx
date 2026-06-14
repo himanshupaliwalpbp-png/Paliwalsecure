@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion, type Variants } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView, type Variants } from 'framer-motion';
 import { MessageSquare, ClipboardList, Send, Activity, Banknote } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
@@ -39,13 +39,30 @@ const stepDescs: Record<string, { en: string; hi: string; hg: string }> = {
 };
 
 /* ── Animation ─────────────────────────────────────────────────────── */
-const circleVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.8 },
+const stepVariants: Variants = {
+  hidden: { opacity: 0, x: -30 },
   visible: (i: number) => ({
     opacity: 1,
-    scale: 1,
+    x: 0,
     transition: { delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   }),
+};
+
+const lineVariants: Variants = {
+  hidden: { scaleY: 0, originY: 0 },
+  visible: {
+    scaleY: 1,
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
 
 /* ── Component ─────────────────────────────────────────────────────── */
@@ -53,6 +70,9 @@ export default function ClaimsTimeline() {
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
 
   const heading = isHindi ? 'आपकी क्लेम यात्रा' : isEnglish ? 'Your claims journey' : 'Aapki claim yatra';
   const subtitle = isHindi ? 'हम फाइलिंग से भुगतान तक सब संभालते हैं' : isEnglish ? 'We handle everything from filing to payout' : 'Hum filing se payout tak sab sambhalte hain';
@@ -70,17 +90,16 @@ export default function ClaimsTimeline() {
       : stepDescs[key]?.hg ?? stepDescs[key]?.en;
 
   return (
-    <section className="py-24 bg-[#F8FAFC] dark:bg-[#060E22]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} className="section-luxury bg-[#F8FAFC] dark:bg-[#060E22]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          variants={headerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
           className="mb-16 md:mb-20 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-white/5 rounded-full border border-[#E2E8F0] dark:border-white/10 mb-5 shadow-premium">
+          <div className="badge-premium-slate mb-5">
             <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">Claims Process</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
@@ -91,100 +110,63 @@ export default function ClaimsTimeline() {
           </p>
         </motion.div>
 
-        {/* Desktop: Horizontal Timeline */}
-        <div className="hidden md:flex items-start justify-between relative">
+        {/* Vertical Timeline */}
+        <div className="relative">
+          {/* Animated vertical line */}
           <motion.div
-            initial={{ scaleX: 0, originX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-            className="absolute top-10 left-[10%] right-[10%] h-px bg-gradient-to-r from-[#2563EB]/20 via-[#10B981]/30 to-[#E8C872]/20"
+            variants={lineVariants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="absolute left-6 md:left-8 top-4 bottom-4 w-px bg-gradient-to-b from-[#2563EB]/40 via-[#10B981]/30 to-[#E8C872]/20 dark:from-[#2563EB]/30 dark:via-[#10B981]/20 dark:to-[#E8C872]/15"
           />
 
-          {claimSteps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.key}
-                custom={i}
-                variants={circleVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-                className="flex flex-col items-center text-center flex-1 relative group"
-              >
-                <div className="relative z-10 mb-6">
-                  <div
-                    className="w-20 h-20 rounded-2xl bg-white dark:bg-card/80 border border-[#E2E8F0] dark:border-white/10 flex items-center justify-center transition-all duration-500 group-hover:shadow-premium-lg"
-                    style={{ boxShadow: `0 4px 20px -4px ${step.color}15` }}
-                  >
-                    <Icon className="w-6 h-6" style={{ color: step.color }} strokeWidth={1.6} />
+          {/* Steps */}
+          <div className="space-y-6 md:space-y-8">
+            {claimSteps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.key}
+                  custom={i}
+                  variants={stepVariants}
+                  initial="hidden"
+                  animate={isInView ? 'visible' : 'hidden'}
+                  className="relative flex items-start gap-5 md:gap-7"
+                >
+                  {/* Step number circle — positioned on the timeline */}
+                  <div className="relative z-10 shrink-0">
+                    <div
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-base shadow-lg ring-4 ring-white dark:ring-[#0F172A] font-display transition-transform duration-300"
+                      style={{ backgroundColor: step.color, boxShadow: `0 4px 20px -4px ${step.color}40` }}
+                    >
+                      {step.number}
+                    </div>
                   </div>
-                  <span
-                    className="absolute -top-2 -right-2 min-w-[22px] h-[22px] rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm"
-                    style={{ backgroundColor: step.color }}
-                  >
-                    {step.number}
-                  </span>
-                </div>
-                <h3 className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] text-sm mb-1.5 max-w-[150px] tracking-tight font-display">
-                  {getStepTitle(step.key)}
-                </h3>
-                <p className="text-xs text-[#64748B] dark:text-[#A6AEC7] leading-relaxed max-w-[62ch] font-body">
-                  {getStepDesc(step.key)}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
 
-        {/* Mobile: Vertical Timeline */}
-        <div className="md:hidden relative pl-10">
-          <motion.div
-            initial={{ scaleY: 0, originY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
-            className="absolute left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-[#2563EB]/30 via-[#10B981]/20 to-[#E8C872]/10"
-          />
+                  {/* Card content */}
+                  <div className="premium-card flex-1 flex items-start gap-4 group">
+                    {/* Icon */}
+                    <div
+                      className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: `${step.color}10` }}
+                    >
+                      <Icon className="w-5 h-5 md:w-6 md:h-6" style={{ color: step.color }} strokeWidth={1.6} />
+                    </div>
 
-          {claimSteps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.key}
-                custom={i}
-                variants={circleVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                className="flex items-start gap-4 mb-8 last:mb-0 relative group"
-              >
-                <div className="relative z-10 shrink-0">
-                  <div
-                    className="w-10 h-10 rounded-xl bg-white dark:bg-card/80 border border-[#E2E8F0] dark:border-white/10 flex items-center justify-center"
-                    style={{ boxShadow: `0 2px 12px -4px ${step.color}15` }}
-                  >
-                    <Icon className="w-4 h-4" style={{ color: step.color }} strokeWidth={1.6} />
+                    {/* Text */}
+                    <div className="flex-1 min-w-0 pt-0.5">
+                      <h3 className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] text-base md:text-lg mb-1 tracking-tight font-display">
+                        {getStepTitle(step.key)}
+                      </h3>
+                      <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] leading-relaxed font-body">
+                        {getStepDesc(step.key)}
+                      </p>
+                    </div>
                   </div>
-                  <span
-                    className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] rounded-full flex items-center justify-center text-[9px] font-bold text-white shadow-sm"
-                    style={{ backgroundColor: step.color }}
-                  >
-                    {step.number}
-                  </span>
-                </div>
-                <div className="pt-0.5 flex-1 bg-white dark:bg-card/40 border border-[#E2E8F0] dark:border-white/10 rounded-xl p-3.5">
-                  <h3 className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] text-sm mb-0.5 tracking-tight font-display">
-                    {getStepTitle(step.key)}
-                  </h3>
-                  <p className="text-xs text-[#64748B] dark:text-[#A6AEC7] leading-relaxed font-body">
-                    {getStepDesc(step.key)}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

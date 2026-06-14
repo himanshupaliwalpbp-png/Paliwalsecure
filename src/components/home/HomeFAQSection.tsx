@@ -3,7 +3,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   Accordion,
   AccordionContent,
@@ -134,19 +133,20 @@ export default function HomeFAQSection() {
   const chatWithUs = isHindi ? 'WhatsApp पर चैट करें' : isEnglish ? 'Chat with Us on WhatsApp' : 'WhatsApp par chat karein';
 
   return (
-    <section className="py-24 bg-white dark:bg-[#0A1330]">
+    <section className="section-luxury section-luxury-alt">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-heading tracking-tight">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-xl text-[#64748B] dark:text-[#A6AEC7] font-body">
+          <p className="text-lg text-[#64748B] dark:text-[#94A3B8] font-sans max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
@@ -156,19 +156,19 @@ export default function HomeFAQSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-[#F8FAFC] dark:bg-white/5 border border-[#E2E8F0] dark:border-white/10 rounded-xl px-6 shadow-premium hover:shadow-premium-lg transition-all"
+                className="premium-card border border-[#E2E8F0]/60 dark:border-white/[0.06] rounded-xl px-6 !p-0 data-[state=open]:border-[#2563EB]/20 dark:data-[state=open]:border-[#3B82F6]/30 data-[state=open]:shadow-premium transition-all duration-300 group"
               >
-                <AccordionTrigger className="text-left font-display text-[#0F172A] dark:text-[#F8F6F0] hover:no-underline">
+                <AccordionTrigger className="text-left font-heading text-[0.9375rem] font-semibold text-[#0F172A] dark:text-[#F8F6F0] hover:no-underline py-5 [&>svg]:text-[#94A3B8] dark:[&>svg]:text-[#64748B] [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 [&>svg]:transition-transform [&>svg]:duration-200">
                   {isHindi ? faq.question.hi : isEnglish ? faq.question.en : faq.question.hg}
                 </AccordionTrigger>
-                <AccordionContent className="text-[#64748B] dark:text-[#A6AEC7] leading-relaxed font-body">
+                <AccordionContent className="text-[0.875rem] text-[#64748B] dark:text-[#94A3B8] leading-[1.7] font-sans pb-5">
                   {isHindi ? faq.answer.hi : isEnglish ? faq.answer.en : faq.answer.hg}
                 </AccordionContent>
               </AccordionItem>
@@ -181,20 +181,19 @@ export default function HomeFAQSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="text-center mt-14"
         >
-          <p className="text-[#64748B] dark:text-[#A6AEC7] mb-4 font-body">{stillQuestions}</p>
-          <Button
-            size="lg"
-            variant="outline"
-            className="gap-2 border-[#E2E8F0] dark:border-white/20 hover:bg-[#F8FAFC] dark:hover:bg-white/5 font-body"
-            asChild
+          <p className="text-[#64748B] dark:text-[#94A3B8] mb-5 font-sans text-sm">{stillQuestions}</p>
+          <a
+            href="https://wa.me/919257877312"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-luxury-secondary inline-flex items-center gap-2"
           >
-            <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="h-5 w-5" />
-              {chatWithUs}
-            </a>
-          </Button>
+            <MessageCircle className="h-4 w-4" />
+            {chatWithUs}
+          </a>
         </motion.div>
       </div>
     </section>

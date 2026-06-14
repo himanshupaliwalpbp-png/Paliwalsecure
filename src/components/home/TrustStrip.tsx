@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Users, Shield, TrendingUp, Award } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 // ── Stats data with icons and colors ─────────────────────────────────────────
 const stats = [
-  { key: 'families', icon: Users, target: 500, color: '#2563EB' },
-  { key: 'coverage', icon: Shield, target: 500, color: '#10B981' },
-  { key: 'claims', icon: TrendingUp, target: 100, color: '#E8C872' },
-  { key: 'experience', icon: Award, target: 15, color: '#8B5CF6' },
+  { key: 'families', icon: Users, target: 500, color: '#2563EB', accentClass: '' },
+  { key: 'coverage', icon: Shield, target: 500, color: '#10B981', accentClass: 'stat-premium-block-green' },
+  { key: 'claims', icon: TrendingUp, target: 100, color: '#E8C872', accentClass: 'stat-premium-block-gold' },
+  { key: 'experience', icon: Award, target: 15, color: '#8B5CF6', accentClass: 'stat-premium-block-violet' },
 ];
 
 // ── Animated number hook ──────────────────────────────────────────────────────
@@ -82,52 +82,72 @@ function StatItem({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="text-center group"
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      className={`stat-premium-block ${stat.accentClass}`}
+      style={{ borderLeftColor: stat.accentClass ? undefined : stat.color }}
     >
-      <div className="inline-flex items-center justify-center mb-4">
+      <div className="flex items-start gap-4">
         <div
-          className="p-4 rounded-2xl transition-transform group-hover:scale-110"
-          style={{ backgroundColor: `${stat.color}15` }}
+          className="flex-shrink-0 p-3 rounded-xl transition-transform group-hover:scale-105"
+          style={{ backgroundColor: `${stat.color}10` }}
         >
-          <Icon className="h-8 w-8" style={{ color: stat.color }} strokeWidth={2} />
+          <Icon className="h-5 w-5" style={{ color: stat.color }} strokeWidth={2} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="stat-number">
+            {formatValue()}
+          </div>
+          <div className="stat-label">{label}</div>
         </div>
       </div>
-      <div className="text-3xl lg:text-4xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-2 font-display">
-        {formatValue()}
-      </div>
-      <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{label}</div>
     </motion.div>
   );
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function TrustStrip() {
-  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
+  const sectionTitle = isHindi ? 'विश्वास के आँकड़े' : 'Trusted by Thousands';
+  const sectionSubtitle = isHindi
+    ? 'हमारे ग्राहकों का विश्वास हमारी सबसे बड़ी उपलब्धि है'
+    : 'Numbers that reflect our commitment to protecting what matters most';
+
   return (
-    <motion.section
+    <section
+      ref={sectionRef}
       aria-label="Trust indicators"
-      initial={{ opacity: 0, y: 6 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      onAnimationComplete={() => setInView(true)}
-      className="py-20 bg-white dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
+      className="section-luxury bg-white dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        {/* Section heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <h2 className="text-section-title mb-3">
+            {sectionTitle}
+          </h2>
+          <p className="text-body-lg max-w-2xl mx-auto">
+            {sectionSubtitle}
+          </p>
+        </motion.div>
+
+        {/* Stats grid — 4 columns on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {stats.map((stat, index) => (
             <StatItem
               key={stat.key}
               stat={stat}
-              inView={inView}
+              inView={isInView}
               index={index}
               isHindi={isHindi}
               isEnglish={isEnglish}
@@ -135,6 +155,6 @@ export default function TrustStrip() {
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

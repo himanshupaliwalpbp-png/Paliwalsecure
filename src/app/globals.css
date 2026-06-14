@@ -3426,9 +3426,640 @@ html.theme-transitioning *::after {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   32. PREMIUM DESIGN SYSTEM — Apple/Stripe/Linear Quality
+   Added by: frontend-styling-expert | Task 1
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 /* ──────────────────────────────────────────────
-   31j. REDUCE MOTION — Premium Polish
-   Ensure all new animations respect accessibility
+   32a. PREMIUM CARD SYSTEM
+   Clean white card with subtle border, smooth hover lift,
+   border highlight on hover, light + dark mode
+   ────────────────────────────────────────────── */
+.premium-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.08),
+              0 8px 16px -8px rgba(15, 23, 42, 0.04);
+  border-color: #2563EB;
+}
+.dark .premium-card {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.dark .premium-card:hover {
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4),
+              0 8px 16px -8px rgba(0, 0, 0, 0.2);
+  border-color: #3B82F6;
+}
+
+/* Premium card — compact variant */
+.premium-card-compact {
+  padding: 1rem;
+}
+
+/* Premium card — featured variant with accent top border */
+.premium-card-featured {
+  border-top: 3px solid #2563EB;
+}
+.dark .premium-card-featured {
+  border-top-color: #3B82F6;
+}
+
+/* Premium card — gold accent variant */
+.premium-card-gold {
+  border-top: 3px solid #E8C872;
+}
+.dark .premium-card-gold {
+  border-top-color: #D4A853;
+}
+
+/* ──────────────────────────────────────────────
+   32b. PREMIUM SECTION
+   Generous padding, subtle gradient backgrounds,
+   clean dividers between sections
+   ────────────────────────────────────────────── */
+.section-luxury {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .section-luxury {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Alternating section backgrounds */
+.section-luxury-alt {
+  background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+}
+.dark .section-luxury-alt {
+  background: linear-gradient(180deg, #0F172A 0%, #131C2E 100%);
+}
+
+.section-luxury-accent {
+  background: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 100%);
+}
+.dark .section-luxury-accent {
+  background: linear-gradient(180deg, #0C1929 0%, #0F172A 100%);
+}
+
+/* Section divider */
+.section-luxury-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #E2E8F0 20%, #E2E8F0 80%, transparent);
+  margin: 0;
+}
+.dark .section-luxury-divider {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0.08) 80%, transparent);
+}
+
+/* ──────────────────────────────────────────────
+   32c. PREMIUM BUTTON SYSTEM
+   Primary: Dark bg with white text, hover shimmer
+   Secondary: Outlined with border, hover fill
+   Gold accent variant for special CTAs
+   ────────────────────────────────────────────── */
+.btn-luxury-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  border-radius: 0.625rem;
+  border: none;
+  cursor: pointer;
+  background: #0F172A;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-luxury-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transition: left 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-luxury-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.35);
+}
+.btn-luxury-primary:hover::after {
+  left: 100%;
+}
+.btn-luxury-primary:active {
+  transform: translateY(0);
+}
+.btn-luxury-primary:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+}
+.dark .btn-luxury-primary {
+  background: #E8C872;
+  color: #0F172A;
+}
+.dark .btn-luxury-primary:hover {
+  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.3);
+}
+
+/* Secondary button */
+.btn-luxury-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  border-radius: 0.625rem;
+  border: 1.5px solid #E2E8F0;
+  cursor: pointer;
+  background: transparent;
+  color: #0F172A;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-luxury-secondary:hover {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+  transform: translateY(-1px);
+}
+.btn-luxury-secondary:active {
+  transform: translateY(0);
+}
+.btn-luxury-secondary:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+}
+.dark .btn-luxury-secondary {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #E2E8F0;
+}
+.dark .btn-luxury-secondary:hover {
+  background: #E8C872;
+  color: #0F172A;
+  border-color: #E8C872;
+}
+
+/* Gold accent CTA button */
+.btn-luxury-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  border-radius: 0.625rem;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #E8C872, #D4A853);
+  color: #0F172A;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-luxury-gold::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-luxury-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.45);
+}
+.btn-luxury-gold:hover::after {
+  left: 100%;
+}
+.btn-luxury-gold:active {
+  transform: translateY(0);
+}
+.btn-luxury-gold:focus-visible {
+  outline: 2px solid #E8C872;
+  outline-offset: 2px;
+}
+.dark .btn-luxury-gold {
+  background: linear-gradient(135deg, #E8C872, #D4A853);
+  color: #0F172A;
+}
+.dark .btn-luxury-gold:hover {
+  box-shadow: 0 8px 32px -8px rgba(232, 200, 114, 0.5);
+}
+
+/* Button sizes */
+.btn-luxury-sm {
+  padding: 0.5rem 1.125rem;
+  font-size: 0.8125rem;
+}
+.btn-luxury-lg {
+  padding: 1rem 2.25rem;
+  font-size: 1rem;
+}
+
+/* ──────────────────────────────────────────────
+   32d. PREMIUM TYPOGRAPHY SCALE
+   Hero, section titles, card titles, body, labels
+   ────────────────────────────────────────────── */
+.text-hero {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #0F172A;
+}
+.dark .text-hero {
+  color: #F8FAFC;
+}
+
+.text-section-title {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #0F172A;
+}
+.dark .text-section-title {
+  color: #F8FAFC;
+}
+
+.text-card-title {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #0F172A;
+}
+.dark .text-card-title {
+  color: #F8FAFC;
+}
+
+.text-body-lg {
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: #475569;
+}
+.dark .text-body-lg {
+  color: #94A3B8;
+}
+
+.text-label-premium {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748B;
+}
+.dark .text-label-premium {
+  color: #94A3B8;
+}
+
+/* ──────────────────────────────────────────────
+   32e. PREMIUM BADGE/TAG SYSTEM
+   Pill-shaped badges with variant colors
+   (Extends existing .badge-premium with variants)
+   ────────────────────────────────────────────── */
+.badge-premium-blue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  background: rgba(37, 99, 235, 0.08);
+  color: #2563EB;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+.dark .badge-premium-blue {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60A5FA;
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.badge-premium-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+.dark .badge-premium-green {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34D399;
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.badge-premium-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  background: rgba(232, 200, 114, 0.10);
+  color: #B8960C;
+  border: 1px solid rgba(232, 200, 114, 0.18);
+}
+.dark .badge-premium-gold {
+  background: rgba(232, 200, 114, 0.10);
+  color: #E8C872;
+  border-color: rgba(232, 200, 114, 0.2);
+}
+
+.badge-premium-slate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+}
+.dark .badge-premium-slate {
+  background: rgba(255, 255, 255, 0.06);
+  color: #94A3B8;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ──────────────────────────────────────────────
+   32f. PREMIUM GLASS EFFECT
+   Modern glassmorphism with proper blur,
+   subtle border, light + dark mode
+   ────────────────────────────────────────────── */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: 1rem;
+}
+.dark .glass-premium {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Glass — subtle variant for backgrounds */
+.glass-premium-subtle {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.4);
+  border-radius: 0.75rem;
+}
+.dark .glass-premium-subtle {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ──────────────────────────────────────────────
+   32g. PREMIUM STAT DISPLAY
+   Large number with mono font, label below,
+   subtle border-left accent
+   ────────────────────────────────────────────── */
+.stat-premium-block {
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid #2563EB;
+  background: #FFFFFF;
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+.stat-premium-block .stat-number {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+}
+.stat-premium-block .stat-label {
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #64748B;
+  margin-top: 0.25rem;
+  letter-spacing: 0.01em;
+}
+.dark .stat-premium-block {
+  background: #1E293B;
+  border-left-color: #3B82F6;
+}
+.dark .stat-premium-block .stat-number {
+  color: #F8FAFC;
+}
+.dark .stat-premium-block .stat-label {
+  color: #94A3B8;
+}
+
+/* Stat accent variants */
+.stat-premium-block-green {
+  border-left-color: #10B981;
+}
+.dark .stat-premium-block-green {
+  border-left-color: #34D399;
+}
+
+.stat-premium-block-gold {
+  border-left-color: #E8C872;
+}
+.dark .stat-premium-block-gold {
+  border-left-color: #D4A853;
+}
+
+.stat-premium-block-violet {
+  border-left-color: #8B5CF6;
+}
+.dark .stat-premium-block-violet {
+  border-left-color: #A78BFA;
+}
+
+/* ──────────────────────────────────────────────
+   32h. PREMIUM INPUT FIELDS
+   Clean border, focus ring, subtle transition,
+   light + dark mode
+   ────────────────────────────────────────────── */
+.input-premium {
+  width: 100%;
+  padding: 0.6875rem 1rem;
+  font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 0.625rem;
+  outline: none;
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.input-premium::placeholder {
+  color: #94A3B8;
+}
+.input-premium:hover {
+  border-color: #CBD5E1;
+}
+.input-premium:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.dark .input-premium {
+  color: #F8FAFC;
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.dark .input-premium::placeholder {
+  color: #64748B;
+}
+.dark .input-premium:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.dark .input-premium:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Input with left icon padding */
+.input-premium-icon {
+  padding-left: 2.75rem;
+}
+
+/* ──────────────────────────────────────────────
+   32i. PREMIUM SCROLLBAR REFINEMENT
+   Thin, subtle scrollbar matching the design system
+   ────────────────────────────────────────────── */
+.premium-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.premium-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.premium-scrollbar::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+.premium-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+.dark .premium-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+}
+.dark .premium-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Firefox scrollbar */
+.premium-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+.dark .premium-scrollbar {
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* ──────────────────────────────────────────────
+   32j. SMOOTH PAGE TRANSITIONS
+   Fade + subtle slide for page-level transitions
+   ────────────────────────────────────────────── */
+.page-transition {
+  animation: page-enter 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered child entrance for page sections */
+.page-transition-stagger > * {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: page-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.page-transition-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.page-transition-stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.page-transition-stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.page-transition-stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.page-transition-stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.page-transition-stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.page-transition-stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.page-transition-stagger > *:nth-child(8) { animation-delay: 0.4s; }
+.page-transition-stagger > *:nth-child(9) { animation-delay: 0.45s; }
+.page-transition-stagger > *:nth-child(10) { animation-delay: 0.5s; }
+
+/* ──────────────────────────────────────────────
+   32k. REDUCE MOTION — Updated Premium Polish
+   Ensure ALL new animations respect accessibility
    ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .glass-card-premium,
@@ -3438,16 +4069,33 @@ html.theme-transitioning *::after {
   .card-hover-gradient,
   .gradient-text-vivid,
   .gradient-text-hero-vivid,
-  .fade-in-premium {
+  .fade-in-premium,
+  .premium-card,
+  .btn-luxury-primary,
+  .btn-luxury-secondary,
+  .btn-luxury-gold,
+  .page-transition,
+  .page-transition-stagger > * {
     animation: none !important;
     transition-duration: 0.01ms !important;
   }
-  .btn-premium::after {
+  .btn-premium::after,
+  .btn-luxury-primary::after,
+  .btn-luxury-gold::after {
     display: none;
   }
   .glass-card-premium:hover,
   .card-hover-premium:hover,
-  .card-hover-gradient:hover {
+  .card-hover-gradient:hover,
+  .premium-card:hover,
+  .btn-luxury-primary:hover,
+  .btn-luxury-secondary:hover,
+  .btn-luxury-gold:hover {
+    transform: none !important;
+  }
+  .page-transition,
+  .page-transition-stagger > * {
+    opacity: 1 !important;
     transform: none !important;
   }
 }

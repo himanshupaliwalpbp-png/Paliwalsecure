@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView, type Variants } from 'framer-motion';
 import { Check, X, Minus, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
@@ -52,30 +52,57 @@ const featureLabels: Record<string, { en: string; hi: string; hg: string }> = {
   transparentCommissions: { en: 'Transparent Commissions', hi: 'पारदर्शी कमीशन', hg: 'Transparent Commissions' },
 };
 
+/* ── Animation ─────────────────────────────────────────────────────── */
+const tableVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
 /* ── Cell renderer ─────────────────────────────────────────────────── */
 function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean }) {
   switch (cell.type) {
     case 'check':
       return (
-        <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${isPaliwal ? 'bg-[#2563EB]/10 border border-[#2563EB]/20' : 'bg-[#F1F5F9] dark:bg-white/5'}`}>
-          <Check className={`w-4 h-4 ${isPaliwal ? 'text-[#2563EB]' : 'text-[#64748B]'}`} strokeWidth={2.5} />
+        <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full transition-colors duration-200 ${
+          isPaliwal
+            ? 'bg-[#2563EB]/[0.08] border border-[#2563EB]/15 dark:bg-[#3B82F6]/[0.12] dark:border-[#3B82F6]/20'
+            : 'bg-[#F1F5F9] dark:bg-white/5 border border-transparent'
+        }`}>
+          <Check className={`w-3.5 h-3.5 ${isPaliwal ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'}`} strokeWidth={2.5} />
         </span>
       );
     case 'cross':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/5">
-          <X className="w-4 h-4 text-[#64748B]/30" strokeWidth={2.5} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/[0.03] border border-transparent">
+          <X className="w-3.5 h-3.5 text-[#CBD5E1] dark:text-white/20" strokeWidth={2} />
         </span>
       );
     case 'dash':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/5">
-          <Minus className="w-4 h-4 text-[#64748B]/30" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/[0.03] border border-transparent">
+          <Minus className="w-3.5 h-3.5 text-[#CBD5E1] dark:text-white/20" strokeWidth={2} />
         </span>
       );
     case 'text':
       return (
-        <span className={`text-xs font-medium capitalize ${isPaliwal ? 'text-[#2563EB]' : 'text-[#64748B]/70'} font-body`}>
+        <span className={`text-xs font-medium capitalize font-body ${
+          isPaliwal
+            ? 'text-[#2563EB] dark:text-[#60A5FA]'
+            : 'text-[#94A3B8] dark:text-[#64748B]'
+        }`}>
           {cell.value}
         </span>
       );
@@ -87,6 +114,9 @@ export default function ComparisonMatrix() {
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
+
+  const tableRef = useRef<HTMLDivElement>(null);
+  const tableInView = useInView(tableRef, { once: true, margin: '-80px' });
 
   const heading = isHindi ? 'परिवार हमें क्यों चुनते हैं' : isEnglish ? 'Why families choose us' : 'Parivaar humein kyun chunte hain';
   const featureLabel = isHindi ? 'विशेषता' : isEnglish ? 'Feature' : 'Feature';
@@ -104,91 +134,121 @@ export default function ComparisonMatrix() {
       : col.label.hg;
 
   return (
-    <section className="py-24 bg-white dark:bg-[#0A1330]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-luxury section-luxury-alt">
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
           className="mb-14 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F8FAFC] dark:bg-white/5 rounded-full border border-[#E2E8F0] dark:border-white/10 mb-5 shadow-premium">
-            <Sparkles className="w-3 h-3 text-[#E8C872]" />
-            <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">Comparison</span>
+          <div className="badge-premium-slate mb-5">
+            <Sparkles className="w-3 h-3" />
+            <span className="font-body">Comparison</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
+          <h2 className="text-section-title mb-4">
             {heading}
           </h2>
-          <p className="mt-4 text-[#64748B] dark:text-[#A6AEC7] text-sm md:text-base max-w-md mx-auto leading-relaxed font-body">
+          <p className="text-body-lg max-w-lg mx-auto">
             {isHindi ? 'देखें कि Paliwal Secure कैसे अलग है' : isEnglish ? 'See how Paliwal Secure stands out from the competition' : 'Dekhein Paliwal Secure kaisa alag hai'}
           </p>
         </motion.div>
 
-        {/* Table */}
+        {/* Comparison Table — Stripe-style */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="overflow-x-auto rounded-2xl border border-[#E2E8F0] dark:border-white/10 bg-white dark:bg-card/40 backdrop-blur-sm"
+          ref={tableRef}
+          variants={tableVariants}
+          initial="hidden"
+          animate={tableInView ? 'visible' : 'hidden'}
+          className="premium-card !p-0 overflow-hidden"
         >
-          <table className="w-full min-w-[680px] text-sm">
-            <thead>
-              <tr className="border-b border-[#E2E8F0] dark:border-white/10">
-                <th className="text-left px-6 py-5 font-medium text-[#64748B] dark:text-[#A6AEC7] text-xs uppercase tracking-wider font-body">
-                  {featureLabel}
-                </th>
-                {columns.map((col) => (
-                  <th
-                    key={col.key}
-                    className={`px-6 py-5 text-center font-medium text-xs uppercase tracking-wider ${
-                      col.highlight
-                        ? 'text-[#2563EB] font-bold bg-[#2563EB]/[0.04] dark:bg-[#D4A853]/[0.04] border-x border-[#2563EB]/[0.08] dark:border-[#D4A853]/[0.08]'
-                        : 'text-[#64748B] dark:text-[#A6AEC7]'
-                    } font-body`}
-                  >
-                    <div className="flex flex-col items-center gap-1">
-                      <span>{getColumnLabel(col)}</span>
-                      {col.highlight && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-[#2563EB]/10 dark:bg-[#D4A853]/10 border border-[#2563EB]/20 dark:border-[#D4A853]/20 text-[#2563EB] dark:text-[#D4A853] normal-case tracking-normal">
-                          {isHindi ? 'अनुशंसित' : isEnglish ? 'Recommended' : 'Recommended'}
-                        </span>
-                      )}
-                    </div>
+          {/* Desktop Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[680px] text-sm">
+              <thead>
+                <tr>
+                  {/* Feature label column header */}
+                  <th className="text-left px-6 py-5 text-label-premium font-body border-b border-[#E2E8F0] dark:border-white/[0.06]">
+                    {featureLabel}
                   </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {features.map((row) => (
-                <tr
-                  key={row.key}
-                  className="border-b border-[#E2E8F0]/60 dark:border-white/5 last:border-b-0 transition-colors duration-300 hover:bg-[#F8FAFC]/50 dark:hover:bg-white/[0.02]"
-                >
-                  <td className="px-6 py-4 text-[#0F172A] dark:text-[#F8F6F0] font-medium text-sm font-body">
-                    {getFeatureLabel(row.key)}
-                  </td>
-                  {columns.map((col) => {
-                    const cellKey = col.key as keyof FeatureRow;
-                    const cell = row[cellKey] as CellValue;
-                    const isPaliwal = !!col.highlight;
-                    return (
-                      <td
-                        key={col.key}
-                        className={`px-6 py-4 text-center transition-colors duration-300 ${
-                          isPaliwal ? 'bg-[#2563EB]/[0.02] dark:bg-[#D4A853]/[0.02] border-x border-[#2563EB]/[0.06] dark:border-[#D4A853]/[0.06]' : ''
-                        }`}
-                      >
-                        <CellRenderer cell={cell} isPaliwal={isPaliwal} />
-                      </td>
-                    );
-                  })}
+                  {columns.map((col) => (
+                    <th
+                      key={col.key}
+                      className={`px-6 py-5 text-center font-body border-b border-[#E2E8F0] dark:border-white/[0.06] ${
+                        col.highlight ? 'premium-card-featured !border-t-0' : ''
+                      }`}
+                    >
+                      <div className="flex flex-col items-center gap-1.5">
+                        <span className={`text-label-premium ${
+                          col.highlight
+                            ? '!text-[#2563EB] dark:!text-[#60A5FA]'
+                            : ''
+                        }`}>
+                          {getColumnLabel(col)}
+                        </span>
+                        {col.highlight && (
+                          <span className="badge-premium-blue !text-[9px] !gap-1 !px-2 !py-0.5 normal-case !tracking-normal !font-semibold">
+                            <Sparkles className="w-2.5 h-2.5" />
+                            {isHindi ? 'अनुशंसित' : isEnglish ? 'Recommended' : 'Recommended'}
+                          </span>
+                        )}
+                      </div>
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {features.map((row, rowIndex) => (
+                  <tr
+                    key={row.key}
+                    className={`border-b border-[#E2E8F0]/60 dark:border-white/[0.04] last:border-b-0 transition-colors duration-200 ${
+                      rowIndex % 2 === 1
+                        ? 'bg-[#F8FAFC]/60 dark:bg-white/[0.015]'
+                        : ''
+                    } hover:bg-[#F1F5F9]/50 dark:hover:bg-white/[0.03]`}
+                  >
+                    {/* Feature name */}
+                    <td className="px-6 py-4 text-[#0F172A] dark:text-[#F1F5F9] font-medium text-sm font-body">
+                      {getFeatureLabel(row.key)}
+                    </td>
+                    {/* Column cells */}
+                    {columns.map((col) => {
+                      const cellKey = col.key as keyof FeatureRow;
+                      const cell = row[cellKey] as CellValue;
+                      const isPaliwal = !!col.highlight;
+                      return (
+                        <td
+                          key={col.key}
+                          className={`px-6 py-4 text-center transition-colors duration-200 ${
+                            isPaliwal
+                              ? 'bg-[#2563EB]/[0.02] dark:bg-[#3B82F6]/[0.03] border-x border-[#2563EB]/[0.06] dark:border-[#3B82F6]/[0.06]'
+                              : ''
+                          }`}
+                        >
+                          <CellRenderer cell={cell} isPaliwal={isPaliwal} />
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Bottom summary bar for Paliwal column */}
+          <div className="border-t border-[#E2E8F0] dark:border-white/[0.06] bg-[#F8FAFC]/80 dark:bg-[#1E293B]/60 px-6 py-4">
+            <div className="flex items-center justify-center gap-2">
+              <span className="badge-premium-blue !gap-1.5">
+                <Sparkles className="w-3 h-3" />
+                {isHindi ? 'सबसे अच्छा विकल्प' : isEnglish ? 'Best choice' : 'Best choice'}
+              </span>
+              <span className="text-sm text-[#64748B] dark:text-[#94A3B8] font-body">
+                {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 of 9 features'}
+              </span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

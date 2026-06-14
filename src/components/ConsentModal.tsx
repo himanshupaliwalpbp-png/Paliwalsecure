@@ -39,6 +39,26 @@ function subscribeToStorage(callback: () => void) {
   return () => window.removeEventListener('storage', handler);
 }
 
+/* ── Shield/lock trust icon (inline SVG) ── */
+function ShieldIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
 export default function ConsentModal() {
   const [liveState, setLiveState] = useState<ConsentState | null>(null);
   const { resolvedTheme } = useSafeTheme();
@@ -94,9 +114,9 @@ export default function ConsentModal() {
   return (
     <AnimatePresence>
       {consentState === 'undecided' ? (
-        // Full bottom-sheet modal
+        /* ── Centered premium consent modal ── */
         <div
-          className="fixed inset-0 z-[9999]"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
           role="dialog"
           aria-modal="true"
           aria-label="Data Consent — DPDP Act 2023"
@@ -104,163 +124,199 @@ export default function ConsentModal() {
         >
           {/* Overlay with blur */}
           <motion.div
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             onClick={handleDecline}
             aria-hidden="true"
           />
 
-          {/* Bottom sheet card */}
+          {/* Modal card — glassmorphism, compact */}
           <motion.div
-            className="absolute bottom-0 left-0 right-0 w-full"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
+            className="relative w-full max-w-md"
+            initial={{ opacity: 0, scale: 0.95, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 8 }}
             transition={{
               type: 'spring',
-              damping: 28,
-              stiffness: 300,
-              mass: 0.8,
+              damping: 30,
+              stiffness: 350,
+              mass: 0.6,
             }}
           >
-            {/* Gold accent line at top */}
             <div
-              className="h-1.5 rounded-t-2xl"
+              className="relative rounded-2xl overflow-hidden"
               style={{
-                background: 'linear-gradient(90deg, #C98A1C, #C98A1C, #C98A1C)',
-              }}
-            />
-
-            <div
-              className="rounded-t-2xl px-4 py-6 sm:px-8 sm:py-8"
-              style={{
-                backgroundColor: isDark ? '#0A1330' : '#FFFFFF',
-                borderTop: 'none',
+                backgroundColor: isDark
+                  ? 'rgba(15, 23, 42, 0.85)'
+                  : 'rgba(255, 255, 255, 0.88)',
+                backdropFilter: 'blur(24px) saturate(1.4)',
+                WebkitBackdropFilter: 'blur(24px) saturate(1.4)',
+                boxShadow: isDark
+                  ? '0 24px 64px -16px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.06) inset'
+                  : '0 24px 64px -16px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0,0,0,0.04) inset',
               }}
             >
-              {/* Header with cookie emoji */}
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl" role="img" aria-label="cookie">
-                  🍪
-                </span>
-                <h2
-                  className="text-lg sm:text-xl font-bold"
-                  style={{
-                    color: isDark ? '#C98A1C' : '#C98A1C',
-                  }}
-                >
-                  Data Consent — DPDP Act 2023
-                </h2>
-              </div>
-
-              {/* Body text */}
-              <p
-                className="text-sm sm:text-base leading-relaxed mb-5"
+              {/* Top accent line — subtle gold */}
+              <div
+                className="h-[2px] w-full"
                 style={{
-                  color: isDark ? '#CBD5E1' : '#475569',
+                  background: isDark
+                    ? 'linear-gradient(90deg, transparent, #E8C872, transparent)'
+                    : 'linear-gradient(90deg, transparent, #C98A1C, transparent)',
                 }}
-              >
-                Paliwal Secure aapka naam aur email sirf insurance services
-                provide karne ke liye use karega. Aapka data kisi third party ko
-                nahi becha jayega.
-              </p>
+              />
 
-              {/* Privacy policy link */}
-              <Link
-                href="/privacy-policy"
-                className="inline-block text-sm font-medium mb-6 underline underline-offset-4 transition-colors hover:opacity-80"
-                style={{
-                  color: isDark ? '#C98A1C' : '#C98A1C',
-                }}
-              >
-                Privacy Policy padhein →
-              </Link>
+              <div className="px-6 pt-6 pb-5 sm:px-7 sm:pt-7 sm:pb-6">
+                {/* Shield icon + Title */}
+                <div className="flex items-start gap-3.5 mb-4">
+                  <div
+                    className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-xl"
+                    style={{
+                      backgroundColor: isDark
+                        ? 'rgba(232, 200, 114, 0.12)'
+                        : 'rgba(201, 138, 28, 0.08)',
+                    }}
+                  >
+                    <ShieldIcon
+                      className={isDark ? 'text-[#E8C872]' : 'text-[#C98A1C]'}
+                    />
+                  </div>
+                  <h2
+                    className="font-[family-name:var(--font-heading)] text-base sm:text-lg font-bold leading-snug pt-1.5"
+                    style={{
+                      color: isDark ? '#F1F5F9' : '#0F172A',
+                    }}
+                  >
+                    Data Consent — DPDP Act 2023
+                  </h2>
+                </div>
 
-              {/* Action buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                {/* Accept button with gold/navy gradient */}
-                <button
-                  onClick={handleAccept}
-                  className="flex-1 px-6 py-3 rounded-xl text-sm sm:text-base font-semibold transition-all hover:opacity-90 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C98A1C]"
+                {/* Body text */}
+                <p
+                  className="text-[13px] sm:text-sm leading-relaxed mb-4"
                   style={{
-                    background: 'linear-gradient(135deg, #C98A1C, #C98A1C)',
-                    color: '#0A1330',
-                  }}
-                  aria-label="Agree to data consent and continue"
-                >
-                  ✅ Agree &amp; Continue
-                </button>
-
-                {/* Decline button - subtle gray */}
-                <button
-                  onClick={handleDecline}
-                  className="px-6 py-3 rounded-xl text-sm font-medium transition-all hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
-                  style={{
-                    backgroundColor: isDark
-                      ? 'rgba(255,255,255,0.08)'
-                      : 'rgba(0,0,0,0.06)',
                     color: isDark ? '#94A3B8' : '#64748B',
+                    fontFamily:
+                      'var(--font-sans), Inter, system-ui, sans-serif',
                   }}
-                  aria-label="Decline data consent"
                 >
-                  Decline
-                </button>
+                  Paliwal Secure aapka naam aur email sirf insurance services
+                  provide karne ke liye use karega. Aapka data kisi third party ko
+                  nahi becha jayega.
+                </p>
+
+                {/* Privacy policy link — prominent */}
+                <Link
+                  href="/privacy-policy"
+                  className="inline-flex items-center gap-1 text-[13px] sm:text-sm font-semibold mb-5 transition-all duration-200 hover:gap-1.5 group"
+                  style={{
+                    color: isDark ? '#E8C872' : '#C98A1C',
+                    fontFamily:
+                      'var(--font-heading), Plus Jakarta Sans, system-ui, sans-serif',
+                  }}
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="flex-shrink-0"
+                  >
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                  Privacy Policy padhein
+                  <span
+                    className="inline-block transition-transform duration-200 group-hover:translate-x-0.5"
+                  >
+                    →
+                  </span>
+                </Link>
+
+                {/* Action buttons */}
+                <div className="flex flex-col-reverse sm:flex-row gap-2.5">
+                  <button
+                    onClick={handleDecline}
+                    className="btn-luxury-secondary btn-luxury-sm flex-1"
+                    aria-label="Decline data consent"
+                  >
+                    Decline
+                  </button>
+                  <button
+                    onClick={handleAccept}
+                    className="btn-luxury-primary btn-luxury-sm flex-1"
+                    aria-label="Agree to data consent and continue"
+                  >
+                    Agree &amp; Continue
+                  </button>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       ) : consentState === 'declined' ? (
-        // Minimal banner at bottom
+        /* ── Minimal declined banner ── */
         <motion.div
           key="consent-banner"
-          className="fixed bottom-0 left-0 right-0 z-[9999] px-4 py-3"
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
+          className="fixed bottom-4 left-4 right-4 z-[9999] sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-sm"
+          initial={{ y: 24, opacity: 0, scale: 0.96 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: 24, opacity: 0, scale: 0.96 }}
           transition={{
             type: 'spring',
-            damping: 25,
-            stiffness: 260,
-            mass: 0.8,
+            damping: 28,
+            stiffness: 300,
+            mass: 0.7,
           }}
         >
           <div
-            className="max-w-3xl mx-auto rounded-xl px-4 py-3 flex flex-col sm:flex-row items-center gap-3 shadow-lg"
+            className="rounded-xl px-4 py-3 flex items-center gap-3"
             style={{
-              backgroundColor: isDark ? '#162D5A' : '#F1F5F9',
-              borderTop: '3px solid #C98A1C',
+              backgroundColor: isDark
+                ? 'rgba(15, 23, 42, 0.85)'
+                : 'rgba(255, 255, 255, 0.90)',
+              backdropFilter: 'blur(20px) saturate(1.3)',
+              WebkitBackdropFilter: 'blur(20px) saturate(1.3)',
+              boxShadow: isDark
+                ? '0 12px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06) inset'
+                : '0 12px 40px -8px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04) inset',
             }}
             role="status"
             aria-label="Data consent declined banner"
           >
+            <ShieldIcon
+              className={`flex-shrink-0 w-4 h-4 ${isDark ? 'text-[#E8C872]' : 'text-[#C98A1C]'}`}
+            />
             <p
-              className="text-xs sm:text-sm flex-1 text-center sm:text-left"
+              className="text-xs sm:text-sm flex-1"
               style={{
-                color: isDark ? '#CBD5E1' : '#475569',
+                color: isDark ? '#94A3B8' : '#64748B',
               }}
             >
-              🍪 You&apos;ve declined data consent. Some features may be
-              limited.{' '}
+              You&apos;ve declined data consent. Some features may be limited.{' '}
               <Link
                 href="/privacy-policy"
-                className="underline underline-offset-2 font-medium"
+                className="font-semibold underline underline-offset-2 decoration-current"
                 style={{
-                  color: isDark ? '#C98A1C' : '#C98A1C',
+                  color: isDark ? '#E8C872' : '#C98A1C',
                 }}
               >
-                Privacy Policy padhein →
+                Privacy Policy →
               </Link>
             </p>
             <button
               onClick={handleAccept}
-              className="shrink-0 px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#C98A1C]"
-              style={{
-                background: 'linear-gradient(135deg, #C98A1C, #C98A1C)',
-                color: '#0A1330',
-              }}
+              className="btn-luxury-primary btn-luxury-sm shrink-0 text-xs"
               aria-label="Accept data consent"
             >
               Accept

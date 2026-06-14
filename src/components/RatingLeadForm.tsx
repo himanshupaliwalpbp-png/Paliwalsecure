@@ -285,12 +285,12 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
                 />
               )}
               <Star
-                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-primary' : 'text-muted-foreground'}`}
+                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#E8C872] dark:text-[#D4A853]' : 'text-[#CBD5E1] dark:text-white/20'}`}
                 size={44}
                 fill={isFilled ? 'currentColor' : 'none'}
                 strokeWidth={1.5}
                 style={{
-                  filter: isFilled ? 'drop-shadow(0 0 8px hsl(var(--primary) / 0.5))' : 'none',
+                  filter: isFilled ? 'drop-shadow(0 0 8px rgba(232, 200, 114, 0.5))' : 'none',
                 }}
               />
             </motion.button>
@@ -306,7 +306,7 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className="text-primary text-base md:text-lg font-bold"
+            className="text-[#E8C872] dark:text-[#D4A853] text-base md:text-lg font-bold"
           >
             {t(RATING_LABELS[(hoverValue || value) as keyof typeof RATING_LABELS])}
           </motion.p>
@@ -355,15 +355,11 @@ function GlassInput({
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? dk
-            ? 'bg-white/[0.08] border-primary/60'
-            : 'bg-muted border-primary/60'
-          : dk
-            ? 'bg-white/[0.04] border-white/[0.08] hover:border-white/20'
-            : 'bg-card border-border hover:border-primary/30'
+          ? 'border-[#2563EB] dark:border-[#3B82F6]'
+          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-primary' : dk ? 'text-gray-500' : 'text-muted-foreground'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
         }`} />
         {prefix && <div className="flex-shrink-0">{prefix}</div>}
         <input
@@ -373,7 +369,7 @@ function GlassInput({
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={`flex-1 bg-transparent text-sm md:text-base focus:outline-none ${dk ? 'text-white placeholder:text-gray-500' : 'text-foreground placeholder:text-[#9CA3AF]'}`}
+          className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none"
         />
       </div>
     </motion.div>
@@ -416,33 +412,29 @@ function GlassSelect({
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? dk
-            ? 'bg-white/[0.08] border-primary/60'
-            : 'bg-muted border-primary/60'
-          : dk
-            ? 'bg-white/[0.04] border-white/[0.08] hover:border-white/20'
-            : 'bg-card border-border hover:border-primary/30'
+          ? 'border-[#2563EB] dark:border-[#3B82F6]'
+          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-primary' : dk ? 'text-gray-500' : 'text-muted-foreground'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
         }`} />
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={`flex-1 bg-transparent text-sm md:text-base focus:outline-none appearance-none cursor-pointer ${dk ? 'text-white' : 'text-foreground'}`}
+          className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none appearance-none cursor-pointer"
           style={{ colorScheme: dk ? 'dark' : 'light' }}
         >
-          <option value="" className={dk ? 'bg-[#0E1220] text-gray-400' : 'bg-white text-muted-foreground'}>{placeholder}</option>
+          <option value="" className={dk ? 'bg-[#1E293B] text-[#94A3B8]' : 'bg-white text-[#64748B]'}>{placeholder}</option>
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className={dk ? 'bg-[#0E1220] text-white' : 'bg-white text-foreground'}>
+            <option key={opt.value} value={opt.value} className={dk ? 'bg-[#1E293B] text-[#F8FAFC]' : 'bg-white text-[#0F172A]'}>
               {opt.label}
             </option>
           ))}
         </select>
         <ChevronDown className={`w-4 h-4 flex-shrink-0 transition-colors duration-300 pointer-events-none ${
-          focused ? 'text-primary' : dk ? 'text-gray-500' : 'text-muted-foreground'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
         }`} />
       </div>
     </motion.div>
@@ -483,15 +475,11 @@ function GlassTextarea({
       />
       <div className={`relative flex gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? dk
-            ? 'bg-white/[0.08] border-primary/60'
-            : 'bg-muted border-primary/60'
-          : dk
-            ? 'bg-white/[0.04] border-white/[0.08] hover:border-white/20'
-            : 'bg-card border-border hover:border-primary/30'
+          ? 'border-[#2563EB] dark:border-[#3B82F6]'
+          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-colors duration-300 ${
-          focused ? 'text-primary' : dk ? 'text-gray-500' : 'text-muted-foreground'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
         }`} />
         <textarea
           placeholder={placeholder}
@@ -500,7 +488,7 @@ function GlassTextarea({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           rows={3}
-          className={`flex-1 bg-transparent text-sm md:text-base focus:outline-none resize-none ${dk ? 'text-white placeholder:text-gray-500' : 'text-foreground placeholder:text-[#9CA3AF]'}`}
+          className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none resize-none"
         />
       </div>
     </motion.div>
@@ -737,15 +725,11 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
         />
         <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
           focused
-            ? dk
-              ? 'bg-white/[0.08] border-primary/60'
-              : 'bg-muted border-primary/60'
-            : dk
-              ? 'bg-white/[0.04] border-white/[0.08] hover:border-white/20'
-              : 'bg-card border-border hover:border-primary/30'
+            ? 'border-[#2563EB] dark:border-[#3B82F6]'
+            : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
         }`}>
           <MapPin className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-            focused ? 'text-primary' : dk ? 'text-gray-500' : 'text-muted-foreground'
+            focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
           }`} />
           <input
             placeholder={placeholder}
@@ -761,7 +745,7 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
             }}
             onBlur={() => setFocused(false)}
             onKeyDown={handleKeyDown}
-            className={`flex-1 bg-transparent text-sm md:text-base focus:outline-none ${dk ? 'text-white placeholder:text-gray-500' : 'text-foreground placeholder:text-[#9CA3AF]'}`}
+            className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none"
           />
         </div>
       </motion.div>
@@ -957,7 +941,7 @@ export default function RatingLeadForm() {
   );
 
   return (
-    <section className="relative py-24 overflow-hidden bg-background">
+    <section className="relative section-luxury section-luxury-alt overflow-hidden">
       {/* ── Background ────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Mesh gradient */}
@@ -1009,22 +993,22 @@ export default function RatingLeadForm() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/10 border border-primary/25 mb-6"
+            className="badge-premium-blue mb-6"
           >
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
             >
-              <Sparkles className="w-4 h-4 text-primary" />
+              <Sparkles className="w-3.5 h-3.5" />
             </motion.div>
-            <span className="text-primary text-xs md:text-sm font-bold tracking-wider uppercase">
+            <span>
               {t('ratingForm.sectionBadge')}
             </span>
-            <Zap className="w-3.5 h-3.5 text-primary" />
+            <Zap className="w-3 h-3" />
           </motion.div>
 
           {/* Title */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-foreground" style={{ fontFamily: 'Fraunces, serif' }}>
+          <h2 className="text-hero mb-4">
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -1039,7 +1023,7 @@ export default function RatingLeadForm() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-block text-primary"
+              className="inline-block text-[#E8C872] dark:text-[#D4A853]"
             >
               {t('ratingForm.sectionTitle2')}
             </motion.span>
@@ -1051,7 +1035,7 @@ export default function RatingLeadForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className={`${isDark ? 'text-gray-400' : 'text-muted-foreground'} text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed`}
+            className="text-body-lg max-w-3xl mx-auto"
           >
             {t('ratingForm.sectionDesc')}
           </motion.p>
@@ -1075,20 +1059,20 @@ export default function RatingLeadForm() {
               className="relative"
             >
               <AnimatedBorder isDark={isDark}>
-                <div className="relative rounded-2xl border border-border bg-card p-6 md:p-8 lg:p-10 shadow-sm">
+                <div className="premium-card premium-card-featured p-6 md:p-8 lg:p-10">
 
                   {/* Header */}
                   <div className="text-center mb-8">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#E8C872]/10 border border-[#E8C872]/20 mb-4 dark:bg-[#D4A853]/10 dark:border-[#D4A853]/20"
                       whileHover={{ rotate: 10, scale: 1.1 }}
                     >
-                      <Star className="w-7 h-7 text-primary" />
+                      <Star className="w-7 h-7 text-[#E8C872] dark:text-[#D4A853]" />
                     </motion.div>
-                    <h3 className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 ${isDark ? 'text-white' : 'text-foreground'}`}>
+                    <h3 className="text-card-title mb-2">
                       {t('ratingForm.heading')}
                     </h3>
-                    <p className={`text-sm md:text-base lg:text-base ${isDark ? 'text-gray-400' : 'text-muted-foreground'}`}>
+                    <p className="text-sm md:text-base text-[#475569] dark:text-[#94A3B8]">
                       {t('ratingForm.subheading')}
                     </p>
                   </div>
@@ -1155,7 +1139,7 @@ export default function RatingLeadForm() {
                         <button
                           onClick={handleRatingSubmit}
                           disabled={rating === 0 || !ratingName.trim() || ratingLoading}
-                          className="w-full py-4 rounded-full font-bold text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="btn-luxury-primary btn-luxury-lg w-full disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {ratingLoading ? t('ratingForm.submitting') : t('ratingForm.submit')}
                         </button>
@@ -1177,20 +1161,20 @@ export default function RatingLeadForm() {
               className="relative"
             >
               <AnimatedBorder isDark={isDark}>
-                <div className="relative rounded-2xl border border-border bg-card p-6 md:p-8 lg:p-10 shadow-sm">
+                <div className="premium-card premium-card-gold p-6 md:p-8 lg:p-10">
 
                   {/* Header */}
                   <div className="text-center mb-8">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/20 mb-4 dark:bg-[#3B82F6]/10 dark:border-[#3B82F6]/20"
                       whileHover={{ rotate: -10, scale: 1.1 }}
                     >
-                      <Phone className="w-7 h-7 text-primary" />
+                      <Phone className="w-7 h-7 text-[#2563EB] dark:text-[#60A5FA]" />
                     </motion.div>
-                    <h3 className={`text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2 ${isDark ? 'text-white' : 'text-foreground'}`}>
+                    <h3 className="text-card-title mb-2">
                       {t('leadForm.heading')}
                     </h3>
-                    <p className={`text-sm md:text-base lg:text-base ${isDark ? 'text-gray-400' : 'text-muted-foreground'}`}>
+                    <p className="text-sm md:text-base text-[#475569] dark:text-[#94A3B8]">
                       {t('leadForm.subheading')}
                     </p>
                   </div>
@@ -1273,7 +1257,7 @@ export default function RatingLeadForm() {
                         <button
                           onClick={handleLeadSubmit}
                           disabled={!leadName.trim() || !leadPhone.trim() || leadLoading}
-                          className="w-full py-4 rounded-full font-bold text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="btn-luxury-gold btn-luxury-lg w-full disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {leadLoading ? t('leadForm.submitting') : t('leadForm.submit')}
                         </button>
@@ -1288,16 +1272,8 @@ export default function RatingLeadForm() {
         </div>
       </div>
 
-      {/* ── Bottom Glow Line ──────────────────────────────────────────── */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[hsl(var(--primary))]/40 to-transparent" />
-
-      {/* ── Bottom subtle gradient ────────────────────────────────────── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to top, hsl(var(--primary) 0.03), transparent)',
-        }}
-      />
+      {/* ── Section Divider ──────────────────────────────────────────── */}
+      <div className="section-luxury-divider" />
     </section>
   );
 }

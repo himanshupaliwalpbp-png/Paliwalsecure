@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import {
   Heart,
   Shield,
@@ -10,8 +11,8 @@ import {
   Bike,
   Home,
   Plane,
-  Building2,
   Sparkles,
+  Check,
 } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
@@ -24,41 +25,42 @@ interface CategoryItem {
   emoji: string;
   quickStat: string;
   color: string;
+  badgeVariant: 'blue' | 'green' | 'gold';
   features: { en: string; hi: string; hg: string }[];
 }
 
 const categories: CategoryItem[] = [
-  { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day', color: '#EF4444',
+  { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day', color: '#EF4444', badgeVariant: 'green',
     features: [
       { en: 'Cashless Treatment', hi: 'कैशलेस इलाज', hg: 'Cashless Treatment' },
       { en: 'Family Floater', hi: 'फैमिली फ्लोटर', hg: 'Family Floater' },
       { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Pre & Post Hospitalization' },
     ] },
-  { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#2563EB',
+  { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#2563EB', badgeVariant: 'blue',
     features: [
       { en: 'Term Plans', hi: 'टर्म प्लान', hg: 'Term Plans' },
       { en: 'Investment Plans', hi: 'निवेश योजनाएं', hg: 'Investment Plans' },
       { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Critical Illness Cover' },
     ] },
-  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#10B981',
+  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#10B981', badgeVariant: 'green',
     features: [
       { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Comprehensive Cover' },
       { en: 'Zero Depreciation', hi: 'ज़ीरो डेप्रिसिएशन', hg: 'Zero Depreciation' },
       { en: 'Roadside Assistance', hi: 'रोडसाइड सहायता', hg: 'Roadside Assistance' },
     ] },
-  { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day', color: '#F59E0B',
+  { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day', color: '#F59E0B', badgeVariant: 'gold',
     features: [
       { en: 'Third Party Cover', hi: 'थर्ड पार्टी कवर', hg: 'Third Party Cover' },
       { en: 'Comprehensive Plan', hi: 'व्यापक प्लान', hg: 'Comprehensive Plan' },
       { en: 'Add-on Covers', hi: 'अड-ऑन कवर', hg: 'Add-on Covers' },
     ] },
-  { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip', color: '#06B6D4',
+  { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip', color: '#06B6D4', badgeVariant: 'blue',
     features: [
       { en: 'Medical Emergency', hi: 'मेडिकल इमरजेंसी', hg: 'Medical Emergency' },
       { en: 'Trip Cancellation', hi: 'ट्रिप कैंसिलेशन', hg: 'Trip Cancellation' },
       { en: 'Lost Baggage', hi: 'खोई हुई सामान', hg: 'Lost Baggage' },
     ] },
-  { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#8B5CF6',
+  { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#8B5CF6', badgeVariant: 'blue',
     features: [
       { en: 'Structure Cover', hi: 'संरचना कवर', hg: 'Structure Cover' },
       { en: 'Contents Insurance', hi: 'सामग्री बीमा', hg: 'Contents Insurance' },
@@ -85,26 +87,19 @@ const categoryDescriptions: Record<string, { en: string; hi: string; hg: string 
   travel: { en: 'Worry-free travel', hi: 'चिंता-मुक्त यात्रा', hg: 'Worry-free travel' },
 };
 
-/* ── Animation variants ────────────────────────────────────────────── */
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.06 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
+/* ── Badge class helper ───────────────────────────────────────────── */
+function getBadgeClass(variant: 'blue' | 'green' | 'gold') {
+  switch (variant) {
+    case 'green': return 'badge-premium-green';
+    case 'gold': return 'badge-premium-gold';
+    default: return 'badge-premium-blue';
+  }
+}
 
 /* ── Component ─────────────────────────────────────────────────────── */
 export default function CategoryCards() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
@@ -114,26 +109,29 @@ export default function CategoryCards() {
   const subtitle = isHindi ? 'हर ज़रूरत के लिए इंश्योरेंस — 51+ बीमाकर्ताओं से AI की सलाह पर प्लान' : isEnglish ? 'From health to wealth, we\'ve got you covered with India\'s leading insurance providers.' : 'Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan';
 
   return (
-    <section className="py-24 bg-white dark:bg-[#060E22]">
+    <section
+      ref={sectionRef}
+      className="section-luxury section-luxury-alt"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-14 md:mb-18"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display">
+          <h2 className="text-section-title mb-4">
             {heading.replace(headingAccent, '')}
             <span className="gradient-text-blue-emerald"> {headingAccent}</span>
           </h2>
-          <p className="text-xl text-[#64748B] dark:text-[#A6AEC7] max-w-3xl mx-auto font-body">
+          <p className="text-body-lg max-w-3xl mx-auto">
             {subtitle}
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Grid — 3 columns desktop, 2 tablet, 1 mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {categories.map((cat, index) => {
             const Icon = cat.icon;
             const title = isHindi ? categoryTitles[cat.key]?.hi : isEnglish ? categoryTitles[cat.key]?.en : categoryTitles[cat.key]?.hg;
@@ -142,44 +140,58 @@ export default function CategoryCards() {
             return (
               <motion.div
                 key={cat.key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.08,
+                  ease: [0.22, 1, 0.36, 1] as const,
+                }}
               >
-                <Link href={cat.href} className="block group">
-                  <div className="p-6 border border-[#E2E8F0] dark:border-white/10 bg-white dark:bg-card/60 hover:shadow-premium-lg transition-all duration-300 rounded-2xl h-full cursor-pointer">
-                    <div
-                      className="inline-flex p-4 rounded-2xl mb-4 transition-transform group-hover:scale-110"
-                      style={{ backgroundColor: `${cat.color}15` }}
-                    >
-                      <Icon className="h-6 w-6" style={{ color: cat.color }} strokeWidth={2} />
+                <Link href={cat.href} className="block group h-full">
+                  <div className="premium-card h-full flex flex-col cursor-pointer">
+                    {/* Icon + Title row */}
+                    <div className="flex items-start gap-4 mb-4">
+                      <div
+                        className="flex-shrink-0 p-3 rounded-xl transition-transform duration-300 group-hover:scale-110"
+                        style={{ backgroundColor: `${cat.color}10` }}
+                      >
+                        <Icon className="h-5 w-5" style={{ color: cat.color }} strokeWidth={2} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-card-title">
+                          {title}
+                        </h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 font-body mt-0.5">
+                          {description}
+                        </p>
+                      </div>
                     </div>
 
-                    <h3 className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] mb-2 font-display">
-                      {title}
-                    </h3>
-                    <p className="text-[#64748B] dark:text-[#A6AEC7] mb-4 font-body">{description}</p>
-
-                    <ul className="space-y-2">
+                    {/* Feature list with check icons */}
+                    <ul className="space-y-2.5 flex-1 mb-5">
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-center gap-2 text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">
+                          <li key={i} className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-400 font-body">
                             <div
-                              className="w-1.5 h-1.5 rounded-full"
-                              style={{ backgroundColor: cat.color }}
-                            ></div>
+                              className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
+                              style={{ backgroundColor: `${cat.color}12` }}
+                            >
+                              <Check className="w-2.5 h-2.5" style={{ color: cat.color }} strokeWidth={3} />
+                            </div>
                             {featureText}
                           </li>
                         );
                       })}
                     </ul>
 
-                    {/* Price */}
-                    <div className="mt-4 pt-4 border-t border-[#E2E8F0] dark:border-white/10 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-[#2563EB] dark:text-[#D4A853] font-body">{cat.price}</span>
-                      <span className="inline-flex items-center gap-1 text-xs text-[#64748B] dark:text-[#A6AEC7] font-body">
+                    {/* Price + AI Pick badge */}
+                    <div className="pt-4 border-t border-slate-100 dark:border-white/8 flex items-center justify-between gap-3">
+                      <span className={getBadgeClass(cat.badgeVariant)}>
+                        {cat.price}
+                      </span>
+                      <span className="badge-premium-gold">
                         <Sparkles className="w-3 h-3" />
                         AI Pick
                       </span>

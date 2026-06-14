@@ -30,30 +30,55 @@ export default function HomeCTASection() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-white relative overflow-hidden">
-      {/* Ambient Background */}
+    <section className="section-luxury relative bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden">
+      {/* Premium layered background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2563EB]/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#10B981]/20 rounded-full blur-3xl"></div>
+        {/* Deep radial gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070B14] via-[#0C1425] to-[#070B14]" />
+        {/* Primary glow — center top */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#2563EB]/[0.08] rounded-full blur-[150px]" />
+        {/* Gold glow — center */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#E8C872]/[0.04] rounded-full blur-[120px]" />
+        {/* Emerald glow — bottom */}
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#10B981]/[0.05] rounded-full blur-[120px]" />
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.35) 1px, transparent 0)`,
+            backgroundSize: '40px 40px',
+          }}
+        />
       </div>
+
+      {/* Top gradient edge */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Icon */}
-          <div className="inline-flex p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
-            <Shield className="h-12 w-12 text-[#E8C872]" strokeWidth={2} />
-          </div>
+          <motion.div
+            className="inline-flex p-4 bg-white/[0.05] backdrop-blur-sm rounded-2xl border border-white/[0.08] mb-8"
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+          >
+            <Shield className="h-10 w-10 text-[#E8C872]" strokeWidth={1.8} />
+          </motion.div>
 
           {/* Headline */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-display">
-            {heading} <span className="gradient-luxury">{headingAccent}</span>
+          <h2 className="text-4xl md:text-5xl lg:text-[3.75rem] font-extrabold mb-6 font-heading leading-[1.08] tracking-tight">
+            {heading}{' '}
+            <span className="gradient-luxury">{headingAccent}</span>
           </h2>
 
-          <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed font-body">
+          <p className="text-lg md:text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed font-sans">
             {subtitle}
           </p>
 
@@ -64,36 +89,47 @@ export default function HomeCTASection() {
                 const el = document.getElementById('advisor-form');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#0F172A] hover:bg-white/90 font-semibold rounded-xl shadow-premium-lg transition-all duration-300 font-body"
+              className="btn-luxury-gold btn-luxury-lg group"
             >
-              <Shield className="h-5 w-5" />
+              <Shield className="h-4 w-4" />
               {cta1Text}
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
             </button>
             <a
               href="https://wa.me/919257877312"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/20 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 font-body"
+              className="btn-luxury-secondary btn-luxury-lg !border-white/[0.12] !text-white/90 !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2] hover:!text-white"
             >
-              <MessageCircle className="h-5 w-5" />
+              <MessageCircle className="h-4 w-4" />
               {cta2Text}
             </a>
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-16 flex flex-wrap justify-center gap-8 text-sm text-white/60">
-            {trustIndicators.map((indicator, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-[#10B981]"></div>
-                <span className="font-body">
-                  {isHindi ? indicator.hi : isEnglish ? indicator.en : indicator.hg}
-                </span>
-              </div>
-            ))}
-          </div>
+          <motion.div
+            className="mt-16 pt-10 border-t border-white/[0.06]"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+              {trustIndicators.map((indicator, index) => (
+                <div key={index} className="flex items-center gap-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,0.4)]" />
+                  <span className="text-sm text-white/45 font-sans">
+                    {isHindi ? indicator.hi : isEnglish ? indicator.en : indicator.hg}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
+
+      {/* Bottom gradient edge */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
     </section>
   );
 }

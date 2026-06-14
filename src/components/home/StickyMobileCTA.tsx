@@ -49,14 +49,14 @@ export default function StickyMobileCTA() {
           transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
         >
-          <div className="bg-white/90 dark:bg-[#0A1330]/90 backdrop-blur-xl border-t border-[#E2E8F0] dark:border-white/10">
+          <div className="glass-premium border-t border-slate-200/60 dark:border-white/8">
             <div
               className="flex items-stretch gap-2.5 p-3"
               style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
             >
               <button
                 onClick={handleAIDvisorClick}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#0F172A] dark:bg-[#D4A853] text-white dark:text-[#060E22] shadow-premium active:scale-[0.97] transition-transform duration-150 font-body"
+                className="btn-luxury-primary btn-luxury-sm flex-1 flex items-center justify-center gap-2 py-3 rounded-xl"
               >
                 <Brain className="w-4 h-4" strokeWidth={2} />
                 {aiAdvisorLabel}
@@ -66,7 +66,7 @@ export default function StickyMobileCTA() {
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#25D366] text-white shadow-premium active:scale-[0.97] transition-transform duration-150 font-body"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 active:scale-[0.97] transition-all duration-150 font-body"
               >
                 <MessageCircle className="w-4 h-4" strokeWidth={2} />
                 {whatsAppLabel}

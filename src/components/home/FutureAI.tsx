@@ -15,7 +15,7 @@ const featureTitles: Record<string, { en: string; hi: string; hg: string }> = {
 
 const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
   feature1: { en: 'Hinglish AI assistant available round the clock', hi: 'हिंग्लिश AI सहायक चौबीसों घंटे उपलब्ध', hg: 'Hinglish AI assistant available round the clock' },
-  feature2: { en: 'Upload PDF → plain-English summary + red flags', hi: 'PDF अपलोड करें → सादे अंग्रेज़ी में सारांश + खतरे के संकेत', hg: 'Upload PDF → plain-English summary + red flags' },
+  feature2: { en: 'Upload PDF → plain-English summary + red flags', hi: 'PDF अपलोड करें → सादे अंग्लिश में सारांश + खतरे के संकेत', hg: 'Upload PDF → plain-English summary + red flags' },
   feature3: { en: 'Step-by-step claim guidance in your language', hi: 'आपकी भाषा में चरण-दर-चरण क्लेम मार्गदर्शन', hg: 'Step-by-step claim guidance aapki bhasha mein' },
   feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Find out aapki current policy kya cover nahi karti' },
 };
@@ -41,29 +41,29 @@ function FeatureCard({
 
   return (
     <motion.div
-      className="bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-[#E2E8F0]/50 dark:border-white/10 rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:bg-white dark:hover:bg-white/10 hover:shadow-premium-lg hover:border-[#E2E8F0] dark:hover:border-white/20"
+      className="premium-card bg-white/[0.06] dark:bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] dark:border-white/[0.06] rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:bg-white/[0.1] dark:hover:bg-white/[0.08] hover:border-white/[0.15] dark:hover:border-white/[0.12]"
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
     >
       <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105"
-        style={{ backgroundColor: `${color}15` }}
+        className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
+        style={{ backgroundColor: `${color}18`, boxShadow: `0 0 20px ${color}10` }}
       >
-        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}60` }} />
       </div>
 
-      <h3 className="font-display text-base sm:text-lg font-bold text-white leading-snug mb-2 tracking-tight">
+      <h3 className="font-heading text-base sm:text-lg font-bold text-white leading-snug mb-2 tracking-tight">
         {title}
       </h3>
 
-      <p className="text-sm text-white/60 leading-relaxed flex-1 mb-5 font-body">
+      <p className="text-sm text-white/50 leading-relaxed flex-1 mb-5 font-sans">
         {desc}
       </p>
 
-      <div className="flex items-center justify-between pt-4 border-t border-white/10">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-[#E8C872] px-2.5 py-1 rounded-full bg-[#E8C872]/10 border border-[#E8C872]/20 font-body">
+      <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
+        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#E8C872] px-3 py-1.5 rounded-full bg-[#E8C872]/[0.08] border border-[#E8C872]/[0.15] font-heading">
           {comingSoon}
         </span>
       </div>
@@ -96,47 +96,71 @@ export default function FutureAI() {
   const ctaText = isHindi ? 'अपना स्कोर गणना करें' : isEnglish ? 'Calculate Your Score' : 'Apna score calculate karein';
 
   return (
-    <section className="py-24 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-white overflow-hidden relative">
-      {/* Ambient Background */}
+    <section className="section-luxury bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden relative">
+      {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#2563EB]/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#10B981]/20 rounded-full blur-3xl"></div>
+        {/* Primary glow — top-left */}
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.07] rounded-full blur-[120px]" />
+        {/* Secondary glow — bottom-right */}
+        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.06] rounded-full blur-[120px]" />
+        {/* Gold accent glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#E8C872]/[0.03] rounded-full blur-[150px]" />
+        {/* Subtle dot grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)`,
+            backgroundSize: '32px 32px',
+          }}
+        />
       </div>
 
+      {/* Top gradient edge */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
-              <Shield className="h-4 w-4 text-[#E8C872]" />
-              <span className="text-sm font-medium font-body">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
+              <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
+              <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
                 {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-display">
-              {heading} <span className="gradient-luxury">{headingAccent}</span>
+            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight">
+              {heading}{' '}
+              <span className="gradient-luxury">{headingAccent}</span>
             </h2>
 
-            <p className="text-xl text-white/70 mb-8 leading-relaxed font-body">
+            <p className="text-lg text-white/50 mb-10 leading-relaxed font-sans max-w-lg">
               {subtitle}
             </p>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4 mb-10">
               {checklistItems.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#10B981]/20 flex items-center justify-center">
-                    <Check className="h-4 w-4 text-[#10B981]" />
+                <motion.div
+                  key={index}
+                  className="flex items-center gap-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * index, duration: 0.5 }}
+                >
+                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
+                    <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
                   </div>
-                  <span className="text-white/90 font-body">
+                  <span className="text-[0.9375rem] text-white/75 font-sans">
                     {isHindi ? item.hi : isEnglish ? item.en : item.hg}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -145,10 +169,10 @@ export default function FutureAI() {
                 const el = document.getElementById('advisor-form');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#0F172A] hover:bg-white/90 font-semibold rounded-xl shadow-premium-lg transition-all duration-300 font-body"
+              className="btn-luxury-gold btn-luxury-lg group"
             >
               {ctaText}
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
             </button>
           </motion.div>
 
@@ -157,30 +181,38 @@ export default function FutureAI() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
             <div className="relative w-full max-w-md mx-auto">
+              {/* Outer ring glow */}
+              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#E8C872]/[0.06] via-transparent to-[#10B981]/[0.06] blur-xl" />
+
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
-                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="12" />
+                  {/* Background track */}
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="10" />
+                  {/* Subtle outer track */}
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="14" />
+                  {/* Animated progress */}
                   <motion.circle
                     cx="100"
                     cy="100"
                     r="85"
                     fill="none"
                     stroke="url(#scoreGradientDark)"
-                    strokeWidth="12"
+                    strokeWidth="10"
                     strokeLinecap="round"
                     strokeDasharray="534"
                     initial={{ strokeDashoffset: 534 }}
                     whileInView={{ strokeDashoffset: 534 - (534 * 87) / 100 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
                   />
                   <defs>
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#E8C872" />
+                      <stop offset="50%" stopColor="#F0D890" />
                       <stop offset="100%" stopColor="#10B981" />
                     </linearGradient>
                   </defs>
@@ -191,14 +223,14 @@ export default function FutureAI() {
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="text-7xl font-bold font-display"
+                    transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-7xl font-bold font-heading tracking-tight text-white"
                   >
                     87
                   </motion.div>
-                  <div className="text-xl text-white/60 font-body">out of 100</div>
-                  <div className="mt-4 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                    <span className="text-sm font-medium font-body">
+                  <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
+                  <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
+                    <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
                       {isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection'}
                     </span>
                   </div>
@@ -210,22 +242,22 @@ export default function FutureAI() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
-                className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-full max-w-sm"
+                transition={{ delay: 1, duration: 0.6 }}
+                className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-full max-w-sm"
               >
-                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+                <div className="bg-white/[0.06] backdrop-blur-xl rounded-2xl p-5 border border-white/[0.08]">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold gradient-luxury font-display">92%</div>
-                      <div className="text-xs text-white/60 font-body">Life</div>
+                      <div className="text-xl font-bold gradient-luxury font-heading">92%</div>
+                      <div className="text-[11px] text-white/40 font-sans mt-0.5">Life</div>
+                    </div>
+                    <div className="border-x border-white/[0.06]">
+                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
+                      <div className="text-[11px] text-white/40 font-sans mt-0.5">Health</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold gradient-text-blue-emerald font-display">85%</div>
-                      <div className="text-xs text-white/60 font-body">Health</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-white font-display">84%</div>
-                      <div className="text-xs text-white/60 font-body">Vehicle</div>
+                      <div className="text-xl font-bold text-white/90 font-heading">84%</div>
+                      <div className="text-[11px] text-white/40 font-sans mt-0.5">Vehicle</div>
                     </div>
                   </div>
                 </div>
@@ -234,6 +266,9 @@ export default function FutureAI() {
           </motion.div>
         </div>
       </div>
+
+      {/* Bottom gradient edge */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
     </section>
   );
 }

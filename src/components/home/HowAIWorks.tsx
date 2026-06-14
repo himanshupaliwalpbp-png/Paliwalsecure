@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion, type Variants } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView, type Variants } from 'framer-motion';
 import { Brain, LineChart, Shield, Zap, Lock, Users } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
@@ -52,14 +52,27 @@ const featuresData = [
 ];
 
 /* ── Animation ─────────────────────────────────────────────────────── */
-const stepVariants: Variants = {
-  hidden: { opacity: 0, y: 40, scale: 0.96 },
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 32, scale: 0.97 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { delay: i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+    transition: {
+      delay: i * 0.08,
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
   }),
+};
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
 
 /* ── Component ─────────────────────────────────────────────────────── */
@@ -67,6 +80,9 @@ export default function HowAIWorks() {
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(gridRef, { once: true, margin: '-80px' });
 
   const badgeText = isHindi ? 'Paliwal Secure क्यों चुनें' : isEnglish ? 'Why Choose Paliwal Secure' : 'Paliwal Secure kyun chunein';
   const heading = isHindi ? 'बुद्धिमत्ता मिलती है' : isEnglish ? 'Intelligence Meets' : 'Intelligence Meets';
@@ -78,31 +94,39 @@ export default function HowAIWorks() {
       : 'Hum cutting-edge technology ko human expertise ke saath jodte hain taaki best insurance experience de sakein.';
 
   return (
-    <section className="py-24 bg-[#F8FAFC] dark:bg-[#060E22]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-luxury">
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#2563EB]/[0.03] dark:bg-[#2563EB]/[0.05] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#10B981]/[0.03] dark:bg-[#10B981]/[0.04] rounded-full blur-[100px]" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          className="text-center mb-16 md:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-white/5 rounded-full border border-[#E2E8F0] dark:border-white/10 mb-4 shadow-premium">
-            <Zap className="h-4 w-4 text-[#E8C872]" />
-            <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">
-              {badgeText}
-            </span>
+          <div className="badge-premium-blue mb-5">
+            <Zap className="h-3 w-3" />
+            <span className="font-body">{badgeText}</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display">
+          <h2 className="text-section-title mb-5">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-xl text-[#64748B] dark:text-[#A6AEC7] max-w-3xl mx-auto font-body">
+          <p className="text-body-lg max-w-2xl mx-auto">
             {subtitle}
           </p>
         </motion.div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Features Grid — 3×2 desktop, 2×3 tablet, 1-col mobile */}
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
+        >
           {featuresData.map((feature, index) => {
             const Icon = feature.icon;
             const title = isHindi ? feature.titles.hi : isEnglish ? feature.titles.en : feature.titles.hg;
@@ -112,25 +136,66 @@ export default function HowAIWorks() {
               <motion.div
                 key={feature.key}
                 custom={index}
-                variants={stepVariants}
+                variants={cardVariants}
                 initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
+                animate={isInView ? 'visible' : 'hidden'}
                 className="group"
               >
-                <div className="bg-white dark:bg-card/60 rounded-2xl p-8 shadow-premium hover:shadow-premium-lg transition-all duration-300 border border-[#E2E8F0] dark:border-white/10 h-full">
+                <div className="premium-card h-full flex flex-col relative overflow-hidden">
+                  {/* Subtle gradient overlay on hover */}
                   <div
-                    className="inline-flex p-4 rounded-2xl mb-6 transition-transform group-hover:scale-110"
-                    style={{ backgroundColor: `${feature.color}15` }}
-                  >
-                    <Icon className="h-6 w-6" style={{ color: feature.color }} strokeWidth={2} />
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${feature.color}06, transparent 40%)`,
+                    }}
+                  />
+
+                  {/* Top row: index badge + icon */}
+                  <div className="flex items-start justify-between mb-5">
+                    {/* Icon in colored circular container */}
+                    <div
+                      className="inline-flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-sm"
+                      style={{
+                        backgroundColor: `${feature.color}10`,
+                        boxShadow: `0 0 0 0 ${feature.color}00`,
+                      }}
+                    >
+                      <Icon
+                        className="h-5 w-5 transition-transform duration-300 group-hover:scale-105"
+                        style={{ color: feature.color }}
+                        strokeWidth={2}
+                      />
+                    </div>
+                    {/* Feature index badge */}
+                    <span
+                      className="badge-premium-blue !gap-0 !px-2 !py-0.5 !text-[10px] font-mono"
+                      style={{
+                        background: `${feature.color}08`,
+                        color: feature.color,
+                        borderColor: `${feature.color}18`,
+                      }}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                   </div>
-                  <h3 className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] mb-3 font-display">
+
+                  {/* Title */}
+                  <h3 className="text-card-title mb-2.5">
                     {title}
                   </h3>
-                  <p className="text-[#64748B] dark:text-[#A6AEC7] leading-relaxed font-body">
+
+                  {/* Description */}
+                  <p className="text-[#64748B] dark:text-[#94A3B8] text-sm leading-relaxed font-body flex-1">
                     {desc}
                   </p>
+
+                  {/* Bottom accent line — reveals on hover */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(90deg, transparent, ${feature.color}40, transparent)`,
+                    }}
+                  />
                 </div>
               </motion.div>
             );

@@ -40,6 +40,7 @@ import { openInsureGPT } from '@/lib/insuregpt-state';
 
 /* ────────────────────────────────────────────────────────────────────────────
    HinglishToggleButton — cycles: En → हिंदी → Hinglish
+   Premium pill-shaped toggle with smooth transitions
    ──────────────────────────────────────────────────────────────────────────── */
 const LANG_CYCLE: { value: Language; labelKey: string }[] = [
   { value: 'en', labelKey: 'v2.header.langEn' },
@@ -70,14 +71,14 @@ function HinglishToggleButton() {
   return (
     <button
       onClick={handleCycle}
-      className={`flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-semibold transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+      className={`group relative flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-semibold transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]/40 focus-visible:ring-offset-1 ${
         isLight
-          ? 'bg-[#F8FAFC] border-[#E2E8F0] text-[#64748B] hover:bg-[#EFF6FF] hover:border-[#2563EB]/30 hover:text-[#2563EB]'
-          : 'bg-white/5 border-white/10 text-muted-foreground hover:bg-white/10 hover:border-primary/30 hover:text-primary'
+          ? 'bg-slate-50 border-slate-200/80 text-slate-500 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600'
+          : 'bg-white/[0.04] border-white/[0.08] text-slate-400 hover:bg-white/[0.08] hover:border-white/[0.15] hover:text-slate-200'
       }`}
       aria-label={`Language: ${currentLabel}. Click to switch.`}
     >
-      <Globe className="w-3.5 h-3.5" />
+      <Globe className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-12" />
       <span>{currentLabel}</span>
     </button>
   );
@@ -176,9 +177,9 @@ const NAV_LINKS: NavLink[] = [
 ];
 
 /* ────────────────────────────────────────────────────────────────────────────
-   SiteHeader Component — Light-mode premium navbar
-   Inspired by reference Navigation.tsx: clean white bg, blur backdrop,
-   blue accent on active, green WhatsApp CTA
+   SiteHeader Component — Premium Apple/Stripe-quality navbar
+   Clean, minimal, with smooth animations and premium hover effects.
+   Supports both light and dark mode.
    ──────────────────────────────────────────────────────────────────────────── */
 
 /* Hydration-safe mounted check using useSyncExternalStore */
@@ -200,9 +201,9 @@ export default function SiteHeader() {
   const { resolvedTheme } = useSafeTheme();
   const isLight = mounted && resolvedTheme === 'light';
 
-  // Track scroll position
+  // Track scroll position with threshold for subtle state change
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -236,9 +237,8 @@ export default function SiteHeader() {
     [pathname]
   );
 
-  // Animated underline indicator for desktop nav
+  // Refs for animated underline positioning
   const navContainerRef = useRef<HTMLDivElement>(null);
-  const navBtnRefs = useRef<(HTMLElement | null)[]>([]);
 
   // Close mobile dropdown on outside click
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -257,56 +257,72 @@ export default function SiteHeader() {
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
         isLight
           ? scrolled
-            ? 'bg-white/95 backdrop-blur-xl border-b border-[#E2E8F0] shadow-[0_1px_3px_rgba(0,0,0,0.04)]'
-            : 'bg-white/80 backdrop-blur-xl border-b border-[#E2E8F0]'
+            ? 'bg-white/90 backdrop-blur-2xl border-b border-slate-200/60 shadow-[0_1px_0_0_rgba(0,0,0,0.03),0_2px_8px_-4px_rgba(0,0,0,0.04)]'
+            : 'bg-white/70 backdrop-blur-2xl border-b border-slate-200/30'
           : scrolled
-            ? 'bg-[#060E22]/95 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-            : 'bg-[#060E22]/72 backdrop-blur-xl border-b border-white/[0.04]'
+            ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-white/[0.06] shadow-[0_1px_0_0_rgba(255,255,255,0.03),0_2px_12px_-4px_rgba(0,0,0,0.5)]'
+            : 'bg-slate-950/60 backdrop-blur-2xl border-b border-white/[0.04]'
       }`}
       role="banner"
     >
       <nav
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className={`max-w-7xl mx-auto transition-all duration-500 ease-out ${
+          scrolled ? 'px-4 sm:px-6 lg:px-8' : 'px-4 sm:px-6 lg:px-8'
+        }`}
         aria-label="Main navigation"
       >
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* ── Logo on LEFT ───────────────────────────── */}
-          <div className="flex items-center gap-3">
+        <div className={`flex items-center justify-between transition-all duration-500 ease-out ${
+          scrolled ? 'h-14 sm:h-16' : 'h-16 sm:h-[72px]'
+        }`}>
+
+          {/* ══ Logo — Left ════════════════════════════════════════════════════ */}
+          <div className="flex items-center gap-2.5 shrink-0">
             <Link
               href="/"
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-2.5 group"
               aria-label="Paliwal Secure AI – Home"
             >
+              {/* Logo mark with subtle glow */}
               <div className="relative">
-                <div className={`absolute inset-0 blur-xl rounded-full transition-opacity duration-300 ${
-                  isLight ? 'bg-[#2563EB] opacity-10 group-hover:opacity-20' : 'bg-primary opacity-20 group-hover:opacity-30'
+                <div className={`absolute inset-0 blur-lg rounded-full transition-all duration-500 ${
+                  isLight
+                    ? 'bg-blue-500 opacity-0 group-hover:opacity-15'
+                    : 'bg-blue-400 opacity-0 group-hover:opacity-20'
                 }`} />
-                <Shield className={`h-8 w-8 relative transition-colors duration-300 ${
-                  isLight ? 'text-[#0F172A]' : 'text-foreground'
-                }`} strokeWidth={2} />
+                <div className={`relative flex items-center justify-center h-9 w-9 rounded-xl transition-all duration-300 ${
+                  isLight
+                    ? 'bg-slate-900 group-hover:bg-slate-800'
+                    : 'bg-white/[0.06] group-hover:bg-white/[0.10] border border-white/[0.06]'
+                }`}>
+                  <Shield className={`h-5 w-5 transition-colors duration-300 ${
+                    isLight ? 'text-white' : 'text-slate-200'
+                  }`} strokeWidth={2.2} />
+                </div>
               </div>
-              <div>
-                <span className={`text-xl font-bold tracking-[-0.02em] font-heading transition-colors duration-300 ${
-                  isLight ? 'text-[#0F172A]' : 'text-foreground'
+              {/* Logo text */}
+              <div className="flex flex-col">
+                <span className={`text-lg font-bold tracking-[-0.025em] leading-tight font-heading transition-colors duration-300 ${
+                  isLight ? 'text-slate-900' : 'text-white'
                 }`}>
                   Paliwal{' '}
-                  <span className={isLight ? 'text-[#2563EB]' : 'text-primary'}>
-                    Secure
-                  </span>
+                  <span className={`transition-colors duration-300 ${
+                    isLight ? 'text-blue-600' : 'text-blue-400'
+                  }`}>Secure</span>
                 </span>
-                <div className={`text-xs font-body transition-colors duration-300 ${
-                  isLight ? 'text-[#64748B]' : 'text-muted-foreground'
+                <span className={`text-[10px] font-medium tracking-[0.08em] uppercase leading-tight transition-colors duration-300 ${
+                  isLight ? 'text-slate-400' : 'text-slate-500'
                 }`}>
                   Financial Intelligence
-                </div>
+                </span>
               </div>
             </Link>
           </div>
 
-          {/* ── Desktop Nav Links ────────────────────────────────────────────── */}
+          {/* ══ Desktop Nav Links — Center ════════════════════════════════════ */}
           <div ref={navContainerRef} className="hidden xl:flex items-center gap-0.5 relative">
             {NAV_LINKS.map((link) => {
               const LinkIcon = link.icon;
@@ -320,13 +336,13 @@ export default function SiteHeader() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`relative flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
                       isLight
-                        ? 'text-[#64748B] hover:text-[#0F172A]'
-                        : 'text-muted-foreground hover:text-foreground'
+                        ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                        : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
                     }`}
                   >
-                    <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-60" />
+                    <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-50" />
                     <span>{t(link.labelKey) || link.label}</span>
                   </a>
                 );
@@ -336,28 +352,43 @@ export default function SiteHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  ref={(el) => { navBtnRefs.current[NAV_LINKS.indexOf(link)] = el; }}
-                  className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
                     active
                       ? isLight
-                        ? 'text-[#2563EB] font-semibold'
-                        : 'text-primary font-semibold'
+                        ? 'text-blue-600'
+                        : 'text-blue-400'
                       : isLight
-                        ? 'text-[#64748B] hover:text-[#0F172A]'
-                        : 'text-muted-foreground hover:text-foreground'
+                        ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                        : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
-                  <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-opacity ${active ? 'opacity-100' : 'opacity-60'}`} />
+                  <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-all duration-200 ${
+                    active ? 'opacity-100' : 'opacity-50'
+                  }`} />
                   <span>{t(link.labelKey) || link.label}</span>
-                  {/* Active animated underline */}
+                  {/* Active animated underline — Stripe-style spring animation */}
                   {active && (
                     <motion.div
-                      layoutId="activeNavTab"
-                      className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full ${
-                        isLight ? 'bg-[#2563EB]' : 'bg-primary'
+                      layoutId="activeNavIndicator"
+                      className={`absolute -bottom-[1px] left-2 right-2 h-[2px] rounded-full ${
+                        isLight
+                          ? 'bg-blue-600'
+                          : 'bg-blue-400'
                       }`}
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                        mass: 0.8,
+                      }}
+                    />
+                  )}
+                  {/* Hover highlight background */}
+                  {!active && (
+                    <motion.div
+                      className="absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                      style={{ pointerEvents: 'none' }}
                     />
                   )}
                 </Link>
@@ -365,16 +396,17 @@ export default function SiteHeader() {
             })}
           </div>
 
-          {/* ── Right Side: CTAs + Toggles ──── */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* ══ Right Side: CTAs + Toggles ════════════════════════════════════ */}
+          <div className="flex items-center gap-1.5 shrink-0">
+
             {/* Phone Call button — desktop */}
             <Button
               variant="ghost"
               size="sm"
-              className={`hidden xl:flex items-center gap-2 text-sm font-medium transition-colors h-9 px-3 ${
+              className={`hidden xl:flex items-center gap-2 text-[13px] font-medium transition-all duration-200 h-9 px-2.5 rounded-lg ${
                 isLight
-                  ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                  ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
               }`}
               asChild
             >
@@ -384,13 +416,13 @@ export default function SiteHeader() {
               </a>
             </Button>
 
-            {/* WhatsApp button — desktop */}
+            {/* WhatsApp button — desktop — Emerald green premium CTA */}
             <Button
               size="sm"
-              className={`hidden xl:flex items-center gap-2 h-9 px-4 text-sm font-medium shadow-sm transition-all duration-200 ${
+              className={`hidden xl:flex items-center gap-2 h-9 px-3.5 text-[13px] font-semibold transition-all duration-300 rounded-lg shadow-sm hover:shadow-md active:scale-[0.97] ${
                 isLight
-                  ? 'bg-[#10B981] hover:bg-[#059669] text-white'
-                  : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20 hover:shadow-emerald-700/30'
+                  : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/30 hover:shadow-emerald-500/30'
               }`}
               asChild
             >
@@ -405,7 +437,12 @@ export default function SiteHeader() {
               </a>
             </Button>
 
-            {/* HinglishToggleButton */}
+            {/* Separator — desktop */}
+            <div className={`hidden xl:block h-5 w-px mx-0.5 ${
+              isLight ? 'bg-slate-200' : 'bg-white/[0.08]'
+            }`} />
+
+            {/* HinglishToggleButton — Desktop */}
             <div className="hidden sm:block">
               <HinglishToggleButton />
             </div>
@@ -415,39 +452,42 @@ export default function SiteHeader() {
               <SkyToggle />
             </div>
 
-            {/* InsureGPT AI Button — Desktop */}
-            <button
+            {/* InsureGPT AI Button — Desktop — Gradient premium CTA */}
+            <motion.button
               onClick={() => openInsureGPT()}
-              className={`hidden lg:flex items-center gap-1.5 h-9 px-3 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer border ${
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className={`hidden lg:flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-semibold transition-all duration-300 cursor-pointer ${
                 isLight
-                  ? 'text-[#64748B] hover:text-[#2563EB] hover:border-[#2563EB]/30 hover:bg-[#EFF6FF] border-[#E2E8F0]'
-                  : 'text-muted-foreground hover:text-primary hover:border-primary/30 hover:bg-primary/[0.06] border-white/10'
+                  ? 'bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white shadow-[0_1px_3px_rgba(37,99,235,0.3),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0_2px_8px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]'
+                  : 'bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white shadow-[0_1px_3px_rgba(59,130,246,0.25),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_2px_8px_rgba(59,130,246,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]'
               }`}
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>InsureGPT</span>
-            </button>
+            </motion.button>
 
-            {/* InsureGPT AI Button — Mobile (icon only) */}
-            <button
+            {/* InsureGPT AI Button — Mobile (icon only, gradient) */}
+            <motion.button
               onClick={() => openInsureGPT()}
-              className={`lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 ${
+              whileTap={{ scale: 0.92 }}
+              className={`lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 cursor-pointer ${
                 isLight
-                  ? 'text-[#64748B] hover:text-[#2563EB] hover:bg-[#EFF6FF]'
-                  : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+                  ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm'
+                  : 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm'
               }`}
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-4 h-4" />
-            </button>
+            </motion.button>
 
-            {/* Mobile Menu Toggle — uses Sheet on md+, dropdown on sm */}
+            {/* Mobile Menu Toggle */}
             <button
-              className={`xl:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors ${
+              className={`xl:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200 ${
                 isLight
-                  ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                  ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
               }`}
               onClick={() => setSheetOpen(true)}
               aria-label={t('v2.header.openMenu')}
@@ -458,39 +498,44 @@ export default function SiteHeader() {
         </div>
       </nav>
 
-      {/* ── Mobile Sheet Menu ──────────────────────────────────────────────── */}
+      {/* ══ Mobile Sheet Menu — Premium slide-over ════════════════════════════ */}
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent
           side="right"
-          className={`w-[300px] sm:max-w-sm p-0 ${
+          className={`w-[304px] sm:max-w-sm p-0 flex flex-col ${
             isLight
-              ? 'bg-white border-l border-[#E2E8F0]'
-              : 'bg-[#0A1330] border-l border-white/[0.06]'
+              ? 'bg-white border-l border-slate-200/60'
+              : 'bg-slate-950 border-l border-white/[0.06]'
           }`}
         >
-          <SheetHeader className={`p-5 border-b ${
-            isLight ? 'border-[#E2E8F0]' : 'border-white/[0.06]'
+          {/* Sheet Header — Logo */}
+          <SheetHeader className={`px-5 py-5 border-b ${
+            isLight ? 'border-slate-100' : 'border-white/[0.06]'
           }`}>
-            <SheetTitle className={`flex items-center gap-3 ${
-              isLight ? 'text-[#0F172A]' : 'text-foreground'
-            }`}>
-              <Shield className={`h-6 w-6 ${isLight ? 'text-[#0F172A]' : 'text-foreground'}`} strokeWidth={2} />
+            <SheetTitle className="flex items-center gap-2.5">
+              <div className={`flex items-center justify-center h-8 w-8 rounded-lg ${
+                isLight ? 'bg-slate-900' : 'bg-white/[0.06] border border-white/[0.06]'
+              }`}>
+                <Shield className={`h-4.5 w-4.5 ${isLight ? 'text-white' : 'text-slate-200'}`} strokeWidth={2.2} />
+              </div>
               <div>
-                <span className="font-heading font-bold tracking-[-0.02em]">
+                <span className={`font-heading font-bold tracking-[-0.025em] text-base ${
+                  isLight ? 'text-slate-900' : 'text-white'
+                }`}>
                   Paliwal{' '}
-                  <span className={isLight ? 'text-[#2563EB]' : 'text-primary'}>
-                    Secure
-                  </span>
+                  <span className={isLight ? 'text-blue-600' : 'text-blue-400'}>Secure</span>
                 </span>
-                <div className={`text-xs ${isLight ? 'text-[#64748B]' : 'text-muted-foreground'}`}>
+                <div className={`text-[10px] font-medium tracking-[0.08em] uppercase ${
+                  isLight ? 'text-slate-400' : 'text-slate-500'
+                }`}>
                   Financial Intelligence
                 </div>
               </div>
             </SheetTitle>
           </SheetHeader>
 
-          {/* Nav Links */}
-          <div className="py-4 px-3 space-y-0.5 max-h-[55vh] overflow-y-auto scrollbar-chat">
+          {/* Nav Links — Scrollable area */}
+          <div className="flex-1 py-2 px-2 overflow-y-auto scrollbar-chat">
             {NAV_LINKS.map((link, index) => {
               const LinkIcon = link.icon;
               const active = isActive(link.href);
@@ -500,25 +545,25 @@ export default function SiteHeader() {
                 return (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: 16 }}
+                    initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ delay: index * 0.03, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <SheetClose asChild>
                       <a
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                        className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                           isLight
-                            ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
-                            : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+                            ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                            : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
                         }`}
                       >
-                        <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
-                          isLight ? 'bg-[#F1F5F9]' : 'bg-white/5'
+                        <span className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-200 ${
+                          isLight ? 'bg-slate-50' : 'bg-white/[0.04]'
                         }`}>
-                          <LinkIcon className="w-3.5 h-3.5" />
+                          <LinkIcon className="w-4 h-4 opacity-60" />
                         </span>
                         {t(link.labelKey) || link.label}
                       </a>
@@ -530,34 +575,38 @@ export default function SiteHeader() {
               return (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: 16 }}
+                  initial={{ opacity: 0, x: 12 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (index + 1) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: (index + 1) * 0.03, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <SheetClose asChild>
                     <Link
                       href={link.href}
-                      className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                      className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                         active
                           ? isLight
-                            ? 'bg-[#EFF6FF] font-semibold text-[#2563EB]'
-                            : 'bg-primary/[0.08] font-semibold text-primary'
+                            ? 'bg-blue-50 text-blue-600 font-semibold'
+                            : 'bg-blue-500/[0.08] text-blue-400 font-semibold'
                           : isLight
-                            ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
-                            : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+                            ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                            : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
                       }`}
                       aria-current={active ? 'page' : undefined}
                     >
-                      <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
+                      <span className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-200 ${
                         active
                           ? isLight
-                            ? 'bg-[#2563EB]/10'
-                            : 'bg-primary/15'
+                            ? 'bg-blue-100'
+                            : 'bg-blue-500/15'
                           : isLight
-                            ? 'bg-[#F1F5F9]'
-                            : 'bg-white/5'
+                            ? 'bg-slate-50'
+                            : 'bg-white/[0.04]'
                       }`}>
-                        <LinkIcon className={`w-3.5 h-3.5 ${active ? (isLight ? 'text-[#2563EB]' : 'text-primary') : ''}`} />
+                        <LinkIcon className={`w-4 h-4 transition-colors duration-200 ${
+                          active
+                            ? isLight ? 'text-blue-600' : 'text-blue-400'
+                            : 'opacity-60'
+                        }`} />
                       </span>
                       {t(link.labelKey) || link.label}
                     </Link>
@@ -566,11 +615,16 @@ export default function SiteHeader() {
               );
             })}
 
+            {/* ── Divider ────────────────────────────────────────────────────── */}
+            <div className={`my-2 mx-3 h-px ${
+              isLight ? 'bg-slate-100' : 'bg-white/[0.06]'
+            }`} />
+
             {/* Extra links in mobile: InsureGPT, WhatsApp, Phone */}
             <motion.div
-              initial={{ opacity: 0, x: 16 }}
+              initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 1) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: (NAV_LINKS.length + 1) * 0.03, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <SheetClose asChild>
                 <button
@@ -578,16 +632,16 @@ export default function SiteHeader() {
                     setSheetOpen(false);
                     setTimeout(() => openInsureGPT(), 300);
                   }}
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                  className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                     isLight
-                      ? 'text-[#64748B] hover:text-[#2563EB] hover:bg-[#EFF6FF]'
-                      : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+                      ? 'text-blue-600 hover:bg-blue-50'
+                      : 'text-blue-400 hover:bg-blue-500/[0.08]'
                   }`}
                 >
-                  <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
-                    isLight ? 'bg-[#EFF6FF]' : 'bg-primary/10'
+                  <span className={`flex items-center justify-center w-8 h-8 rounded-lg ${
+                    isLight ? 'bg-blue-100' : 'bg-blue-500/15'
                   }`}>
-                    <Sparkles className={`w-3.5 h-3.5 ${isLight ? 'text-[#2563EB]' : 'text-primary'}`} />
+                    <Sparkles className={`w-4 h-4 ${isLight ? 'text-blue-600' : 'text-blue-400'}`} />
                   </span>
                   <span className="flex-1 text-left">InsureGPT AI</span>
                 </button>
@@ -595,19 +649,19 @@ export default function SiteHeader() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 16 }}
+              initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 2) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: (NAV_LINKS.length + 2) * 0.03, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <SheetClose asChild>
                 <a
                   href="https://wa.me/919257877312"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl text-white bg-[#10B981] hover:bg-[#059669] transition-all duration-200 gap-3 min-h-[44px]"
+                  className="flex items-center w-full px-3 py-2.5 text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 transition-all duration-200 gap-3 min-h-[44px] mt-1"
                 >
-                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-white/20">
-                    <MessageCircle className="w-3.5 h-3.5" />
+                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/15">
+                    <MessageCircle className="w-4 h-4" />
                   </span>
                   {t('nav.chatWhatsApp')}
                 </a>
@@ -615,23 +669,23 @@ export default function SiteHeader() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 16 }}
+              initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: (NAV_LINKS.length + 3) * 0.03, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: (NAV_LINKS.length + 3) * 0.03, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <SheetClose asChild>
                 <a
                   href="tel:+919257877312"
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                  className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                     isLight
-                      ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                      ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                      : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
                   }`}
                 >
-                  <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
-                    isLight ? 'bg-[#F1F5F9]' : 'bg-white/5'
+                  <span className={`flex items-center justify-center w-8 h-8 rounded-lg ${
+                    isLight ? 'bg-slate-50' : 'bg-white/[0.04]'
                   }`}>
-                    <Phone className="w-3.5 h-3.5" />
+                    <Phone className="w-4 h-4 opacity-60" />
                   </span>
                   {t('nav.callNow')}: 9257877312
                 </a>
@@ -639,27 +693,27 @@ export default function SiteHeader() {
             </motion.div>
           </div>
 
-          {/* Bottom section — Language + Theme */}
-          <div className={`mt-auto border-t p-5 space-y-4 ${
-            isLight ? 'border-[#E2E8F0]' : 'border-white/[0.06]'
+          {/* ── Bottom section — Language + Theme + CTA ──────────────────────── */}
+          <div className={`border-t p-5 space-y-4 ${
+            isLight ? 'border-slate-100' : 'border-white/[0.06]'
           }`}>
             {/* Language Toggle + Theme Toggle */}
-            <div className="flex items-center gap-2">
-              <Globe className={`w-4 h-4 ${isLight ? 'text-[#64748B]' : 'text-muted-foreground'}`} />
-              <span className={`text-xs ${isLight ? 'text-[#64748B]' : 'text-muted-foreground'}`}>{t('insureGPT.language')}</span>
+            <div className="flex items-center gap-2.5">
+              <Globe className={`w-4 h-4 ${isLight ? 'text-slate-400' : 'text-slate-500'}`} />
+              <span className={`text-xs font-medium ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>{t('insureGPT.language')}</span>
               <div className="ml-auto flex items-center gap-2">
                 <HinglishToggleButton />
                 <SkyToggle />
               </div>
             </div>
 
-            {/* Get Quote CTA */}
+            {/* Get Quote CTA — Premium dark button */}
             <SheetClose asChild>
               <Button
-                className={`w-full rounded-xl font-bold h-12 transition-all duration-200 ${
+                className={`w-full rounded-xl font-bold h-12 text-sm transition-all duration-300 active:scale-[0.98] ${
                   isLight
-                    ? 'bg-[#0F172A] text-white hover:bg-[#0F172A]/90 shadow-sm'
-                    : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.3)]'
+                    ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.06)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.06)]'
+                    : 'bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white shadow-[0_1px_3px_rgba(59,130,246,0.25),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_2px_8px_rgba(59,130,246,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]'
                 }`}
                 onClick={() => {
                   setSheetOpen(false);
