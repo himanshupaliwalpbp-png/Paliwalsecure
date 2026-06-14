@@ -1,0 +1,14 @@
+# Development files not needed for deployment
+screenshot-*.png
+test-*.png
+desktop-*.png
+upload/
+gh
+paliwal-secure-code.tar.gz
+paliwal-secure.bundle
+skills/
+.agent-ctx/
+.zscripts/
+mini-services/
+*.log
+dev.log

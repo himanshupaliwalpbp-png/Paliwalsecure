@@ -1,0 +1,34 @@
+{
+  "name": "Paliwal Secure — AI se Best Plan, Humse Easy Claim",
+  "short_name": "Paliwal Secure",
+  "description": "India's most trusted AI-powered insurance advisor — Compare 51+ insurers, InsureGPT AI, free claim support",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0d",
+  "theme_color": "#0c0c0d",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-ps-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-ps-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "lang": "en-IN",
+  "prefer_related_applications": false
+}

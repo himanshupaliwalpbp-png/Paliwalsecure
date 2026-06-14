@@ -1,0 +1,376 @@
+// ============================================================================
+// Paliwal Secure - Complete Database Schema
+// Models: AdminUser, Review, ReviewVote, Lead, LeadNote, GlossaryTerm, Article, AuditLog
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ── Admin User Model ────────────────────────────────────────────────────────
+model AdminUser {
+  id                   String    @id @default(cuid())
+  email                String    @unique
+  name                 String
+  passwordHash         String
+  role                 String    @default("MODERATOR") // ADMIN | MODERATOR
+  avatarUrl            String?
+  isActive             Boolean   @default(true)
+  failedLoginAttempts  Int       @default(0)
+  lockedUntil          DateTime?
+  totpSecret           String?
+  mfaEnabled           Boolean   @default(false)
+  lastLoginAt          DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  // Relations
+  auditLogs            AuditLog[]
+  leadNotes            LeadNote[]
+
+  @@map("admin_users")
+}
+
+// ── Review Model ────────────────────────────────────────────────────────────
+model Review {
+  id              String   @id @default(cuid())
+  productName     String
+  insuranceType   String   // health | life | motor | travel | home
+  rating          Int      // 1-5
+  title           String
+  body            String
+  photoUrl        String?
+  reviewerName    String
+  reviewerEmail   String
+  reviewerPhone   String?
+  isVerifiedPurchase Boolean @default(false)
+  status          String   @default("pending") // pending | approved | rejected | flagged
+  helpfulYes      Int      @default(0)
+  helpfulNo       Int      @default(0)
+  moderatedBy     String?
+  moderatedAt     DateTime?
+  adminNotes      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  votes           ReviewVote[]
+
+  @@map("reviews")
+}
+
+// ── Review Vote Model (duplicate prevention) ────────────────────────────────
+model ReviewVote {
+  id          String   @id @default(cuid())
+  reviewId    String
+  voterFingerprint String // IP + user agent hash for anonymous tracking
+  voteType    String   // helpful | not_helpful
+  createdAt   DateTime @default(now())
+
+  review      Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, voterFingerprint])
+  @@map("review_votes")
+}
+
+// ── Lead Model ──────────────────────────────────────────────────────────────
+model Lead {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  insuranceType String?  // health | life | motor | travel | home
+  city          String?  // user's city
+  message       String?
+  status        String   @default("NEW") // NEW | CONTACTED | QUALIFIED | CONVERTED | LOST
+  source        String   @default("website") // website | whatsapp | referral | ads
+  followUpDate  DateTime?
+  lastContactedAt DateTime?
+  notes         String?
+  assignedTo    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  leadNotes     LeadNote[]
+
+  @@map("leads")
+}
+
+// ── Lead Note Model ─────────────────────────────────────────────────────────
+model LeadNote {
+  id        String   @id @default(cuid())
+  leadId    String
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  author    AdminUser @relation(fields: [authorId], references: [id])
+
+  @@map("lead_notes")
+}
+
+// ── Glossary Term Model (Content Moderation) ───────────────────────────────
+model GlossaryTerm {
+  id          String   @id @default(cuid())
+  term        String
+  hindiTerm   String?
+  explanation  String
+  example     String?
+  category    String   @default("general") // health | life | motor | general
+  importance  String   @default("medium") // critical | high | medium
+  status      String   @default("published") // draft | published | archived
+  version     Int      @default(1)
+  createdBy   String?
+  updatedBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("glossary_terms")
+}
+
+// ── Article Model (Content Moderation) ──────────────────────────────────────
+model Article {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  excerpt       String?
+  content       String
+  category      String   @default("general") // health | life | motor | general
+  keyTakeaways  String?  // JSON array string
+  readTime      Int      @default(5)
+  status        String   @default("draft") // draft | published | archived
+  version       Int      @default(1)
+  featuredImage String?
+  author        String?
+  source        String?
+  publishedAt   DateTime?
+  createdBy     String?
+  updatedBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("articles")
+}
+
+// ── Site Settings Model ─────────────────────────────────────────────────────
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique  // e.g. "ga_measurement_id", "site_name", etc.
+  value       String
+  description String?
+  updatedBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// ── Audit Log Model ─────────────────────────────────────────────────────────
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String   // CREATE | UPDATE | DELETE | APPROVE | REJECT | FLAG | LOGIN | LOGOUT
+  entity    String   // Review | Lead | GlossaryTerm | Article | AdminUser
+  entityId  String?
+  details   String?  // JSON string with change details
+  userId    String?
+  userAgent String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user      AdminUser? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// ── Callback Request Model ─────────────────────────────────────────────────
+model CallbackRequest {
+  id            String   @id @default(cuid())
+  name          String
+  mobile        String   // 10-digit Indian mobile
+  preferredTime String   // "asap" | "1hour" | "2-5pm"
+  message       String?  // optional context
+  status        String   @default("PENDING") // PENDING | COMPLETED | CANCELLED
+  source        String   @default("chatbot") // chatbot | website | whatsapp
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("callback_requests")
+}
+
+// ── Uploaded Policy Model (Policy Document Analysis) ──────────────────────
+model UploadedPolicy {
+  id               String   @id @default(cuid())
+  userId           String?  // optional, from session/localStorage
+  insurer          String   @default("Unknown")
+  policyType       String   @default("health") // health | life | motor | travel | home
+  sumInsured       Float?
+  premium          Float?
+  premiumFrequency String   @default("yearly") // monthly | yearly
+  waitingPeriods   String   @default("{}") // JSON: { diabetes: 24, bp: 12, heart: 36 }
+  exclusions       String   @default("[]") // JSON array of exclusion strings
+  keyCoverages     String   @default("[]") // JSON array of coverage strings
+  ncbDetails       String?  // No Claim Bonus details
+  networkHospitals String?  // Network hospitals info
+  startDate        DateTime?
+  endDate          DateTime?
+  missingBenefits  String   @default("[]") // JSON array of missing benefit strings
+  extractedText    String?  // raw text for audit
+  llmSummary       String?  // Hinglish summary from AI
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("uploaded_policies")
+}
+
+// ── Insurance Audit Lead Model ──────────────────────────────────────────────
+model AuditLead {
+  id                String   @id @default(cuid())
+  name              String
+  mobile            String   // 10-digit Indian mobile
+  email             String?  // optional
+  policyType        String   @default("motor") // motor | health | life | travel | home
+  insurer           String   @default("Unknown")
+  vehicle           String?  // Make, Model, Year
+  idv               Float?   // Current IDV
+  premium           Float?   // Annual premium paid
+  addOns            String   @default("[]") // JSON array of add-on strings
+  ncb               Int      @default(0) // NCB percentage
+  claimsLast3Years  Int      @default(0)
+  vehicleAge        String   @default("3-5 years")
+  
+  // Audit results
+  healthScore       Int?
+  potentialSavings  Float?
+  auditStatus       String   @default("PENDING") // PENDING | COMPLETED | FAILED
+  auditReport       String?  // JSON string with full audit results
+  recommendedInsurer String?
+  
+  // Conversion tracking
+  converted         Boolean  @default(false)
+  conversionDate    DateTime?
+  commissionEarned  Float?
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("audit_leads")
+}
+
+// ── Insurance Client Model (InsuranceOS) ────────────────────────────────────
+model InsuranceClient {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  email       String?
+  address     String?
+  city        String?
+  state       String?  @default("Rajasthan")
+  pincode     String?
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  policies    InsurancePolicy[]
+
+  @@map("insurance_clients")
+}
+
+// ── Insurance Policy Model (InsuranceOS) ────────────────────────────────────
+model InsurancePolicy {
+  id              String    @id @default(cuid())
+  clientId        String
+  client          InsuranceClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  // Vehicle Info
+  vehicleMake     String?
+  vehicleModel    String?
+  vehicleYear     Int?
+  registrationNo  String?
+  fuelType        String?   // PETROL | DIESEL | CNG | ELECTRIC | HYBRID
+  engineNo        String?
+  chassisNo       String?
+  
+  // Policy Info
+  policyNo        String
+  insurer         String
+  policyType      String    // COMPREHENSIVE | THIRD_PARTY | STANDALONE_OD | HEALTH | TERM
+  category        String    @default("motor") // motor | health | term
+  
+  // Financial
+  idv             Float?
+  premium         Float
+  gst             Float?
+  totalPremium    Float?
+  
+  // Dates
+  odStartDate     DateTime?
+  odEndDate       DateTime?
+  tpStartDate     DateTime?
+  tpEndDate       DateTime?
+  
+  // Add-Ons (stored as JSON string)
+  addOns          String?   // JSON: [{ name: string, premium: number }]
+  
+  // AI Audit
+  auditReport     String?   // JSON string with full audit from Claude
+  healthScore     Int?
+  auditedAt       DateTime?
+  
+  // Status
+  status          String    @default("ACTIVE") // ACTIVE | EXPIRED | CANCELLED | RENEWED
+  ncbPercent      Int       @default(0)
+  
+  // Extra
+  documentUrl     String?
+  notes           String?
+  sumInsured      Float?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relations
+  renewalReminders RenewalReminder[]
+
+  @@map("insurance_policies")
+}
+
+// ── Renewal Reminder Model (InsuranceOS) ────────────────────────────────────
+model RenewalReminder {
+  id          String   @id @default(cuid())
+  policyId    String
+  policy      InsurancePolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  sentAt      DateTime?
+  scheduledAt DateTime
+  status      String   @default("PENDING") // PENDING | SENT | FAILED
+  method      String   @default("WHATSAPP") // WHATSAPP | EMAIL | SMS
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  @@map("renewal_reminders")
+}
+
+// ── Advisor Lead Model (AI Advisor Recommendations) ─────────────────────────
+model AdvisorLead {
+  id              String   @id @default(cuid())
+  age             Int
+  familySize      Int
+  city            String
+  budget          Int
+  name            String?
+  phone           String?
+  recommendations String?  // JSON string with AI-generated recommendations
+  advisorMessage  String?  // Personal message from the AI advisor
+  source          String   @default("advisor-form")
+  createdAt       DateTime @default(now())
+
+  @@map("advisor_leads")
+}

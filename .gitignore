@@ -1,0 +1,92 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dev.log
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Dev artifacts - NOT part of the website
+skills/
+agent-ctx/
+tool-results/
+mini-services/
+examples/
+download/
+scripts/
+screenshots/
+data/
+components/
+
+# Screenshot files from dev sessions
+*.screenshot*.png
+audit-*.png
+hero-*.png
+mobile-*.png
+verify-*.png
+admin-dashboard-*.png
+car-insurance-*.png
+current-*.png
+desktop-*.png
+deal-*.png
+spin-*.png
+homepage-*.png
+grievance-*.png
+test-*.png
+screenshot-*.png
+
+# Dev scripts
+keep-alive*
+keep-next-alive*
+keep-dev-alive*
+dev-server.sh
+run-server.sh
+start-*.sh
+mini-server.js
+simple-server.js
+proxy-server.js
+
+# Dev files
+worklog*.md
+CONFIGURATION_GUIDE.md
+.gitignore_append
+gh
+*.bundle
+3000
+vercel-build.sh
+
+# Upload folder (dev only)
+upload/
+
+# Archive
+PaliwalSecure-Clean-Website.*
+
+# Public assets not used by website
+public/insurance-posts/
+public/instagram/
+public/llms.txt
+public/offline.html

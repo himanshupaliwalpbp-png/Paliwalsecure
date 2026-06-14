@@ -1,0 +1,72 @@
+// ============================================================================
+// Paliwal Secure — Neon PostgreSQL Schema
+// Separate from the main SQLite schema (prisma/schema.prisma)
+// Connected via NEON_DATABASE_URL environment variable
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/neon-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("NEON_DATABASE_URL")
+}
+
+// ── Trend Model ─────────────────────────────────────────────────────────────
+// Tracks new vehicle launches, IRDAI updates, and industry trends
+model Trend {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  category    String
+  source      String?
+  sourceUrl   String?  @map("source_url")
+  triggerDate DateTime @default(now()) @map("trigger_date")
+  processed   Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  articles    Article[]
+
+  @@map("trends")
+}
+
+// ── Article Model ───────────────────────────────────────────────────────────
+// Auto-generated articles linked to trends
+model Article {
+  id              String    @id @default(uuid())
+  slug            String    @unique
+  title           String
+  seoTitle        String?   @map("seo_title")
+  seoDescription  String?   @map("seo_description")
+  content         String?
+  jsonLd          String?   @map("json_ld")
+  category        String?
+  trendId         String?   @map("trend_id")
+  status          String    @default("draft")
+  publishedAt     DateTime? @map("published_at")
+  views           Int       @default(0)
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  trend           Trend?    @relation(fields: [trendId], references: [id], onDelete: SetNull)
+  internalLinksFrom InternalLink[] @relation("FromArticle")
+  internalLinksTo   InternalLink[] @relation("ToArticle")
+
+  @@map("articles")
+}
+
+// ── Internal Link Model ─────────────────────────────────────────────────────
+// Tracks internal linking relationships between articles
+model InternalLink {
+  id             String  @id @default(uuid())
+  fromArticleId  String  @map("from_article_id")
+  toArticleId    String  @map("to_article_id")
+  anchorText     String?
+  score          Float?
+
+  fromArticle    Article @relation("FromArticle", fields: [fromArticleId], references: [id], onDelete: Cascade)
+  toArticle      Article @relation("ToArticle", fields: [toArticleId], references: [id], onDelete: Cascade)
+
+  @@map("internal_links")
+}
