@@ -2,11 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Star, Users } from 'lucide-react';
+import { Users, Shield, TrendingUp, Award } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
-// ── Ease curve ────────────────────────────────────────────────────────────────
-const easeOutQuart: [number, number, number, number] = [0.22, 1, 0.36, 1];
+// ── Stats data with icons and colors ─────────────────────────────────────────
+const stats = [
+  { key: 'families', icon: Users, target: 500, color: '#2563EB' },
+  { key: 'coverage', icon: Shield, target: 500, color: '#10B981' },
+  { key: 'claims', icon: TrendingUp, target: 100, color: '#E8C872' },
+  { key: 'experience', icon: Award, target: 15, color: '#8B5CF6' },
+];
 
 // ── Animated number hook ──────────────────────────────────────────────────────
 function useAnimatedNumber(
@@ -26,7 +31,6 @@ function useAnimatedNumber(
     const step = (ts: number) => {
       if (!startTime) startTime = ts;
       const progress = Math.min((ts - startTime) / duration, 1);
-      // easeOutQuart
       const eased = 1 - Math.pow(1 - progress, 4);
       setCurrent(Number((eased * target).toFixed(decimals)));
 
@@ -42,42 +46,61 @@ function useAnimatedNumber(
   return shouldAnimate ? current : target;
 }
 
-// ── Individual stat component (hook-safe) ─────────────────────────────────────
-function StatChip({
-  target,
-  decimals = 0,
+// ── Individual stat component ────────────────────────────────────────────────
+function StatItem({
+  stat,
   inView,
-  isFirst,
-  icon: Icon,
-  children,
+  index,
+  isHindi,
+  isEnglish,
 }: {
-  target: number;
-  decimals?: number;
+  stat: typeof stats[number];
   inView: boolean;
-  isFirst: boolean;
-  icon: React.ElementType;
-  children: (animated: number) => React.ReactNode;
+  index: number;
+  isHindi: boolean;
+  isEnglish: boolean;
 }) {
-  const animated = useAnimatedNumber(target, inView, 1400, decimals);
+  const Icon = stat.icon;
+  const animated = useAnimatedNumber(stat.target, inView);
+
+  const valueLabels: Record<string, { en: string; hi: string; hg: string }> = {
+    families: { en: 'Families Protected', hi: 'परिवार सुरक्षित', hg: 'Families Protected' },
+    coverage: { en: 'Coverage Managed', hi: 'कवरेज मैनेज्ड', hg: 'Coverage Managed' },
+    claims: { en: 'Claims Settled', hi: 'क्लेम निपटाए', hg: 'Claims Settled' },
+    experience: { en: 'Years Experience', hi: 'वर्षों का अनुभव', hg: 'Years Experience' },
+  };
+
+  const label = isHindi ? valueLabels[stat.key]?.hi : isEnglish ? valueLabels[stat.key]?.en : valueLabels[stat.key]?.hg;
+
+  const formatValue = () => {
+    if (stat.key === 'families') return `${Math.round(animated)}+`;
+    if (stat.key === 'coverage') return `₹${Math.round(animated)}Cr+`;
+    if (stat.key === 'claims') return `${Math.round(animated)}%`;
+    if (stat.key === 'experience') return `${Math.round(animated)}+`;
+    return String(Math.round(animated));
+  };
 
   return (
-    <span className="flex items-center">
-      {/* Thin vertical divider before every item except the first */}
-      {!isFirst && (
-        <span
-          aria-hidden="true"
-          className="mx-5 sm:mx-7 h-4 w-px bg-border select-none"
-        />
-      )}
-
-      <span
-        className="whitespace-nowrap inline-flex items-center gap-2 text-sm text-muted-foreground"
-        style={{ letterSpacing: '0.01em' }}
-      >
-        <Icon className="w-3.5 h-3.5 text-primary/50 shrink-0" strokeWidth={1.8} />
-        <span>{children(animated)}</span>
-      </span>
-    </span>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="text-center group"
+    >
+      <div className="inline-flex items-center justify-center mb-4">
+        <div
+          className="p-4 rounded-2xl transition-transform group-hover:scale-110"
+          style={{ backgroundColor: `${stat.color}15` }}
+        >
+          <Icon className="h-8 w-8" style={{ color: stat.color }} strokeWidth={2} />
+        </div>
+      </div>
+      <div className="text-3xl lg:text-4xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-2 font-display">
+        {formatValue()}
+      </div>
+      <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{label}</div>
+    </motion.div>
   );
 }
 
@@ -88,44 +111,29 @@ export default function TrustStrip() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  const familiesLabel = isHindi ? 'परिवार कवर' : isEnglish ? 'families covered' : 'parivaar covered';
-  const reviewsLabel = isHindi ? '(Google, 247 समीक्षाएँ)' : isEnglish ? '(Google, 247 reviews)' : '(Google, 247 reviews)';
-
   return (
     <motion.section
       aria-label="Trust indicators"
       initial={{ opacity: 0, y: 6 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: easeOutQuart }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       onAnimationComplete={() => setInView(true)}
-      className="w-full border-t border-b border-border/60 bg-background/50 backdrop-blur-sm py-7 sm:py-9"
+      className="py-20 bg-white dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
     >
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center px-4 sm:px-6 lg:px-8">
-        {/* Stat 1: IRDAI Registration */}
-        <StatChip target={0} inView={inView} isFirst icon={ShieldCheck}>
-          {() => <><span className="font-medium text-foreground/80">IRDAI POSP</span> IP429834</>}
-        </StatChip>
-
-        {/* Stat 2: Google Rating */}
-        <StatChip target={4.8} decimals={1} inView={inView} isFirst={false} icon={Star}>
-          {(animated) => (
-            <>
-              <span className="font-mono font-semibold text-foreground">{animated.toFixed(1)}</span>
-              <span className="text-muted-foreground/70">{reviewsLabel}</span>
-            </>
-          )}
-        </StatChip>
-
-        {/* Stat 3: Families covered */}
-        <StatChip target={500} inView={inView} isFirst={false} icon={Users}>
-          {(animated) => (
-            <>
-              <span className="font-mono font-semibold text-foreground">{Math.round(animated)}</span>+
-              {' '}{familiesLabel}
-            </>
-          )}
-        </StatChip>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {stats.map((stat, index) => (
+            <StatItem
+              key={stat.key}
+              stat={stat}
+              inView={inView}
+              index={index}
+              isHindi={isHindi}
+              isEnglish={isEnglish}
+            />
+          ))}
+        </div>
       </div>
     </motion.section>
   );

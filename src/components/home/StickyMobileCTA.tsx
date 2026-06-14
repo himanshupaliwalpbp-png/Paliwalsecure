@@ -49,30 +49,24 @@ export default function StickyMobileCTA() {
           transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
         >
-          {/* Frosted glass bar */}
-          <div className="bg-background/80 backdrop-blur-xl border-t border-border/60">
-            {/* Subtle top glow line */}
-            <div className="h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-
+          <div className="bg-white/90 dark:bg-[#0A1330]/90 backdrop-blur-xl border-t border-[#E2E8F0] dark:border-white/10">
             <div
               className="flex items-stretch gap-2.5 p-3"
               style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
             >
-              {/* Quick Adviser button — premium */}
               <button
                 onClick={handleAIDvisorClick}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-primary text-primary-foreground shadow-[0_4px_20px_-4px_rgba(var(--primary),0.25)] active:scale-[0.97] transition-transform duration-150"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#0F172A] dark:bg-[#D4A853] text-white dark:text-[#060E22] shadow-premium active:scale-[0.97] transition-transform duration-150 font-body"
               >
                 <Brain className="w-4 h-4" strokeWidth={2} />
                 {aiAdvisorLabel}
               </button>
 
-              {/* WhatsApp button — refined */}
               <a
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#25D366] text-white shadow-[0_4px_20px_-4px_rgba(37,211,102,0.25)] active:scale-[0.97] transition-transform duration-150"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#25D366] text-white shadow-premium active:scale-[0.97] transition-transform duration-150 font-body"
               >
                 <MessageCircle className="w-4 h-4" strokeWidth={2} />
                 {whatsAppLabel}

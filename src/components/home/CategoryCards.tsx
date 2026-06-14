@@ -23,37 +23,66 @@ interface CategoryItem {
   price: string;
   emoji: string;
   quickStat: string;
+  color: string;
+  features: { en: string; hi: string; hg: string }[];
 }
 
 const categories: CategoryItem[] = [
-  { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day' },
-  { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day' },
-  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day' },
-  { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day' },
-  { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip' },
-  { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day' },
-  { key: 'business', icon: Building2, href: '/compare', price: '', emoji: '', quickStat: 'Custom quote' },
+  { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day', color: '#EF4444',
+    features: [
+      { en: 'Cashless Treatment', hi: 'कैशलेस इलाज', hg: 'Cashless Treatment' },
+      { en: 'Family Floater', hi: 'फैमिली फ्लोटर', hg: 'Family Floater' },
+      { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Pre & Post Hospitalization' },
+    ] },
+  { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#2563EB',
+    features: [
+      { en: 'Term Plans', hi: 'टर्म प्लान', hg: 'Term Plans' },
+      { en: 'Investment Plans', hi: 'निवेश योजनाएं', hg: 'Investment Plans' },
+      { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Critical Illness Cover' },
+    ] },
+  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#10B981',
+    features: [
+      { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Comprehensive Cover' },
+      { en: 'Zero Depreciation', hi: 'ज़ीरो डेप्रिसिएशन', hg: 'Zero Depreciation' },
+      { en: 'Roadside Assistance', hi: 'रोडसाइड सहायता', hg: 'Roadside Assistance' },
+    ] },
+  { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day', color: '#F59E0B',
+    features: [
+      { en: 'Third Party Cover', hi: 'थर्ड पार्टी कवर', hg: 'Third Party Cover' },
+      { en: 'Comprehensive Plan', hi: 'व्यापक प्लान', hg: 'Comprehensive Plan' },
+      { en: 'Add-on Covers', hi: 'अड-ऑन कवर', hg: 'Add-on Covers' },
+    ] },
+  { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip', color: '#06B6D4',
+    features: [
+      { en: 'Medical Emergency', hi: 'मेडिकल इमरजेंसी', hg: 'Medical Emergency' },
+      { en: 'Trip Cancellation', hi: 'ट्रिप कैंसिलेशन', hg: 'Trip Cancellation' },
+      { en: 'Lost Baggage', hi: 'खोई हुई सामान', hg: 'Lost Baggage' },
+    ] },
+  { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#8B5CF6',
+    features: [
+      { en: 'Structure Cover', hi: 'संरचना कवर', hg: 'Structure Cover' },
+      { en: 'Contents Insurance', hi: 'सामग्री बीमा', hg: 'Contents Insurance' },
+      { en: 'Natural Disaster', hi: 'प्राकृतिक आपदा', hg: 'Natural Disaster' },
+    ] },
 ];
 
 /* ── Inline translations ───────────────────────────────────────────── */
 const categoryTitles: Record<string, { en: string; hi: string; hg: string }> = {
   health: { en: 'Health Insurance', hi: 'हेल्थ इंश्योरेंस', hg: 'Health Insurance' },
-  termLife: { en: 'Term Insurance', hi: 'टर्म इंश्योरेंस', hg: 'Term Insurance' },
+  termLife: { en: 'Life Insurance', hi: 'लाइफ इंश्योरेंस', hg: 'Life Insurance' },
   car: { en: 'Car Insurance', hi: 'कार इंश्योरेंस', hg: 'Car Insurance' },
   bike: { en: 'Bike Insurance', hi: 'बाइक इंश्योरेंस', hg: 'Bike Insurance' },
   home: { en: 'Home Insurance', hi: 'होम इंश्योरेंस', hg: 'Home Insurance' },
   travel: { en: 'Travel Insurance', hi: 'ट्रैवल इंश्योरेंस', hg: 'Travel Insurance' },
-  business: { en: 'Business Insurance', hi: 'बिज़नेस इंश्योरेंस', hg: 'Business Insurance' },
 };
 
-const categoryBenefits: Record<string, { en: string; hi: string; hg: string }> = {
+const categoryDescriptions: Record<string, { en: string; hi: string; hg: string }> = {
   health: { en: "Protect your family's health", hi: 'अपने परिवार के स्वास्थ्य की रक्षा करें', hg: 'Apne parivaar ki health ki raksha karein' },
   termLife: { en: "Secure your family's future", hi: 'अपने परिवार का भविष्य सुरक्षित करें', hg: 'Apne parivaar ka future secure karein' },
-  car: { en: 'Comprehensive car coverage', hi: 'व्यापक कार कवरेज', hg: 'Comprehensive car coverage' },
+  car: { en: 'Complete car coverage', hi: 'व्यापक कार कवरेज', hg: 'Complete car coverage' },
   bike: { en: 'Full bike protection', hi: 'पूर्ण बाइक सुरक्षा', hg: 'Full bike protection' },
   home: { en: 'Protect your biggest asset', hi: 'अपनी सबसे बड़ी संपत्ति की रक्षा करें', hg: 'Apni sabse badi sampatti ki raksha karein' },
   travel: { en: 'Worry-free travel', hi: 'चिंता-मुक्त यात्रा', hg: 'Worry-free travel' },
-  business: { en: 'Group health & liability', hi: 'ग्रुप हेल्थ और लायबिलिटी', hg: 'Group health & liability' },
 };
 
 /* ── Animation variants ────────────────────────────────────────────── */
@@ -80,136 +109,88 @@ export default function CategoryCards() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  const heading = isHindi ? 'हर ज़रूरत के लिए इंश्योरेंस' : isEnglish ? 'Insurance for every need' : 'Har zaroorat ke liye insurance';
-  const subtitle = isHindi ? '51+ बीमाकर्ताओं से AI की सलाह पर प्लान' : isEnglish ? 'AI-recommended plans from 51+ insurers' : '51+ insurers se AI ki salah par plan';
+  const heading = isHindi ? 'संपूर्ण सुरक्षा' : isEnglish ? 'Complete Protection Suite' : 'Complete Protection Suite';
+  const headingAccent = isHindi ? 'पैकेज' : isEnglish ? 'Suite' : 'Suite';
+  const subtitle = isHindi ? 'हर ज़रूरत के लिए इंश्योरेंस — 51+ बीमाकर्ताओं से AI की सलाह पर प्लान' : isEnglish ? 'From health to wealth, we\'ve got you covered with India\'s leading insurance providers.' : 'Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan';
 
   return (
-    <section className="py-24 px-4">
-      <div className="mx-auto max-w-7xl">
-        {/* ── Section Header ──────────────────────────────────────── */}
+    <section className="py-24 bg-white dark:bg-[#060E22]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-14 text-center"
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-            {heading}
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display">
+            {heading.replace(headingAccent, '')}
+            <span className="gradient-text-blue-emerald"> {headingAccent}</span>
           </h2>
-          <p className="mt-3 text-muted-foreground text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-xl text-[#64748B] dark:text-[#A6AEC7] max-w-3xl mx-auto font-body">
             {subtitle}
           </p>
         </motion.div>
 
-        {/* ── Desktop / Tablet Grid ───────────────────────────────── */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {categories.map((cat) => (
-            <CategoryCard key={cat.key} item={cat} isHindi={isHindi} isEnglish={isEnglish} />
-          ))}
-        </motion.div>
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map((cat, index) => {
+            const Icon = cat.icon;
+            const title = isHindi ? categoryTitles[cat.key]?.hi : isEnglish ? categoryTitles[cat.key]?.en : categoryTitles[cat.key]?.hg;
+            const description = isHindi ? categoryDescriptions[cat.key]?.hi : isEnglish ? categoryDescriptions[cat.key]?.en : categoryDescriptions[cat.key]?.hg;
 
-        {/* ── Mobile: Horizontal Snap Scroll ──────────────────────── */}
-        <div className="md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide">
-          {categories.map((cat, i) => (
-            <motion.div
-              key={cat.key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: i * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="snap-center shrink-0 w-[260px]"
-            >
-              <CategoryCard item={cat} isHindi={isHindi} isEnglish={isEnglish} />
-            </motion.div>
-          ))}
+            return (
+              <motion.div
+                key={cat.key}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Link href={cat.href} className="block group">
+                  <div className="p-6 border border-[#E2E8F0] dark:border-white/10 bg-white dark:bg-card/60 hover:shadow-premium-lg transition-all duration-300 rounded-2xl h-full cursor-pointer">
+                    <div
+                      className="inline-flex p-4 rounded-2xl mb-4 transition-transform group-hover:scale-110"
+                      style={{ backgroundColor: `${cat.color}15` }}
+                    >
+                      <Icon className="h-6 w-6" style={{ color: cat.color }} strokeWidth={2} />
+                    </div>
+
+                    <h3 className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] mb-2 font-display">
+                      {title}
+                    </h3>
+                    <p className="text-[#64748B] dark:text-[#A6AEC7] mb-4 font-body">{description}</p>
+
+                    <ul className="space-y-2">
+                      {cat.features.map((feature, i) => {
+                        const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
+                        return (
+                          <li key={i} className="flex items-center gap-2 text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">
+                            <div
+                              className="w-1.5 h-1.5 rounded-full"
+                              style={{ backgroundColor: cat.color }}
+                            ></div>
+                            {featureText}
+                          </li>
+                        );
+                      })}
+                    </ul>
+
+                    {/* Price */}
+                    <div className="mt-4 pt-4 border-t border-[#E2E8F0] dark:border-white/10 flex items-center justify-between">
+                      <span className="text-sm font-semibold text-[#2563EB] dark:text-[#D4A853] font-body">{cat.price}</span>
+                      <span className="inline-flex items-center gap-1 text-xs text-[#64748B] dark:text-[#A6AEC7] font-body">
+                        <Sparkles className="w-3 h-3" />
+                        AI Pick
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
-  );
-}
-
-/* ── Card Sub-component — Clean card, no glassmorphism ───────────────── */
-function CategoryCard({ item, isHindi, isEnglish }: { item: CategoryItem; isHindi: boolean; isEnglish: boolean }) {
-  const Icon = item.icon;
-  const customQuote = isHindi ? 'कस्टम कोट' : isEnglish ? 'Custom quote' : 'Custom quote';
-  const fromLabel = isHindi ? 'से' : isEnglish ? 'From' : 'Se';
-  const price = item.price || customQuote;
-
-  const title = isHindi
-    ? categoryTitles[item.key]?.hi ?? categoryTitles[item.key]?.en
-    : isEnglish
-      ? categoryTitles[item.key]?.en
-      : categoryTitles[item.key]?.hg ?? categoryTitles[item.key]?.en;
-
-  const benefit = isHindi
-    ? categoryBenefits[item.key]?.hi ?? categoryBenefits[item.key]?.en
-    : isEnglish
-      ? categoryBenefits[item.key]?.en
-      : categoryBenefits[item.key]?.hg ?? categoryBenefits[item.key]?.en;
-
-  return (
-    <Link href={item.href} className="block group">
-      <motion.div
-        variants={cardVariants}
-        whileHover={{ y: -4, scale: 1.01 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-        className="relative bg-card/80 backdrop-blur-sm border border-border/60 rounded-2xl p-6 flex flex-col gap-3 h-full cursor-pointer transition-all duration-300 hover:border-primary/25 hover:bg-card hover:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(var(--primary),0.08)]"
-      >
-        {/* Subtle glow on hover */}
-        <div className="absolute inset-0 rounded-2xl bg-primary/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-        {/* AI Pick Badge */}
-        <div className="relative flex items-center justify-between">
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground/60 uppercase tracking-widest">
-            <Sparkles className="w-3 h-3" />
-            AI Pick
-          </span>
-        </div>
-
-        {/* Icon */}
-        <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center ring-1 ring-primary/10 group-hover:ring-primary/20 transition-all duration-300">
-          <Icon className="w-5.5 h-5.5 text-primary" strokeWidth={1.8} />
-        </div>
-
-        {/* Title */}
-        <h3 className="relative font-heading font-semibold text-foreground text-base leading-snug">
-          {title}
-        </h3>
-
-        {/* Benefit */}
-        <p className="relative text-sm text-muted-foreground leading-relaxed line-clamp-2">
-          {benefit}
-        </p>
-
-        {/* Subtle accent line */}
-        <div className="relative w-8 h-[2px] rounded-full bg-gradient-to-r from-primary/50 to-primary/20 group-hover:from-primary/70 group-hover:to-primary/30 transition-all duration-300" />
-
-        {/* Price + Quick Stat */}
-        <div className="relative mt-auto flex items-end justify-between gap-2">
-          <p className="text-sm font-mono font-semibold text-primary">
-            {item.key === 'business' ? (
-              price
-            ) : (
-              <>
-                <span className="text-xs text-muted-foreground font-sans font-normal mr-1">
-                  {fromLabel}
-                </span>
-                {item.price}
-              </>
-            )}
-          </p>
-          <span className="text-[10px] text-[var(--trust)] font-mono font-medium bg-primary/[0.06] px-2.5 py-1 rounded-full border border-primary/10 group-hover:border-primary/20 transition-colors duration-300">
-            {item.quickStat}
-          </span>
-        </div>
-      </motion.div>
-    </Link>
   );
 }

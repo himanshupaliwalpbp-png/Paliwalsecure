@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bot, FileSearch, HandHelping, ShieldCheck, Sparkles } from 'lucide-react';
+import { Shield, ArrowRight, Check } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Inline translations ───────────────────────────────────────────── */
@@ -20,176 +20,218 @@ const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
   feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Find out aapki current policy kya cover nahi karti' },
 };
 
-const featureTimelines: Record<string, { en: string; hi: string; hg: string }> = {
-  feature1: { en: 'Q1 2026', hi: 'Q1 2026', hg: 'Q1 2026' },
-  feature2: { en: 'Q1 2026', hi: 'Q1 2026', hg: 'Q1 2026' },
-  feature3: { en: 'Q2 2026', hi: 'Q2 2026', hg: 'Q2 2026' },
-  feature4: { en: 'Q2 2026', hi: 'Q2 2026', hg: 'Q2 2026' },
-};
+const featureColors = ['#2563EB', '#10B981', '#E8C872', '#8B5CF6'];
 
-/* ── Helper to get trilingual string ───────────────────────────────────── */
-function tr(data: { en: string; hi: string; hg: string }, isHindi: boolean, isEnglish: boolean) {
-  return isHindi ? data.hi : isEnglish ? data.en : data.hg;
-}
-
-/* ── Feature data interface ────────────────────────────────────────────── */
-interface FutureFeatureInfo {
-  featureKey: string;
-  icon: React.ReactNode;
-}
-
-const features: FutureFeatureInfo[] = [
-  {
-    featureKey: 'feature1',
-    icon: <Bot className="w-6 h-6" />,
-  },
-  {
-    featureKey: 'feature2',
-    icon: <FileSearch className="w-6 h-6" />,
-  },
-  {
-    featureKey: 'feature3',
-    icon: <HandHelping className="w-6 h-6" />,
-  },
-  {
-    featureKey: 'feature4',
-    icon: <ShieldCheck className="w-6 h-6" />,
-  },
-];
-
-/* ── Feature Card ──────────────────────────────────────────────────────── */
+/* ── Feature Card ──────────────────────────────────────────────── */
 function FeatureCard({
-  feature,
+  featureKey,
+  index,
   isHindi,
   isEnglish,
-  index,
 }: {
-  feature: FutureFeatureInfo;
+  featureKey: string;
+  index: number;
   isHindi: boolean;
   isEnglish: boolean;
-  index: number;
 }) {
-  const fk = feature.featureKey;
-  const title = tr(featureTitles[fk], isHindi, isEnglish);
-  const desc = tr(featureDescs[fk], isHindi, isEnglish);
-  const timeline = tr(featureTimelines[fk], isHindi, isEnglish);
+  const color = featureColors[index % featureColors.length];
+  const title = isHindi ? featureTitles[featureKey]?.hi : isEnglish ? featureTitles[featureKey]?.en : featureTitles[featureKey]?.hg;
+  const desc = isHindi ? featureDescs[featureKey]?.hi : isEnglish ? featureDescs[featureKey]?.en : featureDescs[featureKey]?.hg;
   const comingSoon = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
 
   return (
     <motion.div
-      className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-7 sm:p-8 flex flex-col h-full group transition-all duration-500 hover:border-primary/20 hover:shadow-[0_12px_48px_-12px_rgba(var(--primary),0.08)] relative overflow-hidden"
+      className="bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-[#E2E8F0]/50 dark:border-white/10 rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:bg-white dark:hover:bg-white/10 hover:shadow-premium-lg hover:border-[#E2E8F0] dark:hover:border-white/20"
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Subtle gradient glow on hover */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/[0.03] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-      {/* Icon — refined treatment */}
       <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 bg-primary/[0.06] border border-primary/[0.10] text-primary transition-transform duration-300 group-hover:scale-105"
+        className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105"
+        style={{ backgroundColor: `${color}15` }}
       >
-        {feature.icon}
+        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
       </div>
 
-      {/* Title */}
-      <h3
-        className="font-heading text-base sm:text-lg lg:text-xl font-bold text-foreground leading-snug mb-2 tracking-tight"
-      >
+      <h3 className="font-display text-base sm:text-lg font-bold text-white leading-snug mb-2 tracking-tight">
         {title}
       </h3>
 
-      {/* Description */}
-      <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-5">
+      <p className="text-sm text-white/60 leading-relaxed flex-1 mb-5 font-body">
         {desc}
       </p>
 
-      {/* Bottom row: Timeline pill + Coming Soon label */}
-      <div className="flex items-center justify-between pt-4 border-t border-border/40">
-        {/* Timeline badge */}
-        <span
-          className="text-[10px] font-mono text-muted-foreground px-2.5 py-1 rounded-full bg-muted/30 border border-border/30"
-        >
-          {timeline}
-        </span>
-
-        {/* Coming Soon label */}
-        <span
-          className="text-[10px] font-bold uppercase tracking-widest text-primary px-2.5 py-1 rounded-full bg-primary/[0.06] border border-primary/[0.10]"
-        >
+      <div className="flex items-center justify-between pt-4 border-t border-white/10">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[#E8C872] px-2.5 py-1 rounded-full bg-[#E8C872]/10 border border-[#E8C872]/20 font-body">
           {comingSoon}
         </span>
       </div>
-
     </motion.div>
   );
 }
 
-/* ── Main Component ────────────────────────────────────────────────────── */
+/* ── Main Component ────────────────────────────────────────────── */
 export default function FutureAI() {
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
   const badge = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
-  const heading = isHindi ? 'आगे क्या आने वाला है' : isEnglish ? "What's coming next" : 'Aage kya aane wala hai';
+  const heading = isHindi ? 'अपना जानें' : isEnglish ? 'Know Your' : 'Apna jaanein';
+  const headingAccent = isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score';
+  const subtitle = isHindi
+    ? 'केवल 2 मिनट में अपने वर्तमान बीमा कवरेज का व्यापक विश्लेषण प्राप्त करें। अंतराल खोजें, लागत अनुकूलित करें।'
+    : isEnglish
+      ? 'Get a comprehensive analysis of your current insurance coverage in just 2 minutes. Discover gaps, optimize costs.'
+      : 'Bas 2 minute mein aapke current insurance coverage ka comprehensive analysis paayein. Gaps discover karein, costs optimize karein.';
+
+  const checklistItems = [
+    { en: 'Instant coverage gap analysis', hi: 'तत्काल कवरेज अंतर विश्लेषण', hg: 'Instant coverage gap analysis' },
+    { en: 'Personalized recommendations', hi: 'व्यक्तिगत सिफारिशें', hg: 'Personalized recommendations' },
+    { en: 'Compare with similar families', hi: 'समान परिवारों से तुलना करें', hg: 'Compare with similar families' },
+    { en: 'Track improvements over time', hi: 'समय के साथ सुधार ट्रैक करें', hg: 'Track improvements over time' },
+  ];
+
+  const ctaText = isHindi ? 'अपना स्कोर गणना करें' : isEnglish ? 'Calculate Your Score' : 'Apna score calculate karein';
 
   return (
-    <section
-      dir="ltr"
-      className="relative py-28 md:py-36 overflow-hidden bg-background text-foreground"
-      aria-label="Upcoming AI features"
-    >
-      {/* Background glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-1/4 left-1/3 w-[500px] h-[500px] bg-primary/[0.02] rounded-full blur-[120px]" />
+    <section className="py-24 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0F172A] text-white overflow-hidden relative">
+      {/* Ambient Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#2563EB]/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#10B981]/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Section divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Badge */}
-          <div
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary"
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <Sparkles className="w-3 h-3" />
-            {badge}
-          </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
+              <Shield className="h-4 w-4 text-[#E8C872]" />
+              <span className="text-sm font-medium font-body">
+                {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
+              </span>
+            </div>
 
-          {/* Heading */}
-          <h2
-            className="font-heading text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-foreground leading-[1.05]"
-          >
-            {heading
-              .split(' ')
-              .map((word: string, i: number, arr: string[]) =>
-                i === arr.length - 1 ? (
-                  <span key={i} className="italic text-primary">
-                    {' '}
-                    {word}
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-display">
+              {heading} <span className="gradient-luxury">{headingAccent}</span>
+            </h2>
+
+            <p className="text-xl text-white/70 mb-8 leading-relaxed font-body">
+              {subtitle}
+            </p>
+
+            <div className="space-y-4 mb-8">
+              {checklistItems.map((item, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#10B981]/20 flex items-center justify-center">
+                    <Check className="h-4 w-4 text-[#10B981]" />
+                  </div>
+                  <span className="text-white/90 font-body">
+                    {isHindi ? item.hi : isEnglish ? item.en : item.hg}
                   </span>
-                ) : (
-                  <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
-                )
-              )}
-          </h2>
-        </motion.div>
+                </div>
+              ))}
+            </div>
 
-        {/* Feature Cards — 2×2 on desktop, 1 col on mobile */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} feature={feature} isHindi={isHindi} isEnglish={isEnglish} index={index} />
-          ))}
+            <button
+              onClick={() => {
+                const el = document.getElementById('advisor-form');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#0F172A] hover:bg-white/90 font-semibold rounded-xl shadow-premium-lg transition-all duration-300 font-body"
+            >
+              {ctaText}
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </motion.div>
+
+          {/* Visual: Animated Score Circle */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
+          >
+            <div className="relative w-full max-w-md mx-auto">
+              <div className="aspect-square relative">
+                <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="12" />
+                  <motion.circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    fill="none"
+                    stroke="url(#scoreGradientDark)"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                    strokeDasharray="534"
+                    initial={{ strokeDashoffset: 534 }}
+                    whileInView={{ strokeDashoffset: 534 - (534 * 87) / 100 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                  />
+                  <defs>
+                    <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#E8C872" />
+                      <stop offset="100%" stopColor="#10B981" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    className="text-7xl font-bold font-display"
+                  >
+                    87
+                  </motion.div>
+                  <div className="text-xl text-white/60 font-body">out of 100</div>
+                  <div className="mt-4 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                    <span className="text-sm font-medium font-body">
+                      {isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Score Details */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+                className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-full max-w-sm"
+              >
+                <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold gradient-luxury font-display">92%</div>
+                      <div className="text-xs text-white/60 font-body">Life</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold gradient-text-blue-emerald font-display">85%</div>
+                      <div className="text-xs text-white/60 font-body">Health</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-white font-display">84%</div>
+                      <div className="text-xs text-white/60 font-body">Vehicle</div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

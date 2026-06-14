@@ -18,7 +18,7 @@ interface SafeThemeContextValue {
 }
 
 const SafeThemeContext = createContext<SafeThemeContextValue>({
-  resolvedTheme: 'dark',
+  resolvedTheme: 'light',
   theme: undefined,
   setTheme: () => {},
 });
@@ -27,7 +27,7 @@ export function SafeThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="dark"
+      defaultTheme="light"
       enableSystem
       disableTransitionOnChange
     >
@@ -41,8 +41,8 @@ function SafeThemeContextWrapper({ children }: { children: ReactNode }) {
 
   const value = useMemo<SafeThemeContextValue>(() => ({
     // If resolvedTheme is undefined (before next-themes reads localStorage),
-    // default to 'dark' to match our defaultTheme="dark"
-    resolvedTheme: (resolvedTheme === 'light' ? 'light' : 'dark') as 'dark' | 'light',
+    // default to 'light' to match our defaultTheme="light"
+    resolvedTheme: (resolvedTheme === 'dark' ? 'dark' : 'light') as 'dark' | 'light',
     theme,
     setTheme,
   }), [resolvedTheme, theme, setTheme]);

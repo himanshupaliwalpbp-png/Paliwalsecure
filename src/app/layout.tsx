@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter_Tight, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SafeThemeProvider } from "@/lib/safe-theme-provider";
@@ -18,18 +18,17 @@ import StickyMobileCTA from "@/components/home/StickyMobileCTA";
 import { SafeRender } from "@/components/SafeRender";
 import StyledComponentsRegistry from "@/lib/styled-components-registry";
 
-const instrumentSerif = Instrument_Serif({
+const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
-const interTight = Inter_Tight({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -307,9 +306,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Blocking script: read language from localStorage BEFORE React hydrates to prevent flash */}
+        {/* Blocking script: read language & theme from localStorage BEFORE React hydrates to prevent flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -322,6 +321,15 @@ export default function RootLayout({
                   document.documentElement.lang = 'hi';
                 }
               } catch(e) {}
+              try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                }
+                // Light mode is default — no class needed
+              } catch(e) {
+                // Default to light mode (no class)
+              }
             `,
           }}
         />
@@ -344,7 +352,7 @@ export default function RootLayout({
         <StructuredData type="breadcrumb" />
       </head>
       <body
-        className={`${instrumentSerif.variable} ${interTight.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-hidden antialiased`}
+        className={`${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-hidden antialiased`}
       >
         <GoogleAnalytics gaId="G-TKQ9X6G5HX" />
         <SafeThemeProvider>

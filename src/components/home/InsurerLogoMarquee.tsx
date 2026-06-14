@@ -9,7 +9,7 @@ import { useLanguage } from '@/lib/i18n';
 interface InsurerItem {
   name: string;
   shortName: string;
-  color: string; // gradient from/to colors
+  color: string;
 }
 
 const INSURERS: InsurerItem[] = [
@@ -44,18 +44,17 @@ export default function InsurerLogoMarquee() {
       ? 'AI Ready | IRDAI Verified | Families trust across India'
       : 'AI Ready | IRDAI Verified | Poori India mein parivaron ka bharosa';
 
-  // Duplicate for seamless loop
   const allInsurers = [...INSURERS, ...INSURERS];
 
   return (
     <section
       dir="ltr"
-      className="relative w-full py-8 sm:py-10 overflow-hidden border-y border-border/40"
+      className="relative w-full py-8 sm:py-10 overflow-hidden bg-white dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
       aria-label={ariaLabel}
     >
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white dark:from-[#0A1330] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white dark:from-[#0A1330] to-transparent z-10 pointer-events-none" />
 
       <div ref={ref} className="relative">
         <motion.div
@@ -65,7 +64,6 @@ export default function InsurerLogoMarquee() {
           className="group flex"
           style={{ width: 'max-content' }}
         >
-          {/* Marquee track — pauses on hover via CSS */}
           <div
             className="flex animate-marquee-left group-hover:[animation-play-state:paused]"
             style={{ animationDuration: '45s' }}
@@ -73,9 +71,8 @@ export default function InsurerLogoMarquee() {
             {allInsurers.map((insurer, idx) => (
               <div
                 key={`insurer-${idx}`}
-                className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 shrink-0 mx-1.5 sm:mx-2 rounded-xl bg-card/60 backdrop-blur-sm border border-border/40 transition-all duration-300 hover:bg-card hover:border-border/70 grayscale hover:grayscale-0 cursor-default"
+                className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 shrink-0 mx-1.5 sm:mx-2 rounded-xl bg-[#F8FAFC] dark:bg-white/5 border border-[#E2E8F0] dark:border-white/10 transition-all duration-300 hover:bg-white hover:border-[#2563EB]/20 dark:hover:bg-white/10 dark:hover:border-[#D4A853]/20 grayscale hover:grayscale-0 cursor-default shadow-premium"
               >
-                {/* Logo circle */}
                 <div
                   className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-sm ring-1 ring-white/10`}
                 >
@@ -83,8 +80,7 @@ export default function InsurerLogoMarquee() {
                     {insurer.shortName}
                   </span>
                 </div>
-                {/* Name */}
-                <span className="text-xs sm:text-sm font-medium text-foreground/70 group-hover/item:text-foreground whitespace-nowrap transition-colors duration-300">
+                <span className="text-xs sm:text-sm font-medium text-[#0F172A]/70 dark:text-[#F8F6F0]/70 whitespace-nowrap transition-colors duration-300 font-body">
                   {insurer.name}
                 </span>
               </div>

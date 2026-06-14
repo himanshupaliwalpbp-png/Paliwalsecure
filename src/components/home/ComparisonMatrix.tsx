@@ -16,60 +16,15 @@ interface FeatureRow {
 }
 
 const features: FeatureRow[] = [
-  {
-    key: 'aiPlanMatch',
-    paliwal: { type: 'check' },
-    ditto: { type: 'text', value: 'Human-only' },
-    localAgent: { type: 'dash' },
-  },
-  {
-    key: 'insurers51',
-    paliwal: { type: 'check' },
-    ditto: { type: 'text', value: '20–30' },
-    localAgent: { type: 'text', value: '2–4' },
-  },
-  {
-    key: 'noBias',
-    paliwal: { type: 'check' },
-    ditto: { type: 'text', value: 'Limited' },
-    localAgent: { type: 'cross' },
-  },
-  {
-    key: 'freeConsult',
-    paliwal: { type: 'check' },
-    ditto: { type: 'check' },
-    localAgent: { type: 'text', value: 'Varies' },
-  },
-  {
-    key: 'claimHandling',
-    paliwal: { type: 'text', value: 'End-to-end' },
-    ditto: { type: 'text', value: 'Limited' },
-    localAgent: { type: 'text', value: 'Varies' },
-  },
-  {
-    key: 'lifetimeClaims',
-    paliwal: { type: 'check' },
-    ditto: { type: 'cross' },
-    localAgent: { type: 'text', value: 'If active' },
-  },
-  {
-    key: 'noSpamCalls',
-    paliwal: { type: 'check' },
-    ditto: { type: 'check' },
-    localAgent: { type: 'cross' },
-  },
-  {
-    key: 'whatsappFirst',
-    paliwal: { type: 'check' },
-    ditto: { type: 'cross' },
-    localAgent: { type: 'text', value: 'Varies' },
-  },
-  {
-    key: 'transparentCommissions',
-    paliwal: { type: 'check' },
-    ditto: { type: 'dash' },
-    localAgent: { type: 'cross' },
-  },
+  { key: 'aiPlanMatch', paliwal: { type: 'check' }, ditto: { type: 'text', value: 'Human-only' }, localAgent: { type: 'dash' } },
+  { key: 'insurers51', paliwal: { type: 'check' }, ditto: { type: 'text', value: '20–30' }, localAgent: { type: 'text', value: '2–4' } },
+  { key: 'noBias', paliwal: { type: 'check' }, ditto: { type: 'text', value: 'Limited' }, localAgent: { type: 'cross' } },
+  { key: 'freeConsult', paliwal: { type: 'check' }, ditto: { type: 'check' }, localAgent: { type: 'text', value: 'Varies' } },
+  { key: 'claimHandling', paliwal: { type: 'text', value: 'End-to-end' }, ditto: { type: 'text', value: 'Limited' }, localAgent: { type: 'text', value: 'Varies' } },
+  { key: 'lifetimeClaims', paliwal: { type: 'check' }, ditto: { type: 'cross' }, localAgent: { type: 'text', value: 'If active' } },
+  { key: 'noSpamCalls', paliwal: { type: 'check' }, ditto: { type: 'check' }, localAgent: { type: 'cross' } },
+  { key: 'whatsappFirst', paliwal: { type: 'check' }, ditto: { type: 'cross' }, localAgent: { type: 'text', value: 'Varies' } },
+  { key: 'transparentCommissions', paliwal: { type: 'check' }, ditto: { type: 'dash' }, localAgent: { type: 'cross' } },
 ];
 
 interface ColumnDef {
@@ -102,25 +57,25 @@ function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean
   switch (cell.type) {
     case 'check':
       return (
-        <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${isPaliwal ? 'bg-primary/10 border border-primary/20' : 'bg-muted/50'}`}>
-          <Check className={`w-4 h-4 ${isPaliwal ? 'text-primary' : 'text-muted-foreground'}`} strokeWidth={2.5} />
+        <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${isPaliwal ? 'bg-[#2563EB]/10 border border-[#2563EB]/20' : 'bg-[#F1F5F9] dark:bg-white/5'}`}>
+          <Check className={`w-4 h-4 ${isPaliwal ? 'text-[#2563EB]' : 'text-[#64748B]'}`} strokeWidth={2.5} />
         </span>
       );
     case 'cross':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-muted/30">
-          <X className="w-4 h-4 text-muted-foreground/30" strokeWidth={2.5} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/5">
+          <X className="w-4 h-4 text-[#64748B]/30" strokeWidth={2.5} />
         </span>
       );
     case 'dash':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-muted/30">
-          <Minus className="w-4 h-4 text-muted-foreground/30" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/5">
+          <Minus className="w-4 h-4 text-[#64748B]/30" strokeWidth={2} />
         </span>
       );
     case 'text':
       return (
-        <span className={`text-xs font-medium capitalize ${isPaliwal ? 'text-primary' : 'text-muted-foreground/70'}`}>
+        <span className={`text-xs font-medium capitalize ${isPaliwal ? 'text-[#2563EB]' : 'text-[#64748B]/70'} font-body`}>
           {cell.value}
         </span>
       );
@@ -149,15 +104,9 @@ export default function ComparisonMatrix() {
       : col.label.hg;
 
   return (
-    <section className="py-28 md:py-36 px-4 relative overflow-hidden">
-      {/* Subtle background accent */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      </div>
-
-      <div className="mx-auto max-w-5xl">
-        {/* ── Header ──────────────────────────────────────────────── */}
+    <section className="py-24 bg-white dark:bg-[#0A1330]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -165,35 +114,30 @@ export default function ComparisonMatrix() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
           className="mb-14 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary">
-            <Sparkles className="w-3 h-3" />
-            Comparison
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F8FAFC] dark:bg-white/5 rounded-full border border-[#E2E8F0] dark:border-white/10 mb-5 shadow-premium">
+            <Sparkles className="w-3 h-3 text-[#E8C872]" />
+            <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">Comparison</span>
           </div>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-[1.1]">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
             {heading}
           </h2>
-          <p className="mt-4 text-muted-foreground text-sm md:text-base max-w-md mx-auto leading-relaxed">
-            {isHindi
-              ? 'देखें कि Paliwal Secure कैसे अलग है'
-              : isEnglish
-                ? 'See how Paliwal Secure stands out from the competition'
-                : 'Dekhein Paliwal Secure kaisa alag hai'}
+          <p className="mt-4 text-[#64748B] dark:text-[#A6AEC7] text-sm md:text-base max-w-md mx-auto leading-relaxed font-body">
+            {isHindi ? 'देखें कि Paliwal Secure कैसे अलग है' : isEnglish ? 'See how Paliwal Secure stands out from the competition' : 'Dekhein Paliwal Secure kaisa alag hai'}
           </p>
         </motion.div>
 
-        {/* ── Table ───────────────────────────────────────────────── */}
+        {/* Table */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="overflow-x-auto rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm"
+          className="overflow-x-auto rounded-2xl border border-[#E2E8F0] dark:border-white/10 bg-white dark:bg-card/40 backdrop-blur-sm"
         >
           <table className="w-full min-w-[680px] text-sm">
-            {/* Head */}
             <thead>
-              <tr className="border-b border-border/60">
-                <th className="text-left px-6 py-5 font-medium text-muted-foreground text-xs uppercase tracking-wider">
+              <tr className="border-b border-[#E2E8F0] dark:border-white/10">
+                <th className="text-left px-6 py-5 font-medium text-[#64748B] dark:text-[#A6AEC7] text-xs uppercase tracking-wider font-body">
                   {featureLabel}
                 </th>
                 {columns.map((col) => (
@@ -201,14 +145,14 @@ export default function ComparisonMatrix() {
                     key={col.key}
                     className={`px-6 py-5 text-center font-medium text-xs uppercase tracking-wider ${
                       col.highlight
-                        ? 'text-primary font-bold bg-primary/[0.04] border-x border-primary/[0.08]'
-                        : 'text-muted-foreground'
-                    }`}
+                        ? 'text-[#2563EB] font-bold bg-[#2563EB]/[0.04] dark:bg-[#D4A853]/[0.04] border-x border-[#2563EB]/[0.08] dark:border-[#D4A853]/[0.08]'
+                        : 'text-[#64748B] dark:text-[#A6AEC7]'
+                    } font-body`}
                   >
                     <div className="flex flex-col items-center gap-1">
                       <span>{getColumnLabel(col)}</span>
                       {col.highlight && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-primary/10 border border-primary/20 text-primary normal-case tracking-normal">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-[#2563EB]/10 dark:bg-[#D4A853]/10 border border-[#2563EB]/20 dark:border-[#D4A853]/20 text-[#2563EB] dark:text-[#D4A853] normal-case tracking-normal">
                           {isHindi ? 'अनुशंसित' : isEnglish ? 'Recommended' : 'Recommended'}
                         </span>
                       )}
@@ -217,15 +161,13 @@ export default function ComparisonMatrix() {
                 ))}
               </tr>
             </thead>
-
-            {/* Body */}
             <tbody>
-              {features.map((row, i) => (
+              {features.map((row) => (
                 <tr
                   key={row.key}
-                  className={`border-b border-border/40 last:border-b-0 transition-colors duration-300 hover:bg-muted/[0.03]`}
+                  className="border-b border-[#E2E8F0]/60 dark:border-white/5 last:border-b-0 transition-colors duration-300 hover:bg-[#F8FAFC]/50 dark:hover:bg-white/[0.02]"
                 >
-                  <td className="px-6 py-4 text-foreground font-medium text-sm">
+                  <td className="px-6 py-4 text-[#0F172A] dark:text-[#F8F6F0] font-medium text-sm font-body">
                     {getFeatureLabel(row.key)}
                   </td>
                   {columns.map((col) => {
@@ -236,7 +178,7 @@ export default function ComparisonMatrix() {
                       <td
                         key={col.key}
                         className={`px-6 py-4 text-center transition-colors duration-300 ${
-                          isPaliwal ? 'bg-primary/[0.02] border-x border-primary/[0.06]' : ''
+                          isPaliwal ? 'bg-[#2563EB]/[0.02] dark:bg-[#D4A853]/[0.02] border-x border-[#2563EB]/[0.06] dark:border-[#D4A853]/[0.06]' : ''
                         }`}
                       >
                         <CellRenderer cell={cell} isPaliwal={isPaliwal} />

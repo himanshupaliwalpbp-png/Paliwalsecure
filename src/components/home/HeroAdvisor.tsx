@@ -11,10 +11,9 @@ import {
   IndianRupee,
   ChevronRight,
   Star,
-  RotateCcw,
-  ShieldCheck,
+  Shield,
   TrendingUp,
-  Zap,
+  ShieldCheck,
 } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 import { Input } from '@/components/ui/input';
@@ -60,16 +59,6 @@ const INDIAN_CITIES = [
 // ── Animation Variants ─────────────────────────────────────────────────────────
 const easeOutQuart: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const wordReveal: Variants = {
-  hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { delay: i * 0.04, duration: 0.7, ease: easeOutQuart },
-  }),
-};
-
 const stepVariants: Variants = {
   enter: { opacity: 0, x: 50, filter: 'blur(4px)' },
   center: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.5, ease: easeOutQuart } },
@@ -86,21 +75,6 @@ const cardVariants: Variants = {
   }),
 };
 
-// ── Typing Dots Component ─────────────────────────────────────────────────────
-function TypingDots() {
-  const [dots, setDots] = useState(1);
-  useEffect(() => {
-    const interval = setInterval(() => setDots((d) => (d % 3) + 1), 400);
-    return () => clearInterval(interval);
-  }, []);
-  return (
-    <span className="inline-flex items-center gap-1">
-      <span className="text-primary">Analyzing</span>
-      {'.'.repeat(dots)}
-    </span>
-  );
-}
-
 // ── Star Rating Display ────────────────────────────────────────────────────────
 function StarRating({ rating }: { rating: number }) {
   const fullStars = Math.floor(rating);
@@ -112,26 +86,21 @@ function StarRating({ rating }: { rating: number }) {
           key={i}
           className={`w-3.5 h-3.5 ${
             i < fullStars
-              ? 'text-primary fill-primary'
+              ? 'text-[#E8C872] fill-[#E8C872]'
               : i === fullStars && hasHalf
-              ? 'text-primary fill-primary/50'
-              : 'text-muted-foreground/20'
+              ? 'text-[#E8C872] fill-[#E8C872]/50'
+              : 'text-[#64748B]/30'
           }`}
         />
       ))}
-      <span className="ml-1 text-xs text-muted-foreground font-mono">{rating.toFixed(1)}</span>
+      <span className="ml-1 text-xs text-[#64748B] font-body">{rating.toFixed(1)}</span>
     </div>
   );
 }
 
-// ── Word-split helper for headline stagger ─────────────────────────────────────
-function splitToWords(text: string): string[] {
-  return text.split(/(\s+)/).filter((w) => w.length > 0);
-}
-
 // ── Component ──────────────────────────────────────────────────────────────────
 export default function HeroAdvisor() {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
 
   // Form state
   const [step, setStep] = useState<Step>(1);
@@ -153,16 +122,27 @@ export default function HeroAdvisor() {
   const isEnglish = language === 'en';
 
   // ── Localized strings ─────────────────────────────────────
-  const headlineLine1 = isHindi ? 'Insurance ko samjho.' : isEnglish ? 'Understand Insurance.' : 'Insurance ko samjho.';
-  const headlineLine2 = isHindi ? 'Sahi faisla chuno.' : isEnglish ? 'Choose the right plan.' : 'Sahi faisla chuno.';
+  const trustBadgeText = isHindi ? '10,000+ भारतीय परिवारों का भरोसा' : isEnglish ? 'Trusted by 10,000+ Indian Families' : '10,000+ Indian parivaron ka bharosa';
+
+  const headlineAccent = isHindi ? 'Intelligence' : isEnglish ? 'Intelligence' : 'Intelligence';
+  const headlineBefore = isHindi ? 'Insurance' : isEnglish ? 'Insurance' : 'Insurance';
+  const headlineAfter = isHindi ? 'Modern India ke liye' : isEnglish ? 'for Modern India' : 'Modern India ke liye';
 
   const subtext = isHindi
-    ? 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.'
+    ? 'AI-powered insights aur personalized protection strategies ke saath families, professionals, aur business owners ko smarter insurance decisions lene mein madad karte hain.'
     : isEnglish
-      ? 'Compare policies with AI guidance, understand benefits, and make claims easy.'
-      : 'AI-powered guidance ke saath policy compare karo, benefits samjho aur claims ko aasan banao.';
+      ? 'We help families, professionals, and business owners make smarter insurance decisions with AI-powered insights and personalized protection strategies.'
+      : 'AI-powered insights aur personalized protection strategies ke saath families, professionals, aur business owners ko smarter insurance decisions lene mein madad karte hain.';
 
-  const primaryCTA = isHindi ? 'Quick Adviser Shuru karein →' : isEnglish ? 'Start Quick Adviser →' : 'Quick Adviser Shuru karein →';
+  const primaryCTA = isHindi ? 'Protection Score Pao' : isEnglish ? 'Get Protection Score' : 'Protection Score Pao';
+  const secondaryCTA = isHindi ? 'Advisor se Baat Karein' : isEnglish ? 'Talk to Advisor' : 'Advisor se Baat Karein';
+
+  const socialProof1Val = '4.9/5';
+  const socialProof1Label = isHindi ? 'क्लाइंट रेटिंग' : isEnglish ? 'Client Rating' : 'Client Rating';
+  const socialProof2Val = '₹500Cr+';
+  const socialProof2Label = isHindi ? 'कवरेज मैनेज्ड' : isEnglish ? 'Coverage Managed' : 'Coverage Managed';
+  const socialProof3Val = '24/7';
+  const socialProof3Label = isHindi ? 'सहायता' : isEnglish ? 'Support' : 'Support';
 
   const stepLabels: Record<Step, string> = isHindi
     ? { 1: 'Aapki umar?', 2: 'Parivaar ki sankhya?', 3: 'Shehar?', 4: 'Masik budget?' }
@@ -189,7 +169,6 @@ export default function HeroAdvisor() {
       ? 'Discuss details on WhatsApp'
       : 'WhatsApp par detail mein baat karein';
   const startOverLabel = isHindi ? 'Phir se shuru karein' : isEnglish ? 'Start Over' : 'Phir se shuru karein';
-  const indicativeLabel = isHindi ? '(aadharit)' : isEnglish ? '(indicative)' : '(aadharit)';
   const claimRatioLabel = isHindi ? 'Claim Settlement Ratio' : isEnglish ? 'Claim Settlement Ratio' : 'Claim Settlement Ratio';
   const whyFitsLabel = isHindi ? 'Yeh kyun fit hai' : isEnglish ? 'Why it fits you' : 'Yeh kyun fit hai';
   const sumInsuredLabel = isHindi ? 'Sum Insured' : isEnglish ? 'Sum Insured' : 'Sum Insured';
@@ -257,239 +236,109 @@ export default function HeroAdvisor() {
   // ── Family size options ───────────────────────────────────
   const familySizes = [1, 2, 3, 4, 5, 6];
 
-  // ── Headline word arrays for stagger ──────────────────────
-  const line1Words = splitToWords(headlineLine1);
-  const line2Words = splitToWords(headlineLine2);
-
   // ── Results View ──────────────────────────────────────────
   const renderResults = () => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: easeOutQuart }}
-      className="rounded-3xl overflow-hidden bg-white/[0.55] backdrop-blur-2xl border border-white/30"
-      style={{
-        boxShadow: '0 0 0 1px rgba(255,255,255,0.1), 0 8px 40px -12px rgba(0,0,0,0.12), 0 0 80px -20px rgba(194,86,44,0.08)',
-      }}
+      className="bg-white rounded-3xl p-8 shadow-premium-lg border border-[#E2E8F0]"
     >
       {/* Header */}
-      <div className="px-7 py-6 border-b border-white/20">
-        <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center backdrop-blur-sm border border-primary/10">
-            <Sparkles className="w-5 h-5 text-primary" />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground" style={{ fontFamily: 'var(--font-heading), Fraunces, serif' }}>
-              {resultsTitle}
-            </h2>
-            <p className="text-xs text-muted-foreground/70 mt-0.5 tracking-wide">{resultsSubtitle}</p>
-          </div>
+      <div className="flex items-center gap-3.5 mb-6">
+        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#2563EB]/10 to-[#10B981]/10 flex items-center justify-center">
+          <Sparkles className="w-5 h-5 text-[#2563EB]" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-[#0F172A] font-display">{resultsTitle}</h2>
+          <p className="text-xs text-[#64748B] font-body mt-0.5">{resultsSubtitle}</p>
         </div>
       </div>
 
       {/* Content */}
-      <div className="px-6 py-6 max-h-[520px] overflow-y-auto custom-scrollbar space-y-4">
-        {/* Loading state */}
-        {isSubmitting && !result && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center py-16 gap-5"
-          >
-            <div className="relative">
-              <div className="w-20 h-20 rounded-full border-2 border-primary/15 border-t-primary animate-spin" />
-              <div className="absolute inset-0 rounded-full border-2 border-transparent border-b-primary/30 animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
-              <Sparkles className="w-7 h-7 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-            </div>
-            <p className="text-xl text-foreground font-semibold tracking-tight">
-              <TypingDots />
-            </p>
-            <p className="text-sm text-muted-foreground/70 text-center max-w-xs leading-relaxed">
-              {isHindi
-                ? '51+ insurers scan ho rahe hain aapke liye best plan dhundhne ke liye...'
-                : isEnglish
-                  ? 'Scanning 51+ insurers to find your best match...'
-                  : '51+ insurers scan ho rahe hain aapke liye best plan dhundhne ke liye...'}
-            </p>
-          </motion.div>
-        )}
+      {isSubmitting && !result && (
+        <div className="flex flex-col items-center py-12 gap-4">
+          <div className="w-12 h-12 border-4 border-[#2563EB]/20 border-t-[#2563EB] rounded-full animate-spin" />
+          <p className="text-sm text-[#64748B] font-body">Analyzing...</p>
+        </div>
+      )}
 
-        {/* Error / No plans state */}
-        {!isSubmitting && result && (!result.plans || result.plans.length === 0) && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center py-10 gap-5 text-center"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/10">
-              <ShieldCheck className="w-7 h-7 text-primary" />
-            </div>
-            <p className="text-foreground text-sm max-w-sm leading-relaxed">
-              {result.advisorMessage || noPlansMsg}
-            </p>
-            <a
-              href="https://wa.me/919257877312"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-semibold text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-              style={{ boxShadow: '0 4px 20px -4px rgba(22,163,74,0.4)' }}
+      {result && result.plans && result.plans.length > 0 && (
+        <div className="space-y-4">
+          {result.plans.map((plan, i) => (
+            <motion.div
+              key={i}
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              className="p-5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:shadow-premium transition-all duration-300"
             >
-              <MessageCircle className="w-4 h-4" />
-              {whatsappCTA}
-            </a>
-          </motion.div>
-        )}
-
-        {/* Plan cards */}
-        {!isSubmitting && result && result.plans && result.plans.length > 0 && (
-          <>
-            <div className="space-y-3.5">
-              {result.plans.map((plan, i) => (
-                <motion.div
-                  key={`${plan.insurer}-${plan.plan}`}
-                  custom={i}
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="rounded-2xl overflow-hidden bg-white/60 backdrop-blur-sm border border-white/40 hover:border-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.03] group"
-                >
-                  <div className="p-5">
-                    {/* Top row: insurer + rating */}
-                    <div className="flex items-start justify-between gap-3 mb-4">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors duration-200">
-                          {plan.insurer}
-                        </h3>
-                        <p
-                          className="text-xs text-primary/80 mt-0.5 truncate"
-                          style={{ fontFamily: 'var(--font-heading), Fraunces, serif' }}
-                        >
-                          {plan.plan}
-                        </p>
-                      </div>
-                      <StarRating rating={plan.rating} />
-                    </div>
-
-                    {/* Premium & Sum Insured */}
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="rounded-xl px-3.5 py-2.5 bg-gradient-to-br from-primary/[0.06] to-transparent border border-primary/10">
-                        <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest mb-0.5">
-                          {premiumLabel}
-                        </p>
-                        <p className="text-base font-bold gradient-text font-mono">
-                          {plan.monthlyPremium}
-                        </p>
-                        <p className="text-[9px] text-muted-foreground/40 italic">{indicativeLabel}</p>
-                      </div>
-                      <div className="rounded-xl px-3.5 py-2.5 bg-surface/50 border border-border/50">
-                        <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest mb-0.5">
-                          {sumInsuredLabel}
-                        </p>
-                        <p className="text-base font-bold text-foreground font-mono">
-                          {plan.sumInsured}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Why it fits */}
-                    <div className="flex items-start gap-2.5 mb-3.5">
-                      <div className="w-5 h-5 rounded-md bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                        <Zap className="w-3 h-3 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-muted-foreground/50 uppercase tracking-widest mb-0.5">
-                          {whyFitsLabel}
-                        </p>
-                        <p className="text-xs text-foreground/85 leading-relaxed">{plan.whyItFits}</p>
-                      </div>
-                    </div>
-
-                    {/* Claim ratio */}
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="w-3.5 h-3.5 text-[var(--trust)] shrink-0" />
-                      <p className="text-[10px] text-muted-foreground/50 uppercase tracking-widest">
-                        {claimRatioLabel}:
-                      </p>
-                      <p className="text-xs font-semibold text-[var(--trust)] font-mono">
-                        {plan.claimRatio}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Advisor message */}
-            {result.advisorMessage && (
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-                className="rounded-2xl p-5 bg-gradient-to-br from-primary/[0.06] to-primary/[0.02] border border-primary/10 backdrop-blur-sm"
-              >
-                <div className="flex items-center gap-2.5 mb-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center">
-                    <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-                  </div>
-                  <span className="text-[10px] font-bold text-primary/80 uppercase tracking-widest">
-                    {advisorMessageLabel}
-                  </span>
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <h3 className="font-semibold text-[#0F172A] font-display">{plan.insurer}</h3>
+                  <p className="text-sm text-[#64748B] font-body">{plan.plan}</p>
                 </div>
-                <p className="text-sm text-foreground/85 leading-relaxed">
-                  {result.advisorMessage}
+                <StarRating rating={plan.rating} />
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <span className="text-[#64748B] font-body">{sumInsuredLabel}</span>
+                  <p className="font-semibold text-[#0F172A] font-body">{plan.sumInsured}</p>
+                </div>
+                <div>
+                  <span className="text-[#64748B] font-body">{premiumLabel}</span>
+                  <p className="font-semibold text-[#0F172A] font-body">{plan.monthlyPremium}</p>
+                </div>
+              </div>
+              <div className="mt-3 pt-3 border-t border-[#E2E8F0] space-y-1.5">
+                <p className="text-xs text-[#64748B] font-body">
+                  <span className="font-medium text-[#0F172A]">{whyFitsLabel}:</span> {plan.whyItFits}
                 </p>
-              </motion.div>
-            )}
-
-            {/* Follow-up question */}
-            {result.followUpQuestion && (
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
-                className="rounded-2xl p-4 bg-white/30 backdrop-blur-sm border border-white/30"
-              >
-                <p className="text-[10px] text-muted-foreground/60 mb-1.5 font-semibold uppercase tracking-widest">
-                  {followUpLabel}:
+                <p className="text-xs text-[#64748B] font-body">
+                  <span className="font-medium text-[#0F172A]">{claimRatioLabel}:</span> {plan.claimRatio}
                 </p>
-                <p className="text-sm text-foreground/75 italic leading-relaxed">
-                  &ldquo;{result.followUpQuestion}&rdquo;
-                </p>
-              </motion.div>
-            )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
 
-            {/* Disclaimer */}
-            <p className="text-[10px] text-muted-foreground/40 text-center leading-relaxed pt-1">
-              {isHindi
-                ? '* Premium indicative hain. Exact quote ke liye human advisor se baat karein.'
-                : isEnglish
-                  ? '* Premiums are indicative. Talk to a human advisor for exact quotes.'
-                  : '* Premium indicative hain. Exact quote ke liye human advisor se baat karein.'}
-            </p>
-          </>
-        )}
-      </div>
+      {result && result.advisorMessage && (
+        <div className="mt-4 p-4 bg-gradient-to-r from-[#EFF6FF] to-[#F0FDF4] rounded-xl border border-[#E2E8F0]">
+          <p className="text-sm font-medium text-[#0F172A] font-body mb-1">{advisorMessageLabel}</p>
+          <p className="text-sm text-[#64748B] font-body">{result.advisorMessage}</p>
+        </div>
+      )}
 
-      {/* Footer: WhatsApp CTA + Start Over */}
-      <div className="px-6 pb-6 space-y-3">
-        {/* WhatsApp CTA */}
+      {result && result.followUpQuestion && (
+        <div className="mt-3 p-4 bg-[#EFF6FF] rounded-xl border border-[#2563EB]/10">
+          <p className="text-sm font-medium text-[#2563EB] font-body mb-1">{followUpLabel}</p>
+          <p className="text-sm text-[#64748B] font-body">{result.followUpQuestion}</p>
+        </div>
+      )}
+
+      {result && (!result.plans || result.plans.length === 0) && (
+        <div className="text-center py-8">
+          <p className="text-[#64748B] font-body">{noPlansMsg}</p>
+        </div>
+      )}
+
+      {/* Action buttons */}
+      <div className="mt-6 flex flex-col sm:flex-row gap-3">
         <a
           href="https://wa.me/919257877312"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2.5 py-3.5 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-semibold text-sm transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
-          style={{ boxShadow: '0 4px 24px -4px rgba(22,163,74,0.35)' }}
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#10B981] text-white font-semibold text-sm hover:bg-[#059669] transition-colors"
         >
           <MessageCircle className="w-4 h-4" />
           {whatsappCTA}
         </a>
-
-        {/* Start Over */}
         <button
           onClick={handleStartOver}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl border border-white/30 text-muted-foreground/70 text-xs font-medium hover:text-foreground hover:border-foreground/15 hover:bg-white/30 transition-all duration-200 backdrop-blur-sm"
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-[#E2E8F0] text-[#0F172A] font-semibold text-sm hover:bg-[#F8FAFC] transition-colors font-body"
         >
-          <RotateCcw className="w-3.5 h-3.5" />
           {startOverLabel}
         </button>
       </div>
@@ -499,146 +348,178 @@ export default function HeroAdvisor() {
   return (
     <section
       id="advisor-form"
-      className="relative w-full min-h-[92vh] flex items-center overflow-hidden bg-background"
+      className="relative overflow-hidden bg-gradient-to-br from-[#F8FAFC] via-[#EFF6FF] to-[#F8FAFC] dark:from-[#060E22] dark:via-[#0A1330] dark:to-[#060E22] pt-20 pb-20 sm:pb-32"
     >
-      {/* Ambient background glow */}
+      {/* Ambient Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-1/4 -right-1/4 w-[60vw] h-[60vw] rounded-full bg-primary/[0.04] blur-[120px]" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[50vw] h-[50vw] rounded-full bg-primary/[0.03] blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] rounded-full bg-white/[0.02] blur-[80px]" />
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#2563EB]/10 dark:bg-[#2563EB]/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-[#10B981]/10 dark:bg-[#10B981]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#E8C872]/5 dark:bg-[#D4A853]/3 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Subtle grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.015] pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 w-full">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start lg:items-center">
-          {/* ── LEFT COLUMN (55%): Headline + Subtext + CTA + Trust Stats ── */}
-          <div className="flex-1 lg:w-[55%] lg:max-w-[55%] flex flex-col gap-8 sm:gap-10">
-            {/* Headline — dramatic editorial with gradient + word stagger */}
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              className="text-foreground"
-              style={{
-                fontFamily: 'var(--font-heading), Fraunces, serif',
-                fontSize: 'clamp(3.25rem, 7.5vw, 6.5rem)',
-                lineHeight: 0.92,
-                letterSpacing: '-0.035em',
-              }}
-            >
-              {/* Line 1: "Insurance ko samjho." — gradient text */}
-              <span className="block">
-                {line1Words.map((word, i) => (
-                  <motion.span
-                    key={`l1-${i}`}
-                    custom={i}
-                    variants={wordReveal}
-                    className="inline-block font-extrabold bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent"
-                    style={{ marginRight: word.match(/^\s+$/) ? '0.25em' : '0' }}
-                  >
-                    {word.match(/^\s+$/) ? '\u00A0' : word}
-                  </motion.span>
-                ))}
-              </span>
-
-              {/* Line 2: "Sahi faisla chuno." — mixed weight with gradient accent */}
-              <span className="block mt-2">
-                {line2Words.map((word, i) => {
-                  const isAccent = ['samjho.', 'Sahi', 'faisla', 'chuno.'].includes(word);
-                  return (
-                    <motion.span
-                      key={`l2-${i}`}
-                      custom={line1Words.length + i}
-                      variants={wordReveal}
-                      className={`inline-block ${
-                        isAccent
-                          ? 'italic font-normal bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent'
-                          : 'font-extrabold bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent'
-                      }`}
-                      style={{ marginRight: word.match(/^\s+$/) ? '0.25em' : '0' }}
-                    >
-                      {word.match(/^\s+$/) ? '\u00A0' : word}
-                    </motion.span>
-                  );
-                })}
-              </span>
-            </motion.h1>
-
-            {/* Subtext */}
-            <motion.p
-              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ delay: line1Words.length * 0.04 + line2Words.length * 0.04 + 0.15, duration: 0.6, ease: easeOutQuart }}
-              className="text-lg sm:text-xl text-muted-foreground/80 max-w-[58ch] leading-[1.7] tracking-[-0.01em]"
-            >
-              {subtext}
-            </motion.p>
-
-            {/* Primary CTA — premium button with micro-interactions */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Trust Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ delay: line1Words.length * 0.04 + line2Words.length * 0.04 + 0.25, duration: 0.6, ease: easeOutQuart }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-full border border-[#E2E8F0] dark:border-white/10 mb-6 shadow-premium"
             >
-              <button
-                onClick={() => {
+              <Sparkles className="h-4 w-4 text-[#E8C872]" />
+              <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">
+                {trustBadgeText}
+              </span>
+            </motion.div>
+
+            {/* Headline */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-6 leading-tight font-display">
+              {headlineBefore}{' '}
+              <span className="gradient-text-blue-emerald">{headlineAccent}</span>{' '}
+              {headlineAfter}
+            </h1>
+
+            <p className="text-lg text-[#64748B] dark:text-[#A6AEC7] mb-8 leading-relaxed font-body max-w-xl">
+              {subtext}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="#advisor-form"
+                onClick={(e) => {
+                  e.preventDefault();
                   const el = document.getElementById('advisor-form');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }}
-                className="group relative rounded-full bg-primary text-primary-foreground px-8 py-4.5 font-semibold tracking-tight transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-[0.98] active:translate-y-0"
-                style={{
-                  boxShadow:
-                    '0 1px 0 inset rgba(255,255,255,.2), 0 4px 16px -4px rgba(194,86,44,0.3), 0 12px 32px -8px rgba(194,86,44,0.2)',
-                }}
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0F172A] dark:bg-[#D4A853] hover:bg-[#1E293B] dark:hover:bg-[#E2C06E] text-white dark:text-[#060E22] font-semibold rounded-xl shadow-premium-lg transition-all duration-300 font-body"
               >
-                {/* Glow effect on hover */}
-                <span className="absolute inset-0 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-125" />
-                <span className="flex items-center gap-2.5">
-                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  {primaryCTA}
-                </span>
-              </button>
-            </motion.div>
+                <Shield className="h-5 w-5" />
+                {primaryCTA}
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href="https://wa.me/919257877312"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-[#E2E8F0] dark:border-white/20 bg-white/50 dark:bg-white/5 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-white/10 text-[#0F172A] dark:text-[#F8F6F0] font-semibold rounded-xl transition-all duration-300 font-body"
+              >
+                {secondaryCTA}
+                <ArrowRight className="h-5 w-5" />
+              </a>
+            </div>
 
-            {/* Trust stats row — premium pill with backdrop blur */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: line1Words.length * 0.04 + line2Words.length * 0.04 + 0.4, duration: 0.6, ease: easeOutQuart }}
-              className="inline-flex items-center gap-0 rounded-full px-5 py-2.5 bg-white/[0.5] backdrop-blur-xl border border-white/30"
-              style={{ boxShadow: '0 2px 12px -4px rgba(0,0,0,0.06)' }}
-            >
-              <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground/70 tracking-[0.02em]">
-                <ShieldCheck className="w-3.5 h-3.5 text-trust" />
-                IRDAI POSP IP429834
-              </span>
-              <span className="mx-3 text-border/60">·</span>
-              <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground/70 tracking-[0.02em]">
-                <Star className="w-3.5 h-3.5 text-primary" />
-                4.8 (Google, 247 reviews)
-              </span>
-              <span className="mx-3 text-border/60">·</span>
-              <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground/70 tracking-[0.02em]">
-                <Users className="w-3.5 h-3.5 text-muted-foreground/50" />
-                500+ families covered
-              </span>
-            </motion.div>
-          </div>
+            {/* Social Proof */}
+            <div className="mt-12 flex items-center gap-8">
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">{socialProof1Val}</div>
+                <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{socialProof1Label}</div>
+              </div>
+              <div className="h-12 w-px bg-[#E2E8F0] dark:bg-white/10"></div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">{socialProof2Val}</div>
+                <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{socialProof2Label}</div>
+              </div>
+              <div className="h-12 w-px bg-[#E2E8F0] dark:bg-white/10"></div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">{socialProof3Val}</div>
+                <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{socialProof3Label}</div>
+              </div>
+            </div>
+          </motion.div>
 
-          {/* ── RIGHT COLUMN (45%): Quick Adviser Form Card ────────── */}
+          {/* Visual: Protection Score Card + Form */}
           <motion.div
-            initial={{ opacity: 0, x: 60, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.8, delay: 0.2, ease: easeOutQuart }}
-            className="w-full lg:w-[45%] lg:max-w-[45%] lg:sticky lg:top-8"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
           >
+            {/* Protection Score Card — desktop only, shown when not filling form */}
+            <div className="hidden lg:block mb-6">
+              <div className="bg-white dark:bg-card/80 rounded-3xl p-8 shadow-premium-lg border border-[#E2E8F0] dark:border-white/10">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body mb-1">Protection Score</div>
+                    <div className="text-4xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">87/100</div>
+                  </div>
+                  <div className="p-4 bg-gradient-to-br from-[#2563EB]/10 to-[#10B981]/10 rounded-2xl">
+                    <Shield className="h-8 w-8 text-[#2563EB]" />
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">Life Coverage</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-32 h-2 bg-[#F1F5F9] dark:bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full w-[90%] bg-gradient-to-r from-[#10B981] to-[#059669] rounded-full"></div>
+                      </div>
+                      <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">90%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">Health Protection</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-32 h-2 bg-[#F1F5F9] dark:bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full w-[85%] bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] rounded-full"></div>
+                      </div>
+                      <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">85%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">Vehicle Insurance</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-32 h-2 bg-[#F1F5F9] dark:bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full w-[95%] bg-gradient-to-r from-[#E8C872] to-[#F59E0B] rounded-full"></div>
+                      </div>
+                      <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">95%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-gradient-to-r from-[#EFF6FF] to-[#F0FDF4] dark:from-[#2563EB]/5 dark:to-[#10B981]/5 rounded-xl">
+                  <div className="flex items-center gap-2 text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">
+                    <TrendingUp className="h-4 w-4 text-[#10B981]" />
+                    {isHindi ? 'इस साल आपका सुरक्षा 23% बेहतर हुआ' : isEnglish ? 'Your protection improved by 23% this year' : 'Aapki protection 23% better hui is saal'}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Cards — desktop only */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 bg-white dark:bg-card/80 rounded-2xl p-4 shadow-premium-lg border border-[#E2E8F0] dark:border-white/10 hidden lg:block z-10"
+            >
+              <div className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body mb-1">Savings This Year</div>
+              <div className="text-2xl font-bold gradient-text-blue-emerald font-display">₹45,000</div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute bottom-24 -left-4 bg-white dark:bg-card/80 rounded-2xl p-4 shadow-premium-lg border border-[#E2E8F0] dark:border-white/10 hidden lg:block z-10"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-[#10B981]/10 rounded-lg">
+                  <ShieldCheck className="h-5 w-5 text-[#10B981]" />
+                </div>
+                <div>
+                  <div className="text-xs text-[#64748B] dark:text-[#A6AEC7] font-body">Claims Settled</div>
+                  <div className="text-lg font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">100%</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Quick Adviser Form — premium white card */}
             <AnimatePresence mode="wait">
               {showResults ? (
                 <motion.div
@@ -658,33 +539,28 @@ export default function HeroAdvisor() {
                   exit={{ opacity: 0, scale: 0.96, filter: 'blur(4px)' }}
                   transition={{ duration: 0.4, ease: easeOutQuart }}
                 >
-                  {/* Premium glass-morphism form card */}
-                  <div
-                    className="rounded-3xl overflow-hidden bg-white/[0.55] backdrop-blur-2xl border border-white/30"
-                    style={{
-                      boxShadow: '0 0 0 1px rgba(255,255,255,0.1), 0 8px 40px -12px rgba(0,0,0,0.12), 0 0 80px -20px rgba(194,86,44,0.06)',
-                    }}
-                  >
+                  {/* Premium white form card */}
+                  <div className="bg-white dark:bg-card/80 rounded-3xl overflow-hidden shadow-premium-lg border border-[#E2E8F0] dark:border-white/10">
                     {/* Card header */}
-                    <div className="flex items-center gap-3.5 px-7 py-5 border-b border-white/20">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center backdrop-blur-sm border border-primary/10">
-                        <Sparkles className="w-4 h-4 text-primary" />
+                    <div className="flex items-center gap-3.5 px-7 py-5 border-b border-[#E2E8F0] dark:border-white/10">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2563EB]/15 to-[#10B981]/5 flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-[#2563EB]" />
                       </div>
-                      <span className="text-sm font-bold tracking-[0.15em] text-foreground/90 uppercase">
+                      <span className="text-sm font-bold tracking-[0.1em] text-[#0F172A] dark:text-[#F8F6F0] uppercase font-body">
                         AI Quick Adviser
                       </span>
-                      <span className="ml-1 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-[10px] font-bold text-primary border border-primary/10 backdrop-blur-sm">
+                      <span className="ml-1 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#2563EB]/10 text-[10px] font-bold text-[#2563EB] border border-[#2563EB]/10">
                         <Sparkles className="w-2.5 h-2.5" />
                         AI
                       </span>
-                      <div className="ml-auto text-xs text-muted-foreground/50 font-mono tracking-wider">
+                      <div className="ml-auto text-xs text-[#64748B] dark:text-[#A6AEC7] font-body">
                         {step}/4
                       </div>
                     </div>
 
                     {/* Progress bar */}
                     <div className="px-7 pt-3">
-                      <Progress value={progressPercent} className="h-1 bg-border/50" />
+                      <Progress value={progressPercent} className="h-1 bg-[#F1F5F9] dark:bg-white/10" />
                     </div>
 
                     {/* Step content */}
@@ -700,7 +576,7 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-5"
                           >
-                            <label className="text-xl font-semibold text-foreground tracking-tight">
+                            <label className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] tracking-tight font-display">
                               {stepLabels[1]}
                             </label>
                             <div className="relative">
@@ -714,9 +590,9 @@ export default function HeroAdvisor() {
                                 }
                                 onKeyDown={(e) => e.key === 'Enter' && handleNext()}
                                 placeholder="25 - 65"
-                                className="h-14 text-xl bg-transparent border-0 border-b-2 border-border/50 rounded-none focus:border-primary focus:ring-0 px-0 text-foreground placeholder:text-muted-foreground/30 transition-colors duration-300"
+                                className="h-14 text-xl bg-transparent border-0 border-b-2 border-[#E2E8F0] dark:border-white/20 rounded-none focus:border-[#2563EB] dark:focus:border-[#D4A853] focus:ring-0 px-0 text-[#0F172A] dark:text-[#F8F6F0] placeholder:text-[#64748B]/40 transition-colors duration-300"
                               />
-                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-muted-foreground/40 text-sm tracking-wide">
+                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[#64748B]/40 text-sm font-body">
                                 yrs
                               </span>
                             </div>
@@ -733,7 +609,7 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-5"
                           >
-                            <label className="text-xl font-semibold text-foreground tracking-tight">
+                            <label className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] tracking-tight font-display">
                               {stepLabels[2]}
                             </label>
                             <div className="flex gap-2.5 flex-wrap">
@@ -743,10 +619,10 @@ export default function HeroAdvisor() {
                                   onClick={() =>
                                     setFormData((p) => ({ ...p, familySize: size }))
                                   }
-                                  className={`flex items-center gap-2 px-5 py-3.5 rounded-2xl border transition-all duration-300 ${
+                                  className={`flex items-center gap-2 px-5 py-3.5 rounded-2xl border transition-all duration-300 font-body ${
                                     formData.familySize === size
-                                      ? 'border-primary bg-primary/10 text-primary scale-[1.03] shadow-lg shadow-primary/10'
-                                      : 'border-white/30 bg-white/20 backdrop-blur-sm text-muted-foreground hover:border-foreground/15 hover:bg-white/40 hover:scale-[1.02]'
+                                      ? 'border-[#2563EB] bg-[#2563EB]/10 text-[#2563EB] scale-[1.03] shadow-premium'
+                                      : 'border-[#E2E8F0] dark:border-white/20 bg-[#F8FAFC] dark:bg-white/5 text-[#64748B] dark:text-[#A6AEC7] hover:border-[#2563EB]/30 hover:bg-[#2563EB]/5 hover:scale-[1.02]'
                                   }`}
                                 >
                                   <Users className="w-4 h-4" />
@@ -767,11 +643,11 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-5 relative"
                           >
-                            <label className="text-xl font-semibold text-foreground tracking-tight">
+                            <label className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] tracking-tight font-display">
                               {stepLabels[3]}
                             </label>
                             <div className="relative">
-                              <MapPin className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40" />
+                              <MapPin className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748B]/40" />
                               <Input
                                 type="text"
                                 value={formData.city}
@@ -782,19 +658,19 @@ export default function HeroAdvisor() {
                                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleNext()}
                                 placeholder="Type your city..."
-                                className="h-14 text-xl bg-transparent border-0 border-b-2 border-border/50 rounded-none focus:border-primary focus:ring-0 pl-7 px-0 text-foreground placeholder:text-muted-foreground/30 transition-colors duration-300"
+                                className="h-14 text-xl bg-transparent border-0 border-b-2 border-[#E2E8F0] dark:border-white/20 rounded-none focus:border-[#2563EB] dark:focus:border-[#D4A853] focus:ring-0 pl-7 px-0 text-[#0F172A] dark:text-[#F8F6F0] placeholder:text-[#64748B]/30 transition-colors duration-300"
                               />
                             </div>
                             {/* City suggestions dropdown */}
                             {showSuggestions && (
-                              <div className="absolute top-full left-0 right-0 mt-2 z-20 rounded-2xl border border-white/30 bg-white/70 backdrop-blur-2xl overflow-hidden" style={{ boxShadow: '0 8px 32px -8px rgba(0,0,0,0.12)' }}>
+                              <div className="absolute top-full left-0 right-0 mt-2 z-20 rounded-2xl border border-[#E2E8F0] dark:border-white/10 bg-white/90 dark:bg-card/90 backdrop-blur-xl overflow-hidden shadow-premium-lg">
                                 {citySuggestions.map((city) => (
                                   <button
                                     key={city}
                                     onClick={() => selectCity(city)}
-                                    className="w-full px-5 py-3 text-left text-sm text-foreground hover:bg-primary/10 hover:text-primary transition-colors duration-200"
+                                    className="w-full px-5 py-3 text-left text-sm text-[#0F172A] dark:text-[#F8F6F0] hover:bg-[#2563EB]/10 hover:text-[#2563EB] transition-colors duration-200 font-body"
                                   >
-                                    <MapPin className="w-3.5 h-3.5 inline mr-2.5 text-muted-foreground/50" />
+                                    <MapPin className="w-3.5 h-3.5 inline mr-2.5 text-[#64748B]/50" />
                                     {city}
                                   </button>
                                 ))}
@@ -813,11 +689,11 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-6"
                           >
-                            <label className="text-xl font-semibold text-foreground tracking-tight">
+                            <label className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] tracking-tight font-display">
                               {stepLabels[4]}
                             </label>
                             <div className="flex items-center gap-3">
-                              <IndianRupee className="w-5 h-5 text-primary/70 shrink-0" />
+                              <IndianRupee className="w-5 h-5 text-[#2563EB]/70 shrink-0" />
                               <Slider
                                 min={500}
                                 max={10000}
@@ -830,24 +706,24 @@ export default function HeroAdvisor() {
                               />
                             </div>
                             <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground/40 text-xs">₹500</span>
-                              <span className="text-2xl font-bold text-foreground font-mono tracking-tight">
+                              <span className="text-[#64748B]/40 text-xs font-body">₹500</span>
+                              <span className="text-2xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display tracking-tight">
                                 ₹{formData.budget.toLocaleString('en-IN')}
                               </span>
-                              <span className="text-muted-foreground/40 text-xs">₹10,000</span>
+                              <span className="text-[#64748B]/40 text-xs font-body">₹10,000</span>
                             </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
 
                       {/* Navigation buttons */}
-                      <div className="flex items-center justify-between mt-8 pt-5 border-t border-white/20">
+                      <div className="flex items-center justify-between mt-8 pt-5 border-t border-[#E2E8F0] dark:border-white/10">
                         {step > 1 ? (
                           <button
                             onClick={handleBack}
-                            className="text-sm text-muted-foreground/60 hover:text-foreground transition-all duration-200 hover:-translate-x-0.5"
+                            className="text-sm text-[#64748B] dark:text-[#A6AEC7] hover:text-[#0F172A] dark:hover:text-[#F8F6F0] transition-all duration-200 hover:-translate-x-0.5 font-body"
                           >
-                            ← Back
+                            ← {isHindi ? 'पीछे' : isEnglish ? 'Back' : 'Back'}
                           </button>
                         ) : (
                           <div />
@@ -856,18 +732,16 @@ export default function HeroAdvisor() {
                         {step < 4 ? (
                           <button
                             onClick={handleNext}
-                            className="group flex items-center gap-2 px-7 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
-                            style={{ boxShadow: '0 4px 16px -4px rgba(194,86,44,0.3)' }}
+                            className="group flex items-center gap-2 px-7 py-3 rounded-2xl bg-[#0F172A] dark:bg-[#D4A853] text-white dark:text-[#060E22] font-semibold text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 font-body shadow-premium"
                           >
-                            Next
+                            {isHindi ? 'अगला' : isEnglish ? 'Next' : 'Next'}
                             <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
                           </button>
                         ) : (
                           <button
                             onClick={handleSubmit}
                             disabled={isSubmitting}
-                            className="group flex items-center gap-2 px-7 py-3 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100"
-                            style={{ boxShadow: '0 4px 16px -4px rgba(194,86,44,0.3)' }}
+                            className="group flex items-center gap-2 px-7 py-3 rounded-2xl bg-[#0F172A] dark:bg-[#D4A853] text-white dark:text-[#060E22] font-semibold text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 font-body shadow-premium"
                           >
                             {isSubmitting ? '...' : getPlanLabel}
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
@@ -878,16 +752,16 @@ export default function HeroAdvisor() {
 
                     {/* Divider + WhatsApp link */}
                     <div className="px-7 pb-6">
-                      <div className="flex items-center gap-3 text-muted-foreground/40 text-xs">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+                      <div className="flex items-center gap-3 text-[#64748B]/40 text-xs font-body">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#E2E8F0] dark:via-white/10 to-transparent" />
                         {orDivider}
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#E2E8F0] dark:via-white/10 to-transparent" />
                       </div>
                       <a
                         href="https://wa.me/919257877312"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-2xl border border-white/30 text-muted-foreground/70 text-sm font-medium hover:text-foreground hover:border-foreground/15 hover:bg-white/30 transition-all duration-200 backdrop-blur-sm hover:scale-[1.01] active:scale-[0.99]"
+                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-2xl border border-[#E2E8F0] dark:border-white/20 text-[#64748B] dark:text-[#A6AEC7] text-sm font-medium hover:text-[#0F172A] dark:hover:text-[#F8F6F0] hover:border-[#2563EB]/30 hover:bg-[#2563EB]/5 transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
                       >
                         <MessageCircle className="w-4 h-4" />
                         {whatsAppInstead}

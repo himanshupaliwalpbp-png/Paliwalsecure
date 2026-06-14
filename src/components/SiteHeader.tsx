@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from '
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSafeTheme } from '@/lib/safe-theme-provider';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
   Heart,
@@ -24,6 +24,7 @@ import {
   Receipt,
   Instagram,
   Sparkles,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -54,8 +55,7 @@ function HinglishToggleButton() {
     () => true,
     () => false,
   );
-  // Hydration-safe: only switch to light when resolvedTheme is explicitly 'light'
-  const isDark = !mounted || resolvedTheme !== 'light';
+  const isLight = mounted && resolvedTheme === 'light';
 
   const currentIndex = LANG_CYCLE.findIndex((l) => l.value === language);
   const nextIndex = (currentIndex + 1) % LANG_CYCLE.length;
@@ -70,21 +70,21 @@ function HinglishToggleButton() {
   return (
     <button
       onClick={handleCycle}
-      className={`flex items-center gap-1 h-6 px-2 rounded-full text-[10px] font-semibold transition-all duration-300 border min-w-[52px] justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
-        isDark
-          ? 'bg-primary/10 border-primary/30 text-primary hover:bg-primary/20 hover:border-primary/50'
-          : 'bg-primary/8 border-primary/25 text-primary hover:bg-primary/15 hover:border-primary/40'
+      className={`flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-semibold transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+        isLight
+          ? 'bg-[#F8FAFC] border-[#E2E8F0] text-[#64748B] hover:bg-[#EFF6FF] hover:border-[#2563EB]/30 hover:text-[#2563EB]'
+          : 'bg-white/5 border-white/10 text-muted-foreground hover:bg-white/10 hover:border-primary/30 hover:text-primary'
       }`}
       aria-label={`Language: ${currentLabel}. Click to switch.`}
     >
-      <Globe className="w-3 h-3" />
+      <Globe className="w-3.5 h-3.5" />
       <span>{currentLabel}</span>
     </button>
   );
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
-   Navigation links configuration — COMPREHENSIVE with ALL options
+   Navigation links configuration
    ──────────────────────────────────────────────────────────────────────────── */
 
 interface NavLink {
@@ -176,8 +176,9 @@ const NAV_LINKS: NavLink[] = [
 ];
 
 /* ────────────────────────────────────────────────────────────────────────────
-   SiteHeader Component — Premium glass navbar for BOTH dark & light modes
-   EldoraUI-inspired: clean, spacious, with subtle animations
+   SiteHeader Component — Light-mode premium navbar
+   Inspired by reference Navigation.tsx: clean white bg, blur backdrop,
+   blue accent on active, green WhatsApp CTA
    ──────────────────────────────────────────────────────────────────────────── */
 
 /* Hydration-safe mounted check using useSyncExternalStore */
@@ -191,13 +192,13 @@ function useHasMounted() {
 
 export default function SiteHeader() {
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const mounted = useHasMounted();
   const pathname = usePathname();
   const { t } = useLanguage();
   const { resolvedTheme } = useSafeTheme();
-  // Hydration-safe: default to dark when undefined (matches defaultTheme='dark')
-  const isDark = resolvedTheme !== 'light';
+  const isLight = mounted && resolvedTheme === 'light';
 
   // Track scroll position
   useEffect(() => {
@@ -208,17 +209,20 @@ export default function SiteHeader() {
 
   // Body scroll lock when mobile sheet is open
   useEffect(() => {
-    if (sheetOpen) {
+    if (sheetOpen || mobileMenuOpen) {
       document.body.classList.add('scroll-locked');
     } else {
       document.body.classList.remove('scroll-locked');
     }
     return () => document.body.classList.remove('scroll-locked');
-  }, [sheetOpen]);
+  }, [sheetOpen, mobileMenuOpen]);
 
-  // Close mobile sheet on route change
+  // Close mobile menus on route change
   useEffect(() => {
-    const timeout = setTimeout(() => setSheetOpen(false), 0);
+    const timeout = setTimeout(() => {
+      setSheetOpen(false);
+      setMobileMenuOpen(false);
+    }, 0);
     return () => clearTimeout(timeout);
   }, [pathname]);
 
@@ -232,87 +236,78 @@ export default function SiteHeader() {
     [pathname]
   );
 
-  // FloatingNav-style sliding indicator
+  // Animated underline indicator for desktop nav
   const navContainerRef = useRef<HTMLDivElement>(null);
   const navBtnRefs = useRef<(HTMLElement | null)[]>([]);
-  const [navIndicator, setNavIndicator] = useState({ width: 0, left: 0, opacity: 0 });
 
-  // Update nav indicator position
+  // Close mobile dropdown on outside click
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const updateIndicator = () => {
-      const activeIndex = NAV_LINKS.findIndex(link => isActive(link.href) && !link.href.startsWith('http'));
-      if (activeIndex >= 0 && navBtnRefs.current[activeIndex] && navContainerRef.current) {
-        const btn = navBtnRefs.current[activeIndex];
-        const container = navContainerRef.current;
-        if (!btn) { setNavIndicator(prev => ({ ...prev, opacity: 0 })); return; }
-        const btnRect = btn.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        setNavIndicator({
-          width: btnRect.width - 4,
-          left: btnRect.left - containerRect.left + 2,
-          opacity: 1,
-        });
-      } else {
-        setNavIndicator(prev => ({ ...prev, opacity: 0 }));
+    if (!mobileMenuOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
+        setMobileMenuOpen(false);
       }
     };
-
-    updateIndicator();
-    window.addEventListener('resize', updateIndicator);
-    return () => window.removeEventListener('resize', updateIndicator);
-  }, [pathname, isActive]);
-
-  // Theme-aware class helpers (fallback to dark if not yet mounted)
-  // Use isDark consistently: only switch to light classes when explicitly light
-  const safeIsDark = !mounted || isDark;
-  const textFg = 'text-foreground';
-  const textMuted = 'text-muted-foreground';
-  const hoverBg = !safeIsDark ? 'hover:bg-black/5' : 'hover:bg-white/5';
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [mobileMenuOpen]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 glass-nav-premium ${scrolled ? 'nav-scrolled' : ''}`}
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isLight
+          ? scrolled
+            ? 'bg-white/95 backdrop-blur-xl border-b border-[#E2E8F0] shadow-[0_1px_3px_rgba(0,0,0,0.04)]'
+            : 'bg-white/80 backdrop-blur-xl border-b border-[#E2E8F0]'
+          : scrolled
+            ? 'bg-[#060E22]/95 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
+            : 'bg-[#060E22]/72 backdrop-blur-xl border-b border-white/[0.04]'
+      }`}
       role="banner"
     >
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
-        <div className="flex items-center justify-between h-16 sm:h-[68px]">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* ── Logo on LEFT ───────────────────────────── */}
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2.5 group"
+              className="flex items-center gap-3 group"
               aria-label="Paliwal Secure AI – Home"
             >
-              <motion.div
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.96 }}
-                className="w-8 h-8 rounded-xl bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.25)] flex items-center justify-center transition-shadow duration-300 relative group-hover:shadow-[0_0_0_1px_rgba(212,168,83,0.35),0_4px_14px_-2px_rgba(212,168,83,0.3)]"
-              >
-                <span className="font-heading font-bold text-primary-foreground text-base leading-none">
-                  P
+              <div className="relative">
+                <div className={`absolute inset-0 blur-xl rounded-full transition-opacity duration-300 ${
+                  isLight ? 'bg-[#2563EB] opacity-10 group-hover:opacity-20' : 'bg-primary opacity-20 group-hover:opacity-30'
+                }`} />
+                <Shield className={`h-8 w-8 relative transition-colors duration-300 ${
+                  isLight ? 'text-[#0F172A]' : 'text-foreground'
+                }`} strokeWidth={2} />
+              </div>
+              <div>
+                <span className={`text-xl font-bold tracking-[-0.02em] font-heading transition-colors duration-300 ${
+                  isLight ? 'text-[#0F172A]' : 'text-foreground'
+                }`}>
+                  Paliwal{' '}
+                  <span className={isLight ? 'text-[#2563EB]' : 'text-primary'}>
+                    Secure
+                  </span>
                 </span>
-              </motion.div>
-              <span className={`font-heading text-lg sm:text-xl font-bold tracking-[-0.02em] ${textFg}`}>
-                Paliwal{' '}
-                <span className="text-primary">
-                  Secure
-                </span>
-              </span>
+                <div className={`text-xs font-body transition-colors duration-300 ${
+                  isLight ? 'text-[#64748B]' : 'text-muted-foreground'
+                }`}>
+                  Financial Intelligence
+                </div>
+              </div>
             </Link>
-
           </div>
 
           {/* ── Desktop Nav Links ────────────────────────────────────────────── */}
-          <div ref={navContainerRef} className="hidden xl:flex items-center gap-0.5 relative overflow-x-auto flex-1 min-w-0 justify-center">
-            {/* Premium sliding indicator pill */}
-            <motion.div
-              animate={navIndicator}
-              transition={{ type: "spring", stiffness: 380, damping: 28 }}
-              className="absolute top-1/2 -translate-y-1/2 h-[30px] rounded-lg bg-primary/[0.07]"
-            />
+          <div ref={navContainerRef} className="hidden xl:flex items-center gap-0.5 relative">
             {NAV_LINKS.map((link) => {
               const LinkIcon = link.icon;
               const active = isActive(link.href);
@@ -325,9 +320,13 @@ export default function SiteHeader() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`relative flex items-center gap-1.5 h-8 px-2.5 text-[13px] font-medium rounded-lg transition-all duration-200 group ${textMuted} hover:text-primary ${hoverBg} whitespace-nowrap`}
+                    className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
+                      isLight
+                        ? 'text-[#64748B] hover:text-[#0F172A]'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
                   >
-                    <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity" />
+                    <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-60" />
                     <span>{t(link.labelKey) || link.label}</span>
                   </a>
                 );
@@ -338,58 +337,92 @@ export default function SiteHeader() {
                   key={link.href}
                   href={link.href}
                   ref={(el) => { navBtnRefs.current[NAV_LINKS.indexOf(link)] = el; }}
-                  className={`relative flex items-center gap-1.5 h-8 px-2.5 text-[13px] font-medium rounded-lg transition-all duration-200 group ${
+                  className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
                     active
-                      ? 'font-semibold text-primary'
-                      : `${textMuted} hover:text-primary ${hoverBg}`
-                  } whitespace-nowrap`}
+                      ? isLight
+                        ? 'text-[#2563EB] font-semibold'
+                        : 'text-primary font-semibold'
+                      : isLight
+                        ? 'text-[#64748B] hover:text-[#0F172A]'
+                        : 'text-muted-foreground hover:text-foreground'
+                  }`}
                   aria-current={active ? 'page' : undefined}
                 >
-                  <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-opacity ${active ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`} />
+                  <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-opacity ${active ? 'opacity-100' : 'opacity-60'}`} />
                   <span>{t(link.labelKey) || link.label}</span>
-                  {/* Subtle hover underline */}
-                  <span className={`absolute bottom-0.5 left-2.5 right-2.5 h-[1.5px] rounded-full bg-primary origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ${active ? '!scale-x-100' : ''}`} />
+                  {/* Active animated underline */}
+                  {active && (
+                    <motion.div
+                      layoutId="activeNavTab"
+                      className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full ${
+                        isLight ? 'bg-[#2563EB]' : 'bg-primary'
+                      }`}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
               );
             })}
           </div>
 
-          {/* ── Right Side: Toggle + Get Quote + Mobile ──── */}
+          {/* ── Right Side: CTAs + Toggles ──── */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Phone icon — desktop */}
-            <a
-              href="tel:+919257877312"
-              className={`hidden xl:flex items-center justify-center w-8 h-8 rounded-full ${textMuted} hover:text-primary ${hoverBg} transition-all duration-200`}
-              aria-label="Call us"
+            {/* Phone Call button — desktop */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`hidden xl:flex items-center gap-2 text-sm font-medium transition-colors h-9 px-3 ${
+                isLight
+                  ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+              }`}
+              asChild
             >
-              <Phone className="w-3.5 h-3.5" />
-            </a>
+              <a href="tel:+919257877312" aria-label="Call us">
+                <Phone className="h-4 w-4" />
+                <span className="hidden 2xl:inline">Call</span>
+              </a>
+            </Button>
+
+            {/* WhatsApp button — desktop */}
+            <Button
+              size="sm"
+              className={`hidden xl:flex items-center gap-2 h-9 px-4 text-sm font-medium shadow-sm transition-all duration-200 ${
+                isLight
+                  ? 'bg-[#10B981] hover:bg-[#059669] text-white'
+                  : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+              }`}
+              asChild
+            >
+              <a
+                href="https://wa.me/919257877312"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat on WhatsApp"
+              >
+                <MessageCircle className="h-4 w-4" />
+                <span className="hidden 2xl:inline">WhatsApp</span>
+              </a>
+            </Button>
 
             {/* HinglishToggleButton */}
             <div className="hidden sm:block">
               <HinglishToggleButton />
             </div>
 
-            {/* ThemeToggle — Desktop (SkyToggle with clouds/stars/sun/moon) */}
+            {/* ThemeToggle — Desktop (SkyToggle) */}
             <div className="hidden md:block">
               <SkyToggle />
             </div>
 
-            {/* Get Quote CTA — Desktop */}
-            <Button
-              className="hidden xl:inline-flex items-center px-5 py-2 rounded-full font-semibold text-[13px] tracking-[-0.01em] bg-primary text-primary-foreground shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.3)] hover:shadow-[0_0_0_1px_rgba(212,168,83,0.35),0_4px_16px_-2px_rgba(212,168,83,0.4)] hover:bg-primary/90 h-auto transition-all duration-200"
-              onClick={() => {
-                const el = document.getElementById('motor-comparison');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              {t('v2.header.getQuote')}
-            </Button>
-
             {/* InsureGPT AI Button — Desktop */}
             <button
               onClick={() => openInsureGPT()}
-              className="hidden lg:flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-medium text-muted-foreground hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 cursor-pointer border border-transparent hover:border-primary/20"
+              className={`hidden lg:flex items-center gap-1.5 h-9 px-3 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer border ${
+                isLight
+                  ? 'text-[#64748B] hover:text-[#2563EB] hover:border-[#2563EB]/30 hover:bg-[#EFF6FF] border-[#E2E8F0]'
+                  : 'text-muted-foreground hover:text-primary hover:border-primary/30 hover:bg-primary/[0.06] border-white/10'
+              }`}
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -399,22 +432,28 @@ export default function SiteHeader() {
             {/* InsureGPT AI Button — Mobile (icon only) */}
             <button
               onClick={() => openInsureGPT()}
-              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 text-muted-foreground hover:text-primary hover:bg-primary/[0.06]"
+              className={`lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 ${
+                isLight
+                  ? 'text-[#64748B] hover:text-[#2563EB] hover:bg-[#EFF6FF]'
+                  : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+              }`}
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-4 h-4" />
             </button>
 
-            {/* Mobile Menu Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className={`lg:hidden ${textMuted} hover:text-primary hover:bg-primary/[0.06] rounded-xl w-9 h-9 transition-all duration-200`}
+            {/* Mobile Menu Toggle — uses Sheet on md+, dropdown on sm */}
+            <button
+              className={`xl:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors ${
+                isLight
+                  ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+              }`}
               onClick={() => setSheetOpen(true)}
               aria-label={t('v2.header.openMenu')}
             >
-              <Menu className="w-[18px] h-[18px]" />
-            </Button>
+              <Menu className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </nav>
@@ -423,21 +462,30 @@ export default function SiteHeader() {
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetContent
           side="right"
-          className={`sheet-menu-premium ${textFg} w-[300px] sm:max-w-sm p-0`}
+          className={`w-[300px] sm:max-w-sm p-0 ${
+            isLight
+              ? 'bg-white border-l border-[#E2E8F0]'
+              : 'bg-[#0A1330] border-l border-white/[0.06]'
+          }`}
         >
-          <SheetHeader className={`p-5 border-b border-border/60`}>
-            <SheetTitle className={`flex items-center gap-2.5 ${textFg}`}>
-              <div className="w-8 h-8 rounded-xl bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.25)] flex items-center justify-center">
-                <span className="font-heading font-bold text-primary-foreground text-sm leading-none">
-                  P
+          <SheetHeader className={`p-5 border-b ${
+            isLight ? 'border-[#E2E8F0]' : 'border-white/[0.06]'
+          }`}>
+            <SheetTitle className={`flex items-center gap-3 ${
+              isLight ? 'text-[#0F172A]' : 'text-foreground'
+            }`}>
+              <Shield className={`h-6 w-6 ${isLight ? 'text-[#0F172A]' : 'text-foreground'}`} strokeWidth={2} />
+              <div>
+                <span className="font-heading font-bold tracking-[-0.02em]">
+                  Paliwal{' '}
+                  <span className={isLight ? 'text-[#2563EB]' : 'text-primary'}>
+                    Secure
+                  </span>
                 </span>
+                <div className={`text-xs ${isLight ? 'text-[#64748B]' : 'text-muted-foreground'}`}>
+                  Financial Intelligence
+                </div>
               </div>
-              <span className="font-heading font-bold tracking-[-0.02em]">
-                Paliwal{' '}
-                <span className="text-primary">
-                  Secure
-                </span>
-              </span>
             </SheetTitle>
           </SheetHeader>
 
@@ -461,9 +509,15 @@ export default function SiteHeader() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
+                        className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                          isLight
+                            ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
+                            : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+                        }`}
                       >
-                        <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted/50">
+                        <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
+                          isLight ? 'bg-[#F1F5F9]' : 'bg-white/5'
+                        }`}>
                           <LinkIcon className="w-3.5 h-3.5" />
                         </span>
                         {t(link.labelKey) || link.label}
@@ -485,13 +539,25 @@ export default function SiteHeader() {
                       href={link.href}
                       className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                         active
-                          ? 'bg-primary/[0.08] font-semibold text-primary'
-                          : `${textMuted} hover:text-primary hover:bg-primary/[0.06]`
+                          ? isLight
+                            ? 'bg-[#EFF6FF] font-semibold text-[#2563EB]'
+                            : 'bg-primary/[0.08] font-semibold text-primary'
+                          : isLight
+                            ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
+                            : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
                       }`}
                       aria-current={active ? 'page' : undefined}
                     >
-                      <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${active ? 'bg-primary/15' : 'bg-muted/50'}`}>
-                        <LinkIcon className="w-3.5 h-3.5" />
+                      <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
+                        active
+                          ? isLight
+                            ? 'bg-[#2563EB]/10'
+                            : 'bg-primary/15'
+                          : isLight
+                            ? 'bg-[#F1F5F9]'
+                            : 'bg-white/5'
+                      }`}>
+                        <LinkIcon className={`w-3.5 h-3.5 ${active ? (isLight ? 'text-[#2563EB]' : 'text-primary') : ''}`} />
                       </span>
                       {t(link.labelKey) || link.label}
                     </Link>
@@ -500,7 +566,7 @@ export default function SiteHeader() {
               );
             })}
 
-            {/* Extra links in mobile: InsureGPT, About, Contact, WhatsApp */}
+            {/* Extra links in mobile: InsureGPT, WhatsApp, Phone */}
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
@@ -512,10 +578,16 @@ export default function SiteHeader() {
                     setSheetOpen(false);
                     setTimeout(() => openInsureGPT(), 300);
                   }}
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
+                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                    isLight
+                      ? 'text-[#64748B] hover:text-[#2563EB] hover:bg-[#EFF6FF]'
+                      : 'text-muted-foreground hover:text-primary hover:bg-primary/[0.06]'
+                  }`}
                 >
-                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10">
-                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                  <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
+                    isLight ? 'bg-[#EFF6FF]' : 'bg-primary/10'
+                  }`}>
+                    <Sparkles className={`w-3.5 h-3.5 ${isLight ? 'text-[#2563EB]' : 'text-primary'}`} />
                   </span>
                   <span className="flex-1 text-left">InsureGPT AI</span>
                 </button>
@@ -532,9 +604,9 @@ export default function SiteHeader() {
                   href="https://wa.me/919257877312"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
+                  className="flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl text-white bg-[#10B981] hover:bg-[#059669] transition-all duration-200 gap-3 min-h-[44px]"
                 >
-                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted/50">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-white/20">
                     <MessageCircle className="w-3.5 h-3.5" />
                   </span>
                   {t('nav.chatWhatsApp')}
@@ -550,9 +622,15 @@ export default function SiteHeader() {
               <SheetClose asChild>
                 <a
                   href="tel:+919257877312"
-                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl ${textMuted} hover:text-primary hover:bg-primary/[0.06] transition-all duration-200 gap-3 min-h-[44px]`}
+                  className={`flex items-center w-full px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
+                    isLight
+                      ? 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                  }`}
                 >
-                  <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-muted/50">
+                  <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${
+                    isLight ? 'bg-[#F1F5F9]' : 'bg-white/5'
+                  }`}>
                     <Phone className="w-3.5 h-3.5" />
                   </span>
                   {t('nav.callNow')}: 9257877312
@@ -561,12 +639,14 @@ export default function SiteHeader() {
             </motion.div>
           </div>
 
-          {/* Bottom section — Language + Theme + CTA */}
-          <div className={`mt-auto border-t border-border/60 p-5 space-y-4`}>
+          {/* Bottom section — Language + Theme */}
+          <div className={`mt-auto border-t p-5 space-y-4 ${
+            isLight ? 'border-[#E2E8F0]' : 'border-white/[0.06]'
+          }`}>
             {/* Language Toggle + Theme Toggle */}
             <div className="flex items-center gap-2">
-              <Globe className={`w-4 h-4 ${textMuted}`} />
-              <span className={`text-xs ${textMuted}`}>{t('insureGPT.language')}</span>
+              <Globe className={`w-4 h-4 ${isLight ? 'text-[#64748B]' : 'text-muted-foreground'}`} />
+              <span className={`text-xs ${isLight ? 'text-[#64748B]' : 'text-muted-foreground'}`}>{t('insureGPT.language')}</span>
               <div className="ml-auto flex items-center gap-2">
                 <HinglishToggleButton />
                 <SkyToggle />
@@ -576,7 +656,11 @@ export default function SiteHeader() {
             {/* Get Quote CTA */}
             <SheetClose asChild>
               <Button
-                className="w-full rounded-xl font-bold h-12 bg-primary text-primary-foreground shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.3)] hover:shadow-[0_0_0_1px_rgba(212,168,83,0.35),0_4px_16px_-2px_rgba(212,168,83,0.4)] hover:bg-primary/90 transition-all duration-200"
+                className={`w-full rounded-xl font-bold h-12 transition-all duration-200 ${
+                  isLight
+                    ? 'bg-[#0F172A] text-white hover:bg-[#0F172A]/90 shadow-sm'
+                    : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.2),0_2px_8px_-2px_rgba(212,168,83,0.3)]'
+                }`}
                 onClick={() => {
                   setSheetOpen(false);
                   setTimeout(() => {
@@ -591,6 +675,6 @@ export default function SiteHeader() {
           </div>
         </SheetContent>
       </Sheet>
-    </header>
+    </motion.header>
   );
 }

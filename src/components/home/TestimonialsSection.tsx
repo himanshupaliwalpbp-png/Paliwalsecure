@@ -3,265 +3,198 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSafeTheme } from '@/lib/safe-theme-provider';
 import { useLanguage } from '@/lib/i18n';
-import {
-  CardTransformed,
-  CardsContainer,
-  ContainerScroll,
-  ReviewStars,
-} from '@/components/ui/animated-cards-stack';
+import { motion } from 'framer-motion';
+import { Star, Shield, Award, CheckCircle2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Shield, Quote } from 'lucide-react';
 
-/* ── PaliwalSecure Testimonials Data — Bilingual EN/HI/HG ──────────────── */
-const TESTIMONIALS = [
+/* ── Advisors Data ──────────────────────────────────────────────── */
+const advisors = [
   {
-    id: 'rajesh-health',
-    name: { en: 'Rajesh Sharma', hi: 'राजेश शर्मा', hg: 'Rajesh Sharma' },
-    profession: { en: 'Business Owner', hi: 'व्यवसायी', hg: 'Business Owner' },
-    city: { en: 'Jaipur', hi: 'जयपुर', hg: 'Jaipur' },
-    rating: 5,
-    description: {
-      en: 'Paliwal ji ne meri health insurance mein ₹15,000 bachaye. Unka AI recommendation ekdum sahi tha!',
-      hi: 'पालीवाल जी ने मेरी हेल्थ इंश्योरेंस में ₹15,000 बचाए। उनका AI सुझाव एकदम सही था!',
-      hg: 'Paliwal ji ne meri health insurance mein ₹15,000 bachaye. Unka AI recommendation ekdum sahi tha!',
-    },
-    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
-    policy: 'Health Insurance',
+    name: { en: 'Rajesh Paliwal', hi: 'राजेश पालीवाल', hg: 'Rajesh Paliwal' },
+    role: { en: 'Founder & Senior Advisor', hi: 'संस्थापक और वरिष्ठ सलाहकार', hg: 'Founder & Senior Advisor' },
+    experience: '15+ years',
+    specialization: { en: 'Life & Health Insurance', hi: 'जीवन और स्वास्थ्य बीमा', hg: 'Life & Health Insurance' },
+    rating: 4.9,
+    reviews: 250,
   },
   {
-    id: 'priya-car',
-    name: { en: 'Priya Patel', hi: 'प्रिया पटेल', hg: 'Priya Patel' },
-    profession: { en: 'Teacher', hi: 'शिक्षिका', hg: 'Teacher' },
-    city: { en: 'Kota', hi: 'कोटा', hg: 'Kota' },
-    rating: 5,
-    description: {
-      en: 'Car insurance claim mein itni aasani se madad mili. WhatsApp pe hi sab ho gaya!',
-      hi: 'कार इंश्योरेंस क्लेम में इतनी आसानी से मदद मिली। WhatsApp पर ही सब हो गया!',
-      hg: 'Car insurance claim mein itni aasani se madad mili. WhatsApp pe hi sab ho gaya!',
-    },
-    avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
-    policy: 'Car Insurance',
+    name: { en: 'Priya Sharma', hi: 'प्रिया शर्मा', hg: 'Priya Sharma' },
+    role: { en: 'Senior Consultant', hi: 'वरिष्ठ सलाहकार', hg: 'Senior Consultant' },
+    experience: '12+ years',
+    specialization: { en: 'Business & Corporate Insurance', hi: 'व्यापार और कॉर्पोरेट बीमा', hg: 'Business & Corporate Insurance' },
+    rating: 4.8,
+    reviews: 180,
   },
   {
-    id: 'amit-term',
     name: { en: 'Amit Kumar', hi: 'अमित कुमार', hg: 'Amit Kumar' },
-    profession: { en: 'Software Engineer', hi: 'सॉफ्टवेयर इंजीनियर', hg: 'Software Engineer' },
-    city: { en: 'Delhi', hi: 'दिल्ली', hg: 'Delhi' },
-    rating: 5,
-    description: {
-      en: 'Term insurance ke liye Paliwal Secure se better koi nahi. Transparent aur reliable.',
-      hi: 'टर्म इंश्योरेंस के लिए पालीवाल सेक्योर से बेहतर कोई नहीं। पारदर्शी और विश्वसनीय।',
-      hg: 'Term insurance ke liye Paliwal Secure se better koi nahi. Transparent aur reliable.',
-    },
-    avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
-    policy: 'Term Insurance',
-  },
-  {
-    id: 'sunita-family',
-    name: { en: 'Sunita Meena', hi: 'सुनीता मीणा', hg: 'Sunita Meena' },
-    profession: { en: 'Government Employee', hi: 'सरकारी कर्मचारी', hg: 'Government Employee' },
-    city: { en: 'Jaipur', hi: 'जयपुर', hg: 'Jaipur' },
-    rating: 5,
-    description: {
-      en: 'Family floater health insurance ka comparison itna easy tha. 10 minute mein best plan mil gaya!',
-      hi: 'फैमिली फ्लोटर हेल्थ इंश्योरेंस का कम्पेरिज़न इतना आसान था। 10 मिनट में बेस्ट प्लान मिल गया!',
-      hg: 'Family floater health insurance ka comparison itna easy tha. 10 minute mein best plan mil gaya!',
-    },
-    avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
-    policy: 'Family Health',
-  },
-  {
-    id: 'vikram-bike',
-    name: { en: 'Vikram Singh', hi: 'विक्रम सिंह', hg: 'Vikram Singh' },
-    profession: { en: 'Student', hi: 'छात्र', hg: 'Student' },
-    city: { en: 'Kota', hi: 'कोटा', hg: 'Kota' },
-    rating: 4.5,
-    description: {
-      en: 'Bike insurance renewal kabhi itni simple nahi thi. Paliwal ji ke AI ne best rate dhoondh liya!',
-      hi: 'बाइक इंश्योरेंस रिन्यूअल कभी इतनी सिंपल नहीं थी। पालीवाल जी के AI ने बेस्ट रेट ढूंढ लिया!',
-      hg: 'Bike insurance renewal kabhi itni simple nahi thi. Paliwal ji ke AI ne best rate dhoondh liya!',
-    },
-    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face',
-    policy: 'Bike Insurance',
+    role: { en: 'Vehicle Insurance Expert', hi: 'वाहन बीमा विशेषज्ञ', hg: 'Vehicle Insurance Expert' },
+    experience: '8+ years',
+    specialization: { en: 'Motor & Travel Insurance', hi: 'मोटर और यात्रा बीमा', hg: 'Motor & Travel Insurance' },
+    rating: 4.9,
+    reviews: 210,
   },
 ];
 
-/* ── Helper ────────────────────────────────────────────────────────────── */
+const achievements = [
+  { icon: Shield, title: { en: 'IRDA Certified', hi: 'IRDAI प्रमाणित', hg: 'IRDA Certified' }, description: { en: 'All advisors are licensed by Insurance Regulatory Authority', hi: 'सभी सलाहकार बीमा नियामक प्राधिकरण द्वारा लाइसेंस प्राप्त हैं', hg: 'All advisors are licensed by Insurance Regulatory Authority' } },
+  { icon: Award, title: { en: 'Industry Recognition', hi: 'उद्योग मान्यता', hg: 'Industry Recognition' }, description: { en: 'Award-winning team with proven track record', hi: 'साबित ट्रैक रिकॉर्ड वाली पुरस्कार विजेता टीम', hg: 'Award-winning team with proven track record' } },
+  { icon: CheckCircle2, title: { en: '100% Claim Success', hi: '100% क्लेम सफलता', hg: '100% Claim Success' }, description: { en: 'Perfect claim settlement ratio for our clients', hi: 'हमारे ग्राहकों के लिए परफेक्ट क्लेम सेटलमेंट अनुपात', hg: 'Perfect claim settlement ratio for our clients' } },
+];
+
+/* ── Helper ────────────────────────────────────────────────────────── */
 function tr(data: { en: string; hi: string; hg: string }, isHindi: boolean, isEnglish: boolean) {
   return isHindi ? data.hi : isEnglish ? data.en : data.hg;
 }
 
-/* ── Main Component ────────────────────────────────────────────────────── */
+/* ── Main Component ────────────────────────────────────────────────── */
 export default function TestimonialsSection() {
   const { resolvedTheme } = useSafeTheme();
   const { language } = useLanguage();
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  // Wait for mount to avoid hydration mismatch with next-themes
   const [mounted, setMounted] = useState(false);
   const mountRef = useRef(false);
   useEffect(() => {
     if (!mountRef.current) {
       mountRef.current = true;
-      // Defer state update to avoid synchronous setState in effect
       requestAnimationFrame(() => setMounted(true));
     }
   }, []);
-  // Hydration-safe: default to dark, only treat as light when explicitly 'light'
-  const isLight = mounted && resolvedTheme === 'light';
 
-  const badge = isHindi ? 'विश्वसनीय समीक्षाएँ' : isEnglish ? 'Trusted Reviews' : 'Trusted Reviews';
-  const heading = isHindi ? 'असली परिवार, असली बचत' : isEnglish ? 'Real families, real savings' : 'Asli parivaar, asli bachat';
+  const badgeText = isHindi ? 'विशेषज्ञ टीम' : isEnglish ? 'Expert Team' : 'Expert Team';
+  const heading = isHindi ? 'अपने से मिलें' : isEnglish ? 'Meet Your Trusted' : 'Meet Your Trusted';
+  const headingAccent = isHindi ? 'विश्वसनीय सलाहकार' : isEnglish ? 'Advisors' : 'Advisors';
   const subtitle = isHindi
-    ? 'हज़ारों परिवारों ने Paliwal Secure पर भरोसा किया'
+    ? 'प्रमाणित पेशेवरों के साथ काम करें जो आपके परिवार की सुरक्षा को पहले रखते हैं।'
     : isEnglish
-    ? 'Thousands of families trust Paliwal Secure for their insurance needs'
-    : 'Hazaaron parivaron ne Paliwal Secure par bharosa kiya';
-  const verified = isHindi ? 'IRDAI सत्यापित' : isEnglish ? 'IRDAI Verified' : 'IRDAI Verified';
-
-  /* ── Theme-aware styles ─────────────────────────────────────────────── */
-  const sectionBg = 'bg-background text-foreground';
-
-  const cardVariant = isLight ? 'light' : 'dark';
-
-  const starsColor = 'text-primary';
-
-  const quoteColor = 'text-muted-foreground';
-
-  const nameColor = undefined;
-
-  const avatarBorder = '!size-12 border border-border/60 shadow-sm';
-
-  const subtitleColor = 'text-muted-foreground';
-
-  const policyClass = 'text-[10px] font-mono text-primary/80 uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/[0.07] border border-primary/[0.10]';
-
-  const professionColor = 'text-muted-foreground';
-
-  const shieldColor = 'text-[var(--trust)]';
-  const shieldTextColor = 'text-[var(--trust)]';
+      ? 'Work with certified professionals who put your family\'s protection first.'
+      : 'Certified professionals ke saath kaam karein jo aapke parivaar ki protection ko pehle rakhte hain.';
+  const ctaText = isHindi ? 'मुफ्त परामर्श शेड्यूल करें' : isEnglish ? 'Schedule a Free Consultation' : 'Free Consultation schedule karein';
+  const experienceLabel = isHindi ? 'अनुभव' : isEnglish ? 'Experience' : 'Experience';
+  const specializationLabel = isHindi ? 'विशेषज्ञता' : isEnglish ? 'Specialization' : 'Specialization';
+  const reviewsLabel = isHindi ? 'समीक्षाएँ' : isEnglish ? 'reviews' : 'reviews';
 
   return (
-    <section
-      id="testimonials"
-      dir="ltr"
-      className={`relative w-full px-4 sm:px-8 py-28 md:py-36 ${sectionBg}`}
-      aria-label="Customer testimonials"
-    >
-      {/* Subtle background glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/[0.02] rounded-full blur-[120px]" />
-      </div>
-
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          {/* Badge — premium pill */}
-          <div
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-5 bg-primary/[0.07] border border-primary/[0.12] text-primary"
-          >
-            <Quote className="w-3 h-3" />
-            {badge}
+    <section className="py-24 bg-[#F8FAFC] dark:bg-[#0A1330]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-white/5 rounded-full border border-[#E2E8F0] dark:border-white/10 mb-4 shadow-premium">
+            <Award className="h-4 w-4 text-[#E8C872]" />
+            <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">{badgeText}</span>
           </div>
-
-          {/* Heading */}
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1]"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
-            {heading
-              .split(' ')
-              .map((word: string, i: number, arr: string[]) =>
-                i === arr.length - 1 ? (
-                  <span key={i} className="italic text-primary">
-                    {' '}{word}
-                  </span>
-                ) : (
-                  <span key={i}>{i > 0 ? ' ' : ''}{word}</span>
-                )
-              )}
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display">
+            {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-
-          {/* Subtitle */}
-          <p className={`mx-auto mt-4 max-w-md text-sm sm:text-base leading-relaxed ${subtitleColor}`}>
+          <p className="text-xl text-[#64748B] dark:text-[#A6AEC7] max-w-3xl mx-auto font-body">
             {subtitle}
           </p>
+        </motion.div>
 
-          {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-4 mt-4">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-card/60 backdrop-blur-sm border border-border/40">
-              <Shield className={`w-3.5 h-3.5 ${shieldColor}`} />
-              <span className={`text-[11px] font-semibold ${shieldTextColor}`}>
-                {verified}
-              </span>
-            </div>
-          </div>
+        {/* Advisors Grid */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {advisors.map((advisor, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white dark:bg-card/60 rounded-2xl p-6 shadow-premium hover:shadow-premium-lg transition-all duration-300 border border-[#E2E8F0] dark:border-white/10 group"
+            >
+              <div className="mb-4">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#10B981]/20 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <span className="text-3xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">
+                    {tr(advisor.name, isHindi, isEnglish).charAt(0)}
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-[#0F172A] dark:text-[#F8F6F0] mb-1 font-display">
+                  {tr(advisor.name, isHindi, isEnglish)}
+                </h3>
+                <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{tr(advisor.role, isHindi, isEnglish)}</p>
+              </div>
+
+              <div className="space-y-3 mb-4">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#64748B] dark:text-[#A6AEC7] font-body">{experienceLabel}</span>
+                  <span className="font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">{advisor.experience}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#64748B] dark:text-[#A6AEC7] font-body">{specializationLabel}</span>
+                  <span className="font-medium text-[#0F172A] dark:text-[#F8F6F0] text-right font-body">
+                    {tr(advisor.specialization, isHindi, isEnglish)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-[#E2E8F0] dark:border-white/10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 fill-[#E8C872] text-[#E8C872]" />
+                    <span className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] font-body">{advisor.rating}</span>
+                    <span className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">
+                      ({advisor.reviews} {reviewsLabel})
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Animated Scrolling Cards Stack */}
-        <ContainerScroll className="container h-[180vh]">
-          <div className="sticky left-0 top-0 h-svh w-full flex items-center justify-center py-4">
-            <CardsContainer className="mx-auto h-[400px] w-[320px] sm:h-[440px] sm:w-[360px] lg:h-[460px] lg:w-[400px]">
-              {TESTIMONIALS.map((testimonial, index) => (
-                <CardTransformed
-                  arrayLength={TESTIMONIALS.length}
-                  key={testimonial.id}
-                  variant={cardVariant}
-                  index={index + 2}
-                  incrementY={8}
-                  incrementZ={8}
-                  role="article"
-                  aria-labelledby={`card-${testimonial.id}-title`}
-                  aria-describedby={`card-${testimonial.id}-content`}
-                  className="!border-border/50"
-                >
-                  <div className="flex flex-col items-center space-y-3 text-center">
-                    <ReviewStars
-                      className={starsColor}
-                      rating={testimonial.rating}
-                    />
-                    <div className={`mx-auto w-4/5 text-sm sm:text-base leading-relaxed ${quoteColor}`}>
-                      <blockquote cite="#" id={`card-${testimonial.id}-content`}>
-                        &ldquo;{tr(testimonial.description, isHindi, isEnglish)}&rdquo;
-                      </blockquote>
-                    </div>
+        {/* Achievements */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {achievements.map((achievement, index) => {
+            const Icon = achievement.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white dark:bg-card/60 rounded-xl p-6 border border-[#E2E8F0] dark:border-white/10"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-gradient-to-br from-[#2563EB]/10 to-[#10B981]/10 rounded-xl flex-shrink-0">
+                    <Icon className="h-6 w-6 text-[#2563EB]" strokeWidth={2} />
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Avatar className={avatarBorder}>
-                      <AvatarImage
-                        src={testimonial.avatarUrl}
-                        alt={`Portrait of ${tr(testimonial.name, isHindi, isEnglish)}`}
-                      />
-                      <AvatarFallback>
-                        {tr(testimonial.name, isHindi, isEnglish)
-                          .split(' ')
-                          .map((n: string) => n[0])
-                          .join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="text-left">
-                      <span
-                        id={`card-${testimonial.id}-title`}
-                        className="block text-base font-semibold tracking-tight sm:text-lg text-foreground"
-                      >
-                        {tr(testimonial.name, isHindi, isEnglish)}
-                      </span>
-                      <span className={`block text-xs ${professionColor}`}>
-                        {tr(testimonial.profession, isHindi, isEnglish)} · {tr(testimonial.city, isHindi, isEnglish)}
-                      </span>
-                      <span
-                        className={`inline-block mt-1.5 ${policyClass}`}
-                      >
-                        {testimonial.policy}
-                      </span>
-                    </div>
+                  <div>
+                    <h4 className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] mb-1 font-display">
+                      {tr(achievement.title, isHindi, isEnglish)}
+                    </h4>
+                    <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{tr(achievement.description, isHindi, isEnglish)}</p>
                   </div>
-                </CardTransformed>
-              ))}
-            </CardsContainer>
-          </div>
-        </ContainerScroll>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Button
+            size="lg"
+            className="gap-2 bg-[#0F172A] dark:bg-[#D4A853] hover:bg-[#1E293B] dark:hover:bg-[#E2C06E] text-white dark:text-[#060E22] shadow-premium-lg font-body"
+            asChild
+          >
+            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+              {ctaText}
+            </a>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
