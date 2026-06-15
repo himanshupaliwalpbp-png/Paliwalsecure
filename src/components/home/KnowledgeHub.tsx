@@ -120,12 +120,12 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
       </div>
 
       {/* Title */}
-      <h3 className="font-display text-base lg:text-lg font-bold text-[#0F172A] dark:text-[#F8F6F0] leading-snug mb-2.5 tracking-tight">
+      <h3 className="font-display text-base lg:text-lg font-bold text-[#111111] dark:text-[#F3EADB] leading-snug mb-2.5 tracking-tight">
         {title}
       </h3>
 
       {/* Summary */}
-      <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] leading-relaxed mb-5 font-body">
+      <p className="text-sm text-[#4A4A4A] dark:text-[#A6AEC7] leading-relaxed mb-5 font-body">
         {summary}
       </p>
 
@@ -138,18 +138,18 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
         {keyPoints.slice(0, 3).map((point, i) => (
           <div key={i} className="flex items-start gap-2.5">
             <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: article.color, opacity: 0.7 }} />
-            <span className="text-xs text-[#64748B] dark:text-[#A6AEC7] leading-snug font-body">{point}</span>
+            <span className="text-xs text-[#4A4A4A] dark:text-[#A6AEC7] leading-snug font-body">{point}</span>
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-4 border-t border-[#E2E8F0] dark:border-white/10">
-        <span className="text-sm font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 text-[#2563EB] dark:text-[#D4A853] font-body">
+      <div className="flex items-center justify-between pt-4 border-t border-[#E8E2D6] dark:border-white/10">
+        <span className="text-sm font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 text-[#2563EB] dark:text-[#60A5FA] font-body">
           {readGuide}
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </span>
-        <span className="text-[11px] text-[#64748B] dark:text-[#A6AEC7] flex items-center gap-1 font-mono">
+        <span className="text-[11px] text-[#4A4A4A] dark:text-[#A6AEC7] flex items-center gap-1 font-mono">
           <Clock className="w-3 h-3" />
           {readTime}
         </span>
@@ -177,7 +177,7 @@ export default function KnowledgeHub() {
   const cta = isHindi ? 'सभी गाइड देखें →' : isEnglish ? 'Browse all guides →' : 'Sab guides dekhein →';
 
   return (
-    <section ref={sectionRef} className="section-luxury bg-white dark:bg-[#0A1330]">
+    <section ref={sectionRef} className="section-luxury bg-background dark:bg-[#111111]">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -190,10 +190,10 @@ export default function KnowledgeHub() {
             <BookOpen className="w-3.5 h-3.5" />
             <span className="font-body">InsureGyaan</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#111111] dark:text-[#F3EADB] leading-[1.1] font-display">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-sm sm:text-base text-[#64748B] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
+          <p className="text-sm sm:text-base text-[#4A4A4A] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>
@@ -214,7 +214,7 @@ export default function KnowledgeHub() {
         >
           <a
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3 text-[#2563EB] dark:text-[#D4A853] underline-offset-4 hover:underline font-body"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3 text-[#2563EB] dark:text-[#60A5FA] underline-offset-4 hover:underline font-body"
           >
             {cta}
             <ArrowRight className="w-4 h-4" />

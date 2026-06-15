@@ -1,26 +1,28 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    PALIWAL SECURE AI — CSS Foundation
-   Design Bible v6.0 | Light Mode Default | Tailwind CSS v4
+   Design Bible v7.0 | Light Mode Default | Tailwind CSS v4
    
-   Color System (Premium Clean):
-     Primary: #0F172A (Slate 900) — Trust, Authority
-     Background: #F8FAFC (Slate 50) — Clean, Airy
-     Accent: #2563EB (Blue 600) — Intelligence, Technology
-     Success: #10B981 (Emerald 500) — Growth, Protection
-     Luxury: #E8C872 (Gold) — Premium, Excellence
+   Color System (Warm Sophistication + Digital Trust):
+     Background: #F3EADB (Soft Cream) — Warm, Professional
+     Foreground: #111111 (Black) — Deep Text
+     Primary: #2563EB (Electric Blue) — Action, CTA, Trust
+     Accent: #5E1223 (Deep Maroon) — Premium/Luxury (use sparingly!)
      Surface: #FFFFFF (White) — Pure, Clean
-     Text Primary: #0F172A
-     Text Secondary: #64748B (Slate 500)
-     Text Muted: #94A3B8 (Slate 400)
-     Border: #E2E8F0 (Slate 200)
-     Border Light: #F1F5F9 (Slate 100)
+     Surface Alt: #F6F5F1 (Ivory White) — Alternate Background
+     Highlight: #DBEAFE (Baby Blue) — Hover states, Subtle highlights
+     Text Primary: #111111
+     Text Secondary: #4A4A4A
+     Border: #E8E2D6 (Warm Border)
+     Success: #10B981 (Emerald 500) — Growth, Protection
+     Gold: #E8C872 — Subtle premium touches only
    
    Dark Mode Override (.dark class):
-     Dark BG: #0F172A (Slate 900)
-     Dark Card: #1E293B (Slate 800)
-     Dark Primary: #E8C872 (Gold)
-     Dark Muted: #94A3B8 (Slate 400)
-     Dark Border: rgba(255,255,255,0.10)
+     Dark BG: #111111 (Black)
+     Dark Card: #1A1A1A
+     Dark Primary: #2563EB (Electric Blue)
+     Dark Accent: #8B2D40 (Lightened Maroon)
+     Dark Muted: #B0B0B0
+     Dark Border: #333333
    
    Fonts:
      --font-heading: Plus Jakarta Sans (display headings, titles, stats)
@@ -87,8 +89,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* ── Paliwal Secure AI — Design Bible Color Tokens ── */
-  /* Slate palette — premium clean depth system */
+  /* ── Paliwal Secure AI — Design Bible v7.0 Color Tokens ── */
+  /* Slate palette — preserved for backward compat */
   --color-slate-950: #020617;
   --color-slate-900: #0F172A;
   --color-slate-800: #1E293B;
@@ -109,7 +111,7 @@
   --color-navy-500: #1B3468;
   --color-navy: #060E22;
 
-  /* Gold / Luxury palette — #E8C872 Premium Excellence */
+  /* Gold palette — subtle premium touches only (NOT primary button/accent!) */
   --color-gold: #E8C872;
   --color-gold-500: #E8C872;
   --color-gold-400: #F0D890;
@@ -118,6 +120,17 @@
   --color-gold-600: #D4A853;
   /* Legacy Gold — preserved for backward compat */
   --color-gold-legacy: #D4A853;
+
+  /* NEW — Design Bible v7.0 Premium Warm Palette */
+  --color-cream: #F3EADB;       /* Soft Cream — Primary warm background */
+  --color-ivory: #F6F5F1;       /* Ivory White — Alternate lighter background */
+  --color-black: #111111;       /* Black — Deep text, dark mode base */
+  --color-maroon: #5E1223;      /* Deep Maroon — Premium/luxury accent */
+  --color-maroon-light: #8B2D40; /* Lightened Maroon — Dark mode accent */
+  --color-baby-blue: #DBEAFE;   /* Baby Blue — Subtle highlights, hover states */
+  --color-electric-blue: #2563EB; /* Electric Blue — Primary action/CTA color */
+  --color-electric-blue-dark: #1D4ED8; /* Electric Blue darker — Hover state */
+  --color-warm-border: #E8E2D6; /* Warm border — NOT cool gray */
 
   /* Arctic Glacier Cyan palette — #7ED3E6 CMYK: 45, 8, 0, 10 */
   --color-cyan: #7ED3E6;
@@ -134,19 +147,18 @@
   --color-graphite-600: #1A1B2E;
   --color-graphite-500: #24253A;
   --color-graphite-400: #2E3048;
-  --color-graphite-highlight: rgba(212, 168, 83, 0.06);
+  --color-graphite-highlight: rgba(17, 17, 17, 0.06);
 
-  /* Semantic semantic */
-  --color-cream: #F8F6F0;
-  --color-muted-text: #94A3B8;
+  /* Semantic */
+  --color-muted-text: #4A4A4A;
   --color-success: #10B981;
   --color-danger: #EF4444;
   --color-info: #2563EB;
   --color-warning: #E8C872;
 
-  /* NEW — Design Bible v6.0 Premium Clean Tokens */
+  /* Design Bible v7.0 Primary Tokens */
   --color-primary-accent: #2563EB;
-  --color-luxury: #E8C872;
+  --color-luxury: #5E1223;
 
   /* Emerald/Trust Green palette — for trust signals and verification */
   --color-emerald: #34D399;
@@ -174,47 +186,47 @@
 :root {
   --radius: 0.75rem;
 
-  /* Paliwal Secure AI — Light Mode (DEFAULT) — Premium Clean */
-  --background: #F8FAFC;          /* Slate 50 — Clean, Airy */
-  --foreground: #0F172A;          /* Slate 900 — Dark text */
+  /* Paliwal Secure AI — Light Mode (DEFAULT) — Warm Sophistication */
+  --background: #F3EADB;          /* Soft Cream — Warm, Professional */
+  --foreground: #111111;          /* Black — Deep text */
   --card: #FFFFFF;                /* Pure white cards */
-  --card-foreground: #0F172A;     /* Slate 900 */
+  --card-foreground: #111111;     /* Black */
   --popover: #FFFFFF;             /* White popover */
-  --popover-foreground: #0F172A;
-  --primary: #0F172A;             /* Slate 900 — Trust, Authority */
+  --popover-foreground: #111111;
+  --primary: #2563EB;             /* Electric Blue — Primary action/CTA */
   --primary-foreground: #FFFFFF;  /* White on primary */
-  --secondary: #F1F5F9;           /* Slate 100 */
-  --secondary-foreground: #0F172A;
-  --muted: #F1F5F9;               /* Slate 100 */
-  --muted-foreground: #64748B;    /* Slate 500 */
-  --accent: #EFF6FF;              /* Blue 50 */
-  --accent-foreground: #0F172A;
+  --secondary: #F6F5F1;           /* Ivory White */
+  --secondary-foreground: #111111;
+  --muted: #F6F5F1;               /* Ivory White */
+  --muted-foreground: #4A4A4A;    /* Warm muted text */
+  --accent: #5E1223;              /* Deep Maroon — Premium accent */
+  --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
-  --border: #E2E8F0;              /* Slate 200 */
-  --input: #E2E8F0;               /* Slate 200 */
-  --ring: #2563EB;                /* Blue 600 */
+  --border: #E8E2D6;              /* Warm border */
+  --input: #E8E2D6;               /* Warm border */
+  --ring: #2563EB;                /* Electric Blue */
 
-  /* Chart colors — Blue/Emerald/Gold palette */
-  --chart-1: #2563EB;  /* Blue 600 */
-  --chart-2: #10B981;  /* Emerald 500 */
-  --chart-3: #E8C872;  /* Gold */
-  --chart-4: #8B5CF6;  /* Violet 500 */
-  --chart-5: #F59E0B;  /* Amber 500 */
+  /* Chart colors — Blue/Maroon/Gold palette */
+  --chart-1: #2563EB;  /* Electric Blue */
+  --chart-2: #5E1223;  /* Deep Maroon */
+  --chart-3: #C98A1C;  /* Rich Gold */
+  --chart-4: #10B981;  /* Emerald 500 */
+  --chart-5: #8C8C8C;  /* Neutral Gray */
 
-  /* Sidebar — Light Premium */
-  --sidebar: #F8FAFC;
-  --sidebar-foreground: #0F172A;
-  --sidebar-primary: #0F172A;
+  /* Sidebar — Light Warm */
+  --sidebar: #F6F5F1;
+  --sidebar-foreground: #111111;
+  --sidebar-primary: #2563EB;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #EFF6FF;
-  --sidebar-accent-foreground: #0F172A;
-  --sidebar-border: #E2E8F0;
+  --sidebar-accent: #DBEAFE;
+  --sidebar-accent-foreground: #111111;
+  --sidebar-border: #E8E2D6;
   --sidebar-ring: #2563EB;
 
-  /* Premium Shadow Utilities */
-  --shadow-premium: 0 2px 8px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-premium-lg: 0 4px 12px rgba(15, 23, 42, 0.06), 0 16px 48px rgba(15, 23, 42, 0.12);
-  --shadow-premium-xl: 0 8px 16px rgba(15, 23, 42, 0.08), 0 24px 64px rgba(15, 23, 42, 0.16);
+  /* Premium Shadow Utilities — warm tinted */
+  --shadow-premium: 0 2px 8px rgba(17, 17, 17, 0.04), 0 8px 24px rgba(17, 17, 17, 0.08);
+  --shadow-premium-lg: 0 4px 12px rgba(17, 17, 17, 0.06), 0 16px 48px rgba(17, 17, 17, 0.12);
+  --shadow-premium-xl: 0 8px 16px rgba(17, 17, 17, 0.08), 0 24px 64px rgba(17, 17, 17, 0.16);
 }
 
 /* ──────────────────────────────────────────────
@@ -228,41 +240,41 @@ body::after,
 }
 
 .dark {
-  --background: #0F172A;              /* Slate 900 */
-  --foreground: #F8FAFC;              /* Slate 50 */
-  --card: #1E293B;                    /* Slate 800 */
-  --card-foreground: #F8FAFC;
-  --popover: #1E293B;                 /* Slate 800 */
-  --popover-foreground: #F8FAFC;
-  --primary: #E8C872;                 /* Gold — Luxury primary */
-  --primary-foreground: #0F172A;      /* Slate 900 */
-  --secondary: #1E293B;               /* Slate 800 */
-  --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;                   /* Slate 800 */
-  --muted-foreground: #94A3B8;        /* Slate 400 */
-  --accent: rgba(232, 200, 114, 0.10); /* Gold accent */
-  --accent-foreground: #E8C872;       /* Gold */
+  --background: #111111;              /* Black — Dark mode base */
+  --foreground: #F3EADB;              /* Cream as text — signature move! */
+  --card: #1A1A1A;                    /* Dark card */
+  --card-foreground: #F3EADB;
+  --popover: #1A1A1A;                 /* Dark popover */
+  --popover-foreground: #F3EADB;
+  --primary: #2563EB;                 /* Electric Blue stays */
+  --primary-foreground: #FFFFFF;      /* White */
+  --secondary: #1A1A1A;               /* Dark card */
+  --secondary-foreground: #F3EADB;
+  --muted: #1A1A1A;                   /* Dark muted */
+  --muted-foreground: #B0B0B0;        /* Warm muted */
+  --accent: #8B2D40;                  /* Lightened Maroon for dark mode */
+  --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
-  --border: rgba(255, 255, 255, 0.10); /* Subtle white border */
-  --input: rgba(255, 255, 255, 0.08);  /* Subtle white input */
-  --ring: #E8C872;                    /* Gold ring */
+  --border: #333333;                  /* Dark border */
+  --input: #333333;                   /* Dark input */
+  --ring: #2563EB;                    /* Electric Blue ring */
 
   /* Chart colors — Dark mode palette */
-  --chart-1: #E8C872;  /* Gold */
-  --chart-2: #34D399;  /* Emerald 400 */
-  --chart-3: #7ED3E6;  /* Arctic Glacier Cyan */
-  --chart-4: #8B5CF6;  /* Violet 500 */
-  --chart-5: #F59E0B;  /* Amber 500 */
+  --chart-1: #2563EB;  /* Electric Blue */
+  --chart-2: #8B2D40;  /* Lightened Maroon */
+  --chart-3: #E8C872;  /* Gold */
+  --chart-4: #34D399;  /* Emerald 400 */
+  --chart-5: #7ED3E6;  /* Arctic Glacier Cyan */
 
-  /* Sidebar — Dark Premium */
-  --sidebar: #0F172A;
-  --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #E8C872;
-  --sidebar-primary-foreground: #0F172A;
-  --sidebar-accent: rgba(232, 200, 114, 0.08);
-  --sidebar-accent-foreground: #CBD5E1;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #E8C872;
+  /* Sidebar — Dark Warm */
+  --sidebar: #111111;
+  --sidebar-foreground: #F3EADB;
+  --sidebar-primary: #2563EB;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(37, 99, 235, 0.10);
+  --sidebar-accent-foreground: #F3EADB;
+  --sidebar-border: #333333;
+  --sidebar-ring: #2563EB;
 
   /* Premium Shadows — dark mode */
   --shadow-premium: 0 2px 8px rgba(0, 0, 0, 0.20), 0 8px 24px rgba(0, 0, 0, 0.30);
@@ -311,7 +323,7 @@ body::after,
     background-image:
       radial-gradient(
         ellipse at 50% 0%,
-        rgba(30, 41, 59, 0.5) 0%,
+        rgba(40, 40, 40, 0.5) 0%,
         transparent 50%
       );
     background-color: var(--background);
@@ -322,19 +334,19 @@ body::after,
     color: var(--foreground);
   }
 
-  /* Dark mode heading enhancement — bright white/gold for premium contrast */
+  /* Dark mode heading enhancement — bright cream for premium contrast */
   body:is(.dark *) h1,
   body:is(.dark *) h2,
   body:is(.dark *) h3 {
-    color: #F8FAFC;
+    color: #F3EADB;
   }
 
-  /* Dark mode body text — ensure readability on deep slate */
+  /* Dark mode body text — warm readability on deep black */
   body:is(.dark *) {
-    color: #CBD5E1;
+    color: #B0B0B0;
   }
   body:is(.dark *) p {
-    color: #94A3B8;
+    color: #B0B0B0;
   }
 
   h1, h2, h3 {
@@ -1040,18 +1052,18 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 
-/* Navy gradient text — for headings on light backgrounds */
+/* Black gradient text — for headings on light backgrounds */
 .gradient-text-navy {
-  color: #0F172A; /* Accessibility fallback */
-  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+  color: #111111; /* Accessibility fallback */
+  background: linear-gradient(135deg, #111111 0%, #333333 50%, #4A4A4A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-/* Dark mode variant — lighter navy for visibility on dark backgrounds */
+/* Dark mode variant — warm cream for visibility on dark backgrounds */
 .dark .gradient-text-navy {
-  color: #CBD5E1; /* Accessibility fallback */
-  background: linear-gradient(135deg, #CBD5E1 0%, #94A3B8 50%, #64748B 100%);
+  color: #F3EADB; /* Accessibility fallback */
+  background: linear-gradient(135deg, #F3EADB 0%, #D4CDB8 50%, #B0B0B0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1066,10 +1078,10 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 
-/* Luxury gradient text — gold to emerald, for dark sections */
+/* Luxury gradient text — Electric Blue gradient, for premium headings */
 .gradient-luxury {
-  color: #E8C872; /* Accessibility fallback */
-  background: linear-gradient(135deg, #E8C872 0%, #10B981 100%);
+  color: #2563EB; /* Accessibility fallback */
+  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1107,16 +1119,16 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 
-/* Luxury gold gradient text — premium excellence */
+/* Luxury gradient text — Electric Blue, premium excellence */
 .gradient-luxury {
-  background: linear-gradient(135deg, #E8C872, #F59E0B);
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #E8C872; /* Accessibility fallback */
+  color: #2563EB; /* Accessibility fallback */
 }
 .dark .gradient-luxury {
-  background: linear-gradient(135deg, #E8C872, #F0D890);
+  background: linear-gradient(135deg, #60A5FA, #2563EB);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1339,7 +1351,7 @@ body::after,
   background: rgba(212, 168, 83, 0.05);
 }
 .dark .ps-btn-ghost {
-  color: #64748B;
+  color: #B0B0B0;
 }
 .dark .ps-btn-ghost:hover {
   color: #A89238;
@@ -3350,14 +3362,14 @@ html.theme-transitioning *::after {
   font-family: var(--font-sans), 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Premium shadow layers — Design Bible v6.0 using CSS variables */
+/* Premium shadow layers — Design Bible v7.0 using CSS variables */
 .shadow-premium {
   box-shadow: var(--shadow-premium);
 }
 .shadow-premium-sm {
   box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.05),
-    0 2px 8px rgba(15, 23, 42, 0.04);
+    0 1px 2px rgba(17, 17, 17, 0.05),
+    0 2px 8px rgba(17, 17, 17, 0.04);
 }
 .dark .shadow-premium-sm {
   box-shadow:
@@ -3366,14 +3378,13 @@ html.theme-transitioning *::after {
 }
 .shadow-premium-md {
   box-shadow:
-    0 2px 4px rgba(15, 23, 42, 0.06),
-    0 8px 24px rgba(15, 23, 42, 0.08);
+    0 2px 4px rgba(17, 17, 17, 0.06),
+    0 8px 24px rgba(17, 17, 17, 0.08);
 }
 .dark .shadow-premium-md {
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.20),
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    0 0 16px rgba(232, 200, 114, 0.04);
+    0 8px 24px rgba(0, 0, 0, 0.25);
 }
 .shadow-premium-lg {
   box-shadow: var(--shadow-premium-lg);
@@ -3438,7 +3449,7 @@ html.theme-transitioning *::after {
    ────────────────────────────────────────────── */
 .premium-card {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #E8E2D6;
   border-radius: 1rem;
   padding: 1.5rem;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -3448,18 +3459,18 @@ html.theme-transitioning *::after {
 }
 .premium-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.08),
-              0 8px 16px -8px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 20px 40px -12px rgba(17, 17, 17, 0.08),
+              0 8px 16px -8px rgba(17, 17, 17, 0.04);
   border-color: #2563EB;
 }
 .dark .premium-card {
-  background: #1E293B;
-  border-color: rgba(255, 255, 255, 0.08);
+  background: #1A1A1A;
+  border-color: #333333;
 }
 .dark .premium-card:hover {
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4),
               0 8px 16px -8px rgba(0, 0, 0, 0.2);
-  border-color: #3B82F6;
+  border-color: #2563EB;
 }
 
 /* Premium card — compact variant */
@@ -3472,15 +3483,15 @@ html.theme-transitioning *::after {
   border-top: 3px solid #2563EB;
 }
 .dark .premium-card-featured {
-  border-top-color: #3B82F6;
+  border-top-color: #2563EB;
 }
 
-/* Premium card — gold accent variant */
-.premium-card-gold {
-  border-top: 3px solid #E8C872;
+/* Premium card — maroon accent variant */
+.premium-card-maroon {
+  border-top: 3px solid #5E1223;
 }
-.dark .premium-card-gold {
-  border-top-color: #D4A853;
+.dark .premium-card-maroon {
+  border-top-color: #8B2D40;
 }
 
 /* ──────────────────────────────────────────────
@@ -3500,37 +3511,37 @@ html.theme-transitioning *::after {
   }
 }
 
-/* Alternating section backgrounds */
+/* Alternating section backgrounds — Ivory alternate */
 .section-luxury-alt {
-  background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+  background: #F6F5F1;
 }
 .dark .section-luxury-alt {
-  background: linear-gradient(180deg, #0F172A 0%, #131C2E 100%);
+  background: #171717;
 }
 
 .section-luxury-accent {
-  background: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 100%);
+  background: #F6F5F1;
 }
 .dark .section-luxury-accent {
-  background: linear-gradient(180deg, #0C1929 0%, #0F172A 100%);
+  background: #171717;
 }
 
 /* Section divider */
 .section-luxury-divider {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #E2E8F0 20%, #E2E8F0 80%, transparent);
+  background: linear-gradient(90deg, transparent, #E8E2D6 20%, #E8E2D6 80%, transparent);
   margin: 0;
 }
 .dark .section-luxury-divider {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0.08) 80%, transparent);
+  background: linear-gradient(90deg, transparent, #333333 20%, #333333 80%, transparent);
 }
 
 /* ──────────────────────────────────────────────
    32c. PREMIUM BUTTON SYSTEM
-   Primary: Dark bg with white text, hover shimmer
+   Primary: Electric Blue bg with white text, hover shimmer
    Secondary: Outlined with border, hover fill
-   Gold accent variant for special CTAs
+   Electric Blue CTA variant for special CTAs
    ────────────────────────────────────────────── */
 .btn-luxury-primary {
   display: inline-flex;
@@ -3546,7 +3557,7 @@ html.theme-transitioning *::after {
   border-radius: 0.625rem;
   border: none;
   cursor: pointer;
-  background: #0F172A;
+  background: #2563EB;
   color: #FFFFFF;
   position: relative;
   overflow: hidden;
@@ -3565,7 +3576,8 @@ html.theme-transitioning *::after {
 }
 .btn-luxury-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.35);
+  background: #1D4ED8;
+  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.40), 0 0 16px rgba(37, 99, 235, 0.15);
 }
 .btn-luxury-primary:hover::after {
   left: 100%;
@@ -3578,11 +3590,12 @@ html.theme-transitioning *::after {
   outline-offset: 2px;
 }
 .dark .btn-luxury-primary {
-  background: #E8C872;
-  color: #0F172A;
+  background: #2563EB;
+  color: #FFFFFF;
 }
 .dark .btn-luxury-primary:hover {
-  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.3);
+  background: #1D4ED8;
+  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.40), 0 0 16px rgba(37, 99, 235, 0.15);
 }
 
 /* Secondary button */
@@ -3598,16 +3611,16 @@ html.theme-transitioning *::after {
   letter-spacing: 0.01em;
   line-height: 1.5;
   border-radius: 0.625rem;
-  border: 1.5px solid #E2E8F0;
+  border: 1.5px solid #111111;
   cursor: pointer;
   background: transparent;
-  color: #0F172A;
+  color: #111111;
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-luxury-secondary:hover {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
+  background: #111111;
+  color: #F3EADB;
+  border-color: #111111;
   transform: translateY(-1px);
 }
 .btn-luxury-secondary:active {
@@ -3618,16 +3631,16 @@ html.theme-transitioning *::after {
   outline-offset: 2px;
 }
 .dark .btn-luxury-secondary {
-  border-color: rgba(255, 255, 255, 0.15);
-  color: #E2E8F0;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #F3EADB;
 }
 .dark .btn-luxury-secondary:hover {
-  background: #E8C872;
-  color: #0F172A;
-  border-color: #E8C872;
+  background: #F3EADB;
+  color: #111111;
+  border-color: #F3EADB;
 }
 
-/* Gold accent CTA button */
+/* Electric Blue CTA button */
 .btn-luxury-gold {
   display: inline-flex;
   align-items: center;
@@ -3642,8 +3655,8 @@ html.theme-transitioning *::after {
   border-radius: 0.625rem;
   border: none;
   cursor: pointer;
-  background: linear-gradient(135deg, #E8C872, #D4A853);
-  color: #0F172A;
+  background: #2563EB;
+  color: #FFFFFF;
   position: relative;
   overflow: hidden;
   transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
@@ -3661,7 +3674,8 @@ html.theme-transitioning *::after {
 }
 .btn-luxury-gold:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.45);
+  background: #1D4ED8;
+  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.45), 0 0 20px rgba(37, 99, 235, 0.15);
 }
 .btn-luxury-gold:hover::after {
   left: 100%;
@@ -3670,15 +3684,16 @@ html.theme-transitioning *::after {
   transform: translateY(0);
 }
 .btn-luxury-gold:focus-visible {
-  outline: 2px solid #E8C872;
+  outline: 2px solid #2563EB;
   outline-offset: 2px;
 }
 .dark .btn-luxury-gold {
-  background: linear-gradient(135deg, #E8C872, #D4A853);
-  color: #0F172A;
+  background: #2563EB;
+  color: #FFFFFF;
 }
 .dark .btn-luxury-gold:hover {
-  box-shadow: 0 8px 32px -8px rgba(232, 200, 114, 0.5);
+  background: #1D4ED8;
+  box-shadow: 0 8px 32px -8px rgba(37, 99, 235, 0.5), 0 0 24px rgba(37, 99, 235, 0.20);
 }
 
 /* Button sizes */
@@ -3701,10 +3716,10 @@ html.theme-transitioning *::after {
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
-  color: #0F172A;
+  color: #111111;
 }
 .dark .text-hero {
-  color: #F8FAFC;
+  color: #F3EADB;
 }
 
 .text-section-title {
@@ -3713,10 +3728,10 @@ html.theme-transitioning *::after {
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: #0F172A;
+  color: #111111;
 }
 .dark .text-section-title {
-  color: #F8FAFC;
+  color: #F3EADB;
 }
 
 .text-card-title {
@@ -3725,10 +3740,10 @@ html.theme-transitioning *::after {
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  color: #0F172A;
+  color: #111111;
 }
 .dark .text-card-title {
-  color: #F8FAFC;
+  color: #F3EADB;
 }
 
 .text-body-lg {
@@ -3736,10 +3751,10 @@ html.theme-transitioning *::after {
   font-size: clamp(1.125rem, 1.5vw, 1.25rem);
   font-weight: 400;
   line-height: 1.7;
-  color: #475569;
+  color: #4A4A4A;
 }
 .dark .text-body-lg {
-  color: #94A3B8;
+  color: #B0B0B0;
 }
 
 .text-label-premium {
@@ -3748,10 +3763,10 @@ html.theme-transitioning *::after {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #64748B;
+  color: #4A4A4A;
 }
 .dark .text-label-premium {
-  color: #94A3B8;
+  color: #B0B0B0;
 }
 
 /* ──────────────────────────────────────────────
@@ -3812,14 +3827,14 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: rgba(232, 200, 114, 0.10);
-  color: #B8960C;
-  border: 1px solid rgba(232, 200, 114, 0.18);
+  background: rgba(37, 99, 235, 0.10);
+  color: #1D4ED8;
+  border: 1px solid rgba(37, 99, 235, 0.20);
 }
 .dark .badge-premium-gold {
-  background: rgba(232, 200, 114, 0.10);
-  color: #E8C872;
-  border-color: rgba(232, 200, 114, 0.2);
+  background: rgba(37, 99, 235, 0.15);
+  color: #60A5FA;
+  border-color: rgba(37, 99, 235, 0.25);
 }
 
 .badge-premium-slate {
@@ -3833,14 +3848,14 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: #F1F5F9;
-  color: #475569;
-  border: 1px solid #E2E8F0;
+  background: rgba(255, 255, 255, 0.85);
+  color: #111111;
+  border: 1px solid #E8E2D6;
 }
 .dark .badge-premium-slate {
   background: rgba(255, 255, 255, 0.06);
-  color: #94A3B8;
-  border-color: rgba(255, 255, 255, 0.1);
+  color: #B0B0B0;
+  border-color: #333333;
 }
 
 /* ──────────────────────────────────────────────
@@ -3852,14 +3867,14 @@ html.theme-transitioning *::after {
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(226, 232, 240, 0.6);
+  border: 1px solid rgba(232, 226, 214, 0.6);
   border-radius: 1rem;
 }
 .dark .glass-premium {
-  background: rgba(30, 41, 59, 0.65);
+  background: rgba(26, 26, 26, 0.65);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: #333333;
 }
 
 /* Glass — subtle variant for backgrounds */
@@ -3867,14 +3882,14 @@ html.theme-transitioning *::after {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.4);
+  border: 1px solid rgba(232, 226, 214, 0.4);
   border-radius: 0.75rem;
 }
 .dark .glass-premium-subtle {
-  background: rgba(30, 41, 59, 0.4);
+  background: rgba(26, 26, 26, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-color: rgba(255, 255, 255, 0.05);
+  border-color: #333333;
 }
 
 /* ──────────────────────────────────────────────
@@ -3893,26 +3908,26 @@ html.theme-transitioning *::after {
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.1;
-  color: #0F172A;
+  color: #111111;
   letter-spacing: -0.02em;
 }
 .stat-premium-block .stat-label {
   font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #64748B;
+  color: #4A4A4A;
   margin-top: 0.25rem;
   letter-spacing: 0.01em;
 }
 .dark .stat-premium-block {
-  background: #1E293B;
-  border-left-color: #3B82F6;
+  background: #1A1A1A;
+  border-left-color: #2563EB;
 }
 .dark .stat-premium-block .stat-number {
-  color: #F8FAFC;
+  color: #F3EADB;
 }
 .dark .stat-premium-block .stat-label {
-  color: #94A3B8;
+  color: #B0B0B0;
 }
 
 /* Stat accent variants */
@@ -3924,10 +3939,10 @@ html.theme-transitioning *::after {
 }
 
 .stat-premium-block-gold {
-  border-left-color: #E8C872;
+  border-left-color: #5E1223;
 }
 .dark .stat-premium-block-gold {
-  border-left-color: #D4A853;
+  border-left-color: #8B2D40;
 }
 
 .stat-premium-block-violet {
@@ -3948,9 +3963,9 @@ html.theme-transitioning *::after {
   font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
   font-size: 0.9375rem;
   line-height: 1.5;
-  color: #0F172A;
+  color: #111111;
   background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
+  border: 1.5px solid #E8E2D6;
   border-radius: 0.625rem;
   outline: none;
   transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
@@ -3961,26 +3976,26 @@ html.theme-transitioning *::after {
   color: #94A3B8;
 }
 .input-premium:hover {
-  border-color: #CBD5E1;
+  border-color: #E8E2D6;
 }
 .input-premium:focus {
   border-color: #2563EB;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 .dark .input-premium {
-  color: #F8FAFC;
-  background: #1E293B;
-  border-color: rgba(255, 255, 255, 0.1);
+  color: #F3EADB;
+  background: #1A1A1A;
+  border-color: #333333;
 }
 .dark .input-premium::placeholder {
-  color: #64748B;
+  color: #B0B0B0;
 }
 .dark .input-premium:hover {
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: #555555;
 }
 .dark .input-premium:focus {
-  border-color: #3B82F6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 /* Input with left icon padding */
@@ -4000,26 +4015,26 @@ html.theme-transitioning *::after {
   background: transparent;
 }
 .premium-scrollbar::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #E8E2D6;
   border-radius: 9999px;
 }
 .premium-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #B0B0B0;
 }
 .dark .premium-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: #555555;
 }
 .dark .premium-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: #777777;
 }
 
 /* Firefox scrollbar */
 .premium-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #CBD5E1 transparent;
+  scrollbar-color: #E8E2D6 transparent;
 }
 .dark .premium-scrollbar {
-  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+  scrollbar-color: #555555 transparent;
 }
 
 /* ──────────────────────────────────────────────
@@ -4101,60 +4116,59 @@ html.theme-transitioning *::after {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   CATEGORY CARDS GRID — Warm Beige & Dark Cyan Blue Color Scheme
+   CATEGORY CARDS GRID — Premium Clean Color Scheme
    Only applies to the Service Cards Grid (CategoryCards component)
    
-   Card Background:  #EED9BE (Warm Beige)
-   Main Text:        #043C50 (Dark Cyan Blue)
-   Small Text:       #D7C2A5 (Warm Beige Light)
+   Light Mode: White cards on cream background ("floating on warm" effect)
+   Dark Mode: Dark cards on black background
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Scoped: Only cards inside the category-cards-grid section */
 .category-cards-grid .premium-card {
-  background: #EED9BE;
-  border: 1px solid #D7C2A5;
+  background: #FFFFFF;
+  border: 1px solid #E8E2D6;
 }
 
 .category-cards-grid .premium-card:hover {
-  box-shadow: 0 20px 40px -12px rgba(4, 60, 80, 0.10),
-              0 8px 16px -8px rgba(4, 60, 80, 0.06);
-  border-color: #043C50;
+  box-shadow: 0 20px 40px -12px rgba(17, 17, 17, 0.10),
+              0 8px 16px -8px rgba(17, 17, 17, 0.06);
+  border-color: #2563EB;
 }
 
 .category-cards-grid .premium-card .text-card-title {
-  color: #043C50;
+  color: #111111;
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-description {
-  color: #D7C2A5;
+  color: #4A4A4A;
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-feature {
-  color: #043C50;
+  color: #111111;
 }
 
 .category-cards-grid .premium-card .border-t {
-  border-color: #D7C2A5;
+  border-color: #E8E2D6;
 }
 
 /* Dark mode overrides for CategoryCards grid */
 .dark .category-cards-grid .premium-card {
-  background: #032D3C;
-  border-color: rgba(238, 217, 190, 0.12);
+  background: #1A1A1A;
+  border-color: #333333;
 }
 
 .dark .category-cards-grid .premium-card:hover {
-  border-color: #3DB8D8;
+  border-color: #2563EB;
 }
 
 .dark .category-cards-grid .premium-card .text-card-title {
-  color: #EED9BE;
+  color: #F3EADB;
 }
 
 .dark .category-cards-grid .premium-card .text-sm {
-  color: #D7C2A5;
+  color: #B0B0B0;
 }
 
 .dark .category-cards-grid .premium-card .border-t {
-  border-color: rgba(238, 217, 190, 0.10);
+  border-color: #333333;
 }

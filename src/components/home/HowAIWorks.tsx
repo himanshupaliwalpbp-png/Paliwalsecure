@@ -24,7 +24,7 @@ const featuresData = [
   {
     key: 'comprehensiveProtection',
     icon: Shield,
-    color: '#E8C872',
+    color: '#2563EB',
     titles: { en: 'Comprehensive Protection', hi: 'व्यापक सुरक्षा', hg: 'Comprehensive Protection' },
     descriptions: { en: 'Life, health, vehicle, and business insurance — all in one intelligent platform.', hi: 'जीवन, स्वास्थ्य, वाहन और व्यापार बीमा — एक ही बुद्धिमान प्लेटफॉर्म पर।', hg: 'Life, health, vehicle, aur business insurance — ek hi intelligent platform par.' },
   },
@@ -94,7 +94,7 @@ export default function HowAIWorks() {
       : 'Hum cutting-edge technology ko human expertise ke saath jodte hain taaki best insurance experience de sakein.';
 
   return (
-    <section className="section-luxury">
+    <section className="section-luxury bg-background dark:bg-[#111111]">
       {/* Subtle background accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#2563EB]/[0.03] dark:bg-[#2563EB]/[0.05] rounded-full blur-[120px]" />
@@ -185,7 +185,7 @@ export default function HowAIWorks() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-[#64748B] dark:text-[#94A3B8] text-sm leading-relaxed font-body flex-1">
+                  <p className="text-[#4A4A4A] dark:text-[#94A3B8] text-sm leading-relaxed font-body flex-1">
                     {desc}
                   </p>
 

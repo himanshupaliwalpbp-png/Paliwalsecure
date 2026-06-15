@@ -79,21 +79,21 @@ function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean
         <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full transition-colors duration-200 ${
           isPaliwal
             ? 'bg-[#2563EB]/[0.08] border border-[#2563EB]/15 dark:bg-[#3B82F6]/[0.12] dark:border-[#3B82F6]/20'
-            : 'bg-[#F1F5F9] dark:bg-white/5 border border-transparent'
+            : 'bg-white/60 dark:bg-white/5 border border-transparent'
         }`}>
           <Check className={`w-3.5 h-3.5 ${isPaliwal ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'}`} strokeWidth={2.5} />
         </span>
       );
     case 'cross':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/[0.03] border border-transparent">
-          <X className="w-3.5 h-3.5 text-[#CBD5E1] dark:text-white/20" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/60 dark:bg-white/[0.03] border border-transparent">
+          <X className="w-3.5 h-3.5 text-[#94A3B8] dark:text-white/20" strokeWidth={2} />
         </span>
       );
     case 'dash':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#F1F5F9] dark:bg-white/[0.03] border border-transparent">
-          <Minus className="w-3.5 h-3.5 text-[#CBD5E1] dark:text-white/20" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/60 dark:bg-white/[0.03] border border-transparent">
+          <Minus className="w-3.5 h-3.5 text-[#94A3B8] dark:text-white/20" strokeWidth={2} />
         </span>
       );
     case 'text':
@@ -170,13 +170,13 @@ export default function ComparisonMatrix() {
               <thead>
                 <tr>
                   {/* Feature label column header */}
-                  <th className="text-left px-6 py-5 text-label-premium font-body border-b border-[#E2E8F0] dark:border-white/[0.06]">
+                  <th className="text-left px-6 py-5 text-label-premium font-body border-b border-[#E8E2D6] dark:border-white/[0.06]">
                     {featureLabel}
                   </th>
                   {columns.map((col) => (
                     <th
                       key={col.key}
-                      className={`px-6 py-5 text-center font-body border-b border-[#E2E8F0] dark:border-white/[0.06] ${
+                      className={`px-6 py-5 text-center font-body border-b border-[#E8E2D6] dark:border-white/[0.06] ${
                         col.highlight ? 'premium-card-featured !border-t-0' : ''
                       }`}
                     >
@@ -203,14 +203,14 @@ export default function ComparisonMatrix() {
                 {features.map((row, rowIndex) => (
                   <tr
                     key={row.key}
-                    className={`border-b border-[#E2E8F0]/60 dark:border-white/[0.04] last:border-b-0 transition-colors duration-200 ${
+                    className={`border-b border-[#E8E2D6]/60 dark:border-white/[0.04] last:border-b-0 transition-colors duration-200 ${
                       rowIndex % 2 === 1
-                        ? 'bg-[#F8FAFC]/60 dark:bg-white/[0.015]'
+                        ? 'bg-white/40 dark:bg-white/[0.015]'
                         : ''
-                    } hover:bg-[#F1F5F9]/50 dark:hover:bg-white/[0.03]`}
+                    } hover:bg-white/50 dark:hover:bg-white/[0.03]`}
                   >
                     {/* Feature name */}
-                    <td className="px-6 py-4 text-[#0F172A] dark:text-[#F1F5F9] font-medium text-sm font-body">
+                    <td className="px-6 py-4 text-[#111111] dark:text-[#F3EADB] font-medium text-sm font-body">
                       {getFeatureLabel(row.key)}
                     </td>
                     {/* Column cells */}
@@ -238,13 +238,13 @@ export default function ComparisonMatrix() {
           </div>
 
           {/* Bottom summary bar for Paliwal column */}
-          <div className="border-t border-[#E2E8F0] dark:border-white/[0.06] bg-[#F8FAFC]/80 dark:bg-[#1E293B]/60 px-6 py-4">
+          <div className="border-t border-[#E8E2D6] dark:border-white/[0.06] bg-white/60 dark:bg-[#1E293B]/60 px-6 py-4">
             <div className="flex items-center justify-center gap-2">
               <span className="badge-premium-blue !gap-1.5">
                 <Sparkles className="w-3 h-3" />
                 {isHindi ? 'सबसे अच्छा विकल्प' : isEnglish ? 'Best choice' : 'Best choice'}
               </span>
-              <span className="text-sm text-[#64748B] dark:text-[#94A3B8] font-body">
+              <span className="text-sm text-[#4A4A4A] dark:text-[#94A3B8] font-body">
                 {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 of 9 features'}
               </span>
             </div>
