@@ -131,7 +131,7 @@ export default function CategoryCards() {
         </motion.div>
 
         {/* Grid — 3 columns desktop, 2 tablet, 1 mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        <div className="category-cards-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {categories.map((cat, index) => {
             const Icon = cat.icon;
             const title = isHindi ? categoryTitles[cat.key]?.hi : isEnglish ? categoryTitles[cat.key]?.en : categoryTitles[cat.key]?.hg;
@@ -162,7 +162,7 @@ export default function CategoryCards() {
                         <h3 className="text-card-title">
                           {title}
                         </h3>
-                        <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] font-body mt-0.5">
+                        <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] font-body mt-0.5 category-card-description">
                           {description}
                         </p>
                       </div>
@@ -173,7 +173,7 @@ export default function CategoryCards() {
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-center gap-2.5 text-sm text-[#043C50] dark:text-[#D7C2A5] font-body">
+                          <li key={i} className="flex items-center gap-2.5 text-sm text-[#043C50] dark:text-[#D7C2A5] font-body category-card-feature">
                             <div
                               className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
                               style={{ backgroundColor: `${cat.color}12` }}
@@ -187,7 +187,7 @@ export default function CategoryCards() {
                     </ul>
 
                     {/* Price + AI Pick badge */}
-                    <div className="pt-4 border-t border-[#D7C2A5] dark:border-[#EED9BE]/10 flex items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-[#D7C2A5] dark:border-[#EED9BE]/10 flex items-center justify-between gap-3 category-card-footer">
                       <span className={getBadgeClass(cat.badgeVariant)}>
                         {cat.price}
                       </span>

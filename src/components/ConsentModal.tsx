@@ -150,8 +150,8 @@ export default function ConsentModal() {
               className="relative rounded-2xl overflow-hidden"
               style={{
                 backgroundColor: isDark
-                  ? 'rgba(2, 30, 41, 0.85)'
-                  : 'rgba(238, 217, 190, 0.88)',
+                  ? 'rgba(15, 23, 42, 0.85)'
+                  : 'rgba(255, 255, 255, 0.88)',
                 backdropFilter: 'blur(24px) saturate(1.4)',
                 WebkitBackdropFilter: 'blur(24px) saturate(1.4)',
                 boxShadow: isDark
@@ -187,7 +187,7 @@ export default function ConsentModal() {
                   <h2
                     className="font-[family-name:var(--font-heading)] text-base sm:text-lg font-bold leading-snug pt-1.5"
                     style={{
-                      color: isDark ? '#EED9BE' : '#043C50',
+                      color: isDark ? '#F1F5F9' : '#0F172A',
                     }}
                   >
                     Data Consent — DPDP Act 2023
@@ -198,7 +198,7 @@ export default function ConsentModal() {
                 <p
                   className="text-[13px] sm:text-sm leading-relaxed mb-4"
                   style={{
-                    color: isDark ? '#D7C2A5' : '#D7C2A5',
+                    color: isDark ? '#94A3B8' : '#64748B',
                     fontFamily:
                       'var(--font-sans), Inter, system-ui, sans-serif',
                   }}
@@ -283,8 +283,8 @@ export default function ConsentModal() {
             className="rounded-xl px-4 py-3 flex items-center gap-3"
             style={{
               backgroundColor: isDark
-                ? 'rgba(2, 30, 41, 0.85)'
-                : 'rgba(238, 217, 190, 0.90)',
+                ? 'rgba(15, 23, 42, 0.85)'
+                : 'rgba(255, 255, 255, 0.90)',
               backdropFilter: 'blur(20px) saturate(1.3)',
               WebkitBackdropFilter: 'blur(20px) saturate(1.3)',
               boxShadow: isDark
@@ -300,7 +300,7 @@ export default function ConsentModal() {
             <p
               className="text-xs sm:text-sm flex-1"
               style={{
-                color: isDark ? '#D7C2A5' : '#D7C2A5',
+                color: isDark ? '#94A3B8' : '#64748B',
               }}
             >
               You&apos;ve declined data consent. Some features may be limited.{' '}

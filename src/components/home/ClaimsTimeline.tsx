@@ -14,8 +14,8 @@ interface ClaimStep {
 }
 
 const claimSteps: ClaimStep[] = [
-  { key: 'tellUs', number: 1, icon: MessageSquare, color: '#043C50' },
-  { key: 'docChecklist', number: 2, icon: ClipboardList, color: '#08799A' },
+  { key: 'tellUs', number: 1, icon: MessageSquare, color: '#2563EB' },
+  { key: 'docChecklist', number: 2, icon: ClipboardList, color: '#10B981' },
   { key: 'submitOnYourBehalf', number: 3, icon: Send, color: '#E8C872' },
   { key: 'trackRealTime', number: 4, icon: Activity, color: '#8B5CF6' },
   { key: 'moneyInAccount', number: 5, icon: Banknote, color: '#EF4444' },
@@ -90,7 +90,7 @@ export default function ClaimsTimeline() {
       : stepDescs[key]?.hg ?? stepDescs[key]?.en;
 
   return (
-    <section ref={sectionRef} className="section-luxury bg-[#FBF5ED] dark:bg-[#021E29]">
+    <section ref={sectionRef} className="section-luxury bg-[#F8FAFC] dark:bg-[#060E22]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -100,12 +100,12 @@ export default function ClaimsTimeline() {
           className="mb-16 md:mb-20 text-center"
         >
           <div className="badge-premium-slate mb-5">
-            <span className="text-sm font-medium text-[#043C50] dark:text-[#F8F6F0] font-body">Claims Process</span>
+            <span className="text-sm font-medium text-[#0F172A] dark:text-[#F8F6F0] font-body">Claims Process</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#043C50] dark:text-[#F8F6F0] leading-[1.1] font-display">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
             {heading}
           </h2>
-          <p className="mt-4 text-[#D7C2A5] dark:text-[#D7C2A5] text-base md:text-lg max-w-md mx-auto leading-relaxed font-body">
+          <p className="mt-4 text-[#64748B] dark:text-[#A6AEC7] text-base md:text-lg max-w-md mx-auto leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>
@@ -117,7 +117,7 @@ export default function ClaimsTimeline() {
             variants={lineVariants}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            className="absolute left-6 md:left-8 top-4 bottom-4 w-px bg-gradient-to-b from-[#043C50]/40 via-[#08799A]/30 to-[#E8C872]/20 dark:from-[#3DB8D8]/30 dark:via-[#08799A]/20 dark:to-[#E8C872]/15"
+            className="absolute left-6 md:left-8 top-4 bottom-4 w-px bg-gradient-to-b from-[#2563EB]/40 via-[#10B981]/30 to-[#E8C872]/20 dark:from-[#2563EB]/30 dark:via-[#10B981]/20 dark:to-[#E8C872]/15"
           />
 
           {/* Steps */}
@@ -136,7 +136,7 @@ export default function ClaimsTimeline() {
                   {/* Step number circle — positioned on the timeline */}
                   <div className="relative z-10 shrink-0">
                     <div
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-base shadow-lg ring-4 ring-[#FBF5ED] dark:ring-[#021E29] font-display transition-transform duration-300"
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white font-bold text-sm md:text-base shadow-lg ring-4 ring-white dark:ring-[#0F172A] font-display transition-transform duration-300"
                       style={{ backgroundColor: step.color, boxShadow: `0 4px 20px -4px ${step.color}40` }}
                     >
                       {step.number}
@@ -155,10 +155,10 @@ export default function ClaimsTimeline() {
 
                     {/* Text */}
                     <div className="flex-1 min-w-0 pt-0.5">
-                      <h3 className="font-semibold text-[#043C50] dark:text-[#F8F6F0] text-base md:text-lg mb-1 tracking-tight font-display">
+                      <h3 className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] text-base md:text-lg mb-1 tracking-tight font-display">
                         {getStepTitle(step.key)}
                       </h3>
-                      <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] leading-relaxed font-body">
+                      <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] leading-relaxed font-body">
                         {getStepDesc(step.key)}
                       </p>
                     </div>

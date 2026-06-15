@@ -495,7 +495,7 @@ export default function InsureGPTSection() {
       />
 
       {/* Decorative orbs */}
-      <div className="absolute top-20 -left-20 w-72 h-72 bg-[#043C50]/[0.03] rounded-full blur-3xl pointer-events-none dark:bg-[#3DB8D8]/[0.04]" />
+      <div className="absolute top-20 -left-20 w-72 h-72 bg-[#2563EB]/[0.03] rounded-full blur-3xl pointer-events-none dark:bg-[#3B82F6]/[0.04]" />
       <div className="absolute bottom-20 -right-20 w-72 h-72 bg-[#E8C872]/[0.03] rounded-full blur-3xl pointer-events-none dark:bg-[#D4A853]/[0.04]" />
 
       <div className="container-premium relative z-10">
@@ -512,7 +512,7 @@ export default function InsureGPTSection() {
           </div>
           <h2 className="text-section-title leading-tight">
             {t('insureGPT.chatWith')}
-            <span className="text-[#043C50]">
+            <span className="gradient-text-universal">
               InsureGPT
             </span>
           </h2>
@@ -540,25 +540,25 @@ export default function InsureGPTSection() {
               className="premium-card premium-card-featured"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-[#043C50] dark:bg-[#E8C872] flex items-center justify-center shadow-md">
-                  <Brain className="w-5 h-5 text-white dark:text-[#043C50]" />
+                <div className="w-10 h-10 rounded-xl bg-[#0F172A] dark:bg-[#E8C872] flex items-center justify-center shadow-md">
+                  <Brain className="w-5 h-5 text-white dark:text-[#0F172A]" />
                 </div>
                 <div>
                   <h3 className="text-card-title">InsureGPT</h3>
-                  <p className="text-xs text-[#043C50] dark:text-[#3DB8D8] font-medium">{t('insureGPT.byBrand')}</p>
+                  <p className="text-xs text-[#2563EB] dark:text-[#60A5FA] font-medium">{t('insureGPT.byBrand')}</p>
                 </div>
               </div>
-              <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] leading-relaxed mb-4">
+              <p className="text-sm text-[#475569] dark:text-[#94A3B8] leading-relaxed mb-4">
                 {t('insureGPT.brandDesc')}
               </p>
 
               {/* Trust Indicators — Compact Grid */}
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { icon: ShieldCheck, labelKey: 'insureGPT.trust.irdaiCertified', color: 'text-[#043C50] dark:text-[#3DB8D8]' },
-                  { icon: Globe, labelKey: 'insureGPT.trust.insurers', color: 'text-[#043C50] dark:text-[#3DB8D8]' },
+                  { icon: ShieldCheck, labelKey: 'insureGPT.trust.irdaiCertified', color: 'text-[#2563EB] dark:text-[#60A5FA]' },
+                  { icon: Globe, labelKey: 'insureGPT.trust.insurers', color: 'text-[#2563EB] dark:text-[#60A5FA]' },
                   { icon: Zap, labelKey: 'insureGPT.trust.free', color: 'text-[#E8C872] dark:text-[#D4A853]' },
-                  { icon: Brain, labelKey: 'insureGPT.trust.aiPowered', color: 'text-[#043C50] dark:text-[#3DB8D8]' },
+                  { icon: Brain, labelKey: 'insureGPT.trust.aiPowered', color: 'text-[#2563EB] dark:text-[#60A5FA]' },
                 ].map((item) => {
                   const Icon = item.icon;
                   return (
@@ -576,7 +576,7 @@ export default function InsureGPTSection() {
               className="premium-card premium-card-compact"
             >
               <div className="flex items-center gap-2 mb-2.5">
-                <Languages className="w-3.5 h-3.5 text-[#043C50] dark:text-[#3DB8D8]" />
+                <Languages className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
                 <span className="text-label-premium">{t('insureGPT.language')}</span>
               </div>
               <div className="flex gap-2">
@@ -586,8 +586,8 @@ export default function InsureGPTSection() {
                     onClick={() => handleLanguageChange(opt.code)}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border ${
                       language === opt.code
-                        ? 'bg-[#043C50] text-white border-[#043C50] shadow-md dark:bg-[#E8C872] dark:text-[#043C50] dark:border-[#E8C872]'
-                        : 'bg-[#FBF5ED] text-[#D7C2A5] border-[#D7C2A5] hover:border-[#043C50] hover:text-[#043C50] dark:bg-white/5 dark:text-[#D7C2A5] dark:border-white/10 dark:hover:border-[#3DB8D8] dark:hover:text-[#FBF5ED]'
+                        ? 'bg-[#0F172A] text-white border-[#0F172A] shadow-md dark:bg-[#E8C872] dark:text-[#0F172A] dark:border-[#E8C872]'
+                        : 'bg-[#F8FAFC] text-[#64748B] border-[#E2E8F0] hover:border-[#2563EB] hover:text-[#0F172A] dark:bg-white/5 dark:text-[#94A3B8] dark:border-white/10 dark:hover:border-[#3B82F6] dark:hover:text-[#F8FAFC]'
                     }`}
                   >
                     {t(opt.labelKey)}
@@ -608,10 +608,10 @@ export default function InsureGPTSection() {
                   { step: '3', textKey: 'insureGPT.step3' },
                 ].map((item) => (
                   <div key={item.step} className="flex items-center gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-[#043C50]/10 text-[#043C50] dark:bg-[#3DB8D8]/15 dark:text-[#3DB8D8] flex items-center justify-center text-[10px] font-bold shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-[#2563EB]/10 text-[#2563EB] dark:bg-[#3B82F6]/15 dark:text-[#60A5FA] flex items-center justify-center text-[10px] font-bold shrink-0">
                       {item.step}
                     </div>
-                    <span className="text-xs text-[#D7C2A5] dark:text-[#D7C2A5]">{t(item.textKey)}</span>
+                    <span className="text-xs text-[#475569] dark:text-[#94A3B8]">{t(item.textKey)}</span>
                   </div>
                 ))}
               </div>
@@ -658,17 +658,17 @@ export default function InsureGPTSection() {
               className="glass-premium shadow-premium-xl overflow-hidden flex flex-col h-[420px] sm:h-[550px] lg:h-[650px]"
             >
               {/* Chat Header */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-[#D7C2A5] dark:border-white/8 bg-gradient-to-r from-[#043C50] to-[#032D3C] dark:from-[#E8C872]/10 dark:to-[#D4A853]/5"
+              <div className="flex items-center justify-between px-5 py-3 border-b border-[#E2E8F0] dark:border-white/8 bg-gradient-to-r from-[#0F172A] to-[#1E293B] dark:from-[#E8C872]/10 dark:to-[#D4A853]/5"
               >
                 <div className="flex items-center gap-2.5">
                   <div className="relative">
-                    <div className="w-8 h-8 rounded-lg bg-[#043C50] dark:bg-[#E8C872] flex items-center justify-center shadow-md">
-                      <Brain className="w-4 h-4 text-white dark:text-[#043C50]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#2563EB] dark:bg-[#E8C872] flex items-center justify-center shadow-md">
+                      <Brain className="w-4 h-4 text-white dark:text-[#0F172A]" />
                     </div>
-                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-[#043C50] dark:border-[#032D3C]" />
+                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-[#0F172A] dark:border-[#1E293B]" />
                   </div>
                   <div>
-                    <span className="text-sm font-semibold text-white dark:text-[#EED9BE]">InsureGPT</span>
+                    <span className="text-sm font-semibold text-white dark:text-[#F8FAFC]">InsureGPT</span>
                     <div className="flex items-center gap-1">
                       <span className="text-[10px] text-emerald-400 font-medium">{t('insureGPT.online')}</span>
                       <SparkleIcon />
@@ -684,7 +684,7 @@ export default function InsureGPTSection() {
                         onClick={() => handleLanguageChange(opt.code)}
                         className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-all duration-200 border ${
                           language === opt.code
-                            ? 'bg-[#E8C872] text-[#043C50] border-[#E8C872] shadow-md'
+                            ? 'bg-[#E8C872] text-[#0F172A] border-[#E8C872] shadow-md'
                             : 'bg-white/10 text-white/60 border-white/15 hover:border-[#E8C872]/40 hover:text-white/90'
                         }`}
                         aria-label={`Switch to ${opt.code}`}
@@ -709,7 +709,7 @@ export default function InsureGPTSection() {
               </div>
 
               {/* Quick Action Buttons — Premium badges */}
-              <div className="px-4 py-2.5 border-b border-[#D7C2A5] dark:border-white/8 bg-[#FBF5ED] dark:bg-[#021E29]/50">
+              <div className="px-4 py-2.5 border-b border-[#E2E8F0] dark:border-white/8 bg-[#F8FAFC] dark:bg-[#0F172A]/50">
                 <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                   {allQuickActionKeys.map((action) => (
                     <button
@@ -727,7 +727,7 @@ export default function InsureGPTSection() {
               {/* Messages Area */}
               <div
                 ref={scrollContainerRef}
-                className="flex-1 overflow-y-auto px-5 py-5 space-y-5 premium-scrollbar bg-[#EED9BE] dark:bg-[#021E29]"
+                className="flex-1 overflow-y-auto px-5 py-5 space-y-5 premium-scrollbar bg-white dark:bg-[#0F172A]"
               >
                 <AnimatePresence mode="popLayout">
                   {messages.map((msg, idx) => (
@@ -746,7 +746,7 @@ export default function InsureGPTSection() {
                             <Brain className="w-3.5 h-3.5 text-primary-foreground" />
                           </div>
                           {/* Bot Message Bubble */}
-                          <div className="bg-[#FBF5ED] dark:bg-[#032D3C] text-[#043C50] dark:text-[#EED9BE] rounded-2xl rounded-tl-sm px-4 py-3 text-sm leading-relaxed border border-[#D7C2A5] dark:border-white/8">
+                          <div className="bg-[#F8FAFC] dark:bg-[#1E293B] text-[#0F172A] dark:text-[#F8FAFC] rounded-2xl rounded-tl-sm px-4 py-3 text-sm leading-relaxed border border-[#E2E8F0] dark:border-white/8">
                             <div
                               className="prose-sm [&_strong]:text-primary [&_em]:italic [&_li]:ml-4 [&_li]:list-disc [&_pre]:bg-muted [&_pre]:rounded-lg [&_pre]:p-2 [&_pre]:my-1 [&_pre]:overflow-x-auto [&_pre]:text-xs [&_pre]:border [&_pre]:border-border [&_code]:bg-muted [&_code]:px-1 [&_code]:rounded [&_code]:text-xs [&_code]:border [&_code]:border-border [&_hr]:border-border [&_hr]:my-2"
                               dangerouslySetInnerHTML={{ __html: renderMarkdown(msg.content, isDark) }}
@@ -780,7 +780,7 @@ export default function InsureGPTSection() {
                         </div>
                       ) : (
                         /* User Message Bubble — Primary accent */
-                        <div className="bg-[#043C50] dark:bg-[#E8C872] text-white dark:text-[#043C50] rounded-2xl rounded-tr-sm px-4 py-3 text-sm leading-relaxed max-w-[85%] shadow-md font-medium border border-[#043C50]/20 dark:border-[#E8C872]/20">
+                        <div className="bg-[#0F172A] dark:bg-[#E8C872] text-white dark:text-[#0F172A] rounded-2xl rounded-tr-sm px-4 py-3 text-sm leading-relaxed max-w-[85%] shadow-md font-medium border border-[#0F172A]/20 dark:border-[#E8C872]/20">
                           <span>{msg.content}</span>
                         </div>
                       )}
@@ -805,8 +805,8 @@ export default function InsureGPTSection() {
                         <Brain className="w-3.5 h-3.5 text-primary-foreground" />
                       </motion.div>
                       {/* Typing Bubble */}
-                      <div className="bg-[#FBF5ED] dark:bg-[#032D3C] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#D7C2A5] dark:border-white/8 flex items-center gap-2">
-                        <span className="text-xs text-[#043C50] dark:text-[#3DB8D8] font-medium">InsureGPT</span>
+                      <div className="bg-[#F8FAFC] dark:bg-[#1E293B] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#E2E8F0] dark:border-white/8 flex items-center gap-2">
+                        <span className="text-xs text-[#2563EB] dark:text-[#60A5FA] font-medium">InsureGPT</span>
                         <TypingDots />
                       </div>
                     </div>
@@ -818,7 +818,7 @@ export default function InsureGPTSection() {
 
               {/* Suggestion Chips — Premium */}
               {suggestions.length > 0 && !isLoading && messages.length > 0 && (
-                <div className="px-5 py-2.5 border-t border-[#D7C2A5] dark:border-white/8 bg-[#FBF5ED] dark:bg-[#021E29]/50">
+                <div className="px-5 py-2.5 border-t border-[#E2E8F0] dark:border-white/8 bg-[#F8FAFC] dark:bg-[#0F172A]/50">
                   <div className="flex gap-2 overflow-x-auto pb-0.5" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {suggestions.map((suggestion) => (
                       <button
@@ -872,7 +872,7 @@ export default function InsureGPTSection() {
               </AnimatePresence>
 
               {/* Input Area — Premium */}
-              <div className="px-5 py-3 border-t border-[#D7C2A5] dark:border-white/8 bg-[#EED9BE] dark:bg-[#021E29]">
+              <div className="px-5 py-3 border-t border-[#E2E8F0] dark:border-white/8 bg-white dark:bg-[#0F172A]">
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   {/* Voice Input Button */}
                   <Button
@@ -882,14 +882,14 @@ export default function InsureGPTSection() {
                       isRecording
                         ? 'bg-red-500/20 border border-red-500/40 text-red-400 hover:bg-red-500/30'
                         : isTranscribing
-                        ? 'bg-[#043C50]/10 border border-[#043C50]/30 text-[#043C50] dark:bg-[#3DB8D8]/15 dark:text-[#3DB8D8] dark:border-[#3DB8D8]/30'
-                        : 'bg-[#FBF5ED] dark:bg-[#032D3C] border border-[#D7C2A5] dark:border-white/10 text-[#D7C2A5] dark:text-[#D7C2A5] hover:text-[#043C50] dark:hover:text-[#3DB8D8] hover:bg-[#043C50]/5 dark:hover:bg-[#3DB8D8]/10 hover:border-[#043C50]/30 dark:hover:border-[#3DB8D8]/30'
+                        ? 'bg-[#2563EB]/10 border border-[#2563EB]/30 text-[#2563EB] dark:bg-[#3B82F6]/15 dark:text-[#60A5FA] dark:border-[#3B82F6]/30'
+                        : 'bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-white/10 text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#60A5FA] hover:bg-[#2563EB]/5 dark:hover:bg-[#3B82F6]/10 hover:border-[#2563EB]/30 dark:hover:border-[#3B82F6]/30'
                     }`}
                     disabled={isLoading || isTranscribing}
                     aria-label={isRecording ? 'Stop recording' : isTranscribing ? 'Transcribing' : 'Start voice input'}
                   >
                     {isRecording ? <MicOff className="w-4 h-4" /> : isTranscribing ? (
-                      <motion.div className="w-4 h-4 border-2 border-[#043C50]/40 border-t-[#043C50] dark:border-[#3DB8D8]/40 dark:border-t-[#3DB8D8] rounded-full" animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} />
+                      <motion.div className="w-4 h-4 border-2 border-[#2563EB]/40 border-t-[#2563EB] dark:border-[#3B82F6]/40 dark:border-t-[#3B82F6] rounded-full" animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} />
                     ) : <Mic className="w-4 h-4" />}
                   </Button>
                   <input
@@ -909,7 +909,7 @@ export default function InsureGPTSection() {
                     {t('insureGPT.send')}
                   </SendStopButton>
                 </form>
-                <p className="text-[10px] text-[#D7C2A5] dark:text-[#D7C2A5] mt-2 text-center">
+                <p className="text-[10px] text-[#94A3B8] dark:text-[#64748B] mt-2 text-center">
                   {t('insureGPT.irdaiDisclaimer')}
                 </p>
               </div>

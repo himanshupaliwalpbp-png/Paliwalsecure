@@ -10,14 +10,14 @@ const featuresData = [
   {
     key: 'aiPowered',
     icon: Brain,
-    color: '#043C50',
+    color: '#2563EB',
     titles: { en: 'AI-Powered Insights', hi: 'AI-संचालित अंतर्दृष्टि', hg: 'AI-Powered Insights' },
     descriptions: { en: 'Get personalized recommendations based on your unique financial situation and goals.', hi: 'अपनी अनूठी वित्तीय स्थिति और लक्ष्यों के आधार पर व्यक्तिगत सिफारिशें प्राप्त करें।', hg: 'Apni unique financial situation aur goals ke basis par personalized recommendations payein.' },
   },
   {
     key: 'smartAnalytics',
     icon: LineChart,
-    color: '#08799A',
+    color: '#10B981',
     titles: { en: 'Smart Analytics', hi: 'स्मार्ट एनालिटिक्स', hg: 'Smart Analytics' },
     descriptions: { en: 'Track your protection score and see how your coverage evolves over time.', hi: 'अपना सुरक्षा स्कोर ट्रैक करें और देखें कि आपका कवरेज समय के साथ कैसे बदलता है।', hg: 'Apna protection score track karein aur dekhein aapka coverage kaise badalta hai.' },
   },
@@ -97,8 +97,8 @@ export default function HowAIWorks() {
     <section className="section-luxury">
       {/* Subtle background accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#043C50]/[0.03] dark:bg-[#3DB8D8]/[0.05] rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#08799A]/[0.03] dark:bg-[#3DB8D8]/[0.04] rounded-full blur-[100px]" />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#2563EB]/[0.03] dark:bg-[#2563EB]/[0.05] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#10B981]/[0.03] dark:bg-[#10B981]/[0.04] rounded-full blur-[100px]" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -185,7 +185,7 @@ export default function HowAIWorks() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-[#D7C2A5] dark:text-[#D7C2A5] text-sm leading-relaxed font-body flex-1">
+                  <p className="text-[#64748B] dark:text-[#94A3B8] text-sm leading-relaxed font-body flex-1">
                     {desc}
                   </p>
 

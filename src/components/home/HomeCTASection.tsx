@@ -36,11 +36,11 @@ export default function HomeCTASection() {
         {/* Deep radial gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#070B14] via-[#0C1425] to-[#070B14]" />
         {/* Primary glow — center top */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#043C50]/[0.08] rounded-full blur-[150px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#2563EB]/[0.08] rounded-full blur-[150px]" />
         {/* Gold glow — center */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#E8C872]/[0.04] rounded-full blur-[120px]" />
         {/* Emerald glow — bottom */}
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#08799A]/[0.05] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#10B981]/[0.05] rounded-full blur-[120px]" />
         {/* Subtle grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.02]"
@@ -117,7 +117,7 @@ export default function HomeCTASection() {
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
               {trustIndicators.map((indicator, index) => (
                 <div key={index} className="flex items-center gap-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#08799A] shadow-[0_0_6px_rgba(8,121,154,0.4)]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,0.4)]" />
                   <span className="text-sm text-white/45 font-sans">
                     {isHindi ? indicator.hi : isEnglish ? indicator.en : indicator.hg}
                   </span>
