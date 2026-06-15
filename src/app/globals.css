@@ -3598,9 +3598,9 @@ html.theme-transitioning *::after {
   letter-spacing: 0.01em;
   line-height: 1.5;
   border-radius: 0.625rem;
-  border: 1.5px solid #64748B;
+  border: 1.5px solid #475569;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.88);
   color: #0F172A;
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -4112,7 +4112,7 @@ html.theme-transitioning *::after {
 /* Scoped: Only cards inside the category-cards-grid section */
 .category-cards-grid .premium-card {
   background: #EED9BE;
-  border: 1px solid #D7C2A5;
+  border: 1.5px solid #B8A080;
 }
 
 .category-cards-grid .premium-card:hover {
@@ -4126,7 +4126,7 @@ html.theme-transitioning *::after {
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-description {
-  color: #7A6B55;
+  color: #4A3F30;
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-feature {
@@ -4134,7 +4134,7 @@ html.theme-transitioning *::after {
 }
 
 .category-cards-grid .premium-card .border-t {
-  border-color: #D7C2A5;
+  border-color: #B8A080;
 }
 
 /* Dark mode overrides for CategoryCards grid */

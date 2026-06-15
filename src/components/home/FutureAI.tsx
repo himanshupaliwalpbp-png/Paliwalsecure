@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import { Shield, ArrowRight, Check, Heart, Car, Home, Users, ArrowLeft } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, ArrowRight, Check, Heart, Car, Home as HomeIcon, Users, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Types ─────────────────────────────────────────────────────────── */
-type QuizStep = 0 | 1 | 2 | 3 | 4;
+// Quiz step: 0 = landing, 1-4 = questions, 5 = results
+type QuizPhase = 'landing' | 'quiz' | 'results';
 
 interface ScoreResult {
   total: number;
@@ -17,21 +18,40 @@ interface ScoreResult {
 }
 
 /* ── Score calculation ──────────────────────────────────────────── */
-function calculateScore(answers: Record<number, number>): ScoreResult {
-  // Calculate sub-scores based on answers
-  // Q1: Insurance types owned (0-4) → health score
-  // Q2: Family size → life score
-  // Q3: Health checkup → health bonus
-  // Q4: Policy review → overall bonus
+function calculateScore(
+  selectedTypes: number[],  // Q1: array of selected insurance type values
+  familySize: number,       // Q2: 1-4
+  checkupRecency: number,   // Q3: 1-4 (1=recent, 4=never)
+  policyReview: number      // Q4: 1-3 (1=yes regularly, 3=no)
+): ScoreResult {
+  // Check which insurance types are actually selected
+  // Q1 options: 1=Health, 2=Life, 3=Vehicle, 4=Home/Travel
+  const hasHealth = selectedTypes.includes(1);
+  const hasLife = selectedTypes.includes(2);
+  const hasVehicle = selectedTypes.includes(3);
+  const hasHome = selectedTypes.includes(4);
+  const insuranceCount = selectedTypes.length;
 
-  const insuranceCount = answers[1] || 0; // 0-4 types
-  const hasLife = insuranceCount >= 1;
-  const hasHealth = insuranceCount >= 2;
-  const hasVehicle = insuranceCount >= 3;
+  // Health score: based on having health insurance, recent checkup, and coverage breadth
+  let healthScore = 15
+    + (hasHealth ? 35 : 0)
+    + (checkupRecency === 1 ? 25 : checkupRecency === 2 ? 15 : 5)
+    + (insuranceCount >= 2 ? 15 : 0)
+    + (hasHome ? 5 : 0);
 
-  let healthScore = 30 + (hasHealth ? 35 : 0) + (answers[3] === 1 ? 20 : 0) + (insuranceCount >= 2 ? 15 : 0);
-  let lifeScore = 30 + (hasLife ? 35 : 0) + (answers[2] <= 3 ? 20 : 10) + (answers[4] === 1 ? 15 : 0);
-  let vehicleScore = 30 + (hasVehicle ? 40 : 0) + (answers[4] === 1 ? 15 : 0) + (insuranceCount >= 3 ? 15 : 0);
+  // Life score: based on having life insurance, family size coverage, and policy review
+  let lifeScore = 15
+    + (hasLife ? 35 : 0)
+    + (familySize <= 2 ? 20 : familySize <= 3 ? 15 : 5)
+    + (policyReview === 1 ? 20 : policyReview === 2 ? 10 : 0)
+    + (insuranceCount >= 2 ? 5 : 0);
+
+  // Vehicle score: based on having vehicle insurance, policy review, and overall coverage
+  let vehicleScore = 15
+    + (hasVehicle ? 40 : 0)
+    + (policyReview === 1 ? 20 : policyReview === 2 ? 10 : 0)
+    + (insuranceCount >= 3 ? 15 : 0)
+    + (hasHome ? 5 : 0);
 
   // Clamp scores
   healthScore = Math.min(100, Math.max(15, healthScore));
@@ -111,7 +131,7 @@ const quizQuestions: QuizQuestion[] = [
       { value: 1, label: { en: 'Health Insurance', hi: 'हेल्थ इंश्योरेंस', hg: 'Health Insurance' }, icon: Heart },
       { value: 2, label: { en: 'Life Insurance', hi: 'लाइफ इंश्योरेंस', hg: 'Life Insurance' }, icon: Shield },
       { value: 3, label: { en: 'Vehicle Insurance', hi: 'व्हीकल इंश्योरेंस', hg: 'Vehicle Insurance' }, icon: Car },
-      { value: 4, label: { en: 'Home / Travel Insurance', hi: 'होम / ट्रैवल इंश्योरेंस', hg: 'Home / Travel Insurance' }, icon: Home },
+      { value: 4, label: { en: 'Home / Travel Insurance', hi: 'होम / ट्रैवल इंश्योरेंस', hg: 'Home / Travel Insurance' }, icon: HomeIcon },
     ],
     multiSelect: true,
   },
@@ -153,7 +173,7 @@ const quizQuestions: QuizQuestion[] = [
     options: [
       { value: 1, label: { en: 'Yes, I review regularly', hi: 'हाँ, मैं नियमित रूप से जांचता हूँ', hg: 'Yes, I review regularly' } },
       { value: 2, label: { en: 'No, but I plan to', hi: 'नहीं, लेकिन मैं करूँगा', hg: 'No, but I plan to' } },
-      { value: 3, label: { en: 'No, I haven\'t', hi: 'नहीं, मैंने नहीं किया', hg: 'No, I haven\'t' } },
+      { value: 3, label: { en: "No, I haven't", hi: 'नहीं, मैंने नहीं किया', hg: "No, I haven't" } },
     ],
   },
 ];
@@ -214,8 +234,10 @@ export default function FutureAI() {
   const isEnglish = language === 'en';
 
   // Quiz state
-  const [quizStep, setQuizStep] = useState<QuizStep>(0); // 0 = landing, 1-4 = questions, 5 = results
-  const [answers, setAnswers] = useState<Record<number, number[]>>({}); // multi-select support
+  const [phase, setPhase] = useState<QuizPhase>('landing');
+  const [currentStep, setCurrentStep] = useState(1); // 1-4
+  const [selectedTypes, setSelectedTypes] = useState<number[]>([]); // Q1 multi-select
+  const [singleAnswers, setSingleAnswers] = useState<Record<number, number>>({}); // Q2-Q4
   const [scoreResult, setScoreResult] = useState<ScoreResult | null>(null);
 
   const badge = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
@@ -242,57 +264,62 @@ export default function FutureAI() {
 
   // Handlers
   const handleStartQuiz = useCallback(() => {
-    setQuizStep(1);
-    setAnswers({});
+    setPhase('quiz');
+    setCurrentStep(1);
+    setSelectedTypes([]);
+    setSingleAnswers({});
     setScoreResult(null);
   }, []);
 
-  const handleAnswer = useCallback((questionId: number, value: number) => {
-    const question = quizQuestions.find(q => q.id === questionId);
-    if (question?.multiSelect) {
-      setAnswers(prev => {
-        const current = prev[questionId] || [];
-        const updated = current.includes(value)
-          ? current.filter(v => v !== value)
-          : [...current, value];
-        return { ...prev, [questionId]: updated };
-      });
-    } else {
-      setAnswers(prev => ({ ...prev, [questionId]: [value] }));
-    }
+  const handleCancel = useCallback(() => {
+    setPhase('landing');
+    setCurrentStep(1);
+    setSelectedTypes([]);
+    setSingleAnswers({});
+    setScoreResult(null);
+  }, []);
+
+  const handleToggleType = useCallback((value: number) => {
+    setSelectedTypes(prev =>
+      prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]
+    );
+  }, []);
+
+  const handleSelectAnswer = useCallback((questionId: number, value: number) => {
+    setSingleAnswers(prev => ({ ...prev, [questionId]: value }));
   }, []);
 
   const handleNext = useCallback(() => {
-    if (quizStep < 4) {
-      setQuizStep((s) => (s + 1) as QuizStep);
+    if (currentStep < 4) {
+      setCurrentStep(s => s + 1);
     } else {
       // Calculate score
-      const simplifiedAnswers: Record<number, number> = {};
-      // Q1: count of insurance types
-      simplifiedAnswers[1] = (answers[1] || []).length;
-      // Q2-Q4: use first selected value
-      for (let i = 2; i <= 4; i++) {
-        simplifiedAnswers[i] = (answers[i] || [1])[0];
-      }
-      const result = calculateScore(simplifiedAnswers);
+      const familySize = singleAnswers[2] || 1;
+      const checkupRecency = singleAnswers[3] || 4;
+      const policyReview = singleAnswers[4] || 3;
+      const result = calculateScore(selectedTypes, familySize, checkupRecency, policyReview);
       setScoreResult(result);
-      setQuizStep(0); // show results mode
+      setPhase('results');
     }
-  }, [quizStep, answers]);
+  }, [currentStep, selectedTypes, singleAnswers]);
 
   const handleBack = useCallback(() => {
-    if (quizStep > 1) {
-      setQuizStep((s) => (s - 1) as QuizStep);
+    if (currentStep > 1) {
+      setCurrentStep(s => s - 1);
+    } else {
+      handleCancel();
     }
-  }, [quizStep]);
+  }, [currentStep, handleCancel]);
 
-  const isQuizActive = quizStep >= 1 && quizStep <= 4;
-  const isShowingResults = scoreResult !== null && quizStep === 0 && Object.keys(answers).length > 0;
+  // Current question data
+  const currentQuestion = quizQuestions.find(q => q.id === currentStep);
+  const canProceed = currentStep === 1
+    ? selectedTypes.length > 0
+    : (singleAnswers[currentStep] !== undefined);
 
-  // Current question
-  const currentQuestion = quizQuestions.find(q => q.id === quizStep);
-  const currentAnswers = answers[quizStep] || [];
-  const canProceed = currentAnswers.length > 0;
+  // Score circle values
+  const displayScore = scoreResult?.total ?? null;
+  const displayLevel = scoreResult?.level ?? null;
 
   return (
     <section className="section-luxury bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden relative">
@@ -321,205 +348,236 @@ export default function FutureAI() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* ── Landing State (default) ── */}
-            {!isQuizActive && !isShowingResults && (
-              <div>
-                <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
-                  <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
-                  <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
-                    {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
-                  </span>
-                </div>
-
-                <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight">
-                  {heading}{' '}
-                  <span className="gradient-luxury">{headingAccent}</span>
-                </h2>
-
-                <p className="text-lg text-white/50 mb-10 leading-relaxed font-sans max-w-lg">
-                  {subtitle}
-                </p>
-
-                <div className="space-y-4 mb-10">
-                  {checklistItems.map((item, index) => (
-                    <div key={index} className="flex items-center gap-4">
-                      <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
-                        <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
-                      </div>
-                      <span className="text-[0.9375rem] text-white/75 font-sans">
-                        {isHindi ? item.hi : isEnglish ? item.en : item.hg}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  onClick={handleStartQuiz}
-                  className="btn-luxury-gold btn-luxury-lg group"
+            <AnimatePresence mode="wait">
+              {/* ── Landing State ── */}
+              {phase === 'landing' && (
+                <motion.div
+                  key="landing"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {ctaText}
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-                </button>
-              </div>
-            )}
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
+                    <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
+                    <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
+                      {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
+                    </span>
+                  </div>
 
-            {/* ── Quiz State ── */}
-            {isQuizActive && currentQuestion && (
-              <div>
-                {/* Progress */}
-                <div className="flex items-center gap-3 mb-8">
-                  {[1, 2, 3, 4].map((s) => (
-                    <div key={s} className="flex items-center gap-2">
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-                          s <= quizStep
-                            ? 'bg-[#E8C872] text-[#0F172A]'
-                            : 'bg-white/[0.06] text-white/30 border border-white/[0.08]'
-                        }`}
-                      >
-                        {s < quizStep ? <Check className="w-4 h-4" /> : s}
-                      </div>
-                      {s < 4 && (
-                        <div className={`w-8 h-0.5 ${s < quizStep ? 'bg-[#E8C872]' : 'bg-white/[0.06]'}`} />
-                      )}
-                    </div>
-                  ))}
-                  <span className="ml-auto text-sm text-white/40 font-sans">{quizStep}/4</span>
-                </div>
+                  <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight">
+                    {heading}{' '}
+                    <span className="gradient-luxury">{headingAccent}</span>
+                  </h2>
 
-                {/* Question */}
-                <h3 className="text-2xl md:text-3xl font-bold mb-8 font-heading leading-tight">
-                  {isHindi ? currentQuestion.question.hi : isEnglish ? currentQuestion.question.en : currentQuestion.question.hg}
-                </h3>
+                  <p className="text-lg text-white/50 mb-10 leading-relaxed font-sans max-w-lg">
+                    {subtitle}
+                  </p>
 
-                {/* Options */}
-                <div className="grid gap-3 mb-8">
-                  {currentQuestion.options.map((option) => {
-                    const Icon = option.icon;
-                    const isSelected = currentAnswers.includes(option.value);
-                    return (
-                      <button
-                        key={option.value}
-                        onClick={() => handleAnswer(currentQuestion.id, option.value)}
-                        className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left group ${
-                          isSelected
-                            ? 'bg-[#E8C872]/[0.12] border-[#E8C872]/[0.4] shadow-[0_0_20px_rgba(232,200,114,0.08)]'
-                            : 'bg-white/[0.04] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15]'
-                        }`}
-                      >
-                        {Icon && (
-                          <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 ${
-                            isSelected ? 'bg-[#E8C872]/20' : 'bg-white/[0.06]'
-                          }`}>
-                            <Icon className={`w-5 h-5 ${isSelected ? 'text-[#E8C872]' : 'text-white/50'}`} />
-                          </div>
-                        )}
-                        <span className={`text-base font-medium font-sans ${isSelected ? 'text-[#E8C872]' : 'text-white/70'}`}>
-                          {isHindi ? option.label.hi : isEnglish ? option.label.en : option.label.hg}
+                  <div className="space-y-4 mb-10">
+                    {checklistItems.map((item, index) => (
+                      <div key={index} className="flex items-center gap-4">
+                        <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
+                          <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
+                        </div>
+                        <span className="text-[0.9375rem] text-white/75 font-sans">
+                          {isHindi ? item.hi : isEnglish ? item.en : item.hg}
                         </span>
-                        {isSelected && (
-                          <Check className="w-5 h-5 text-[#E8C872] ml-auto" strokeWidth={2.5} />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Navigation */}
-                <div className="flex items-center justify-between">
-                  <button
-                    onClick={quizStep > 1 ? handleBack : handleStartQuiz}
-                    className="flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors font-sans"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    {quizStep > 1 ? backText : (isHindi ? 'रद्द करें' : isEnglish ? 'Cancel' : 'Cancel')}
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    disabled={!canProceed}
-                    className={`btn-luxury-gold btn-luxury-lg group ${!canProceed ? 'opacity-40 cursor-not-allowed' : ''}`}
-                  >
-                    {quizStep === 4 ? ctaText : nextText}
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* ── Results State ── */}
-            {isShowingResults && scoreResult && (
-              <div>
-                <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#10B981]/[0.1] backdrop-blur-sm rounded-full border border-[#10B981]/[0.15] mb-8">
-                  <Check className="h-3.5 w-3.5 text-[#10B981]" />
-                  <span className="text-xs font-semibold font-heading tracking-wide uppercase text-[#10B981]">
-                    {isHindi ? 'विश्लेषण पूर्ण' : isEnglish ? 'Analysis Complete' : 'Analysis Complete'}
-                  </span>
-                </div>
-
-                <h2 className="text-4xl md:text-5xl font-extrabold mb-4 font-heading leading-[1.1] tracking-tight">
-                  {isHindi ? 'आपका' : isEnglish ? 'Your' : 'Aapka'}{' '}
-                  <span className="gradient-luxury">{headingAccent}</span>
-                </h2>
-
-                <p className="text-lg text-white/50 mb-8 leading-relaxed font-sans">
-                  {isHindi
-                    ? 'आपके उत्तरों के आधार पर AI-संचालित विश्लेषण'
-                    : isEnglish
-                      ? 'AI-powered analysis based on your answers'
-                      : 'AI-powered analysis based on your answers'}
-                </p>
-
-                {/* Score Breakdown Cards */}
-                <div className="space-y-3 mb-8">
-                  {[
-                    { label: isHindi ? 'स्वास्थ्य सुरक्षा' : isEnglish ? 'Health Protection' : 'Health Protection', value: scoreResult.health, color: '#10B981' },
-                    { label: isHindi ? 'जीवन सुरक्षा' : isEnglish ? 'Life Protection' : 'Life Protection', value: scoreResult.life, color: '#2563EB' },
-                    { label: isHindi ? 'वाहन सुरक्षा' : isEnglish ? 'Vehicle Protection' : 'Vehicle Protection', value: scoreResult.vehicle, color: '#F59E0B' },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.04] border border-white/[0.06]">
-                      <span className="text-sm text-white/60 font-sans min-w-[130px]">{item.label}</span>
-                      <div className="flex-1 h-2 bg-white/[0.06] rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ backgroundColor: item.color }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${item.value}%` }}
-                          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: i * 0.2 }}
-                        />
                       </div>
-                      <span className="text-sm font-bold font-heading min-w-[40px] text-right" style={{ color: item.color }}>
-                        {item.value}%
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                {/* Action buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
                   <button
-                    onClick={() => {
-                      setAnswers({});
-                      setScoreResult(null);
-                      setQuizStep(1);
-                    }}
-                    className="btn-luxury-secondary btn-luxury-lg !border-white/[0.15] !text-white/80 !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.25] hover:!text-white"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    {retakeText}
-                  </button>
-                  <a
-                    href="https://wa.me/919257877312"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    type="button"
+                    onClick={handleStartQuiz}
                     className="btn-luxury-gold btn-luxury-lg group"
                   >
-                    {talkAdvisorText}
+                    {ctaText}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-                  </a>
-                </div>
-              </div>
-            )}
+                  </button>
+                </motion.div>
+              )}
+
+              {/* ── Quiz State ── */}
+              {phase === 'quiz' && currentQuestion && (
+                <motion.div
+                  key={`quiz-${currentStep}`}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Progress */}
+                  <div className="flex items-center gap-3 mb-8">
+                    {[1, 2, 3, 4].map((s) => (
+                      <div key={s} className="flex items-center gap-2">
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                            s < currentStep
+                              ? 'bg-[#E8C872] text-[#0F172A]'
+                              : s === currentStep
+                                ? 'bg-[#E8C872] text-[#0F172A] ring-2 ring-[#E8C872]/30'
+                                : 'bg-white/[0.06] text-white/30 border border-white/[0.08]'
+                          }`}
+                        >
+                          {s < currentStep ? <Check className="w-4 h-4" /> : s}
+                        </div>
+                        {s < 4 && (
+                          <div className={`w-8 h-0.5 ${s < currentStep ? 'bg-[#E8C872]' : 'bg-white/[0.06]'}`} />
+                        )}
+                      </div>
+                    ))}
+                    <span className="ml-auto text-sm text-white/40 font-sans">{currentStep}/4</span>
+                  </div>
+
+                  {/* Question */}
+                  <h3 className="text-2xl md:text-3xl font-bold mb-8 font-heading leading-tight">
+                    {isHindi ? currentQuestion.question.hi : isEnglish ? currentQuestion.question.en : currentQuestion.question.hg}
+                  </h3>
+
+                  {/* Options */}
+                  <div className="grid gap-3 mb-8">
+                    {currentQuestion.options.map((option) => {
+                      const Icon = option.icon;
+                      const isSelected = currentStep === 1
+                        ? selectedTypes.includes(option.value)
+                        : singleAnswers[currentStep] === option.value;
+                      return (
+                        <button
+                          type="button"
+                          key={option.value}
+                          onClick={() => {
+                            if (currentStep === 1) {
+                              handleToggleType(option.value);
+                            } else {
+                              handleSelectAnswer(currentStep, option.value);
+                            }
+                          }}
+                          className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left group ${
+                            isSelected
+                              ? 'bg-[#E8C872]/[0.12] border-[#E8C872]/[0.4] shadow-[0_0_20px_rgba(232,200,114,0.08)]'
+                              : 'bg-white/[0.04] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15]'
+                          }`}
+                        >
+                          {Icon && (
+                            <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                              isSelected ? 'bg-[#E8C872]/20' : 'bg-white/[0.06]'
+                            }`}>
+                              <Icon className={`w-5 h-5 ${isSelected ? 'text-[#E8C872]' : 'text-white/50'}`} />
+                            </div>
+                          )}
+                          <span className={`text-base font-medium font-sans ${isSelected ? 'text-[#E8C872]' : 'text-white/70'}`}>
+                            {isHindi ? option.label.hi : isEnglish ? option.label.en : option.label.hg}
+                          </span>
+                          {isSelected && (
+                            <Check className="w-5 h-5 text-[#E8C872] ml-auto" strokeWidth={2.5} />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Navigation */}
+                  <div className="flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors font-sans"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      {currentStep > 1 ? backText : (isHindi ? 'रद्द करें' : isEnglish ? 'Cancel' : 'Cancel')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      disabled={!canProceed}
+                      className={`btn-luxury-gold btn-luxury-lg group ${!canProceed ? 'opacity-40 cursor-not-allowed' : ''}`}
+                    >
+                      {currentStep === 4 ? ctaText : nextText}
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* ── Results State ── */}
+              {phase === 'results' && scoreResult && (
+                <motion.div
+                  key="results"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#10B981]/[0.1] backdrop-blur-sm rounded-full border border-[#10B981]/[0.15] mb-8">
+                    <Check className="h-3.5 w-3.5 text-[#10B981]" />
+                    <span className="text-xs font-semibold font-heading tracking-wide uppercase text-[#10B981]">
+                      {isHindi ? 'विश्लेषण पूर्ण' : isEnglish ? 'Analysis Complete' : 'Analysis Complete'}
+                    </span>
+                  </div>
+
+                  <h2 className="text-4xl md:text-5xl font-extrabold mb-4 font-heading leading-[1.1] tracking-tight">
+                    {isHindi ? 'आपका' : isEnglish ? 'Your' : 'Aapka'}{' '}
+                    <span className="gradient-luxury">{headingAccent}</span>
+                  </h2>
+
+                  <p className="text-lg text-white/50 mb-8 leading-relaxed font-sans">
+                    {isHindi
+                      ? 'आपके उत्तरों के आधार पर AI-संचालित विश्लेषण'
+                      : isEnglish
+                        ? 'AI-powered analysis based on your answers'
+                        : 'AI-powered analysis based on your answers'}
+                  </p>
+
+                  {/* Score Breakdown Cards */}
+                  <div className="space-y-3 mb-8">
+                    {[
+                      { label: isHindi ? 'स्वास्थ्य सुरक्षा' : isEnglish ? 'Health Protection' : 'Health Protection', value: scoreResult.health, color: '#10B981' },
+                      { label: isHindi ? 'जीवन सुरक्षा' : isEnglish ? 'Life Protection' : 'Life Protection', value: scoreResult.life, color: '#2563EB' },
+                      { label: isHindi ? 'वाहन सुरक्षा' : isEnglish ? 'Vehicle Protection' : 'Vehicle Protection', value: scoreResult.vehicle, color: '#F59E0B' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.04] border border-white/[0.06]">
+                        <span className="text-sm text-white/60 font-sans min-w-[130px]">{item.label}</span>
+                        <div className="flex-1 h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: item.color }}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${item.value}%` }}
+                            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: i * 0.2 }}
+                          />
+                        </div>
+                        <span className="text-sm font-bold font-heading min-w-[40px] text-right" style={{ color: item.color }}>
+                          {item.value}%
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      type="button"
+                      onClick={handleStartQuiz}
+                      className="btn-luxury-secondary btn-luxury-lg !border-white/[0.15] !text-white/80 !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.25] hover:!text-white"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      {retakeText}
+                    </button>
+                    <a
+                      href="https://wa.me/919257877312"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-luxury-gold btn-luxury-lg group"
+                    >
+                      {talkAdvisorText}
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Right Column: Visual Score Circle */}
@@ -547,34 +605,80 @@ export default function FutureAI() {
                     strokeLinecap="round"
                     strokeDasharray="534"
                     initial={{ strokeDashoffset: 534 }}
-                    animate={scoreResult ? { strokeDashoffset: 534 - (534 * scoreResult.total) / 100 } : { strokeDashoffset: 534 - (534 * 87) / 100 }}
+                    animate={displayScore !== null
+                      ? { strokeDashoffset: 534 - (534 * displayScore) / 100 }
+                      : { strokeDashoffset: 534 }
+                    }
                     transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
                   />
                   <defs>
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor={scoreResult ? getLevelColor(scoreResult.level) : '#E8C872'} />
-                      <stop offset="50%" stopColor={scoreResult ? getLevelColor(scoreResult.level) : '#F0D890'} />
+                      <stop offset="0%" stopColor={displayLevel ? getLevelColor(displayLevel) : '#E8C872'} />
+                      <stop offset="50%" stopColor={displayLevel ? getLevelColor(displayLevel) : '#F0D890'} />
                       <stop offset="100%" stopColor="#10B981" />
                     </linearGradient>
                   </defs>
                 </svg>
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <motion.div
-                    key={scoreResult?.total || 87}
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-7xl font-bold font-heading tracking-tight text-white"
-                  >
-                    {scoreResult?.total || 87}
-                  </motion.div>
-                  <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
-                  <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
-                    <span className="text-xs font-semibold font-heading tracking-wide" style={{ color: scoreResult ? getLevelColor(scoreResult.level) : '#E8C872' }}>
-                      {scoreResult ? getLevelLabel(scoreResult.level, isHindi, isEnglish) : (isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection')}
-                    </span>
-                  </div>
+                  {phase === 'quiz' ? (
+                    /* Quiz in progress indicator */
+                    <motion.div
+                      key={`quiz-circle-${currentStep}`}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-center"
+                    >
+                      <div className="text-7xl font-bold font-heading tracking-tight text-[#E8C872]">
+                        {currentStep}
+                      </div>
+                      <div className="text-base text-white/40 font-sans mt-1">of 4</div>
+                      <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
+                        <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
+                          {isHindi ? 'क्विज़ जारी' : isEnglish ? 'Quiz in Progress' : 'Quiz in Progress'}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ) : displayScore !== null ? (
+                    /* Results score */
+                    <motion.div
+                      key={`score-${displayScore}`}
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-center"
+                    >
+                      <div className="text-7xl font-bold font-heading tracking-tight text-white">
+                        {displayScore}
+                      </div>
+                      <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
+                      <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
+                        <span className="text-xs font-semibold font-heading tracking-wide" style={{ color: getLevelColor(displayLevel!) }}>
+                          {getLevelLabel(displayLevel!, isHindi, isEnglish)}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    /* Landing placeholder */
+                    <motion.div
+                      key="landing-circle"
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-center"
+                    >
+                      <div className="text-7xl font-bold font-heading tracking-tight text-white/20">
+                        ?
+                      </div>
+                      <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
+                      <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
+                        <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
+                          {isHindi ? 'अपना स्कोर जानें' : isEnglish ? 'Discover Your Score' : 'Apna Score Jaanein'}
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               </div>
 
@@ -589,15 +693,15 @@ export default function FutureAI() {
                 <div className="bg-white/[0.06] backdrop-blur-xl rounded-2xl p-5 border border-white/[0.08]">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-xl font-bold gradient-luxury font-heading">{scoreResult?.life || 92}%</div>
+                      <div className="text-xl font-bold gradient-luxury font-heading">{scoreResult?.life ?? '--'}%</div>
                       <div className="text-[11px] text-white/40 font-sans mt-0.5">Life</div>
                     </div>
                     <div className="border-x border-white/[0.06]">
-                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">{scoreResult?.health || 85}%</div>
+                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">{scoreResult?.health ?? '--'}%</div>
                       <div className="text-[11px] text-white/40 font-sans mt-0.5">Health</div>
                     </div>
                     <div>
-                      <div className="text-xl font-bold text-white/90 font-heading">{scoreResult?.vehicle || 84}%</div>
+                      <div className="text-xl font-bold text-white/90 font-heading">{scoreResult?.vehicle ?? '--'}%</div>
                       <div className="text-[11px] text-white/40 font-sans mt-0.5">Vehicle</div>
                     </div>
                   </div>
@@ -609,6 +713,21 @@ export default function FutureAI() {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+
+      {/* Feature cards grid — below the quiz section */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 pb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {['feature1', 'feature2', 'feature3', 'feature4'].map((featureKey, index) => (
+            <FeatureCard
+              key={featureKey}
+              featureKey={featureKey}
+              index={index}
+              isHindi={isHindi}
+              isEnglish={isEnglish}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

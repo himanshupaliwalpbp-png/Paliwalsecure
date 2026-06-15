@@ -326,7 +326,7 @@ export default function HeroAdvisor() {
         </div>
         <div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white font-display">{resultsTitle}</h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-body mt-0.5">{resultsSubtitle}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-body mt-0.5">{resultsSubtitle}</p>
         </div>
       </div>
 
@@ -334,7 +334,7 @@ export default function HeroAdvisor() {
       {isSubmitting && !result && (
         <div className="flex flex-col items-center py-12 gap-4">
           <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-600 dark:border-blue-400/20 dark:border-t-blue-400 rounded-full animate-spin" />
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-body">Analyzing...</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 font-body">Analyzing...</p>
         </div>
       )}
 
@@ -352,25 +352,25 @@ export default function HeroAdvisor() {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="font-semibold text-slate-900 dark:text-white font-display">{plan.insurer}</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 font-body">{plan.plan}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 font-body">{plan.plan}</p>
                 </div>
                 <StarRating rating={plan.rating} />
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400 font-body">{sumInsuredLabel}</span>
+                  <span className="text-slate-600 dark:text-slate-400 font-body">{sumInsuredLabel}</span>
                   <p className="font-semibold text-slate-900 dark:text-white font-body">{plan.sumInsured}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 dark:text-slate-400 font-body">{premiumLabel}</span>
+                  <span className="text-slate-600 dark:text-slate-400 font-body">{premiumLabel}</span>
                   <p className="font-semibold text-slate-900 dark:text-white font-body">{plan.monthlyPremium}</p>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-700/40 space-y-1.5">
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
+                <p className="text-xs text-slate-600 dark:text-slate-400 font-body">
                   <span className="font-medium text-slate-900 dark:text-white">{whyFitsLabel}:</span> {plan.whyItFits}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
+                <p className="text-xs text-slate-600 dark:text-slate-400 font-body">
                   <span className="font-medium text-slate-900 dark:text-white">{claimRatioLabel}:</span> {plan.claimRatio}
                 </p>
               </div>
@@ -382,20 +382,20 @@ export default function HeroAdvisor() {
       {result && result.advisorMessage && (
         <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-emerald-50 dark:from-blue-950/30 dark:to-emerald-950/30 rounded-xl border border-slate-200/60 dark:border-slate-700/40">
           <p className="text-sm font-medium text-slate-900 dark:text-white font-body mb-1">{advisorMessageLabel}</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-body">{result.advisorMessage}</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 font-body">{result.advisorMessage}</p>
         </div>
       )}
 
       {result && result.followUpQuestion && (
         <div className="mt-3 p-4 bg-blue-50/80 dark:bg-blue-950/30 rounded-xl border border-blue-200/50 dark:border-blue-800/30">
           <p className="text-sm font-medium text-blue-700 dark:text-blue-400 font-body mb-1">{followUpLabel}</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-body">{result.followUpQuestion}</p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 font-body">{result.followUpQuestion}</p>
         </div>
       )}
 
       {result && (!result.plans || result.plans.length === 0) && (
         <div className="text-center py-8">
-          <p className="text-slate-500 dark:text-slate-400 font-body">{noPlansMsg}</p>
+          <p className="text-slate-600 dark:text-slate-400 font-body">{noPlansMsg}</p>
         </div>
       )}
 
@@ -500,7 +500,7 @@ export default function HeroAdvisor() {
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-luxury-secondary btn-luxury-lg !bg-white/90 !border-slate-300 hover:!bg-slate-900 hover:!text-white hover:!border-slate-900"
+                className="btn-luxury-secondary btn-luxury-lg !bg-white !border-slate-400 !shadow-sm hover:!bg-slate-900 hover:!text-white hover:!border-slate-900"
               >
                 {secondaryCTA}
                 <ArrowRight className="h-4 w-4" />
@@ -539,7 +539,7 @@ export default function HeroAdvisor() {
                 <div className="flex items-center gap-6 mb-6">
                   <AnimatedScoreCircle score={87} size={110} />
                   <div className="flex-1">
-                    <div className="text-label-premium text-slate-500 dark:text-slate-400 mb-1.5">Protection Score</div>
+                    <div className="text-label-premium text-slate-600 dark:text-slate-400 mb-1.5">Protection Score</div>
                     <div className="text-3xl font-bold font-display text-slate-900 dark:text-white tracking-tight">87/100</div>
                     <div className="flex items-center gap-1.5 mt-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
                       <TrendingUp className="h-4 w-4" />
@@ -555,7 +555,7 @@ export default function HeroAdvisor() {
                     { label: 'Vehicle Insurance', pct: 95, color: 'from-amber-400 to-amber-500' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between gap-4">
-                      <span className="text-sm text-slate-500 dark:text-slate-400 font-body min-w-[120px]">{item.label}</span>
+                      <span className="text-sm text-slate-600 dark:text-slate-400 font-body min-w-[120px]">{item.label}</span>
                       <div className="flex items-center gap-3 flex-1">
                         <div className="flex-1 h-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-full overflow-hidden">
                           <motion.div
@@ -579,7 +579,7 @@ export default function HeroAdvisor() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -top-2 -right-2 glass-premium rounded-xl p-3.5 border border-slate-200/60 dark:border-slate-700/40 hidden lg:block z-10 shadow-premium"
             >
-              <div className="text-xs text-slate-500 dark:text-slate-400 font-body mb-0.5">Savings This Year</div>
+              <div className="text-xs text-slate-600 dark:text-slate-400 font-body mb-0.5">Savings This Year</div>
               <div className="text-xl font-bold gradient-text-blue-emerald font-display">₹45,000</div>
             </motion.div>
 
@@ -593,7 +593,7 @@ export default function HeroAdvisor() {
                   <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-body uppercase tracking-wider">Claims Settled</div>
+                  <div className="text-[10px] text-slate-600 dark:text-slate-400 font-body uppercase tracking-wider">Claims Settled</div>
                   <div className="text-lg font-bold text-slate-900 dark:text-white font-display">100%</div>
                 </div>
               </div>
@@ -633,7 +633,7 @@ export default function HeroAdvisor() {
                         <Sparkles className="w-2.5 h-2.5" />
                         AI
                       </span>
-                      <div className="ml-auto text-xs text-slate-400 dark:text-slate-500 font-body tabular-nums">
+                      <div className="ml-auto text-xs text-slate-500 dark:text-slate-500 font-body tabular-nums">
                         {step}/4
                       </div>
                     </div>
@@ -832,10 +832,10 @@ export default function HeroAdvisor() {
 
                     {/* Divider + WhatsApp link */}
                     <div className="px-6 sm:px-7 pb-6">
-                      <div className="flex items-center gap-3 text-slate-500 dark:text-slate-500 text-xs font-body">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-400 dark:via-slate-600 to-transparent" />
+                      <div className="flex items-center gap-3 text-slate-700 dark:text-slate-500 text-xs font-body">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 dark:via-slate-600 to-transparent" />
                         {orDivider}
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-400 dark:via-slate-600 to-transparent" />
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 dark:via-slate-600 to-transparent" />
                       </div>
                       <a
                         href="https://wa.me/919257877312"
