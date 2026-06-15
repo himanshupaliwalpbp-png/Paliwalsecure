@@ -477,7 +477,7 @@ export default function HeroAdvisor() {
             </motion.h1>
 
             {/* Description */}
-            <motion.p variants={heroChild} className="text-body-lg text-slate-500 dark:text-slate-400 mb-10 leading-relaxed font-body max-w-xl">
+            <motion.p variants={heroChild} className="text-body-lg text-[#1E293B] dark:text-slate-400 mb-10 leading-relaxed font-body max-w-xl">
               {subtext}
             </motion.p>
 
@@ -500,7 +500,7 @@ export default function HeroAdvisor() {
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-luxury-secondary btn-luxury-lg"
+                className="btn-luxury-secondary btn-luxury-lg !bg-white/90 !border-slate-300 hover:!bg-slate-900 hover:!text-white hover:!border-slate-900"
               >
                 {secondaryCTA}
                 <ArrowRight className="h-4 w-4" />
@@ -841,7 +841,7 @@ export default function HeroAdvisor() {
                         href="https://wa.me/919257877312"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl border-2 border-emerald-500 dark:border-emerald-600 text-emerald-700 dark:text-emerald-400 text-sm font-semibold bg-emerald-50/60 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:border-emerald-600 dark:hover:border-emerald-500 transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
+                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
                       >
                         <MessageCircle className="w-4 h-4" />
                         {whatsAppInstead}

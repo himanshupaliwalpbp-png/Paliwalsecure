@@ -129,7 +129,7 @@ export default function TestimonialsSection() {
           <h2 className="text-3xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display tracking-tight leading-[1.1]">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-base md:text-lg text-[#64748B] dark:text-[#A6AEC7] max-w-2xl mx-auto font-body leading-relaxed">
+          <p className="text-base md:text-lg text-[#1E293B] dark:text-[#A6AEC7] max-w-2xl mx-auto font-body leading-relaxed">
             {subtitle}
           </p>
         </motion.div>

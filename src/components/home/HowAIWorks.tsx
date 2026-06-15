@@ -94,7 +94,7 @@ export default function HowAIWorks() {
       : 'Hum cutting-edge technology ko human expertise ke saath jodte hain taaki best insurance experience de sakein.';
 
   return (
-    <section className="section-luxury">
+    <section className="section-luxury bg-background dark:bg-[#0A1330]">
       {/* Subtle background accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#2563EB]/[0.03] dark:bg-[#2563EB]/[0.05] rounded-full blur-[120px]" />

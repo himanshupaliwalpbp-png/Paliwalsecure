@@ -1,9 +1,72 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, ArrowRight, Check } from 'lucide-react';
+import { Shield, ArrowRight, Check, Heart, Car, Home, Users, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
+
+/* ── Types ─────────────────────────────────────────────────────────── */
+type QuizStep = 0 | 1 | 2 | 3 | 4;
+
+interface ScoreResult {
+  total: number;
+  life: number;
+  health: number;
+  vehicle: number;
+  level: 'excellent' | 'good' | 'fair' | 'needs-work';
+}
+
+/* ── Score calculation ──────────────────────────────────────────── */
+function calculateScore(answers: Record<number, number>): ScoreResult {
+  // Calculate sub-scores based on answers
+  // Q1: Insurance types owned (0-4) → health score
+  // Q2: Family size → life score
+  // Q3: Health checkup → health bonus
+  // Q4: Policy review → overall bonus
+
+  const insuranceCount = answers[1] || 0; // 0-4 types
+  const hasLife = insuranceCount >= 1;
+  const hasHealth = insuranceCount >= 2;
+  const hasVehicle = insuranceCount >= 3;
+
+  let healthScore = 30 + (hasHealth ? 35 : 0) + (answers[3] === 1 ? 20 : 0) + (insuranceCount >= 2 ? 15 : 0);
+  let lifeScore = 30 + (hasLife ? 35 : 0) + (answers[2] <= 3 ? 20 : 10) + (answers[4] === 1 ? 15 : 0);
+  let vehicleScore = 30 + (hasVehicle ? 40 : 0) + (answers[4] === 1 ? 15 : 0) + (insuranceCount >= 3 ? 15 : 0);
+
+  // Clamp scores
+  healthScore = Math.min(100, Math.max(15, healthScore));
+  lifeScore = Math.min(100, Math.max(15, lifeScore));
+  vehicleScore = Math.min(100, Math.max(15, vehicleScore));
+
+  const total = Math.round((healthScore + lifeScore + vehicleScore) / 3);
+
+  let level: ScoreResult['level'] = 'needs-work';
+  if (total >= 80) level = 'excellent';
+  else if (total >= 60) level = 'good';
+  else if (total >= 40) level = 'fair';
+
+  return { total, life: lifeScore, health: healthScore, vehicle: vehicleScore, level };
+}
+
+function getLevelLabel(level: ScoreResult['level'], isHindi: boolean, isEnglish: boolean) {
+  const labels = {
+    excellent: { en: 'Excellent Protection', hi: 'उत्कृष्ट सुरक्षा', hg: 'Excellent Protection' },
+    good: { en: 'Good Protection', hi: 'अच्छी सुरक्षा', hg: 'Good Protection' },
+    fair: { en: 'Fair Protection', hi: 'औसत सुरक्षा', hg: 'Fair Protection' },
+    'needs-work': { en: 'Needs Improvement', hi: 'सुधार ज़रूरी', hg: 'Needs Improvement' },
+  };
+  const l = labels[level];
+  return isHindi ? l.hi : isEnglish ? l.en : l.hg;
+}
+
+function getLevelColor(level: ScoreResult['level']) {
+  switch (level) {
+    case 'excellent': return '#10B981';
+    case 'good': return '#E8C872';
+    case 'fair': return '#F59E0B';
+    case 'needs-work': return '#EF4444';
+  }
+}
 
 /* ── Inline translations ───────────────────────────────────────────── */
 const featureTitles: Record<string, { en: string; hi: string; hg: string }> = {
@@ -21,6 +84,79 @@ const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
 };
 
 const featureColors = ['#2563EB', '#10B981', '#E8C872', '#8B5CF6'];
+
+/* ── Quiz questions data ────────────────────────────────────────── */
+interface QuizOption {
+  value: number;
+  label: { en: string; hi: string; hg: string };
+  icon?: React.ElementType;
+}
+
+interface QuizQuestion {
+  id: number;
+  question: { en: string; hi: string; hg: string };
+  options: QuizOption[];
+  multiSelect?: boolean;
+}
+
+const quizQuestions: QuizQuestion[] = [
+  {
+    id: 1,
+    question: {
+      en: 'Which insurance do you currently have?',
+      hi: 'आपके पास अभी कौन सा बीमा है?',
+      hg: 'Aapke paas abhi kaun sa insurance hai?',
+    },
+    options: [
+      { value: 1, label: { en: 'Health Insurance', hi: 'हेल्थ इंश्योरेंस', hg: 'Health Insurance' }, icon: Heart },
+      { value: 2, label: { en: 'Life Insurance', hi: 'लाइफ इंश्योरेंस', hg: 'Life Insurance' }, icon: Shield },
+      { value: 3, label: { en: 'Vehicle Insurance', hi: 'व्हीकल इंश्योरेंस', hg: 'Vehicle Insurance' }, icon: Car },
+      { value: 4, label: { en: 'Home / Travel Insurance', hi: 'होम / ट्रैवल इंश्योरेंस', hg: 'Home / Travel Insurance' }, icon: Home },
+    ],
+    multiSelect: true,
+  },
+  {
+    id: 2,
+    question: {
+      en: 'How many family members need coverage?',
+      hi: 'कितने परिवार के सदस्यों को कवरेज चाहिए?',
+      hg: 'Kitne parivaar ke sadasyon ko coverage chahiye?',
+    },
+    options: [
+      { value: 1, label: { en: 'Just me', hi: 'सिर्फ मैं', hg: 'Just me' }, icon: Users },
+      { value: 2, label: { en: '2-3 members', hi: '2-3 सदस्य', hg: '2-3 members' }, icon: Users },
+      { value: 3, label: { en: '4-5 members', hi: '4-5 सदस्य', hg: '4-5 members' }, icon: Users },
+      { value: 4, label: { en: '6+ members', hi: '6+ सदस्य', hg: '6+ members' }, icon: Users },
+    ],
+  },
+  {
+    id: 3,
+    question: {
+      en: 'When did you last get a health checkup?',
+      hi: 'आपने आखिरी बार हेल्थ चेकअप कब करवाया?',
+      hg: 'Aapne aakhri baar health checkup kab karvaya?',
+    },
+    options: [
+      { value: 1, label: { en: 'Within last 6 months', hi: 'पिछले 6 महीने में', hg: 'Within last 6 months' } },
+      { value: 2, label: { en: '6-12 months ago', hi: '6-12 महीने पहले', hg: '6-12 months ago' } },
+      { value: 3, label: { en: 'More than a year', hi: 'एक साल से ज़्यादा', hg: 'More than a year' } },
+      { value: 4, label: { en: 'Never', hi: 'कभी नहीं', hg: 'Never' } },
+    ],
+  },
+  {
+    id: 4,
+    question: {
+      en: 'Have you reviewed your policies in the last year?',
+      hi: 'क्या आपने पिछले साल अपनी पॉलिसी की समीक्षा की?',
+      hg: 'Kya aapne pichle saal apni policy ki samiksha ki?',
+    },
+    options: [
+      { value: 1, label: { en: 'Yes, I review regularly', hi: 'हाँ, मैं नियमित रूप से जांचता हूँ', hg: 'Yes, I review regularly' } },
+      { value: 2, label: { en: 'No, but I plan to', hi: 'नहीं, लेकिन मैं करूँगा', hg: 'No, but I plan to' } },
+      { value: 3, label: { en: 'No, I haven\'t', hi: 'नहीं, मैंने नहीं किया', hg: 'No, I haven\'t' } },
+    ],
+  },
+];
 
 /* ── Feature Card ──────────────────────────────────────────────── */
 function FeatureCard({
@@ -77,6 +213,11 @@ export default function FutureAI() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
+  // Quiz state
+  const [quizStep, setQuizStep] = useState<QuizStep>(0); // 0 = landing, 1-4 = questions, 5 = results
+  const [answers, setAnswers] = useState<Record<number, number[]>>({}); // multi-select support
+  const [scoreResult, setScoreResult] = useState<ScoreResult | null>(null);
+
   const badge = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
   const heading = isHindi ? 'अपना जानें' : isEnglish ? 'Know Your' : 'Apna jaanein';
   const headingAccent = isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score';
@@ -94,18 +235,72 @@ export default function FutureAI() {
   ];
 
   const ctaText = isHindi ? 'अपना स्कोर गणना करें' : isEnglish ? 'Calculate Your Score' : 'Apna score calculate karein';
+  const nextText = isHindi ? 'अगला' : isEnglish ? 'Next' : 'Next';
+  const backText = isHindi ? 'पीछे' : isEnglish ? 'Back' : 'Back';
+  const retakeText = isHindi ? 'फिर से करें' : isEnglish ? 'Retake Quiz' : 'Retake Quiz';
+  const talkAdvisorText = isHindi ? 'Advisor से बात करें' : isEnglish ? 'Talk to Advisor' : 'Advisor se baat karein';
+
+  // Handlers
+  const handleStartQuiz = useCallback(() => {
+    setQuizStep(1);
+    setAnswers({});
+    setScoreResult(null);
+  }, []);
+
+  const handleAnswer = useCallback((questionId: number, value: number) => {
+    const question = quizQuestions.find(q => q.id === questionId);
+    if (question?.multiSelect) {
+      setAnswers(prev => {
+        const current = prev[questionId] || [];
+        const updated = current.includes(value)
+          ? current.filter(v => v !== value)
+          : [...current, value];
+        return { ...prev, [questionId]: updated };
+      });
+    } else {
+      setAnswers(prev => ({ ...prev, [questionId]: [value] }));
+    }
+  }, []);
+
+  const handleNext = useCallback(() => {
+    if (quizStep < 4) {
+      setQuizStep((s) => (s + 1) as QuizStep);
+    } else {
+      // Calculate score
+      const simplifiedAnswers: Record<number, number> = {};
+      // Q1: count of insurance types
+      simplifiedAnswers[1] = (answers[1] || []).length;
+      // Q2-Q4: use first selected value
+      for (let i = 2; i <= 4; i++) {
+        simplifiedAnswers[i] = (answers[i] || [1])[0];
+      }
+      const result = calculateScore(simplifiedAnswers);
+      setScoreResult(result);
+      setQuizStep(0); // show results mode
+    }
+  }, [quizStep, answers]);
+
+  const handleBack = useCallback(() => {
+    if (quizStep > 1) {
+      setQuizStep((s) => (s - 1) as QuizStep);
+    }
+  }, [quizStep]);
+
+  const isQuizActive = quizStep >= 1 && quizStep <= 4;
+  const isShowingResults = scoreResult !== null && quizStep === 0 && Object.keys(answers).length > 0;
+
+  // Current question
+  const currentQuestion = quizQuestions.find(q => q.id === quizStep);
+  const currentAnswers = answers[quizStep] || [];
+  const canProceed = currentAnswers.length > 0;
 
   return (
     <section className="section-luxury bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden relative">
       {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Primary glow — top-left */}
         <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.07] rounded-full blur-[120px]" />
-        {/* Secondary glow — bottom-right */}
         <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.06] rounded-full blur-[120px]" />
-        {/* Gold accent glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#E8C872]/[0.03] rounded-full blur-[150px]" />
-        {/* Subtle dot grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
@@ -115,68 +310,219 @@ export default function FutureAI() {
         />
       </div>
 
-      {/* Top gradient edge */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
-          {/* Content */}
+          {/* Left Column: Content / Quiz */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
-              <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
-              <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
-                {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
-              </span>
-            </div>
-
-            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight">
-              {heading}{' '}
-              <span className="gradient-luxury">{headingAccent}</span>
-            </h2>
-
-            <p className="text-lg text-white/50 mb-10 leading-relaxed font-sans max-w-lg">
-              {subtitle}
-            </p>
-
-            <div className="space-y-4 mb-10">
-              {checklistItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center gap-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 * index, duration: 0.5 }}
-                >
-                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
-                    <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
-                  </div>
-                  <span className="text-[0.9375rem] text-white/75 font-sans">
-                    {isHindi ? item.hi : isEnglish ? item.en : item.hg}
+            {/* ── Landing State (default) ── */}
+            {!isQuizActive && !isShowingResults && (
+              <div>
+                <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
+                  <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
+                  <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
+                    {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
                   </span>
-                </motion.div>
-              ))}
-            </div>
+                </div>
 
-            <button
-              onClick={() => {
-                const el = document.getElementById('advisor-form');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }}
-              className="btn-luxury-gold btn-luxury-lg group"
-            >
-              {ctaText}
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-            </button>
+                <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight">
+                  {heading}{' '}
+                  <span className="gradient-luxury">{headingAccent}</span>
+                </h2>
+
+                <p className="text-lg text-white/50 mb-10 leading-relaxed font-sans max-w-lg">
+                  {subtitle}
+                </p>
+
+                <div className="space-y-4 mb-10">
+                  {checklistItems.map((item, index) => (
+                    <div key={index} className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
+                        <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
+                      </div>
+                      <span className="text-[0.9375rem] text-white/75 font-sans">
+                        {isHindi ? item.hi : isEnglish ? item.en : item.hg}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleStartQuiz}
+                  className="btn-luxury-gold btn-luxury-lg group"
+                >
+                  {ctaText}
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                </button>
+              </div>
+            )}
+
+            {/* ── Quiz State ── */}
+            {isQuizActive && currentQuestion && (
+              <div>
+                {/* Progress */}
+                <div className="flex items-center gap-3 mb-8">
+                  {[1, 2, 3, 4].map((s) => (
+                    <div key={s} className="flex items-center gap-2">
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                          s <= quizStep
+                            ? 'bg-[#E8C872] text-[#0F172A]'
+                            : 'bg-white/[0.06] text-white/30 border border-white/[0.08]'
+                        }`}
+                      >
+                        {s < quizStep ? <Check className="w-4 h-4" /> : s}
+                      </div>
+                      {s < 4 && (
+                        <div className={`w-8 h-0.5 ${s < quizStep ? 'bg-[#E8C872]' : 'bg-white/[0.06]'}`} />
+                      )}
+                    </div>
+                  ))}
+                  <span className="ml-auto text-sm text-white/40 font-sans">{quizStep}/4</span>
+                </div>
+
+                {/* Question */}
+                <h3 className="text-2xl md:text-3xl font-bold mb-8 font-heading leading-tight">
+                  {isHindi ? currentQuestion.question.hi : isEnglish ? currentQuestion.question.en : currentQuestion.question.hg}
+                </h3>
+
+                {/* Options */}
+                <div className="grid gap-3 mb-8">
+                  {currentQuestion.options.map((option) => {
+                    const Icon = option.icon;
+                    const isSelected = currentAnswers.includes(option.value);
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => handleAnswer(currentQuestion.id, option.value)}
+                        className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left group ${
+                          isSelected
+                            ? 'bg-[#E8C872]/[0.12] border-[#E8C872]/[0.4] shadow-[0_0_20px_rgba(232,200,114,0.08)]'
+                            : 'bg-white/[0.04] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15]'
+                        }`}
+                      >
+                        {Icon && (
+                          <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                            isSelected ? 'bg-[#E8C872]/20' : 'bg-white/[0.06]'
+                          }`}>
+                            <Icon className={`w-5 h-5 ${isSelected ? 'text-[#E8C872]' : 'text-white/50'}`} />
+                          </div>
+                        )}
+                        <span className={`text-base font-medium font-sans ${isSelected ? 'text-[#E8C872]' : 'text-white/70'}`}>
+                          {isHindi ? option.label.hi : isEnglish ? option.label.en : option.label.hg}
+                        </span>
+                        {isSelected && (
+                          <Check className="w-5 h-5 text-[#E8C872] ml-auto" strokeWidth={2.5} />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Navigation */}
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={quizStep > 1 ? handleBack : handleStartQuiz}
+                    className="flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors font-sans"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    {quizStep > 1 ? backText : (isHindi ? 'रद्द करें' : isEnglish ? 'Cancel' : 'Cancel')}
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    disabled={!canProceed}
+                    className={`btn-luxury-gold btn-luxury-lg group ${!canProceed ? 'opacity-40 cursor-not-allowed' : ''}`}
+                  >
+                    {quizStep === 4 ? ctaText : nextText}
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ── Results State ── */}
+            {isShowingResults && scoreResult && (
+              <div>
+                <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#10B981]/[0.1] backdrop-blur-sm rounded-full border border-[#10B981]/[0.15] mb-8">
+                  <Check className="h-3.5 w-3.5 text-[#10B981]" />
+                  <span className="text-xs font-semibold font-heading tracking-wide uppercase text-[#10B981]">
+                    {isHindi ? 'विश्लेषण पूर्ण' : isEnglish ? 'Analysis Complete' : 'Analysis Complete'}
+                  </span>
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-extrabold mb-4 font-heading leading-[1.1] tracking-tight">
+                  {isHindi ? 'आपका' : isEnglish ? 'Your' : 'Aapka'}{' '}
+                  <span className="gradient-luxury">{headingAccent}</span>
+                </h2>
+
+                <p className="text-lg text-white/50 mb-8 leading-relaxed font-sans">
+                  {isHindi
+                    ? 'आपके उत्तरों के आधार पर AI-संचालित विश्लेषण'
+                    : isEnglish
+                      ? 'AI-powered analysis based on your answers'
+                      : 'AI-powered analysis based on your answers'}
+                </p>
+
+                {/* Score Breakdown Cards */}
+                <div className="space-y-3 mb-8">
+                  {[
+                    { label: isHindi ? 'स्वास्थ्य सुरक्षा' : isEnglish ? 'Health Protection' : 'Health Protection', value: scoreResult.health, color: '#10B981' },
+                    { label: isHindi ? 'जीवन सुरक्षा' : isEnglish ? 'Life Protection' : 'Life Protection', value: scoreResult.life, color: '#2563EB' },
+                    { label: isHindi ? 'वाहन सुरक्षा' : isEnglish ? 'Vehicle Protection' : 'Vehicle Protection', value: scoreResult.vehicle, color: '#F59E0B' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.04] border border-white/[0.06]">
+                      <span className="text-sm text-white/60 font-sans min-w-[130px]">{item.label}</span>
+                      <div className="flex-1 h-2 bg-white/[0.06] rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: item.color }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${item.value}%` }}
+                          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: i * 0.2 }}
+                        />
+                      </div>
+                      <span className="text-sm font-bold font-heading min-w-[40px] text-right" style={{ color: item.color }}>
+                        {item.value}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={() => {
+                      setAnswers({});
+                      setScoreResult(null);
+                      setQuizStep(1);
+                    }}
+                    className="btn-luxury-secondary btn-luxury-lg !border-white/[0.15] !text-white/80 !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.25] hover:!text-white"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    {retakeText}
+                  </button>
+                  <a
+                    href="https://wa.me/919257877312"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-luxury-gold btn-luxury-lg group"
+                  >
+                    {talkAdvisorText}
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                  </a>
+                </div>
+              </div>
+            )}
           </motion.div>
 
-          {/* Visual: Animated Score Circle */}
+          {/* Right Column: Visual Score Circle */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -185,16 +531,12 @@ export default function FutureAI() {
             className="relative"
           >
             <div className="relative w-full max-w-md mx-auto">
-              {/* Outer ring glow */}
               <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#E8C872]/[0.06] via-transparent to-[#10B981]/[0.06] blur-xl" />
 
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
-                  {/* Background track */}
                   <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="10" />
-                  {/* Subtle outer track */}
                   <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="14" />
-                  {/* Animated progress */}
                   <motion.circle
                     cx="100"
                     cy="100"
@@ -205,14 +547,13 @@ export default function FutureAI() {
                     strokeLinecap="round"
                     strokeDasharray="534"
                     initial={{ strokeDashoffset: 534 }}
-                    whileInView={{ strokeDashoffset: 534 - (534 * 87) / 100 }}
-                    viewport={{ once: true }}
+                    animate={scoreResult ? { strokeDashoffset: 534 - (534 * scoreResult.total) / 100 } : { strokeDashoffset: 534 - (534 * 87) / 100 }}
                     transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
                   />
                   <defs>
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#E8C872" />
-                      <stop offset="50%" stopColor="#F0D890" />
+                      <stop offset="0%" stopColor={scoreResult ? getLevelColor(scoreResult.level) : '#E8C872'} />
+                      <stop offset="50%" stopColor={scoreResult ? getLevelColor(scoreResult.level) : '#F0D890'} />
                       <stop offset="100%" stopColor="#10B981" />
                     </linearGradient>
                   </defs>
@@ -220,18 +561,18 @@ export default function FutureAI() {
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    key={scoreResult?.total || 87}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="text-7xl font-bold font-heading tracking-tight text-white"
                   >
-                    87
+                    {scoreResult?.total || 87}
                   </motion.div>
                   <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
                   <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
-                    <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
-                      {isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection'}
+                    <span className="text-xs font-semibold font-heading tracking-wide" style={{ color: scoreResult ? getLevelColor(scoreResult.level) : '#E8C872' }}>
+                      {scoreResult ? getLevelLabel(scoreResult.level, isHindi, isEnglish) : (isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection')}
                     </span>
                   </div>
                 </div>
@@ -248,15 +589,15 @@ export default function FutureAI() {
                 <div className="bg-white/[0.06] backdrop-blur-xl rounded-2xl p-5 border border-white/[0.08]">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-xl font-bold gradient-luxury font-heading">92%</div>
+                      <div className="text-xl font-bold gradient-luxury font-heading">{scoreResult?.life || 92}%</div>
                       <div className="text-[11px] text-white/40 font-sans mt-0.5">Life</div>
                     </div>
                     <div className="border-x border-white/[0.06]">
-                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
+                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">{scoreResult?.health || 85}%</div>
                       <div className="text-[11px] text-white/40 font-sans mt-0.5">Health</div>
                     </div>
                     <div>
-                      <div className="text-xl font-bold text-white/90 font-heading">84%</div>
+                      <div className="text-xl font-bold text-white/90 font-heading">{scoreResult?.vehicle || 84}%</div>
                       <div className="text-[11px] text-white/40 font-sans mt-0.5">Vehicle</div>
                     </div>
                   </div>
@@ -267,7 +608,6 @@ export default function FutureAI() {
         </div>
       </div>
 
-      {/* Bottom gradient edge */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
     </section>
   );

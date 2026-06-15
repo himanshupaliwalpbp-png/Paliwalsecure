@@ -193,7 +193,7 @@ export default function KnowledgeHub() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-sm sm:text-base text-[#64748B] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
+          <p className="text-sm sm:text-base text-[#1E293B] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>

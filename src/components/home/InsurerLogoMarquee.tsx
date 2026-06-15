@@ -5,29 +5,30 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useLanguage } from '@/lib/i18n';
 
-// ── Insurer data ───────────────────────────────────────────────────────────────
+// ── Insurer data with full logo-style display ──────────────────────────────────
 interface InsurerItem {
   name: string;
   shortName: string;
   color: string;
+  textColor: string;
 }
 
 const INSURERS: InsurerItem[] = [
-  { name: 'HDFC Ergo', shortName: 'HE', color: 'from-[#003B73] to-[#005A9C]' },
-  { name: 'ICICI Lombard', shortName: 'IL', color: 'from-[#F7941D] to-[#F9A825]' },
-  { name: 'Star Health', shortName: 'SH', color: 'from-[#C8102E] to-[#E53935]' },
-  { name: 'Bajaj Allianz', shortName: 'BA', color: 'from-[#003399] to-[#1565C0]' },
-  { name: 'New India Assurance', shortName: 'NI', color: 'from-[#1B5E20] to-[#2E7D32]' },
-  { name: 'SBI General', shortName: 'SB', color: 'from-[#00529B] to-[#0277BD]' },
-  { name: 'Niva Bupa', shortName: 'NB', color: 'from-[#6A1B9A] to-[#8E24AA]' },
-  { name: 'Care Health', shortName: 'CH', color: 'from-[#E65100] to-[#EF6C00]' },
-  { name: 'Digit Insurance', shortName: 'DI', color: 'from-[#0D47A1] to-[#1565C0]' },
-  { name: 'Go Digit', shortName: 'GD', color: 'from-[#00695C] to-[#00897B]' },
-  { name: 'Tata AIG', shortName: 'TA', color: 'from-[#0E1220] to-[#162D5A]' },
-  { name: 'Magma HDI', shortName: 'MH', color: 'from-[#B71C1C] to-[#C62828]' },
-  { name: 'Royal Sundaram', shortName: 'RS', color: 'from-[#1565C0] to-[#1976D2]' },
-  { name: 'Reliance General', shortName: 'RG', color: 'from-[#1A237E] to-[#283593]' },
-  { name: 'Universal Sompo', shortName: 'US', color: 'from-[#004D40] to-[#00695C]' },
+  { name: 'HDFC Ergo', shortName: 'HE', color: '#003B73', textColor: '#FFFFFF' },
+  { name: 'ICICI Lombard', shortName: 'IL', color: '#F7941D', textColor: '#FFFFFF' },
+  { name: 'Star Health', shortName: 'SH', color: '#C8102E', textColor: '#FFFFFF' },
+  { name: 'Bajaj Allianz', shortName: 'BA', color: '#003399', textColor: '#FFFFFF' },
+  { name: 'New India Assurance', shortName: 'NI', color: '#1B5E20', textColor: '#FFFFFF' },
+  { name: 'SBI General', shortName: 'SB', color: '#00529B', textColor: '#FFFFFF' },
+  { name: 'Niva Bupa', shortName: 'NB', color: '#6A1B9A', textColor: '#FFFFFF' },
+  { name: 'Care Health', shortName: 'CH', color: '#E65100', textColor: '#FFFFFF' },
+  { name: 'Digit Insurance', shortName: 'DI', color: '#0D47A1', textColor: '#FFFFFF' },
+  { name: 'Go Digit', shortName: 'GD', color: '#00695C', textColor: '#FFFFFF' },
+  { name: 'Tata AIG', shortName: 'TA', color: '#0E1220', textColor: '#FFFFFF' },
+  { name: 'Magma HDI', shortName: 'MH', color: '#B71C1C', textColor: '#FFFFFF' },
+  { name: 'Royal Sundaram', shortName: 'RS', color: '#1565C0', textColor: '#FFFFFF' },
+  { name: 'Reliance General', shortName: 'RG', color: '#1A237E', textColor: '#FFFFFF' },
+  { name: 'Universal Sompo', shortName: 'US', color: '#004D40', textColor: '#FFFFFF' },
 ];
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -71,16 +72,19 @@ export default function InsurerLogoMarquee() {
             {allInsurers.map((insurer, idx) => (
               <div
                 key={`insurer-${idx}`}
-                className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 shrink-0 mx-1.5 sm:mx-2 rounded-xl bg-white dark:bg-white/5 border border-[#E2E8F0] dark:border-white/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-premium hover:border-[#2563EB]/20 dark:hover:bg-white/8 dark:hover:border-[#3B82F6]/20 cursor-default"
+                className="flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-3.5 shrink-0 mx-2 sm:mx-2.5 rounded-2xl bg-white dark:bg-white/5 border border-[#E2E8F0] dark:border-white/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-premium hover:border-[#2563EB]/20 dark:hover:bg-white/8 dark:hover:border-[#3B82F6]/20 cursor-default"
               >
+                {/* Logo badge with full company name initial */}
                 <div
-                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-sm ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-110`}
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 shadow-sm ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-110"
+                  style={{ backgroundColor: insurer.color }}
                 >
-                  <span className="text-[9px] sm:text-[10px] font-bold text-white font-mono leading-none">
+                  <span className="text-[11px] sm:text-xs font-extrabold text-white font-heading leading-none tracking-wide">
                     {insurer.shortName}
                   </span>
                 </div>
-                <span className="text-xs sm:text-sm font-medium text-[#0F172A]/70 dark:text-[#F8FAFC]/70 whitespace-nowrap transition-colors duration-300 font-body">
+                {/* Full company name - prominently displayed */}
+                <span className="text-sm sm:text-[15px] font-semibold text-[#0F172A]/80 dark:text-[#F8FAFC]/80 whitespace-nowrap transition-colors duration-300 font-heading tracking-tight">
                   {insurer.name}
                 </span>
               </div>

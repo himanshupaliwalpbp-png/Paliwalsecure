@@ -105,7 +105,7 @@ export default function ClaimsTimeline() {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
             {heading}
           </h2>
-          <p className="mt-4 text-[#64748B] dark:text-[#A6AEC7] text-base md:text-lg max-w-md mx-auto leading-relaxed font-body">
+          <p className="mt-4 text-[#1E293B] dark:text-[#A6AEC7] text-base md:text-lg max-w-md mx-auto leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>

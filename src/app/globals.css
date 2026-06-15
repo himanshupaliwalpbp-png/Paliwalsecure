@@ -3598,9 +3598,9 @@ html.theme-transitioning *::after {
   letter-spacing: 0.01em;
   line-height: 1.5;
   border-radius: 0.625rem;
-  border: 1.5px solid #94A3B8;
+  border: 1.5px solid #64748B;
   cursor: pointer;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.6);
   color: #0F172A;
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -3736,7 +3736,7 @@ html.theme-transitioning *::after {
   font-size: clamp(1.125rem, 1.5vw, 1.25rem);
   font-weight: 400;
   line-height: 1.7;
-  color: #475569;
+  color: #1E293B;
 }
 .dark .text-body-lg {
   color: #94A3B8;
@@ -3812,9 +3812,9 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: rgba(232, 200, 114, 0.10);
-  color: #B8960C;
-  border: 1px solid rgba(232, 200, 114, 0.18);
+  background: rgba(232, 200, 114, 0.12);
+  color: #8B6914;
+  border: 1px solid rgba(232, 200, 114, 0.25);
 }
 .dark .badge-premium-gold {
   background: rgba(232, 200, 114, 0.10);
@@ -3833,9 +3833,9 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: #F1F5F9;
-  color: #475569;
-  border: 1px solid #E2E8F0;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1E293B;
+  border: 1px solid #CBD5E1;
 }
 .dark .badge-premium-slate {
   background: rgba(255, 255, 255, 0.06);
