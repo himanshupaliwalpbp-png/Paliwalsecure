@@ -3939,10 +3939,10 @@ html.theme-transitioning *::after {
 }
 
 .stat-premium-block-gold {
-  border-left-color: #E8C872;
+  border-left-color: #5E1223;
 }
 .dark .stat-premium-block-gold {
-  border-left-color: #D4A853;
+  border-left-color: #8B2D40;
 }
 
 .stat-premium-block-violet {
