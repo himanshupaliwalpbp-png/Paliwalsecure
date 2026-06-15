@@ -90,7 +90,7 @@ export default function ClaimsTimeline() {
       : stepDescs[key]?.hg ?? stepDescs[key]?.en;
 
   return (
-    <section ref={sectionRef} className="section-luxury bg-[#F8FAFC] dark:bg-[#060E22]">
+    <section ref={sectionRef} className="section-luxury bg-background dark:bg-[#060E22]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

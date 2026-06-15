@@ -123,7 +123,7 @@ export default function TrustStrip() {
     <section
       ref={sectionRef}
       aria-label="Trust indicators"
-      className="section-luxury bg-white dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
+      className="section-luxury bg-background dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section heading */}

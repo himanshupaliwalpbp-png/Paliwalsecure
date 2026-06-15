@@ -49,12 +49,12 @@ export default function InsurerLogoMarquee() {
   return (
     <section
       dir="ltr"
-      className="relative w-full py-8 sm:py-10 overflow-hidden bg-[#F8FAFC] dark:bg-[#0F172A] section-luxury-divider"
+      className="relative w-full py-8 sm:py-10 overflow-hidden bg-background dark:bg-[#0F172A] section-luxury-divider"
       aria-label={ariaLabel}
     >
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#F8FAFC] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#F8FAFC] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#A9C0E0] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#A9C0E0] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
 
       <div ref={ref} className="relative">
         <motion.div

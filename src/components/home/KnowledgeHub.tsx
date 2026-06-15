@@ -177,7 +177,7 @@ export default function KnowledgeHub() {
   const cta = isHindi ? 'सभी गाइड देखें →' : isEnglish ? 'Browse all guides →' : 'Sab guides dekhein →';
 
   return (
-    <section ref={sectionRef} className="section-luxury bg-white dark:bg-[#0A1330]">
+    <section ref={sectionRef} className="section-luxury bg-background dark:bg-[#0A1330]">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
