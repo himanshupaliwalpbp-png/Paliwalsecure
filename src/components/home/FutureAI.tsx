@@ -82,7 +82,7 @@ function getLevelLabel(level: ScoreResult['level'], isHindi: boolean, isEnglish:
 function getLevelColor(level: ScoreResult['level']) {
   switch (level) {
     case 'excellent': return '#10B981';
-    case 'good': return '#E8C872';
+    case 'good': return '#2563EB';
     case 'fair': return '#F59E0B';
     case 'needs-work': return '#EF4444';
   }
@@ -103,7 +103,7 @@ const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
   feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Find out aapki current policy kya cover nahi karti' },
 };
 
-const featureColors = ['#2563EB', '#10B981', '#E8C872', '#8B5CF6'];
+const featureColors = ['#2563EB', '#10B981', '#2563EB', '#8B5CF6'];
 
 /* ── Quiz questions data ────────────────────────────────────────── */
 interface QuizOption {
@@ -219,7 +219,7 @@ function FeatureCard({
       </p>
 
       <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#E8C872] px-3 py-1.5 rounded-full bg-[#E8C872]/[0.08] border border-[#E8C872]/[0.15] font-heading">
+        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#2563EB] px-3 py-1.5 rounded-full bg-[#2563EB]/[0.08] border border-[#2563EB]/[0.15] font-heading">
           {comingSoon}
         </span>
       </div>
@@ -322,12 +322,12 @@ export default function FutureAI() {
   const displayLevel = scoreResult?.level ?? null;
 
   return (
-    <section className="section-luxury bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden relative">
+    <section className="section-luxury bg-[#111111] dark:bg-[#111111] text-white overflow-hidden relative">
       {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.07] rounded-full blur-[120px]" />
         <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.06] rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#E8C872]/[0.03] rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#2563EB]/[0.03] rounded-full blur-[150px]" />
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
@@ -359,8 +359,8 @@ export default function FutureAI() {
                   transition={{ duration: 0.3 }}
                 >
                   <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
-                    <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
+                    <Shield className="h-3.5 w-3.5 text-[#2563EB]" />
                     <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
                       {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
                     </span>
@@ -415,16 +415,16 @@ export default function FutureAI() {
                         <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
                             s < currentStep
-                              ? 'bg-[#E8C872] text-[#0F172A]'
+                              ? 'bg-[#2563EB] text-white'
                               : s === currentStep
-                                ? 'bg-[#E8C872] text-[#0F172A] ring-2 ring-[#E8C872]/30'
+                                ? 'bg-[#2563EB] text-white ring-2 ring-[#2563EB]/30'
                                 : 'bg-white/[0.06] text-white/30 border border-white/[0.08]'
                           }`}
                         >
                           {s < currentStep ? <Check className="w-4 h-4" /> : s}
                         </div>
                         {s < 4 && (
-                          <div className={`w-8 h-0.5 ${s < currentStep ? 'bg-[#E8C872]' : 'bg-white/[0.06]'}`} />
+                          <div className={`w-8 h-0.5 ${s < currentStep ? 'bg-[#2563EB]' : 'bg-white/[0.06]'}`} />
                         )}
                       </div>
                     ))}
@@ -456,22 +456,22 @@ export default function FutureAI() {
                           }}
                           className={`flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left group ${
                             isSelected
-                              ? 'bg-[#E8C872]/[0.12] border-[#E8C872]/[0.4] shadow-[0_0_20px_rgba(232,200,114,0.08)]'
+                              ? 'bg-[#2563EB]/[0.12] border-[#2563EB]/[0.4] shadow-[0_0_20px_rgba(37,99,235,0.08)]'
                               : 'bg-white/[0.04] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15]'
                           }`}
                         >
                           {Icon && (
                             <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 ${
-                              isSelected ? 'bg-[#E8C872]/20' : 'bg-white/[0.06]'
+                              isSelected ? 'bg-[#2563EB]/20' : 'bg-white/[0.06]'
                             }`}>
-                              <Icon className={`w-5 h-5 ${isSelected ? 'text-[#E8C872]' : 'text-white/50'}`} />
+                              <Icon className={`w-5 h-5 ${isSelected ? 'text-[#2563EB]' : 'text-white/50'}`} />
                             </div>
                           )}
-                          <span className={`text-base font-medium font-sans ${isSelected ? 'text-[#E8C872]' : 'text-white/70'}`}>
+                          <span className={`text-base font-medium font-sans ${isSelected ? 'text-[#2563EB]' : 'text-white/70'}`}>
                             {isHindi ? option.label.hi : isEnglish ? option.label.en : option.label.hg}
                           </span>
                           {isSelected && (
-                            <Check className="w-5 h-5 text-[#E8C872] ml-auto" strokeWidth={2.5} />
+                            <Check className="w-5 h-5 text-[#2563EB] ml-auto" strokeWidth={2.5} />
                           )}
                         </button>
                       );
@@ -589,7 +589,7 @@ export default function FutureAI() {
             className="relative"
           >
             <div className="relative w-full max-w-md mx-auto">
-              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#E8C872]/[0.06] via-transparent to-[#10B981]/[0.06] blur-xl" />
+              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#2563EB]/[0.06] via-transparent to-[#10B981]/[0.06] blur-xl" />
 
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
@@ -613,8 +613,8 @@ export default function FutureAI() {
                   />
                   <defs>
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor={displayLevel ? getLevelColor(displayLevel) : '#E8C872'} />
-                      <stop offset="50%" stopColor={displayLevel ? getLevelColor(displayLevel) : '#F0D890'} />
+                      <stop offset="0%" stopColor={displayLevel ? getLevelColor(displayLevel) : '#2563EB'} />
+                      <stop offset="50%" stopColor={displayLevel ? getLevelColor(displayLevel) : '#60A5FA'} />
                       <stop offset="100%" stopColor="#10B981" />
                     </linearGradient>
                   </defs>
@@ -630,12 +630,12 @@ export default function FutureAI() {
                       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                       className="text-center"
                     >
-                      <div className="text-7xl font-bold font-heading tracking-tight text-[#E8C872]">
+                      <div className="text-7xl font-bold font-heading tracking-tight text-[#2563EB]">
                         {currentStep}
                       </div>
                       <div className="text-base text-white/40 font-sans mt-1">of 4</div>
                       <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
-                        <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
+                        <span className="text-xs font-semibold font-heading tracking-wide text-[#2563EB]">
                           {isHindi ? 'क्विज़ जारी' : isEnglish ? 'Quiz in Progress' : 'Quiz in Progress'}
                         </span>
                       </div>
@@ -673,7 +673,7 @@ export default function FutureAI() {
                       </div>
                       <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
                       <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
-                        <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
+                        <span className="text-xs font-semibold font-heading tracking-wide text-[#2563EB]">
                           {isHindi ? 'अपना स्कोर जानें' : isEnglish ? 'Discover Your Score' : 'Apna Score Jaanein'}
                         </span>
                       </div>

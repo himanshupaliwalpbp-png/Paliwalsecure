@@ -9,7 +9,7 @@ import { useLanguage } from '@/lib/i18n';
 const stats = [
   { key: 'families', icon: Users, target: 500, color: '#2563EB', accentClass: '' },
   { key: 'coverage', icon: Shield, target: 500, color: '#10B981', accentClass: 'stat-premium-block-green' },
-  { key: 'claims', icon: TrendingUp, target: 100, color: '#E8C872', accentClass: 'stat-premium-block-gold' },
+  { key: 'claims', icon: TrendingUp, target: 100, color: '#2563EB', accentClass: 'stat-premium-block-blue' },
   { key: 'experience', icon: Award, target: 15, color: '#8B5CF6', accentClass: 'stat-premium-block-violet' },
 ];
 
@@ -123,7 +123,7 @@ export default function TrustStrip() {
     <section
       ref={sectionRef}
       aria-label="Trust indicators"
-      className="section-luxury bg-background dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
+      className="section-luxury bg-background dark:bg-[#111111] border-y border-[#E8E2D6] dark:border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section heading */}

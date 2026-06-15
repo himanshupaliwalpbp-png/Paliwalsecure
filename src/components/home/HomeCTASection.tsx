@@ -30,15 +30,15 @@ export default function HomeCTASection() {
   ];
 
   return (
-    <section className="section-luxury relative bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden">
+    <section className="section-luxury relative bg-[#5E1223] dark:bg-[#5E1223] text-white overflow-hidden">
       {/* Premium layered background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Deep radial gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070B14] via-[#0C1425] to-[#070B14]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#5E1223] via-[#7A1A30] to-[#5E1223]" />
         {/* Primary glow — center top */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[#2563EB]/[0.08] rounded-full blur-[150px]" />
         {/* Gold glow — center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#E8C872]/[0.04] rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#5E1223]/[0.10] rounded-full blur-[120px]" />
         {/* Emerald glow — bottom */}
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#10B981]/[0.05] rounded-full blur-[120px]" />
         {/* Subtle grid pattern */}
@@ -69,7 +69,7 @@ export default function HomeCTASection() {
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.5 }}
           >
-            <Shield className="h-10 w-10 text-[#E8C872]" strokeWidth={1.8} />
+            <Shield className="h-10 w-10 text-[#DBEAFE]" strokeWidth={1.8} />
           </motion.div>
 
           {/* Headline */}
@@ -78,7 +78,7 @@ export default function HomeCTASection() {
             <span className="gradient-luxury">{headingAccent}</span>
           </h2>
 
-          <p className="text-lg md:text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed font-sans">
+          <p className="text-lg md:text-xl text-[#F6F5F1]/60 mb-12 max-w-2xl mx-auto leading-relaxed font-sans">
             {subtitle}
           </p>
 
@@ -118,7 +118,7 @@ export default function HomeCTASection() {
               {trustIndicators.map((indicator, index) => (
                 <div key={index} className="flex items-center gap-2.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,0.4)]" />
-                  <span className="text-sm text-white/45 font-sans">
+                  <span className="text-sm text-[#F6F5F1]/50 font-sans">
                     {isHindi ? indicator.hi : isEnglish ? indicator.en : indicator.hg}
                   </span>
                 </div>

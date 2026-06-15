@@ -153,8 +153,7 @@ export default function CategoryCards() {
                     {/* Icon + Title row */}
                     <div className="flex items-start gap-4 mb-4">
                       <div
-                        className="flex-shrink-0 p-3 rounded-xl transition-transform duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: `${cat.color}10` }}
+                        className="flex-shrink-0 p-3 rounded-xl transition-transform duration-300 group-hover:scale-110 bg-[#DBEAFE]"
                       >
                         <Icon className="h-5 w-5" style={{ color: cat.color }} strokeWidth={2} />
                       </div>
@@ -162,7 +161,7 @@ export default function CategoryCards() {
                         <h3 className="text-card-title">
                           {title}
                         </h3>
-                        <p className="text-sm font-body mt-0.5 category-card-description" style={{ color: '#4A3F30' }}>
+                        <p className="text-sm font-body mt-0.5 category-card-description" style={{ color: '#4A4A4A' }}>
                           {description}
                         </p>
                       </div>
@@ -173,7 +172,7 @@ export default function CategoryCards() {
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-center gap-2.5 text-sm text-[#043C50] dark:text-[#EED9BE] font-body category-card-feature">
+                          <li key={i} className="flex items-center gap-2.5 text-sm text-[#111111] dark:text-[#F3EADB] font-body category-card-feature">
                             <div
                               className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
                               style={{ backgroundColor: `${cat.color}12` }}
@@ -187,7 +186,7 @@ export default function CategoryCards() {
                     </ul>
 
                     {/* Price + AI Pick badge */}
-                    <div className="pt-4 border-t border-[#B8A080] dark:border-[#EED9BE]/10 flex items-center justify-between gap-3 category-card-footer">
+                    <div className="pt-4 border-t border-[#E8E2D6] dark:border-[#F3EADB]/10 flex items-center justify-between gap-3 category-card-footer">
                       <span className={getBadgeClass(cat.badgeVariant)}>
                         {cat.price}
                       </span>

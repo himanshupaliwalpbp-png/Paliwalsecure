@@ -498,12 +498,12 @@ export default function InsurerLogoMarquee() {
   return (
     <section
       dir="ltr"
-      className="relative w-full py-8 sm:py-10 overflow-hidden bg-background dark:bg-[#0F172A] section-luxury-divider"
+      className="relative w-full py-8 sm:py-10 overflow-hidden bg-background dark:bg-[#111111] section-luxury-divider"
       aria-label={ariaLabel}
     >
       {/* Fade edges - using bg-background for theme support */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-background dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-background dark:from-[#111111] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background dark:from-[#111111] to-transparent z-10 pointer-events-none" />
 
       <div ref={ref} className="relative">
         <motion.div
@@ -520,12 +520,12 @@ export default function InsurerLogoMarquee() {
             {allInsurers.map((insurer, idx) => (
               <div
                 key={`insurer-${idx}`}
-                className="flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-4 shrink-0 mx-2 sm:mx-2.5 rounded-2xl bg-white dark:bg-white/5 border border-[#E2E8F0] dark:border-white/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-premium hover:border-[#2563EB]/20 dark:hover:bg-white/8 dark:hover:border-[#3B82F6]/20 cursor-default"
+                className="flex items-center gap-3 px-5 sm:px-6 py-3 sm:py-4 shrink-0 mx-2 sm:mx-2.5 rounded-2xl bg-white dark:bg-white/5 border border-[#E8E2D6] dark:border-white/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-premium hover:border-[#2563EB]/20 dark:hover:bg-white/8 dark:hover:border-[#3B82F6]/20 cursor-default"
               >
                 {/* SVG Logo */}
                 <InsurerLogo insurer={insurer} />
                 {/* Full company name */}
-                <span className="text-sm sm:text-[15px] font-semibold text-[#0F172A]/80 dark:text-[#F8FAFC]/80 whitespace-nowrap transition-colors duration-300 font-heading tracking-tight">
+                <span className="text-sm sm:text-[15px] font-semibold text-[#111111]/80 dark:text-[#F3EADB]/80 whitespace-nowrap transition-colors duration-300 font-heading tracking-tight">
                   {insurer.name}
                 </span>
               </div>

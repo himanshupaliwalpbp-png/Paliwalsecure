@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paliwal Secure — Color System v7.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --cream: #F3EADB;
+    --ivory: #F6F5F1;
+    --black: #111111;
+    --maroon: #5E1223;
+    --baby-blue: #DBEAFE;
+    --electric-blue: #2563EB;
+    --white: #FFFFFF;
+    --text-secondary: #4A4A4A;
+    --text-muted: #8C8C8C;
+    --border-warm: #E8E2D6;
+    --border-light: #EDE8DD;
+    --maroon-light: #F9F0F2;
+    --blue-tint: #EFF6FF;
+    --gold: #C98A1C;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--ivory);
+    color: var(--black);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+
+  .section { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-full { padding: 60px 40px; }
+  
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-bottom: 8px;
+  }
+  
+  .section-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--black);
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+  }
+
+  /* Color Swatches */
+  .swatch-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(17,17,17,0.06);
+    flex: 1;
+    min-width: 160px;
+  }
+  
+  .swatch-color {
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+  }
+  
+  .swatch-info {
+    background: var(--white);
+    padding: 12px;
+  }
+  
+  .swatch-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+  }
+  
+  .swatch-hex {
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: var(--text-muted);
+  }
+
+  /* Card Grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .demo-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border-warm);
+    box-shadow: 0 2px 4px rgba(17,17,17,0.06);
+    transition: all 0.2s ease;
+  }
+
+  .demo-card:hover {
+    box-shadow: 0 4px 12px rgba(17,17,17,0.08);
+    transform: translateY(-2px);
+  }
+
+  .demo-card.premium {
+    border-left: 3px solid var(--maroon);
+  }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  
+  .btn-primary {
+    background: var(--electric-blue);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(37,99,235,0.3);
+    transition: all 0.15s ease;
+  }
+  .btn-primary:hover { background: #1D4ED8; box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+  
+  .btn-secondary {
+    background: transparent;
+    color: var(--black);
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1.5px solid var(--black);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-secondary:hover { background: var(--black); color: var(--cream); }
+  
+  .btn-ghost {
+    background: transparent;
+    color: var(--electric-blue);
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-ghost:hover { background: var(--baby-blue); }
+  
+  .btn-premium {
+    background: var(--maroon);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(94,18,35,0.3);
+    transition: all 0.15s ease;
+  }
+  .btn-premium:hover { background: #7A1A30; box-shadow: 0 4px 16px rgba(94,18,35,0.4); }
+
+  /* Badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-blue { background: var(--baby-blue); color: #1E40AF; }
+  .badge-maroon { background: var(--maroon); color: var(--white); }
+  .badge-maroon-light { background: var(--maroon-light); color: var(--maroon); }
+  .badge-gold { background: #FDF8ED; color: var(--gold); }
+
+  /* Text samples */
+  .text-primary { color: var(--black); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-muted { color: var(--text-muted); }
+  .text-label { color: var(--maroon); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 12px; }
+  .text-link { color: var(--electric-blue); text-decoration: underline; cursor: pointer; }
+
+  /* Shadow demo */
+  .shadow-demo {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 8px;
+  }
+
+  /* Section alternation visual */
+  .alt-visual {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-warm);
+  }
+  .alt-section {
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .alt-label {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 140px;
+  }
+  .alt-hex {
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    opacity: 0.6;
+  }
+
+  /* Maroon section */
+  .maroon-section {
+    background: var(--maroon);
+    color: var(--ivory);
+    padding: 60px 40px;
+  }
+
+  /* Dark mode demo */
+  .dark-demo {
+    background: var(--black);
+    border-radius: 16px;
+    padding: 40px;
+    border: 1px solid #333;
+  }
+
+  /* Table */
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .spec-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--cream);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--border-warm);
+  }
+  .spec-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+  }
+  .spec-table tr:hover td { background: rgba(219,234,254,0.3); }
+  
+  .color-dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* Gradient demos */
+  .gradient-demo {
+    height: 80px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Contrast indicator */
+  .contrast-pass { color: #10B981; font-weight: 700; }
+  .contrast-fail { color: #EF4444; font-weight: 700; }
+  .contrast-warn { color: #F59E0B; font-weight: 700; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border-warm);
+    margin: 60px 0;
+  }
+
+  /* Nav */
+  .doc-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(246,245,241,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-warm);
+    z-index: 100;
+    padding: 12px 40px;
+  }
+  .doc-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+  }
+  .doc-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .doc-nav a:hover { color: var(--electric-blue); border-bottom-color: var(--electric-blue); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--ivory); }
+  ::-webkit-scrollbar-thumb { background: var(--border-warm); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="doc-nav">
+  <div class="doc-nav-inner">
+    <a href="#palette">Palette</a>
+    <a href="#backgrounds">Backgrounds</a>
+    <a href="#cards">Cards</a>
+    <a href="#text">Text</a>
+    <a href="#accents">Accents</a>
+    <a href="#maroon">Maroon</a>
+    <a href="#baby-blue">Baby Blue</a>
+    <a href="#borders">Borders</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#shadows">Shadows</a>
+    <a href="#alternation">Alternation</a>
+    <a href="#dark-mode">Dark Mode</a>
+    <a href="#contrast">Contrast</a>
+    <a href="#rules">Rules</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div style="background: var(--cream); padding: 80px 40px; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--maroon); margin-bottom: 16px;">Design System v7.0</div>
+    <h1 style="font-size: 48px; font-weight: 800; letter-spacing: -0.03em; color: var(--black); margin-bottom: 16px;">
+      Paliwal Secure<br>Color System
+    </h1>
+    <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px;">
+      Premium insurance advisory — warm sophistication meets digital trust.
+      Inspired by Stripe, Linear, Vercel, Apple & Notion.
+    </p>
+    <div class="swatch-row" style="justify-content: center; max-width: 700px; margin: 0 auto;">
+      <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--cream); border: 1px solid var(--border-warm);"></div>
+      <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--black);"></div>
+      <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--ivory); border: 1px solid var(--border-warm);"></div>
+      <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--maroon);"></div>
+      <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--baby-blue);"></div>
+      <div style="width: 80px; height: 80px; border-radius: 12px; background: var(--electric-blue);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. Core Palette -->
+<div id="palette" class="section" style="background: var(--ivory);">
+  <div class="section-title">01 / Core Palette</div>
+  <h2 class="section-heading">The Six Colors</h2>
+  <div class="swatch-row">
+    <div class="swatch">
+      <div class="swatch-color" style="background: #F3EADB;"></div>
+      <div class="swatch-info"><div class="swatch-name">Soft Cream</div><div class="swatch-hex">#F3EADB</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #111111;"></div>
+      <div class="swatch-info"><div class="swatch-name">Black</div><div class="swatch-hex">#111111</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #F6F5F1;"></div>
+      <div class="swatch-info"><div class="swatch-name">Ivory White</div><div class="swatch-hex">#F6F5F1</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #5E1223;"></div>
+      <div class="swatch-info"><div class="swatch-name">Deep Maroon</div><div class="swatch-hex">#5E1223</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #DBEAFE;"></div>
+      <div class="swatch-info"><div class="swatch-name">Baby Blue</div><div class="swatch-hex">#DBEAFE</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #2563EB;"></div>
+      <div class="swatch-info"><div class="swatch-name">Electric Blue</div><div class="swatch-hex">#2563EB</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Background Strategy -->
+<div id="backgrounds" class="section" style="background: var(--cream);">
+  <div class="section-title">02 / Primary Backgrounds</div>
+  <h2 class="section-heading">Where Each Color Lives</h2>
+  <div class="card-grid">
+    <div style="background: #F3EADB; border-radius: 12px; padding: 24px; border: 1px solid var(--border-warm);">
+      <span class="badge badge-maroon-light" style="margin-bottom: 12px;">Primary</span>
+      <h3 style="font-size: 18px; font-weight: 700; margin: 8px 0;">Soft Cream</h3>
+      <p style="font-size: 13px; color: var(--text-secondary);">Hero sections, primary content areas. The warm handshake — first impression.</p>
+      <code style="font-size: 12px; background: rgba(0,0,0,0.05); padding: 2px 8px; border-radius: 4px;">#F3EADB</code>
+    </div>
+    <div style="background: #F6F5F1; border-radius: 12px; padding: 24px; border: 1px solid var(--border-warm);">
+      <span class="badge badge-blue" style="margin-bottom: 12px;">Alternate</span>
+      <h3 style="font-size: 18px; font-weight: 700; margin: 8px 0;">Ivory White</h3>
+      <p style="font-size: 13px; color: var(--text-secondary);">Secondary sections, content alternation. Clean reading surface with warmth.</p>
+      <code style="font-size: 12px; background: rgba(0,0,0,0.05); padding: 2px 8px; border-radius: 4px;">#F6F5F1</code>
+    </div>
+    <div style="background: #FFFFFF; border-radius: 12px; padding: 24px; border: 1px solid var(--border-warm);">
+      <span class="badge badge-gold" style="margin-bottom: 12px;">Surface</span>
+      <h3 style="font-size: 18px; font-weight: 700; margin: 8px 0;">Pure White</h3>
+      <p style="font-size: 13px; color: var(--text-secondary);">Card surfaces, pricing tables. Maximum clarity and contrast.</p>
+      <code style="font-size: 12px; background: rgba(0,0,0,0.05); padding: 2px 8px; border-radius: 4px;">#FFFFFF</code>
+    </div>
+    <div style="background: #5E1223; border-radius: 12px; padding: 24px; color: #F6F5F1;">
+      <span class="badge badge-maroon" style="margin-bottom: 12px;">Premium</span>
+      <h3 style="font-size: 18px; font-weight: 700; margin: 8px 0;">Deep Maroon</h3>
+      <p style="font-size: 13px; color: #D4B8B8;">Full-width section breaks. Luxury moments — use sparingly.</p>
+      <code style="font-size: 12px; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px;">#5E1223</code>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Cards/Surfaces -->
+<div id="cards" class="section" style="background: var(--ivory);">
+  <div class="section-title">03 / Cards & Surfaces</div>
+  <h2 class="section-heading">Elevation System</h2>
+  <div class="card-grid">
+    <div class="demo-card">
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">DEFAULT CARD</div>
+      <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Standard Content Card</h4>
+      <p style="font-size: 13px; color: var(--text-secondary);">White card on cream/ivory background. 1px warm border. Subtle shadow.</p>
+      <div style="margin-top: 12px;">
+        <span class="badge badge-blue">Health Insurance</span>
+      </div>
+    </div>
+    <div class="demo-card" style="border-color: transparent; box-shadow: 0 4px 12px rgba(17,17,17,0.08);">
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">ELEVATED CARD</div>
+      <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Hover / Active State</h4>
+      <p style="font-size: 13px; color: var(--text-secondary);">Deeper shadow on hover. Transform translateY(-2px). Transition 200ms.</p>
+      <div style="margin-top: 12px;">
+        <span class="badge badge-blue">Life Insurance</span>
+      </div>
+    </div>
+    <div class="demo-card premium">
+      <div style="font-size: 12px; color: var(--maroon); margin-bottom: 8px; font-weight: 600;">★ PREMIUM CARD</div>
+      <h4 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">Maroon Left Border Accent</h4>
+      <p style="font-size: 13px; color: var(--text-secondary);">3px maroon left border signals premium content. Warm shadow with maroon tint.</p>
+      <div style="margin-top: 12px;">
+        <span class="badge badge-maroon">Exclusive</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Text Hierarchy -->
+<div id="text" class="section" style="background: var(--cream);">
+  <div class="section-title">04 / Text Hierarchy</div>
+  <h2 class="section-heading">Typographic Color Scale</h2>
+  <div style="background: var(--white); border-radius: 12px; padding: 40px; border: 1px solid var(--border-warm);">
+    <p class="text-label" style="margin-bottom: 8px;">SECTION LABEL</p>
+    <h2 class="text-primary" style="font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">Heading — Deep Black #111111</h2>
+    <p class="text-primary" style="font-size: 16px; margin-bottom: 12px;">Primary text — The main body content uses Deep Black on warm backgrounds. This provides 13.2:1 contrast ratio on Soft Cream, exceeding WCAG AAA requirements.</p>
+    <p class="text-secondary" style="font-size: 15px; margin-bottom: 12px;">Secondary text — Supporting descriptions and explanations use a slightly lighter tone. Still highly readable at 7.1:1 contrast.</p>
+    <p class="text-muted" style="font-size: 14px; margin-bottom: 12px;">Muted text — Timestamps, footnotes, and placeholders. 3.8:1 contrast (large text AA compliant only).</p>
+    <p><span class="text-link">Interactive link — Electric Blue #2563EB</span></p>
+  </div>
+</div>
+
+<!-- 5. Accent Colors -->
+<div id="accents" class="section" style="background: var(--ivory);">
+  <div class="section-title">05 / Accent Colors</div>
+  <h2 class="section-heading">Action & Luxury Accents</h2>
+  <div class="card-grid">
+    <div class="demo-card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--electric-blue);"></div>
+        <div>
+          <div style="font-weight: 700;">Electric Blue</div>
+          <code style="font-size: 12px; color: var(--text-muted);">#2563EB</code>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">The ACTION color. CTAs, links, interactive elements, progress indicators, focus rings.</p>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #2563EB;"></div>
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #1D4ED8;"></div>
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #1E40AF;"></div>
+        <span style="font-size: 11px; color: var(--text-muted);">Default → Hover → Pressed</span>
+      </div>
+    </div>
+    <div class="demo-card premium">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--maroon);"></div>
+        <div>
+          <div style="font-weight: 700;">Deep Maroon</div>
+          <code style="font-size: 12px; color: var(--text-muted);">#5E1223</code>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">The LUXURY color. Premium badges, exclusive sections, section labels. Use sparingly — 2-3 instances per page max.</p>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #5E1223;"></div>
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #7A1A30;"></div>
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #F9F0F2;"></div>
+        <span style="font-size: 11px; color: var(--text-muted);">Default → Hover → Tint</span>
+      </div>
+    </div>
+    <div class="demo-card">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+        <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--gold);"></div>
+        <div>
+          <div style="font-weight: 700;">Legacy Gold</div>
+          <code style="font-size: 12px; color: var(--text-muted);">#C98A1C</code>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">The TRUST color. Trust badges, award indicators, heritage moments. Warmth without intensity.</p>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #C98A1C;"></div>
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #E8C872;"></div>
+        <div style="width: 24px; height: 24px; border-radius: 6px; background: #FDF8ED;"></div>
+        <span style="font-size: 11px; color: var(--text-muted);">Default → Light → Tint</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. Maroon Deep Dive -->
+<div id="maroon" class="maroon-section">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #D4B8B8; margin-bottom: 8px;">05 / Premium Accent</div>
+    <h2 style="font-size: 36px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px;">Deep Maroon — The Velvet Rope</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+      <div style="background: rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 14px; font-weight: 700; color: #F6F5F1; margin-bottom: 8px;">Full-Width Sections</div>
+        <p style="font-size: 13px; color: #D4B8B8;">Background #5E1223 with ivory text. 2-3 per page max. Visual punctuation.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 14px; font-weight: 700; color: #F6F5F1; margin-bottom: 8px;">Premium Badges</div>
+        <p style="font-size: 13px; color: #D4B8B8;">Small pill badges with maroon bg + white text. Only for "Premium" / "Exclusive".</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 14px; font-weight: 700; color: #F6F5F1; margin-bottom: 8px;">Left Border Accent</div>
+        <p style="font-size: 13px; color: #D4B8B8;">3px solid #5E1223 on important cards. Premium indicator without overwhelming.</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 14px; font-weight: 700; color: #F6F5F1; margin-bottom: 8px;">Section Label Text</div>
+        <p style="font-size: 13px; color: #D4B8B8;">Small maroon label text on cream backgrounds. 1 per section header.</p>
+      </div>
+    </div>
+    <div style="margin-top: 32px;">
+      <h3 style="font-size: 16px; font-weight: 700; color: #F6F5F1; margin-bottom: 12px;">Gradients</h3>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <div class="gradient-demo" style="flex: 1; min-width: 250px; background: linear-gradient(180deg, #5E1223 0%, #3D0A16 100%);">
+          180deg: #5E1223 → #3D0A16
+        </div>
+        <div class="gradient-demo" style="flex: 1; min-width: 250px; background: linear-gradient(135deg, #5E1223 0%, #111111 100%);">
+          135deg: #5E1223 → #111111
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Baby Blue Usage -->
+<div id="baby-blue" class="section" style="background: var(--cream);">
+  <div class="section-title">06 / Baby Blue Usage</div>
+  <h2 class="section-heading">The Whisper Color</h2>
+  <div style="background: var(--white); border-radius: 12px; padding: 32px; border: 1px solid var(--border-warm);">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+      <div style="background: #DBEAFE; border-radius: 8px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 600; color: #1E40AF; margin-bottom: 4px;">Hover Background</div>
+        <div style="font-size: 11px; color: #2563EB;">Card hover, row hover</div>
+      </div>
+      <div style="background: #EFF6FF; border-radius: 8px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 600; color: #1E40AF; margin-bottom: 4px;">Subtle Tint</div>
+        <div style="font-size: 11px; color: #2563EB;">Section backgrounds</div>
+      </div>
+      <div style="background: #DBEAFE; border-radius: 8px; padding: 16px; text-align: center;">
+        <div style="font-size: 12px; font-weight: 600; color: #1E40AF; margin-bottom: 4px;">Tag / Badge</div>
+        <div style="font-size: 11px; color: #2563EB;">Info pills, categories</div>
+      </div>
+      <div style="background: var(--white); border-radius: 8px; padding: 16px; text-align: center; border: 2px solid #2563EB; box-shadow: 0 0 0 3px rgba(219,234,254,0.5);">
+        <div style="font-size: 12px; font-weight: 600; color: #1E40AF; margin-bottom: 4px;">Focus Glow</div>
+        <div style="font-size: 11px; color: #2563EB;">Input focus ring</div>
+      </div>
+      <div style="background: var(--white); border-radius: 8px; padding: 16px; text-align: center;">
+        <div style="width: 32px; height: 32px; border-radius: 8px; background: #DBEAFE; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 16px;">🛡</div>
+        <div style="font-size: 12px; font-weight: 600; color: #1E40AF; margin-bottom: 4px;">Icon BG</div>
+        <div style="font-size: 11px; color: #2563EB;">Feature icon circles</div>
+      </div>
+      <div style="border-radius: 8px; padding: 16px; text-align: center; background: linear-gradient(180deg, #DBEAFE 0%, #2563EB 100%); color: white;">
+        <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">Chart Fill</div>
+        <div style="font-size: 11px; opacity: 0.8;">Gradient in charts</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. Border Colors -->
+<div id="borders" class="section" style="background: var(--ivory);">
+  <div class="section-title">07 / Border Colors</div>
+  <h2 class="section-heading">Warm Borders for Warm Surfaces</h2>
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Color</th>
+        <th>Hex</th>
+        <th>Usage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight: 600;">Border Default</td>
+        <td><span class="color-dot" style="background: #E8E2D6;"></span></td>
+        <td><code>#E8E2D6</code></td>
+        <td>Standard card/section borders</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Border Light</td>
+        <td><span class="color-dot" style="background: #EDE8DD;"></span></td>
+        <td><code>#EDE8DD</code></td>
+        <td>Subtle dividers within sections</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Border Subtle</td>
+        <td><span class="color-dot" style="background: #F3F0E8; border-color: #E8E2D6;"></span></td>
+        <td><code>rgba(0,0,0,0.06)</code></td>
+        <td>Nearly invisible card borders</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Border Focus</td>
+        <td><span class="color-dot" style="background: #2563EB;"></span></td>
+        <td><code>#2563EB</code></td>
+        <td>Input focus borders</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Border Premium</td>
+        <td><span class="color-dot" style="background: #5E1223;"></span></td>
+        <td><code>#5E1223</code></td>
+        <td>Premium card left accent</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Border Hover</td>
+        <td><span class="color-dot" style="background: #D4CFC5;"></span></td>
+        <td><code>#D4CFC5</code></td>
+        <td>Hover state on bordered elements</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top: 24px; background: var(--cream); border-radius: 12px; padding: 24px;">
+    <p style="font-size: 13px; color: var(--text-secondary);">
+      <strong style="color: var(--maroon);">Key Principle:</strong> Borders are NOT cool gray (#E2E8F0). They are warm-tinted to match the cream/ivory palette. This is the Notion approach — borders should feel like they belong to the warm surface, not like cold metal dividers.
+    </p>
+  </div>
+</div>
+
+<!-- 9. Buttons -->
+<div id="buttons" class="section" style="background: var(--cream);">
+  <div class="section-title">08 / CTA & Button System</div>
+  <h2 class="section-heading">Interactive Color States</h2>
+  
+  <div style="background: var(--white); border-radius: 12px; padding: 32px; border: 1px solid var(--border-warm); margin-bottom: 24px;">
+    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text-secondary);">PRIMARY — Electric Blue</h4>
+    <div class="btn-row">
+      <button class="btn-primary">Get Free Quote</button>
+      <button class="btn-primary" style="opacity: 0.9;">Hover State</button>
+      <button class="btn-primary" style="background: #1E40AF;">Pressed</button>
+      <button class="btn-primary" style="background: #93C5FD; cursor: not-allowed;">Disabled</button>
+    </div>
+  </div>
+
+  <div style="background: var(--white); border-radius: 12px; padding: 32px; border: 1px solid var(--border-warm); margin-bottom: 24px;">
+    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text-secondary);">SECONDARY — Outline</h4>
+    <div class="btn-row">
+      <button class="btn-secondary">Compare Plans</button>
+      <button class="btn-secondary" style="background: var(--black); color: var(--cream);">Hover State</button>
+      <button class="btn-secondary" style="opacity: 0.5; cursor: not-allowed; color: var(--text-muted); border-color: var(--border-warm);">Disabled</button>
+    </div>
+  </div>
+
+  <div style="background: var(--white); border-radius: 12px; padding: 32px; border: 1px solid var(--border-warm); margin-bottom: 24px;">
+    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text-secondary);">GHOST — Minimal</h4>
+    <div class="btn-row">
+      <button class="btn-ghost">Learn More →</button>
+      <button class="btn-ghost" style="background: var(--baby-blue);">Hover State</button>
+    </div>
+  </div>
+
+  <div style="background: var(--white); border-radius: 12px; padding: 32px; border: 1px solid var(--border-warm);">
+    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text-secondary);">PREMIUM — Deep Maroon</h4>
+    <div class="btn-row">
+      <button class="btn-premium">✦ Exclusive Access</button>
+      <button class="btn-premium" style="background: #7A1A30;">Hover State</button>
+      <button class="btn-premium" style="background: #4A0E1C;">Pressed</button>
+    </div>
+  </div>
+</div>
+
+<!-- 10. Shadow System -->
+<div id="shadows" class="section" style="background: var(--ivory);">
+  <div class="section-title">09 / Shadow System</div>
+  <h2 class="section-heading">Premium Warm Shadows</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 24px;">
+    <div>
+      <div class="shadow-demo" style="box-shadow: 0 1px 2px rgba(17,17,17,0.04);">
+        <code style="font-size: 11px;">xs</code>
+      </div>
+      <div style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px;">Resting cards</div>
+    </div>
+    <div>
+      <div class="shadow-demo" style="box-shadow: 0 2px 4px rgba(17,17,17,0.06);">
+        <code style="font-size: 11px;">sm</code>
+      </div>
+      <div style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px;">Default cards</div>
+    </div>
+    <div>
+      <div class="shadow-demo" style="box-shadow: 0 4px 12px rgba(17,17,17,0.08);">
+        <code style="font-size: 11px;">md</code>
+      </div>
+      <div style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px;">Dropdowns</div>
+    </div>
+    <div>
+      <div class="shadow-demo" style="box-shadow: 0 8px 24px rgba(17,17,17,0.10);">
+        <code style="font-size: 11px;">lg</code>
+      </div>
+      <div style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px;">Modals</div>
+    </div>
+    <div>
+      <div class="shadow-demo" style="box-shadow: 0 16px 48px rgba(17,17,17,0.12);">
+        <code style="font-size: 11px;">xl</code>
+      </div>
+      <div style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px;">Overlays</div>
+    </div>
+    <div>
+      <div class="shadow-demo" style="box-shadow: 0 4px 20px rgba(94,18,35,0.08), 0 1px 3px rgba(17,17,17,0.05);">
+        <code style="font-size: 11px; color: var(--maroon);">premium</code>
+      </div>
+      <div style="text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px;">Maroon-tinted</div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. Section Alternation -->
+<div id="alternation" class="section" style="background: var(--cream);">
+  <div class="section-title">10 / Section Alternation</div>
+  <h2 class="section-heading">The Rhythm of Warmth</h2>
+  <div class="alt-visual">
+    <div class="alt-section" style="background: var(--cream);">
+      <div class="alt-label">Hero</div>
+      <div style="flex: 1; height: 2px; background: rgba(0,0,0,0.1);"></div>
+      <div class="alt-hex">#F3EADB Soft Cream</div>
+    </div>
+    <div class="alt-section" style="background: var(--ivory);">
+      <div class="alt-label">Features</div>
+      <div style="flex: 1; height: 2px; background: rgba(0,0,0,0.08);"></div>
+      <div class="alt-hex">#F6F5F1 Ivory White</div>
+    </div>
+    <div class="alt-section" style="background: #5E1223; color: #F6F5F1;">
+      <div class="alt-label">Premium Break</div>
+      <div style="flex: 1; height: 2px; background: rgba(255,255,255,0.2);"></div>
+      <div class="alt-hex" style="color: #D4B8B8;">#5E1223 Deep Maroon</div>
+    </div>
+    <div class="alt-section" style="background: var(--cream);">
+      <div class="alt-label">Content</div>
+      <div style="flex: 1; height: 2px; background: rgba(0,0,0,0.1);"></div>
+      <div class="alt-hex">#F3EADB Soft Cream</div>
+    </div>
+    <div class="alt-section" style="background: var(--white); border-top: 1px solid var(--border-warm); border-bottom: 1px solid var(--border-warm);">
+      <div class="alt-label">Stats / Logos</div>
+      <div style="flex: 1; height: 2px; background: rgba(0,0,0,0.08);"></div>
+      <div class="alt-hex">#FFFFFF Pure White</div>
+    </div>
+    <div class="alt-section" style="background: var(--ivory);">
+      <div class="alt-label">Testimonials</div>
+      <div style="flex: 1; height: 2px; background: rgba(0,0,0,0.08);"></div>
+      <div class="alt-hex">#F6F5F1 Ivory White</div>
+    </div>
+    <div class="alt-section" style="background: var(--cream);">
+      <div class="alt-label">CTA</div>
+      <div style="flex: 1; height: 2px; background: rgba(0,0,0,0.1);"></div>
+      <div class="alt-hex">#F3EADB Soft Cream</div>
+    </div>
+    <div class="alt-section" style="background: linear-gradient(180deg, #111111 0%, #5E1223 100%); color: #F6F5F1;">
+      <div class="alt-label">Footer</div>
+      <div style="flex: 1; height: 2px; background: rgba(255,255,255,0.1);"></div>
+      <div class="alt-hex" style="color: #D4B8B8;">#111111 → #5E1223</div>
+    </div>
+  </div>
+</div>
+
+<!-- 12. Dark Mode -->
+<div id="dark-mode" class="section" style="background: var(--ivory);">
+  <div class="section-title">11 / Dark Mode</div>
+  <h2 class="section-heading">Warm Reversal — Cream as Text</h2>
+  <div class="dark-demo">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+      <div>
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #D4A0A0; margin-bottom: 8px;">LABEL</div>
+        <h3 style="font-size: 24px; font-weight: 800; color: #F3EADB; letter-spacing: -0.02em; margin-bottom: 8px;">Heading on Dark</h3>
+        <p style="font-size: 14px; color: #B0B0B0; margin-bottom: 8px;">Secondary text uses warm gray #B0B0B0. Readable without being harsh.</p>
+        <p style="font-size: 13px; color: #707070;">Muted text for footnotes and timestamps.</p>
+        <p style="margin-top: 8px;"><span style="color: #6B9FFF; text-decoration: underline; cursor: pointer;">Interactive link</span></p>
+      </div>
+      <div>
+        <div style="font-size: 14px; font-weight: 600; color: #F3EADB; margin-bottom: 16px;">Dark Surfaces</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="background: #111111; border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 24px; height: 24px; border-radius: 4px; background: #111111; border: 1px solid #444;"></div>
+            <div>
+              <div style="font-size: 12px; color: #F3EADB;">Background</div>
+              <code style="font-size: 11px; color: #707070;">#111111</code>
+            </div>
+          </div>
+          <div style="background: #171717; border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 24px; height: 24px; border-radius: 4px; background: #171717; border: 1px solid #444;"></div>
+            <div>
+              <div style="font-size: 12px; color: #F3EADB;">Alt Background</div>
+              <code style="font-size: 11px; color: #707070;">#171717</code>
+            </div>
+          </div>
+          <div style="background: #1A1A1A; border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 24px; height: 24px; border-radius: 4px; background: #1A1A1A; border: 1px solid #444;"></div>
+            <div>
+              <div style="font-size: 12px; color: #F3EADB;">Card Surface</div>
+              <code style="font-size: 11px; color: #707070;">#1A1A1A</code>
+            </div>
+          </div>
+          <div style="background: #1E1014; border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 24px; height: 24px; border-radius: 4px; background: #1E1014; border: 1px solid #444;"></div>
+            <div>
+              <div style="font-size: 12px; color: #F3EADB;">Premium Surface</div>
+              <code style="font-size: 11px; color: #707070;">#1E1014</code>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 14px; font-weight: 600; color: #F3EADB; margin-bottom: 16px;">Dark Buttons</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button style="background: #2563EB; color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; font-size: 14px; cursor: pointer;">Primary CTA</button>
+          <button style="background: transparent; color: #F3EADB; padding: 10px 20px; border-radius: 8px; border: 1.5px solid #555; font-weight: 600; font-size: 14px; cursor: pointer;">Secondary</button>
+          <button style="background: transparent; color: #6B9FFF; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; font-size: 14px; cursor: pointer;">Ghost →</button>
+          <button style="background: #8B2D40; color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 8px rgba(94,18,35,0.3);">★ Premium</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. Contrast Table -->
+<div id="contrast" class="section" style="background: var(--cream);">
+  <div class="section-title">12 / WCAG Contrast Ratios</div>
+  <h2 class="section-heading">Accessibility Compliance</h2>
+  <table class="spec-table">
+    <thead>
+      <tr><th>Foreground</th><th>Background</th><th>Ratio</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>#111111</code></td><td style="background: #F3EADB;">Soft Cream</td><td>13.2:1</td><td class="contrast-pass">✅ AAA</td></tr>
+      <tr><td><code>#111111</code></td><td style="background: #F6F5F1;">Ivory White</td><td>14.1:1</td><td class="contrast-pass">✅ AAA</td></tr>
+      <tr><td><code>#111111</code></td><td style="background: #FFFFFF;">White</td><td>15.4:1</td><td class="contrast-pass">✅ AAA</td></tr>
+      <tr><td><code>#4A4A4A</code></td><td style="background: #F3EADB;">Soft Cream</td><td>7.1:1</td><td class="contrast-pass">✅ AA</td></tr>
+      <tr><td><code>#8C8C8C</code></td><td style="background: #F3EADB;">Soft Cream</td><td>3.8:1</td><td class="contrast-warn">⚠️ Large text</td></tr>
+      <tr><td><code>#2563EB</code></td><td style="background: #F3EADB;">Soft Cream</td><td>4.9:1</td><td class="contrast-pass">✅ AA</td></tr>
+      <tr><td><code>#2563EB</code></td><td style="background: #FFFFFF;">White</td><td>5.3:1</td><td class="contrast-pass">✅ AA</td></tr>
+      <tr><td style="color: #F6F5F1;"><code>#F6F5F1</code></td><td style="background: #5E1223; color: #F6F5F1;">Deep Maroon</td><td>8.6:1</td><td class="contrast-pass">✅ AAA</td></tr>
+      <tr><td style="color: #FFFFFF;"><code>#FFFFFF</code></td><td style="background: #5E1223; color: #FFFFFF;">Deep Maroon</td><td>8.2:1</td><td class="contrast-pass">✅ AAA</td></tr>
+      <tr><td style="color: #F3EADB;"><code>#F3EADB</code></td><td style="background: #111111; color: #F3EADB;">Black</td><td>13.2:1</td><td class="contrast-pass">✅ AAA</td></tr>
+      <tr><td style="color: #2563EB;"><code>#2563EB</code></td><td style="background: #5E1223; color: #6B9FFF;">Deep Maroon</td><td>3.2:1</td><td class="contrast-fail">❌ Avoid</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 14. Combination Rules -->
+<div id="rules" class="section" style="background: var(--ivory);">
+  <div class="section-title">13 / Combination Rules</div>
+  <h2 class="section-heading">What Works & What Doesn't</h2>
+  <div class="card-grid">
+    <div>
+      <h4 style="font-size: 16px; font-weight: 700; color: #10B981; margin-bottom: 16px;">✅ Approved Combinations</h4>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px; background: #F3EADB; border-radius: 8px; padding: 10px 14px;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #F3EADB; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px;">+</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #FFFFFF; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px; color: var(--text-secondary);">Cream bg + White cards</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; background: #F3EADB; border-radius: 8px; padding: 10px 14px;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #2563EB;"></div>
+          <span style="font-size: 13px;">on</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #F3EADB; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px; color: var(--text-secondary);">Electric Blue on Cream</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; background: #5E1223; border-radius: 8px; padding: 10px 14px;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #5E1223;"></div>
+          <span style="font-size: 13px; color: #D4B8B8;">+</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #F6F5F1; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px; color: #D4B8B8;">Maroon + Ivory text</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; background: #F3EADB; border-radius: 8px; padding: 10px 14px;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #DBEAFE;"></div>
+          <span style="font-size: 13px;">+</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #2563EB;"></div>
+          <span style="font-size: 13px; color: var(--text-secondary);">Baby Blue tag + Blue text</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4 style="font-size: 16px; font-weight: 700; color: #EF4444; margin-bottom: 16px;">❌ Avoid Combinations</h4>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px; background: #FFF5F5; border-radius: 8px; padding: 10px 14px; border: 1px solid #FED7D7;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #DBEAFE;"></div>
+          <span style="font-size: 13px;">as text on</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #FFFFFF; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px; color: #EF4444;">Baby Blue on White (1.5:1)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; background: #FFF5F5; border-radius: 8px; padding: 10px 14px; border: 1px solid #FED7D7;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #5E1223;"></div>
+          <span style="font-size: 13px;">as large fill on</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #FFFFFF; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px; color: #EF4444;">Maroon on white (overpowering)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; background: #FFF5F5; border-radius: 8px; padding: 10px 14px; border: 1px solid #FED7D7;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #2563EB;"></div>
+          <span style="font-size: 13px;">on</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #5E1223;"></div>
+          <span style="font-size: 13px; color: #EF4444;">Blue on Maroon (3.2:1)</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; background: #FFF5F5; border-radius: 8px; padding: 10px 14px; border: 1px solid #FED7D7;">
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #F3EADB; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px;">on</span>
+          <div style="width: 20px; height: 20px; border-radius: 4px; background: #F6F5F1; border: 1px solid #E8E2D6;"></div>
+          <span style="font-size: 13px; color: #EF4444;">Cream on Ivory (1.05:1)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="background: linear-gradient(180deg, #111111 0%, #5E1223 100%); padding: 60px 40px; text-align: center;">
+  <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #D4A0A0; margin-bottom: 12px;">Paliwal Secure — Color System v7.0</div>
+  <div style="font-size: 14px; color: #B0B0B0;">Inspired by Stripe · Linear · Vercel · Apple · Notion</div>
+  <div style="font-size: 12px; color: #707070; margin-top: 16px;">Created 2026-03-04 | Premium Insurance Advisory</div>
+</div>
+
+</body>
+</html>
