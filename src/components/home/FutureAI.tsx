@@ -20,7 +20,7 @@ const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
   feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Find out aapki current policy kya cover nahi karti' },
 };
 
-const featureColors = ['#2563EB', '#10B981', '#E8C872', '#8B5CF6'];
+const featureColors = ['#2563EB', '#10B981', '#5E1223', '#8B5CF6'];
 
 /* ── Feature Card ──────────────────────────────────────────────── */
 function FeatureCard({
@@ -58,12 +58,12 @@ function FeatureCard({
         {title}
       </h3>
 
-      <p className="text-sm text-white/50 leading-relaxed flex-1 mb-5 font-sans">
+      <p className="text-sm text-white/70 leading-relaxed flex-1 mb-5 font-sans">
         {desc}
       </p>
 
       <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#E8C872] px-3 py-1.5 rounded-full bg-[#E8C872]/[0.08] border border-[#E8C872]/[0.15] font-heading">
+        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#DBEAFE] px-3 py-1.5 rounded-full bg-[#2563EB]/[0.15] border border-[#2563EB]/[0.25] font-heading">
           {comingSoon}
         </span>
       </div>
@@ -78,13 +78,13 @@ export default function FutureAI() {
   const isEnglish = language === 'en';
 
   const badge = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
-  const heading = isHindi ? 'अपना जानें' : isEnglish ? 'Know Your' : 'Apna jaanein';
+  const heading = isHindi ? 'अपना जानें' : isEnglish ? 'Discover Your' : 'Apna jaanein';
   const headingAccent = isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score';
   const subtitle = isHindi
-    ? 'केवल 2 मिनट में अपने वर्तमान बीमा कवरेज का व्यापक विश्लेषण प्राप्त करें। अंतराल खोजें, लागत अनुकूलित करें।'
+    ? 'आपके पास अभी कौन सा इंश्योरेंस है? केवल 2 मिनट में अपने वर्तमान बीमा कवरेज का व्यापक विश्लेषण प्राप्त करें।'
     : isEnglish
-      ? 'Get a comprehensive analysis of your current insurance coverage in just 2 minutes. Discover gaps, optimize costs.'
-      : 'Bas 2 minute mein aapke current insurance coverage ka comprehensive analysis paayein. Gaps discover karein, costs optimize karein.';
+      ? 'What insurance do you currently have? Get a comprehensive analysis of your current insurance coverage in just 2 minutes. Discover gaps, optimize costs.'
+      : 'Aapke paas abhi kaun sa insurance hai? Bas 2 minute mein aapke current insurance coverage ka comprehensive analysis paayein.';
 
   const checklistItems = [
     { en: 'Instant coverage gap analysis', hi: 'तत्काल कवरेज अंतर विश्लेषण', hg: 'Instant coverage gap analysis' },
@@ -104,7 +104,7 @@ export default function FutureAI() {
         {/* Secondary glow — bottom-right */}
         <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.06] rounded-full blur-[120px]" />
         {/* Gold accent glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#E8C872]/[0.03] rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#2563EB]/[0.04] rounded-full blur-[150px]" />
         {/* Subtle dot grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.025]"
@@ -128,8 +128,8 @@ export default function FutureAI() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#E8C872] animate-pulse" />
-              <Shield className="h-3.5 w-3.5 text-[#E8C872]" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
+              <Shield className="h-3.5 w-3.5 text-[#2563EB]" />
               <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
                 {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
               </span>
@@ -140,7 +140,7 @@ export default function FutureAI() {
               <span className="gradient-luxury">{headingAccent}</span>
             </h2>
 
-            <p className="text-lg text-white/50 mb-10 leading-relaxed font-sans max-w-lg">
+            <p className="text-lg text-white/80 mb-10 leading-relaxed font-sans max-w-lg">
               {subtitle}
             </p>
 
@@ -186,7 +186,7 @@ export default function FutureAI() {
           >
             <div className="relative w-full max-w-md mx-auto">
               {/* Outer ring glow */}
-              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#E8C872]/[0.06] via-transparent to-[#10B981]/[0.06] blur-xl" />
+              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#2563EB]/[0.08] via-transparent to-[#10B981]/[0.06] blur-xl" />
 
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
@@ -211,8 +211,8 @@ export default function FutureAI() {
                   />
                   <defs>
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#E8C872" />
-                      <stop offset="50%" stopColor="#F0D890" />
+                      <stop offset="0%" stopColor="#2563EB" />
+                      <stop offset="50%" stopColor="#60A5FA" />
                       <stop offset="100%" stopColor="#10B981" />
                     </linearGradient>
                   </defs>
@@ -228,9 +228,9 @@ export default function FutureAI() {
                   >
                     87
                   </motion.div>
-                  <div className="text-base text-white/40 font-sans mt-1">out of 100</div>
+                  <div className="text-base text-white/60 font-sans mt-1">out of 100</div>
                   <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
-                    <span className="text-xs font-semibold font-heading tracking-wide text-[#E8C872]">
+                    <span className="text-xs font-semibold font-heading tracking-wide text-[#DBEAFE]">
                       {isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection'}
                     </span>
                   </div>
@@ -249,15 +249,15 @@ export default function FutureAI() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-xl font-bold gradient-luxury font-heading">92%</div>
-                      <div className="text-[11px] text-white/40 font-sans mt-0.5">Life</div>
+                      <div className="text-[11px] text-white/60 font-sans mt-0.5">Life</div>
                     </div>
                     <div className="border-x border-white/[0.06]">
                       <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
-                      <div className="text-[11px] text-white/40 font-sans mt-0.5">Health</div>
+                      <div className="text-[11px] text-white/60 font-sans mt-0.5">Health</div>
                     </div>
                     <div>
                       <div className="text-xl font-bold text-white/90 font-heading">84%</div>
-                      <div className="text-[11px] text-white/40 font-sans mt-0.5">Vehicle</div>
+                      <div className="text-[11px] text-white/60 font-sans mt-0.5">Vehicle</div>
                     </div>
                   </div>
                 </div>

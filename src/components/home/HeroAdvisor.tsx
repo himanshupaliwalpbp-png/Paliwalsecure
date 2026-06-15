@@ -197,7 +197,7 @@ export default function HeroAdvisor() {
   const isEnglish = language === 'en';
 
   // ── Localized strings ─────────────────────────────────────
-  const trustBadgeText = isHindi ? '10,000+ भारतीय परिवारों का भरोसा' : isEnglish ? 'Trusted by 10,000+ Indian Families' : '10,000+ Indian Parivaron ka Bharosa';
+  const trustBadgeText = isHindi ? '200+ भारतीय परिवारों का भरोसा' : isEnglish ? 'Trusted by 200+ Indian Families' : '200+ Indian Parivaron ka Bharosa';
 
   const headlineAccent = isHindi ? 'Intelligence' : isEnglish ? 'Intelligence' : 'Intelligence';
   const headlineBefore = isHindi ? 'Insurance' : isEnglish ? 'Insurance' : 'Insurance';
@@ -214,10 +214,8 @@ export default function HeroAdvisor() {
 
   const socialProof1Val = '4.9/5';
   const socialProof1Label = isHindi ? 'क्लाइंट रेटिंग' : isEnglish ? 'Client Rating' : 'Client Rating';
-  const socialProof2Val = '₹500Cr+';
-  const socialProof2Label = isHindi ? 'कवरेज मैनेज्ड' : isEnglish ? 'Coverage Managed' : 'Coverage Managed';
-  const socialProof3Val = '24/7';
-  const socialProof3Label = isHindi ? 'सहायता' : isEnglish ? 'Support' : 'Support';
+  const socialProof2Val = '24/7';
+  const socialProof2Label = isHindi ? 'सहायता' : isEnglish ? 'Support' : 'Support';
 
   const stepLabels: Record<Step, string> = isHindi
     ? { 1: 'Aapki umar?', 2: 'Parivaar ki sankhya?', 3: 'Shehar?', 4: 'Masik budget?' }
@@ -516,10 +514,6 @@ export default function HeroAdvisor() {
               <div className="stat-premium-block stat-premium-block-green rounded-xl">
                 <div className="stat-number">{socialProof2Val}</div>
                 <div className="stat-label">{socialProof2Label}</div>
-              </div>
-              <div className="stat-premium-block stat-premium-block-gold rounded-xl">
-                <div className="stat-number">{socialProof3Val}</div>
-                <div className="stat-label">{socialProof3Label}</div>
               </div>
             </motion.div>
           </motion.div>

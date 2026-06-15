@@ -2,15 +2,13 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Users, Shield, TrendingUp, Award } from 'lucide-react';
+import { Users, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 // ── Stats data with icons and colors ─────────────────────────────────────────
 const stats = [
-  { key: 'families', icon: Users, target: 500, color: '#2563EB', accentClass: '' },
-  { key: 'coverage', icon: Shield, target: 500, color: '#10B981', accentClass: 'stat-premium-block-green' },
-  { key: 'claims', icon: TrendingUp, target: 100, color: '#E8C872', accentClass: 'stat-premium-block-gold' },
-  { key: 'experience', icon: Award, target: 15, color: '#8B5CF6', accentClass: 'stat-premium-block-violet' },
+  { key: 'families', icon: Users, target: 200, color: '#2563EB', accentClass: '' },
+  { key: 'claims', icon: TrendingUp, target: 100, color: '#10B981', accentClass: 'stat-premium-block-green' },
 ];
 
 // ── Animated number hook ──────────────────────────────────────────────────────
@@ -65,18 +63,14 @@ function StatItem({
 
   const valueLabels: Record<string, { en: string; hi: string; hg: string }> = {
     families: { en: 'Families Protected', hi: 'परिवार सुरक्षित', hg: 'Families Protected' },
-    coverage: { en: 'Coverage Managed', hi: 'कवरेज मैनेज्ड', hg: 'Coverage Managed' },
     claims: { en: 'Claims Settled', hi: 'क्लेम निपटाए', hg: 'Claims Settled' },
-    experience: { en: 'Years Experience', hi: 'वर्षों का अनुभव', hg: 'Years Experience' },
   };
 
   const label = isHindi ? valueLabels[stat.key]?.hi : isEnglish ? valueLabels[stat.key]?.en : valueLabels[stat.key]?.hg;
 
   const formatValue = () => {
     if (stat.key === 'families') return `${Math.round(animated)}+`;
-    if (stat.key === 'coverage') return `₹${Math.round(animated)}Cr+`;
     if (stat.key === 'claims') return `${Math.round(animated)}%`;
-    if (stat.key === 'experience') return `${Math.round(animated)}+`;
     return String(Math.round(animated));
   };
 
@@ -142,7 +136,7 @@ export default function TrustStrip() {
         </motion.div>
 
         {/* Stats grid — 4 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 max-w-2xl mx-auto">
           {stats.map((stat, index) => (
             <StatItem
               key={stat.key}

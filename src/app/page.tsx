@@ -51,9 +51,7 @@ const ComparisonMatrix = dynamic(() => import('@/components/home/ComparisonMatri
 const ClaimsTimeline = dynamic(() => import('@/components/home/ClaimsTimeline'), {
   loading: () => <div className="min-h-[300px]" />,
 });
-const TestimonialsSection = dynamic(() => import('@/components/home/TestimonialsSection'), {
-  loading: () => <div className="min-h-[300px]" />,
-});
+// TestimonialsSection removed per user request
 const RatingLeadForm = dynamic(() => import('@/components/RatingLeadForm'), {
   loading: () => <div className="min-h-[600px]" />,
 });
@@ -129,10 +127,7 @@ export default function Home() {
         <ClaimsTimeline />
       </SafeRender>
 
-      {/* 10. Trusted Advisors / Testimonials */}
-      <SafeRender name="TestimonialsSection">
-        <TestimonialsSection />
-      </SafeRender>
+      {/* 10. Trusted Advisors / Testimonials — REMOVED */}
 
       {/* 11. 5-Star Review + Lead Capture Form */}
       <SafeRender name="RatingLeadForm">
