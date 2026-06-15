@@ -146,7 +146,7 @@ export default function HomeFAQSection() {
           <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] dark:text-[#F3EADB] mb-4 font-heading tracking-tight">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-lg text-[#4A4A4A] dark:text-[#94A3B8] font-sans max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-[#374151] dark:text-[#94A3B8] font-sans max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
@@ -165,10 +165,10 @@ export default function HomeFAQSection() {
                 value={`item-${index}`}
                 className="premium-card border border-[#E8E2D6]/60 dark:border-white/[0.06] rounded-xl px-6 !p-0 data-[state=open]:border-[#2563EB]/20 dark:data-[state=open]:border-[#3B82F6]/30 data-[state=open]:shadow-premium transition-all duration-300 group"
               >
-                <AccordionTrigger className="text-left font-heading text-[0.9375rem] font-semibold text-[#111111] dark:text-[#F3EADB] hover:no-underline py-5 [&>svg]:text-[#4A4A4A] dark:[&>svg]:text-[#64748B] [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 [&>svg]:transition-transform [&>svg]:duration-200">
+                <AccordionTrigger className="text-left font-heading text-[0.9375rem] font-semibold text-[#111111] dark:text-[#F3EADB] hover:no-underline py-5 [&>svg]:text-[#374151] dark:[&>svg]:text-[#64748B] [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 [&>svg]:transition-transform [&>svg]:duration-200">
                   {isHindi ? faq.question.hi : isEnglish ? faq.question.en : faq.question.hg}
                 </AccordionTrigger>
-                <AccordionContent className="text-[0.875rem] text-[#4A4A4A] dark:text-[#94A3B8] leading-[1.7] font-sans pb-5">
+                <AccordionContent className="text-[0.875rem] text-[#374151] dark:text-[#94A3B8] leading-[1.7] font-sans pb-5">
                   {isHindi ? faq.answer.hi : isEnglish ? faq.answer.en : faq.answer.hg}
                 </AccordionContent>
               </AccordionItem>
@@ -184,7 +184,7 @@ export default function HomeFAQSection() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-center mt-14"
         >
-          <p className="text-[#4A4A4A] dark:text-[#94A3B8] mb-5 font-sans text-sm">{stillQuestions}</p>
+          <p className="text-[#374151] dark:text-[#94A3B8] mb-5 font-sans text-sm">{stillQuestions}</p>
           <a
             href="https://wa.me/919257877312"
             target="_blank"

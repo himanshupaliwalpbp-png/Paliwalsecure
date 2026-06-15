@@ -161,7 +161,7 @@ export default function CategoryCards() {
                         <h3 className="text-card-title">
                           {title}
                         </h3>
-                        <p className="text-sm font-body mt-0.5 category-card-description" style={{ color: '#4A4A4A' }}>
+                        <p className="text-sm font-body mt-0.5 category-card-description" style={{ color: '#374151' }}>
                           {description}
                         </p>
                       </div>

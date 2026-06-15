@@ -125,7 +125,7 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
       </h3>
 
       {/* Summary */}
-      <p className="text-sm text-[#4A4A4A] dark:text-[#A6AEC7] leading-relaxed mb-5 font-body">
+      <p className="text-sm text-[#374151] dark:text-[#A6AEC7] leading-relaxed mb-5 font-body">
         {summary}
       </p>
 
@@ -138,7 +138,7 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
         {keyPoints.slice(0, 3).map((point, i) => (
           <div key={i} className="flex items-start gap-2.5">
             <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: article.color, opacity: 0.7 }} />
-            <span className="text-xs text-[#4A4A4A] dark:text-[#A6AEC7] leading-snug font-body">{point}</span>
+            <span className="text-xs text-[#374151] dark:text-[#A6AEC7] leading-snug font-body">{point}</span>
           </div>
         ))}
       </div>
@@ -149,7 +149,7 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
           {readGuide}
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </span>
-        <span className="text-[11px] text-[#4A4A4A] dark:text-[#A6AEC7] flex items-center gap-1 font-mono">
+        <span className="text-[11px] text-[#374151] dark:text-[#A6AEC7] flex items-center gap-1 font-mono">
           <Clock className="w-3 h-3" />
           {readTime}
         </span>
@@ -193,7 +193,7 @@ export default function KnowledgeHub() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#111111] dark:text-[#F3EADB] leading-[1.1] font-display">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-sm sm:text-base text-[#4A4A4A] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
+          <p className="text-sm sm:text-base text-[#374151] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>

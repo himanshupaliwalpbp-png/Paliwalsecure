@@ -69,7 +69,7 @@ export default function HomeCTASection() {
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.5 }}
           >
-            <Shield className="h-10 w-10 text-[#DBEAFE]" strokeWidth={1.8} />
+            <Shield className="h-10 w-10 text-white" strokeWidth={1.8} />
           </motion.div>
 
           {/* Headline */}
@@ -78,7 +78,7 @@ export default function HomeCTASection() {
             <span className="gradient-luxury">{headingAccent}</span>
           </h2>
 
-          <p className="text-lg md:text-xl text-[#F6F5F1]/60 mb-12 max-w-2xl mx-auto leading-relaxed font-sans">
+          <p className="text-lg md:text-xl text-[#F6F5F1]/85 mb-12 max-w-2xl mx-auto leading-relaxed font-sans">
             {subtitle}
           </p>
 
@@ -118,7 +118,7 @@ export default function HomeCTASection() {
               {trustIndicators.map((indicator, index) => (
                 <div key={index} className="flex items-center gap-2.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,0.4)]" />
-                  <span className="text-sm text-[#F6F5F1]/50 font-sans">
+                  <span className="text-sm text-[#F6F5F1]/75 font-sans">
                     {isHindi ? indicator.hi : isEnglish ? indicator.en : indicator.hg}
                   </span>
                 </div>

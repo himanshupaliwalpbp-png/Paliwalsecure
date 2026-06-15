@@ -41,29 +41,32 @@ function FeatureCard({
 
   return (
     <motion.div
-      className="premium-card bg-white/[0.06] dark:bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] dark:border-white/[0.06] rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:bg-white/[0.1] dark:hover:bg-white/[0.08] hover:border-white/[0.15] dark:hover:border-white/[0.12]"
+      className="border border-white/[0.12] rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:border-white/[0.20] hover:shadow-lg"
+      style={{ backgroundColor: '#111827' }}
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1a2332'; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#111827'; }}
     >
       <div
         className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-        style={{ backgroundColor: `${color}18`, boxShadow: `0 0 20px ${color}10` }}
+        style={{ backgroundColor: `${color}25`, boxShadow: `0 0 24px ${color}18` }}
       >
-        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 8px ${color}60` }} />
+        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 10px ${color}80` }} />
       </div>
 
       <h3 className="font-heading text-base sm:text-lg font-bold text-white leading-snug mb-2 tracking-tight">
         {title}
       </h3>
 
-      <p className="text-sm text-white/70 leading-relaxed flex-1 mb-5 font-sans">
+      <p className="text-sm text-[#CBD5E1] leading-relaxed flex-1 mb-5 font-sans">
         {desc}
       </p>
 
-      <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-        <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#DBEAFE] px-3 py-1.5 rounded-full bg-[#2563EB]/[0.15] border border-[#2563EB]/[0.25] font-heading">
+      <div className="flex items-center justify-between pt-4 border-t border-white/[0.10]">
+        <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white px-3.5 py-1.5 rounded-full bg-[#2563EB] border border-[#3B82F6] font-heading shadow-[0_0_12px_rgba(37,99,235,0.3)]">
           {comingSoon}
         </span>
       </div>
@@ -100,23 +103,23 @@ export default function FutureAI() {
       {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Primary glow — top-left */}
-        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.07] rounded-full blur-[120px]" />
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.10] rounded-full blur-[120px]" />
         {/* Secondary glow — bottom-right */}
-        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.06] rounded-full blur-[120px]" />
-        {/* Gold accent glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#2563EB]/[0.04] rounded-full blur-[150px]" />
+        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.08] rounded-full blur-[120px]" />
+        {/* Center accent glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#2563EB]/[0.06] rounded-full blur-[150px]" />
         {/* Subtle dot grid pattern */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0)`,
             backgroundSize: '32px 32px',
           }}
         />
       </div>
 
       {/* Top gradient edge */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
@@ -127,20 +130,20 @@ export default function FutureAI() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.06] backdrop-blur-sm rounded-full border border-white/[0.08] mb-8">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
-              <Shield className="h-3.5 w-3.5 text-[#2563EB]" />
-              <span className="text-xs font-semibold font-heading tracking-wide uppercase text-white/80">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#2563EB]/[0.15] backdrop-blur-sm rounded-full border border-[#2563EB]/[0.30] mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse" />
+              <Shield className="h-3.5 w-3.5 text-[#60A5FA]" />
+              <span className="text-xs font-semibold font-heading tracking-wide uppercase text-[#93C5FD]">
                 {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight text-white">
               {heading}{' '}
-              <span className="gradient-luxury">{headingAccent}</span>
+              <span className="gradient-text-blue-emerald">{headingAccent}</span>
             </h2>
 
-            <p className="text-lg text-white/80 mb-10 leading-relaxed font-sans max-w-lg">
+            <p className="text-lg text-[#CBD5E1] mb-10 leading-relaxed font-sans max-w-lg">
               {subtitle}
             </p>
 
@@ -154,10 +157,10 @@ export default function FutureAI() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 * index, duration: 0.5 }}
                 >
-                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
-                    <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
+                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.15] border border-[#10B981]/[0.25] flex items-center justify-center">
+                    <Check className="h-3.5 w-3.5 text-[#34D399]" strokeWidth={2.5} />
                   </div>
-                  <span className="text-[0.9375rem] text-white/75 font-sans">
+                  <span className="text-[0.9375rem] text-[#E2E8F0] font-sans">
                     {isHindi ? item.hi : isEnglish ? item.en : item.hg}
                   </span>
                 </motion.div>
@@ -169,7 +172,7 @@ export default function FutureAI() {
                 const el = document.getElementById('advisor-form');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
-              className="btn-luxury-gold btn-luxury-lg group"
+              className="btn-luxury-primary btn-luxury-lg group"
             >
               {ctaText}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
@@ -186,14 +189,14 @@ export default function FutureAI() {
           >
             <div className="relative w-full max-w-md mx-auto">
               {/* Outer ring glow */}
-              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#2563EB]/[0.08] via-transparent to-[#10B981]/[0.06] blur-xl" />
+              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#2563EB]/[0.12] via-transparent to-[#10B981]/[0.08] blur-xl" />
 
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
                   {/* Background track */}
-                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="10" />
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
                   {/* Subtle outer track */}
-                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="14" />
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="14" />
                   {/* Animated progress */}
                   <motion.circle
                     cx="100"
@@ -228,9 +231,9 @@ export default function FutureAI() {
                   >
                     87
                   </motion.div>
-                  <div className="text-base text-white/60 font-sans mt-1">out of 100</div>
-                  <div className="mt-5 px-4 py-2 bg-white/[0.06] rounded-full border border-white/[0.08] backdrop-blur-sm">
-                    <span className="text-xs font-semibold font-heading tracking-wide text-[#DBEAFE]">
+                  <div className="text-base text-[#CBD5E1] font-sans mt-1">out of 100</div>
+                  <div className="mt-5 px-4 py-2 bg-[#2563EB]/[0.20] rounded-full border border-[#2563EB]/[0.35] backdrop-blur-sm">
+                    <span className="text-xs font-semibold font-heading tracking-wide text-[#93C5FD]">
                       {isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection'}
                     </span>
                   </div>
@@ -245,19 +248,19 @@ export default function FutureAI() {
                 transition={{ delay: 1, duration: 0.6 }}
                 className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-full max-w-sm"
               >
-                <div className="bg-white/[0.06] backdrop-blur-xl rounded-2xl p-5 border border-white/[0.08]">
+                <div className="rounded-2xl p-5 border border-white/[0.12]" style={{ backgroundColor: '#111827' }}>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-xl font-bold gradient-luxury font-heading">92%</div>
-                      <div className="text-[11px] text-white/60 font-sans mt-0.5">Life</div>
+                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">92%</div>
+                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">Life</div>
                     </div>
-                    <div className="border-x border-white/[0.06]">
+                    <div className="border-x border-white/[0.10]">
                       <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
-                      <div className="text-[11px] text-white/60 font-sans mt-0.5">Health</div>
+                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">Health</div>
                     </div>
                     <div>
-                      <div className="text-xl font-bold text-white/90 font-heading">84%</div>
-                      <div className="text-[11px] text-white/60 font-sans mt-0.5">Vehicle</div>
+                      <div className="text-xl font-bold text-white font-heading">84%</div>
+                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">Vehicle</div>
                     </div>
                   </div>
                 </div>
@@ -265,10 +268,40 @@ export default function FutureAI() {
             </div>
           </motion.div>
         </div>
+
+        {/* Coming Soon Feature Cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-20 pt-16 border-t border-white/[0.08]"
+        >
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#2563EB]/[0.12] rounded-full border border-[#2563EB]/[0.25] text-xs font-bold uppercase tracking-widest text-[#93C5FD] font-heading mb-4">
+              <Shield className="h-3 w-3" />
+              {badge}
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold font-heading text-white tracking-tight">
+              {isHindi ? 'AI की शक्ति' : isEnglish ? 'Powered by AI' : 'Powered by AI'}
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {['feature1', 'feature2', 'feature3', 'feature4'].map((key, index) => (
+              <FeatureCard
+                key={key}
+                featureKey={key}
+                index={index}
+                isHindi={isHindi}
+                isEnglish={isEnglish}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Bottom gradient edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
     </section>
   );
 }

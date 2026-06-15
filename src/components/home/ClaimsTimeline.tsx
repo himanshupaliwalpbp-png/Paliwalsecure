@@ -105,7 +105,7 @@ export default function ClaimsTimeline() {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#111111] dark:text-[#F3EADB] leading-[1.1] font-display">
             {heading}
           </h2>
-          <p className="mt-4 text-[#4A4A4A] dark:text-[#A6AEC7] text-base md:text-lg max-w-md mx-auto leading-relaxed font-body">
+          <p className="mt-4 text-[#374151] dark:text-[#A6AEC7] text-base md:text-lg max-w-md mx-auto leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>
@@ -158,7 +158,7 @@ export default function ClaimsTimeline() {
                       <h3 className="font-semibold text-[#111111] dark:text-[#F3EADB] text-base md:text-lg mb-1 tracking-tight font-display">
                         {getStepTitle(step.key)}
                       </h3>
-                      <p className="text-sm text-[#4A4A4A] dark:text-[#A6AEC7] leading-relaxed font-body">
+                      <p className="text-sm text-[#374151] dark:text-[#A6AEC7] leading-relaxed font-body">
                         {getStepDesc(step.key)}
                       </p>
                     </div>

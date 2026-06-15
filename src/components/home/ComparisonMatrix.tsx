@@ -244,7 +244,7 @@ export default function ComparisonMatrix() {
                 <Sparkles className="w-3 h-3" />
                 {isHindi ? 'सबसे अच्छा विकल्प' : isEnglish ? 'Best choice' : 'Best choice'}
               </span>
-              <span className="text-sm text-[#4A4A4A] dark:text-[#94A3B8] font-body">
+              <span className="text-sm text-[#374151] dark:text-[#94A3B8] font-body">
                 {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 of 9 features'}
               </span>
             </div>

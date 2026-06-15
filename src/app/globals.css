@@ -11,7 +11,7 @@
      Surface Alt: #F6F5F1 (Ivory White) — Alternate Background
      Highlight: #DBEAFE (Baby Blue) — Hover states, Subtle highlights
      Text Primary: #111111
-     Text Secondary: #4A4A4A
+     Text Secondary: #374151
      Border: #E8E2D6 (Warm Border)
      Success: #10B981 (Emerald 500) — Growth, Protection
      Gold: #E8C872 — Subtle premium touches only
@@ -150,7 +150,7 @@
   --color-graphite-highlight: rgba(17, 17, 17, 0.06);
 
   /* Semantic */
-  --color-muted-text: #4A4A4A;
+  --color-muted-text: #374151;
   --color-success: #10B981;
   --color-danger: #EF4444;
   --color-info: #2563EB;
@@ -198,7 +198,7 @@
   --secondary: #F6F5F1;           /* Ivory White */
   --secondary-foreground: #111111;
   --muted: #F6F5F1;               /* Ivory White */
-  --muted-foreground: #4A4A4A;    /* Warm muted text */
+  --muted-foreground: #374151;    /* Dark warm muted text — high readability */
   --accent: #5E1223;              /* Deep Maroon — Premium accent */
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
@@ -1078,10 +1078,16 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 
-/* Luxury gradient text — Electric Blue gradient, for premium headings */
+/* Luxury gradient text — Electric Blue to Emerald, vibrant on both light & dark */
 .gradient-luxury {
   color: #2563EB; /* Accessibility fallback */
   background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dark .gradient-luxury {
+  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1096,42 +1102,10 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 .dark .gradient-text-blue-emerald {
-  color: #1D4ED8; /* Accessibility fallback */
-  background: linear-gradient(135deg, #1D4ED8 0%, #059669 100%);
+  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-/* Universal gold gradient text — works on dark or light backgrounds */
-.gradient-text-universal {
-  color: #D4A853; /* Accessibility fallback */
-  background: linear-gradient(135deg, #D4A853 0%, #E2C06E 50%, #F0D890 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.dark .gradient-text-universal {
-  color: #8E7A30; /* Accessibility fallback */
-  background: linear-gradient(135deg, #8E7A30 0%, #A89238 50%, #D4A853 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Luxury gradient text — Electric Blue, premium excellence */
-.gradient-luxury {
-  background: linear-gradient(135deg, #2563EB, #1D4ED8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: #2563EB; /* Accessibility fallback */
-}
-.dark .gradient-luxury {
-  background: linear-gradient(135deg, #60A5FA, #2563EB);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* ── Premium Shadow Utilities — using CSS variables for theme-aware shadows ── */
@@ -3751,7 +3725,7 @@ html.theme-transitioning *::after {
   font-size: clamp(1.125rem, 1.5vw, 1.25rem);
   font-weight: 400;
   line-height: 1.7;
-  color: #4A4A4A;
+  color: #374151;
 }
 .dark .text-body-lg {
   color: #B0B0B0;
@@ -3763,7 +3737,7 @@ html.theme-transitioning *::after {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #4A4A4A;
+  color: #374151;
 }
 .dark .text-label-premium {
   color: #B0B0B0;
@@ -3915,7 +3889,7 @@ html.theme-transitioning *::after {
   font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #4A4A4A;
+  color: #374151;
   margin-top: 0.25rem;
   letter-spacing: 0.01em;
 }
@@ -4140,7 +4114,7 @@ html.theme-transitioning *::after {
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-description {
-  color: #4A4A4A;
+  color: #374151;
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-feature {

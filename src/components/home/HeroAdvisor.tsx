@@ -111,7 +111,7 @@ function StarRating({ rating }: { rating: number }) {
           }`}
         />
       ))}
-      <span className="ml-1 text-xs text-[#4A4A4A] dark:text-slate-400 font-body">{rating.toFixed(1)}</span>
+      <span className="ml-1 text-xs text-[#374151] dark:text-slate-400 font-body">{rating.toFixed(1)}</span>
     </div>
   );
 }
@@ -165,7 +165,7 @@ function AnimatedScoreCircle({ score, size = 120 }: { score: number; size?: numb
         >
           {score}
         </motion.span>
-        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#4A4A4A] dark:text-slate-500">
+        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#374151] dark:text-slate-500">
           /100
         </span>
       </div>
@@ -324,7 +324,7 @@ export default function HeroAdvisor() {
         </div>
         <div>
           <h2 className="text-xl font-bold text-[#111111] dark:text-white font-display">{resultsTitle}</h2>
-          <p className="text-xs text-[#4A4A4A] dark:text-slate-400 font-body mt-0.5">{resultsSubtitle}</p>
+          <p className="text-xs text-[#374151] dark:text-slate-400 font-body mt-0.5">{resultsSubtitle}</p>
         </div>
       </div>
 
@@ -332,7 +332,7 @@ export default function HeroAdvisor() {
       {isSubmitting && !result && (
         <div className="flex flex-col items-center py-12 gap-4">
           <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-600 dark:border-blue-400/20 dark:border-t-blue-400 rounded-full animate-spin" />
-          <p className="text-sm text-[#4A4A4A] dark:text-slate-400 font-body">Analyzing...</p>
+          <p className="text-sm text-[#374151] dark:text-slate-400 font-body">Analyzing...</p>
         </div>
       )}
 
@@ -350,25 +350,25 @@ export default function HeroAdvisor() {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="font-semibold text-[#111111] dark:text-white font-display">{plan.insurer}</h3>
-                  <p className="text-sm text-[#4A4A4A] dark:text-slate-400 font-body">{plan.plan}</p>
+                  <p className="text-sm text-[#374151] dark:text-slate-400 font-body">{plan.plan}</p>
                 </div>
                 <StarRating rating={plan.rating} />
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <span className="text-[#4A4A4A] dark:text-slate-400 font-body">{sumInsuredLabel}</span>
+                  <span className="text-[#374151] dark:text-slate-400 font-body">{sumInsuredLabel}</span>
                   <p className="font-semibold text-[#111111] dark:text-white font-body">{plan.sumInsured}</p>
                 </div>
                 <div>
-                  <span className="text-[#4A4A4A] dark:text-slate-400 font-body">{premiumLabel}</span>
+                  <span className="text-[#374151] dark:text-slate-400 font-body">{premiumLabel}</span>
                   <p className="font-semibold text-[#111111] dark:text-white font-body">{plan.monthlyPremium}</p>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t border-[#E8E2D6]/60 dark:border-slate-700/40 space-y-1.5">
-                <p className="text-xs text-[#4A4A4A] dark:text-slate-400 font-body">
+                <p className="text-xs text-[#374151] dark:text-slate-400 font-body">
                   <span className="font-medium text-[#111111] dark:text-white">{whyFitsLabel}:</span> {plan.whyItFits}
                 </p>
-                <p className="text-xs text-[#4A4A4A] dark:text-slate-400 font-body">
+                <p className="text-xs text-[#374151] dark:text-slate-400 font-body">
                   <span className="font-medium text-[#111111] dark:text-white">{claimRatioLabel}:</span> {plan.claimRatio}
                 </p>
               </div>
@@ -380,20 +380,20 @@ export default function HeroAdvisor() {
       {result && result.advisorMessage && (
         <div className="mt-4 p-4 bg-gradient-to-r from-[#DBEAFE] to-emerald-50 dark:from-blue-950/30 dark:to-emerald-950/30 rounded-xl border border-[#E8E2D6]/60 dark:border-slate-700/40">
           <p className="text-sm font-medium text-[#111111] dark:text-white font-body mb-1">{advisorMessageLabel}</p>
-          <p className="text-sm text-[#4A4A4A] dark:text-slate-400 font-body">{result.advisorMessage}</p>
+          <p className="text-sm text-[#374151] dark:text-slate-400 font-body">{result.advisorMessage}</p>
         </div>
       )}
 
       {result && result.followUpQuestion && (
         <div className="mt-3 p-4 bg-blue-50/80 dark:bg-blue-950/30 rounded-xl border border-blue-200/50 dark:border-blue-800/30">
           <p className="text-sm font-medium text-blue-700 dark:text-blue-400 font-body mb-1">{followUpLabel}</p>
-          <p className="text-sm text-[#4A4A4A] dark:text-slate-400 font-body">{result.followUpQuestion}</p>
+          <p className="text-sm text-[#374151] dark:text-slate-400 font-body">{result.followUpQuestion}</p>
         </div>
       )}
 
       {result && (!result.plans || result.plans.length === 0) && (
         <div className="text-center py-8">
-          <p className="text-[#4A4A4A] dark:text-slate-400 font-body">{noPlansMsg}</p>
+          <p className="text-[#374151] dark:text-slate-400 font-body">{noPlansMsg}</p>
         </div>
       )}
 
@@ -475,7 +475,7 @@ export default function HeroAdvisor() {
             </motion.h1>
 
             {/* Description */}
-            <motion.p variants={heroChild} className="text-body-lg text-[#4A4A4A] dark:text-slate-400 mb-10 leading-relaxed font-body max-w-xl">
+            <motion.p variants={heroChild} className="text-body-lg text-[#374151] dark:text-slate-400 mb-10 leading-relaxed font-body max-w-xl">
               {subtext}
             </motion.p>
 
@@ -533,7 +533,7 @@ export default function HeroAdvisor() {
                 <div className="flex items-center gap-6 mb-6">
                   <AnimatedScoreCircle score={87} size={110} />
                   <div className="flex-1">
-                    <div className="text-label-premium text-[#4A4A4A] dark:text-slate-400 mb-1.5">Protection Score</div>
+                    <div className="text-label-premium text-[#374151] dark:text-slate-400 mb-1.5">Protection Score</div>
                     <div className="text-3xl font-bold font-display text-[#111111] dark:text-white tracking-tight">87/100</div>
                     <div className="flex items-center gap-1.5 mt-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
                       <TrendingUp className="h-4 w-4" />
@@ -549,7 +549,7 @@ export default function HeroAdvisor() {
                     { label: 'Vehicle Insurance', pct: 95, color: 'from-amber-400 to-amber-500' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between gap-4">
-                      <span className="text-sm text-[#4A4A4A] dark:text-slate-400 font-body min-w-[120px]">{item.label}</span>
+                      <span className="text-sm text-[#374151] dark:text-slate-400 font-body min-w-[120px]">{item.label}</span>
                       <div className="flex items-center gap-3 flex-1">
                         <div className="flex-1 h-1.5 bg-[#E8E2D6] dark:bg-slate-700/50 rounded-full overflow-hidden">
                           <motion.div
@@ -573,7 +573,7 @@ export default function HeroAdvisor() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -top-2 -right-2 glass-premium rounded-xl p-3.5 border border-[#E8E2D6]/60 dark:border-slate-700/40 hidden lg:block z-10 shadow-premium"
             >
-              <div className="text-xs text-[#4A4A4A] dark:text-slate-400 font-body mb-0.5">Savings This Year</div>
+              <div className="text-xs text-[#374151] dark:text-slate-400 font-body mb-0.5">Savings This Year</div>
               <div className="text-xl font-bold gradient-text-blue-emerald font-display">₹45,000</div>
             </motion.div>
 
@@ -587,7 +587,7 @@ export default function HeroAdvisor() {
                   <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
-                  <div className="text-[10px] text-[#4A4A4A] dark:text-slate-400 font-body uppercase tracking-wider">Claims Settled</div>
+                  <div className="text-[10px] text-[#374151] dark:text-slate-400 font-body uppercase tracking-wider">Claims Settled</div>
                   <div className="text-lg font-bold text-[#111111] dark:text-white font-display">100%</div>
                 </div>
               </div>
@@ -627,7 +627,7 @@ export default function HeroAdvisor() {
                         <Sparkles className="w-2.5 h-2.5" />
                         AI
                       </span>
-                      <div className="ml-auto text-xs text-[#4A4A4A] dark:text-slate-500 font-body tabular-nums">
+                      <div className="ml-auto text-xs text-[#374151] dark:text-slate-500 font-body tabular-nums">
                         {step}/4
                       </div>
                     </div>
@@ -696,7 +696,7 @@ export default function HeroAdvisor() {
                                   className={`flex items-center gap-2 px-5 py-3.5 rounded-xl border-2 transition-all duration-300 font-body ${
                                     formData.familySize === size
                                       ? 'border-blue-600 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 scale-[1.03] shadow-premium'
-                                      : 'border-[#E8E2D6] dark:border-slate-700 bg-[#F6F5F1]/50 dark:bg-slate-800/50 text-[#4A4A4A] dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-[#DBEAFE]/50 dark:hover:bg-blue-900/20 hover:scale-[1.02]'
+                                      : 'border-[#E8E2D6] dark:border-slate-700 bg-[#F6F5F1]/50 dark:bg-slate-800/50 text-[#374151] dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-[#DBEAFE]/50 dark:hover:bg-blue-900/20 hover:scale-[1.02]'
                                   }`}
                                 >
                                   <Users className="w-4 h-4" />
@@ -744,7 +744,7 @@ export default function HeroAdvisor() {
                                     onClick={() => selectCity(city)}
                                     className="w-full px-5 py-3 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 font-body"
                                   >
-                                    <MapPin className="w-3.5 h-3.5 inline mr-2.5 text-[#4A4A4A]" />
+                                    <MapPin className="w-3.5 h-3.5 inline mr-2.5 text-[#374151]" />
                                     {city}
                                   </button>
                                 ))}
@@ -795,7 +795,7 @@ export default function HeroAdvisor() {
                         {step > 1 ? (
                           <button
                             onClick={handleBack}
-                            className="text-sm text-[#4A4A4A] dark:text-slate-500 hover:text-[#111111] dark:hover:text-white transition-all duration-200 hover:-translate-x-0.5 font-body"
+                            className="text-sm text-[#374151] dark:text-slate-500 hover:text-[#111111] dark:hover:text-white transition-all duration-200 hover:-translate-x-0.5 font-body"
                           >
                             ← {isHindi ? 'पीछे' : isEnglish ? 'Back' : 'Back'}
                           </button>
@@ -826,7 +826,7 @@ export default function HeroAdvisor() {
 
                     {/* Divider + WhatsApp link */}
                     <div className="px-6 sm:px-7 pb-6">
-                      <div className="flex items-center gap-3 text-[#4A4A4A] dark:text-slate-500 text-xs font-body">
+                      <div className="flex items-center gap-3 text-[#374151] dark:text-slate-500 text-xs font-body">
                         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 dark:via-slate-600 to-transparent" />
                         {orDivider}
                         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 dark:via-slate-600 to-transparent" />
