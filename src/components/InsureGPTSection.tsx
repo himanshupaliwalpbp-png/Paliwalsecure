@@ -496,7 +496,7 @@ export default function InsureGPTSection() {
 
       {/* Decorative orbs */}
       <div className="absolute top-20 -left-20 w-72 h-72 bg-[#2563EB]/[0.03] rounded-full blur-3xl pointer-events-none dark:bg-[#3B82F6]/[0.04]" />
-      <div className="absolute bottom-20 -right-20 w-72 h-72 bg-[#E8C872]/[0.03] rounded-full blur-3xl pointer-events-none dark:bg-[#D4A853]/[0.04]" />
+      <div className="absolute bottom-20 -right-20 w-72 h-72 bg-[#2563EB]/[0.03] rounded-full blur-3xl pointer-events-none dark:bg-[#3B82F6]/[0.04]" />
 
       <div className="container-premium relative z-10">
         {/* ── Section Header ──────────────────────────────────────────────── */}
@@ -540,8 +540,8 @@ export default function InsureGPTSection() {
               className="premium-card premium-card-featured"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-[#0F172A] dark:bg-[#E8C872] flex items-center justify-center shadow-md">
-                  <Brain className="w-5 h-5 text-white dark:text-[#0F172A]" />
+                <div className="w-10 h-10 rounded-xl bg-[#2563EB] flex items-center justify-center shadow-md">
+                  <Brain className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <h3 className="text-card-title">InsureGPT</h3>
@@ -557,7 +557,7 @@ export default function InsureGPTSection() {
                 {[
                   { icon: ShieldCheck, labelKey: 'insureGPT.trust.irdaiCertified', color: 'text-[#2563EB] dark:text-[#60A5FA]' },
                   { icon: Globe, labelKey: 'insureGPT.trust.insurers', color: 'text-[#2563EB] dark:text-[#60A5FA]' },
-                  { icon: Zap, labelKey: 'insureGPT.trust.free', color: 'text-[#E8C872] dark:text-[#D4A853]' },
+                  { icon: Zap, labelKey: 'insureGPT.trust.free', color: 'text-[#5E1223] dark:text-[#8B2D40]' },
                   { icon: Brain, labelKey: 'insureGPT.trust.aiPowered', color: 'text-[#2563EB] dark:text-[#60A5FA]' },
                 ].map((item) => {
                   const Icon = item.icon;
@@ -586,7 +586,7 @@ export default function InsureGPTSection() {
                     onClick={() => handleLanguageChange(opt.code)}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border ${
                       language === opt.code
-                        ? 'bg-[#0F172A] text-white border-[#0F172A] shadow-md dark:bg-[#E8C872] dark:text-[#0F172A] dark:border-[#E8C872]'
+                        ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-md dark:bg-[#2563EB] dark:text-white dark:border-[#2563EB]'
                         : 'bg-[#F8FAFC] text-[#64748B] border-[#E2E8F0] hover:border-[#2563EB] hover:text-[#0F172A] dark:bg-white/5 dark:text-[#94A3B8] dark:border-white/10 dark:hover:border-[#3B82F6] dark:hover:text-[#F8FAFC]'
                     }`}
                   >
@@ -658,12 +658,12 @@ export default function InsureGPTSection() {
               className="glass-premium shadow-premium-xl overflow-hidden flex flex-col h-[420px] sm:h-[550px] lg:h-[650px]"
             >
               {/* Chat Header */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-[#E2E8F0] dark:border-white/8 bg-gradient-to-r from-[#0F172A] to-[#1E293B] dark:from-[#E8C872]/10 dark:to-[#D4A853]/5"
+              <div className="flex items-center justify-between px-5 py-3 border-b border-[#E2E8F0] dark:border-white/8 bg-gradient-to-r from-[#0F172A] to-[#1E293B]"
               >
                 <div className="flex items-center gap-2.5">
                   <div className="relative">
-                    <div className="w-8 h-8 rounded-lg bg-[#2563EB] dark:bg-[#E8C872] flex items-center justify-center shadow-md">
-                      <Brain className="w-4 h-4 text-white dark:text-[#0F172A]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center shadow-md">
+                      <Brain className="w-4 h-4 text-white" />
                     </div>
                     <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-[#0F172A] dark:border-[#1E293B]" />
                   </div>
@@ -684,8 +684,8 @@ export default function InsureGPTSection() {
                         onClick={() => handleLanguageChange(opt.code)}
                         className={`px-2 py-0.5 rounded-full text-[10px] font-bold transition-all duration-200 border ${
                           language === opt.code
-                            ? 'bg-[#E8C872] text-[#0F172A] border-[#E8C872] shadow-md'
-                            : 'bg-white/10 text-white/60 border-white/15 hover:border-[#E8C872]/40 hover:text-white/90'
+                            ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-md'
+                            : 'bg-white/10 text-white/60 border-white/15 hover:border-[#2563EB]/40 hover:text-white/90'
                         }`}
                         aria-label={`Switch to ${opt.code}`}
                       >
@@ -780,7 +780,7 @@ export default function InsureGPTSection() {
                         </div>
                       ) : (
                         /* User Message Bubble — Primary accent */
-                        <div className="bg-[#0F172A] dark:bg-[#E8C872] text-white dark:text-[#0F172A] rounded-2xl rounded-tr-sm px-4 py-3 text-sm leading-relaxed max-w-[85%] shadow-md font-medium border border-[#0F172A]/20 dark:border-[#E8C872]/20">
+                        <div className="bg-[#2563EB] text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm leading-relaxed max-w-[85%] shadow-md font-medium border border-[#2563EB]/20">
                           <span>{msg.content}</span>
                         </div>
                       )}
