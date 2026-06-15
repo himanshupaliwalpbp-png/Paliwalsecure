@@ -412,7 +412,7 @@ export default function HeroAdvisor() {
         </a>
         <button
           onClick={handleStartOver}
-          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-body"
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-400 dark:border-slate-700 text-slate-900 dark:text-white font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-body"
         >
           {startOverLabel}
         </button>
@@ -426,7 +426,7 @@ export default function HeroAdvisor() {
       className="relative overflow-hidden py-20 md:py-28"
     >
       {/* ── Gradient Mesh Background ────────────────────────────── */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#A9C0E0] via-[#B8CDE8] to-[#9AB5D8]/60 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30" />
 
       {/* Very subtle dots pattern overlay — barely visible for texture */}
       <div
@@ -832,16 +832,16 @@ export default function HeroAdvisor() {
 
                     {/* Divider + WhatsApp link */}
                     <div className="px-6 sm:px-7 pb-6">
-                      <div className="flex items-center gap-3 text-slate-300 dark:text-slate-600 text-xs font-body">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent" />
+                      <div className="flex items-center gap-3 text-slate-500 dark:text-slate-500 text-xs font-body">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-400 dark:via-slate-600 to-transparent" />
                         {orDivider}
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent" />
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-400 dark:via-slate-600 to-transparent" />
                       </div>
                       <a
                         href="https://wa.me/919257877312"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-slate-900 dark:hover:text-white hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
+                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl border-2 border-emerald-500 dark:border-emerald-600 text-emerald-700 dark:text-emerald-400 text-sm font-semibold bg-emerald-50/60 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:border-emerald-600 dark:hover:border-emerald-500 transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
                       >
                         <MessageCircle className="w-4 h-4" />
                         {whatsAppInstead}

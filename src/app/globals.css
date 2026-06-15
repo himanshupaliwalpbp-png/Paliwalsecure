@@ -3598,7 +3598,7 @@ html.theme-transitioning *::after {
   letter-spacing: 0.01em;
   line-height: 1.5;
   border-radius: 0.625rem;
-  border: 1.5px solid #E2E8F0;
+  border: 1.5px solid #94A3B8;
   cursor: pointer;
   background: transparent;
   color: #0F172A;
@@ -4126,7 +4126,7 @@ html.theme-transitioning *::after {
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-description {
-  color: #D7C2A5;
+  color: #7A6B55;
 }
 
 .category-cards-grid .premium-card .text-sm.category-card-feature {
