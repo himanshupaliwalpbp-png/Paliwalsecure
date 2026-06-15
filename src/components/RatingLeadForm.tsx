@@ -285,7 +285,7 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
                 />
               )}
               <Star
-                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#E8C872] dark:text-[#D4A853]' : 'text-[#CBD5E1] dark:text-white/20'}`}
+                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#E8C872] dark:text-[#D4A853]' : 'text-[#9CA3AF] dark:text-white/20'}`}
                 size={44}
                 fill={isFilled ? 'currentColor' : 'none'}
                 strokeWidth={1.5}
@@ -359,7 +359,7 @@ function GlassInput({
           : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
         }`} />
         {prefix && <div className="flex-shrink-0">{prefix}</div>}
         <input
@@ -416,7 +416,7 @@ function GlassSelect({
           : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
         }`} />
         <select
           value={value}
@@ -434,7 +434,7 @@ function GlassSelect({
           ))}
         </select>
         <ChevronDown className={`w-4 h-4 flex-shrink-0 transition-colors duration-300 pointer-events-none ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
         }`} />
       </div>
     </motion.div>
@@ -479,7 +479,7 @@ function GlassTextarea({
           : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
         }`} />
         <textarea
           placeholder={placeholder}
@@ -729,7 +729,7 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
             : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
         }`}>
           <MapPin className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-            focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+            focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
           }`} />
           <input
             placeholder={placeholder}

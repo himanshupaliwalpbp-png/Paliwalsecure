@@ -34,7 +34,7 @@ const categories: CategoryItem[] = [
     features: [
       { en: 'Cashless Treatment', hi: 'कैशलेस इलाज', hg: 'Cashless Treatment' },
       { en: 'Family Floater', hi: 'फैमिली फ्लोटर', hg: 'Family Floater' },
-      { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Pre & Post Hospitalization' },
+      { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Hospitalization se pehle aur baad' },
     ] },
   { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#043C50', badgeVariant: 'blue',
     features: [
@@ -58,13 +58,13 @@ const categories: CategoryItem[] = [
     features: [
       { en: 'Medical Emergency', hi: 'मेडिकल इमरजेंसी', hg: 'Medical Emergency' },
       { en: 'Trip Cancellation', hi: 'ट्रिप कैंसिलेशन', hg: 'Trip Cancellation' },
-      { en: 'Lost Baggage', hi: 'खोई हुई सामान', hg: 'Lost Baggage' },
+      { en: 'Lost Baggage', hi: 'खोई हुई सामान', hg: 'Samaan kho jane par' },
     ] },
   { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#8B5CF6', badgeVariant: 'blue',
     features: [
       { en: 'Structure Cover', hi: 'संरचना कवर', hg: 'Structure Cover' },
       { en: 'Contents Insurance', hi: 'सामग्री बीमा', hg: 'Contents Insurance' },
-      { en: 'Natural Disaster', hi: 'प्राकृतिक आपदा', hg: 'Natural Disaster' },
+      { en: 'Natural Disaster', hi: 'प्राकृतिक आपदा', hg: 'Prakritik aapda' },
     ] },
 ];
 
@@ -81,10 +81,10 @@ const categoryTitles: Record<string, { en: string; hi: string; hg: string }> = {
 const categoryDescriptions: Record<string, { en: string; hi: string; hg: string }> = {
   health: { en: "Protect your family's health", hi: 'अपने परिवार के स्वास्थ्य की रक्षा करें', hg: 'Apne parivaar ki health ki raksha karein' },
   termLife: { en: "Secure your family's future", hi: 'अपने परिवार का भविष्य सुरक्षित करें', hg: 'Apne parivaar ka future secure karein' },
-  car: { en: 'Complete car coverage', hi: 'व्यापक कार कवरेज', hg: 'Complete car coverage' },
-  bike: { en: 'Full bike protection', hi: 'पूर्ण बाइक सुरक्षा', hg: 'Full bike protection' },
+  car: { en: 'Complete car coverage', hi: 'व्यापक कार कवरेज', hg: 'Poori car coverage' },
+  bike: { en: 'Full bike protection', hi: 'पूर्ण बाइक सुरक्षा', hg: 'Poori bike suraksha' },
   home: { en: 'Protect your biggest asset', hi: 'अपनी सबसे बड़ी संपत्ति की रक्षा करें', hg: 'Apni sabse badi sampatti ki raksha karein' },
-  travel: { en: 'Worry-free travel', hi: 'चिंता-मुक्त यात्रा', hg: 'Worry-free travel' },
+  travel: { en: 'Worry-free travel', hi: 'चिंता-मुक्त यात्रा', hg: 'Bina tension ki yatra' },
 };
 
 /* ── Badge class helper ───────────────────────────────────────────── */
@@ -104,8 +104,8 @@ export default function CategoryCards() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  const heading = isHindi ? 'संपूर्ण सुरक्षा' : isEnglish ? 'Complete Protection Suite' : 'Complete Protection Suite';
-  const headingAccent = isHindi ? 'पैकेज' : isEnglish ? 'Suite' : 'Suite';
+  const heading = isHindi ? 'संपूर्ण सुरक्षा' : isEnglish ? 'Complete Protection Suite' : 'Complete Protection';
+  const headingAccent = isHindi ? 'पैकेज' : isEnglish ? 'Suite' : 'Package';
   const subtitle = isHindi ? 'हर ज़रूरत के लिए इंश्योरेंस — 51+ बीमाकर्ताओं से AI की सलाह पर प्लान' : isEnglish ? 'From health to wealth, we\'ve got you covered with India\'s leading insurance providers.' : 'Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan';
 
   return (

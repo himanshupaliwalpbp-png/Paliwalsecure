@@ -24,9 +24,9 @@ export default function HomeCTASection() {
 
   const trustIndicators = [
     { en: 'Free Analysis', hi: 'मुफ्त विश्लेषण', hg: 'Free Analysis' },
-    { en: 'No Obligation', hi: 'कोई बाध्यता नहीं', hg: 'No Obligation' },
+    { en: 'No Obligation', hi: 'कोई बाध्यता नहीं', hg: 'Koi Badhata Nahi' },
     { en: 'Expert Support', hi: 'विशेषज्ञ सहायता', hg: 'Expert Support' },
-    { en: '100% Confidential', hi: '100% गोपनीय', hg: '100% Confidential' },
+    { en: '100% Confidential', hi: '100% गोपनीय', hg: '100% Gopaniya' },
   ];
 
   return (

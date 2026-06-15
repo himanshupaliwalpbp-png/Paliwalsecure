@@ -122,8 +122,8 @@ export default function HomeFAQSection() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  const heading = isHindi ? 'अक्सर पूछे जाने वाले' : isEnglish ? 'Frequently Asked' : 'Frequently Asked';
-  const headingAccent = isHindi ? 'प्रश्न' : isEnglish ? 'Questions' : 'Questions';
+  const heading = isHindi ? 'अक्सर पूछे जाने वाले' : isEnglish ? 'Frequently Asked' : 'Aksar Puche Jaane';
+  const headingAccent = isHindi ? 'प्रश्न' : isEnglish ? 'Questions' : 'Wale Sawaal';
   const subtitle = isHindi
     ? 'Paliwal Secure और हमारी सेवाओं के बारे में आपको जानने की ज़रूरत है।'
     : isEnglish

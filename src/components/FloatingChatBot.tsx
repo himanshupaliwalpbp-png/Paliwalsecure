@@ -1442,7 +1442,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                             {/* TTS Play Button + Timestamp — only show when not streaming */}
                             {!isCurrentlyStreaming && (
                               <div className="flex items-center justify-between mt-1.5">
-                                <p className="text-[9px] text-[#94A3B8] dark:text-[#64748B]">
+                                <p className="text-[9px] text-[#64748B] dark:text-[#94A3B8]">
                                   {formatTimestamp(msg.timestamp)}
                                 </p>
                                 {/* TTS / Audio button */}

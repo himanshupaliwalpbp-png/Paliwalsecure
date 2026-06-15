@@ -24,9 +24,9 @@ const claimSteps: ClaimStep[] = [
 /* ── Inline translations ───────────────────────────────────────────── */
 const stepTitles: Record<string, { en: string; hi: string; hg: string }> = {
   tellUs: { en: 'Tell us what happened', hi: 'बताइए क्या हुआ', hg: 'Bataiye kya hua' },
-  docChecklist: { en: 'Doc checklist', hi: 'दस्तावेज़ सूची', hg: 'Document list' },
+  docChecklist: { en: 'Doc checklist', hi: 'दस्तावेज़ सूची', hg: 'Document List' },
   submitOnYourBehalf: { en: 'Submit on your behalf', hi: 'आपकी ओर से जमा करें', hg: 'Hum file karein' },
-  trackRealTime: { en: 'Track in real time', hi: 'रीयल टाइम में ट्रैक करें', hg: 'Real-time tracking' },
+  trackRealTime: { en: 'Track in real time', hi: 'रीयल टाइम में ट्रैक करें', hg: 'Real-time Tracking' },
   moneyInAccount: { en: 'Money in your account', hi: 'पैसे आपके खाते में', hg: 'Paisa aapke account mein' },
 };
 
@@ -100,7 +100,7 @@ export default function ClaimsTimeline() {
           className="mb-16 md:mb-20 text-center"
         >
           <div className="badge-premium-slate mb-5">
-            <span className="text-sm font-medium text-[#111111] dark:text-[#F3EADB] font-body">Claims Process</span>
+            <span className="text-sm font-medium text-[#111111] dark:text-[#F3EADB] font-body">{isHindi ? 'क्लेम प्रक्रिया' : isEnglish ? 'Claims Process' : 'Claims Process'}</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#111111] dark:text-[#F3EADB] leading-[1.1] font-display">
             {heading}

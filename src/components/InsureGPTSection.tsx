@@ -909,7 +909,7 @@ export default function InsureGPTSection() {
                     {t('insureGPT.send')}
                   </SendStopButton>
                 </form>
-                <p className="text-[10px] text-[#94A3B8] dark:text-[#64748B] mt-2 text-center">
+                <p className="text-[10px] text-[#64748B] dark:text-[#94A3B8] mt-2 text-center">
                   {t('insureGPT.irdaiDisclaimer')}
                 </p>
               </div>

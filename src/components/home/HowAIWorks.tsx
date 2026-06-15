@@ -25,21 +25,21 @@ const featuresData = [
     key: 'comprehensiveProtection',
     icon: Shield,
     color: '#2563EB',
-    titles: { en: 'Comprehensive Protection', hi: 'व्यापक सुरक्षा', hg: 'Comprehensive Protection' },
+    titles: { en: 'Comprehensive Protection', hi: 'व्यापक सुरक्षा', hg: 'Poori Suraksha' },
     descriptions: { en: 'Life, health, vehicle, and business insurance — all in one intelligent platform.', hi: 'जीवन, स्वास्थ्य, वाहन और व्यापार बीमा — एक ही बुद्धिमान प्लेटफॉर्म पर।', hg: 'Life, health, vehicle, aur business insurance — ek hi intelligent platform par.' },
   },
   {
     key: 'instantComparisons',
     icon: Zap,
     color: '#8B5CF6',
-    titles: { en: 'Instant Comparisons', hi: 'तत्काल तुलना', hg: 'Instant Comparisons' },
+    titles: { en: 'Instant Comparisons', hi: 'तत्काल तुलना', hg: 'Turant Comparison' },
     descriptions: { en: 'Compare policies from top insurers in seconds with transparent pricing.', hi: 'पारदर्शी मूल्य निर्धारण के साथ सेकंड में शीर्ष बीमाकर्ताओं की नीतियों की तुलना करें।', hg: 'Transparent pricing ke saath seconds mein top insurers ki policies compare karein.' },
   },
   {
     key: 'securePrivate',
     icon: Lock,
     color: '#EF4444',
-    titles: { en: 'Secure & Private', hi: 'सुरक्षित और निजी', hg: 'Secure & Private' },
+    titles: { en: 'Secure & Private', hi: 'सुरक्षित और निजी', hg: 'Surakshit & Niji' },
     descriptions: { en: 'Bank-level security for your sensitive financial and personal information.', hi: 'आपकी संवेदनशील वित्तीय और व्यक्तिगत जानकारी के लिए बैंक-स्तरीय सुरक्षा।', hg: 'Aapki sensitive financial aur personal information ke liye bank-level security.' },
   },
   {
@@ -85,8 +85,8 @@ export default function HowAIWorks() {
   const isInView = useInView(gridRef, { once: true, margin: '-80px' });
 
   const badgeText = isHindi ? 'Paliwal Secure क्यों चुनें' : isEnglish ? 'Why Choose Paliwal Secure' : 'Paliwal Secure kyun chunein';
-  const heading = isHindi ? 'बुद्धिमत्ता मिलती है' : isEnglish ? 'Intelligence Meets' : 'Intelligence Meets';
-  const headingAccent = isHindi ? 'सुरक्षा से' : isEnglish ? 'Protection' : 'Protection';
+  const heading = isHindi ? 'बुद्धिमत्ता मिलती है' : isEnglish ? 'Intelligence Meets' : 'Buddhimatta Milti Hai';
+  const headingAccent = isHindi ? 'सुरक्षा से' : isEnglish ? 'Protection' : 'Suraksha Se';
   const subtitle = isHindi
     ? 'हम अत्याधुनिक तकनीक को मानव विशेषज्ञता के साथ जोड़ते हैं ताकि सबसे अच्छा बीमा अनुभव दे सकें।'
     : isEnglish

@@ -62,8 +62,8 @@ function StatItem({
   const animated = useAnimatedNumber(stat.target, inView);
 
   const valueLabels: Record<string, { en: string; hi: string; hg: string }> = {
-    families: { en: 'Families Protected', hi: 'परिवार सुरक्षित', hg: 'Families Protected' },
-    claims: { en: 'Claims Settled', hi: 'क्लेम निपटाए', hg: 'Claims Settled' },
+    families: { en: 'Families Protected', hi: 'परिवार सुरक्षित', hg: 'Parivaar Surakshit' },
+    claims: { en: 'Claims Settled', hi: 'क्लेम निपटाए', hg: 'Claim Settle' },
   };
 
   const label = isHindi ? valueLabels[stat.key]?.hi : isEnglish ? valueLabels[stat.key]?.en : valueLabels[stat.key]?.hg;
@@ -108,10 +108,12 @@ export default function TrustStrip() {
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
 
-  const sectionTitle = isHindi ? 'विश्वास के आँकड़े' : 'Trusted by Thousands';
+  const sectionTitle = isHindi ? 'विश्वास के आँकड़े' : isEnglish ? 'Trusted by Thousands' : 'Hazaaron ka Bharosa';
   const sectionSubtitle = isHindi
     ? 'हमारे ग्राहकों का विश्वास हमारी सबसे बड़ी उपलब्धि है'
-    : 'Numbers that reflect our commitment to protecting what matters most';
+    : isEnglish
+      ? 'Numbers that reflect our commitment to protecting what matters most'
+      : 'Yeh numbers humari commitment ko reflect karte hain — jo sabse zaroori hai uski suraksha ke liye';
 
   return (
     <section

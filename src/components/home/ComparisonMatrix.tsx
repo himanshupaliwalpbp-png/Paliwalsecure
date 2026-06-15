@@ -41,15 +41,15 @@ const columns: ColumnDef[] = [
 
 /* ── Inline translations ───────────────────────────────────────────── */
 const featureLabels: Record<string, { en: string; hi: string; hg: string }> = {
-  aiPlanMatch: { en: 'AI-Powered Recommendations', hi: 'AI रिकमेंडेशन', hg: 'AI-Powered Recommendations' },
+  aiPlanMatch: { en: 'AI-Powered Recommendations', hi: 'AI रिकमेंडेशन', hg: 'AI Recommendations' },
   insurers51: { en: '51+ Insurers', hi: '51+ बीमाकर्ता', hg: '51+ Insurers' },
-  noBias: { en: 'No Bias / Unbiased Advice', hi: 'निष्पक्ष सलाह', hg: 'No Bias / Unbiased Advice' },
+  noBias: { en: 'No Bias / Unbiased Advice', hi: 'निष्पक्ष सलाह', hg: 'Bina pakshpaat ki salah' },
   freeConsult: { en: 'Free Consultation', hi: 'मुफ्त परामर्श', hg: 'Free Consultation' },
   claimHandling: { en: 'Claim Handling', hi: 'क्लेम हैंडलिंग', hg: 'Claim Handling' },
-  lifetimeClaims: { en: 'Lifetime Claims Support', hi: 'जीवनभर क्लेम सहायता', hg: 'Lifetime Claims Support' },
-  noSpamCalls: { en: 'No Spam Calls', hi: 'कोई स्पैम कॉल नहीं', hg: 'No Spam Calls' },
+  lifetimeClaims: { en: 'Lifetime Claims Support', hi: 'जीवनभर क्लेम सहायता', hg: 'Zindagibhar Claim Support' },
+  noSpamCalls: { en: 'No Spam Calls', hi: 'कोई स्पैम कॉल नहीं', hg: 'Koi Spam Call Nahi' },
   whatsappFirst: { en: 'WhatsApp-First', hi: 'व्हाट्सएप-प्रथम', hg: 'WhatsApp-First' },
-  transparentCommissions: { en: 'Transparent Commissions', hi: 'पारदर्शी कमीशन', hg: 'Transparent Commissions' },
+  transparentCommissions: { en: 'Transparent Commissions', hi: 'पारदर्शी कमीशन', hg: 'Pardarshi Commission' },
 };
 
 /* ── Animation ─────────────────────────────────────────────────────── */
@@ -81,19 +81,19 @@ function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean
             ? 'bg-[#2563EB]/[0.08] border border-[#2563EB]/15 dark:bg-[#3B82F6]/[0.12] dark:border-[#3B82F6]/20'
             : 'bg-white/60 dark:bg-white/5 border border-transparent'
         }`}>
-          <Check className={`w-3.5 h-3.5 ${isPaliwal ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'}`} strokeWidth={2.5} />
+          <Check className={`w-3.5 h-3.5 ${isPaliwal ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#475569] dark:text-[#94A3B8]'}`} strokeWidth={2.5} />
         </span>
       );
     case 'cross':
       return (
         <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/60 dark:bg-white/[0.03] border border-transparent">
-          <X className="w-3.5 h-3.5 text-[#64748B] dark:text-white/20" strokeWidth={2} />
+          <X className="w-3.5 h-3.5 text-[#475569] dark:text-white/20" strokeWidth={2} />
         </span>
       );
     case 'dash':
       return (
         <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/60 dark:bg-white/[0.03] border border-transparent">
-          <Minus className="w-3.5 h-3.5 text-[#64748B] dark:text-white/20" strokeWidth={2} />
+          <Minus className="w-3.5 h-3.5 text-[#475569] dark:text-white/20" strokeWidth={2} />
         </span>
       );
     case 'text':
@@ -101,7 +101,7 @@ function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean
         <span className={`text-xs font-medium capitalize font-body ${
           isPaliwal
             ? 'text-[#2563EB] dark:text-[#60A5FA]'
-            : 'text-[#64748B] dark:text-[#94A3B8]'
+            : 'text-[#475569] dark:text-[#94A3B8]'
         }`}>
           {cell.value}
         </span>
@@ -245,7 +245,7 @@ export default function ComparisonMatrix() {
                 {isHindi ? 'सबसे अच्छा विकल्प' : isEnglish ? 'Best choice' : 'Best choice'}
               </span>
               <span className="text-sm text-[#374151] dark:text-[#94A3B8] font-body">
-                {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 of 9 features'}
+                {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 mein se 9 features'}
               </span>
             </div>
           </div>

@@ -191,7 +191,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                     ? 'Free Insurance Consultation Lo'
                     : 'Get Free Insurance Consultation'}
               </h2>
-              <p className="text-[#64748B] text-sm mt-2 max-w-md font-sans">
+              <p className="text-[#94A3B8] text-sm mt-2 max-w-md font-sans">
                 {language === 'hi'
                   ? 'हमारे IRDAI पंजीकृत विशेषज्ञ से बात करें — बिल्कुल मुफ़्त!'
                   : language === 'hinglish'
@@ -226,7 +226,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 </a>
                 <a
                   href={`tel:${PHONE.replace(/[^+\d]/g, '')}`}
-                  className="flex items-center gap-1.5 text-sm text-[#64748B] hover:text-[#E8C872] transition-colors font-sans"
+                  className="flex items-center gap-1.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors font-sans"
                 >
                   <Phone className="w-3.5 h-3.5" />
                   <span className="text-xs">{PHONE}</span>
@@ -268,7 +268,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 <div className="relative z-10">
                   <Icon className="w-4 h-4 text-[#E8C872] mx-auto mb-2" />
                   <div className="text-lg sm:text-xl font-bold text-white font-heading">{stat.value}</div>
-                  <div className="text-[10px] sm:text-xs text-[#64748B] uppercase tracking-[0.1em] mt-0.5 font-heading">
+                  <div className="text-[10px] sm:text-xs text-[#94A3B8] uppercase tracking-[0.1em] mt-0.5 font-heading">
                     {getStatLabel(stat)}
                   </div>
                 </div>
@@ -314,7 +314,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
             </button>
 
             {/* Tagline */}
-            <p className="text-[#64748B] text-sm leading-relaxed mb-5 max-w-[260px] font-sans">
+            <p className="text-[#94A3B8] text-sm leading-relaxed mb-5 max-w-[260px] font-sans">
               {t('v2.footer.brandTagline', language)}
             </p>
 
@@ -328,7 +328,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/icon relative w-8 h-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-[#64748B] hover:text-[#E8C872] hover:border-[#E8C872]/30 hover:bg-[#E8C872]/[0.06] transition-all duration-300"
+                    className="group/icon relative w-8 h-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-[#94A3B8] hover:text-[#E8C872] hover:border-[#E8C872]/30 hover:bg-[#E8C872]/[0.06] transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-3.5 h-3.5 relative z-10" />
@@ -344,7 +344,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 text-sm text-[#64748B] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                  className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
                 >
                   <MessageCircle className="h-4 w-4 text-[#22C55E] group-hover:text-[#22C55E] transition-colors" />
                   <span className="relative">
@@ -356,7 +356,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
               <li>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="group flex items-center gap-2.5 text-sm text-[#64748B] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                  className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
                 >
                   <Mail className="h-4 w-4 group-hover:text-[#E8C872] transition-colors" />
                   <span className="relative break-all">
@@ -389,7 +389,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2.5 text-sm text-[#64748B] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                      className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
                     >
                       <Icon className={`w-3.5 h-3.5 ${link.color} shrink-0`} />
                       <span className="relative">
@@ -424,7 +424,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2.5 text-sm text-[#64748B] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                      className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
                     >
                       <Icon className={`w-3.5 h-3.5 ${link.color} shrink-0`} />
                       <span className="relative">
@@ -459,9 +459,9 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2.5 text-sm text-[#64748B] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                      className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
                     >
-                      <Icon className="w-3.5 h-3.5 text-[#64748B]/50 shrink-0" />
+                      <Icon className="w-3.5 h-3.5 text-[#94A3B8]/50 shrink-0" />
                       <span className="relative">
                         {t(link.labelKey, language)}
                         <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-px bg-[#E8C872] transition-all duration-300" />
@@ -480,7 +480,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   {t('footer.irdaiVerified', language)}
                 </span>
               </div>
-              <p className="text-[10px] text-[#64748B]/70 leading-relaxed font-sans">
+              <p className="text-[10px] text-[#94A3B8]/70 leading-relaxed font-sans">
                 {t('footer.irdaiDisclaimer', language)}
               </p>
             </div>
@@ -501,7 +501,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 <Shield className="w-3.5 h-3.5 text-[#E8C872]" />
                 <span className="text-[10px] font-semibold text-[#E8C872] tracking-wide font-heading">IRDAI POSP IP429834</span>
               </div>
-              <p className="text-xs text-[#64748B] font-sans">
+              <p className="text-xs text-[#94A3B8] font-sans">
                 {t('v2.footer.copyright', language)} | {t('v2.footer.solicitation', language)}
               </p>
             </div>
@@ -517,7 +517,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/social relative flex items-center justify-center w-8 h-8 rounded-full text-[#64748B] hover:text-[#E8C872] transition-all duration-300"
+                    className="group/social relative flex items-center justify-center w-8 h-8 rounded-full text-[#94A3B8] hover:text-[#E8C872] transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-3.5 h-3.5 relative z-10" />
@@ -531,7 +531,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
               {/* Phone */}
               <a
                 href={`tel:${PHONE.replace(/[^+\d]/g, '')}`}
-                className="flex items-center gap-1.5 text-xs text-[#64748B] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
               >
                 <Phone className="h-3.5 w-3.5" />
                 <span>{PHONE}</span>
@@ -542,7 +542,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-[#64748B] hover:text-[#22C55E] transition-colors duration-200 font-sans"
+                className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-[#22C55E] transition-colors duration-200 font-sans"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
                 <span>{t('footer.whatsapp', language)}</span>

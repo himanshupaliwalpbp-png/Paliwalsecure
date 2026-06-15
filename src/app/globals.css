@@ -684,8 +684,8 @@ body::after,
 
 /* Hero AI text — animated shifting gradient */
 .gradient-text-hero-animated {
-  color: #D4A853; /* Accessibility fallback */
-  background: linear-gradient(135deg, #D4A853 0%, #D4A853 20%, #7ED3E6 45%, #9DDFEE 55%, #D4A853 80%, #D4A853 100%);
+  color: #B8922D; /* Accessibility fallback — visible on dark hero bg */
+  background: linear-gradient(135deg, #D4A853 0%, #D4A853 20%, #5CC1D8 45%, #7ED3E6 55%, #D4A853 80%, #D4A853 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -693,8 +693,8 @@ body::after,
   animation: heroGradientShift 4s ease-in-out infinite;
 }
 .dark .gradient-text-hero-animated {
-  color: #8E7A30; /* Accessibility fallback */
-  background: linear-gradient(135deg, #8E7A30 0%, #A89238 20%, #5CC1D8 45%, #7ED3E6 55%, #A89238 80%, #8E7A30 100%);
+  color: #7C6518; /* Accessibility fallback — dark gold on light bg */
+  background: linear-gradient(135deg, #7C6518 0%, #8B6914 20%, #3AAFC4 45%, #5CC1D8 55%, #8B6914 80%, #7C6518 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1037,16 +1037,16 @@ body::after,
 
 /* Hero gradient text — Refined Gold to Light Gold */
 .gradient-text-hero {
-  color: #D4A853; /* Accessibility fallback */
+  color: #B8922D; /* Accessibility fallback — visible on dark hero bg */
   background: linear-gradient(135deg, #D4A853 0%, #E2C06E 50%, #F7E8B8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-/* Dark mode: deeper gold gradient for hero stats visibility */
+/* Dark mode: hero uses light bg, so gradient must be dark enough */
 .dark .gradient-text-hero {
-  color: #8E7A30; /* Accessibility fallback */
-  background: linear-gradient(135deg, #8E7A30 0%, #A89238 50%, #D4A853 100%);
+  color: #7C6518; /* Accessibility fallback — dark gold on light bg */
+  background: linear-gradient(135deg, #7C6518 0%, #8B6914 50%, #A67C00 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1276,7 +1276,7 @@ body::after,
   position: relative;
   background: transparent;
   border: 1.5px solid rgba(212, 168, 83, 0.45);
-  color: #E2C06E;
+  color: #8B6914; /* Dark gold — sufficient contrast on cream bg */
   transition:
     transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -3379,13 +3379,13 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   background: rgba(212, 168, 83, 0.10);
-  color: #E2C06E;
+  color: #8B6914; /* Dark gold — sufficient contrast on cream bg */
   border: 1px solid rgba(212, 168, 83, 0.18);
   line-height: 1.5;
 }
 .dark .badge-premium {
   background: rgba(212, 168, 83, 0.06);
-  color: #9A8535;
+  color: #C9A84C; /* Brighter gold for dark bg — ~6.5:1 contrast */
   border-color: rgba(212, 168, 83, 0.12);
 }
 
@@ -3947,7 +3947,7 @@ html.theme-transitioning *::after {
               background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .input-premium::placeholder {
-  color: #94A3B8;
+  color: #78716C; /* Stone-500 — ~4.5:1 contrast on white bg */
 }
 .input-premium:hover {
   border-color: #E8E2D6;

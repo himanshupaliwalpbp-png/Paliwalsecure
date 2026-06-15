@@ -59,7 +59,7 @@ const articles: ArticleData[] = [
     color: '#10B981',
     badgeVariant: 'green',
     titles: { en: 'Motor insurance claim rejected? Do this.', hi: 'मोटर इंश्योरेंस क्लेम रिजेक्ट हो गया? ये करें।', hg: 'Motor insurance claim reject ho gaya? Ye karein.' },
-    categories: { en: 'Claims Help', hi: 'क्लेम सहायता', hg: 'Claims Help' },
+    categories: { en: 'Claims Help', hi: 'क्लेम सहायता', hg: 'Claim Sahayata' },
     readTimes: { en: '4 min read', hi: '4 मिनट पढ़ें', hg: '4 min read' },
     keyPoints: {
       en: ['Not informing insurer within 48-72 hrs = common reason', 'Driving without valid license = automatic rejection', 'File appeal with insurer first, then IRDAI'],
@@ -91,7 +91,7 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
   const summary = tr(article.summaries, isHindi, isEnglish);
   const keyPoints = isHindi ? article.keyPoints.hi : isEnglish ? article.keyPoints.en : article.keyPoints.hg;
   const readGuide = isHindi ? 'गाइड पढ़ें →' : isEnglish ? 'Read guide →' : 'Guide padhein →';
-  const keyTakeawayLabel = isHindi ? 'मुख्य बातें' : isEnglish ? 'Key Takeaways' : 'Key Takeaways';
+  const keyTakeawayLabel = isHindi ? 'मुख्य बातें' : isEnglish ? 'Key Takeaways' : 'Main Baatein';
   const readHindiLabel = isHindi ? 'हिंदी में पढ़ें' : isEnglish ? 'Read in Hindi' : 'Hindi mein padhein';
 
   return (

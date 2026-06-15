@@ -10,7 +10,7 @@ const featureTitles: Record<string, { en: string; hi: string; hg: string }> = {
   feature1: { en: 'AI Chatbot 24×7', hi: 'AI Chatbot 24×7', hg: 'AI Chatbot 24×7' },
   feature2: { en: 'AI Policy Analyzer', hi: 'AI Policy Analyzer', hg: 'AI Policy Analyzer' },
   feature3: { en: 'AI Claim Copilot', hi: 'AI Claim Copilot', hg: 'AI Claim Copilot' },
-  feature4: { en: 'AI Coverage Gap Analysis', hi: 'AI Gap Analysis', hg: 'AI Gap Analysis' },
+  feature4: { en: 'AI Coverage Gap Analysis', hi: 'AI Gap Analysis', hg: 'AI Coverage Gap Analysis' },
 };
 
 const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
@@ -83,6 +83,16 @@ export default function FutureAI() {
   const badge = isHindi ? 'जल्द आ रहा है' : isEnglish ? 'Coming Soon' : 'Jald aa raha hai';
   const heading = isHindi ? 'अपना जानें' : isEnglish ? 'Discover Your' : 'Apna jaanein';
   const headingAccent = isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score';
+  const outOf = isHindi ? '100 में से' : isEnglish ? 'out of 100' : '100 mein se';
+  const scoreLabels = {
+    life: { en: 'Life', hi: 'जीवन', hg: 'Life' },
+    health: { en: 'Health', hi: 'स्वास्थ्य', hg: 'Health' },
+    vehicle: { en: 'Vehicle', hi: 'वाहन', hg: 'Vehicle' },
+  };
+  const goodProtection = isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Achhi Suraksha';
+  const freeAnalysis = isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Suraksha Analysis';
+  const poweredByAI = isHindi ? 'AI की शक्ति' : isEnglish ? 'Powered by AI' : 'AI ki Shakti';
+  const scoreNote = isHindi ? 'केवल 2 मिनट में अपना वास्तविक स्कोर जानें' : isEnglish ? 'Get your actual score in just 2 minutes' : 'Bas 2 minute mein apna actual score jaanein';
   const subtitle = isHindi
     ? 'आपके पास अभी कौन सा इंश्योरेंस है? केवल 2 मिनट में अपने वर्तमान बीमा कवरेज का व्यापक विश्लेषण प्राप्त करें।'
     : isEnglish
@@ -90,10 +100,10 @@ export default function FutureAI() {
       : 'Aapke paas abhi kaun sa insurance hai? Bas 2 minute mein aapke current insurance coverage ka comprehensive analysis paayein.';
 
   const checklistItems = [
-    { en: 'Instant coverage gap analysis', hi: 'तत्काल कवरेज अंतर विश्लेषण', hg: 'Instant coverage gap analysis' },
-    { en: 'Personalized recommendations', hi: 'व्यक्तिगत सिफारिशें', hg: 'Personalized recommendations' },
-    { en: 'Compare with similar families', hi: 'समान परिवारों से तुलना करें', hg: 'Compare with similar families' },
-    { en: 'Track improvements over time', hi: 'समय के साथ सुधार ट्रैक करें', hg: 'Track improvements over time' },
+    { en: 'Instant coverage gap analysis', hi: 'तत्काल कवरेज अंतर विश्लेषण', hg: 'Turant coverage gap analysis' },
+    { en: 'Personalized recommendations', hi: 'व्यक्तिगत सिफारिशें', hg: 'Aapke liye personalized recommendations' },
+    { en: 'Compare with similar families', hi: 'समान परिवारों से तुलना करें', hg: 'Similar families ke saath compare karein' },
+    { en: 'Track improvements over time', hi: 'समय के साथ सुधार ट्रैक करें', hg: 'Time ke saath sudhar track karein' },
   ];
 
   const ctaText = isHindi ? 'अपना स्कोर गणना करें' : isEnglish ? 'Calculate Your Score' : 'Apna score calculate karein';
@@ -134,7 +144,7 @@ export default function FutureAI() {
               <div className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse" />
               <Shield className="h-3.5 w-3.5 text-[#60A5FA]" />
               <span className="text-xs font-semibold font-heading tracking-wide uppercase text-[#93C5FD]">
-                {isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Protection Analysis'}
+                {freeAnalysis}
               </span>
             </div>
 
@@ -170,13 +180,18 @@ export default function FutureAI() {
             <button
               onClick={() => {
                 const el = document.getElementById('advisor-form');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
               }}
               className="btn-luxury-primary btn-luxury-lg group"
             >
               {ctaText}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
             </button>
+            <p className="text-sm text-[#94A3B8] mt-3 font-sans">{scoreNote}</p>
           </motion.div>
 
           {/* Visual: Animated Score Circle */}
@@ -227,14 +242,19 @@ export default function FutureAI() {
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-7xl font-bold font-heading tracking-tight text-white"
                   >
-                    87
+                    <motion.div
+                      className="text-7xl font-bold font-heading tracking-tight text-white"
+                      animate={{ scale: [1, 1.03, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: 'easeInOut' }}
+                    >
+                      87
+                    </motion.div>
                   </motion.div>
-                  <div className="text-base text-[#CBD5E1] font-sans mt-1">out of 100</div>
+                  <div className="text-base text-[#CBD5E1] font-sans mt-1">{outOf}</div>
                   <div className="mt-5 px-4 py-2 bg-[#2563EB]/[0.20] rounded-full border border-[#2563EB]/[0.35] backdrop-blur-sm">
                     <span className="text-xs font-semibold font-heading tracking-wide text-[#93C5FD]">
-                      {isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Good Protection'}
+                      {goodProtection}
                     </span>
                   </div>
                 </div>
@@ -252,15 +272,15 @@ export default function FutureAI() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-xl font-bold gradient-text-blue-emerald font-heading">92%</div>
-                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">Life</div>
+                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{isHindi ? scoreLabels.life.hi : isEnglish ? scoreLabels.life.en : scoreLabels.life.hg}</div>
                     </div>
                     <div className="border-x border-white/[0.10]">
                       <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
-                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">Health</div>
+                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{isHindi ? scoreLabels.health.hi : isEnglish ? scoreLabels.health.en : scoreLabels.health.hg}</div>
                     </div>
                     <div>
                       <div className="text-xl font-bold text-white font-heading">84%</div>
-                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">Vehicle</div>
+                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{isHindi ? scoreLabels.vehicle.hi : isEnglish ? scoreLabels.vehicle.en : scoreLabels.vehicle.hg}</div>
                     </div>
                   </div>
                 </div>
@@ -283,7 +303,7 @@ export default function FutureAI() {
               {badge}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-heading text-white tracking-tight">
-              {isHindi ? 'AI की शक्ति' : isEnglish ? 'Powered by AI' : 'Powered by AI'}
+              {poweredByAI}
             </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

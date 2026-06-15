@@ -66,21 +66,21 @@ export default function InsurerLogoMarquee() {
         >
           <div
             className="flex animate-marquee-left group-hover:[animation-play-state:paused]"
-            style={{ animationDuration: '50s' }}
+            style={{ animationDuration: '60s' }}
           >
             {allInsurers.map((insurer, idx) => (
               <div
                 key={`insurer-${idx}`}
-                className="flex items-center gap-3 px-5 sm:px-6 py-4 sm:py-5 shrink-0 mx-2 sm:mx-2.5 rounded-xl bg-white dark:bg-white/[0.06] border border-[#E8E2D6] dark:border-white/[0.10] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#2563EB]/30 dark:hover:bg-white/[0.10] dark:hover:border-[#3B82F6]/30 cursor-default"
+                className="flex items-center gap-3.5 sm:gap-4 px-5 sm:px-6 py-5 sm:py-6 shrink-0 mx-2 sm:mx-2.5 rounded-xl bg-white dark:bg-white/[0.06] border border-[#E8E2D6] dark:border-white/[0.10] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#2563EB]/30 dark:hover:bg-white/[0.10] dark:hover:border-[#3B82F6]/30 cursor-default"
               >
                 <div
-                  className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-md ring-2 ring-white/30 transition-transform duration-300 group-hover:scale-110`}
+                  className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-md ring-2 ring-white/30 transition-transform duration-300 group-hover:scale-110`}
                 >
-                  <span className="text-[11px] sm:text-xs font-bold text-white font-mono leading-none">
+                  <span className="text-xs sm:text-sm font-bold text-white font-mono leading-none">
                     {insurer.shortName}
                   </span>
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-[#111111] dark:text-[#F1F5F9] whitespace-nowrap transition-colors duration-300 font-body">
+                <span className="text-base sm:text-lg font-bold text-[#111111] dark:text-[#F1F5F9] whitespace-nowrap transition-colors duration-300 font-body drop-shadow-sm">
                   {insurer.name}
                 </span>
               </div>
