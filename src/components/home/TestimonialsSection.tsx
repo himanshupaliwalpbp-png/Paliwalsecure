@@ -64,7 +64,7 @@ function StarRating({ rating }: { rating: number }) {
               ? 'fill-[#E8C872] text-[#E8C872]'
               : i === fullStars && hasHalf
                 ? 'fill-[#E8C872]/50 text-[#E8C872]'
-                : 'fill-transparent text-[#E2E8F0] dark:text-white/20'
+                : 'fill-transparent text-[#D7C2A5] dark:text-white/20'
           }`}
         />
       ))}
@@ -126,10 +126,10 @@ export default function TestimonialsSection() {
             <Award className="h-3.5 w-3.5" />
             <span className="font-body">{badgeText}</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0F172A] dark:text-[#F8F6F0] mb-4 font-display tracking-tight leading-[1.1]">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#043C50] dark:text-[#EED9BE] mb-4 font-display tracking-tight leading-[1.1]">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-base md:text-lg text-[#64748B] dark:text-[#A6AEC7] max-w-2xl mx-auto font-body leading-relaxed">
+          <p className="text-base md:text-lg text-[#D7C2A5] dark:text-[#D7C2A5] max-w-2xl mx-auto font-body leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
@@ -147,16 +147,16 @@ export default function TestimonialsSection() {
               {/* Avatar + Name */}
               <div className="mb-5">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2563EB]/15 to-[#10B981]/15 dark:from-[#2563EB]/20 dark:to-[#10B981]/20 flex items-center justify-center ring-2 ring-white dark:ring-[#1E293B] shadow-sm">
-                    <span className="text-xl font-bold text-[#0F172A] dark:text-[#F8F6F0] font-display">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#043C50]/15 to-[#08799A]/15 dark:from-[#3DB8D8]/20 dark:to-[#08799A]/20 flex items-center justify-center ring-2 ring-[#EED9BE] dark:ring-[#032D3C] shadow-sm">
+                    <span className="text-xl font-bold text-[#043C50] dark:text-[#EED9BE] font-display">
                       {tr(advisor.name, isHindi, isEnglish).charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-[#0F172A] dark:text-[#F8F6F0] font-display tracking-tight">
+                    <h3 className="text-lg font-semibold text-[#043C50] dark:text-[#EED9BE] font-display tracking-tight">
                       {tr(advisor.name, isHindi, isEnglish)}
                     </h3>
-                    <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body">{tr(advisor.role, isHindi, isEnglish)}</p>
+                    <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] font-body">{tr(advisor.role, isHindi, isEnglish)}</p>
                   </div>
                 </div>
               </div>
@@ -164,23 +164,23 @@ export default function TestimonialsSection() {
               {/* Stats */}
               <div className="space-y-3 mb-5 flex-1">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#64748B] dark:text-[#A6AEC7] font-body">{experienceLabel}</span>
-                  <span className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] font-body">{advisor.experience}</span>
+                  <span className="text-[#D7C2A5] dark:text-[#D7C2A5] font-body">{experienceLabel}</span>
+                  <span className="font-semibold text-[#043C50] dark:text-[#EED9BE] font-body">{advisor.experience}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#64748B] dark:text-[#A6AEC7] font-body">{specializationLabel}</span>
-                  <span className="font-medium text-[#0F172A] dark:text-[#F8F6F0] text-right text-xs font-body">
+                  <span className="text-[#D7C2A5] dark:text-[#D7C2A5] font-body">{specializationLabel}</span>
+                  <span className="font-medium text-[#043C50] dark:text-[#EED9BE] text-right text-xs font-body">
                     {tr(advisor.specialization, isHindi, isEnglish)}
                   </span>
                 </div>
               </div>
 
               {/* Rating + Badge */}
-              <div className="pt-4 border-t border-[#E2E8F0] dark:border-white/10 flex items-center justify-between">
+              <div className="pt-4 border-t border-[#D7C2A5] dark:border-[#EED9BE]/15 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <StarRating rating={advisor.rating} />
-                  <span className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] text-sm font-body">{advisor.rating}</span>
-                  <span className="text-xs text-[#64748B] dark:text-[#A6AEC7] font-body">
+                  <span className="font-semibold text-[#043C50] dark:text-[#EED9BE] text-sm font-body">{advisor.rating}</span>
+                  <span className="text-xs text-[#D7C2A5] dark:text-[#D7C2A5] font-body">
                     ({advisor.reviews} {reviewsLabel})
                   </span>
                 </div>
@@ -205,18 +205,18 @@ export default function TestimonialsSection() {
                 className="premium-card premium-card-compact"
               >
                 <div className="flex items-start gap-4">
-                  <div className="p-2.5 rounded-xl flex-shrink-0 bg-[#EFF6FF] dark:bg-[#2563EB]/10">
-                    <Icon className="h-5 w-5 text-[#2563EB] dark:text-[#60A5FA]" strokeWidth={1.8} />
+                  <div className="p-2.5 rounded-xl flex-shrink-0 bg-[#EED9BE] dark:bg-[#043C50]/10">
+                    <Icon className="h-5 w-5 text-[#043C50] dark:text-[#3DB8D8]" strokeWidth={1.8} />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-[#0F172A] dark:text-[#F8F6F0] font-display text-sm mb-1">
+                    <h4 className="font-semibold text-[#043C50] dark:text-[#EED9BE] font-display text-sm mb-1">
                       {tr(achievement.title, isHindi, isEnglish)}
                     </h4>
                     <span className={`${badgeClassMap[achievement.badgeVariant]} mb-2`}>
                       <Icon className="w-3 h-3" />
                       Verified
                     </span>
-                    <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] font-body leading-relaxed">{tr(achievement.description, isHindi, isEnglish)}</p>
+                    <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] font-body leading-relaxed">{tr(achievement.description, isHindi, isEnglish)}</p>
                   </div>
                 </div>
               </motion.div>
@@ -233,7 +233,7 @@ export default function TestimonialsSection() {
         >
           <Button
             size="lg"
-            className="gap-2 bg-[#0F172A] dark:bg-[#D4A853] hover:bg-[#1E293B] dark:hover:bg-[#E2C06E] text-white dark:text-[#060E22] shadow-premium-lg font-body"
+            className="gap-2 bg-[#043C50] dark:bg-[#08799A] hover:bg-[#08799A] dark:hover:bg-[#E2C06E] text-white dark:text-[#FBF5ED] shadow-premium-lg font-body"
             asChild
           >
             <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">

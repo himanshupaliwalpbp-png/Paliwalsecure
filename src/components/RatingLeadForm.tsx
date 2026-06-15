@@ -285,7 +285,7 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
                 />
               )}
               <Star
-                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#E8C872] dark:text-[#D4A853]' : 'text-[#CBD5E1] dark:text-white/20'}`}
+                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#E8C872] dark:text-[#D4A853]' : 'text-[#D7C2A5] dark:text-white/20'}`}
                 size={44}
                 fill={isFilled ? 'currentColor' : 'none'}
                 strokeWidth={1.5}
@@ -355,11 +355,11 @@ function GlassInput({
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? 'border-[#2563EB] dark:border-[#3B82F6]'
-          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+          ? 'border-[#043C50] dark:border-[#3DB8D8]'
+          : 'border-[#D7C2A5] dark:border-white/10 hover:border-[#D7C2A5] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#043C50] dark:text-[#3DB8D8]' : 'text-[#D7C2A5] dark:text-[#D7C2A5]'
         }`} />
         {prefix && <div className="flex-shrink-0">{prefix}</div>}
         <input
@@ -412,11 +412,11 @@ function GlassSelect({
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? 'border-[#2563EB] dark:border-[#3B82F6]'
-          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+          ? 'border-[#043C50] dark:border-[#3DB8D8]'
+          : 'border-[#D7C2A5] dark:border-white/10 hover:border-[#D7C2A5] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#043C50] dark:text-[#3DB8D8]' : 'text-[#D7C2A5] dark:text-[#D7C2A5]'
         }`} />
         <select
           value={value}
@@ -426,15 +426,15 @@ function GlassSelect({
           className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none appearance-none cursor-pointer"
           style={{ colorScheme: dk ? 'dark' : 'light' }}
         >
-          <option value="" className={dk ? 'bg-[#1E293B] text-[#94A3B8]' : 'bg-white text-[#64748B]'}>{placeholder}</option>
+          <option value="" className={dk ? 'bg-[#032D3C] text-[#D7C2A5]' : 'bg-[#EED9BE] text-[#D7C2A5]'}>{placeholder}</option>
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className={dk ? 'bg-[#1E293B] text-[#F8FAFC]' : 'bg-white text-[#0F172A]'}>
+            <option key={opt.value} value={opt.value} className={dk ? 'bg-[#032D3C] text-[#EED9BE]' : 'bg-[#EED9BE] text-[#043C50]'}>
               {opt.label}
             </option>
           ))}
         </select>
         <ChevronDown className={`w-4 h-4 flex-shrink-0 transition-colors duration-300 pointer-events-none ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#043C50] dark:text-[#3DB8D8]' : 'text-[#D7C2A5] dark:text-[#D7C2A5]'
         }`} />
       </div>
     </motion.div>
@@ -475,11 +475,11 @@ function GlassTextarea({
       />
       <div className={`relative flex gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? 'border-[#2563EB] dark:border-[#3B82F6]'
-          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+          ? 'border-[#043C50] dark:border-[#3DB8D8]'
+          : 'border-[#D7C2A5] dark:border-white/10 hover:border-[#D7C2A5] dark:hover:border-white/18'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+          focused ? 'text-[#043C50] dark:text-[#3DB8D8]' : 'text-[#D7C2A5] dark:text-[#D7C2A5]'
         }`} />
         <textarea
           placeholder={placeholder}
@@ -725,11 +725,11 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
         />
         <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
           focused
-            ? 'border-[#2563EB] dark:border-[#3B82F6]'
-            : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+            ? 'border-[#043C50] dark:border-[#3DB8D8]'
+            : 'border-[#D7C2A5] dark:border-white/10 hover:border-[#D7C2A5] dark:hover:border-white/18'
         }`}>
           <MapPin className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-            focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#94A3B8] dark:text-[#64748B]'
+            focused ? 'text-[#043C50] dark:text-[#3DB8D8]' : 'text-[#D7C2A5] dark:text-[#D7C2A5]'
           }`} />
           <input
             placeholder={placeholder}
@@ -1072,7 +1072,7 @@ export default function RatingLeadForm() {
                     <h3 className="text-card-title mb-2">
                       {t('ratingForm.heading')}
                     </h3>
-                    <p className="text-sm md:text-base text-[#475569] dark:text-[#94A3B8]">
+                    <p className="text-sm md:text-base text-[#D7C2A5] dark:text-[#D7C2A5]">
                       {t('ratingForm.subheading')}
                     </p>
                   </div>
@@ -1166,15 +1166,15 @@ export default function RatingLeadForm() {
                   {/* Header */}
                   <div className="text-center mb-8">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/20 mb-4 dark:bg-[#3B82F6]/10 dark:border-[#3B82F6]/20"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#043C50]/10 border border-[#043C50]/20 mb-4 dark:bg-[#3DB8D8]/10 dark:border-[#3DB8D8]/20"
                       whileHover={{ rotate: -10, scale: 1.1 }}
                     >
-                      <Phone className="w-7 h-7 text-[#2563EB] dark:text-[#60A5FA]" />
+                      <Phone className="w-7 h-7 text-[#043C50] dark:text-[#3DB8D8]" />
                     </motion.div>
                     <h3 className="text-card-title mb-2">
                       {t('leadForm.heading')}
                     </h3>
-                    <p className="text-sm md:text-base text-[#475569] dark:text-[#94A3B8]">
+                    <p className="text-sm md:text-base text-[#D7C2A5] dark:text-[#D7C2A5]">
                       {t('leadForm.subheading')}
                     </p>
                   </div>

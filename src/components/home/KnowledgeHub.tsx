@@ -24,7 +24,7 @@ const articles: ArticleData[] = [
     articleKey: 'article1',
     icon: <Shield className="w-5 h-5" />,
     slug: 'term-insurance-guide-india',
-    color: '#2563EB',
+    color: '#043C50',
     badgeVariant: 'blue',
     titles: { en: 'Term vs Whole Life — explained in 3 min', hi: 'Term vs Whole Life — 3 minute mein samjhein', hg: 'Term vs Whole Life — 3 minute mein samjhein' },
     categories: { en: 'Insurance Guide', hi: 'बीमा गाइड', hg: 'Insurance Guide' },
@@ -56,7 +56,7 @@ const articles: ArticleData[] = [
     articleKey: 'article3',
     icon: <Car className="w-5 h-5" />,
     slug: 'insurance-claim-rejection-reasons',
-    color: '#10B981',
+    color: '#08799A',
     badgeVariant: 'green',
     titles: { en: 'Motor insurance claim rejected? Do this.', hi: 'मोटर इंश्योरेंस क्लेम रिजेक्ट हो गया? ये करें।', hg: 'Motor insurance claim reject ho gaya? Ye karein.' },
     categories: { en: 'Claims Help', hi: 'क्लेम सहायता', hg: 'Claims Help' },
@@ -113,19 +113,19 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
         <span className={badgeClassMap[article.badgeVariant]}>
           {category}
         </span>
-        <span className="text-[11px] font-mono text-[#10B981] ml-auto flex items-center gap-1">
+        <span className="text-[11px] font-mono text-[#08799A] ml-auto flex items-center gap-1">
           <Languages className="w-3 h-3" />
           {readHindiLabel}
         </span>
       </div>
 
       {/* Title */}
-      <h3 className="font-display text-base lg:text-lg font-bold text-[#0F172A] dark:text-[#F8F6F0] leading-snug mb-2.5 tracking-tight">
+      <h3 className="font-display text-base lg:text-lg font-bold text-[#043C50] dark:text-[#EED9BE] leading-snug mb-2.5 tracking-tight">
         {title}
       </h3>
 
       {/* Summary */}
-      <p className="text-sm text-[#64748B] dark:text-[#A6AEC7] leading-relaxed mb-5 font-body">
+      <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] leading-relaxed mb-5 font-body">
         {summary}
       </p>
 
@@ -138,18 +138,18 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
         {keyPoints.slice(0, 3).map((point, i) => (
           <div key={i} className="flex items-start gap-2.5">
             <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: article.color, opacity: 0.7 }} />
-            <span className="text-xs text-[#64748B] dark:text-[#A6AEC7] leading-snug font-body">{point}</span>
+            <span className="text-xs text-[#D7C2A5] dark:text-[#D7C2A5] leading-snug font-body">{point}</span>
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-4 border-t border-[#E2E8F0] dark:border-white/10">
-        <span className="text-sm font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 text-[#2563EB] dark:text-[#D4A853] font-body">
+      <div className="flex items-center justify-between pt-4 border-t border-[#D7C2A5] dark:border-[#EED9BE]/15">
+        <span className="text-sm font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 text-[#043C50] dark:text-[#D4A853] font-body">
           {readGuide}
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </span>
-        <span className="text-[11px] text-[#64748B] dark:text-[#A6AEC7] flex items-center gap-1 font-mono">
+        <span className="text-[11px] text-[#D7C2A5] dark:text-[#D7C2A5] flex items-center gap-1 font-mono">
           <Clock className="w-3 h-3" />
           {readTime}
         </span>
@@ -177,7 +177,7 @@ export default function KnowledgeHub() {
   const cta = isHindi ? 'सभी गाइड देखें →' : isEnglish ? 'Browse all guides →' : 'Sab guides dekhein →';
 
   return (
-    <section ref={sectionRef} className="section-luxury bg-white dark:bg-[#0A1330]">
+    <section ref={sectionRef} className="section-luxury bg-[#EED9BE] dark:bg-[#021E29]">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -190,10 +190,10 @@ export default function KnowledgeHub() {
             <BookOpen className="w-3.5 h-3.5" />
             <span className="font-body">InsureGyaan</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0F172A] dark:text-[#F8F6F0] leading-[1.1] font-display">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#043C50] dark:text-[#EED9BE] leading-[1.1] font-display">
             {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
           </h2>
-          <p className="text-sm sm:text-base text-[#64748B] dark:text-[#A6AEC7] max-w-lg mx-auto mt-4 leading-relaxed font-body">
+          <p className="text-sm sm:text-base text-[#D7C2A5] dark:text-[#D7C2A5] max-w-lg mx-auto mt-4 leading-relaxed font-body">
             {subtitle}
           </p>
         </motion.div>
@@ -214,7 +214,7 @@ export default function KnowledgeHub() {
         >
           <a
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3 text-[#2563EB] dark:text-[#D4A853] underline-offset-4 hover:underline font-body"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3 text-[#043C50] dark:text-[#D4A853] underline-offset-4 hover:underline font-body"
           >
             {cta}
             <ArrowRight className="w-4 h-4" />

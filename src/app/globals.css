@@ -1,25 +1,25 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    PALIWAL SECURE AI — CSS Foundation
-   Design Bible v6.0 | Light Mode Default | Tailwind CSS v4
+   Design Bible v7.0 | Light Mode Default | Tailwind CSS v4
    
-   Color System (Premium Clean):
-     Primary: #0F172A (Slate 900) — Trust, Authority
+   Color System (Warm Beige & Dark Cyan Blue):
+     Primary: #043C50 (Dark Cyan Blue) — Trust, Authority
      Background: #F8FAFC (Slate 50) — Clean, Airy
-     Accent: #2563EB (Blue 600) — Intelligence, Technology
+     Card BG: #EED9BE (Warm Beige) — Warm, Inviting
+     Accent: #043C50 (Dark Cyan Blue) — Intelligence, Technology
      Success: #10B981 (Emerald 500) — Growth, Protection
      Luxury: #E8C872 (Gold) — Premium, Excellence
-     Surface: #FFFFFF (White) — Pure, Clean
-     Text Primary: #0F172A
-     Text Secondary: #64748B (Slate 500)
-     Text Muted: #94A3B8 (Slate 400)
+     Text Primary: #043C50 (Dark Cyan Blue)
+     Text Secondary: #D7C2A5 (Warm Beige Light) — Small/muted text
+     Text Muted: #D7C2A5 (Warm Beige Light)
      Border: #E2E8F0 (Slate 200)
      Border Light: #F1F5F9 (Slate 100)
    
    Dark Mode Override (.dark class):
-     Dark BG: #0F172A (Slate 900)
-     Dark Card: #1E293B (Slate 800)
+     Dark BG: #043C50 (Dark Cyan Blue)
+     Dark Card: #0A4D64 (Cyan Blue deeper)
      Dark Primary: #E8C872 (Gold)
-     Dark Muted: #94A3B8 (Slate 400)
+     Dark Muted: #D7C2A5 (Warm Beige Light)
      Dark Border: rgba(255,255,255,0.10)
    
    Fonts:
@@ -138,14 +138,31 @@
 
   /* Semantic semantic */
   --color-cream: #F8F6F0;
-  --color-muted-text: #94A3B8;
+  --color-muted-text: #D7C2A5;
   --color-success: #10B981;
   --color-danger: #EF4444;
-  --color-info: #2563EB;
+  --color-info: #043C50;
   --color-warning: #E8C872;
 
-  /* NEW — Design Bible v6.0 Premium Clean Tokens */
-  --color-primary-accent: #2563EB;
+  /* Warm Beige palette — #EED9BE Card backgrounds */
+  --color-warm-beige: #EED9BE;
+  --color-warm-beige-light: #D7C2A5;
+  --color-warm-beige-dark: #D4B896;
+  --color-warm-beige-50: #FBF5ED;
+  --color-warm-beige-100: #F5E8D4;
+
+  /* Dark Cyan Blue palette — #043C50 Text & primary */
+  --color-cyan-blue: #043C50;
+  --color-cyan-blue-900: #021E29;
+  --color-cyan-blue-800: #032D3C;
+  --color-cyan-blue-700: #043C50;
+  --color-cyan-blue-600: #065A75;
+  --color-cyan-blue-500: #08799A;
+  --color-cyan-blue-400: #0A97BF;
+  --color-cyan-blue-300: #3DB8D8;
+
+  /* NEW — Design Bible v7.0 Warm Beige & Cyan Blue Tokens */
+  --color-primary-accent: #043C50;
   --color-luxury: #E8C872;
 
   /* Emerald/Trust Green palette — for trust signals and verification */
@@ -174,47 +191,47 @@
 :root {
   --radius: 0.75rem;
 
-  /* Paliwal Secure AI — Light Mode (DEFAULT) — Premium Clean */
-  --background: #F8FAFC;          /* Slate 50 — Clean, Airy */
-  --foreground: #0F172A;          /* Slate 900 — Dark text */
-  --card: #FFFFFF;                /* Pure white cards */
-  --card-foreground: #0F172A;     /* Slate 900 */
-  --popover: #FFFFFF;             /* White popover */
-  --popover-foreground: #0F172A;
-  --primary: #0F172A;             /* Slate 900 — Trust, Authority */
+  /* Paliwal Secure AI — Light Mode (DEFAULT) — Warm Beige & Dark Cyan Blue */
+  --background: #FBF5ED;          /* Warm Beige 50 — Warm, Inviting */
+  --foreground: #043C50;          /* Dark Cyan Blue — Primary text */
+  --card: #EED9BE;                /* Warm Beige — Card backgrounds */
+  --card-foreground: #043C50;     /* Dark Cyan Blue */
+  --popover: #EED9BE;             /* Warm Beige popover */
+  --popover-foreground: #043C50;
+  --primary: #043C50;             /* Dark Cyan Blue — Trust, Authority */
   --primary-foreground: #FFFFFF;  /* White on primary */
-  --secondary: #F1F5F9;           /* Slate 100 */
-  --secondary-foreground: #0F172A;
-  --muted: #F1F5F9;               /* Slate 100 */
-  --muted-foreground: #64748B;    /* Slate 500 */
-  --accent: #EFF6FF;              /* Blue 50 */
-  --accent-foreground: #0F172A;
+  --secondary: #F5E8D4;           /* Warm Beige 100 */
+  --secondary-foreground: #043C50;
+  --muted: #F5E8D4;               /* Warm Beige 100 */
+  --muted-foreground: #D7C2A5;    /* Warm Beige Light — small text */
+  --accent: #EED9BE;              /* Warm Beige accent */
+  --accent-foreground: #043C50;
   --destructive: #EF4444;
-  --border: #E2E8F0;              /* Slate 200 */
-  --input: #E2E8F0;               /* Slate 200 */
-  --ring: #2563EB;                /* Blue 600 */
+  --border: #D7C2A5;              /* Warm Beige Light border */
+  --input: #D7C2A5;               /* Warm Beige Light input */
+  --ring: #043C50;                /* Dark Cyan Blue ring */
 
-  /* Chart colors — Blue/Emerald/Gold palette */
-  --chart-1: #2563EB;  /* Blue 600 */
+  /* Chart colors — Cyan Blue/Emerald/Gold palette */
+  --chart-1: #043C50;  /* Dark Cyan Blue */
   --chart-2: #10B981;  /* Emerald 500 */
   --chart-3: #E8C872;  /* Gold */
   --chart-4: #8B5CF6;  /* Violet 500 */
   --chart-5: #F59E0B;  /* Amber 500 */
 
   /* Sidebar — Light Premium */
-  --sidebar: #F8FAFC;
-  --sidebar-foreground: #0F172A;
-  --sidebar-primary: #0F172A;
+  --sidebar: #FBF5ED;
+  --sidebar-foreground: #043C50;
+  --sidebar-primary: #043C50;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #EFF6FF;
-  --sidebar-accent-foreground: #0F172A;
-  --sidebar-border: #E2E8F0;
-  --sidebar-ring: #2563EB;
+  --sidebar-accent: #EED9BE;
+  --sidebar-accent-foreground: #043C50;
+  --sidebar-border: #D7C2A5;
+  --sidebar-ring: #043C50;
 
-  /* Premium Shadow Utilities */
-  --shadow-premium: 0 2px 8px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-premium-lg: 0 4px 12px rgba(15, 23, 42, 0.06), 0 16px 48px rgba(15, 23, 42, 0.12);
-  --shadow-premium-xl: 0 8px 16px rgba(15, 23, 42, 0.08), 0 24px 64px rgba(15, 23, 42, 0.16);
+  /* Premium Shadow Utilities — warm tinted */
+  --shadow-premium: 0 2px 8px rgba(4, 60, 80, 0.06), 0 8px 24px rgba(4, 60, 80, 0.10);
+  --shadow-premium-lg: 0 4px 12px rgba(4, 60, 80, 0.08), 0 16px 48px rgba(4, 60, 80, 0.14);
+  --shadow-premium-xl: 0 8px 16px rgba(4, 60, 80, 0.10), 0 24px 64px rgba(4, 60, 80, 0.18);
 }
 
 /* ──────────────────────────────────────────────
@@ -228,40 +245,40 @@ body::after,
 }
 
 .dark {
-  --background: #0F172A;              /* Slate 900 */
-  --foreground: #F8FAFC;              /* Slate 50 */
-  --card: #1E293B;                    /* Slate 800 */
-  --card-foreground: #F8FAFC;
-  --popover: #1E293B;                 /* Slate 800 */
-  --popover-foreground: #F8FAFC;
+  --background: #021E29;              /* Dark Cyan Blue 900 */
+  --foreground: #EED9BE;              /* Warm Beige */
+  --card: #032D3C;                    /* Dark Cyan Blue 800 */
+  --card-foreground: #EED9BE;
+  --popover: #032D3C;                 /* Dark Cyan Blue 800 */
+  --popover-foreground: #EED9BE;
   --primary: #E8C872;                 /* Gold — Luxury primary */
-  --primary-foreground: #0F172A;      /* Slate 900 */
-  --secondary: #1E293B;               /* Slate 800 */
-  --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;                   /* Slate 800 */
-  --muted-foreground: #94A3B8;        /* Slate 400 */
+  --primary-foreground: #021E29;      /* Dark Cyan Blue 900 */
+  --secondary: #043C50;               /* Dark Cyan Blue */
+  --secondary-foreground: #EED9BE;
+  --muted: #043C50;                   /* Dark Cyan Blue */
+  --muted-foreground: #D7C2A5;        /* Warm Beige Light */
   --accent: rgba(232, 200, 114, 0.10); /* Gold accent */
   --accent-foreground: #E8C872;       /* Gold */
   --destructive: #EF4444;
-  --border: rgba(255, 255, 255, 0.10); /* Subtle white border */
-  --input: rgba(255, 255, 255, 0.08);  /* Subtle white input */
+  --border: rgba(238, 217, 190, 0.15); /* Warm Beige border */
+  --input: rgba(238, 217, 190, 0.10);  /* Warm Beige input */
   --ring: #E8C872;                    /* Gold ring */
 
   /* Chart colors — Dark mode palette */
   --chart-1: #E8C872;  /* Gold */
   --chart-2: #34D399;  /* Emerald 400 */
-  --chart-3: #7ED3E6;  /* Arctic Glacier Cyan */
+  --chart-3: #3DB8D8;  /* Cyan Blue 300 */
   --chart-4: #8B5CF6;  /* Violet 500 */
   --chart-5: #F59E0B;  /* Amber 500 */
 
   /* Sidebar — Dark Premium */
-  --sidebar: #0F172A;
-  --sidebar-foreground: #F8FAFC;
+  --sidebar: #021E29;
+  --sidebar-foreground: #EED9BE;
   --sidebar-primary: #E8C872;
-  --sidebar-primary-foreground: #0F172A;
+  --sidebar-primary-foreground: #021E29;
   --sidebar-accent: rgba(232, 200, 114, 0.08);
-  --sidebar-accent-foreground: #CBD5E1;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-accent-foreground: #D7C2A5;
+  --sidebar-border: rgba(238, 217, 190, 0.08);
   --sidebar-ring: #E8C872;
 
   /* Premium Shadows — dark mode */
@@ -322,19 +339,19 @@ body::after,
     color: var(--foreground);
   }
 
-  /* Dark mode heading enhancement — bright white/gold for premium contrast */
+  /* Dark mode heading enhancement — warm beige for premium contrast */
   body:is(.dark *) h1,
   body:is(.dark *) h2,
   body:is(.dark *) h3 {
-    color: #F8FAFC;
+    color: #EED9BE;
   }
 
-  /* Dark mode body text — ensure readability on deep slate */
+  /* Dark mode body text — warm beige tones on dark cyan blue */
   body:is(.dark *) {
-    color: #CBD5E1;
+    color: #D7C2A5;
   }
   body:is(.dark *) p {
-    color: #94A3B8;
+    color: #D7C2A5;
   }
 
   h1, h2, h3 {
@@ -1075,17 +1092,17 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 
-/* Blue-to-emerald gradient text — for accent headings */
+/* Cyan-blue gradient text — for accent headings */
 .gradient-text-blue-emerald {
-  color: #2563EB; /* Accessibility fallback */
-  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+  color: #043C50; /* Accessibility fallback */
+  background: linear-gradient(135deg, #043C50 0%, #08799A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .dark .gradient-text-blue-emerald {
-  color: #1D4ED8; /* Accessibility fallback */
-  background: linear-gradient(135deg, #1D4ED8 0%, #059669 100%);
+  color: #3DB8D8; /* Accessibility fallback */
+  background: linear-gradient(135deg, #3DB8D8 0%, #08799A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -3437,8 +3454,8 @@ html.theme-transitioning *::after {
    border highlight on hover, light + dark mode
    ────────────────────────────────────────────── */
 .premium-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #EED9BE;
+  border: 1px solid #D7C2A5;
   border-radius: 1rem;
   padding: 1.5rem;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -3448,18 +3465,18 @@ html.theme-transitioning *::after {
 }
 .premium-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.08),
-              0 8px 16px -8px rgba(15, 23, 42, 0.04);
-  border-color: #2563EB;
+  box-shadow: 0 20px 40px -12px rgba(4, 60, 80, 0.10),
+              0 8px 16px -8px rgba(4, 60, 80, 0.06);
+  border-color: #043C50;
 }
 .dark .premium-card {
-  background: #1E293B;
-  border-color: rgba(255, 255, 255, 0.08);
+  background: #032D3C;
+  border-color: rgba(238, 217, 190, 0.12);
 }
 .dark .premium-card:hover {
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4),
               0 8px 16px -8px rgba(0, 0, 0, 0.2);
-  border-color: #3B82F6;
+  border-color: #3DB8D8;
 }
 
 /* Premium card — compact variant */
@@ -3469,10 +3486,10 @@ html.theme-transitioning *::after {
 
 /* Premium card — featured variant with accent top border */
 .premium-card-featured {
-  border-top: 3px solid #2563EB;
+  border-top: 3px solid #043C50;
 }
 .dark .premium-card-featured {
-  border-top-color: #3B82F6;
+  border-top-color: #3DB8D8;
 }
 
 /* Premium card — gold accent variant */
@@ -3502,28 +3519,28 @@ html.theme-transitioning *::after {
 
 /* Alternating section backgrounds */
 .section-luxury-alt {
-  background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+  background: linear-gradient(180deg, #FBF5ED 0%, #F5E8D4 100%);
 }
 .dark .section-luxury-alt {
-  background: linear-gradient(180deg, #0F172A 0%, #131C2E 100%);
+  background: linear-gradient(180deg, #021E29 0%, #032D3C 100%);
 }
 
 .section-luxury-accent {
-  background: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 100%);
+  background: linear-gradient(180deg, #EED9BE 0%, #FBF5ED 100%);
 }
 .dark .section-luxury-accent {
-  background: linear-gradient(180deg, #0C1929 0%, #0F172A 100%);
+  background: linear-gradient(180deg, #032D3C 0%, #021E29 100%);
 }
 
 /* Section divider */
 .section-luxury-divider {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #E2E8F0 20%, #E2E8F0 80%, transparent);
+  background: linear-gradient(90deg, transparent, #D7C2A5 20%, #D7C2A5 80%, transparent);
   margin: 0;
 }
 .dark .section-luxury-divider {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0.08) 80%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(238, 217, 190, 0.12) 20%, rgba(238, 217, 190, 0.12) 80%, transparent);
 }
 
 /* ──────────────────────────────────────────────
@@ -3546,7 +3563,7 @@ html.theme-transitioning *::after {
   border-radius: 0.625rem;
   border: none;
   cursor: pointer;
-  background: #0F172A;
+  background: #043C50;
   color: #FFFFFF;
   position: relative;
   overflow: hidden;
@@ -3565,7 +3582,7 @@ html.theme-transitioning *::after {
 }
 .btn-luxury-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.35);
+  box-shadow: 0 8px 24px -8px rgba(4, 60, 80, 0.35);
 }
 .btn-luxury-primary:hover::after {
   left: 100%;
@@ -3574,12 +3591,12 @@ html.theme-transitioning *::after {
   transform: translateY(0);
 }
 .btn-luxury-primary:focus-visible {
-  outline: 2px solid #2563EB;
+  outline: 2px solid #043C50;
   outline-offset: 2px;
 }
 .dark .btn-luxury-primary {
   background: #E8C872;
-  color: #0F172A;
+  color: #021E29;
 }
 .dark .btn-luxury-primary:hover {
   box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.3);
@@ -3598,16 +3615,16 @@ html.theme-transitioning *::after {
   letter-spacing: 0.01em;
   line-height: 1.5;
   border-radius: 0.625rem;
-  border: 1.5px solid #E2E8F0;
+  border: 1.5px solid #D7C2A5;
   cursor: pointer;
   background: transparent;
-  color: #0F172A;
+  color: #043C50;
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-luxury-secondary:hover {
-  background: #0F172A;
+  background: #043C50;
   color: #FFFFFF;
-  border-color: #0F172A;
+  border-color: #043C50;
   transform: translateY(-1px);
 }
 .btn-luxury-secondary:active {
@@ -3770,14 +3787,14 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: rgba(37, 99, 235, 0.08);
-  color: #2563EB;
-  border: 1px solid rgba(37, 99, 235, 0.15);
+  background: rgba(4, 60, 80, 0.08);
+  color: #043C50;
+  border: 1px solid rgba(4, 60, 80, 0.15);
 }
 .dark .badge-premium-blue {
-  background: rgba(59, 130, 246, 0.12);
-  color: #60A5FA;
-  border-color: rgba(59, 130, 246, 0.2);
+  background: rgba(61, 184, 216, 0.12);
+  color: #3DB8D8;
+  border-color: rgba(61, 184, 216, 0.2);
 }
 
 .badge-premium-green {
@@ -3833,14 +3850,14 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: #F1F5F9;
-  color: #475569;
-  border: 1px solid #E2E8F0;
+  background: #F5E8D4;
+  color: #043C50;
+  border: 1px solid #D7C2A5;
 }
 .dark .badge-premium-slate {
-  background: rgba(255, 255, 255, 0.06);
-  color: #94A3B8;
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(238, 217, 190, 0.10);
+  color: #D7C2A5;
+  border-color: rgba(238, 217, 190, 0.15);
 }
 
 /* ──────────────────────────────────────────────

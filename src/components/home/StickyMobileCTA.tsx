@@ -49,7 +49,7 @@ export default function StickyMobileCTA() {
           transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
         >
-          <div className="glass-premium border-t border-slate-200/60 dark:border-white/8">
+          <div className="glass-premium border-t border-[#D7C2A5]/60 dark:border-[#EED9BE]/15">
             <div
               className="flex items-stretch gap-2.5 p-3"
               style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -66,7 +66,7 @@ export default function StickyMobileCTA() {
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 active:scale-[0.97] transition-all duration-150 font-body"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm bg-[#043C50] hover:bg-[#08799A] text-white shadow-lg shadow-[#043C50]/20 active:scale-[0.97] transition-all duration-150 font-body"
               >
                 <MessageCircle className="w-4 h-4" strokeWidth={2} />
                 {whatsAppLabel}

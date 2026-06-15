@@ -36,13 +36,13 @@ const categories: CategoryItem[] = [
       { en: 'Family Floater', hi: 'फैमिली फ्लोटर', hg: 'Family Floater' },
       { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Pre & Post Hospitalization' },
     ] },
-  { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#2563EB', badgeVariant: 'blue',
+  { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#043C50', badgeVariant: 'blue',
     features: [
       { en: 'Term Plans', hi: 'टर्म प्लान', hg: 'Term Plans' },
       { en: 'Investment Plans', hi: 'निवेश योजनाएं', hg: 'Investment Plans' },
       { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Critical Illness Cover' },
     ] },
-  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#10B981', badgeVariant: 'green',
+  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#08799A', badgeVariant: 'green',
     features: [
       { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Comprehensive Cover' },
       { en: 'Zero Depreciation', hi: 'ज़ीरो डेप्रिसिएशन', hg: 'Zero Depreciation' },
@@ -162,7 +162,7 @@ export default function CategoryCards() {
                         <h3 className="text-card-title">
                           {title}
                         </h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 font-body mt-0.5">
+                        <p className="text-sm text-[#D7C2A5] dark:text-[#D7C2A5] font-body mt-0.5">
                           {description}
                         </p>
                       </div>
@@ -173,7 +173,7 @@ export default function CategoryCards() {
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-400 font-body">
+                          <li key={i} className="flex items-center gap-2.5 text-sm text-[#043C50] dark:text-[#D7C2A5] font-body">
                             <div
                               className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
                               style={{ backgroundColor: `${cat.color}12` }}
@@ -187,7 +187,7 @@ export default function CategoryCards() {
                     </ul>
 
                     {/* Price + AI Pick badge */}
-                    <div className="pt-4 border-t border-slate-100 dark:border-white/8 flex items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-[#D7C2A5] dark:border-[#EED9BE]/10 flex items-center justify-between gap-3">
                       <span className={getBadgeClass(cat.badgeVariant)}>
                         {cat.price}
                       </span>

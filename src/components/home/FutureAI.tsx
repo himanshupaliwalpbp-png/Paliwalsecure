@@ -20,7 +20,7 @@ const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
   feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Find out aapki current policy kya cover nahi karti' },
 };
 
-const featureColors = ['#2563EB', '#10B981', '#E8C872', '#8B5CF6'];
+const featureColors = ['#043C50', '#08799A', '#E8C872', '#3DB8D8'];
 
 /* ── Feature Card ──────────────────────────────────────────────── */
 function FeatureCard({
@@ -100,9 +100,9 @@ export default function FutureAI() {
       {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Primary glow — top-left */}
-        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.07] rounded-full blur-[120px]" />
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#043C50]/[0.07] rounded-full blur-[120px]" />
         {/* Secondary glow — bottom-right */}
-        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.06] rounded-full blur-[120px]" />
+        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#08799A]/[0.06] rounded-full blur-[120px]" />
         {/* Gold accent glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#E8C872]/[0.03] rounded-full blur-[150px]" />
         {/* Subtle dot grid pattern */}
@@ -154,8 +154,8 @@ export default function FutureAI() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 * index, duration: 0.5 }}
                 >
-                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.1] border border-[#10B981]/[0.15] flex items-center justify-center">
-                    <Check className="h-3.5 w-3.5 text-[#10B981]" strokeWidth={2.5} />
+                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#08799A]/[0.1] border border-[#08799A]/[0.15] flex items-center justify-center">
+                    <Check className="h-3.5 w-3.5 text-[#08799A]" strokeWidth={2.5} />
                   </div>
                   <span className="text-[0.9375rem] text-white/75 font-sans">
                     {isHindi ? item.hi : isEnglish ? item.en : item.hg}
@@ -186,7 +186,7 @@ export default function FutureAI() {
           >
             <div className="relative w-full max-w-md mx-auto">
               {/* Outer ring glow */}
-              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#E8C872]/[0.06] via-transparent to-[#10B981]/[0.06] blur-xl" />
+              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#E8C872]/[0.06] via-transparent to-[#08799A]/[0.06] blur-xl" />
 
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
@@ -213,7 +213,7 @@ export default function FutureAI() {
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#E8C872" />
                       <stop offset="50%" stopColor="#F0D890" />
-                      <stop offset="100%" stopColor="#10B981" />
+                      <stop offset="100%" stopColor="#08799A" />
                     </linearGradient>
                   </defs>
                 </svg>
