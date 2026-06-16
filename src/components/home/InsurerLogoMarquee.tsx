@@ -56,7 +56,7 @@ export default function InsurerLogoMarquee() {
   return (
     <section
       dir="ltr"
-      className="relative w-full overflow-hidden bg-[#F6F5F1] dark:bg-[#0F172A]"
+      className="relative w-full bg-[#F6F5F1] dark:bg-[#0F172A]"
       aria-label={ariaLabel}
     >
       {/* Section Title */}
@@ -66,11 +66,8 @@ export default function InsurerLogoMarquee() {
         </h3>
       </div>
 
-      {/* Narrow fade edges — only 32px (w-8) so company names stay fully visible */}
-      <div className="absolute left-0 top-12 sm:top-14 bottom-6 sm:bottom-8 w-8 sm:w-12 bg-gradient-to-r from-[#F6F5F1] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-12 sm:top-14 bottom-6 sm:bottom-8 w-8 sm:w-12 bg-gradient-to-l from-[#F6F5F1] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
-
-      <div ref={ref} className="relative pb-6 sm:pb-8">
+      {/* Marquee viewport — overflow hidden here so logos scroll, NO fade gradients so all names stay fully visible */}
+      <div ref={ref} className="relative pb-6 sm:pb-8 overflow-hidden">
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
