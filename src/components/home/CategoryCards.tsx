@@ -172,7 +172,7 @@ export default function CategoryCards() {
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-center gap-2.5 text-sm text-[#111111] dark:text-[#F3EADB] font-body category-card-feature">
+                          <li key={i} className="flex items-center gap-2.5 text-base text-[#111111] dark:text-[#F3EADB] font-body category-card-feature">
                             <div
                               className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
                               style={{ backgroundColor: `${cat.color}12` }}

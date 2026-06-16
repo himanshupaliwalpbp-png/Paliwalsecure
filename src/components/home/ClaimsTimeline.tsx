@@ -158,7 +158,7 @@ export default function ClaimsTimeline() {
                       <h3 className="font-semibold text-[#111111] dark:text-[#F3EADB] text-base md:text-lg mb-1 tracking-tight font-display">
                         {getStepTitle(step.key)}
                       </h3>
-                      <p className="text-sm text-[#374151] dark:text-[#A6AEC7] leading-relaxed font-body">
+                      <p className="text-base text-[#374151] dark:text-[#CBD5E1] leading-relaxed font-body">
                         {getStepDesc(step.key)}
                       </p>
                     </div>

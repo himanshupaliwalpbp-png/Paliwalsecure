@@ -61,12 +61,12 @@ function FeatureCard({
         {title}
       </h3>
 
-      <p className="text-sm text-[#CBD5E1] leading-relaxed flex-1 mb-5 font-sans">
+      <p className="text-sm text-[#E2E8F0] leading-relaxed flex-1 mb-5 font-sans">
         {desc}
       </p>
 
       <div className="flex items-center justify-between pt-4 border-t border-white/[0.10]">
-        <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white px-3.5 py-1.5 rounded-full bg-[#2563EB] border border-[#3B82F6] font-heading shadow-[0_0_12px_rgba(37,99,235,0.3)]">
+        <span className="text-xs font-bold uppercase tracking-[0.12em] text-white px-3.5 py-1.5 rounded-full bg-[#2563EB] border border-[#3B82F6] font-heading shadow-[0_0_12px_rgba(37,99,235,0.3)]">
           {comingSoon}
         </span>
       </div>
@@ -109,7 +109,7 @@ export default function FutureAI() {
   const ctaText = isHindi ? 'अपना स्कोर गणना करें' : isEnglish ? 'Calculate Your Score' : 'Apna score calculate karein';
 
   return (
-    <section className="section-luxury bg-[#070B14] dark:bg-[#070B14] text-white overflow-hidden relative">
+    <section className="section-luxury overflow-hidden relative" style={{ backgroundColor: '#070B14', color: '#FFFFFF' }}>
       {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Primary glow — top-left */}
@@ -143,7 +143,7 @@ export default function FutureAI() {
             <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#2563EB]/[0.15] backdrop-blur-sm rounded-full border border-[#2563EB]/[0.30] mb-8">
               <div className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse" />
               <Shield className="h-3.5 w-3.5 text-[#60A5FA]" />
-              <span className="text-xs font-semibold font-heading tracking-wide uppercase text-[#93C5FD]">
+              <span className="text-sm font-semibold font-heading tracking-wide uppercase text-[#93C5FD]">
                 {freeAnalysis}
               </span>
             </div>
@@ -153,7 +153,7 @@ export default function FutureAI() {
               <span className="gradient-text-blue-emerald">{headingAccent}</span>
             </h2>
 
-            <p className="text-lg text-[#CBD5E1] mb-10 leading-relaxed font-sans max-w-lg">
+            <p className="text-base sm:text-lg text-[#E2E8F0] mb-10 leading-relaxed font-sans max-w-lg">
               {subtitle}
             </p>
 
@@ -170,7 +170,7 @@ export default function FutureAI() {
                   <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.15] border border-[#10B981]/[0.25] flex items-center justify-center">
                     <Check className="h-3.5 w-3.5 text-[#34D399]" strokeWidth={2.5} />
                   </div>
-                  <span className="text-[0.9375rem] text-[#E2E8F0] font-sans">
+                  <span className="text-base text-[#F1F5F9] font-sans">
                     {isHindi ? item.hi : isEnglish ? item.en : item.hg}
                   </span>
                 </motion.div>
@@ -191,7 +191,7 @@ export default function FutureAI() {
               {ctaText}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
             </button>
-            <p className="text-sm text-[#94A3B8] mt-3 font-sans">{scoreNote}</p>
+            <p className="text-sm text-[#CBD5E1] mt-3 font-sans">{scoreNote}</p>
           </motion.div>
 
           {/* Visual: Animated Score Circle */}
@@ -251,9 +251,9 @@ export default function FutureAI() {
                       87
                     </motion.div>
                   </motion.div>
-                  <div className="text-base text-[#CBD5E1] font-sans mt-1">{outOf}</div>
+                  <div className="text-base sm:text-lg text-[#E2E8F0] font-sans mt-1">{outOf}</div>
                   <div className="mt-5 px-4 py-2 bg-[#2563EB]/[0.20] rounded-full border border-[#2563EB]/[0.35] backdrop-blur-sm">
-                    <span className="text-xs font-semibold font-heading tracking-wide text-[#93C5FD]">
+                    <span className="text-sm font-semibold font-heading tracking-wide text-[#93C5FD]">
                       {goodProtection}
                     </span>
                   </div>
@@ -272,15 +272,15 @@ export default function FutureAI() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-xl font-bold gradient-text-blue-emerald font-heading">92%</div>
-                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{isHindi ? scoreLabels.life.hi : isEnglish ? scoreLabels.life.en : scoreLabels.life.hg}</div>
+                      <div className="text-xs text-[#CBD5E1] font-sans mt-1">{isHindi ? scoreLabels.life.hi : isEnglish ? scoreLabels.life.en : scoreLabels.life.hg}</div>
                     </div>
                     <div className="border-x border-white/[0.10]">
                       <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
-                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{isHindi ? scoreLabels.health.hi : isEnglish ? scoreLabels.health.en : scoreLabels.health.hg}</div>
+                      <div className="text-xs text-[#CBD5E1] font-sans mt-1">{isHindi ? scoreLabels.health.hi : isEnglish ? scoreLabels.health.en : scoreLabels.health.hg}</div>
                     </div>
                     <div>
                       <div className="text-xl font-bold text-white font-heading">84%</div>
-                      <div className="text-[11px] text-[#94A3B8] font-sans mt-0.5">{isHindi ? scoreLabels.vehicle.hi : isEnglish ? scoreLabels.vehicle.en : scoreLabels.vehicle.hg}</div>
+                      <div className="text-xs text-[#CBD5E1] font-sans mt-1">{isHindi ? scoreLabels.vehicle.hi : isEnglish ? scoreLabels.vehicle.en : scoreLabels.vehicle.hg}</div>
                     </div>
                   </div>
                 </div>
@@ -298,8 +298,8 @@ export default function FutureAI() {
           className="mt-20 pt-16 border-t border-white/[0.08]"
         >
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#2563EB]/[0.12] rounded-full border border-[#2563EB]/[0.25] text-xs font-bold uppercase tracking-widest text-[#93C5FD] font-heading mb-4">
-              <Shield className="h-3 w-3" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#2563EB]/[0.12] rounded-full border border-[#2563EB]/[0.25] text-sm font-bold uppercase tracking-widest text-[#93C5FD] font-heading mb-4">
+              <Shield className="h-4 w-4" />
               {badge}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold font-heading text-white tracking-tight">

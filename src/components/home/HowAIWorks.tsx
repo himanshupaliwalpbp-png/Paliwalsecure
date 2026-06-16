@@ -185,7 +185,7 @@ export default function HowAIWorks() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-[#374151] dark:text-[#94A3B8] text-sm leading-relaxed font-body flex-1">
+                  <p className="text-[#374151] dark:text-[#CBD5E1] text-sm leading-relaxed font-body flex-1">
                     {desc}
                   </p>
 

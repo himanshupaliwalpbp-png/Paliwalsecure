@@ -166,7 +166,7 @@ export default function ComparisonMatrix() {
         >
           {/* Desktop Table */}
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[680px] text-sm">
+            <table className="w-full min-w-[680px] text-base">
               <thead>
                 <tr>
                   {/* Feature label column header */}
@@ -210,7 +210,7 @@ export default function ComparisonMatrix() {
                     } hover:bg-white/50 dark:hover:bg-white/[0.03]`}
                   >
                     {/* Feature name */}
-                    <td className="px-6 py-4 text-[#111111] dark:text-[#F3EADB] font-medium text-sm font-body">
+                    <td className="px-6 py-4 text-[#111111] dark:text-[#F3EADB] font-medium text-base font-body">
                       {getFeatureLabel(row.key)}
                     </td>
                     {/* Column cells */}

@@ -3728,12 +3728,12 @@ html.theme-transitioning *::after {
   color: #374151;
 }
 .dark .text-body-lg {
-  color: #B0B0B0;
+  color: #CBD5E1;
 }
 
 .text-label-premium {
   font-family: var(--font-heading), 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -3887,7 +3887,7 @@ html.theme-transitioning *::after {
 }
 .stat-premium-block .stat-label {
   font-family: var(--font-sans), 'Inter', system-ui, sans-serif;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: #374151;
   margin-top: 0.25rem;
