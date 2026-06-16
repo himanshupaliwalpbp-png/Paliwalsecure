@@ -71,10 +71,10 @@ function HinglishToggleButton() {
   return (
     <button
       onClick={handleCycle}
-      className={`group relative flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-semibold transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]/40 focus-visible:ring-offset-1 ${
+      className={`group relative flex items-center gap-1.5 h-8 px-3 rounded-full text-xs font-semibold transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 focus-visible:ring-offset-1 ${
         isLight
-          ? 'bg-slate-50 border-slate-200/80 text-slate-500 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600'
-          : 'bg-white/[0.04] border-white/[0.08] text-slate-400 hover:bg-white/[0.08] hover:border-white/[0.15] hover:text-slate-200'
+          ? 'bg-[#FAF7F2] border-[rgba(14,17,22,0.08)] text-[#4A4F57] hover:border-[rgba(14,17,22,0.16)] hover:text-[#0E1116]'
+          : 'bg-white/[0.04] border-[rgba(250,247,242,0.10)] text-[#8B9099] hover:bg-white/[0.08] hover:border-[rgba(250,247,242,0.20)] hover:text-[#FAF7F2]'
       }`}
       aria-label={`Language: ${currentLabel}. Click to switch.`}
     >
@@ -261,11 +261,11 @@ export default function SiteHeader() {
       className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
         isLight
           ? scrolled
-            ? 'bg-white/90 backdrop-blur-2xl border-b border-slate-200/60 shadow-[0_1px_0_0_rgba(0,0,0,0.03),0_2px_8px_-4px_rgba(0,0,0,0.04)]'
-            : 'bg-white/70 backdrop-blur-2xl border-b border-slate-200/30'
+            ? 'bg-[#FAF7F2]/80 backdrop-blur-md border-b border-[rgba(14,17,22,0.08)]'
+            : 'bg-[#FAF7F2]/80 backdrop-blur-md border-b border-[rgba(14,17,22,0.08)]'
           : scrolled
-            ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-white/[0.06] shadow-[0_1px_0_0_rgba(255,255,255,0.03),0_2px_12px_-4px_rgba(0,0,0,0.5)]'
-            : 'bg-slate-950/60 backdrop-blur-2xl border-b border-white/[0.04]'
+            ? 'bg-[#0E1116]/90 backdrop-blur-md border-b border-[rgba(250,247,242,0.10)]'
+            : 'bg-[#0E1116]/70 backdrop-blur-md border-b border-[rgba(250,247,242,0.08)]'
       }`}
       role="banner"
     >
@@ -290,31 +290,29 @@ export default function SiteHeader() {
               <div className="relative">
                 <div className={`absolute inset-0 blur-lg rounded-full transition-all duration-500 ${
                   isLight
-                    ? 'bg-blue-500 opacity-0 group-hover:opacity-15'
-                    : 'bg-blue-400 opacity-0 group-hover:opacity-20'
+                    ? 'bg-[#B8482C] opacity-0 group-hover:opacity-15'
+                    : 'bg-[#D4633F] opacity-0 group-hover:opacity-20'
                 }`} />
                 <div className={`relative flex items-center justify-center h-9 w-9 rounded-xl transition-all duration-300 ${
                   isLight
-                    ? 'bg-slate-900 group-hover:bg-slate-800'
-                    : 'bg-white/[0.06] group-hover:bg-white/[0.10] border border-white/[0.06]'
+                    ? 'bg-[#0E1116] group-hover:bg-[#1B4D4A]'
+                    : 'bg-white/[0.06] group-hover:bg-white/[0.10] border border-[rgba(250,247,242,0.10)]'
                 }`}>
                   <Shield className={`h-5 w-5 transition-colors duration-300 ${
-                    isLight ? 'text-white' : 'text-slate-200'
+                    isLight ? 'text-[#FAF7F2]' : 'text-[#FAF7F2]'
                   }`} strokeWidth={2.2} />
                 </div>
               </div>
               {/* Logo text */}
               <div className="flex flex-col">
-                <span className={`text-lg font-bold tracking-[-0.025em] leading-tight font-heading transition-colors duration-300 ${
-                  isLight ? 'text-slate-900' : 'text-white'
+                <span className={`font-display text-lg font-semibold tracking-[-0.02em] leading-tight transition-colors duration-300 ${
+                  isLight ? 'text-[#0E1116]' : 'text-[#FAF7F2]'
                 }`}>
                   Paliwal{' '}
-                  <span className={`transition-colors duration-300 ${
-                    isLight ? 'text-blue-600' : 'text-blue-400'
-                  }`}>Secure</span>
+                  <span className="text-accent-gradient">Secure</span>
                 </span>
                 <span className={`text-[10px] font-medium tracking-[0.08em] uppercase leading-tight transition-colors duration-300 ${
-                  isLight ? 'text-slate-400' : 'text-slate-500'
+                  isLight ? 'text-[#8B9099]' : 'text-[#8B9099]'
                 }`}>
                   Financial Intelligence
                 </span>
@@ -338,12 +336,12 @@ export default function SiteHeader() {
                     rel="noopener noreferrer"
                     className={`relative flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
                       isLight
-                        ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                        : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
+                        ? 'text-[#4A4F57] hover:text-[#0E1116]'
+                        : 'text-[#8B9099] hover:text-[#FAF7F2]'
                     }`}
                   >
                     <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-50" />
-                    <span>{t(link.labelKey) || link.label}</span>
+                    <span className="link-underline-reveal">{t(link.labelKey) || link.label}</span>
                   </a>
                 );
               }
@@ -355,26 +353,26 @@ export default function SiteHeader() {
                   className={`relative flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
                     active
                       ? isLight
-                        ? 'text-blue-600'
-                        : 'text-blue-400'
+                        ? 'text-[#0E1116]'
+                        : 'text-[#FAF7F2]'
                       : isLight
-                        ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                        : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
+                        ? 'text-[#4A4F57] hover:text-[#0E1116]'
+                        : 'text-[#8B9099] hover:text-[#FAF7F2]'
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-all duration-200 ${
                     active ? 'opacity-100' : 'opacity-50'
                   }`} />
-                  <span>{t(link.labelKey) || link.label}</span>
+                  <span className="link-underline-reveal">{t(link.labelKey) || link.label}</span>
                   {/* Active animated underline — Stripe-style spring animation */}
                   {active && (
                     <motion.div
                       layoutId="activeNavIndicator"
                       className={`absolute -bottom-[1px] left-2 right-2 h-[2px] rounded-full ${
                         isLight
-                          ? 'bg-blue-600'
-                          : 'bg-blue-400'
+                          ? 'bg-[#B8482C]'
+                          : 'bg-[#D4633F]'
                       }`}
                       transition={{
                         type: "spring",
@@ -399,31 +397,27 @@ export default function SiteHeader() {
           {/* ══ Right Side: CTAs + Toggles ════════════════════════════════════ */}
           <div className="flex items-center gap-1.5 shrink-0">
 
-            {/* Phone Call button — desktop */}
+            {/* Phone Call button — desktop — ghost text link with teal hover */}
             <Button
               variant="ghost"
               size="sm"
               className={`hidden xl:flex items-center gap-2 text-[13px] font-medium transition-all duration-200 h-9 px-2.5 rounded-lg ${
                 isLight
-                  ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
+                  ? 'text-[#4A4F57] hover:text-[#1B4D4A]'
+                  : 'text-[#8B9099] hover:text-[#FAF7F2]'
               }`}
               asChild
             >
               <a href="tel:+919257877312" aria-label="Call us">
                 <Phone className="h-4 w-4" />
-                <span className="hidden 2xl:inline">Call</span>
+                <span className="hidden 2xl:inline link-underline-reveal">Call</span>
               </a>
             </Button>
 
-            {/* WhatsApp button — desktop — Emerald green premium CTA */}
+            {/* WhatsApp button — desktop — WhatsApp green premium CTA */}
             <Button
               size="sm"
-              className={`hidden xl:flex items-center gap-2 h-9 px-3.5 text-[13px] font-semibold transition-all duration-300 rounded-lg shadow-sm hover:shadow-md active:scale-[0.97] ${
-                isLight
-                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20 hover:shadow-emerald-700/30'
-                  : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/30 hover:shadow-emerald-500/30'
-              }`}
+              className={`hidden xl:flex items-center gap-2 h-9 px-3.5 text-[13px] font-semibold transition-all duration-300 rounded-lg shadow-sm hover:shadow-md active:scale-[0.97] bg-[#25D366] hover:bg-[#1DA851] text-white shadow-[#25D366]/20 hover:shadow-[#1DA851]/30`}
               asChild
             >
               <a
@@ -439,7 +433,7 @@ export default function SiteHeader() {
 
             {/* Separator — desktop */}
             <div className={`hidden xl:block h-5 w-px mx-0.5 ${
-              isLight ? 'bg-slate-200' : 'bg-white/[0.08]'
+              isLight ? 'bg-[rgba(14,17,22,0.08)]' : 'bg-[rgba(250,247,242,0.10)]'
             }`} />
 
             {/* HinglishToggleButton — Desktop */}
@@ -452,31 +446,23 @@ export default function SiteHeader() {
               <SkyToggle />
             </div>
 
-            {/* InsureGPT AI Button — Desktop — Gradient premium CTA */}
+            {/* InsureGPT AI Button — Desktop — Sienna premium CTA */}
             <motion.button
               onClick={() => openInsureGPT()}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className={`hidden lg:flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-semibold transition-all duration-300 cursor-pointer ${
-                isLight
-                  ? 'bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white shadow-[0_1px_3px_rgba(37,99,235,0.3),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0_2px_8px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]'
-                  : 'bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white shadow-[0_1px_3px_rgba(59,130,246,0.25),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_2px_8px_rgba(59,130,246,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]'
-              }`}
+              className="hidden lg:flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-semibold transition-all duration-300 cursor-pointer bg-[#B8482C] hover:bg-[#8B3520] text-white shadow-[0_1px_3px_rgba(184,72,44,0.3),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0_2px_8px_rgba(184,72,44,0.4),inset_0_1px_0_rgba(255,255,255,0.15)]"
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>InsureGPT</span>
             </motion.button>
 
-            {/* InsureGPT AI Button — Mobile (icon only, gradient) */}
+            {/* InsureGPT AI Button — Mobile (icon only, sienna) */}
             <motion.button
               onClick={() => openInsureGPT()}
               whileTap={{ scale: 0.92 }}
-              className={`lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 cursor-pointer ${
-                isLight
-                  ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm'
-                  : 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm'
-              }`}
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 cursor-pointer bg-[#B8482C] hover:bg-[#8B3520] text-white shadow-sm"
               aria-label="Open InsureGPT AI Chat"
             >
               <Sparkles className="w-4 h-4" />
@@ -486,8 +472,8 @@ export default function SiteHeader() {
             <button
               className={`xl:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200 ${
                 isLight
-                  ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.05]'
+                  ? 'text-[#4A4F57] hover:text-[#0E1116] hover:bg-[#F4E5DD]'
+                  : 'text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.05]'
               }`}
               onClick={() => setSheetOpen(true)}
               aria-label={t('v2.header.openMenu')}
@@ -504,29 +490,29 @@ export default function SiteHeader() {
           side="right"
           className={`w-[304px] sm:max-w-sm p-0 flex flex-col ${
             isLight
-              ? 'bg-white border-l border-slate-200/60'
-              : 'bg-slate-950 border-l border-white/[0.06]'
+              ? 'bg-[#FAF7F2] border-l border-[rgba(14,17,22,0.08)]'
+              : 'bg-[#0E1116] border-l border-[rgba(250,247,242,0.10)]'
           }`}
         >
           {/* Sheet Header — Logo */}
           <SheetHeader className={`px-5 py-5 border-b ${
-            isLight ? 'border-slate-100' : 'border-white/[0.06]'
+            isLight ? 'border-[rgba(14,17,22,0.08)]' : 'border-[rgba(250,247,242,0.10)]'
           }`}>
             <SheetTitle className="flex items-center gap-2.5">
               <div className={`flex items-center justify-center h-8 w-8 rounded-lg ${
-                isLight ? 'bg-slate-900' : 'bg-white/[0.06] border border-white/[0.06]'
+                isLight ? 'bg-[#0E1116]' : 'bg-white/[0.06] border border-[rgba(250,247,242,0.10)]'
               }`}>
-                <Shield className={`h-4.5 w-4.5 ${isLight ? 'text-white' : 'text-slate-200'}`} strokeWidth={2.2} />
+                <Shield className={`h-4.5 w-4.5 ${isLight ? 'text-[#FAF7F2]' : 'text-[#FAF7F2]'}`} strokeWidth={2.2} />
               </div>
               <div>
-                <span className={`font-heading font-bold tracking-[-0.025em] text-base ${
-                  isLight ? 'text-slate-900' : 'text-white'
+                <span className={`font-display font-semibold tracking-[-0.02em] text-base ${
+                  isLight ? 'text-[#0E1116]' : 'text-[#FAF7F2]'
                 }`}>
                   Paliwal{' '}
-                  <span className={isLight ? 'text-blue-600' : 'text-blue-400'}>Secure</span>
+                  <span className="text-accent-gradient">Secure</span>
                 </span>
                 <div className={`text-[10px] font-medium tracking-[0.08em] uppercase ${
-                  isLight ? 'text-slate-400' : 'text-slate-500'
+                  isLight ? 'text-[#8B9099]' : 'text-[#8B9099]'
                 }`}>
                   Financial Intelligence
                 </div>
@@ -556,12 +542,12 @@ export default function SiteHeader() {
                         rel="noopener noreferrer"
                         className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                           isLight
-                            ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                            : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
+                            ? 'text-[#4A4F57] hover:text-[#0E1116] hover:bg-[#F4E5DD]/60'
+                            : 'text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.04]'
                         }`}
                       >
                         <span className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-200 ${
-                          isLight ? 'bg-slate-50' : 'bg-white/[0.04]'
+                          isLight ? 'bg-[#F4E5DD]/60' : 'bg-white/[0.04]'
                         }`}>
                           <LinkIcon className="w-4 h-4 opacity-60" />
                         </span>
@@ -585,26 +571,26 @@ export default function SiteHeader() {
                       className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                         active
                           ? isLight
-                            ? 'bg-blue-50 text-blue-600 font-semibold'
-                            : 'bg-blue-500/[0.08] text-blue-400 font-semibold'
+                            ? 'bg-[#F4E5DD] text-[#0E1116] font-semibold'
+                            : 'bg-white/[0.06] text-[#FAF7F2] font-semibold'
                           : isLight
-                            ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                            : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
+                            ? 'text-[#4A4F57] hover:text-[#0E1116] hover:bg-[#F4E5DD]/60'
+                            : 'text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.04]'
                       }`}
                       aria-current={active ? 'page' : undefined}
                     >
                       <span className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-200 ${
                         active
                           ? isLight
-                            ? 'bg-blue-100'
-                            : 'bg-blue-500/15'
+                            ? 'bg-[#B8482C]/10'
+                            : 'bg-[#D4633F]/15'
                           : isLight
-                            ? 'bg-slate-50'
+                            ? 'bg-[#F4E5DD]/60'
                             : 'bg-white/[0.04]'
                       }`}>
                         <LinkIcon className={`w-4 h-4 transition-colors duration-200 ${
                           active
-                            ? isLight ? 'text-blue-600' : 'text-blue-400'
+                            ? isLight ? 'text-[#B8482C]' : 'text-[#D4633F]'
                             : 'opacity-60'
                         }`} />
                       </span>
@@ -617,7 +603,7 @@ export default function SiteHeader() {
 
             {/* ── Divider ────────────────────────────────────────────────────── */}
             <div className={`my-2 mx-3 h-px ${
-              isLight ? 'bg-slate-100' : 'bg-white/[0.06]'
+              isLight ? 'bg-[rgba(14,17,22,0.08)]' : 'bg-[rgba(250,247,242,0.10)]'
             }`} />
 
             {/* Extra links in mobile: InsureGPT, WhatsApp, Phone */}
@@ -634,14 +620,14 @@ export default function SiteHeader() {
                   }}
                   className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                     isLight
-                      ? 'text-blue-600 hover:bg-blue-50'
-                      : 'text-blue-400 hover:bg-blue-500/[0.08]'
+                      ? 'text-[#B8482C] hover:bg-[#F4E5DD]/60'
+                      : 'text-[#D4633F] hover:bg-white/[0.06]'
                   }`}
                 >
                   <span className={`flex items-center justify-center w-8 h-8 rounded-lg ${
-                    isLight ? 'bg-blue-100' : 'bg-blue-500/15'
+                    isLight ? 'bg-[#B8482C]/10' : 'bg-[#D4633F]/15'
                   }`}>
-                    <Sparkles className={`w-4 h-4 ${isLight ? 'text-blue-600' : 'text-blue-400'}`} />
+                    <Sparkles className={`w-4 h-4 ${isLight ? 'text-[#B8482C]' : 'text-[#D4633F]'}`} />
                   </span>
                   <span className="flex-1 text-left">InsureGPT AI</span>
                 </button>
@@ -658,7 +644,7 @@ export default function SiteHeader() {
                   href="https://wa.me/919257877312"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center w-full px-3 py-2.5 text-sm font-semibold rounded-xl text-white bg-emerald-600 hover:bg-emerald-700 transition-all duration-200 gap-3 min-h-[44px] mt-1"
+                  className="flex items-center w-full px-3 py-2.5 text-sm font-semibold rounded-xl text-white bg-[#25D366] hover:bg-[#1DA851] transition-all duration-200 gap-3 min-h-[44px] mt-1"
                 >
                   <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/15">
                     <MessageCircle className="w-4 h-4" />
@@ -678,12 +664,12 @@ export default function SiteHeader() {
                   href="tel:+919257877312"
                   className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                     isLight
-                      ? 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]'
+                      ? 'text-[#4A4F57] hover:text-[#1B4D4A] hover:bg-[#E6EFEE]/60'
+                      : 'text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.04]'
                   }`}
                 >
                   <span className={`flex items-center justify-center w-8 h-8 rounded-lg ${
-                    isLight ? 'bg-slate-50' : 'bg-white/[0.04]'
+                    isLight ? 'bg-[#E6EFEE]/60' : 'bg-white/[0.04]'
                   }`}>
                     <Phone className="w-4 h-4 opacity-60" />
                   </span>
@@ -695,26 +681,22 @@ export default function SiteHeader() {
 
           {/* ── Bottom section — Language + Theme + CTA ──────────────────────── */}
           <div className={`border-t p-5 space-y-4 ${
-            isLight ? 'border-slate-100' : 'border-white/[0.06]'
+            isLight ? 'border-[rgba(14,17,22,0.08)]' : 'border-[rgba(250,247,242,0.10)]'
           }`}>
             {/* Language Toggle + Theme Toggle */}
             <div className="flex items-center gap-2.5">
-              <Globe className={`w-4 h-4 ${isLight ? 'text-slate-400' : 'text-slate-500'}`} />
-              <span className={`text-xs font-medium ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>{t('insureGPT.language')}</span>
+              <Globe className={`w-4 h-4 ${isLight ? 'text-[#8B9099]' : 'text-[#8B9099]'}`} />
+              <span className={`text-xs font-medium ${isLight ? 'text-[#8B9099]' : 'text-[#8B9099]'}`}>{t('insureGPT.language')}</span>
               <div className="ml-auto flex items-center gap-2">
                 <HinglishToggleButton />
                 <SkyToggle />
               </div>
             </div>
 
-            {/* Get Quote CTA — Premium dark button */}
+            {/* Get Quote CTA — Premium ink button (sienna hover) */}
             <SheetClose asChild>
               <Button
-                className={`w-full rounded-xl font-bold h-12 text-sm transition-all duration-300 active:scale-[0.98] ${
-                  isLight
-                    ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.06)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.06)]'
-                    : 'bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white shadow-[0_1px_3px_rgba(59,130,246,0.25),inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_2px_8px_rgba(59,130,246,0.4),inset_0_1px_0_rgba(255,255,255,0.1)]'
-                }`}
+                className="w-full rounded-xl font-bold h-12 text-sm transition-all duration-300 active:scale-[0.98] bg-[#0E1116] text-[#FAF7F2] hover:bg-[#B8482C] shadow-[0_1px_3px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.06)] hover:shadow-[0_2px_8px_rgba(184,72,44,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]"
                 onClick={() => {
                   setSheetOpen(false);
                   setTimeout(() => {

@@ -133,7 +133,7 @@ export default function HomeFAQSection() {
   const chatWithUs = isHindi ? 'WhatsApp पर चैट करें' : isEnglish ? 'Chat with Us on WhatsApp' : 'WhatsApp par chat karein';
 
   return (
-    <section className="section-luxury section-luxury-alt">
+    <section className="section-premium bg-[#FAF7F2]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -143,10 +143,10 @@ export default function HomeFAQSection() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#111111] dark:text-[#F3EADB] mb-4 font-heading tracking-tight">
-            {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
+          <h2 className="text-display-h2 font-display text-[#0E1116] mb-4">
+            {heading} <span className="text-accent-gradient">{headingAccent}</span>
           </h2>
-          <p className="text-lg text-[#374151] dark:text-[#CBD5E1] font-sans max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lead-premium text-[#4A4F57] max-w-2xl mx-auto">
             {subtitle}
           </p>
         </motion.div>
@@ -158,17 +158,17 @@ export default function HomeFAQSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="bg-white rounded-2xl border border-[rgba(14,17,22,0.08)] shadow-sm overflow-hidden">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="premium-card border border-[#E8E2D6]/60 dark:border-white/[0.06] rounded-xl px-6 !p-0 data-[state=open]:border-[#2563EB]/20 dark:data-[state=open]:border-[#3B82F6]/30 data-[state=open]:shadow-premium transition-all duration-300 group"
+                className="border-b border-[rgba(14,17,22,0.08)] last:border-b-0 px-6 lg:px-8 !p-0 transition-colors duration-300 data-[state=open]:bg-[#F4F1EC]/40"
               >
-                <AccordionTrigger className="text-left font-heading text-[0.9375rem] font-semibold text-[#111111] dark:text-[#F3EADB] hover:no-underline py-5 [&>svg]:text-[#374151] dark:[&>svg]:text-[#64748B] [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 [&>svg]:transition-transform [&>svg]:duration-200">
+                <AccordionTrigger className="text-left font-display text-lg lg:text-xl font-medium text-[#0E1116] hover:no-underline py-6 [&>svg]:text-[#B8482C] [&>svg]:h-4 [&>svg]:w-4 [&>svg]:shrink-0 [&>svg]:transition-transform [&>svg]:duration-200">
                   {isHindi ? faq.question.hi : isEnglish ? faq.question.en : faq.question.hg}
                 </AccordionTrigger>
-                <AccordionContent className="text-base text-[#374151] dark:text-[#CBD5E1] leading-[1.7] font-sans pb-5">
+                <AccordionContent className="text-body-premium text-[#4A4F57] pb-6">
                   {isHindi ? faq.answer.hi : isEnglish ? faq.answer.en : faq.answer.hg}
                 </AccordionContent>
               </AccordionItem>
@@ -184,12 +184,12 @@ export default function HomeFAQSection() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-center mt-14"
         >
-          <p className="text-[#374151] dark:text-[#CBD5E1] mb-5 font-sans text-base">{stillQuestions}</p>
+          <p className="text-body-premium text-[#4A4F57] mb-5">{stillQuestions}</p>
           <a
             href="https://wa.me/919257877312"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-luxury-secondary inline-flex items-center gap-2"
+            className="btn-linear group"
           >
             <MessageCircle className="h-4 w-4" />
             {chatWithUs}

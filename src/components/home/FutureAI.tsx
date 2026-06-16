@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, ArrowRight, Check } from 'lucide-react';
+import { Shield, ArrowUpRight, Check } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Inline translations ───────────────────────────────────────────── */
@@ -20,7 +20,8 @@ const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
   feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Jaanein aapki current policy kya cover nahi karti' },
 };
 
-const featureColors = ['#2563EB', '#10B981', '#5E1223', '#8B5CF6'];
+/* Alternating sienna + teal accent dots for feature cards (dark palette) */
+const featureColors = ['#D4633F', '#2D7A77', '#D4633F', '#2D7A77'];
 
 /* ── Feature Card ──────────────────────────────────────────────── */
 function FeatureCard({
@@ -41,14 +42,14 @@ function FeatureCard({
 
   return (
     <motion.div
-      className="border border-white/[0.12] rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:border-white/[0.20] hover:shadow-lg"
-      style={{ backgroundColor: '#111827' }}
+      className="border border-[rgba(250,247,242,0.10)] rounded-2xl p-6 flex flex-col h-full group transition-all duration-500 hover:border-[rgba(250,247,242,0.20)] hover:shadow-lg"
+      style={{ backgroundColor: '#161A21' }}
       initial={{ opacity: 0, y: 40, scale: 0.97 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1a2332'; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#111827'; }}
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1A1F27'; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = '#161A21'; }}
     >
       <div
         className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
@@ -57,16 +58,16 @@ function FeatureCard({
         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 10px ${color}80` }} />
       </div>
 
-      <h3 className="font-heading text-base sm:text-lg font-bold text-white leading-snug mb-2 tracking-tight">
+      <h3 className="font-display text-base sm:text-lg font-medium text-white leading-snug mb-2 tracking-tight">
         {title}
       </h3>
 
-      <p className="text-sm text-[#E2E8F0] leading-relaxed flex-1 mb-5 font-sans">
+      <p className="text-sm text-[#8B9099] leading-relaxed flex-1 mb-5">
         {desc}
       </p>
 
-      <div className="flex items-center justify-between pt-4 border-t border-white/[0.10]">
-        <span className="text-xs font-bold uppercase tracking-[0.12em] text-white px-3.5 py-1.5 rounded-full bg-[#2563EB] border border-[#3B82F6] font-heading shadow-[0_0_12px_rgba(37,99,235,0.3)]">
+      <div className="flex items-center justify-between pt-4 border-t border-[rgba(250,247,242,0.10)]">
+        <span className="text-xs font-semibold uppercase tracking-[0.12em] text-white px-3.5 py-1.5 rounded-full bg-[#D4633F] border border-[#D4633F] shadow-[0_0_12px_rgba(212,99,63,0.30)]">
           {comingSoon}
         </span>
       </div>
@@ -109,27 +110,30 @@ export default function FutureAI() {
   const ctaText = isHindi ? 'अपना स्कोर गणना करें' : isEnglish ? 'Calculate Your Score' : 'Apna score calculate karein';
 
   return (
-    <section className="section-luxury overflow-hidden relative" style={{ backgroundColor: '#070B14', color: '#FFFFFF' }}>
+    <section
+      className="section-luxury dark overflow-hidden relative"
+      style={{ backgroundColor: '#0E1116', color: '#FAF7F2' }}
+    >
       {/* Premium ambient background — layered depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Primary glow — top-left */}
-        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#2563EB]/[0.10] rounded-full blur-[120px]" />
-        {/* Secondary glow — bottom-right */}
-        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#10B981]/[0.08] rounded-full blur-[120px]" />
-        {/* Center accent glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#2563EB]/[0.06] rounded-full blur-[150px]" />
+        {/* Primary glow — top-left (sienna) */}
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-[#D4633F]/[0.10] rounded-full blur-[120px]" />
+        {/* Secondary glow — bottom-right (teal) */}
+        <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-[#2D7A77]/[0.08] rounded-full blur-[120px]" />
+        {/* Center accent glow (sienna) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#D4633F]/[0.06] rounded-full blur-[150px]" />
         {/* Subtle dot grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(250,247,242,0.5) 1px, transparent 0)`,
             backgroundSize: '32px 32px',
           }}
         />
       </div>
 
-      {/* Top gradient edge */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+      {/* Top gradient edge — bone hairline */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(250,247,242,0.10)] to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 xl:gap-24 items-center">
@@ -138,22 +142,22 @@ export default function FutureAI() {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#2563EB]/[0.15] backdrop-blur-sm rounded-full border border-[#2563EB]/[0.30] mb-8">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse" />
-              <Shield className="h-3.5 w-3.5 text-[#60A5FA]" />
-              <span className="text-sm font-semibold font-heading tracking-wide uppercase text-[#93C5FD]">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#D4633F]/[0.15] backdrop-blur-sm rounded-full border border-[#D4633F]/[0.30] mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#D4633F] animate-pulse" />
+              <Shield className="h-3.5 w-3.5 text-[#D4633F]" />
+              <span className="text-sm font-semibold font-display tracking-wide uppercase text-[#F4E5DD]">
                 {freeAnalysis}
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold mb-6 font-heading leading-[1.1] tracking-tight text-white">
+            <h2 className="text-display-h2 font-display text-white mb-6 leading-[1.1]">
               {heading}{' '}
-              <span className="gradient-text-blue-emerald">{headingAccent}</span>
+              <span className="text-accent-gradient">{headingAccent}</span>
             </h2>
 
-            <p className="text-base sm:text-lg text-[#E2E8F0] mb-10 leading-relaxed font-sans max-w-lg">
+            <p className="text-lead-premium text-[#8B9099] mb-10 max-w-lg">
               {subtitle}
             </p>
 
@@ -165,12 +169,12 @@ export default function FutureAI() {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.1 * index, duration: 0.5 }}
+                  transition={{ delay: 0.1 * index, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#10B981]/[0.15] border border-[#10B981]/[0.25] flex items-center justify-center">
-                    <Check className="h-3.5 w-3.5 text-[#34D399]" strokeWidth={2.5} />
+                  <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-[#2D7A77]/[0.18] border border-[#2D7A77]/[0.30] flex items-center justify-center">
+                    <Check className="h-3.5 w-3.5 text-[#2D7A77]" strokeWidth={2.5} />
                   </div>
-                  <span className="text-base text-[#F1F5F9] font-sans">
+                  <span className="text-base text-[#FAF7F2]">
                     {isHindi ? item.hi : isEnglish ? item.en : item.hg}
                   </span>
                 </motion.div>
@@ -186,12 +190,21 @@ export default function FutureAI() {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              className="btn-luxury-primary btn-luxury-lg group"
+              className="btn-stripe group"
+              style={{ backgroundColor: '#FAF7F2', color: '#0E1116' }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = '#D4633F';
+                (e.currentTarget as HTMLElement).style.color = '#FFFFFF';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = '#FAF7F2';
+                (e.currentTarget as HTMLElement).style.color = '#0E1116';
+              }}
             >
               {ctaText}
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+              <ArrowUpRight className="h-4 w-4" />
             </button>
-            <p className="text-sm text-[#CBD5E1] mt-3 font-sans">{scoreNote}</p>
+            <p className="text-sm text-[#8B9099] mt-3">{scoreNote}</p>
           </motion.div>
 
           {/* Visual: Animated Score Circle */}
@@ -199,19 +212,19 @@ export default function FutureAI() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
             <div className="relative w-full max-w-md mx-auto">
-              {/* Outer ring glow */}
-              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#2563EB]/[0.12] via-transparent to-[#10B981]/[0.08] blur-xl" />
+              {/* Outer ring glow — sienna → teal */}
+              <div className="absolute inset-[-20px] rounded-full bg-gradient-to-br from-[#D4633F]/[0.14] via-transparent to-[#2D7A77]/[0.10] blur-xl" />
 
               <div className="aspect-square relative">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
                   {/* Background track */}
-                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="10" />
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(250,247,242,0.06)" strokeWidth="10" />
                   {/* Subtle outer track */}
-                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="14" />
+                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(250,247,242,0.03)" strokeWidth="14" />
                   {/* Animated progress */}
                   <motion.circle
                     cx="100"
@@ -225,13 +238,13 @@ export default function FutureAI() {
                     initial={{ strokeDashoffset: 534 }}
                     whileInView={{ strokeDashoffset: 534 - (534 * 87) / 100 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
                   />
                   <defs>
                     <linearGradient id="scoreGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#2563EB" />
-                      <stop offset="50%" stopColor="#60A5FA" />
-                      <stop offset="100%" stopColor="#10B981" />
+                      <stop offset="0%" stopColor="#D4633F" />
+                      <stop offset="50%" stopColor="#F4E5DD" />
+                      <stop offset="100%" stopColor="#2D7A77" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -241,19 +254,19 @@ export default function FutureAI() {
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <motion.div
-                      className="text-7xl font-bold font-heading tracking-tight text-white"
+                      className="font-display text-7xl font-medium tracking-tight text-white tabular-nums"
                       animate={{ scale: [1, 1.03, 1] }}
                       transition={{ duration: 2, repeat: Infinity, repeatDelay: 3, ease: 'easeInOut' }}
                     >
                       87
                     </motion.div>
                   </motion.div>
-                  <div className="text-base sm:text-lg text-[#E2E8F0] font-sans mt-1">{outOf}</div>
-                  <div className="mt-5 px-4 py-2 bg-[#2563EB]/[0.20] rounded-full border border-[#2563EB]/[0.35] backdrop-blur-sm">
-                    <span className="text-sm font-semibold font-heading tracking-wide text-[#93C5FD]">
+                  <div className="text-base sm:text-lg text-[#8B9099] mt-1">{outOf}</div>
+                  <div className="mt-5 px-4 py-2 bg-[#2D7A77]/[0.20] rounded-full border border-[#2D7A77]/[0.35] backdrop-blur-sm">
+                    <span className="text-sm font-semibold font-display tracking-wide text-[#E6EFEE]">
                       {goodProtection}
                     </span>
                   </div>
@@ -265,22 +278,22 @@ export default function FutureAI() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 1, duration: 0.6 }}
+                transition={{ delay: 1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-full max-w-sm"
               >
-                <div className="rounded-2xl p-5 border border-white/[0.12]" style={{ backgroundColor: '#111827' }}>
+                <div className="rounded-2xl p-5 border border-[rgba(250,247,242,0.10)]" style={{ backgroundColor: '#161A21' }}>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">92%</div>
-                      <div className="text-xs text-[#CBD5E1] font-sans mt-1">{isHindi ? scoreLabels.life.hi : isEnglish ? scoreLabels.life.en : scoreLabels.life.hg}</div>
+                      <div className="text-xl font-medium font-display tabular-nums text-accent-gradient">92%</div>
+                      <div className="text-caption-premium text-[#8B9099] mt-1">{isHindi ? scoreLabels.life.hi : isEnglish ? scoreLabels.life.en : scoreLabels.life.hg}</div>
                     </div>
-                    <div className="border-x border-white/[0.10]">
-                      <div className="text-xl font-bold gradient-text-blue-emerald font-heading">85%</div>
-                      <div className="text-xs text-[#CBD5E1] font-sans mt-1">{isHindi ? scoreLabels.health.hi : isEnglish ? scoreLabels.health.en : scoreLabels.health.hg}</div>
+                    <div className="border-x border-[rgba(250,247,242,0.10)]">
+                      <div className="text-xl font-medium font-display tabular-nums text-accent-gradient">85%</div>
+                      <div className="text-caption-premium text-[#8B9099] mt-1">{isHindi ? scoreLabels.health.hi : isEnglish ? scoreLabels.health.en : scoreLabels.health.hg}</div>
                     </div>
                     <div>
-                      <div className="text-xl font-bold text-white font-heading">84%</div>
-                      <div className="text-xs text-[#CBD5E1] font-sans mt-1">{isHindi ? scoreLabels.vehicle.hi : isEnglish ? scoreLabels.vehicle.en : scoreLabels.vehicle.hg}</div>
+                      <div className="text-xl font-medium font-display tabular-nums text-accent-gradient">84%</div>
+                      <div className="text-caption-premium text-[#8B9099] mt-1">{isHindi ? scoreLabels.vehicle.hi : isEnglish ? scoreLabels.vehicle.en : scoreLabels.vehicle.hg}</div>
                     </div>
                   </div>
                 </div>
@@ -294,15 +307,15 @@ export default function FutureAI() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-20 pt-16 border-t border-white/[0.08]"
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-20 pt-16 border-t border-[rgba(250,247,242,0.10)]"
         >
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#2563EB]/[0.12] rounded-full border border-[#2563EB]/[0.25] text-sm font-bold uppercase tracking-widest text-[#93C5FD] font-heading mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#D4633F]/[0.12] rounded-full border border-[#D4633F]/[0.25] text-sm font-semibold uppercase tracking-[0.12em] text-[#F4E5DD] font-display mb-4">
               <Shield className="h-4 w-4" />
               {badge}
             </span>
-            <h3 className="text-2xl sm:text-3xl font-bold font-heading text-white tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-medium font-display text-white tracking-tight">
               {poweredByAI}
             </h3>
           </div>
@@ -320,8 +333,8 @@ export default function FutureAI() {
         </motion.div>
       </div>
 
-      {/* Bottom gradient edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+      {/* Bottom gradient edge — bone hairline */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(250,247,242,0.10)] to-transparent" />
     </section>
   );
 }

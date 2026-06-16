@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter, JetBrains_Mono, Noto_Serif_Devanagari } from "next/font/google";
+import { Fraunces, Inter_Tight, JetBrains_Mono, Noto_Serif_Devanagari, Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SafeThemeProvider } from "@/lib/safe-theme-provider";
@@ -17,6 +17,24 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import StickyMobileCTA from "@/components/home/StickyMobileCTA";
 import { SafeRender } from "@/components/SafeRender";
 import StyledComponentsRegistry from "@/lib/styled-components-registry";
+
+// ── Premium Editorial Typography — "Editorial Engineering" pairing ──
+// Fraunces: variable serif with optical sizing — has SOUL, feels human + premium
+const fraunces = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+// Inter Tight: tighter than regular Inter, more editorial
+const interTight = Inter_Tight({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-heading",
@@ -352,7 +370,7 @@ export default function RootLayout({
         <StructuredData type="breadcrumb" />
       </head>
       <body
-        className={`${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-hidden antialiased`}
+        className={`${fraunces.variable} ${interTight.variable} ${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-hidden antialiased`}
       >
         <GoogleAnalytics gaId="G-TKQ9X6G5HX" />
         <SafeThemeProvider>

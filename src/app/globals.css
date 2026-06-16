@@ -121,16 +121,33 @@
   /* Legacy Gold — preserved for backward compat */
   --color-gold-legacy: #D4A853;
 
-  /* NEW — Design Bible v7.0 Premium Warm Palette */
-  --color-cream: #F3EADB;       /* Soft Cream — Primary warm background */
-  --color-ivory: #F6F5F1;       /* Ivory White — Alternate lighter background */
-  --color-black: #111111;       /* Black — Deep text, dark mode base */
-  --color-maroon: #5E1223;      /* Deep Maroon — Premium/luxury accent */
-  --color-maroon-light: #8B2D40; /* Lightened Maroon — Dark mode accent */
-  --color-baby-blue: #DBEAFE;   /* Baby Blue — Subtle highlights, hover states */
-  --color-electric-blue: #2563EB; /* Electric Blue — Primary action/CTA color */
-  --color-electric-blue-dark: #1D4ED8; /* Electric Blue darker — Hover state */
-  --color-warm-border: #E8E2D6; /* Warm border — NOT cool gray */
+  /* NEW — Design Bible v8.0 "Quiet Confidence" Premium Palette */
+  --color-canvas: #FAF7F2;        /* Warm bone — main bg (Ethos-like) */
+  --color-paper: #FFFFFF;         /* Card surface */
+  --color-ink: #0E1116;           /* Near-black, slightly warm */
+  --color-ink-soft: #4A4F57;      /* Body text */
+  --color-ink-mute: #8B9099;      /* Captions, meta */
+  --color-accent-warm: #B8482C;   /* Burnt sienna — warm, premium */
+  --color-accent-warm-deep: #8B3520; /* Hover/active */
+  --color-accent-warm-tint: #F4E5DD; /* Subtle bg */
+  --color-trust-teal: #1B4D4A;    /* Deep forest teal */
+  --color-trust-teal-tint: #E6EFEE;
+  --color-warn-gold: #B8860B;     /* Old gold */
+  --color-success-deep: #2D6A4F;
+  --color-danger-deep: #9B2C2C;
+  --color-line: rgba(14, 17, 22, 0.08);        /* Hairline */
+  --color-line-strong: rgba(14, 17, 22, 0.16); /* Strong hairline */
+
+  /* Design Bible v7.0 Premium Warm Palette (backward compat) */
+  --color-cream: #FAF7F2;         /* NOW Warm bone — main bg */
+  --color-ivory: #F4F1EC;         /* Slightly warmer ivory */
+  --color-black: #0E1116;         /* Near-black ink */
+  --color-maroon: #B8482C;        /* NOW Burnt sienna accent */
+  --color-maroon-light: #8B3520;  /* Deep burnt sienna */
+  --color-baby-blue: #E6EFEE;     /* NOW trust teal tint */
+  --color-electric-blue: #1B4D4A; /* NOW Deep forest teal (trust) */
+  --color-electric-blue-dark: #143834;
+  --color-warm-border: rgba(14, 17, 22, 0.08); /* Hairline border */
 
   /* Arctic Glacier Cyan palette — #7ED3E6 CMYK: 45, 8, 0, 10 */
   --color-cyan: #7ED3E6;
@@ -166,10 +183,12 @@
   --color-emerald-500: #10B981;
   --color-emerald-600: #059669;
 
-  /* Font families — set by next/font/google in layout.tsx */
-  --font-heading: var(--font-heading);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  /* Font families — Editorial Engineering pairing (set by next/font in layout.tsx) */
+  --font-display: var(--font-display);   /* Fraunces — variable serif, editorial */
+  --font-body: var(--font-body);         /* Inter Tight — tighter editorial sans */
+  --font-heading: var(--font-heading);   /* Plus Jakarta Sans — UI headings */
+  --font-sans: var(--font-sans);         /* Inter — body fallback */
+  --font-mono: var(--font-mono);         /* JetBrains Mono — numerals */
 
   /* Devanagari (Hindi) font */
   --font-devanagari: var(--font-devanagari);
@@ -186,47 +205,48 @@
 :root {
   --radius: 0.75rem;
 
-  /* Paliwal Secure AI — Light Mode (DEFAULT) — Warm Sophistication */
-  --background: #F3EADB;          /* Soft Cream — Warm, Professional */
-  --foreground: #111111;          /* Black — Deep text */
-  --card: #FFFFFF;                /* Pure white cards */
-  --card-foreground: #111111;     /* Black */
-  --popover: #FFFFFF;             /* White popover */
-  --popover-foreground: #111111;
-  --primary: #2563EB;             /* Electric Blue — Primary action/CTA */
-  --primary-foreground: #FFFFFF;  /* White on primary */
-  --secondary: #F6F5F1;           /* Ivory White */
-  --secondary-foreground: #111111;
-  --muted: #F6F5F1;               /* Ivory White */
-  --muted-foreground: #374151;    /* Dark warm muted text — high readability */
-  --accent: #5E1223;              /* Deep Maroon — Premium accent */
+  /* ═══ Paliwal Secure AI — Design Bible v8.0 "Quiet Confidence" ═══ */
+  /* Warm bone canvas, NOT pure white (removes AI/template feel) */
+  --background: #FAF7F2;          /* Warm bone — main bg (Ethos-like) */
+  --foreground: #0E1116;          /* Near-black ink, slightly warm */
+  --card: #FFFFFF;                /* Pure paper for cards */
+  --card-foreground: #0E1116;     /* Ink */
+  --popover: #FFFFFF;             /* Paper popover */
+  --popover-foreground: #0E1116;
+  --primary: #0E1116;             /* Ink as primary — "The Stripe" button */
+  --primary-foreground: #FAF7F2;  /* Canvas on ink */
+  --secondary: #F4F1EC;           /* Warm secondary surface */
+  --secondary-foreground: #0E1116;
+  --muted: #F4F1EC;               /* Warm muted bg */
+  --muted-foreground: #4A4F57;    /* Ink-soft — body text */
+  --accent: #B8482C;              /* Burnt sienna — warm premium accent */
   --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: #E8E2D6;              /* Warm border */
-  --input: #E8E2D6;               /* Warm border */
-  --ring: #2563EB;                /* Electric Blue */
+  --destructive: #9B2C2C;         /* Deep danger red */
+  --border: rgba(14, 17, 22, 0.08); /* Hairline border */
+  --input: rgba(14, 17, 22, 0.10); /* Slightly stronger for inputs */
+  --ring: #B8482C;                /* Burnt sienna focus ring */
 
-  /* Chart colors — Blue/Maroon/Gold palette */
-  --chart-1: #2563EB;  /* Electric Blue */
-  --chart-2: #5E1223;  /* Deep Maroon */
-  --chart-3: #C98A1C;  /* Rich Gold */
-  --chart-4: #10B981;  /* Emerald 500 */
-  --chart-5: #8C8C8C;  /* Neutral Gray */
+  /* Chart colors — Quiet Confidence palette */
+  --chart-1: #B8482C;  /* Burnt sienna */
+  --chart-2: #1B4D4A;  /* Deep forest teal */
+  --chart-3: #B8860B;  /* Old gold */
+  --chart-4: #2D6A4F;  /* Deep success green */
+  --chart-5: #8B9099;  /* Ink mute */
 
-  /* Sidebar — Light Warm */
-  --sidebar: #F6F5F1;
-  --sidebar-foreground: #111111;
-  --sidebar-primary: #2563EB;
+  /* Sidebar — Warm editorial */
+  --sidebar: #F4F1EC;
+  --sidebar-foreground: #0E1116;
+  --sidebar-primary: #B8482C;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #DBEAFE;
-  --sidebar-accent-foreground: #111111;
-  --sidebar-border: #E8E2D6;
-  --sidebar-ring: #2563EB;
+  --sidebar-accent: #F4E5DD;
+  --sidebar-accent-foreground: #0E1116;
+  --sidebar-border: rgba(14, 17, 22, 0.08);
+  --sidebar-ring: #B8482C;
 
-  /* Premium Shadow Utilities — warm tinted */
-  --shadow-premium: 0 2px 8px rgba(17, 17, 17, 0.04), 0 8px 24px rgba(17, 17, 17, 0.08);
-  --shadow-premium-lg: 0 4px 12px rgba(17, 17, 17, 0.06), 0 16px 48px rgba(17, 17, 17, 0.12);
-  --shadow-premium-xl: 0 8px 16px rgba(17, 17, 17, 0.08), 0 24px 64px rgba(17, 17, 17, 0.16);
+  /* Premium Shadow Utilities — warm tinted, subtle */
+  --shadow-premium: 0 2px 8px rgba(14, 17, 22, 0.04), 0 8px 24px rgba(14, 17, 22, 0.08);
+  --shadow-premium-lg: 0 4px 12px rgba(14, 17, 22, 0.06), 0 16px 48px rgba(14, 17, 22, 0.12);
+  --shadow-premium-xl: 0 8px 16px rgba(14, 17, 22, 0.08), 0 24px 64px rgba(14, 17, 22, 0.16);
 }
 
 /* ──────────────────────────────────────────────
@@ -240,41 +260,41 @@ body::after,
 }
 
 .dark {
-  --background: #111111;              /* Black — Dark mode base */
-  --foreground: #F3EADB;              /* Cream as text — signature move! */
-  --card: #1A1A1A;                    /* Dark card */
-  --card-foreground: #F3EADB;
-  --popover: #1A1A1A;                 /* Dark popover */
-  --popover-foreground: #F3EADB;
-  --primary: #2563EB;                 /* Electric Blue stays */
-  --primary-foreground: #FFFFFF;      /* White */
-  --secondary: #1A1A1A;               /* Dark card */
-  --secondary-foreground: #F3EADB;
-  --muted: #1A1A1A;                   /* Dark muted */
-  --muted-foreground: #B0B0B0;        /* Warm muted */
-  --accent: #8B2D40;                  /* Lightened Maroon for dark mode */
+  --background: #0E1116;              /* Near-black ink — dark mode base */
+  --foreground: #FAF7F2;              /* Warm bone as text — signature move */
+  --card: #161A21;                    /* Slightly lifted dark card */
+  --card-foreground: #FAF7F2;
+  --popover: #161A21;                 /* Dark popover */
+  --popover-foreground: #FAF7F2;
+  --primary: #FAF7F2;                 /* Canvas as primary (inverted) */
+  --primary-foreground: #0E1116;      /* Ink on canvas */
+  --secondary: #1A1F27;               /* Dark secondary */
+  --secondary-foreground: #FAF7F2;
+  --muted: #1A1F27;                   /* Dark muted */
+  --muted-foreground: #8B9099;        /* Ink mute */
+  --accent: #D4633F;                  /* Lightened burnt sienna for dark mode */
   --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: #333333;                  /* Dark border */
-  --input: #333333;                   /* Dark input */
-  --ring: #2563EB;                    /* Electric Blue ring */
+  --destructive: #C53030;
+  --border: rgba(250, 247, 242, 0.10); /* Warm hairline on dark */
+  --input: rgba(250, 247, 242, 0.12);
+  --ring: #D4633F;                    /* Lightened sienna ring */
 
   /* Chart colors — Dark mode palette */
-  --chart-1: #2563EB;  /* Electric Blue */
-  --chart-2: #8B2D40;  /* Lightened Maroon */
-  --chart-3: #E8C872;  /* Gold */
-  --chart-4: #34D399;  /* Emerald 400 */
-  --chart-5: #7ED3E6;  /* Arctic Glacier Cyan */
+  --chart-1: #D4633F;  /* Lightened burnt sienna */
+  --chart-2: #2D7A77;  /* Lightened forest teal */
+  --chart-3: #D4A853;  /* Gold */
+  --chart-4: #4ADE80;  /* Emerald 400 */
+  --chart-5: #94A3B8;  /* Slate */
 
-  /* Sidebar — Dark Warm */
-  --sidebar: #111111;
-  --sidebar-foreground: #F3EADB;
-  --sidebar-primary: #2563EB;
+  /* Sidebar — Dark editorial */
+  --sidebar: #0E1116;
+  --sidebar-foreground: #FAF7F2;
+  --sidebar-primary: #D4633F;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: rgba(37, 99, 235, 0.10);
-  --sidebar-accent-foreground: #F3EADB;
-  --sidebar-border: #333333;
-  --sidebar-ring: #2563EB;
+  --sidebar-accent: rgba(212, 99, 63, 0.10);
+  --sidebar-accent-foreground: #FAF7F2;
+  --sidebar-border: rgba(250, 247, 242, 0.10);
+  --sidebar-ring: #D4633F;
 
   /* Premium Shadows — dark mode */
   --shadow-premium: 0 2px 8px rgba(0, 0, 0, 0.20), 0 8px 24px rgba(0, 0, 0, 0.30);
@@ -4145,4 +4165,430 @@ html.theme-transitioning *::after {
 
 .dark .category-cards-grid .premium-card .border-t {
   border-color: #333333;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN BIBLE v8.0 — "QUIET CONFIDENCE" PREMIUM SYSTEM
+   Editorial Engineering typography + Stripe/Linear buttons + micro-craft
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────
+   PREMIUM TYPE SCALE — Modular 1.25 (Major Third)
+   ────────────────────────────────────────────── */
+:root {
+  --text-hero: clamp(3.5rem, 8vw, 6.5rem);    /* 56-104px */
+  --text-h1: clamp(2.5rem, 5vw, 4rem);        /* 40-64px */
+  --text-h2: clamp(1.875rem, 3vw, 2.5rem);    /* 30-40px */
+  --text-h3: 1.5rem;                           /* 24px */
+  --text-lead: 1.25rem;                        /* 20px */
+  --text-body: 1.0625rem;                      /* 17px — premium reads larger */
+  --text-small: 0.9375rem;                     /* 15px */
+  --text-caption: 0.8125rem;                   /* 13px */
+
+  /* Premium easing library */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-anticipate: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* ──────────────────────────────────────────────
+   DISPLAY TYPOGRAPHY — Fraunces serif with SOUL
+   ────────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display), 'Fraunces', 'Times New Roman', serif;
+  font-optical-sizing: auto;
+}
+.font-body {
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+}
+
+/* Hero display — tightest tracking, editorial */
+.text-display-hero {
+  font-family: var(--font-display), 'Fraunces', serif;
+  font-size: var(--text-hero);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-optical-sizing: auto;
+}
+
+/* H1 display */
+.text-display-h1 {
+  font-family: var(--font-display), 'Fraunces', serif;
+  font-size: var(--text-h1);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-optical-sizing: auto;
+}
+
+/* H2 display */
+.text-display-h2 {
+  font-family: var(--font-display), 'Fraunces', serif;
+  font-size: var(--text-h2);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-optical-sizing: auto;
+}
+
+/* Body — Inter Tight, slightly tighter */
+.text-body-premium {
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Lead — hero subtitle */
+.text-lead-premium {
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+/* Caption — wide tracking, uppercase = premium label */
+.text-caption-premium {
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Tabular numerals for prices */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ──────────────────────────────────────────────
+   PREMIUM BUTTONS — 5 Patterns
+   ────────────────────────────────────────────── */
+
+/* Pattern 1: "The Stripe" — Primary CTA (ink bg, canvas text, gap expands) */
+.btn-stripe {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #0E1116;
+  color: #FAF7F2;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  transition: all 0.3s var(--ease-out-quart);
+  cursor: pointer;
+  border: none;
+}
+.btn-stripe:hover {
+  background: #B8482C;
+  gap: 1rem;
+}
+.btn-stripe svg {
+  transition: transform 0.3s var(--ease-out-quart);
+}
+.btn-stripe:hover svg {
+  transform: rotate(45deg);
+}
+
+/* Pattern 2: "The Linear" — Ghost button (border, hover fills) */
+.btn-linear {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(14, 17, 22, 0.15);
+  background: transparent;
+  color: #0E1116;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  transition: all 0.5s var(--ease-out-quart);
+  cursor: pointer;
+}
+.btn-linear:hover {
+  border-color: rgba(14, 17, 22, 0.40);
+  background: #0E1116;
+  color: #FAF7F2;
+}
+
+/* Pattern 4: "The Underline Reveal" — Text links */
+.link-underline-reveal {
+  position: relative;
+  display: inline-block;
+}
+.link-underline-reveal::after {
+  content: '';
+  position: absolute;
+  bottom: -0.125rem;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-quart);
+}
+.link-underline-reveal:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Pattern 5: "The Pill with Dot" — Tertiary/tags */
+.btn-pill-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: #F4E5DD;
+  color: #8B3520;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+}
+.btn-pill-dot::before {
+  content: '';
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: #B8482C;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ──────────────────────────────────────────────
+   HAIRLINE DIVIDERS — NOT boxes
+   ────────────────────────────────────────────── */
+.hairline-top {
+  border-top: 1px solid rgba(14, 17, 22, 0.08);
+}
+.hairline-bottom {
+  border-bottom: 1px solid rgba(14, 17, 22, 0.08);
+}
+.hairline-strong-top {
+  border-top: 1px solid rgba(14, 17, 22, 0.16);
+}
+
+/* Dark mode hairlines */
+.dark .hairline-top {
+  border-top-color: rgba(250, 247, 242, 0.10);
+}
+.dark .hairline-bottom {
+  border-bottom-color: rgba(250, 247, 242, 0.10);
+}
+
+/* ──────────────────────────────────────────────
+   MICRO-CRAFT — Selection, Scrollbar, Focus, Grain
+   ────────────────────────────────────────────── */
+
+/* Custom selection color — burnt sienna */
+::selection {
+  background: #B8482C;
+  color: #FAF7F2;
+}
+.dark ::selection {
+  background: #D4633F;
+  color: #0E1116;
+}
+
+/* Custom scrollbar — premium */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0E1116;
+}
+::-webkit-scrollbar-thumb {
+  background: #0E1116;
+  border-radius: 999px;
+  border: 2px solid #FAF7F2;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #FAF7F2;
+  border-color: #0E1116;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8482C;
+}
+
+/* Focus rings — burnt sienna, NOT default blue */
+*:focus-visible {
+  outline: 2px solid #B8482C;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.dark *:focus-visible {
+  outline-color: #D4633F;
+}
+
+/* Smooth font rendering */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ──────────────────────────────────────────────
+   SCROLL-TRIGGERED REVEAL — fade + rise
+   ────────────────────────────────────────────── */
+.reveal-fade-rise {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+.reveal-fade-rise.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ──────────────────────────────────────────────
+   ASYMMETRIC HERO LAYOUT — 60/40 split
+   ────────────────────────────────────────────── */
+.hero-asymmetric {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero-asymmetric {
+    grid-template-columns: 1.4fr 1fr; /* 58/42 asymmetric, NOT 50/50 */
+    gap: 5rem;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   GRADIENT TEXT — Burnt sienna accent for display
+   ────────────────────────────────────────────── */
+.text-accent-gradient {
+  background: linear-gradient(135deg, #B8482C 0%, #8B3520 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #B8482C; /* Fallback */
+}
+.dark .text-accent-gradient {
+  background: linear-gradient(135deg, #D4633F 0%, #B8482C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Trust teal gradient */
+.text-trust-gradient {
+  background: linear-gradient(135deg, #1B4D4A 0%, #2D7A77 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #1B4D4A;
+}
+
+/* ──────────────────────────────────────────────
+   PREMIUM SECTION SPACING — generous whitespace
+   ────────────────────────────────────────────── */
+.section-premium {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .section-premium {
+    padding-top: 8rem;
+    padding-bottom: 8rem; /* py-32 = 128px — premium breathing room */
+  }
+}
+
+/* ──────────────────────────────────────────────
+   STAT HAIRLINE BLOCK — editorial trust signal
+   ────────────────────────────────────────────── */
+.stat-hairline {
+  border-top: 1px solid rgba(14, 17, 22, 0.08);
+  padding-top: 1.25rem;
+}
+.dark .stat-hairline {
+  border-top-color: rgba(250, 247, 242, 0.10);
+}
+.stat-hairline-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8B9099;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-family: var(--font-body), 'Inter Tight', sans-serif;
+}
+.stat-hairline-value {
+  font-family: var(--font-display), 'Fraunces', serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #0E1116;
+  font-optical-sizing: auto;
+}
+.dark .stat-hairline-value {
+  color: #FAF7F2;
+}
+
+/* ──────────────────────────────────────────────
+   BENTO GRID — for "Why Choose Us" / category cards
+   ────────────────────────────────────────────── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ──────────────────────────────────────────────
+   IMAGE REVEAL MASK — clip-path animation
+   ────────────────────────────────────────────── */
+@keyframes reveal-clip {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+.reveal-clip {
+  animation: reveal-clip 1s var(--ease-out-expo) forwards;
+}
+
+/* ──────────────────────────────────────────────
+   BACKWARD COMPAT — map old gradient classes to new palette
+   ────────────────────────────────────────────── */
+.gradient-text-blue-emerald {
+  background: linear-gradient(135deg, #B8482C 0%, #1B4D4A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #B8482C;
+}
+.dark .gradient-text-blue-emerald {
+  background: linear-gradient(135deg, #D4633F 0%, #2D7A77 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

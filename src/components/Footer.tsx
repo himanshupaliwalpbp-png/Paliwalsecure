@@ -91,7 +91,7 @@ function GoldParticles() {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: `radial-gradient(circle, #E8C872 ${0}%, #E8C872 100%)`,
+            background: `radial-gradient(circle, #D4633F ${0}%, #D4633F 100%)`,
           }}
           animate={{
             y: [0, -25, 0, 15, 0],
@@ -160,14 +160,14 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
 
   return (
     <footer
-      className="relative bg-[#070B14] pb-16 md:pb-0 mt-auto"
+      className="relative bg-[#0E1116] pb-16 md:pb-0 mt-auto"
       role="contentinfo"
     >
       {/* Floating Gold Particles Background */}
       <GoldParticles />
 
-      {/* Top gradient border */}
-      <div className="h-px bg-gradient-to-r from-transparent via-[#E8C872]/20 to-transparent" />
+      {/* Top hairline border */}
+      <div className="h-px bg-gradient-to-r from-transparent via-[rgba(250,247,242,0.10)] to-transparent" />
 
       {/* ═══════════════════════════════════════════════════════════════════════
           PREMIUM CTA BANNER
@@ -183,15 +183,15 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8">
             {/* Left: Heading + subtext */}
             <div className="text-center sm:text-left">
-              <h2 className="text-xl sm:text-2xl font-heading font-bold tracking-tight text-white">
-                <span className="inline-block mr-1.5 text-[#E8C872]">&#10022;</span>
+              <h2 className="font-display text-xl sm:text-2xl font-semibold tracking-tight text-[#FAF7F2]">
+                <span className="inline-block mr-1.5 text-[#D4633F]">&#10022;</span>
                 {language === 'hi'
                   ? 'मुफ़्त बीमा परामर्श प्राप्त करें'
                   : language === 'hinglish'
                     ? 'Free Insurance Consultation Lo'
                     : 'Get Free Insurance Consultation'}
               </h2>
-              <p className="text-[#94A3B8] text-sm mt-2 max-w-md font-sans">
+              <p className="text-[#8B9099] text-sm mt-2 max-w-md font-body">
                 {language === 'hi'
                   ? 'हमारे IRDAI पंजीकृत विशेषज्ञ से बात करें — बिल्कुल मुफ़्त!'
                   : language === 'hinglish'
@@ -206,7 +206,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-luxury-gold group"
+                className="btn-stripe group"
               >
                 {language === 'hi' ? 'कॉलबैक पाएं' : language === 'hinglish' ? 'Callback Lo' : 'Get Callback'}
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -217,7 +217,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-sm text-[#22C55E] hover:text-[#22C55E]/80 transition-colors font-sans"
+                  className="flex items-center gap-1.5 text-sm text-[#25D366] hover:text-[#1DA851] transition-colors font-body"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span className="sr-only sm:not-sr-only text-xs">
@@ -226,7 +226,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 </a>
                 <a
                   href={`tel:${PHONE.replace(/[^+\d]/g, '')}`}
-                  className="flex items-center gap-1.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors font-sans"
+                  className="flex items-center gap-1.5 text-sm text-[#8B9099] hover:text-[#FAF7F2] transition-colors font-body"
                 >
                   <Phone className="w-3.5 h-3.5" />
                   <span className="text-xs">{PHONE}</span>
@@ -237,7 +237,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
         </div>
 
         {/* Bottom accent line */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[rgba(250,247,242,0.10)] to-transparent" />
       </motion.div>
 
       {/* ═══════════════════════════════════════════════════════════════════════
@@ -255,20 +255,20 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20px' }}
-                className="relative group rounded-xl p-4 sm:p-5 text-center overflow-hidden bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.1] hover:bg-white/[0.04] transition-all duration-300"
+                className="relative group rounded-xl p-4 sm:p-5 text-center overflow-hidden bg-white/[0.02] border border-[rgba(250,247,242,0.10)] hover:border-[rgba(250,247,242,0.20)] hover:bg-white/[0.04] transition-all duration-300"
               >
                 {/* Hover glow */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    background: 'radial-gradient(circle at center, rgba(232,200,114,0.04) 0%, transparent 70%)',
+                    background: 'radial-gradient(circle at center, rgba(212,99,63,0.04) 0%, transparent 70%)',
                   }}
                   aria-hidden="true"
                 />
                 <div className="relative z-10">
-                  <Icon className="w-4 h-4 text-[#E8C872] mx-auto mb-2" />
-                  <div className="text-lg sm:text-xl font-bold text-white font-heading">{stat.value}</div>
-                  <div className="text-[10px] sm:text-xs text-[#94A3B8] uppercase tracking-[0.1em] mt-0.5 font-heading">
+                  <Icon className="w-4 h-4 text-[#D4633F] mx-auto mb-2" />
+                  <div className="font-display text-lg sm:text-xl font-semibold text-[#FAF7F2] tabular-nums">{stat.value}</div>
+                  <div className="text-caption-premium text-[#8B9099] mt-0.5">
                     {getStatLabel(stat)}
                   </div>
                 </div>
@@ -280,7 +280,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
 
       {/* Divider */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-[rgba(250,247,242,0.10)] to-transparent" />
       </div>
 
       {/* ── Main Grid ──────────────────────────────────────────────────────── */}
@@ -297,24 +297,22 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
             {/* Logo */}
             <button
               onClick={() => onNavigate('hero')}
-              className="group flex items-center gap-2.5 mb-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8C872]/50 rounded-xl"
+              className="group flex items-center gap-2.5 mb-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4633F]/50 rounded-xl"
               aria-label="Paliwal Secure – go to top"
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#E8C872] to-[#D4A853] shadow-md shadow-[#E8C872]/20 transition-transform duration-200 group-hover:scale-105">
-                <span className="font-heading font-bold text-[#070B14] text-lg leading-none">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0E1116] border border-[rgba(250,247,242,0.10)] shadow-md shadow-black/30 transition-transform duration-200 group-hover:scale-105">
+                <span className="font-display font-semibold text-[#D4633F] text-lg leading-none">
                   P
                 </span>
               </div>
-              <span className="font-heading text-lg font-bold tracking-tight text-white">
+              <span className="font-display text-lg font-semibold tracking-tight text-[#FAF7F2]">
                 Paliwal{' '}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E8C872] to-[#F0D890]">
-                  Secure AI
-                </span>
+                <span className="text-accent-gradient">Secure AI</span>
               </span>
             </button>
 
             {/* Tagline */}
-            <p className="text-[#94A3B8] text-sm leading-relaxed mb-5 max-w-[260px] font-sans">
+            <p className="text-[#8B9099] text-sm leading-relaxed mb-5 max-w-[260px] font-body">
               {t('v2.footer.brandTagline', language)}
             </p>
 
@@ -328,7 +326,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/icon relative w-8 h-8 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-[#94A3B8] hover:text-[#E8C872] hover:border-[#E8C872]/30 hover:bg-[#E8C872]/[0.06] transition-all duration-300"
+                    className="group/icon relative w-8 h-8 rounded-lg border border-[rgba(250,247,242,0.10)] bg-white/[0.02] flex items-center justify-center text-[#FAF7F2]/70 hover:text-[#D4633F] hover:border-[#D4633F]/30 hover:bg-[#D4633F]/[0.06] transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-3.5 h-3.5 relative z-10" />
@@ -344,24 +342,22 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                  className="group flex items-center gap-2.5 text-sm text-[#FAF7F2]/70 hover:text-[#D4633F] transition-colors duration-200 font-body"
                 >
-                  <MessageCircle className="h-4 w-4 text-[#22C55E] group-hover:text-[#22C55E] transition-colors" />
-                  <span className="relative">
+                  <MessageCircle className="h-4 w-4 text-[#25D366] group-hover:text-[#25D366] transition-colors" />
+                  <span className="link-underline-reveal">
                     {t('footer.whatsapp', language)}
-                    <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-px bg-[#E8C872] transition-all duration-300" />
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                  className="group flex items-center gap-2.5 text-sm text-[#FAF7F2]/70 hover:text-[#D4633F] transition-colors duration-200 font-body"
                 >
-                  <Mail className="h-4 w-4 group-hover:text-[#E8C872] transition-colors" />
-                  <span className="relative break-all">
+                  <Mail className="h-4 w-4 group-hover:text-[#D4633F] transition-colors" />
+                  <span className="link-underline-reveal break-all">
                     {EMAIL}
-                    <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-px bg-[#E8C872] transition-all duration-300" />
                   </span>
                 </a>
               </li>
@@ -371,30 +367,29 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
           {/* ─── Column 2: Insurance Types ──────────────────────────────────── */}
           <motion.div variants={itemVariants}>
             <div className="flex items-center gap-2 mb-1">
-              <Shield className="w-3.5 h-3.5 text-[#E8C872]" />
-              <h3 className="text-white text-xs font-semibold uppercase tracking-[0.12em] font-heading">
+              <Shield className="w-3.5 h-3.5 text-[#D4633F]" />
+              <h3 className="text-caption-premium text-[#8B9099]">
                 {t('v2.footer.insuranceTypes', language)}
               </h3>
             </div>
-            <div className="h-px w-8 bg-gradient-to-r from-[#E8C872]/50 to-transparent mb-4" />
+            <div className="h-px w-8 bg-gradient-to-r from-[#D4633F]/50 to-transparent mb-4" />
             <ul className="space-y-3">
               {[
-                { href: '/health-insurance', labelKey: 'v2.footer.health', icon: Heart, color: 'text-rose-400' },
-                { href: '/car-insurance', labelKey: 'v2.footer.motor', icon: Car, color: 'text-amber-400' },
-                { href: '/life-insurance', labelKey: 'v2.footer.life', icon: Shield, color: 'text-violet-400' },
-                { href: '/travel-insurance', labelKey: 'v2.footer.travel', icon: Plane, color: 'text-sky-400' },
+                { href: '/health-insurance', labelKey: 'v2.footer.health', icon: Heart, color: 'text-[#D4633F]' },
+                { href: '/car-insurance', labelKey: 'v2.footer.motor', icon: Car, color: 'text-[#D4633F]' },
+                { href: '/life-insurance', labelKey: 'v2.footer.life', icon: Shield, color: 'text-[#D4633F]' },
+                { href: '/travel-insurance', labelKey: 'v2.footer.travel', icon: Plane, color: 'text-[#D4633F]' },
               ].map((link) => {
                 const Icon = link.icon;
                 return (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                      className="group flex items-center gap-2.5 text-sm text-[#FAF7F2]/70 hover:text-[#D4633F] transition-colors duration-200 font-body"
                     >
                       <Icon className={`w-3.5 h-3.5 ${link.color} shrink-0`} />
-                      <span className="relative">
+                      <span className="link-underline-reveal">
                         {t(link.labelKey, language)}
-                        <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-px bg-[#E8C872] transition-all duration-300" />
                       </span>
                     </Link>
                   </li>
@@ -406,30 +401,29 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
           {/* ─── Column 3: Resources ──────────────────────────────────────────── */}
           <motion.div variants={itemVariants}>
             <div className="flex items-center gap-2 mb-1">
-              <BookOpen className="w-3.5 h-3.5 text-[#E8C872]" />
-              <h3 className="text-white text-xs font-semibold uppercase tracking-[0.12em] font-heading">
+              <BookOpen className="w-3.5 h-3.5 text-[#D4633F]" />
+              <h3 className="text-caption-premium text-[#8B9099]">
                 {t('footer.resources', language)}
               </h3>
             </div>
-            <div className="h-px w-8 bg-gradient-to-r from-[#E8C872]/50 to-transparent mb-4" />
+            <div className="h-px w-8 bg-gradient-to-r from-[#D4633F]/50 to-transparent mb-4" />
             <ul className="space-y-3">
               {[
-                { href: '/blog', labelKey: 'v2.footer.blog', icon: BookOpen, color: 'text-[#E8C872]' },
-                { href: '/compare', labelKey: 'v2.footer.compare', icon: BarChart3, color: 'text-emerald-400' },
-                { href: '/insuregpt', labelKey: 'v2.footer.insureGPT', icon: Bot, color: 'text-[#E8C872]' },
-                { href: '#faq', labelKey: 'v2.footer.faq', icon: FileText, color: 'text-sky-400' },
+                { href: '/blog', labelKey: 'v2.footer.blog', icon: BookOpen, color: 'text-[#D4633F]' },
+                { href: '/compare', labelKey: 'v2.footer.compare', icon: BarChart3, color: 'text-[#D4633F]' },
+                { href: '/insuregpt', labelKey: 'v2.footer.insureGPT', icon: Bot, color: 'text-[#D4633F]' },
+                { href: '#faq', labelKey: 'v2.footer.faq', icon: FileText, color: 'text-[#D4633F]' },
               ].map((link) => {
                 const Icon = link.icon;
                 return (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                      className="group flex items-center gap-2.5 text-sm text-[#FAF7F2]/70 hover:text-[#D4633F] transition-colors duration-200 font-body"
                     >
                       <Icon className={`w-3.5 h-3.5 ${link.color} shrink-0`} />
-                      <span className="relative">
+                      <span className="link-underline-reveal">
                         {t(link.labelKey, language)}
-                        <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-px bg-[#E8C872] transition-all duration-300" />
                       </span>
                     </Link>
                   </li>
@@ -441,12 +435,12 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
           {/* ─── Column 4: Legal ──────────────────────────────────────────────── */}
           <motion.div variants={itemVariants}>
             <div className="flex items-center gap-2 mb-1">
-              <Lock className="w-3.5 h-3.5 text-[#E8C872]" />
-              <h3 className="text-white text-xs font-semibold uppercase tracking-[0.12em] font-heading">
+              <Lock className="w-3.5 h-3.5 text-[#D4633F]" />
+              <h3 className="text-caption-premium text-[#8B9099]">
                 {t('footer.legal', language)}
               </h3>
             </div>
-            <div className="h-px w-8 bg-gradient-to-r from-[#E8C872]/50 to-transparent mb-4" />
+            <div className="h-px w-8 bg-gradient-to-r from-[#D4633F]/50 to-transparent mb-4" />
             <ul className="space-y-3">
               {[
                 { href: '/about', labelKey: 'v2.footer.about', icon: FileText },
@@ -459,12 +453,11 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2.5 text-sm text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                      className="group flex items-center gap-2.5 text-sm text-[#FAF7F2]/70 hover:text-[#D4633F] transition-colors duration-200 font-body"
                     >
-                      <Icon className="w-3.5 h-3.5 text-[#94A3B8]/50 shrink-0" />
-                      <span className="relative">
+                      <Icon className="w-3.5 h-3.5 text-[#8B9099]/50 shrink-0" />
+                      <span className="link-underline-reveal">
                         {t(link.labelKey, language)}
-                        <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-px bg-[#E8C872] transition-all duration-300" />
                       </span>
                     </Link>
                   </li>
@@ -473,14 +466,14 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
             </ul>
 
             {/* IRDAI compliance badge */}
-            <div className="mt-6 pt-4 border-t border-white/[0.06]">
+            <div className="mt-6 pt-4 border-t border-[rgba(250,247,242,0.10)]">
               <div className="flex items-center gap-1.5 mb-2">
-                <Award className="w-3.5 h-3.5 text-[#E8C872]" />
-                <span className="text-[10px] font-semibold text-[#E8C872] uppercase tracking-[0.12em] font-heading">
+                <Award className="w-3.5 h-3.5 text-[#D4633F]" />
+                <span className="text-caption-premium text-[#D4633F]">
                   {t('footer.irdaiVerified', language)}
                 </span>
               </div>
-              <p className="text-[10px] text-[#94A3B8]/70 leading-relaxed font-sans">
+              <p className="text-[10px] text-[#8B9099]/70 leading-relaxed font-body">
                 {t('footer.irdaiDisclaimer', language)}
               </p>
             </div>
@@ -491,17 +484,17 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
       {/* ═══════════════════════════════════════════════════════════════════════
           BOTTOM BAR
           ═══════════════════════════════════════════════════════════════════════ */}
-      <div className="border-t border-white/[0.06]" style={{ background: 'rgba(7,11,20,0.8)' }}>
+      <div className="border-t border-[rgba(250,247,242,0.10)]" style={{ background: 'rgba(14,17,22,0.8)' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Left: IRDAI Badge + Copyright */}
             <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
               {/* IRDAI Compliance Badge */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#E8C872]/[0.06] border border-[#E8C872]/[0.12]">
-                <Shield className="w-3.5 h-3.5 text-[#E8C872]" />
-                <span className="text-[10px] font-semibold text-[#E8C872] tracking-wide font-heading">IRDAI POSP IP429834</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#D4633F]/[0.06] border border-[#D4633F]/[0.12]">
+                <Shield className="w-3.5 h-3.5 text-[#D4633F]" />
+                <span className="text-[10px] font-semibold text-[#D4633F] tracking-wide font-body">IRDAI POSP IP429834</span>
               </div>
-              <p className="text-xs text-[#94A3B8] font-sans">
+              <p className="text-xs text-[#8B9099] font-body">
                 {t('v2.footer.copyright', language)} | {t('v2.footer.solicitation', language)}
               </p>
             </div>
@@ -517,7 +510,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/social relative flex items-center justify-center w-8 h-8 rounded-full text-[#94A3B8] hover:text-[#E8C872] transition-all duration-300"
+                    className="group/social relative flex items-center justify-center w-8 h-8 rounded-full text-[#FAF7F2]/70 hover:text-[#D4633F] transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-3.5 h-3.5 relative z-10" />
@@ -526,12 +519,12 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
               })}
 
               {/* Separator */}
-              <div className="h-4 w-px bg-white/[0.08] hidden sm:block" />
+              <div className="h-4 w-px bg-[rgba(250,247,242,0.10)] hidden sm:block" />
 
               {/* Phone */}
               <a
                 href={`tel:${PHONE.replace(/[^+\d]/g, '')}`}
-                className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-[#E8C872] transition-colors duration-200 font-sans"
+                className="flex items-center gap-1.5 text-xs text-[#8B9099] hover:text-[#FAF7F2] transition-colors duration-200 font-body"
               >
                 <Phone className="h-3.5 w-3.5" />
                 <span>{PHONE}</span>
@@ -542,7 +535,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-[#94A3B8] hover:text-[#22C55E] transition-colors duration-200 font-sans"
+                className="flex items-center gap-1.5 text-xs text-[#8B9099] hover:text-[#25D366] transition-colors duration-200 font-body"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
                 <span>{t('footer.whatsapp', language)}</span>

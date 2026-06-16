@@ -6,9 +6,10 @@ import { Users, TrendingUp } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 // ── Stats data with icons and colors ─────────────────────────────────────────
+// Colors aligned with Design Bible v8.0: forest teal (trust) + burnt sienna (accent)
 const stats = [
-  { key: 'families', icon: Users, target: 200, color: '#2563EB', accentClass: '' },
-  { key: 'claims', icon: TrendingUp, target: 100, color: '#10B981', accentClass: 'stat-premium-block-green' },
+  { key: 'families', icon: Users, target: 200, color: '#1B4D4A' },
+  { key: 'claims', icon: TrendingUp, target: 100, color: '#B8482C' },
 ];
 
 // ── Animated number hook ──────────────────────────────────────────────────────
@@ -78,23 +79,20 @@ function StatItem({
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      className={`stat-premium-block ${stat.accentClass}`}
-      style={{ borderLeftColor: stat.accentClass ? undefined : stat.color }}
+      transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      className="stat-hairline group"
     >
-      <div className="flex items-start gap-4">
-        <div
-          className="flex-shrink-0 p-3 rounded-xl transition-transform group-hover:scale-105"
-          style={{ backgroundColor: `${stat.color}10` }}
+      <div className="flex items-center gap-2 mb-3">
+        <span
+          className="inline-flex items-center justify-center w-7 h-7 rounded-full transition-transform duration-300 group-hover:scale-105"
+          style={{ backgroundColor: `${stat.color}14` }}
         >
-          <Icon className="h-5 w-5" style={{ color: stat.color }} strokeWidth={2} />
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="stat-number">
-            {formatValue()}
-          </div>
-          <div className="stat-label">{label}</div>
-        </div>
+          <Icon className="h-3.5 w-3.5" style={{ color: stat.color }} strokeWidth={2} />
+        </span>
+        <span className="stat-hairline-label !mb-0">{label}</span>
+      </div>
+      <div className="stat-hairline-value tabular-nums">
+        {formatValue()}
       </div>
     </motion.div>
   );
@@ -119,26 +117,26 @@ export default function TrustStrip() {
     <section
       ref={sectionRef}
       aria-label="Trust indicators"
-      className="section-luxury bg-white dark:bg-[#0A1330] border-y border-[#E2E8F0] dark:border-white/10"
+      className="section-luxury bg-white dark:bg-[#0E1116] border-y border-[rgba(14,17,22,0.08)] dark:border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-section-title mb-3">
+          <h2 className="text-display-h2 mb-4 text-[#0E1116] dark:text-[#FAF7F2]">
             {sectionTitle}
           </h2>
-          <p className="text-body-lg max-w-2xl mx-auto">
+          <p className="text-lead-premium max-w-2xl mx-auto text-[#4A4F57] dark:text-[#B8BCC2]">
             {sectionSubtitle}
           </p>
         </motion.div>
 
-        {/* Stats grid — 4 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 max-w-2xl mx-auto">
+        {/* Stats grid — 2 columns on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 max-w-2xl mx-auto">
           {stats.map((stat, index) => (
             <StatItem
               key={stat.key}

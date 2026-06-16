@@ -5,11 +5,11 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   Sparkles,
   ArrowRight,
+  ArrowUpRight,
   MessageCircle,
   Users,
   MapPin,
   IndianRupee,
-  ChevronRight,
   Star,
   Shield,
   TrendingUp,
@@ -57,7 +57,8 @@ const INDIAN_CITIES = [
 ];
 
 // ── Animation Variants ─────────────────────────────────────────────────────────
-const easeOutQuart: [number, number, number, number] = [0.22, 1, 0.36, 1];
+// Design Bible v8.0 — ease-out-expo for premium feel
+const easeOutQuart: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const stepVariants: Variants = {
   enter: { opacity: 0, x: 50, filter: 'blur(4px)' },
@@ -104,14 +105,14 @@ function StarRating({ rating }: { rating: number }) {
           key={i}
           className={`w-3.5 h-3.5 ${
             i < fullStars
-              ? 'text-[#2563EB] fill-[#2563EB]'
+              ? 'text-[#B8482C] fill-[#B8482C]'
               : i === fullStars && hasHalf
-              ? 'text-[#2563EB] fill-[#2563EB]/50'
-              : 'text-slate-300 dark:text-slate-600'
+              ? 'text-[#B8482C] fill-[#B8482C]/50'
+              : 'text-[#8B9099]/30'
           }`}
         />
       ))}
-      <span className="ml-1 text-xs text-[#374151] dark:text-slate-400 font-body">{rating.toFixed(1)}</span>
+      <span className="ml-1 text-xs text-[#4A4F57] font-body tabular-nums">{rating.toFixed(1)}</span>
     </div>
   );
 }
@@ -133,9 +134,9 @@ function AnimatedScoreCircle({ score, size = 120 }: { score: number; size?: numb
           fill="none"
           stroke="currentColor"
           strokeWidth="6"
-          className="text-slate-100 dark:text-slate-700/50"
+          className="text-[rgba(14,17,22,0.06)]"
         />
-        {/* Progress */}
+        {/* Progress — burnt sienna → forest teal */}
         <motion.circle
           cx={size / 2}
           cy={size / 2}
@@ -151,21 +152,21 @@ function AnimatedScoreCircle({ score, size = 120 }: { score: number; size?: numb
         />
         <defs>
           <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#2563EB" />
-            <stop offset="100%" stopColor="#10B981" />
+            <stop offset="0%" stopColor="#B8482C" />
+            <stop offset="100%" stopColor="#1B4D4A" />
           </linearGradient>
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <motion.span
-          className="text-3xl font-bold font-display text-[#111111] dark:text-white tracking-tight"
+          className="text-3xl font-medium font-display text-[#0E1116] tracking-tight tabular-nums"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.8, ease: easeOutQuart }}
         >
           {score}
         </motion.span>
-        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#374151] dark:text-slate-500">
+        <span className="text-[10px] font-semibold tracking-widest uppercase text-[#8B9099]">
           /100
         </span>
       </div>
@@ -315,24 +316,24 @@ export default function HeroAdvisor() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: easeOutQuart }}
-      className="premium-card rounded-2xl p-6 sm:p-8"
+      className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(14,17,22,0.08)] shadow-premium"
     >
       {/* Header */}
       <div className="flex items-center gap-3.5 mb-6">
-        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500/10 to-emerald-500/10 dark:from-blue-400/15 dark:to-emerald-400/10 flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        <div className="w-11 h-11 rounded-2xl bg-[#E6EFEE] flex items-center justify-center">
+          <Sparkles className="w-5 h-5 text-[#1B4D4A]" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-[#111111] dark:text-white font-display">{resultsTitle}</h2>
-          <p className="text-xs text-[#374151] dark:text-slate-400 font-body mt-0.5">{resultsSubtitle}</p>
+          <h2 className="text-xl font-medium text-[#0E1116] font-display">{resultsTitle}</h2>
+          <p className="text-xs text-[#4A4F57] font-body mt-0.5">{resultsSubtitle}</p>
         </div>
       </div>
 
       {/* Content */}
       {isSubmitting && !result && (
         <div className="flex flex-col items-center py-12 gap-4">
-          <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-600 dark:border-blue-400/20 dark:border-t-blue-400 rounded-full animate-spin" />
-          <p className="text-sm text-[#374151] dark:text-slate-400 font-body">Analyzing...</p>
+          <div className="w-12 h-12 border-4 border-[rgba(184,72,44,0.15)] border-t-[#B8482C] rounded-full animate-spin" />
+          <p className="text-sm text-[#4A4F57] font-body">Analyzing...</p>
         </div>
       )}
 
@@ -345,31 +346,31 @@ export default function HeroAdvisor() {
               variants={cardVariants}
               initial="hidden"
               animate="visible"
-              className="p-5 rounded-xl bg-[#F6F5F1]/80 dark:bg-slate-800/50 border border-[#E8E2D6]/80 dark:border-slate-700/50 hover:shadow-premium transition-all duration-300"
+              className="p-5 rounded-xl bg-[#FAF7F2] border border-[rgba(14,17,22,0.08)] hover:border-[rgba(14,17,22,0.16)] transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-semibold text-[#111111] dark:text-white font-display">{plan.insurer}</h3>
-                  <p className="text-sm text-[#374151] dark:text-slate-400 font-body">{plan.plan}</p>
+                  <h3 className="font-semibold text-[#0E1116] font-display">{plan.insurer}</h3>
+                  <p className="text-sm text-[#4A4F57] font-body">{plan.plan}</p>
                 </div>
                 <StarRating rating={plan.rating} />
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <span className="text-[#374151] dark:text-slate-400 font-body">{sumInsuredLabel}</span>
-                  <p className="font-semibold text-[#111111] dark:text-white font-body">{plan.sumInsured}</p>
+                  <span className="text-[#8B9099] font-body text-caption-premium">{sumInsuredLabel}</span>
+                  <p className="font-semibold text-[#0E1116] font-body tabular-nums">{plan.sumInsured}</p>
                 </div>
                 <div>
-                  <span className="text-[#374151] dark:text-slate-400 font-body">{premiumLabel}</span>
-                  <p className="font-semibold text-[#111111] dark:text-white font-body">{plan.monthlyPremium}</p>
+                  <span className="text-[#8B9099] font-body text-caption-premium">{premiumLabel}</span>
+                  <p className="font-semibold text-[#0E1116] font-body tabular-nums">{plan.monthlyPremium}</p>
                 </div>
               </div>
-              <div className="mt-3 pt-3 border-t border-[#E8E2D6]/60 dark:border-slate-700/40 space-y-1.5">
-                <p className="text-xs text-[#374151] dark:text-slate-400 font-body">
-                  <span className="font-medium text-[#111111] dark:text-white">{whyFitsLabel}:</span> {plan.whyItFits}
+              <div className="mt-3 pt-3 border-t border-[rgba(14,17,22,0.08)] space-y-1.5">
+                <p className="text-xs text-[#4A4F57] font-body">
+                  <span className="font-medium text-[#0E1116]">{whyFitsLabel}:</span> {plan.whyItFits}
                 </p>
-                <p className="text-xs text-[#374151] dark:text-slate-400 font-body">
-                  <span className="font-medium text-[#111111] dark:text-white">{claimRatioLabel}:</span> {plan.claimRatio}
+                <p className="text-xs text-[#4A4F57] font-body">
+                  <span className="font-medium text-[#0E1116]">{claimRatioLabel}:</span> {plan.claimRatio}
                 </p>
               </div>
             </motion.div>
@@ -378,22 +379,22 @@ export default function HeroAdvisor() {
       )}
 
       {result && result.advisorMessage && (
-        <div className="mt-4 p-4 bg-gradient-to-r from-[#DBEAFE] to-emerald-50 dark:from-blue-950/30 dark:to-emerald-950/30 rounded-xl border border-[#E8E2D6]/60 dark:border-slate-700/40">
-          <p className="text-sm font-medium text-[#111111] dark:text-white font-body mb-1">{advisorMessageLabel}</p>
-          <p className="text-sm text-[#374151] dark:text-slate-400 font-body">{result.advisorMessage}</p>
+        <div className="mt-4 p-4 bg-[#E6EFEE] rounded-xl border border-[rgba(27,77,74,0.15)]">
+          <p className="text-sm font-medium text-[#0E1116] font-body mb-1">{advisorMessageLabel}</p>
+          <p className="text-sm text-[#4A4F57] font-body">{result.advisorMessage}</p>
         </div>
       )}
 
       {result && result.followUpQuestion && (
-        <div className="mt-3 p-4 bg-blue-50/80 dark:bg-blue-950/30 rounded-xl border border-blue-200/50 dark:border-blue-800/30">
-          <p className="text-sm font-medium text-blue-700 dark:text-blue-400 font-body mb-1">{followUpLabel}</p>
-          <p className="text-sm text-[#374151] dark:text-slate-400 font-body">{result.followUpQuestion}</p>
+        <div className="mt-3 p-4 bg-[#F4E5DD] rounded-xl border border-[rgba(184,72,44,0.15)]">
+          <p className="text-sm font-medium text-[#8B3520] font-body mb-1">{followUpLabel}</p>
+          <p className="text-sm text-[#4A4F57] font-body">{result.followUpQuestion}</p>
         </div>
       )}
 
       {result && (!result.plans || result.plans.length === 0) && (
         <div className="text-center py-8">
-          <p className="text-[#374151] dark:text-slate-400 font-body">{noPlansMsg}</p>
+          <p className="text-[#4A4F57] font-body">{noPlansMsg}</p>
         </div>
       )}
 
@@ -403,14 +404,14 @@ export default function HeroAdvisor() {
           href="https://wa.me/919257877312"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition-colors shadow-premium"
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-colors shadow-premium-sm font-body"
         >
           <MessageCircle className="w-4 h-4" />
           {whatsappCTA}
         </a>
         <button
           onClick={handleStartOver}
-          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-[#E8E2D6] dark:border-slate-700 text-[#111111] dark:text-white font-semibold text-sm hover:bg-[#F6F5F1] dark:hover:bg-slate-800 transition-colors font-body"
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-[rgba(14,17,22,0.15)] text-[#0E1116] font-medium text-sm hover:bg-[#0E1116] hover:text-[#FAF7F2] transition-colors font-body"
         >
           {startOverLabel}
         </button>
@@ -421,34 +422,22 @@ export default function HeroAdvisor() {
   return (
     <section
       id="advisor-form"
-      className="relative overflow-hidden py-20 md:py-28"
+      className="relative overflow-hidden section-premium bg-[#FAF7F2]"
     >
-      {/* ── Warm Cream Background — Design Bible v7.0 ────────────────────────────── */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#F3EADB] via-[#F6F5F1] to-[#F3EADB] dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30" />
+      {/* ── Warm Bone Canvas — Design Bible v8.0 "Quiet Confidence" ─────────────────── */}
 
-      {/* Very subtle dots pattern overlay — barely visible for texture */}
-      <div
-        className="absolute inset-0 opacity-[0.10] dark:opacity-[0.04]"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #5E1223 0.5px, transparent 0.5px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
-
-      {/* Gradient mesh blobs — using design palette, LOW opacity so cream background stays dominant */}
+      {/* ONE very subtle burnt-sienna tint blob (low opacity, premium restraint) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#DBEAFE]/[0.15] rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#2563EB]/[0.04] rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#5E1223]/[0.03] rounded-full blur-3xl" />
+        <div className="absolute -top-32 right-[10%] w-[480px] h-[480px] bg-[#F4E5DD] rounded-full blur-3xl opacity-[0.3]" />
       </div>
 
-      {/* Top/bottom edge fades */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#E8E2D6]/80 dark:via-slate-700/40 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#E8E2D6]/80 dark:via-slate-700/40 to-transparent" />
+      {/* Hairline top/bottom edge fades */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
 
       {/* ── Main Content ──────────────────────────────────────── */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+        <div className="hero-asymmetric">
           {/* ═══════════════════════════════════════════════════════
               LEFT COLUMN — Headline + Description + CTAs + Stats
               ═══════════════════════════════════════════════════════ */}
@@ -458,28 +447,27 @@ export default function HeroAdvisor() {
             animate="visible"
             className="flex flex-col"
           >
-            {/* Trust Badge */}
+            {/* Trust Badge — Pill with animated dot */}
             <motion.div variants={heroChild} className="mb-8">
-              <span className="badge-premium-slate text-xs">
-                <Sparkles className="h-3.5 w-3.5" />
+              <span className="btn-pill-dot">
                 {trustBadgeText}
               </span>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1 variants={heroChild} className="text-hero mb-6">
+            {/* Headline — Fraunces serif, mix of roman + italic + gradient accent */}
+            <motion.h1 variants={heroChild} className="text-display-hero font-display text-[#0E1116] mb-6">
               {headlineBefore}{' '}
-              <span className="gradient-text-blue-emerald">{headlineAccent}</span>
+              <span className="italic text-accent-gradient">{headlineAccent}</span>
               <br className="hidden sm:block" />
               {' '}{headlineAfter}
             </motion.h1>
 
-            {/* Description */}
-            <motion.p variants={heroChild} className="text-body-lg text-[#374151] dark:text-slate-400 mb-10 leading-relaxed font-body max-w-xl">
+            {/* Description — lead body, ink-soft */}
+            <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-10 max-w-xl font-body">
               {subtext}
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons — Primary "Stripe" + Ghost "Linear" */}
             <motion.div variants={heroChild} className="flex flex-col sm:flex-row gap-4 mb-14">
               <a
                 href="#advisor-form"
@@ -488,32 +476,32 @@ export default function HeroAdvisor() {
                   const el = document.getElementById('advisor-form');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }}
-                className="btn-luxury-gold btn-luxury-lg"
+                className="btn-stripe"
               >
-                <Shield className="h-5 w-5" />
+                <Shield className="h-4 w-4" />
                 {primaryCTA}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                <ArrowUpRight className="h-4 w-4" />
               </a>
               <a
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-luxury-secondary btn-luxury-lg !bg-white !border-[#E8E2D6] !shadow-sm hover:!bg-[#111111] hover:!text-white hover:!border-[#111111]"
+                className="btn-linear"
               >
                 {secondaryCTA}
                 <ArrowRight className="h-4 w-4" />
               </a>
             </motion.div>
 
-            {/* Stats Row */}
-            <motion.div variants={heroChild} className="flex flex-wrap gap-4">
-              <div className="stat-premium-block rounded-xl">
-                <div className="stat-number">{socialProof1Val}</div>
-                <div className="stat-label">{socialProof1Label}</div>
+            {/* Stats Row — editorial hairline blocks (Fraunces serif numbers) */}
+            <motion.div variants={heroChild} className="flex flex-wrap gap-10 sm:gap-14">
+              <div className="stat-hairline">
+                <div className="stat-hairline-label">{socialProof1Label}</div>
+                <div className="stat-hairline-value tabular-nums">{socialProof1Val}</div>
               </div>
-              <div className="stat-premium-block stat-premium-block-green rounded-xl">
-                <div className="stat-number">{socialProof2Val}</div>
-                <div className="stat-label">{socialProof2Label}</div>
+              <div className="stat-hairline">
+                <div className="stat-hairline-label">{socialProof2Label}</div>
+                <div className="stat-hairline-value tabular-nums">{socialProof2Val}</div>
               </div>
             </motion.div>
           </motion.div>
@@ -529,13 +517,13 @@ export default function HeroAdvisor() {
           >
             {/* Protection Score Card — desktop only, shown when not filling form */}
             <div className="hidden lg:block mb-6">
-              <div className="glass-premium rounded-2xl p-6 sm:p-8 border border-[#E8E2D6]/60 dark:border-slate-700/40">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(14,17,22,0.08)] shadow-premium-sm">
                 <div className="flex items-center gap-6 mb-6">
                   <AnimatedScoreCircle score={87} size={110} />
                   <div className="flex-1">
-                    <div className="text-label-premium text-[#374151] dark:text-slate-400 mb-1.5">{isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score'}</div>
-                    <div className="text-3xl font-bold font-display text-[#111111] dark:text-white tracking-tight">87/100</div>
-                    <div className="flex items-center gap-1.5 mt-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                    <div className="text-caption-premium text-[#8B9099] mb-1.5">{isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score'}</div>
+                    <div className="text-3xl font-medium font-display text-[#0E1116] tracking-tight tabular-nums">87/100</div>
+                    <div className="flex items-center gap-1.5 mt-2 text-sm font-medium text-[#1B4D4A]">
                       <TrendingUp className="h-4 w-4" />
                       {isHindi ? 'इस साल आपका सुरक्षा 23% बेहतर हुआ' : isEnglish ? 'Your protection improved by 23% this year' : 'Aapki protection 23% better hui is saal'}
                     </div>
@@ -544,14 +532,14 @@ export default function HeroAdvisor() {
 
                 <div className="space-y-3.5">
                   {[
-                    { label: isHindi ? 'जीवन कवरेज' : isEnglish ? 'Life Coverage' : 'Jeevan Coverage', pct: 90, color: 'from-emerald-500 to-emerald-600' },
-                    { label: isHindi ? 'स्वास्थ्य सुरक्षा' : isEnglish ? 'Health Protection' : 'Swasthya Suraksha', pct: 85, color: 'from-blue-500 to-blue-600' },
-                    { label: isHindi ? 'वाहन बीमा' : isEnglish ? 'Vehicle Insurance' : 'Vahan Insurance', pct: 95, color: 'from-amber-400 to-amber-500' },
+                    { label: isHindi ? 'जीवन कवरेज' : isEnglish ? 'Life Coverage' : 'Jeevan Coverage', pct: 90, color: 'from-[#1B4D4A] to-[#2D7A77]' },
+                    { label: isHindi ? 'स्वास्थ्य सुरक्षा' : isEnglish ? 'Health Protection' : 'Swasthya Suraksha', pct: 85, color: 'from-[#B8482C] to-[#8B3520]' },
+                    { label: isHindi ? 'वाहन बीमा' : isEnglish ? 'Vehicle Insurance' : 'Vahan Insurance', pct: 95, color: 'from-[#B8482C] to-[#1B4D4A]' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between gap-4">
-                      <span className="text-sm text-[#374151] dark:text-slate-400 font-body min-w-[120px]">{item.label}</span>
+                      <span className="text-sm text-[#4A4F57] font-body min-w-[120px]">{item.label}</span>
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="flex-1 h-1.5 bg-[#E8E2D6] dark:bg-slate-700/50 rounded-full overflow-hidden">
+                        <div className="flex-1 h-1.5 bg-[rgba(14,17,22,0.06)] rounded-full overflow-hidden">
                           <motion.div
                             className={`h-full rounded-full bg-gradient-to-r ${item.color}`}
                             initial={{ width: 0 }}
@@ -559,7 +547,7 @@ export default function HeroAdvisor() {
                             transition={{ duration: 1, ease: easeOutQuart, delay: 0.8 }}
                           />
                         </div>
-                        <span className="text-sm font-semibold text-[#111111] dark:text-white font-body w-9 text-right">{item.pct}%</span>
+                        <span className="text-sm font-semibold text-[#0E1116] font-body w-9 text-right tabular-nums">{item.pct}%</span>
                       </div>
                     </div>
                   ))}
@@ -571,24 +559,24 @@ export default function HeroAdvisor() {
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-2 -right-2 glass-premium rounded-xl p-3.5 border border-[#E8E2D6]/60 dark:border-slate-700/40 hidden lg:block z-10 shadow-premium"
+              className="absolute -top-2 -right-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-premium"
             >
-              <div className="text-xs text-[#374151] dark:text-slate-400 font-body mb-0.5">Savings This Year</div>
-              <div className="text-xl font-bold gradient-text-blue-emerald font-display">₹45,000</div>
+              <div className="text-xs text-[#8B9099] font-body mb-0.5">Savings This Year</div>
+              <div className="text-xl font-medium text-accent-gradient font-display tabular-nums">₹45,000</div>
             </motion.div>
 
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-20 -left-2 glass-premium rounded-xl p-3.5 border border-[#E8E2D6]/60 dark:border-slate-700/40 hidden lg:block z-10 shadow-premium"
+              className="absolute bottom-20 -left-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-premium"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg">
-                  <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                <div className="p-2 bg-[#E6EFEE] rounded-lg">
+                  <ShieldCheck className="h-4 w-4 text-[#1B4D4A]" />
                 </div>
                 <div>
-                  <div className="text-[10px] text-[#374151] dark:text-slate-400 font-body uppercase tracking-wider">Claims Settled</div>
-                  <div className="text-lg font-bold text-[#111111] dark:text-white font-display">100%</div>
+                  <div className="text-[10px] text-[#8B9099] font-body uppercase tracking-wider">Claims Settled</div>
+                  <div className="text-lg font-medium text-[#0E1116] font-display tabular-nums">100%</div>
                 </div>
               </div>
             </motion.div>
@@ -613,28 +601,28 @@ export default function HeroAdvisor() {
                   exit={{ opacity: 0, scale: 0.96, filter: 'blur(4px)' }}
                   transition={{ duration: 0.4, ease: easeOutQuart }}
                 >
-                  {/* Premium featured form card */}
-                  <div className="premium-card premium-card-featured rounded-2xl overflow-hidden">
+                  {/* Premium featured form card — paper surface, hairline border */}
+                  <div className="bg-white rounded-2xl overflow-hidden border border-[rgba(14,17,22,0.08)] shadow-premium">
                     {/* Card header */}
-                    <div className="flex items-center gap-3 px-6 sm:px-7 py-5 border-b border-[#E8E2D6] dark:border-slate-700/40">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/15 to-emerald-500/10 dark:from-blue-400/20 dark:to-emerald-400/15 flex items-center justify-center">
-                        <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <div className="flex items-center gap-3 px-6 sm:px-7 py-5 hairline-bottom">
+                      <div className="w-9 h-9 rounded-xl bg-[#E6EFEE] flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-[#1B4D4A]" />
                       </div>
-                      <span className="text-sm font-bold tracking-[0.08em] text-[#111111] dark:text-white uppercase font-heading">
+                      <span className="text-sm font-medium tracking-[0.08em] text-[#0E1116] uppercase font-body">
                         AI Quick Adviser
                       </span>
-                      <span className="ml-1 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-[10px] font-bold text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/40">
+                      <span className="ml-1 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F4E5DD] text-[10px] font-medium text-[#8B3520] border border-[rgba(184,72,44,0.15)]">
                         <Sparkles className="w-2.5 h-2.5" />
                         AI
                       </span>
-                      <div className="ml-auto text-xs text-[#374151] dark:text-slate-500 font-body tabular-nums">
+                      <div className="ml-auto text-xs text-[#8B9099] font-body tabular-nums">
                         {step}/4
                       </div>
                     </div>
 
                     {/* Progress bar */}
                     <div className="px-6 sm:px-7 pt-3">
-                      <Progress value={progressPercent} className="h-1 bg-[#E8E2D6] dark:bg-slate-700/50" />
+                      <Progress value={progressPercent} className="h-1 bg-[rgba(14,17,22,0.06)]" />
                     </div>
 
                     {/* Step content */}
@@ -650,7 +638,7 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-5"
                           >
-                            <label className="text-xl font-semibold text-[#111111] dark:text-white tracking-tight font-display">
+                            <label className="text-xl font-medium text-[#0E1116] tracking-tight font-display">
                               {stepLabels[1]}
                             </label>
                             <div className="relative">
@@ -664,9 +652,9 @@ export default function HeroAdvisor() {
                                 }
                                 onKeyDown={(e) => e.key === 'Enter' && handleNext()}
                                 placeholder="25 - 65"
-                                className="input-premium h-14 text-xl bg-transparent border-0 border-b-2 border-[#E8E2D6] dark:border-slate-700 rounded-none focus:border-blue-600 dark:focus:border-blue-400 focus:ring-0 px-0 text-[#111111] dark:text-white placeholder:text-[#E8E2D6] dark:placeholder:text-slate-600 transition-colors duration-300"
+                                className="input-premium h-14 text-xl bg-transparent border-0 border-b border-[rgba(14,17,22,0.16)] rounded-none focus:border-[#B8482C] focus:ring-0 px-0 text-[#0E1116] placeholder:text-[#8B9099] transition-colors duration-300 font-body"
                               />
-                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[#E8E2D6] dark:text-slate-600 text-sm font-body">
+                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[#8B9099] text-sm font-body">
                                 yrs
                               </span>
                             </div>
@@ -683,7 +671,7 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-5"
                           >
-                            <label className="text-xl font-semibold text-[#111111] dark:text-white tracking-tight font-display">
+                            <label className="text-xl font-medium text-[#0E1116] tracking-tight font-display">
                               {stepLabels[2]}
                             </label>
                             <div className="flex gap-2.5 flex-wrap">
@@ -693,10 +681,10 @@ export default function HeroAdvisor() {
                                   onClick={() =>
                                     setFormData((p) => ({ ...p, familySize: size }))
                                   }
-                                  className={`flex items-center gap-2 px-5 py-3.5 rounded-xl border-2 transition-all duration-300 font-body ${
+                                  className={`flex items-center gap-2 px-5 py-3.5 rounded-xl border transition-all duration-300 font-body ${
                                     formData.familySize === size
-                                      ? 'border-blue-600 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 scale-[1.03] shadow-premium'
-                                      : 'border-[#E8E2D6] dark:border-slate-700 bg-[#F6F5F1]/50 dark:bg-slate-800/50 text-[#374151] dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-[#DBEAFE]/50 dark:hover:bg-blue-900/20 hover:scale-[1.02]'
+                                      ? 'border-[#0E1116] bg-[#0E1116] text-[#FAF7F2] scale-[1.03] shadow-premium-sm'
+                                      : 'border-[rgba(14,17,22,0.12)] bg-transparent text-[#4A4F57] hover:border-[#0E1116] hover:bg-[#FAF7F2] hover:scale-[1.02]'
                                   }`}
                                 >
                                   <Users className="w-4 h-4" />
@@ -717,11 +705,11 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-5 relative"
                           >
-                            <label className="text-xl font-semibold text-[#111111] dark:text-white tracking-tight font-display">
+                            <label className="text-xl font-medium text-[#0E1116] tracking-tight font-display">
                               {stepLabels[3]}
                             </label>
                             <div className="relative">
-                              <MapPin className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-[#E8E2D6] dark:text-slate-600" />
+                              <MapPin className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8B9099]" />
                               <Input
                                 type="text"
                                 value={formData.city}
@@ -732,19 +720,19 @@ export default function HeroAdvisor() {
                                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleNext()}
                                 placeholder="Type your city..."
-                                className="input-premium input-premium-icon h-14 text-xl bg-transparent border-0 border-b-2 border-[#E8E2D6] dark:border-slate-700 rounded-none focus:border-blue-600 dark:focus:border-blue-400 focus:ring-0 pl-7 px-0 text-[#111111] dark:text-white placeholder:text-[#E8E2D6] dark:placeholder:text-slate-600 transition-colors duration-300"
+                                className="input-premium input-premium-icon h-14 text-xl bg-transparent border-0 border-b border-[rgba(14,17,22,0.16)] rounded-none focus:border-[#B8482C] focus:ring-0 pl-7 px-0 text-[#0E1116] placeholder:text-[#8B9099] transition-colors duration-300 font-body"
                               />
                             </div>
                             {/* City suggestions dropdown */}
                             {showSuggestions && (
-                              <div className="absolute top-full left-0 right-0 mt-2 z-20 rounded-xl border border-[#E8E2D6] dark:border-slate-700 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl overflow-hidden shadow-premium-lg">
+                              <div className="absolute top-full left-0 right-0 mt-2 z-20 rounded-xl border border-[rgba(14,17,22,0.08)] bg-white overflow-hidden shadow-premium-lg">
                                 {citySuggestions.map((city) => (
                                   <button
                                     key={city}
                                     onClick={() => selectCity(city)}
-                                    className="w-full px-5 py-3 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 font-body"
+                                    className="w-full px-5 py-3 text-left text-sm text-[#4A4F57] hover:bg-[#F4E5DD] hover:text-[#0E1116] transition-colors duration-200 font-body"
                                   >
-                                    <MapPin className="w-3.5 h-3.5 inline mr-2.5 text-[#374151]" />
+                                    <MapPin className="w-3.5 h-3.5 inline mr-2.5 text-[#8B9099]" />
                                     {city}
                                   </button>
                                 ))}
@@ -763,11 +751,11 @@ export default function HeroAdvisor() {
                             exit="exit"
                             className="flex flex-col gap-6"
                           >
-                            <label className="text-xl font-semibold text-[#111111] dark:text-white tracking-tight font-display">
+                            <label className="text-xl font-medium text-[#0E1116] tracking-tight font-display">
                               {stepLabels[4]}
                             </label>
                             <div className="flex items-center gap-3">
-                              <IndianRupee className="w-5 h-5 text-blue-500/70 dark:text-blue-400/70 shrink-0" />
+                              <IndianRupee className="w-5 h-5 text-[#8B9099] shrink-0" />
                               <Slider
                                 min={500}
                                 max={10000}
@@ -780,22 +768,22 @@ export default function HeroAdvisor() {
                               />
                             </div>
                             <div className="flex items-center justify-between text-sm">
-                              <span className="text-[#E8E2D6] dark:text-slate-600 text-xs font-body">₹500</span>
-                              <span className="text-2xl font-bold text-[#111111] dark:text-white font-display tracking-tight">
+                              <span className="text-[#8B9099] text-xs font-body tabular-nums">₹500</span>
+                              <span className="text-2xl font-medium text-[#0E1116] font-display tracking-tight tabular-nums">
                                 ₹{formData.budget.toLocaleString('en-IN')}
                               </span>
-                              <span className="text-[#E8E2D6] dark:text-slate-600 text-xs font-body">₹10,000</span>
+                              <span className="text-[#8B9099] text-xs font-body tabular-nums">₹10,000</span>
                             </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
 
                       {/* Navigation buttons */}
-                      <div className="flex items-center justify-between mt-8 pt-5 border-t border-[#E8E2D6] dark:border-slate-700/40">
+                      <div className="flex items-center justify-between mt-8 pt-5 hairline-top">
                         {step > 1 ? (
                           <button
                             onClick={handleBack}
-                            className="text-sm text-[#374151] dark:text-slate-500 hover:text-[#111111] dark:hover:text-white transition-all duration-200 hover:-translate-x-0.5 font-body"
+                            className="text-sm text-[#4A4F57] hover:text-[#0E1116] transition-all duration-200 hover:-translate-x-0.5 font-body"
                           >
                             ← {isHindi ? 'पीछे' : isEnglish ? 'Back' : 'Back'}
                           </button>
@@ -806,19 +794,19 @@ export default function HeroAdvisor() {
                         {step < 4 ? (
                           <button
                             onClick={handleNext}
-                            className="btn-luxury-primary"
+                            className="btn-stripe"
                           >
                             {isHindi ? 'अगला' : isEnglish ? 'Next' : 'Next'}
-                            <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                            <ArrowUpRight className="h-4 w-4" />
                           </button>
                         ) : (
                           <button
                             onClick={handleSubmit}
                             disabled={isSubmitting}
-                            className="btn-luxury-gold disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                            className="btn-stripe disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             {isSubmitting ? '...' : getPlanLabel}
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                            <ArrowUpRight className="h-4 w-4" />
                           </button>
                         )}
                       </div>
@@ -826,16 +814,16 @@ export default function HeroAdvisor() {
 
                     {/* Divider + WhatsApp link */}
                     <div className="px-6 sm:px-7 pb-6">
-                      <div className="flex items-center gap-3 text-[#374151] dark:text-slate-500 text-xs font-body">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 dark:via-slate-600 to-transparent" />
+                      <div className="flex items-center gap-3 text-[#8B9099] text-xs font-body">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
                         {orDivider}
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-500 dark:via-slate-600 to-transparent" />
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
                       </div>
                       <a
                         href="https://wa.me/919257877312"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
+                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium shadow-premium-sm hover:shadow-premium transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
                       >
                         <MessageCircle className="w-4 h-4" />
                         {whatsAppInstead}

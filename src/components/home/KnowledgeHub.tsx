@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Clock, Heart, Car, ArrowRight, BookOpen, Shield, TrendingUp, CheckCircle2, Languages } from 'lucide-react';
+import { Clock, Heart, Car, ArrowRight, BookOpen, Shield, TrendingUp, CheckCircle2, Languages, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Article data ────────────────────────────────────────────── */
@@ -70,14 +70,6 @@ const articles: ArticleData[] = [
   },
 ];
 
-/* ── Badge class map ──────────────────────────────────────────── */
-const badgeClassMap: Record<string, string> = {
-  blue: 'badge-premium-blue',
-  green: 'badge-premium-green',
-  gold: 'badge-premium-gold',
-  slate: 'badge-premium-slate',
-};
-
 /* ── Helper ────────────────────────────────────────────────────── */
 function tr(data: { en: string; hi: string; hg: string }, isHindi: boolean, isEnglish: boolean) {
   return isHindi ? data.hi : isEnglish ? data.en : data.hg;
@@ -90,66 +82,64 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
   const readTime = tr(article.readTimes, isHindi, isEnglish);
   const summary = tr(article.summaries, isHindi, isEnglish);
   const keyPoints = isHindi ? article.keyPoints.hi : isEnglish ? article.keyPoints.en : article.keyPoints.hg;
-  const readGuide = isHindi ? 'गाइड पढ़ें →' : isEnglish ? 'Read guide →' : 'Guide padhein →';
+  const readGuide = isHindi ? 'गाइड पढ़ें' : isEnglish ? 'Read guide' : 'Guide padhein';
   const keyTakeawayLabel = isHindi ? 'मुख्य बातें' : isEnglish ? 'Key Takeaways' : 'Main Baatein';
   const readHindiLabel = isHindi ? 'हिंदी में पढ़ें' : isEnglish ? 'Read in Hindi' : 'Hindi mein padhein';
 
   return (
     <motion.a
       href={`/blog/${article.slug}`}
-      className={`premium-card flex flex-col h-full cursor-pointer block group ${article.badgeVariant === 'blue' ? 'premium-card-featured' : article.badgeVariant === 'gold' ? 'premium-card-gold' : ''}`}
+      className="group relative flex flex-col h-full bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 p-6 lg:p-7 block"
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] as const }}
     >
       {/* Top: Icon + Category Badge + Read in Hindi */}
-      <div className="flex items-center gap-2.5 mb-4 flex-wrap">
-        <span
-          className="w-9 h-9 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-          style={{ backgroundColor: `${article.color}10`, color: article.color }}
-        >
+      <div className="flex items-center gap-2.5 mb-5 flex-wrap">
+        <span className="w-9 h-9 rounded-lg flex items-center justify-center bg-[#F4E5DD] text-[#B8482C] transition-transform duration-300 group-hover:scale-110">
           {article.icon}
         </span>
-        <span className={badgeClassMap[article.badgeVariant]}>
+        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4E5DD] text-[#8B3520] text-[0.8125rem] font-medium tracking-[0.01em] font-body">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#B8482C]" />
           {category}
         </span>
-        <span className="text-[11px] font-mono text-[#10B981] ml-auto flex items-center gap-1">
+        <span className="text-[11px] tracking-[0.08em] uppercase font-medium text-[#8B9099] ml-auto flex items-center gap-1 font-body tabular-nums">
           <Languages className="w-3 h-3" />
           {readHindiLabel}
         </span>
       </div>
 
       {/* Title */}
-      <h3 className="font-display text-base lg:text-lg font-bold text-[#111111] dark:text-[#F3EADB] leading-snug mb-2.5 tracking-tight">
+      <h3 className="font-display text-lg lg:text-xl font-medium leading-snug mb-3 tracking-tight text-[#0E1116]">
         {title}
       </h3>
 
       {/* Summary */}
-      <p className="text-sm text-[#374151] dark:text-[#CBD5E1] leading-relaxed mb-5 font-body">
+      <p className="text-body-premium text-[#4A4F57] mb-5">
         {summary}
       </p>
 
       {/* Key Takeaways */}
       <div className="space-y-2.5 mb-5 flex-1">
-        <p className="text-label-premium flex items-center gap-1.5" style={{ color: article.color }}>
+        <p className="text-caption-premium text-[#8B3520] flex items-center gap-1.5">
           <TrendingUp className="w-3 h-3" />
           {keyTakeawayLabel}
         </p>
         {keyPoints.slice(0, 3).map((point, i) => (
           <div key={i} className="flex items-start gap-2.5">
-            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: article.color, opacity: 0.7 }} />
-            <span className="text-sm text-[#374151] dark:text-[#CBD5E1] leading-snug font-body">{point}</span>
+            <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#B8482C] opacity-70" />
+            <span className="text-body-premium text-[#4A4F57] leading-snug">{point}</span>
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-4 border-t border-[#E8E2D6] dark:border-white/10">
-        <span className="text-sm font-semibold flex items-center gap-1.5 transition-all duration-300 group-hover:gap-2.5 text-[#2563EB] dark:text-[#60A5FA] font-body">
+      <div className="flex items-center justify-between pt-4 hairline-top">
+        <span className="link-underline-reveal inline-flex items-center gap-1.5 text-sm font-medium text-[#B8482C] font-body transition-all duration-300 group-hover:gap-2.5">
           {readGuide}
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
         </span>
-        <span className="text-xs text-[#374151] dark:text-[#CBD5E1] flex items-center gap-1 font-mono">
+        <span className="text-caption-premium text-[#8B9099] flex items-center gap-1 tabular-nums normal-case tracking-normal">
           <Clock className="w-3 h-3" />
           {readTime}
         </span>
@@ -174,10 +164,10 @@ export default function KnowledgeHub() {
     : isEnglish
     ? 'Insurance explained simply — understand in Hindi, make the right choice'
     : 'Insurance ki baatein aasan bhasha mein — samjho, sahi faisla lo';
-  const cta = isHindi ? 'सभी गाइड देखें →' : isEnglish ? 'Browse all guides →' : 'Sab guides dekhein →';
+  const cta = isHindi ? 'सभी गाइड देखें' : isEnglish ? 'Browse all guides' : 'Sab guides dekhein';
 
   return (
-    <section ref={sectionRef} className="section-luxury bg-background dark:bg-[#111111]">
+    <section ref={sectionRef} className="section-premium bg-[#FAF7F2]">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -186,14 +176,15 @@ export default function KnowledgeHub() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          <div className="badge-premium-blue mb-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4E5DD] text-[#8B3520] text-[0.8125rem] font-medium tracking-[0.01em] font-body mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B8482C] animate-pulse" />
             <BookOpen className="w-3.5 h-3.5" />
-            <span className="font-body">InsureGyaan</span>
+            <span>InsureGyaan</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#111111] dark:text-[#F3EADB] leading-[1.1] font-display">
-            {heading} <span className="gradient-text-blue-emerald">{headingAccent}</span>
+          <h2 className="text-display-h2 font-display text-[#0E1116]">
+            {heading} <span className="text-accent-gradient">{headingAccent}</span>
           </h2>
-          <p className="text-base text-[#374151] dark:text-[#CBD5E1] max-w-lg mx-auto mt-4 leading-relaxed font-body">
+          <p className="text-lead-premium text-[#4A4F57] max-w-lg mx-auto mt-4">
             {subtitle}
           </p>
         </motion.div>
@@ -214,10 +205,10 @@ export default function KnowledgeHub() {
         >
           <a
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 hover:gap-3 text-[#2563EB] dark:text-[#60A5FA] underline-offset-4 hover:underline font-body"
+            className="btn-stripe group"
           >
-            {cta}
-            <ArrowRight className="w-4 h-4" />
+            <span>{cta}</span>
+            <ArrowUpRight className="w-4 h-4" />
           </a>
         </motion.div>
       </div>

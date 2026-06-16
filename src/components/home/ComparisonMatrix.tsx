@@ -58,7 +58,7 @@ const tableVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -67,7 +67,7 @@ const headerVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -78,30 +78,30 @@ function CellRenderer({ cell, isPaliwal }: { cell: CellValue; isPaliwal: boolean
       return (
         <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full transition-colors duration-200 ${
           isPaliwal
-            ? 'bg-[#2563EB]/[0.08] border border-[#2563EB]/15 dark:bg-[#3B82F6]/[0.12] dark:border-[#3B82F6]/20'
-            : 'bg-white/60 dark:bg-white/5 border border-transparent'
+            ? 'bg-[#E6EFEE] dark:bg-[#0F2A28] border border-[#1B4D4A]/25 dark:border-[#2D7A77]/30'
+            : 'bg-white dark:bg-white/[0.04] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08]'
         }`}>
-          <Check className={`w-3.5 h-3.5 ${isPaliwal ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#475569] dark:text-[#94A3B8]'}`} strokeWidth={2.5} />
+          <Check className="w-3.5 h-3.5 text-[#1B4D4A] dark:text-[#2D7A77]" strokeWidth={2.5} />
         </span>
       );
     case 'cross':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/60 dark:bg-white/[0.03] border border-transparent">
-          <X className="w-3.5 h-3.5 text-[#475569] dark:text-white/20" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9B2C2C]/[0.06] dark:bg-[#9B2C2C]/[0.10] border border-[#9B2C2C]/15 dark:border-[#9B2C2C]/25">
+          <X className="w-3.5 h-3.5 text-[#9B2C2C] dark:text-[#E57373]" strokeWidth={2} />
         </span>
       );
     case 'dash':
       return (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/60 dark:bg-white/[0.03] border border-transparent">
-          <Minus className="w-3.5 h-3.5 text-[#475569] dark:text-white/20" strokeWidth={2} />
+        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white dark:bg-white/[0.04] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08]">
+          <Minus className="w-3.5 h-3.5 text-[#8B9099] dark:text-[#8B9099]" strokeWidth={2} />
         </span>
       );
     case 'text':
       return (
-        <span className={`text-xs font-medium capitalize font-body ${
+        <span className={`text-xs font-medium capitalize font-body tabular-nums ${
           isPaliwal
-            ? 'text-[#2563EB] dark:text-[#60A5FA]'
-            : 'text-[#475569] dark:text-[#94A3B8]'
+            ? 'text-[#0E1116] dark:text-[#FAF7F2]'
+            : 'text-[#4A4F57] dark:text-[#B8BCC2]'
         }`}>
           {cell.value}
         </span>
@@ -134,7 +134,7 @@ export default function ComparisonMatrix() {
       : col.label.hg;
 
   return (
-    <section className="section-luxury section-luxury-alt">
+    <section className="section-premium bg-[#FAF7F2] dark:bg-[#0E1116]">
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -144,52 +144,52 @@ export default function ComparisonMatrix() {
           viewport={{ once: true, margin: '-60px' }}
           className="mb-14 text-center"
         >
-          <div className="badge-premium-slate mb-5">
+          <div className="btn-pill-dot mb-5 bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572]">
             <Sparkles className="w-3 h-3" />
             <span className="font-body">Comparison</span>
           </div>
-          <h2 className="text-section-title mb-4">
+          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-[#FAF7F2] mb-4">
             {heading}
           </h2>
-          <p className="text-body-lg max-w-lg mx-auto">
+          <p className="text-lead-premium text-[#4A4F57] dark:text-[#B8BCC2] max-w-lg mx-auto">
             {isHindi ? 'देखें कि Paliwal Secure कैसे अलग है' : isEnglish ? 'See how Paliwal Secure stands out from the competition' : 'Dekhein Paliwal Secure kaisa alag hai'}
           </p>
         </motion.div>
 
-        {/* Comparison Table — Stripe-style */}
+        {/* Comparison Table — premium paper card */}
         <motion.div
           ref={tableRef}
           variants={tableVariants}
           initial="hidden"
           animate={tableInView ? 'visible' : 'hidden'}
-          className="premium-card !p-0 overflow-hidden"
+          className="bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] rounded-2xl shadow-premium overflow-hidden"
         >
           {/* Desktop Table */}
           <div className="overflow-x-auto">
             <table className="w-full min-w-[680px] text-base">
               <thead>
-                <tr>
+                <tr className="bg-[#0E1116] dark:bg-[#FAF7F2]">
                   {/* Feature label column header */}
-                  <th className="text-left px-6 py-5 text-label-premium font-body border-b border-[#E8E2D6] dark:border-white/[0.06]">
+                  <th className="text-left px-6 py-5 text-caption-premium text-[#FAF7F2] dark:text-[#0E1116] font-body border-b border-[rgba(14,17,22,0.08)] dark:border-white/[0.08]">
                     {featureLabel}
                   </th>
                   {columns.map((col) => (
                     <th
                       key={col.key}
-                      className={`px-6 py-5 text-center font-body border-b border-[#E8E2D6] dark:border-white/[0.06] ${
-                        col.highlight ? 'premium-card-featured !border-t-0' : ''
+                      className={`px-6 py-5 text-center font-body border-b border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] ${
+                        col.highlight ? 'bg-[#F4E5DD] dark:bg-[#3A1E14]' : ''
                       }`}
                     >
                       <div className="flex flex-col items-center gap-1.5">
-                        <span className={`text-label-premium ${
+                        <span className={`text-caption-premium ${
                           col.highlight
-                            ? '!text-[#2563EB] dark:!text-[#60A5FA]'
-                            : ''
+                            ? 'text-[#8B3520] dark:text-[#E89572]'
+                            : 'text-[#FAF7F2]/70 dark:text-[#0E1116]/70'
                         }`}>
                           {getColumnLabel(col)}
                         </span>
                         {col.highlight && (
-                          <span className="badge-premium-blue !text-[9px] !gap-1 !px-2 !py-0.5 normal-case !tracking-normal !font-semibold">
+                          <span className="text-caption-premium bg-[#B8482C] dark:bg-[#D4633F] text-[#FAF7F2] !text-[9px] !gap-1 !px-2 !py-0.5 normal-case !tracking-normal !font-semibold rounded-full inline-flex items-center">
                             <Sparkles className="w-2.5 h-2.5" />
                             {isHindi ? 'अनुशंसित' : isEnglish ? 'Recommended' : 'Recommended'}
                           </span>
@@ -203,14 +203,14 @@ export default function ComparisonMatrix() {
                 {features.map((row, rowIndex) => (
                   <tr
                     key={row.key}
-                    className={`border-b border-[#E8E2D6]/60 dark:border-white/[0.04] last:border-b-0 transition-colors duration-200 ${
+                    className={`border-b border-[rgba(14,17,22,0.08)] dark:border-white/[0.06] last:border-b-0 transition-colors duration-200 ${
                       rowIndex % 2 === 1
-                        ? 'bg-white/40 dark:bg-white/[0.015]'
+                        ? 'bg-[#FAF7F2]/40 dark:bg-white/[0.015]'
                         : ''
-                    } hover:bg-white/50 dark:hover:bg-white/[0.03]`}
+                    } hover:bg-[#FAF7F2]/70 dark:hover:bg-white/[0.03]`}
                   >
                     {/* Feature name */}
-                    <td className="px-6 py-4 text-[#111111] dark:text-[#F3EADB] font-medium text-base font-body">
+                    <td className="px-6 py-4 text-[#0E1116] dark:text-[#FAF7F2] font-medium text-base font-body">
                       {getFeatureLabel(row.key)}
                     </td>
                     {/* Column cells */}
@@ -223,7 +223,7 @@ export default function ComparisonMatrix() {
                           key={col.key}
                           className={`px-6 py-4 text-center transition-colors duration-200 ${
                             isPaliwal
-                              ? 'bg-[#2563EB]/[0.02] dark:bg-[#3B82F6]/[0.03] border-x border-[#2563EB]/[0.06] dark:border-[#3B82F6]/[0.06]'
+                              ? 'bg-[#F4E5DD]/40 dark:bg-[#3A1E14]/40 border-x border-[#B8482C]/20 dark:border-[#D4633F]/20'
                               : ''
                           }`}
                         >
@@ -238,13 +238,13 @@ export default function ComparisonMatrix() {
           </div>
 
           {/* Bottom summary bar for Paliwal column */}
-          <div className="border-t border-[#E8E2D6] dark:border-white/[0.06] bg-white/60 dark:bg-[#1E293B]/60 px-6 py-4">
+          <div className="border-t border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] bg-[#FAF7F2]/60 dark:bg-[#1E293B]/60 px-6 py-4">
             <div className="flex items-center justify-center gap-2">
-              <span className="badge-premium-blue !gap-1.5">
+              <span className="btn-pill-dot bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572] !gap-1.5">
                 <Sparkles className="w-3 h-3" />
                 {isHindi ? 'सबसे अच्छा विकल्प' : isEnglish ? 'Best choice' : 'Best choice'}
               </span>
-              <span className="text-sm text-[#374151] dark:text-[#94A3B8] font-body">
+              <span className="text-body-premium text-[#4A4F57] dark:text-[#B8BCC2] tabular-nums">
                 {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 mein se 9 features'}
               </span>
             </div>
