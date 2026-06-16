@@ -50,6 +50,7 @@ export default function InsurerLogoMarquee() {
       ? 'AI Ready | IRDAI Verified | Families trust across India'
       : 'AI Ready | IRDAI Verified | Poori India mein parivaron ka bharosa';
 
+  // Duplicate the list twice for a seamless infinite marquee loop
   const allInsurers = [...INSURERS, ...INSURERS];
 
   return (
@@ -65,9 +66,9 @@ export default function InsurerLogoMarquee() {
         </h3>
       </div>
 
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-20 bg-gradient-to-r from-[#F6F5F1] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-6 sm:w-20 bg-gradient-to-l from-[#F6F5F1] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
+      {/* Narrow fade edges — only 32px (w-8) so company names stay fully visible */}
+      <div className="absolute left-0 top-12 sm:top-14 bottom-6 sm:bottom-8 w-8 sm:w-12 bg-gradient-to-r from-[#F6F5F1] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-12 sm:top-14 bottom-6 sm:bottom-8 w-8 sm:w-12 bg-gradient-to-l from-[#F6F5F1] dark:from-[#0F172A] to-transparent z-10 pointer-events-none" />
 
       <div ref={ref} className="relative pb-6 sm:pb-8">
         <motion.div
@@ -84,7 +85,7 @@ export default function InsurerLogoMarquee() {
             {allInsurers.map((insurer, idx) => (
               <div
                 key={`insurer-${idx}`}
-                className="flex items-center gap-3 sm:gap-4 px-5 sm:px-6 py-3 sm:py-5 shrink-0 mx-2 sm:mx-3 rounded-2xl bg-white dark:bg-white/[0.06] border border-[#E8E2D6] dark:border-white/[0.10] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#2563EB]/30 dark:hover:bg-white/[0.10] dark:hover:border-[#3B82F6]/30 cursor-default shadow-sm"
+                className="flex items-center gap-3 sm:gap-4 px-5 sm:px-7 py-3 sm:py-5 shrink-0 mx-2 sm:mx-3 rounded-2xl bg-white dark:bg-white/[0.06] border border-[#E8E2D6] dark:border-white/[0.10] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#2563EB]/30 dark:hover:bg-white/[0.10] dark:hover:border-[#3B82F6]/30 cursor-default shadow-sm"
               >
                 <div
                   className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br ${insurer.color} flex items-center justify-center shrink-0 shadow-md ring-2 ring-white/30 transition-transform duration-300 group-hover:scale-110`}

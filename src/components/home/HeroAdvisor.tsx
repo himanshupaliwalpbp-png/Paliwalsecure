@@ -423,28 +423,28 @@ export default function HeroAdvisor() {
       id="advisor-form"
       className="relative overflow-hidden py-20 md:py-28"
     >
-      {/* ── Gradient Mesh Background ────────────────────────────── */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#A9C0E0] via-[#B8CDE8] to-[#9AB5D8]/60 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30" />
+      {/* ── Warm Cream Background — Design Bible v7.0 ────────────────────────────── */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F3EADB] via-[#F6F5F1] to-[#F3EADB] dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30" />
 
       {/* Very subtle dots pattern overlay — barely visible for texture */}
       <div
-        className="absolute inset-0 opacity-[0.12] dark:opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.10] dark:opacity-[0.04]"
         style={{
-          backgroundImage: 'radial-gradient(circle, #94a3b8 0.5px, transparent 0.5px)',
+          backgroundImage: 'radial-gradient(circle, #5E1223 0.5px, transparent 0.5px)',
           backgroundSize: '32px 32px',
         }}
       />
 
-      {/* Gradient mesh blobs */}
+      {/* Gradient mesh blobs — using design palette */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-400/[0.07] dark:bg-blue-500/[0.04] rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-emerald-400/[0.06] dark:bg-emerald-500/[0.03] rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-violet-400/[0.04] dark:bg-violet-500/[0.02] rounded-full blur-3xl" />
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#DBEAFE]/[0.50] rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#2563EB]/[0.08] rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#5E1223]/[0.05] rounded-full blur-3xl" />
       </div>
 
       {/* Top/bottom edge fades */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200/80 dark:via-slate-700/40 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200/80 dark:via-slate-700/40 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#E8E2D6]/80 dark:via-slate-700/40 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#E8E2D6]/80 dark:via-slate-700/40 to-transparent" />
 
       {/* ── Main Content ──────────────────────────────────────── */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
