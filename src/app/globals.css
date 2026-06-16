@@ -5,11 +5,11 @@
    Color System (Warm Sophistication + Digital Trust):
      Background: #F3EADB (Soft Cream) — Warm, Professional
      Foreground: #111111 (Black) — Deep Text
-     Primary: #2563EB (Electric Blue) — Action, CTA, Trust
+     Primary: #B8482C (Burnt Sienna) — Action, CTA, Trust
      Accent: #5E1223 (Deep Maroon) — Premium/Luxury (use sparingly!)
      Surface: #FFFFFF (White) — Pure, Clean
      Surface Alt: #F6F5F1 (Ivory White) — Alternate Background
-     Highlight: #DBEAFE (Baby Blue) — Hover states, Subtle highlights
+     Highlight: #F4E5DD (Sienna Tint) — Hover states, Subtle highlights
      Text Primary: #111111
      Text Secondary: #374151
      Border: #E8E2D6 (Warm Border)
@@ -19,7 +19,7 @@
    Dark Mode Override (.dark class):
      Dark BG: #111111 (Black)
      Dark Card: #1A1A1A
-     Dark Primary: #2563EB (Electric Blue)
+     Dark Primary: #D4633F (Sienna on Dark)
      Dark Accent: #8B2D40 (Lightened Maroon)
      Dark Muted: #B0B0B0
      Dark Border: #333333
@@ -170,12 +170,12 @@
   --color-muted-text: #374151;
   --color-success: #10B981;
   --color-danger: #EF4444;
-  --color-info: #2563EB;
-  --color-warning: #E8C872;
+  --color-info: #1B4D4A;
+  --color-warning: #B8482C;
 
-  /* Design Bible v7.0 Primary Tokens */
-  --color-primary-accent: #2563EB;
-  --color-luxury: #5E1223;
+  /* Design Bible v8.0 Primary Tokens — Quiet Confidence */
+  --color-primary-accent: #B8482C;
+  --color-luxury: #8B3520;
 
   /* Emerald/Trust Green palette — for trust signals and verification */
   --color-emerald: #34D399;
@@ -1040,19 +1040,19 @@ body::after,
 
 /* Blue-to-Emerald gradient text — primary accent (Design Bible v6.0) */
 .gradient-text {
-  background: linear-gradient(135deg, #2563EB, #10B981);
+  background: linear-gradient(135deg, #B8482C, #1B4D4A);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #2563EB; /* Accessibility fallback */
+  color: #B8482C; /* Accessibility fallback */
 }
 /* Dark mode: lighter blue-emerald for visibility on dark backgrounds */
 .dark .gradient-text {
-  background: linear-gradient(135deg, #60A5FA, #34D399);
+  background: linear-gradient(135deg, #D4633F, #2D7A77);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #60A5FA; /* Accessibility fallback */
+  color: #D4633F; /* Accessibility fallback */
 }
 
 /* Hero gradient text — Refined Gold to Light Gold */
@@ -1100,14 +1100,14 @@ body::after,
 
 /* Luxury gradient text — Electric Blue to Emerald, vibrant on both light & dark */
 .gradient-luxury {
-  color: #2563EB; /* Accessibility fallback */
-  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+  color: #B8482C; /* Accessibility fallback */
+  background: linear-gradient(135deg, #B8482C 0%, #1B4D4A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .dark .gradient-luxury {
-  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+  background: linear-gradient(135deg, #D4633F 0%, #2D7A77 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1115,14 +1115,14 @@ body::after,
 
 /* Blue-to-emerald gradient text — for accent headings */
 .gradient-text-blue-emerald {
-  color: #2563EB; /* Accessibility fallback */
-  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+  color: #B8482C; /* Accessibility fallback */
+  background: linear-gradient(135deg, #B8482C 0%, #1B4D4A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .dark .gradient-text-blue-emerald {
-  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+  background: linear-gradient(135deg, #D4633F 0%, #2D7A77 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -3455,7 +3455,7 @@ html.theme-transitioning *::after {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px -12px rgba(17, 17, 17, 0.08),
               0 8px 16px -8px rgba(17, 17, 17, 0.04);
-  border-color: #2563EB;
+  border-color: #B8482C;
 }
 .dark .premium-card {
   background: #1A1A1A;
@@ -3464,7 +3464,7 @@ html.theme-transitioning *::after {
 .dark .premium-card:hover {
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4),
               0 8px 16px -8px rgba(0, 0, 0, 0.2);
-  border-color: #2563EB;
+  border-color: #B8482C;
 }
 
 /* Premium card — compact variant */
@@ -3474,10 +3474,10 @@ html.theme-transitioning *::after {
 
 /* Premium card — featured variant with accent top border */
 .premium-card-featured {
-  border-top: 3px solid #2563EB;
+  border-top: 3px solid #B8482C;
 }
 .dark .premium-card-featured {
-  border-top-color: #2563EB;
+  border-top-color: #B8482C;
 }
 
 /* Premium card — maroon accent variant */
@@ -3551,7 +3551,7 @@ html.theme-transitioning *::after {
   border-radius: 0.625rem;
   border: none;
   cursor: pointer;
-  background: #2563EB;
+  background: #0E1116;
   color: #FFFFFF;
   position: relative;
   overflow: hidden;
@@ -3570,8 +3570,8 @@ html.theme-transitioning *::after {
 }
 .btn-luxury-primary:hover {
   transform: translateY(-1px);
-  background: #1D4ED8;
-  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.40), 0 0 16px rgba(37, 99, 235, 0.15);
+  background: #8B3520;
+  box-shadow: 0 8px 24px -8px rgba(184, 72, 44, 0.40), 0 0 16px rgba(184, 72, 44, 0.15);
 }
 .btn-luxury-primary:hover::after {
   left: 100%;
@@ -3580,16 +3580,16 @@ html.theme-transitioning *::after {
   transform: translateY(0);
 }
 .btn-luxury-primary:focus-visible {
-  outline: 2px solid #2563EB;
+  outline: 2px solid #B8482C;
   outline-offset: 2px;
 }
 .dark .btn-luxury-primary {
-  background: #2563EB;
+  background: #0E1116;
   color: #FFFFFF;
 }
 .dark .btn-luxury-primary:hover {
-  background: #1D4ED8;
-  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.40), 0 0 16px rgba(37, 99, 235, 0.15);
+  background: #8B3520;
+  box-shadow: 0 8px 24px -8px rgba(184, 72, 44, 0.40), 0 0 16px rgba(184, 72, 44, 0.15);
 }
 
 /* Secondary button */
@@ -3621,7 +3621,7 @@ html.theme-transitioning *::after {
   transform: translateY(0);
 }
 .btn-luxury-secondary:focus-visible {
-  outline: 2px solid #2563EB;
+  outline: 2px solid #B8482C;
   outline-offset: 2px;
 }
 .dark .btn-luxury-secondary {
@@ -3649,7 +3649,7 @@ html.theme-transitioning *::after {
   border-radius: 0.625rem;
   border: none;
   cursor: pointer;
-  background: #2563EB;
+  background: #B8482C;
   color: #FFFFFF;
   position: relative;
   overflow: hidden;
@@ -3668,8 +3668,8 @@ html.theme-transitioning *::after {
 }
 .btn-luxury-gold:hover {
   transform: translateY(-1px);
-  background: #1D4ED8;
-  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.45), 0 0 20px rgba(37, 99, 235, 0.15);
+  background: #8B3520;
+  box-shadow: 0 8px 24px -8px rgba(184, 72, 44, 0.45), 0 0 20px rgba(184, 72, 44, 0.15);
 }
 .btn-luxury-gold:hover::after {
   left: 100%;
@@ -3678,16 +3678,16 @@ html.theme-transitioning *::after {
   transform: translateY(0);
 }
 .btn-luxury-gold:focus-visible {
-  outline: 2px solid #2563EB;
+  outline: 2px solid #B8482C;
   outline-offset: 2px;
 }
 .dark .btn-luxury-gold {
-  background: #2563EB;
+  background: #B8482C;
   color: #FFFFFF;
 }
 .dark .btn-luxury-gold:hover {
-  background: #1D4ED8;
-  box-shadow: 0 8px 32px -8px rgba(37, 99, 235, 0.5), 0 0 24px rgba(37, 99, 235, 0.20);
+  background: #8B3520;
+  box-shadow: 0 8px 32px -8px rgba(184, 72, 44, 0.5), 0 0 24px rgba(184, 72, 44, 0.20);
 }
 
 /* Button sizes */
@@ -3779,14 +3779,14 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: rgba(37, 99, 235, 0.08);
-  color: #2563EB;
-  border: 1px solid rgba(37, 99, 235, 0.15);
+  background: rgba(184, 72, 44, 0.08);
+  color: #B8482C;
+  border: 1px solid rgba(184, 72, 44, 0.15);
 }
 .dark .badge-premium-blue {
-  background: rgba(59, 130, 246, 0.12);
-  color: #60A5FA;
-  border-color: rgba(59, 130, 246, 0.2);
+  background: rgba(212, 99, 63, 0.12);
+  color: #D4633F;
+  border-color: rgba(212, 99, 63, 0.2);
 }
 
 .badge-premium-green {
@@ -3821,14 +3821,14 @@ html.theme-transitioning *::after {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  background: rgba(37, 99, 235, 0.10);
-  color: #1D4ED8;
-  border: 1px solid rgba(37, 99, 235, 0.20);
+  background: rgba(184, 72, 44, 0.10);
+  color: #8B3520;
+  border: 1px solid rgba(184, 72, 44, 0.20);
 }
 .dark .badge-premium-gold {
-  background: rgba(37, 99, 235, 0.15);
-  color: #60A5FA;
-  border-color: rgba(37, 99, 235, 0.25);
+  background: rgba(184, 72, 44, 0.15);
+  color: #D4633F;
+  border-color: rgba(184, 72, 44, 0.25);
 }
 
 .badge-premium-slate {
@@ -3893,7 +3893,7 @@ html.theme-transitioning *::after {
    ────────────────────────────────────────────── */
 .stat-premium-block {
   padding: 1.25rem 1.5rem;
-  border-left: 3px solid #2563EB;
+  border-left: 3px solid #B8482C;
   background: #FFFFFF;
   border-radius: 0 0.75rem 0.75rem 0;
 }
@@ -3915,7 +3915,7 @@ html.theme-transitioning *::after {
 }
 .dark .stat-premium-block {
   background: #1A1A1A;
-  border-left-color: #2563EB;
+  border-left-color: #B8482C;
 }
 .dark .stat-premium-block .stat-number {
   color: #F3EADB;
@@ -3973,8 +3973,8 @@ html.theme-transitioning *::after {
   border-color: #E8E2D6;
 }
 .input-premium:focus {
-  border-color: #2563EB;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #B8482C;
+  box-shadow: 0 0 0 3px rgba(184, 72, 44, 0.1);
 }
 .dark .input-premium {
   color: #F3EADB;
@@ -3988,8 +3988,8 @@ html.theme-transitioning *::after {
   border-color: #555555;
 }
 .dark .input-premium:focus {
-  border-color: #2563EB;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  border-color: #B8482C;
+  box-shadow: 0 0 0 3px rgba(184, 72, 44, 0.15);
 }
 
 /* Input with left icon padding */
@@ -4126,7 +4126,7 @@ html.theme-transitioning *::after {
 .category-cards-grid .premium-card:hover {
   box-shadow: 0 20px 40px -12px rgba(17, 17, 17, 0.10),
               0 8px 16px -8px rgba(17, 17, 17, 0.06);
-  border-color: #2563EB;
+  border-color: #B8482C;
 }
 
 .category-cards-grid .premium-card .text-card-title {
@@ -4152,7 +4152,7 @@ html.theme-transitioning *::after {
 }
 
 .dark .category-cards-grid .premium-card:hover {
-  border-color: #2563EB;
+  border-color: #B8482C;
 }
 
 .dark .category-cards-grid .premium-card .text-card-title {

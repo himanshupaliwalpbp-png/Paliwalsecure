@@ -59,7 +59,7 @@ const INSURANCE_NEED_KEYS = [
 ];
 
 // ══════════════════════════════════════════════════════════════════════
-// ── FLOATING GOLD PARTICLE ──────────────────────────────────────────
+// ── FLOATING SIENNA PARTICLE ──────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════
 function GoldParticle({ delay, x, size, duration }: {
   delay: number; x: number; size: number; duration: number;
@@ -72,7 +72,7 @@ function GoldParticle({ delay, x, size, duration }: {
         height: size,
         left: `${x}%`,
         bottom: '-10px',
-        background: `radial-gradient(circle, hsl(var(--primary) 0.7) 0%, hsl(var(--primary) 0.3) 40%, hsl(var(--primary) 0) 70%)`,
+        background: `radial-gradient(circle, rgba(184, 72, 44, 0.7) 0%, rgba(184, 72, 44, 0.3) 40%, rgba(184, 72, 44, 0) 70%)`,
       }}
       animate={{
         y: [0, -700],
@@ -94,7 +94,7 @@ function GoldParticle({ delay, x, size, duration }: {
 // ── CONFETTI PARTICLE ───────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════
 function ConfettiParticle({ index }: { index: number }) {
-  const colors = ['hsl(var(--primary))', 'hsl(var(--primary))', '#FF6B6B', '#4ECDC4', '#45B7D1', '#F9CA24', '#FF9FF3', '#54A0FF'];
+  const colors = ['#B8482C', '#8B3520', '#1B4D4A', '#2D7A77', '#D4633F', '#F4E5DD', '#E6EFEE', '#FAF7F2'];
   const color = colors[index % colors.length];
   const angle = (index * 45) % 360;
   const rad = (angle * Math.PI) / 180;
@@ -187,7 +187,7 @@ function AnimatedBorder({ children, className = '', isDark: isDarkProp }: { chil
         <div
           className="absolute inset-0 rounded-2xl p-[1.5px] animated-border-gradient"
         >
-          <div className={`w-full h-full rounded-2xl ${isDarkProp ? 'bg-[#0E1220]' : 'bg-white'}`} />
+          <div className={`w-full h-full rounded-2xl ${isDarkProp ? 'bg-[#0E1116]' : 'bg-white'}`} />
         </div>
         <div
           className="absolute -inset-1 rounded-2xl opacity-20 pointer-events-none animated-border-glow"
@@ -203,11 +203,11 @@ function AnimatedBorder({ children, className = '', isDark: isDarkProp }: { chil
           inherits: false;
         }
         .animated-border-gradient {
-          background: conic-gradient(from var(--border-angle), hsl(var(--primary)), hsl(var(--primary)), transparent, hsl(var(--primary)), transparent, hsl(var(--primary)), hsl(var(--primary)));
+          background: conic-gradient(from var(--border-angle), #B8482C, #8B3520, transparent, #B8482C, transparent, #8B3520, #B8482C);
           animation: border-angle-spin 12s linear infinite;
         }
         .animated-border-glow {
-          background: conic-gradient(from var(--border-angle), hsl(var(--primary)), transparent, hsl(var(--primary)));
+          background: conic-gradient(from var(--border-angle), #B8482C, transparent, #B8482C);
           filter: blur(12px);
           animation: border-angle-spin 12s linear infinite;
         }
@@ -264,7 +264,7 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
                 <motion.div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, hsl(var(--primary) 0.6) 0%, hsl(var(--primary) 0) 70%)',
+                    background: 'radial-gradient(circle, rgba(184, 72, 44, 0.6) 0%, rgba(184, 72, 44, 0) 70%)',
                   }}
                   initial={{ scale: 0.5, opacity: 1 }}
                   animate={{ scale: 3, opacity: 0 }}
@@ -276,7 +276,7 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
                 <motion.div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, hsl(var(--primary) 0.5) 0%, hsl(var(--primary) 0.2) 40%, hsl(var(--primary) 0) 70%)',
+                    background: 'radial-gradient(circle, rgba(184, 72, 44, 0.5) 0%, rgba(184, 72, 44, 0.2) 40%, rgba(184, 72, 44, 0) 70%)',
                     filter: 'blur(6px)',
                   }}
                   initial={{ opacity: 0, scale: 0.5 }}
@@ -285,12 +285,12 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
                 />
               )}
               <Star
-                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#E8C872] dark:text-[#D4A853]' : 'text-[#9CA3AF] dark:text-white/20'}`}
+                className={`relative z-10 transition-all duration-200 ${isFilled ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-white/20'}`}
                 size={44}
                 fill={isFilled ? 'currentColor' : 'none'}
                 strokeWidth={1.5}
                 style={{
-                  filter: isFilled ? 'drop-shadow(0 0 8px rgba(232, 200, 114, 0.5))' : 'none',
+                  filter: isFilled ? 'drop-shadow(0 0 8px rgba(184, 72, 44, 0.5))' : 'none',
                 }}
               />
             </motion.button>
@@ -306,7 +306,7 @@ function StarRating({ value, onChange, hoverValue, onHover, t }: {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            className="text-[#E8C872] dark:text-[#D4A853] text-base md:text-lg font-bold"
+            className="text-[#B8482C] dark:text-[#D4633F] text-base md:text-lg font-display font-medium tabular-nums"
           >
             {t(RATING_LABELS[(hoverValue || value) as keyof typeof RATING_LABELS])}
           </motion.p>
@@ -345,21 +345,21 @@ function GlassInput({
       animate={focused ? { scale: 1.01 } : { scale: 1 }}
       transition={{ duration: 0.2 }}
     >
-      {/* Golden focus ring */}
+      {/* Sienna focus ring */}
       <motion.div
         className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
         animate={focused
-          ? { opacity: 1, boxShadow: '0 0 20px hsl(var(--primary) 0.4), 0 0 40px hsl(var(--primary) 0.15)' }
+          ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
           : { opacity: 0, boxShadow: 'none' }}
         transition={{ duration: 0.3 }}
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? 'border-[#2563EB] dark:border-[#3B82F6]'
-          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+          ? 'border-[#B8482C] dark:border-[#D4633F]'
+          : 'border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] hover:border-[rgba(14,17,22,0.16)] dark:hover:border-[rgba(250,247,242,0.18)]'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
+          focused ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-[#8B9099]'
         }`} />
         {prefix && <div className="flex-shrink-0">{prefix}</div>}
         <input
@@ -406,17 +406,17 @@ function GlassSelect({
       <motion.div
         className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
         animate={focused
-          ? { opacity: 1, boxShadow: '0 0 20px hsl(var(--primary) 0.4), 0 0 40px hsl(var(--primary) 0.15)' }
+          ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
           : { opacity: 0, boxShadow: 'none' }}
         transition={{ duration: 0.3 }}
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? 'border-[#2563EB] dark:border-[#3B82F6]'
-          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+          ? 'border-[#B8482C] dark:border-[#D4633F]'
+          : 'border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] hover:border-[rgba(14,17,22,0.16)] dark:hover:border-[rgba(250,247,242,0.18)]'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
+          focused ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-[#8B9099]'
         }`} />
         <select
           value={value}
@@ -426,15 +426,15 @@ function GlassSelect({
           className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none appearance-none cursor-pointer"
           style={{ colorScheme: dk ? 'dark' : 'light' }}
         >
-          <option value="" className={dk ? 'bg-[#1E293B] text-[#94A3B8]' : 'bg-white text-[#64748B]'}>{placeholder}</option>
+          <option value="" className={dk ? 'bg-[#0E1116] text-[#8B9099]' : 'bg-white text-[#8B9099]'}>{placeholder}</option>
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className={dk ? 'bg-[#1E293B] text-[#F8FAFC]' : 'bg-white text-[#0F172A]'}>
+            <option key={opt.value} value={opt.value} className={dk ? 'bg-[#0E1116] text-[#FAF7F2]' : 'bg-white text-[#0E1116]'}>
               {opt.label}
             </option>
           ))}
         </select>
         <ChevronDown className={`w-4 h-4 flex-shrink-0 transition-colors duration-300 pointer-events-none ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
+          focused ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-[#8B9099]'
         }`} />
       </div>
     </motion.div>
@@ -469,17 +469,17 @@ function GlassTextarea({
       <motion.div
         className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
         animate={focused
-          ? { opacity: 1, boxShadow: '0 0 20px hsl(var(--primary) 0.4), 0 0 40px hsl(var(--primary) 0.15)' }
+          ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
           : { opacity: 0, boxShadow: 'none' }}
         transition={{ duration: 0.3 }}
       />
       <div className={`relative flex gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
-          ? 'border-[#2563EB] dark:border-[#3B82F6]'
-          : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+          ? 'border-[#B8482C] dark:border-[#D4633F]'
+          : 'border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] hover:border-[rgba(14,17,22,0.16)] dark:hover:border-[rgba(250,247,242,0.18)]'
       }`}>
         <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 transition-colors duration-300 ${
-          focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
+          focused ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-[#8B9099]'
         }`} />
         <textarea
           placeholder={placeholder}
@@ -496,7 +496,7 @@ function GlassTextarea({
 }
 
 // ══════════════════════════════════════════════════════════════════════
-// ── GOLDEN GRADIENT BUTTON ──────────────────────────────────────────
+// ── PREMIUM INK BUTTON ─────────────────────────────────────────────
 // ══════════════════════════════════════════════════════════════════════
 function GoldenButton({ children, onClick, disabled = false, loading = false }: {
   children: React.ReactNode;
@@ -510,13 +510,13 @@ function GoldenButton({ children, onClick, disabled = false, loading = false }: 
       onClick={onClick}
       disabled={disabled || loading}
       className="relative w-full py-4 rounded-xl font-bold text-base overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-      whileHover={disabled || loading ? {} : { scale: 1.03, boxShadow: '0 0 35px rgba(15,28,64,0.5)' }}
+      whileHover={disabled || loading ? {} : { scale: 1.03, boxShadow: '0 0 35px rgba(14,17,22,0.5)' }}
       whileTap={disabled || loading ? {} : { scale: 0.97 }}
     >
-      {/* Dark blue gradient background */}
-      <div className="absolute inset-0 bg-primary" />
-      {/* Gold border accent */}
-      <div className="absolute inset-0 rounded-xl border border-primary/40" />
+      {/* Premium ink background */}
+      <div className="absolute inset-0 bg-[#0E1116]" />
+      {/* Sienna border accent */}
+      <div className="absolute inset-0 rounded-xl border border-[#B8482C]/40" />
       {/* Shimmer effect */}
       <motion.div
         className="absolute inset-0"
@@ -526,7 +526,7 @@ function GoldenButton({ children, onClick, disabled = false, loading = false }: 
         animate={{ x: ['-100%', '200%'] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
       />
-      <span className="relative z-10 text-white font-bold flex items-center justify-center gap-2">
+      <span className="relative z-10 text-white font-medium flex items-center justify-center gap-2">
         {loading ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -596,9 +596,9 @@ function SuccessState({ message, showWhatsApp = false, whatsappLabel, t, isDark:
         transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
         className="relative"
       >
-        <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl scale-150" />
-        <div className="relative w-20 h-20 rounded-full bg-primary flex items-center justify-center">
-          <CheckCircle2 className="w-10 h-10 text-primary-foreground" />
+        <div className="absolute inset-0 rounded-full bg-[#B8482C]/20 blur-xl scale-150" />
+        <div className="relative w-20 h-20 rounded-full bg-[#B8482C] flex items-center justify-center">
+          <CheckCircle2 className="w-10 h-10 text-white" />
         </div>
       </motion.div>
 
@@ -608,9 +608,9 @@ function SuccessState({ message, showWhatsApp = false, whatsappLabel, t, isDark:
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <p className="text-foreground text-xl md:text-2xl font-bold mb-1">{message}</p>
-        <p className={`${dk ? 'text-gray-400' : 'text-muted-foreground'} text-sm flex items-center justify-center gap-1`}>
-          <PartyPopper className="w-4 h-4 text-primary" />
+        <p className="font-display text-xl md:text-2xl font-medium mb-1 text-[#0E1116] dark:text-[#FAF7F2]">{message}</p>
+        <p className="text-sm text-[#8B9099] flex items-center justify-center gap-1">
+          <PartyPopper className="w-4 h-4 text-[#B8482C] dark:text-[#D4633F]" />
           <span>{t('ratingForm.successExtra')}</span>
         </p>
       </motion.div>
@@ -631,7 +631,7 @@ function SuccessState({ message, showWhatsApp = false, whatsappLabel, t, isDark:
             }}
             transition={{ duration: 1.5, delay: 0.3 + i * 0.12 }}
           >
-            <Star className="w-6 h-6 text-primary" />
+            <Star className="w-6 h-6 text-[#B8482C] dark:text-[#D4633F]" />
           </motion.span>
         );
       })}
@@ -644,8 +644,8 @@ function SuccessState({ message, showWhatsApp = false, whatsappLabel, t, isDark:
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold text-base transition-all shadow-lg shadow-green-600/20 mt-2"
-          whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(34,197,94,0.4)' }}
+          className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#1DA851] text-white font-medium text-base transition-all shadow-premium mt-2"
+          whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(37,211,102,0.4)' }}
           whileTap={{ scale: 0.97 }}
         >
           <MessageCircle className="w-5 h-5" />
@@ -719,17 +719,17 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
         <motion.div
           className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
           animate={focused
-            ? { opacity: 1, boxShadow: '0 0 20px hsl(var(--primary) 0.4), 0 0 40px hsl(var(--primary) 0.15)' }
+            ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
             : { opacity: 0, boxShadow: 'none' }}
           transition={{ duration: 0.3 }}
         />
         <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
           focused
-            ? 'border-[#2563EB] dark:border-[#3B82F6]'
-            : 'border-[#E2E8F0] dark:border-white/10 hover:border-[#CBD5E1] dark:hover:border-white/18'
+            ? 'border-[#B8482C] dark:border-[#D4633F]'
+            : 'border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] hover:border-[rgba(14,17,22,0.16)] dark:hover:border-[rgba(250,247,242,0.18)]'
         }`}>
           <MapPin className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-            focused ? 'text-[#2563EB] dark:text-[#60A5FA]' : 'text-[#64748B] dark:text-[#94A3B8]'
+            focused ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-[#8B9099]'
           }`} />
           <input
             placeholder={placeholder}
@@ -757,9 +757,9 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
             initial={{ opacity: 0, y: -5, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -5, scale: 0.95 }}
-            className={`absolute z-50 w-full mt-2 py-2 rounded-xl backdrop-blur-sm border max-h-64 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-primary/30 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-primary/50 ${dk ? 'bg-[#0E1220]/95 border-primary/20 shadow-xl shadow-black/30' : 'bg-white/95 border-border shadow-xl shadow-black/10'}`}
+            className={`absolute z-50 w-full mt-2 py-2 rounded-xl backdrop-blur-sm border max-h-64 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#B8482C]/30 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-[#B8482C]/50 ${dk ? 'bg-[#0E1116]/95 border-[rgba(250,247,242,0.10)] shadow-xl shadow-black/30' : 'bg-white/95 border-[rgba(14,17,22,0.08)] shadow-xl shadow-black/10'}`}
           >
-            <p className="px-4 py-1 text-[10px] font-semibold text-primary/70 uppercase tracking-wider">
+            <p className="px-4 py-1 text-[10px] font-semibold text-[#B8482C]/70 uppercase tracking-wider">
               {t('leadForm.popularCities')}
             </p>
             {filteredCities.map((city, idx) => (
@@ -775,13 +775,13 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
                 onMouseEnter={() => setHighlightedIndex(idx)}
                 className={`w-full text-left px-4 py-2 text-sm transition-colors flex items-center gap-2 ${
                   idx === highlightedIndex
-                    ? 'bg-primary/15 text-primary'
+                    ? 'bg-[#F4E5DD] text-[#B8482C] dark:bg-[#3A1E14] dark:text-[#D4633F]'
                     : dk
-                      ? 'text-white hover:bg-primary/10 hover:text-primary'
-                      : 'text-foreground hover:bg-primary/10 hover:text-[#A67C1A]'
+                      ? 'text-[#FAF7F2] hover:bg-[#F4E5DD]/10 hover:text-[#D4633F]'
+                      : 'text-[#0E1116] hover:bg-[#F4E5DD] hover:text-[#B8482C]'
                 }`}
               >
-                <MapPin className="w-3.5 h-3.5 text-primary/50" />
+                <MapPin className="w-3.5 h-3.5 text-[#B8482C]/50" />
                 {city}
               </button>
             ))}
@@ -802,7 +802,7 @@ function ConnectingLine({ isDark: isDarkProp }: { isDark?: boolean }) {
       <motion.div
         className="w-[2px] h-24 rounded-full"
         style={{
-          background: 'linear-gradient(to bottom, transparent, hsl(var(--primary)), hsl(var(--primary)), hsl(var(--primary)), transparent)',
+          background: 'linear-gradient(to bottom, transparent, #B8482C, #8B3520, #B8482C, transparent)',
         }}
         initial={{ opacity: 0, scaleY: 0 }}
         whileInView={{ opacity: 1, scaleY: 1 }}
@@ -811,8 +811,8 @@ function ConnectingLine({ isDark: isDarkProp }: { isDark?: boolean }) {
       />
       {/* Center diamond */}
       <motion.div
-        className={`absolute w-4 h-4 rotate-45 border border-primary/60 ${dk ? 'bg-[#0E1220]' : 'bg-white'}`}
-        style={{ boxShadow: '0 0 15px hsl(var(--primary) 0.3)' }}
+        className={`absolute w-4 h-4 rotate-45 border border-[#B8482C]/60 ${dk ? 'bg-[#0E1116]' : 'bg-white'}`}
+        style={{ boxShadow: '0 0 15px rgba(184, 72, 44, 0.3)' }}
         initial={{ scale: 0, rotate: 0 }}
         whileInView={{ scale: 1, rotate: 45 }}
         viewport={{ once: true }}
@@ -935,13 +935,13 @@ export default function RatingLeadForm() {
 
   // ── Indian flag prefix for phone ──────────────────────────────────
   const phonePrefix = (
-    <span className={`text-sm font-semibold text-primary flex items-center gap-1 pr-2 border-r ${isDark ? 'border-white/10' : 'border-border'}`}>
+    <span className={`text-sm font-semibold text-[#0E1116] dark:text-[#FAF7F2] flex items-center gap-1 pr-2 border-r border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)]`}>
       🇮🇳 +91
     </span>
   );
 
   return (
-    <section className="relative section-luxury section-luxury-alt overflow-hidden">
+    <section className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116] overflow-hidden">
       {/* ── Background ────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Mesh gradient */}
@@ -949,9 +949,9 @@ export default function RatingLeadForm() {
           className="absolute inset-0 opacity-[0.04]"
           style={{
             background: `
-              radial-gradient(ellipse at 20% 50%, hsl(var(--primary) 0.3) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 20%, hsl(var(--primary) 0.2) 0%, transparent 50%),
-              radial-gradient(ellipse at 50% 80%, hsl(var(--primary) 0.15) 0%, transparent 50%)
+              radial-gradient(ellipse at 20% 50%, rgba(184, 72, 44, 0.3) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(27, 77, 74, 0.2) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(184, 72, 44, 0.15) 0%, transparent 50%)
             `,
           }}
         />
@@ -959,18 +959,18 @@ export default function RatingLeadForm() {
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
-            backgroundImage: `linear-gradient(hsl(var(--primary) 0.4) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) 0.4) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(184, 72, 44, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(184, 72, 44, 0.4) 1px, transparent 1px)`,
             backgroundSize: '60px 60px',
           }}
         />
-        {/* Radial gold glow */}
+        {/* Radial sienna glow */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[800px] opacity-[0.08]"
           style={{
-            background: 'radial-gradient(ellipse, hsl(var(--primary) 0.5) 0%, hsl(var(--primary) 0.1) 40%, transparent 70%)',
+            background: 'radial-gradient(ellipse, rgba(184, 72, 44, 0.5) 0%, rgba(184, 72, 44, 0.1) 40%, transparent 70%)',
           }}
         />
-        {/* Floating gold particles — desktop only */}
+        {/* Floating sienna particles — desktop only */}
         <div className="hidden lg:block">
           {particles.map((p) => (
             <GoldParticle key={p.id} delay={p.delay} x={p.x} size={p.size} duration={p.duration} />
@@ -993,7 +993,7 @@ export default function RatingLeadForm() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="badge-premium-blue mb-6"
+            className="inline-flex items-center gap-1.5 px-3 py-1 mb-6 rounded-full text-caption-premium bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#D4633F] border border-[#B8482C]/20 dark:border-[#D4633F]/25"
           >
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
@@ -1008,7 +1008,7 @@ export default function RatingLeadForm() {
           </motion.div>
 
           {/* Title */}
-          <h2 className="text-hero mb-4">
+          <h2 className="text-display-h1 font-display text-[#0E1116] dark:text-[#FAF7F2] mb-4">
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -1023,7 +1023,7 @@ export default function RatingLeadForm() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-block text-[#E8C872] dark:text-[#D4A853]"
+              className="inline-block text-accent-gradient"
             >
               {t('ratingForm.sectionTitle2')}
             </motion.span>
@@ -1035,7 +1035,7 @@ export default function RatingLeadForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-body-lg max-w-3xl mx-auto"
+            className="text-lead-premium text-[#4A4F57] dark:text-[#8B9099] max-w-3xl mx-auto"
           >
             {t('ratingForm.sectionDesc')}
           </motion.p>
@@ -1059,20 +1059,20 @@ export default function RatingLeadForm() {
               className="relative"
             >
               <AnimatedBorder isDark={isDark}>
-                <div className="premium-card premium-card-featured p-6 md:p-8 lg:p-10">
+                <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#B8482C] dark:border-t-[#D4633F] p-6 md:p-8 lg:p-10">
 
                   {/* Header */}
                   <div className="text-center mb-8">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#E8C872]/10 border border-[#E8C872]/20 mb-4 dark:bg-[#D4A853]/10 dark:border-[#D4A853]/20"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F4E5DD] border border-[#B8482C]/20 mb-4 dark:bg-[#3A1E14] dark:border-[#D4633F]/25"
                       whileHover={{ rotate: 10, scale: 1.1 }}
                     >
-                      <Star className="w-7 h-7 text-[#E8C872] dark:text-[#D4A853]" />
+                      <Star className="w-7 h-7 text-[#B8482C] dark:text-[#D4633F]" />
                     </motion.div>
-                    <h3 className="text-card-title mb-2">
+                    <h3 className="font-display text-2xl md:text-3xl font-medium tracking-tight text-[#0E1116] dark:text-[#FAF7F2] mb-2">
                       {t('ratingForm.heading')}
                     </h3>
-                    <p className="text-sm md:text-base text-[#475569] dark:text-[#94A3B8]">
+                    <p className="text-sm md:text-base text-[#4A4F57] dark:text-[#8B9099]">
                       {t('ratingForm.subheading')}
                     </p>
                   </div>
@@ -1139,7 +1139,7 @@ export default function RatingLeadForm() {
                         <button
                           onClick={handleRatingSubmit}
                           disabled={rating === 0 || !ratingName.trim() || ratingLoading}
-                          className="btn-luxury-primary btn-luxury-lg w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full py-4 rounded-full bg-[#0E1116] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#0E1116] font-body font-medium text-base hover:bg-[#B8482C] dark:hover:bg-[#D4633F] hover:text-white dark:hover:text-white transition-all duration-300 shadow-premium disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {ratingLoading ? t('ratingForm.submitting') : t('ratingForm.submit')}
                         </button>
@@ -1161,20 +1161,20 @@ export default function RatingLeadForm() {
               className="relative"
             >
               <AnimatedBorder isDark={isDark}>
-                <div className="premium-card premium-card-gold p-6 md:p-8 lg:p-10">
+                <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#1B4D4A] dark:border-t-[#2D7A77] p-6 md:p-8 lg:p-10">
 
                   {/* Header */}
                   <div className="text-center mb-8">
                     <motion.div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/20 mb-4 dark:bg-[#3B82F6]/10 dark:border-[#3B82F6]/20"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#E6EFEE] border border-[#1B4D4A]/20 mb-4 dark:bg-[#1B4D4A]/15 dark:border-[#2D7A77]/30"
                       whileHover={{ rotate: -10, scale: 1.1 }}
                     >
-                      <Phone className="w-7 h-7 text-[#2563EB] dark:text-[#60A5FA]" />
+                      <Phone className="w-7 h-7 text-[#1B4D4A] dark:text-[#2D7A77]" />
                     </motion.div>
-                    <h3 className="text-card-title mb-2">
+                    <h3 className="font-display text-2xl md:text-3xl font-medium tracking-tight text-[#0E1116] dark:text-[#FAF7F2] mb-2">
                       {t('leadForm.heading')}
                     </h3>
-                    <p className="text-sm md:text-base text-[#475569] dark:text-[#94A3B8]">
+                    <p className="text-sm md:text-base text-[#4A4F57] dark:text-[#8B9099]">
                       {t('leadForm.subheading')}
                     </p>
                   </div>
@@ -1257,7 +1257,7 @@ export default function RatingLeadForm() {
                         <button
                           onClick={handleLeadSubmit}
                           disabled={!leadName.trim() || !leadPhone.trim() || leadLoading}
-                          className="btn-luxury-gold btn-luxury-lg w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full py-4 rounded-full bg-[#0E1116] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#0E1116] font-body font-medium text-base hover:bg-[#B8482C] dark:hover:bg-[#D4633F] hover:text-white dark:hover:text-white transition-all duration-300 shadow-premium disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {leadLoading ? t('leadForm.submitting') : t('leadForm.submit')}
                         </button>
@@ -1273,7 +1273,7 @@ export default function RatingLeadForm() {
       </div>
 
       {/* ── Section Divider ──────────────────────────────────────────── */}
-      <div className="section-luxury-divider" />
+      <div className="section-premium-divider" />
     </section>
   );
 }

@@ -158,14 +158,14 @@ function useAnimatedCounter(target: number, duration: number = 2000) {
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
-   Divider — simple border line (replaces gold gradient)
+   Divider — simple border line (premium hairline)
    ──────────────────────────────────────────────────────────────────────────── */
 
 function Divider({ vertical = false }: { vertical?: boolean }) {
   if (vertical) {
-    return <div className="hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-border" />;
+    return <div className="hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-[rgba(14,17,22,0.08)]" />;
   }
-  return <div className="h-px w-full bg-border" />;
+  return <div className="h-px w-full bg-[rgba(14,17,22,0.08)]" />;
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ function Divider({ vertical = false }: { vertical?: boolean }) {
 function HeadingAccent() {
   return (
     <motion.div
-      className="h-0.5 w-8 rounded-full mt-1.5 bg-primary"
+      className="h-0.5 w-8 rounded-full mt-1.5 bg-[#B8482C]"
       initial={{ width: 0, opacity: 0 }}
       whileInView={{ width: 32, opacity: 1 }}
       viewport={{ once: true }}
@@ -248,15 +248,15 @@ export default function SiteFooter() {
       className="relative bg-background pt-14 pb-24 md:pb-8 footer-sticky shrink-0"
       role="contentinfo"
     >
-      {/* ── Top border ────────────────────────────────────────────────────── */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      {/* ── Top border (premium hairline) ─────────────────────────────────── */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
 
       {/* ═══════════════════════════════════════════════════════════════════════
           TRUSTED BY PARTNERS ROW
           ═══════════════════════════════════════════════════════════════════════ */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
         <div className="text-center mb-5">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/60">
+          <span className="text-caption-premium text-muted-foreground/60">
             {t('footer.trustedBy') || 'Trusted Partner Insurers'}
           </span>
         </div>
@@ -269,7 +269,7 @@ export default function SiteFooter() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-20px' }}
-              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-muted-foreground/70 hover:text-primary transition-all duration-300 bg-muted/30 border border-border/50 hover:border-primary/20 hover:bg-primary/[0.04]"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-body font-medium text-muted-foreground/70 hover:text-primary transition-all duration-300 bg-muted/30 border border-[rgba(14,17,22,0.08)] hover:border-[#B8482C]/30 hover:bg-[#F4E5DD]/40"
             >
               {partner}
             </motion.div>
@@ -303,13 +303,13 @@ export default function SiteFooter() {
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20px' }}
                 ref={stat.animated ? stat.refProp : undefined}
-                className="rounded-2xl border border-border/60 bg-muted/20 p-3 sm:p-4 text-center transition-colors duration-300 hover:bg-primary/[0.04] hover:border-primary/20"
+                className="rounded-2xl border border-[rgba(14,17,22,0.08)] bg-muted/20 p-3 sm:p-4 text-center transition-colors duration-300 hover:bg-[#F4E5DD]/40 hover:border-[#B8482C]/30"
               >
-                <Icon className="w-4 h-4 text-primary/80 mx-auto mb-1.5" />
-                <div className="text-lg sm:text-xl font-bold text-primary tracking-tight">
+                <Icon className="w-4 h-4 text-[#B8482C] mx-auto mb-1.5" />
+                <div className="text-lg sm:text-xl font-display font-semibold text-primary tracking-tight tabular-nums">
                   {stat.value}
                 </div>
-                <div className="text-[10px] sm:text-xs text-muted-foreground/70 uppercase tracking-wider mt-0.5">
+                <div className="text-caption-premium text-muted-foreground/70 mt-0.5">
                   {t(stat.labelKey)}
                 </div>
               </motion.div>
@@ -340,20 +340,20 @@ export default function SiteFooter() {
             {/* Logo */}
             <Link
               href="/"
-              className="group flex items-center gap-2.5 mb-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-xl"
+              className="group flex items-center gap-2.5 mb-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded-xl"
               aria-label="Paliwal Secure AI – Home"
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/90 shadow-[0_0_0_1px_rgba(212,168,83,0.15),0_2px_8px_-2px_rgba(212,168,83,0.2)] transition-all duration-300 group-hover:shadow-[0_0_0_1px_rgba(212,168,83,0.3),0_4px_14px_-2px_rgba(212,168,83,0.25)] group-hover:scale-105">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/90 shadow-[0_0_0_1px_rgba(184,72,44,0.18),0_2px_8px_-2px_rgba(184,72,44,0.22)] transition-all duration-300 group-hover:shadow-[0_0_0_1px_rgba(184,72,44,0.32),0_4px_14px_-2px_rgba(184,72,44,0.28)] group-hover:scale-105">
                 <Shield className="h-5 w-5 text-primary-foreground" strokeWidth={2.2} />
               </div>
-              <span className="text-lg font-bold tracking-[-0.02em] text-foreground">Paliwal</span>
-              <span className="text-lg font-bold tracking-[-0.02em] text-primary">
+              <span className="text-lg font-display font-semibold tracking-[-0.02em] text-foreground">Paliwal</span>
+              <span className="text-lg font-display font-semibold tracking-[-0.02em] text-accent-gradient">
                 Secure AI
               </span>
             </Link>
 
             {/* Tagline */}
-            <p className="text-muted-foreground/80 text-sm leading-relaxed mb-5 max-w-[260px]">
+            <p className="text-muted-foreground/80 text-sm leading-relaxed mb-5 max-w-[260px] font-body">
               {t('footer.description')}
             </p>
 
@@ -373,7 +373,7 @@ export default function SiteFooter() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-xl border border-border/50 bg-muted/20 flex items-center justify-center text-muted-foreground/70 hover:text-primary hover:border-primary/30 hover:bg-primary/[0.06] transition-all duration-300"
+                    className="w-9 h-9 rounded-xl border border-[rgba(14,17,22,0.08)] bg-muted/20 flex items-center justify-center text-muted-foreground/70 hover:text-[#B8482C] hover:border-[#B8482C]/30 hover:bg-[#F4E5DD]/40 transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-4 h-4" />
@@ -387,19 +387,19 @@ export default function SiteFooter() {
               <li>
                 <a
                   href={PHONE_TEL}
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
+                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
                 >
-                  <Phone className="h-4 w-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
-                  <span>{PHONE}</span>
+                  <Phone className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
+                  <span className="link-underline-reveal">{PHONE}</span>
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
+                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
                 >
-                  <Mail className="h-4 w-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
-                  <span className="break-all text-overflow-safe">{EMAIL}</span>
+                  <Mail className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
+                  <span className="break-all text-overflow-safe link-underline-reveal">{EMAIL}</span>
                 </a>
               </li>
               <li>
@@ -407,10 +407,10 @@ export default function SiteFooter() {
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
+                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
                 >
-                  <Instagram className="h-4 w-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
-                  <span>@paliwalinsure</span>
+                  <Instagram className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
+                  <span className="link-underline-reveal">@paliwalinsure</span>
                 </a>
               </li>
             </ul>
@@ -418,10 +418,10 @@ export default function SiteFooter() {
             {/* WhatsApp CTA */}
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <Button
-                className="rounded-xl text-sm font-semibold shadow-[0_0_0_1px_rgba(212,168,83,0.15),0_2px_8px_-2px_rgba(212,168,83,0.2)] hover:shadow-[0_0_0_1px_rgba(212,168,83,0.25),0_4px_16px_-2px_rgba(212,168,83,0.3)] transition-all duration-300 hover:-translate-y-[1px] active:translate-y-0 h-11 px-5 bg-primary text-primary-foreground hover:bg-primary/90"
+                className="rounded-xl text-sm font-body font-semibold shadow-[0_0_0_1px_rgba(184,72,44,0.18),0_2px_8px_-2px_rgba(184,72,44,0.22)] hover:shadow-[0_0_0_1px_rgba(184,72,44,0.28),0_4px_16px_-2px_rgba(184,72,44,0.30)] transition-all duration-300 hover:-translate-y-[1px] active:translate-y-0 h-11 px-5 bg-primary text-primary-foreground hover:bg-[#B8482C]"
                 size="sm"
               >
-                <MessageCircle className="w-4 h-4 mr-2 text-[#22C55E]" />
+                <MessageCircle className="w-4 h-4 mr-2 text-[#25D366]" />
                 {t('footer.whatsapp')}
               </Button>
             </a>
@@ -430,8 +430,8 @@ export default function SiteFooter() {
           {/* ─── Column 2: Quick Links ─────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
             <Divider vertical />
-            <h3 className="text-foreground text-[13px] font-semibold uppercase tracking-[0.08em] mb-1 flex items-center gap-2">
-              <BarChart3 className="w-4 h-4 text-primary/70" />
+            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-[#B8482C]" />
               {t('footer.quickLinks')}
             </h3>
             <HeadingAccent />
@@ -440,11 +440,10 @@ export default function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded text-overflow-safe block min-h-[28px] flex items-center"
+                    className="group text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe block min-h-[28px] flex items-center"
                   >
-                    <span className="relative inline-block">
+                    <span className="link-underline-reveal">
                       {t(link.labelKey)}
-                      <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-[1px] bg-primary/60 transition-all duration-300" />
                     </span>
                   </Link>
                 </li>
@@ -455,8 +454,8 @@ export default function SiteFooter() {
           {/* ─── Column 3: Products ─────────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
             <Divider vertical />
-            <h3 className="text-foreground text-[13px] font-semibold uppercase tracking-[0.08em] mb-1 flex items-center gap-2">
-              <Shield className="w-4 h-4 text-primary/70" />
+            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+              <Shield className="w-4 h-4 text-[#B8482C]" />
               {t('footer.products')}
             </h3>
             <HeadingAccent />
@@ -467,12 +466,11 @@ export default function SiteFooter() {
                   <li key={product.href}>
                     <Link
                       href={product.href}
-                      className="group flex items-center gap-2 text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded text-overflow-safe min-h-[28px]"
+                      className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px]"
                     >
-                      <ProductIcon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-primary transition-colors shrink-0" />
-                      <span className="relative inline-block">
+                      <ProductIcon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors shrink-0" />
+                      <span className="link-underline-reveal">
                         {t(product.labelKey)}
-                        <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-[1px] bg-primary/60 transition-all duration-300" />
                       </span>
                     </Link>
                   </li>
@@ -484,14 +482,14 @@ export default function SiteFooter() {
           {/* ─── Column 4: Compliance ──────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
             <Divider vertical />
-            <h3 className="text-foreground text-[13px] font-semibold uppercase tracking-[0.08em] mb-1 flex items-center gap-2">
-              <Lock className="w-4 h-4 text-primary/70" />
+            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+              <Lock className="w-4 h-4 text-[#B8482C]" />
               {t('footer.compliance')}
             </h3>
             <HeadingAccent />
 
             {/* IRDAI Disclaimer */}
-            <p className="text-xs text-muted-foreground/60 leading-relaxed mt-3 mb-4 break-words">
+            <p className="text-xs font-body text-muted-foreground/60 leading-relaxed mt-3 mb-4 break-words">
               {IRDAI_MANDATORY_DISCLAIMER}
             </p>
 
@@ -504,22 +502,20 @@ export default function SiteFooter() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-1.5 text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 min-h-[28px]"
+                      className="group flex items-center gap-1.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 min-h-[28px]"
                     >
-                      <span className="relative inline-block">
+                      <span className="link-underline-reveal">
                         {t(link.labelKey)}
-                        <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-[1px] bg-primary/60 transition-all duration-300" />
                       </span>
-                      <ExternalLink className="w-3 h-3 shrink-0 text-muted-foreground/50 group-hover:text-primary" />
+                      <ExternalLink className="w-3 h-3 shrink-0 text-muted-foreground/50 group-hover:text-[#B8482C]" />
                     </a>
                   ) : (
                     <Link
                       href={link.href}
-                      className="group text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded text-overflow-safe min-h-[28px] block"
+                      className="group text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px] block"
                     >
-                      <span className="relative inline-block">
+                      <span className="link-underline-reveal">
                         {t(link.labelKey)}
-                        <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-[1px] bg-primary/60 transition-all duration-300" />
                       </span>
                     </Link>
                   )}
@@ -528,11 +524,11 @@ export default function SiteFooter() {
             </ul>
 
             {/* IRDAI Certification Badge */}
-            <div className="mt-5 pt-4 border-t border-border/50">
-              <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-primary/[0.04] border border-primary/10">
-                <Shield className="w-5 h-5 text-primary/80" />
+            <div className="mt-5 pt-4 border-t border-[rgba(14,17,22,0.08)]">
+              <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#F4E5DD]/40 border border-[#B8482C]/15">
+                <Shield className="w-5 h-5 text-[#B8482C]" />
                 <div>
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-wider block leading-tight">
+                  <span className="text-caption-premium text-primary block leading-tight">
                     {t('footer.irdaiCertified')}
                   </span>
                   <span className="text-[10px] text-muted-foreground/60 font-mono">
@@ -543,8 +539,8 @@ export default function SiteFooter() {
             </div>
 
             {/* IRDAI Helpline */}
-            <div className="mt-3 p-3 rounded-xl bg-muted/20 border border-border/50">
-              <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
+            <div className="mt-3 p-3 rounded-xl bg-muted/20 border border-[rgba(14,17,22,0.08)]">
+              <p className="text-[11px] font-body text-muted-foreground/60 leading-relaxed">
                 {t('footer.ombudsman')}
               </p>
             </div>
@@ -552,12 +548,12 @@ export default function SiteFooter() {
 
           {/* ─── Column 5: Newsletter ──────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
-            <h3 className="text-foreground text-[13px] font-semibold uppercase tracking-[0.08em] mb-1 flex items-center gap-2">
-              <Mail className="w-4 h-4 text-primary/70" />
+            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+              <Mail className="w-4 h-4 text-[#B8482C]" />
               {t('footer.newsletter')}
             </h3>
             <HeadingAccent />
-            <p className="text-xs text-muted-foreground/60 leading-relaxed mt-3 mb-4 max-w-[220px]">
+            <p className="text-xs font-body text-muted-foreground/60 leading-relaxed mt-3 mb-4 max-w-[220px]">
               {t('footer.newsletterDesc')}
             </p>
 
@@ -568,11 +564,11 @@ export default function SiteFooter() {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full h-11 pl-4 pr-12 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/40 outline-none transition-all duration-300 bg-muted/20 border border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+                className="w-full h-11 pl-4 pr-12 rounded-xl text-sm font-body text-foreground placeholder:text-muted-foreground/40 outline-none transition-all duration-300 bg-muted/20 border border-[rgba(14,17,22,0.08)] focus:border-[#B8482C]/50 focus:ring-2 focus:ring-[#B8482C]/20"
                 aria-label="Email for newsletter"
               />
               <button
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 bg-primary/90 text-primary-foreground shadow-[0_0_0_1px_rgba(212,168,83,0.15),0_2px_6px_-2px_rgba(212,168,83,0.2)]"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 bg-primary/90 text-primary-foreground shadow-[0_0_0_1px_rgba(184,72,44,0.18),0_2px_6px_-2px_rgba(184,72,44,0.22)] hover:bg-[#B8482C]"
                 aria-label="Subscribe to newsletter"
                 type="button"
               >
@@ -593,12 +589,11 @@ export default function SiteFooter() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm text-muted-foreground/70 hover:text-primary transition-colors duration-200 min-h-[28px]"
+                    className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 min-h-[28px]"
                   >
-                    <Icon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-primary transition-colors shrink-0" />
-                    <span className="relative inline-block">
+                    <Icon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors shrink-0" />
+                    <span className="link-underline-reveal">
                       {t(link.labelKey)}
-                      <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-[1px] bg-primary/60 transition-all duration-300" />
                     </span>
                   </Link>
                 );
@@ -611,34 +606,34 @@ export default function SiteFooter() {
       {/* ═══════════════════════════════════════════════════════════════════════
           BOTTOM BAR
           ═══════════════════════════════════════════════════════════════════════ */}
-      <div className="relative border-t border-border/40 bg-muted/10">
+      <div className="relative border-t border-[rgba(14,17,22,0.08)] bg-muted/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Left: IRDAI Badge + Copyright */}
             <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
               {/* IRDAI Compliance Badge */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/[0.04] border border-primary/10">
-                <Shield className="w-3.5 h-3.5 text-primary/70" />
-                <span className="text-[10px] font-semibold text-primary/80 tracking-wide">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#F4E5DD]/40 border border-[#B8482C]/15">
+                <Shield className="w-3.5 h-3.5 text-[#B8482C]" />
+                <span className="text-caption-premium text-[#B8482C]">
                   IRDAI POSP {POSP_CODE}
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground/50">
+              <p className="text-xs font-body text-muted-foreground/50">
                 &copy; {currentYear} Paliwal Secure. {t('footer.allRightsReserved')} | {t('footer.pospCode')}: {POSP_CODE}
               </p>
             </div>
 
             {/* IRDAI Disclaimer — Desktop */}
-            <p className="text-[11px] text-muted-foreground/40 text-center hidden lg:block max-w-xl break-words">
+            <p className="text-[11px] font-body text-muted-foreground/40 text-center hidden lg:block max-w-xl break-words">
               {IRDAI_MANDATORY_DISCLAIMER}
             </p>
 
             {/* Legal Compliance — Grievance Officer */}
-            <p className="text-[10px] text-muted-foreground/50 text-center w-full">
+            <p className="text-[10px] font-body text-muted-foreground/50 text-center w-full">
               {t('footer.grievanceOfficer')}:{' '}
               <a
                 href="mailto:himanshupaliwalpbp@gmail.com"
-                className="hover:text-primary transition-colors duration-200"
+                className="link-underline-reveal hover:text-primary transition-colors duration-200"
               >
                 himanshupaliwalpbp@gmail.com
               </a>
@@ -662,7 +657,7 @@ export default function SiteFooter() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/social flex items-center justify-center w-8 h-8 rounded-full text-muted-foreground/50 hover:text-primary transition-all duration-300"
+                    className="group/social flex items-center justify-center w-8 h-8 rounded-full text-muted-foreground/50 hover:text-[#B8482C] transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-3.5 h-3.5" />
@@ -671,24 +666,24 @@ export default function SiteFooter() {
               })}
 
               {/* Separator */}
-              <div className="h-4 w-px bg-border/40 hidden sm:block" />
+              <div className="h-4 w-px bg-[rgba(14,17,22,0.08)] hidden sm:block" />
 
               {/* Phone */}
               <a
                 href={PHONE_TEL}
-                className="flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-primary transition-colors duration-200"
+                className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-primary transition-colors duration-200"
               >
                 <Phone className="h-3.5 w-3.5" />
-                <span>{PHONE}</span>
+                <span className="link-underline-reveal">{PHONE}</span>
               </a>
 
               {/* Email */}
               <a
                 href={`mailto:${EMAIL}`}
-                className="flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-primary transition-colors duration-200"
+                className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-primary transition-colors duration-200"
               >
                 <Mail className="h-3.5 w-3.5" />
-                <span>{t('footer.link.email')}</span>
+                <span className="link-underline-reveal">{t('footer.link.email')}</span>
               </a>
 
               {/* Instagram */}
@@ -696,10 +691,10 @@ export default function SiteFooter() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-primary transition-colors duration-200"
+                className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-primary transition-colors duration-200"
               >
                 <Instagram className="h-3.5 w-3.5" />
-                <span>{t('footer.link.instagram')}</span>
+                <span className="link-underline-reveal">{t('footer.link.instagram')}</span>
               </a>
 
               {/* WhatsApp */}
@@ -707,16 +702,16 @@ export default function SiteFooter() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-[#22C55E] transition-colors duration-200"
+                className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-[#25D366] transition-colors duration-200"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
-                <span>{t('footer.whatsapp')}</span>
+                <span className="link-underline-reveal">{t('footer.whatsapp')}</span>
               </a>
 
               {/* Admin */}
               <Link
                 href="/admin/login"
-                className="text-xs text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors duration-200"
+                className="text-xs font-body text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors duration-200"
               >
                 {t('footer.admin')}
               </Link>
@@ -736,7 +731,7 @@ export default function SiteFooter() {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full flex items-center justify-center shadow-[0_0_0_1px_rgba(212,168,83,0.15),0_4px_16px_-2px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-110 hover:shadow-[0_0_0_1px_rgba(212,168,83,0.25),0_6px_24px_-2px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 bg-primary/90 text-primary-foreground backdrop-blur-sm"
+            className="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full flex items-center justify-center shadow-[0_0_0_1px_rgba(184,72,44,0.18),0_4px_16px_-2px_rgba(0,0,0,0.3)] transition-all duration-200 hover:scale-110 hover:bg-[#B8482C] hover:shadow-[0_0_0_1px_rgba(184,72,44,0.30),0_6px_24px_-2px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/50 bg-primary/90 text-primary-foreground backdrop-blur-sm"
             aria-label="Back to top"
           >
             <ArrowUp className="w-4 h-4" />

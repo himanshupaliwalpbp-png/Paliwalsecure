@@ -246,9 +246,9 @@ const DEFAULT_DEALS: Record<string, AffiliateDeal> = {
     link: "https://bit.ly/4kM9GtV",
     buttonText: "Grab Puma Deal →",
     commission: "You earn upto 10% profit on friends' orders",
-    borderColor: "border-l-blue-600",
-    bgColor: "bg-blue-50 dark:bg-blue-950/20",
-    btnBg: "bg-black hover:bg-gray-800",
+    borderColor: "border-l-[#B8482C]",
+    bgColor: "bg-[#F4E5DD] dark:bg-[#3A1E14]/30",
+    btnBg: "bg-[#0E1116] hover:bg-[#B8482C]",
   },
   flipkart: {
     title: "💻 Flipkart – Canon Printer, Laptops, Tablets",
@@ -257,9 +257,9 @@ const DEFAULT_DEALS: Record<string, AffiliateDeal> = {
     link: "https://bit.ly/4kTbOj6",
     buttonText: "🖥️ Deal Dekho →",
     commission: "You earn commission on every purchase",
-    borderColor: "border-l-yellow-500",
-    bgColor: "bg-yellow-50 dark:bg-yellow-950/20",
-    btnBg: "bg-blue-600 hover:bg-blue-700",
+    borderColor: "border-l-[#1B4D4A]",
+    bgColor: "bg-[#E6EFEE] dark:bg-[#0E2A29]/30",
+    btnBg: "bg-[#1B4D4A] hover:bg-[#2D7A77]",
   },
   myntra: {
     title: "👗 Myntra – Top Brands Exclusive Deals",
@@ -268,9 +268,9 @@ const DEFAULT_DEALS: Record<string, AffiliateDeal> = {
     link: "https://bit.ly/4mWPJaN",
     buttonText: "🛍️ Fashion Dekho →",
     commission: "You earn upto 12% profit on friends' orders",
-    borderColor: "border-l-pink-500",
-    bgColor: "bg-pink-50 dark:bg-pink-950/20",
-    btnBg: "bg-pink-600 hover:bg-pink-700",
+    borderColor: "border-l-[#B8482C]",
+    bgColor: "bg-[#F4E5DD] dark:bg-[#3A1E14]/30",
+    btnBg: "bg-[#B8482C] hover:bg-[#8B3520]",
   },
   gonoise: {
     title: "🎧 GoNoise – Smartwatches & Earbuds",
@@ -279,9 +279,9 @@ const DEFAULT_DEALS: Record<string, AffiliateDeal> = {
     link: "https://bit.ly/3FfKB7h",
     buttonText: "🎧 SHOP NOW →",
     commission: "You earn commission on every purchase",
-    borderColor: "border-l-green-500",
-    bgColor: "bg-green-50 dark:bg-green-950/20",
-    btnBg: "bg-green-600 hover:bg-green-700",
+    borderColor: "border-l-[#1B4D4A]",
+    bgColor: "bg-[#E6EFEE] dark:bg-[#0E2A29]/30",
+    btnBg: "bg-[#1B4D4A] hover:bg-[#2D7A77]",
   },
 };
 
@@ -380,7 +380,7 @@ function CircularTimer({ timeLeft, maxTime }: { timeLeft: number; maxTime: numbe
           cy={radius}
         />
         <circle
-          stroke={isLow ? '#ef4444' : '#14b8a6'}
+          stroke={isLow ? '#9B2C2C' : '#B8482C'}
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={`${circumference} ${circumference}`}
@@ -392,10 +392,10 @@ function CircularTimer({ timeLeft, maxTime }: { timeLeft: number; maxTime: numbe
         />
       </svg>
       <div className="absolute flex flex-col items-center justify-center">
-        <span className={`text-lg font-bold ${isLow ? 'text-red-400' : 'text-primary'}`}>
+        <span className={`text-lg font-display font-medium tabular-nums ${isLow ? 'text-[#9B2C2C]' : 'text-[#0E1116]'}`}>
           {timeLeft}
         </span>
-        <span className="text-[8px] text-muted-foreground uppercase tracking-wider">sec</span>
+        <span className="text-[8px] text-[#8B9099] uppercase tracking-wider">sec</span>
       </div>
     </div>
   );
@@ -709,10 +709,10 @@ export default function InsuranceBeastQuiz() {
 
   // ── Score Badge ──
   const getScoreBadge = () => {
-    if (percentScore < 40) return { icon: 'beginner', title: isHindi ? 'इंश्योरेंस बिगिनर' : isEnglish ? 'Insurance Beginner' : 'Insurance Beginner', color: 'bg-yellow-500' };
-    if (percentScore < 61) return { icon: 'aware', title: isHindi ? 'इंश्योरेंस अवेयर' : isEnglish ? 'Insurance Aware' : 'Insurance Aware', color: 'bg-orange-500' };
-    if (percentScore < 81) return { icon: 'smart', title: isHindi ? 'इंश्योरेंस स्मार्ट' : isEnglish ? 'Insurance Smart' : 'Insurance Smart', color: 'bg-primary' };
-    return { icon: 'pro', title: isHindi ? 'इंश्योरेंस प्रो' : isEnglish ? 'Insurance Pro' : 'Insurance Pro', color: 'bg-primary' };
+    if (percentScore < 40) return { icon: 'beginner', title: isHindi ? 'इंश्योरेंस बिगिनर' : isEnglish ? 'Insurance Beginner' : 'Insurance Beginner', color: 'bg-[#B8482C]' };
+    if (percentScore < 61) return { icon: 'aware', title: isHindi ? 'इंश्योरेंस अवेयर' : isEnglish ? 'Insurance Aware' : 'Insurance Aware', color: 'bg-[#8B3520]' };
+    if (percentScore < 81) return { icon: 'smart', title: isHindi ? 'इंश्योरेंस स्मार्ट' : isEnglish ? 'Insurance Smart' : 'Insurance Smart', color: 'bg-[#1B4D4A]' };
+    return { icon: 'pro', title: isHindi ? 'इंश्योरेंस प्रो' : isEnglish ? 'Insurance Pro' : 'Insurance Pro', color: 'bg-[#0E1116]' };
   };
 
   const scoreBadge = getScoreBadge();
@@ -729,12 +729,12 @@ export default function InsuranceBeastQuiz() {
     <section
       id="insurance-beast-quiz"
       dir="ltr"
-      className="relative py-24 overflow-hidden scroll-mt-16 bg-background"
+      className="relative py-24 overflow-hidden scroll-mt-16 bg-[#FAF7F2]"
     >
       {/* Background */}
       <div className="absolute inset-0" />
-      <div className="absolute top-1/4 left-[10%] w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-[10%] w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 left-[10%] w-64 h-64 bg-[#F4E5DD]/40 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-[10%] w-80 h-80 bg-[#E6EFEE]/40 rounded-full blur-3xl" />
 
       <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatePresence mode="wait">
@@ -760,25 +760,25 @@ export default function InsuranceBeastQuiz() {
                 }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/30 mx-auto">
-                  <Shield className="w-14 h-14 sm:w-18 sm:h-18 text-primary-foreground" />
+                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-[#0E1116] flex items-center justify-center shadow-2xl shadow-[#0E1116]/30 mx-auto">
+                  <Shield className="w-14 h-14 sm:w-18 sm:h-18 text-[#FAF7F2]" />
                 </div>
               </motion.div>
 
-              <Badge className="mb-4 bg-primary/20 text-primary border-primary/30 rounded-full px-4 py-1 text-sm">
+              <Badge className="mb-4 bg-[#F4E5DD] text-[#8B3520] border border-[#B8482C]/30 rounded-full px-4 py-1 text-sm text-caption-premium">
                 <Zap className="w-3.5 h-3.5 mr-1" />
                 {isHindi ? 'बीमा बीस्ट – इंश्योरेंस IQ टेस्ट' : isEnglish ? 'Bima Beast – Insurance IQ Test' : 'Bima Beast – Insurance IQ Test'}
               </Badge>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight mt-2" style={{ fontFamily: 'Fraunces, serif' }}>
+              <h2 className="text-display-h1 text-[#0E1116] mt-2">
                 {isHindi ? 'इंश्योरेंस' : 'Insurance'}{' '}
-                <span className="text-primary">
+                <span className="text-accent-gradient">
                   Beast
                 </span>{' '}
                 {isHindi ? 'क्विज़' : 'Quiz'}
               </h2>
 
-              <p className="mt-4 text-lg sm:text-xl text-muted-foreground font-medium">
+              <p className="mt-4 text-lead-premium text-[#4A4F57]">
                 {isHindi ? 'अपना इंश्योरेंस IQ टेस्ट करो' : isEnglish ? 'Test Your Insurance IQ' : 'Apna Insurance IQ Test Karo'}
               </p>
 
@@ -792,7 +792,7 @@ export default function InsuranceBeastQuiz() {
                   <Button
                     onClick={() => startQuiz('singleMix')}
                     size="lg"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full gap-2 h-12 px-8 text-base font-semibold shadow-lg"
+                    className="btn-stripe w-full justify-center h-12 px-8 text-base shadow-lg hover:bg-[#B8482C]"
                   >
                     <Zap className="w-4 h-4" /> {isHindi ? 'सिंगल मिक्स (5 सवाल – तेज़)' : isEnglish ? 'Single Mix (5 Questions – Quick)' : 'Single Mix (5 Sawaal – Quick)'}
                   </Button>
@@ -802,7 +802,7 @@ export default function InsuranceBeastQuiz() {
                   <Button
                     onClick={() => startQuiz('fullMix')}
                     size="lg"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full gap-2 h-12 px-8 text-base font-semibold shadow-lg"
+                    className="btn-stripe w-full justify-center h-12 px-8 text-base shadow-lg hover:bg-[#B8482C]"
                   >
                     <RotateCcw className="w-4 h-4" /> {isHindi ? 'फुल मिक्स (10 सवाल)' : isEnglish ? 'Full Mix (10 Questions)' : 'Full Mix (10 Sawaal)'}
                   </Button>
@@ -823,7 +823,7 @@ export default function InsuranceBeastQuiz() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => startQuiz(cat.mode)}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-card text-foreground text-sm font-medium hover:bg-primary/5 hover:border-primary transition-all duration-200"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[rgba(14,17,22,0.08)] bg-white text-[#0E1116] text-sm font-medium hover:bg-[#F4E5DD] hover:border-[#B8482C] transition-all duration-200"
                     >
                       <CatIcon className="w-4 h-4" />
                       {cat.label}
@@ -836,9 +836,9 @@ export default function InsuranceBeastQuiz() {
               {/* Badges display */}
               {earnedBadges.length > 0 && (
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-                  <span className="text-xs text-muted-foreground font-medium flex items-center gap-1"><Trophy className="w-3 h-3" /> {isHindi ? 'आपके बैज:' : isEnglish ? 'Your Badges:' : 'Aapke Badges:'}</span>
+                  <span className="text-xs text-[#8B9099] font-medium flex items-center gap-1"><Trophy className="w-3 h-3" /> {isHindi ? 'आपके बैज:' : isEnglish ? 'Your Badges:' : 'Aapke Badges:'}</span>
                   {earnedBadges.map((badge, i) => (
-                    <Badge key={i} className="bg-primary/20 text-primary border-primary/30 rounded-full px-2.5 py-0.5 text-xs">
+                    <Badge key={i} className="bg-[#F4E5DD] text-[#8B3520] border border-[#B8482C]/30 rounded-full px-2.5 py-0.5 text-xs">
                       {badge}
                     </Badge>
                   ))}
@@ -859,13 +859,13 @@ export default function InsuranceBeastQuiz() {
             >
               {/* Progress Bar */}
               <div className="mb-6">
-                <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                <div className="flex items-center justify-between text-xs text-[#8B9099] mb-2">
                   <span>{isHindi ? `सवाल ${currentIndex + 1} / ${currentQuestions.length}` : isEnglish ? `Question ${currentIndex + 1} / ${currentQuestions.length}` : `Sawaal ${currentIndex + 1} / ${currentQuestions.length}`}</span>
                   <span>{Math.round(progress)}% {isHindi ? 'पूरा' : isEnglish ? 'complete' : 'poora'}</span>
                 </div>
                 <div className="h-2 bg-border rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-primary rounded-full"
+                    className="h-full bg-[#B8482C] rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.5 }}
@@ -882,20 +882,20 @@ export default function InsuranceBeastQuiz() {
                   exit={{ opacity: 0, x: -60 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="bg-card border border-border rounded-2xl shadow-2xl">
+                  <Card className="bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl shadow-premium">
                     <CardContent className="pt-6 space-y-4">
                       {/* Question Header with Timer */}
                       <div className="flex items-start gap-3 sm:gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold shrink-0">
+                            <span className="w-8 h-8 rounded-full bg-[#F4E5DD] text-[#8B3520] flex items-center justify-center text-sm font-display font-medium shrink-0">
                               {currentIndex + 1}
                             </span>
-                            <p className="text-foreground text-lg sm:text-xl font-semibold leading-snug">
+                            <p className="text-[#0E1116] text-lg sm:text-xl font-display font-medium leading-snug">
                               {currentQ.text}
                             </p>
                           </div>
-                          <Badge className="mt-1 bg-card text-muted-foreground border-border rounded-full text-[10px]">
+                          <Badge className="mt-1 bg-white text-[#8B9099] border border-[rgba(14,17,22,0.08)] rounded-full text-[10px]">
                             {currentQ.category === 'health' ? <Heart className="w-3 h-3 mr-1" /> :
                              currentQ.category === 'motor' ? <Car className="w-3 h-3 mr-1" /> :
                              currentQ.category === 'life' ? <ShieldCheck className="w-3 h-3 mr-1" /> :
@@ -929,19 +929,19 @@ export default function InsuranceBeastQuiz() {
                               disabled={selectedOption !== null}
                               className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-200 min-h-[48px] ${
                                 showCorrect
-                                  ? 'border-emerald-400 bg-emerald-500/20 text-foreground'
+                                  ? 'border-[#1B4D4A] bg-[#E6EFEE] text-[#0E1116]'
                                   : showWrong
-                                  ? 'border-red-400 bg-red-500/20 text-foreground'
+                                  ? 'border-[#9B2C2C] bg-[#9B2C2C]/10 text-[#0E1116]'
                                   : isSelected
-                                  ? 'bg-primary/10 border-primary text-primary'
-                                  : 'border-border bg-card text-foreground hover:border-primary hover:bg-primary/5'
+                                  ? 'bg-[#F4E5DD] border-[#B8482C] text-[#8B3520]'
+                                  : 'border-[rgba(14,17,22,0.08)] bg-white text-[#0E1116] hover:border-[#0E1116]'
                               } ${selectedOption !== null && !isSelected && !showCorrect ? 'opacity-50' : ''}`}
                             >
                               <div className="flex items-center gap-3">
-                                <span className={`w-7 h-7 rounded-full border flex items-center justify-center text-xs font-bold shrink-0 ${
-                                  showCorrect ? 'border-emerald-400 text-emerald-400' :
-                                  showWrong ? 'border-red-400 text-red-400' :
-                                  'border-border'
+                                <span className={`w-7 h-7 rounded-full border flex items-center justify-center text-xs font-display font-medium shrink-0 ${
+                                  showCorrect ? 'border-[#1B4D4A] text-[#1B4D4A]' :
+                                  showWrong ? 'border-[#9B2C2C] text-[#9B2C2C]' :
+                                  'border-[rgba(14,17,22,0.08)]'
                                 }`}>
                                   {showCorrect ? <CheckCircle2 className="w-4 h-4" /> :
                                    showWrong ? <XCircle className="w-4 h-4" /> :
@@ -961,8 +961,8 @@ export default function InsuranceBeastQuiz() {
                           animate={{ opacity: 1, y: 0 }}
                           className={`text-center text-sm font-medium py-2 px-4 rounded-xl ${
                             selectedOption !== null && currentQ && selectedOption === currentQ.correct
-                              ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-300'
-                              : 'bg-red-500/20 text-red-600 dark:text-red-300'
+                              ? 'bg-[#E6EFEE] text-[#1B4D4A]'
+                              : 'bg-[#9B2C2C]/10 text-[#9B2C2C]'
                           }`}
                         >
                           {selectedOption !== null && currentQ && selectedOption === currentQ.correct
@@ -982,10 +982,10 @@ export default function InsuranceBeastQuiz() {
                     key={i}
                     className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                       i < currentIndex
-                        ? userAnswers[i]?.isCorrect ? 'bg-emerald-400' : 'bg-red-400'
+                        ? userAnswers[i]?.isCorrect ? 'bg-[#1B4D4A]' : 'bg-[#9B2C2C]'
                         : i === currentIndex
-                        ? 'bg-primary/60 scale-125'
-                        : 'bg-border'
+                        ? 'bg-[#B8482C]/60 scale-125'
+                        : 'bg-[rgba(14,17,22,0.08)]'
                     }`}
                   />
                 ))}
@@ -1005,7 +1005,7 @@ export default function InsuranceBeastQuiz() {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <Card className="bg-card border border-border rounded-2xl shadow-2xl">
+              <Card className="bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl shadow-premium">
                 <CardContent className="pt-8 pb-8 space-y-6">
                   {/* Icon */}
                   <motion.div
@@ -1013,8 +1013,8 @@ export default function InsuranceBeastQuiz() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
                   >
-                    <div className="w-20 h-20 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto">
-                      <Trophy className="w-10 h-10 text-primary" />
+                    <div className="w-20 h-20 rounded-full bg-[#F4E5DD] border border-[#B8482C]/30 flex items-center justify-center mx-auto">
+                      <Trophy className="w-10 h-10 text-[#B8482C]" />
                     </div>
                   </motion.div>
 
@@ -1023,10 +1023,10 @@ export default function InsuranceBeastQuiz() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+                    <h3 className="text-2xl sm:text-3xl font-display font-medium text-[#0E1116]">
                       {isHindi ? 'क्विज़ पूरा!' : isEnglish ? 'Quiz Complete!' : 'Quiz Complete!'}
                     </h3>
-                    <p className="mt-2 text-muted-foreground">
+                    <p className="mt-2 text-[#8B9099]">
                       {isHindi ? 'स्कोर देखने के लिए जानकारी भरें' : isEnglish ? 'Fill in your info to see your score' : 'Score dekhne ke liye info bharein'}
                     </p>
                   </motion.div>
@@ -1039,7 +1039,7 @@ export default function InsuranceBeastQuiz() {
                     className="space-y-4 max-w-sm mx-auto"
                   >
                     <div className="space-y-2 text-left">
-                      <label className="text-sm text-muted-foreground font-medium flex items-center gap-1.5">
+                      <label className="text-sm text-[#8B9099] font-medium flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5" />
                         {isHindi ? 'पूरा नाम *' : isEnglish ? 'Full Name *' : 'Poora Naam *'}
                       </label>
@@ -1047,12 +1047,12 @@ export default function InsuranceBeastQuiz() {
                         value={leadName}
                         onChange={(e) => setLeadName(e.target.value)}
                         placeholder={isHindi ? 'अपना नाम डालो' : isEnglish ? 'Enter your name' : 'Apna naam daalo'}
-                        className="bg-card border-border text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary/30 h-11"
+                        className="bg-white border-[rgba(14,17,22,0.08)] text-[#0E1116] placeholder:text-[#8B9099] focus-visible:border-[#B8482C] focus-visible:ring-[#B8482C]/30 h-11"
                       />
                     </div>
 
                     <div className="space-y-2 text-left">
-                      <label className="text-sm text-muted-foreground font-medium flex items-center gap-1.5">
+                      <label className="text-sm text-[#8B9099] font-medium flex items-center gap-1.5">
                         <MapPin className="w-3.5 h-3.5" />
                         {isHindi ? 'शहर *' : isEnglish ? 'City *' : 'Sheher *'}
                       </label>
@@ -1060,19 +1060,19 @@ export default function InsuranceBeastQuiz() {
                         value={leadCity}
                         onChange={(e) => setLeadCity(e.target.value)}
                         placeholder={isHindi ? 'अपना शहर डालो' : isEnglish ? 'Enter your city' : 'Apna sheher daalo'}
-                        className="bg-card border-border text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary/30 h-11"
+                        className="bg-white border-[rgba(14,17,22,0.08)] text-[#0E1116] placeholder:text-[#8B9099] focus-visible:border-[#B8482C] focus-visible:ring-[#B8482C]/30 h-11"
                       />
                     </div>
 
                     <div className="space-y-2 text-left">
-                      <label className="text-sm text-muted-foreground font-medium flex items-center gap-1.5">
+                      <label className="text-sm text-[#8B9099] font-medium flex items-center gap-1.5">
                         <Shield className="w-3.5 h-3.5" />
                         {isHindi ? 'इंश्योरेंस में दिलचस्पी' : isEnglish ? 'Insurance Interest' : 'Insurance Interest'}
                       </label>
                       <select
                         value={leadInterest}
                         onChange={(e) => setLeadInterest(e.target.value)}
-                        className="w-full h-11 rounded-xl bg-card border border-border text-foreground px-3 text-sm focus:outline-none focus:border-primary"
+                        className="w-full h-11 rounded-xl bg-white border border-[rgba(14,17,22,0.08)] text-[#0E1116] px-3 text-sm focus:outline-none focus:border-[#B8482C]"
                       >
                         <option value="Health">{isHindi ? 'हेल्थ इंश्योरेंस' : 'Health Insurance'}</option>
                         <option value="Motor">{isHindi ? 'मोटर इंश्योरेंस' : 'Motor Insurance'}</option>
@@ -1085,14 +1085,14 @@ export default function InsuranceBeastQuiz() {
                     <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                       <Button
                         onClick={handleLeadSubmit}
-                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-11 text-base font-semibold shadow-lg gap-2"
+                        className="btn-stripe w-full justify-center h-11 text-base shadow-lg hover:bg-[#B8482C]"
                       >
                         {isHindi ? 'स्कोर देखो' : isEnglish ? 'See Score' : 'Score Dekho'} <ChevronRight className="w-4 h-4" />
                       </Button>
                     </motion.div>
                   </motion.div>
 
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-[#8B9099]">
                     <Shield className="w-3 h-3 inline mr-1" /> {isHindi ? 'आपका डेटा सुरक्षित है। कोई स्पैम नहीं।' : isEnglish ? 'Your data is safe. No spam.' : 'Aapka data safe hai. Koi spam nahi.'}
                   </p>
                 </CardContent>
@@ -1113,7 +1113,7 @@ export default function InsuranceBeastQuiz() {
               className="space-y-6"
             >
               {/* Score Card */}
-              <Card className="bg-card border border-border rounded-2xl shadow-2xl">
+              <Card className="bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl shadow-premium">
                 <CardContent className="pt-8 pb-8 space-y-6 text-center">
                   {/* Score Display */}
                   <motion.div
@@ -1121,16 +1121,16 @@ export default function InsuranceBeastQuiz() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
                   >
-                    <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-primary/30 flex items-center justify-center relative overflow-hidden mx-auto">
+                    <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-[#B8482C]/30 flex items-center justify-center relative overflow-hidden mx-auto">
                       <motion.div
                         initial={{ height: 0 }}
                         animate={{ height: `${percentScore}%` }}
                         transition={{ delay: 0.5, duration: 1 }}
-                        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/20 to-transparent"
+                        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#B8482C]/20 to-transparent"
                       />
                       <div className="relative z-10">
-                        <p className="text-4xl sm:text-5xl font-extrabold text-foreground">{percentScore}</p>
-                        <p className="text-xs text-muted-foreground">/ 100</p>
+                        <p className="text-4xl sm:text-5xl font-display font-medium text-[#0E1116] tabular-nums">{percentScore}</p>
+                        <p className="text-xs text-[#8B9099]">/ 100</p>
                       </div>
                     </div>
                   </motion.div>
@@ -1141,11 +1141,11 @@ export default function InsuranceBeastQuiz() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <Badge className={`${scoreBadge.color} text-primary-foreground border-0 rounded-full px-4 py-1 text-sm font-semibold`}>
+                    <Badge className={`${scoreBadge.color} text-[#FAF7F2] border-0 rounded-full px-4 py-1 text-sm font-semibold`}>
                       {scoreBadge.title}
                     </Badge>
 
-                    <p className="mt-3 text-base sm:text-lg font-medium text-muted-foreground">
+                    <p className="mt-3 text-base sm:text-lg font-medium text-[#4A4F57]">
                       {isHindi ? `${currentModeName} में आपका स्कोर: ${userScore}/${currentQuestions.length} सही` : isEnglish ? `Your score in ${currentModeName}: ${userScore}/${currentQuestions.length} correct` : `${currentModeName} mein aapka score: ${userScore}/${currentQuestions.length} sahi`}
                     </p>
                   </motion.div>
@@ -1168,9 +1168,9 @@ export default function InsuranceBeastQuiz() {
                       transition={{ delay: 1 }}
                       className="flex flex-wrap justify-center gap-2"
                     >
-                      <span className="text-xs text-muted-foreground w-full flex items-center justify-center gap-1"><Trophy className="w-3 h-3" /> {isHindi ? 'आपके बैज:' : isEnglish ? 'Your Badges:' : 'Aapke Badges:'}</span>
+                      <span className="text-xs text-[#8B9099] w-full flex items-center justify-center gap-1"><Trophy className="w-3 h-3" /> {isHindi ? 'आपके बैज:' : isEnglish ? 'Your Badges:' : 'Aapke Badges:'}</span>
                       {earnedBadges.map((badge, i) => (
-                        <Badge key={i} className="bg-primary/20 text-primary border-primary/30 rounded-full px-2.5 py-0.5 text-xs">
+                        <Badge key={i} className="bg-[#F4E5DD] text-[#8B3520] border border-[#B8482C]/30 rounded-full px-2.5 py-0.5 text-xs">
                           {badge}
                         </Badge>
                       ))}
@@ -1182,22 +1182,22 @@ export default function InsuranceBeastQuiz() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.1 }}
-                    className="bg-card/80 rounded-2xl p-4 max-w-sm mx-auto"
+                    className="bg-white/80 rounded-2xl p-4 max-w-sm mx-auto border border-[rgba(14,17,22,0.08)]"
                   >
-                    <p className="text-xs text-muted-foreground mb-1"><BookOpen className="w-3 h-3 inline mr-1" /> {isHindi ? 'यूनिक क्विज़ कोड' : isEnglish ? 'Unique Quiz Code' : 'Quiz Code'}</p>
-                    <p className="text-xl font-mono font-bold text-primary">{generatedCode}</p>
+                    <p className="text-xs text-[#8B9099] mb-1"><BookOpen className="w-3 h-3 inline mr-1" /> {isHindi ? 'यूनिक क्विज़ कोड' : isEnglish ? 'Unique Quiz Code' : 'Quiz Code'}</p>
+                    <p className="text-xl font-mono font-medium text-[#B8482C] tabular-nums">{generatedCode}</p>
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <Button
                         onClick={handleCopyCode}
                         size="sm"
                         variant="outline"
-                        className="border-primary/30 text-primary hover:bg-primary/10 rounded-full gap-1 text-xs"
+                        className="border-[#B8482C]/30 text-[#B8482C] hover:bg-[#F4E5DD] rounded-full gap-1 text-xs"
                       >
                         {codeCopied ? <CheckCircle2 className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                         {codeCopied ? (isHindi ? 'कॉपी हुआ!' : isEnglish ? 'Copied!' : 'Copied!') : (isHindi ? 'कोड कॉपी करो' : isEnglish ? 'Copy Code' : 'Copy Code')}
                       </Button>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mt-2">
+                    <p className="text-[10px] text-[#8B9099] mt-2">
                       <span className="flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> {isHindi ? 'तब तक मान्य:' : 'Valid till:'} {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}</span>
                     </p>
                   </motion.div>
@@ -1211,7 +1211,7 @@ export default function InsuranceBeastQuiz() {
                     <Button
                       onClick={() => setPhase('review')}
                       variant="outline"
-                      className="border-border text-foreground hover:bg-primary/5 hover:text-foreground rounded-full gap-2"
+                      className="border-[rgba(14,17,22,0.08)] text-[#0E1116] hover:bg-[#F4E5DD] hover:text-[#0E1116] rounded-full gap-2"
                     >
                       <BookOpen className="w-4 h-4" />
                       {isHindi ? 'जवाब देखें' : isEnglish ? 'Review Answers' : 'Review Answers'}
@@ -1227,7 +1227,7 @@ export default function InsuranceBeastQuiz() {
                     <Button
                       onClick={resetQuiz}
                       variant="outline"
-                      className="border-border text-foreground hover:bg-primary/5 hover:text-foreground rounded-full gap-2"
+                      className="border-[rgba(14,17,22,0.08)] text-[#0E1116] hover:bg-[#F4E5DD] hover:text-[#0E1116] rounded-full gap-2"
                     >
                       <RotateCcw className="w-4 h-4" />
                       {isHindi ? 'फिर से खेलो' : isEnglish ? 'Play Again' : 'Phir Se Khelo'}
@@ -1248,16 +1248,16 @@ export default function InsuranceBeastQuiz() {
               >
                 {/* Exclusive Deals Header */}
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><Sparkles className="w-5 h-5 text-primary" /> {isHindi ? 'आपके लिए खास ऑफ़र!' : isEnglish ? 'Special Offers For You!' : 'Special Offers For You!'}</h3>
-                  <p className="text-muted-foreground text-sm mt-1">{isHindi ? 'क्विज़ पूरा — इन खास डील्स का मज़ा लो!' : isEnglish ? 'Quiz complete — enjoy these exclusive deals!' : 'Quiz poora — in deals ka maza lo!'}</p>
+                  <h3 className="text-2xl font-display font-medium text-[#0E1116] flex items-center gap-2"><Sparkles className="w-5 h-5 text-[#B8482C]" /> {isHindi ? 'आपके लिए खास ऑफ़र!' : isEnglish ? 'Special Offers For You!' : 'Special Offers For You!'}</h3>
+                  <p className="text-[#8B9099] text-sm mt-1">{isHindi ? 'क्विज़ पूरा — इन खास डील्स का मज़ा लो!' : isEnglish ? 'Quiz complete — enjoy these exclusive deals!' : 'Quiz poora — in deals ka maza lo!'}</p>
                 </div>
 
                 {/* Ajio Deal */}
-                <Card className={`bg-card border border-border rounded-2xl overflow-hidden border-l-4 ${ajio.borderColor}`}>
+                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${ajio.borderColor}`}>
                   <CardContent className="p-5">
-                    <h4 className="text-foreground font-bold text-base">{ajio.title}</h4>
-                    <p className="text-primary font-semibold text-sm mt-1">{ajio.offer}</p>
-                    <p className="text-muted-foreground text-xs mt-2">{ajio.description}</p>
+                    <h4 className="text-[#0E1116] font-display font-medium text-base">{ajio.title}</h4>
+                    <p className="text-[#B8482C] font-semibold text-sm mt-1">{ajio.offer}</p>
+                    <p className="text-[#8B9099] text-xs mt-2">{ajio.description}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <a href={ajio.link} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className={`${ajio.btnBg} text-white rounded-full gap-1 text-xs`}>
@@ -1265,16 +1265,16 @@ export default function InsuranceBeastQuiz() {
                         </Button>
                       </a>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mt-2">{ajio.commission}</p>
+                    <p className="text-[10px] text-[#8B9099] mt-2">{ajio.commission}</p>
                   </CardContent>
                 </Card>
 
                 {/* Flipkart Deal */}
-                <Card className={`bg-card border border-border rounded-2xl overflow-hidden border-l-4 ${flipkart.borderColor}`}>
+                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${flipkart.borderColor}`}>
                   <CardContent className="p-5">
-                    <h4 className="text-foreground font-bold text-base">{flipkart.title}</h4>
-                    <p className="text-primary font-semibold text-sm mt-1">{flipkart.offer}</p>
-                    <p className="text-muted-foreground text-xs mt-2">{flipkart.description}</p>
+                    <h4 className="text-[#0E1116] font-display font-medium text-base">{flipkart.title}</h4>
+                    <p className="text-[#1B4D4A] font-semibold text-sm mt-1">{flipkart.offer}</p>
+                    <p className="text-[#8B9099] text-xs mt-2">{flipkart.description}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <a href={flipkart.link} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className={`${flipkart.btnBg} text-white rounded-full gap-1 text-xs`}>
@@ -1282,16 +1282,16 @@ export default function InsuranceBeastQuiz() {
                         </Button>
                       </a>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mt-2">{flipkart.commission}</p>
+                    <p className="text-[10px] text-[#8B9099] mt-2">{flipkart.commission}</p>
                   </CardContent>
                 </Card>
 
                 {/* Myntra Deal */}
-                <Card className={`bg-card border border-border rounded-2xl overflow-hidden border-l-4 ${myntra.borderColor}`}>
+                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${myntra.borderColor}`}>
                   <CardContent className="p-5">
-                    <h4 className="text-foreground font-bold text-base">{myntra.title}</h4>
-                    <p className="text-primary font-semibold text-sm mt-1">{myntra.offer}</p>
-                    <p className="text-muted-foreground text-xs mt-2">{myntra.description}</p>
+                    <h4 className="text-[#0E1116] font-display font-medium text-base">{myntra.title}</h4>
+                    <p className="text-[#B8482C] font-semibold text-sm mt-1">{myntra.offer}</p>
+                    <p className="text-[#8B9099] text-xs mt-2">{myntra.description}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <a href={myntra.link} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className={`${myntra.btnBg} text-white rounded-full gap-1 text-xs`}>
@@ -1299,16 +1299,16 @@ export default function InsuranceBeastQuiz() {
                         </Button>
                       </a>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mt-2">{myntra.commission}</p>
+                    <p className="text-[10px] text-[#8B9099] mt-2">{myntra.commission}</p>
                   </CardContent>
                 </Card>
 
                 {/* GoNoise Deal */}
-                <Card className={`bg-card border border-border rounded-2xl overflow-hidden border-l-4 ${gonoise.borderColor}`}>
+                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${gonoise.borderColor}`}>
                   <CardContent className="p-5">
-                    <h4 className="text-foreground font-bold text-base">{gonoise.title}</h4>
-                    <p className="text-primary font-semibold text-sm mt-1">{gonoise.offer}</p>
-                    <p className="text-muted-foreground text-xs mt-2">{gonoise.description}</p>
+                    <h4 className="text-[#0E1116] font-display font-medium text-base">{gonoise.title}</h4>
+                    <p className="text-[#1B4D4A] font-semibold text-sm mt-1">{gonoise.offer}</p>
+                    <p className="text-[#8B9099] text-xs mt-2">{gonoise.description}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <a href={gonoise.link} target="_blank" rel="noopener noreferrer">
                         <Button size="sm" className={`${gonoise.btnBg} text-white rounded-full gap-1 text-xs`}>
@@ -1316,7 +1316,7 @@ export default function InsuranceBeastQuiz() {
                         </Button>
                       </a>
                     </div>
-                    <p className="text-[10px] text-muted-foreground mt-2">{gonoise.commission}</p>
+                    <p className="text-[10px] text-[#8B9099] mt-2">{gonoise.commission}</p>
                   </CardContent>
                 </Card>
 
@@ -1324,7 +1324,7 @@ export default function InsuranceBeastQuiz() {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     onClick={handleWhatsAppShare}
-                    className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full h-12 text-base font-semibold gap-2 shadow-lg"
+                    className="w-full bg-[#25D366] hover:bg-[#1DA851] text-white rounded-full h-12 text-base font-semibold gap-2 shadow-lg"
                   >
                     <Share2 className="w-5 h-5" />
                     {isHindi ? 'WhatsApp पर शेयर करें' : isEnglish ? 'Share on WhatsApp' : 'WhatsApp par share karein'}
@@ -1347,11 +1347,11 @@ export default function InsuranceBeastQuiz() {
               className="space-y-4"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><BookOpen className="w-5 h-5 text-primary" /> {isHindi ? 'जवाब रिव्यू' : isEnglish ? 'Answer Review' : 'Jawab Review'}</h3>
+                <h3 className="text-2xl font-display font-medium text-[#0E1116] flex items-center gap-2"><BookOpen className="w-5 h-5 text-[#B8482C]" /> {isHindi ? 'जवाब रिव्यू' : isEnglish ? 'Answer Review' : 'Jawab Review'}</h3>
                 <Button
                   onClick={() => setPhase('result')}
                   variant="outline"
-                  className="border-border text-muted-foreground hover:bg-primary/5 rounded-full gap-2 text-sm"
+                  className="border-[rgba(14,17,22,0.08)] text-[#8B9099] hover:bg-[#F4E5DD] hover:text-[#0E1116] rounded-full gap-2 text-sm"
                 >
                   ← {isHindi ? 'परिणामों पर वापस' : isEnglish ? 'Back to Results' : 'Results par wapas'}
                 </Button>
@@ -1364,22 +1364,22 @@ export default function InsuranceBeastQuiz() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <Card className={`border-l-4 ${answer.isCorrect ? 'border-l-emerald-400 bg-emerald-500/5' : 'border-l-red-400 bg-red-500/5'} border-border rounded-2xl`}>
+                  <Card className={`border-l-4 ${answer.isCorrect ? 'border-l-[#1B4D4A] bg-[#E6EFEE]/40' : 'border-l-[#9B2C2C] bg-[#9B2C2C]/5'} border border-[rgba(14,17,22,0.08)] rounded-2xl`}>
                     <CardContent className="p-4 space-y-2">
                       <div className="flex items-start gap-2">
-                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                          answer.isCorrect ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-display font-medium shrink-0 ${
+                          answer.isCorrect ? 'bg-[#E6EFEE] text-[#1B4D4A]' : 'bg-[#9B2C2C]/10 text-[#9B2C2C]'
                         }`}>
                           {answer.isCorrect ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
                         </span>
-                        <p className="text-foreground text-sm font-medium">{answer.qText}</p>
+                        <p className="text-[#0E1116] text-sm font-medium">{answer.qText}</p>
                       </div>
                       <div className="ml-8 space-y-1">
-                        <p className={`text-xs ${answer.isCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
+                        <p className={`text-xs ${answer.isCorrect ? 'text-[#1B4D4A]' : 'text-[#9B2C2C]'}`}>
                           {isHindi ? 'आपका जवाब' : isEnglish ? 'Your answer' : 'Your answer'}: {answer.selected}
                         </p>
                         {!answer.isCorrect && (
-                          <p className="text-xs text-emerald-400">
+                          <p className="text-xs text-[#1B4D4A]">
                             {isHindi ? 'सही जवाब' : isEnglish ? 'Correct answer' : 'Correct answer'}: {answer.correctAns}
                           </p>
                         )}
@@ -1391,7 +1391,7 @@ export default function InsuranceBeastQuiz() {
 
               <Button
                 onClick={() => setPhase('result')}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full h-11 text-base font-semibold shadow-lg mt-4"
+                className="btn-stripe w-full justify-center h-11 text-base shadow-lg mt-4 hover:bg-[#B8482C]"
               >
                 ← {isHindi ? 'परिणामों पर वापस' : isEnglish ? 'Back to Results' : 'Back to Results'}
               </Button>
@@ -1401,7 +1401,7 @@ export default function InsuranceBeastQuiz() {
         </AnimatePresence>
 
         {/* Footer */}
-        <p className="text-center text-[10px] text-muted-foreground mt-8">
+        <p className="text-center text-[10px] text-[#8B9099] mt-8">
           <Zap className="w-3 h-3 inline" /> {isHindi ? 'केवल शैक्षिक क्विज़। कोई कैशबैक नहीं। एफ़िलिएट डील्स तीसरे पक्ष की हैं।' : isEnglish ? 'Educational quiz only. No cashback. Affiliate deals are from third parties.' : 'Educational quiz only. No cashback. Affiliate deals are from third parties.'}
         </p>
       </div>
