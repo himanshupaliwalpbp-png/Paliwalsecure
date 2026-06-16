@@ -140,7 +140,7 @@ export default function HowAIWorks() {
                 animate={isInView ? 'visible' : 'hidden'}
                 className="group"
               >
-                <div className="bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] rounded-2xl shadow-sm hover:shadow-premium h-full flex flex-col relative overflow-hidden p-6 md:p-7 transition-all duration-300 hover:-translate-y-1">
+                <div className="card-ivory-vault h-full flex flex-col relative overflow-hidden p-6 md:p-7">
                   {/* Subtle gradient overlay on hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"

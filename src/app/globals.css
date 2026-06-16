@@ -3387,6 +3387,142 @@ html.theme-transitioning *::after {
   box-shadow: var(--shadow-premium-xl);
 }
 
+/* ════════════════════════════════════════════════════════════════════════════
+   DUAL MOOD CARDS — "Ivory Vault" (light) × "Midnight Brass" (dark)
+   Editorial luxury system: warm paper + hairline + one accent (no loud gradients)
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── IVORY VAULT — Light editorial card (Hermès catalogue feel) ─────────── */
+.card-ivory-vault {
+  background-color: #F7F3EC;                                  /* warm ivory */
+  border: 1px solid rgba(15, 19, 32, 0.08);                   /* ink @ 8% hairline */
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgba(20, 15, 10, 0.04),
+    0 12px 40px -12px rgba(20, 15, 10, 0.10);
+  transition: transform 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
+              box-shadow 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
+              border-color 0.35s ease;
+  will-change: transform;
+}
+.card-ivory-vault:hover {
+  transform: translateY(-2px);
+  border-color: rgba(15, 19, 32, 0.14);
+  box-shadow:
+    0 1px 2px rgba(20, 15, 10, 0.05),
+    0 20px 50px -12px rgba(20, 15, 10, 0.16);
+}
+
+/* Ivory Vault text helpers — deep ink heading + ink@70% body */
+.text-vault-heading { color: #0F1320; }
+.text-vault-body { color: #4A4E5C; }
+.text-vault-accent { color: #B8482C; }   /* burnt sienna — numbers/highlights */
+
+/* ── MIDNIGHT BRASS — Dark luxe card (Rolex boutique feel) ──────────────── */
+.card-midnight-brass {
+  background-color: #0E1424;                                  /* deep navy-ink */
+  border: 1px solid rgba(201, 168, 76, 0.15);                 /* brass @ 15% */
+  border-radius: 1rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),                  /* inner top glow */
+    0 1px 2px rgba(0, 0, 0, 0.30),
+    0 16px 48px -16px rgba(0, 0, 0, 0.50);
+  transition: transform 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
+              box-shadow 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
+              border-color 0.35s ease;
+  will-change: transform;
+}
+.card-midnight-brass:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201, 168, 76, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 24px 60px -16px rgba(0, 0, 0, 0.60);
+}
+
+/* Midnight Brass text helpers — warm white heading + slate body + brass/teal accents */
+.text-brass-heading { color: #F5F1E8; }
+.text-brass-body { color: #A8B0C2; }
+.text-brass-accent { color: #C9A84C; }    /* brushed brass — ₹ numbers */
+.text-brass-teal { color: #4FB3A9; }      /* teal whisper — secondary accent */
+
+/* ── IVORY VAULT TABLE — editorial paper table ──────────────────────────── */
+.table-ivory-vault {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #F7F3EC;
+  border: 1px solid rgba(15, 19, 32, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.table-ivory-vault thead tr {
+  background-color: #EFE8DC;                                  /* sand tint header */
+}
+.table-ivory-vault thead th {
+  color: #0F1320;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(15, 19, 32, 0.08);
+  letter-spacing: 0.04em;
+}
+.table-ivory-vault tbody td {
+  border-bottom: 1px solid rgba(15, 19, 32, 0.06);
+  color: #4A4E5C;
+}
+.table-ivory-vault tbody tr:last-child td {
+  border-bottom: none;
+}
+.table-ivory-vault tbody tr {
+  transition: background-color 0.2s ease;
+}
+.table-ivory-vault tbody tr:hover {
+  background-color: #F1ECE3;                                  /* ivory deeper hover */
+}
+.table-ivory-vault tbody tr:nth-child(even) {
+  background-color: rgba(15, 19, 32, 0.015);                 /* barely-there stripe */
+}
+.table-ivory-vault tbody tr:nth-child(even):hover {
+  background-color: #F1ECE3;
+}
+
+/* ── MIDNIGHT BRASS TABLE — dark luxe table ─────────────────────────────── */
+.table-midnight-brass {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #0E1424;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.table-midnight-brass thead tr {
+  background-color: #141B2E;                                  /* table header bg */
+}
+.table-midnight-brass thead th {
+  color: #F5F1E8;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);        /* row divider */
+  letter-spacing: 0.04em;
+}
+.table-midnight-brass tbody td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);        /* row divider */
+  color: #A8B0C2;
+}
+.table-midnight-brass tbody tr:last-child td {
+  border-bottom: none;
+}
+.table-midnight-brass tbody tr {
+  transition: background-color 0.2s ease;
+}
+.table-midnight-brass tbody tr:hover {
+  background-color: rgba(201, 168, 76, 0.06);                 /* brass whisper hover */
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   END DUAL MOOD CARDS
+   ════════════════════════════════════════════════════════════════════════════ */
+
 /* Premium badge — trust and verification */
 .badge-premium {
   display: inline-flex;

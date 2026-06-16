@@ -156,40 +156,40 @@ export default function ComparisonMatrix() {
           </p>
         </motion.div>
 
-        {/* Comparison Table — premium paper card */}
+        {/* Comparison Table — Ivory Vault editorial paper table */}
         <motion.div
           ref={tableRef}
           variants={tableVariants}
           initial="hidden"
           animate={tableInView ? 'visible' : 'hidden'}
-          className="bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] rounded-2xl shadow-premium overflow-hidden"
+          className="rounded-2xl overflow-hidden border border-[rgba(15,19,32,0.08)] shadow-[0_1px_2px_rgba(20,15,10,0.04),0_12px_40px_-12px_rgba(20,15,10,0.10)]"
         >
           {/* Desktop Table */}
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[680px] text-base">
+            <table className="table-ivory-vault min-w-[680px] text-base">
               <thead>
-                <tr className="bg-[#0E1116] dark:bg-[#FAF7F2]">
+                <tr>
                   {/* Feature label column header */}
-                  <th className="text-left px-6 py-5 text-caption-premium text-[#FAF7F2] dark:text-[#0E1116] font-body border-b border-[rgba(14,17,22,0.08)] dark:border-white/[0.08]">
+                  <th className="text-left px-6 py-5 text-caption-premium text-vault-heading font-body">
                     {featureLabel}
                   </th>
                   {columns.map((col) => (
                     <th
                       key={col.key}
-                      className={`px-6 py-5 text-center font-body border-b border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] ${
-                        col.highlight ? 'bg-[#F4E5DD] dark:bg-[#3A1E14]' : ''
+                      className={`px-6 py-5 text-center font-body ${
+                        col.highlight ? 'bg-[#F4E5DD]' : ''
                       }`}
                     >
                       <div className="flex flex-col items-center gap-1.5">
                         <span className={`text-caption-premium ${
                           col.highlight
-                            ? 'text-[#8B3520] dark:text-[#E89572]'
-                            : 'text-[#FAF7F2]/70 dark:text-[#0E1116]/70'
+                            ? 'text-[#8B3520]'
+                            : 'text-vault-body'
                         }`}>
                           {getColumnLabel(col)}
                         </span>
                         {col.highlight && (
-                          <span className="text-caption-premium bg-[#B8482C] dark:bg-[#D4633F] text-[#FAF7F2] !text-[9px] !gap-1 !px-2 !py-0.5 normal-case !tracking-normal !font-semibold rounded-full inline-flex items-center">
+                          <span className="text-caption-premium bg-[#B8482C] text-[#FAF7F2] !text-[9px] !gap-1 !px-2 !py-0.5 normal-case !tracking-normal !font-semibold rounded-full inline-flex items-center">
                             <Sparkles className="w-2.5 h-2.5" />
                             {isHindi ? 'अनुशंसित' : isEnglish ? 'Recommended' : 'Recommended'}
                           </span>
@@ -203,14 +203,10 @@ export default function ComparisonMatrix() {
                 {features.map((row, rowIndex) => (
                   <tr
                     key={row.key}
-                    className={`border-b border-[rgba(14,17,22,0.08)] dark:border-white/[0.06] last:border-b-0 transition-colors duration-200 ${
-                      rowIndex % 2 === 1
-                        ? 'bg-[#FAF7F2]/40 dark:bg-white/[0.015]'
-                        : ''
-                    } hover:bg-[#FAF7F2]/70 dark:hover:bg-white/[0.03]`}
+                    className={rowIndex % 2 === 1 ? 'bg-[rgba(15,19,32,0.015)]' : ''}
                   >
                     {/* Feature name */}
-                    <td className="px-6 py-4 text-[#0E1116] dark:text-[#FAF7F2] font-medium text-base font-body">
+                    <td className="px-6 py-4 text-vault-heading font-medium text-base font-body">
                       {getFeatureLabel(row.key)}
                     </td>
                     {/* Column cells */}
@@ -223,7 +219,7 @@ export default function ComparisonMatrix() {
                           key={col.key}
                           className={`px-6 py-4 text-center transition-colors duration-200 ${
                             isPaliwal
-                              ? 'bg-[#F4E5DD]/40 dark:bg-[#3A1E14]/40 border-x border-[#B8482C]/20 dark:border-[#D4633F]/20'
+                              ? 'bg-[#F4E5DD]/40 border-x border-[#B8482C]/20'
                               : ''
                           }`}
                         >
@@ -238,13 +234,13 @@ export default function ComparisonMatrix() {
           </div>
 
           {/* Bottom summary bar for Paliwal column */}
-          <div className="border-t border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] bg-[#FAF7F2]/60 dark:bg-[#1E293B]/60 px-6 py-4">
+          <div className="border-t border-[rgba(15,19,32,0.08)] bg-[#EFE8DC] px-6 py-4">
             <div className="flex items-center justify-center gap-2">
-              <span className="btn-pill-dot bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572] !gap-1.5">
+              <span className="btn-pill-dot bg-[#F4E5DD] text-[#8B3520] !gap-1.5">
                 <Sparkles className="w-3 h-3" />
                 {isHindi ? 'सबसे अच्छा विकल्प' : isEnglish ? 'Best choice' : 'Best choice'}
               </span>
-              <span className="text-body-premium text-[#4A4F57] dark:text-[#B8BCC2] tabular-nums">
+              <span className="text-body-premium text-vault-body tabular-nums">
                 {isHindi ? '9 में से 9 सुविधाएँ' : isEnglish ? '9 of 9 features' : '9 mein se 9 features'}
               </span>
             </div>

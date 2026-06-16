@@ -146,7 +146,7 @@ export default function ClaimsTimeline() {
                   </div>
 
                   {/* Card content — paper surface */}
-                  <div className="bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] rounded-2xl shadow-sm hover:shadow-premium flex-1 flex items-start gap-4 group p-5 md:p-6 transition-all duration-300">
+                  <div className="card-ivory-vault flex-1 flex items-start gap-4 group p-5 md:p-6">
                     {/* Icon — sienna tint or teal tint derived from step.color */}
                     <div
                       className={`shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${

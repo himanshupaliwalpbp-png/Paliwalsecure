@@ -89,7 +89,7 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
   return (
     <motion.a
       href={`/blog/${article.slug}`}
-      className="group relative flex flex-col h-full bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 p-6 lg:p-7 block"
+      className="group relative flex flex-col h-full card-ivory-vault p-6 lg:p-7 block"
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] as const }}

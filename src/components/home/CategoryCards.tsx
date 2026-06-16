@@ -146,7 +146,7 @@ export default function CategoryCards() {
                 className={isFirst ? 'lg:col-span-2 min-w-0' : 'min-w-0'}
               >
                 <Link href={cat.href} className="block group h-full min-w-0">
-                  <div className="bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] rounded-2xl shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6 md:p-7 h-full flex flex-col cursor-pointer overflow-hidden min-w-0">
+                  <div className="card-ivory-vault p-5 sm:p-6 md:p-7 h-full flex flex-col cursor-pointer min-w-0">
                     {/* Icon + Title row */}
                     <div className="flex items-start gap-4 mb-5">
                       <div
@@ -155,10 +155,10 @@ export default function CategoryCards() {
                         <Icon className="h-5 w-5" style={{ color: iconColor }} strokeWidth={2} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-display text-[#0E1116] dark:text-[#FAF7F2] text-xl md:text-2xl tracking-tight" style={{ fontWeight: 500 }}>
+                        <h3 className="font-display text-vault-heading text-xl md:text-2xl tracking-tight" style={{ fontWeight: 500 }}>
                           {title}
                         </h3>
-                        <p className="text-body-premium text-[#4A4F57] dark:text-[#B8BCC2] mt-1">
+                        <p className="text-body-premium text-vault-body mt-1">
                           {description}
                         </p>
                       </div>
@@ -169,7 +169,7 @@ export default function CategoryCards() {
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-start gap-2.5 text-body-premium text-[#0E1116] dark:text-[#FAF7F2] min-w-0">
+                          <li key={i} className="flex items-start gap-2.5 text-body-premium text-vault-heading min-w-0">
                             <div
                               className="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full flex items-center justify-center"
                               style={{ backgroundColor: checkBg }}
@@ -183,12 +183,12 @@ export default function CategoryCards() {
                     </ul>
 
                     {/* Price + AI Pick badge */}
-                    <div className="pt-4 border-t border-[rgba(14,17,22,0.08)] dark:border-white/[0.08] flex items-center justify-between gap-3">
-                      <span className="font-display text-[#0E1116] dark:text-[#FAF7F2] tabular-nums text-lg md:text-xl" style={{ fontWeight: 500 }}>
+                    <div className="pt-4 border-t border-[rgba(15,19,32,0.08)] flex items-center justify-between gap-3">
+                      <span className="font-display text-vault-accent tabular-nums text-lg md:text-xl" style={{ fontWeight: 500 }}>
                         {cat.price}
                       </span>
                       <span
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572] text-caption-premium"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4E5DD] text-[#8B3520] text-caption-premium"
                         style={{ fontSize: '0.6875rem', letterSpacing: '0.04em' }}
                       >
                         <Sparkles className="w-3 h-3" strokeWidth={2.5} />

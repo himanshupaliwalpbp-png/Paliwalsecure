@@ -158,7 +158,7 @@ export default function HomeFAQSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Accordion type="single" collapsible className="bg-white rounded-2xl border border-[rgba(14,17,22,0.08)] shadow-sm overflow-hidden">
+          <Accordion type="single" collapsible className="card-ivory-vault overflow-hidden">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
