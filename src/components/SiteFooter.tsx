@@ -288,15 +288,15 @@ export default function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {[
-            { icon: Shield, value: '50+', label: 'Insurers' },
-            { icon: CheckCircle2, value: '98%', label: 'Claims' },
-            { icon: Users, value: `${familiesStarted ? familiesCount : 500}+`, label: 'Families Protected', animated: true, refProp: familiesRef },
-            { icon: Star, value: '4.9★', label: 'Rating' },
+            { icon: Shield, value: '50+', labelKey: 'footer.stat.insurers' },
+            { icon: CheckCircle2, value: '98%', labelKey: 'footer.stat.claims' },
+            { icon: Users, value: `${familiesStarted ? familiesCount : 500}+`, labelKey: 'footer.stat.families', animated: true, refProp: familiesRef },
+            { icon: Star, value: '4.9★', labelKey: 'footer.stat.rating' },
           ].map((stat, i) => {
             const Icon = stat.icon;
             return (
               <motion.div
-                key={stat.label}
+                key={stat.labelKey}
                 custom={i}
                 variants={statVariants}
                 initial="hidden"
@@ -310,7 +310,7 @@ export default function SiteFooter() {
                   {stat.value}
                 </div>
                 <div className="text-[10px] sm:text-xs text-muted-foreground/70 uppercase tracking-wider mt-0.5">
-                  {stat.label}
+                  {t(stat.labelKey)}
                 </div>
               </motion.div>
             );
@@ -360,7 +360,7 @@ export default function SiteFooter() {
             {/* POSP Code */}
             <div className="flex items-center gap-2 mb-4">
               <Lock className="w-3.5 h-3.5 text-muted-foreground/60" />
-              <span className="text-xs text-muted-foreground/60 font-mono">POSP Code: {POSP_CODE}</span>
+              <span className="text-xs text-muted-foreground/60 font-mono">{t('footer.pospCode')}: {POSP_CODE}</span>
             </div>
 
             {/* Social Icons */}
@@ -533,7 +533,7 @@ export default function SiteFooter() {
                 <Shield className="w-5 h-5 text-primary/80" />
                 <div>
                   <span className="text-[10px] font-bold text-primary uppercase tracking-wider block leading-tight">
-                    IRDAI Certified
+                    {t('footer.irdaiCertified')}
                   </span>
                   <span className="text-[10px] text-muted-foreground/60 font-mono">
                     POSP {POSP_CODE}
@@ -554,11 +554,11 @@ export default function SiteFooter() {
           <motion.div variants={itemVariants} className="relative">
             <h3 className="text-foreground text-[13px] font-semibold uppercase tracking-[0.08em] mb-1 flex items-center gap-2">
               <Mail className="w-4 h-4 text-primary/70" />
-              Newsletter
+              {t('footer.newsletter')}
             </h3>
             <HeadingAccent />
             <p className="text-xs text-muted-foreground/60 leading-relaxed mt-3 mb-4 max-w-[220px]">
-              Get insurance tips, updates & exclusive offers — straight to your inbox.
+              {t('footer.newsletterDesc')}
             </p>
 
             {/* Email input */}
@@ -583,10 +583,10 @@ export default function SiteFooter() {
             {/* Quick resource links */}
             <div className="space-y-2">
               {[
-                { href: '/blog', label: 'Blog', icon: BookOpen },
-                { href: '/compare', label: 'Compare Plans', icon: BarChart3 },
-                { href: '/insuregpt', label: 'InsureGPT AI', icon: Bot },
-                { href: '/insurance-faq', label: 'FAQ', icon: FileText },
+                { href: '/blog', labelKey: 'footer.link.blog', icon: BookOpen },
+                { href: '/compare', labelKey: 'footer.link.comparePlans', icon: BarChart3 },
+                { href: '/insuregpt', labelKey: 'footer.link.insureGPT', icon: Bot },
+                { href: '/insurance-faq', labelKey: 'footer.link.faq', icon: FileText },
               ].map((link) => {
                 const Icon = link.icon;
                 return (
@@ -597,7 +597,7 @@ export default function SiteFooter() {
                   >
                     <Icon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-primary transition-colors shrink-0" />
                     <span className="relative inline-block">
-                      {link.label}
+                      {t(link.labelKey)}
                       <span className="absolute left-0 -bottom-0.5 w-0 group-hover:w-full h-[1px] bg-primary/60 transition-all duration-300" />
                     </span>
                   </Link>
@@ -624,7 +624,7 @@ export default function SiteFooter() {
                 </span>
               </div>
               <p className="text-xs text-muted-foreground/50">
-                &copy; {currentYear} Paliwal Secure. All Rights Reserved. | POSP Code: {POSP_CODE}
+                &copy; {currentYear} Paliwal Secure. {t('footer.allRightsReserved')} | {t('footer.pospCode')}: {POSP_CODE}
               </p>
             </div>
 
@@ -635,19 +635,19 @@ export default function SiteFooter() {
 
             {/* Legal Compliance — Grievance Officer */}
             <p className="text-[10px] text-muted-foreground/50 text-center w-full">
-              Grievance Officer:{' '}
+              {t('footer.grievanceOfficer')}:{' '}
               <a
                 href="mailto:himanshupaliwalpbp@gmail.com"
                 className="hover:text-primary transition-colors duration-200"
               >
                 himanshupaliwalpbp@gmail.com
               </a>
-              {' '}| Response: 30 days{' '}
+              {' '}| {t('footer.responseTime')}: 30 {t('footer.days')}{' '}
               <Link
                 href="/grievance-policy"
                 className="text-primary/60 hover:text-primary transition-colors duration-200 underline underline-offset-2"
               >
-                View Policy
+                {t('footer.viewPolicy')}
               </Link>
             </p>
 

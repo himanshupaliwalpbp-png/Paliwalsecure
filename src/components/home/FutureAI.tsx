@@ -7,17 +7,17 @@ import { useLanguage } from '@/lib/i18n';
 
 /* ── Inline translations ───────────────────────────────────────────── */
 const featureTitles: Record<string, { en: string; hi: string; hg: string }> = {
-  feature1: { en: 'AI Chatbot 24×7', hi: 'AI Chatbot 24×7', hg: 'AI Chatbot 24×7' },
-  feature2: { en: 'AI Policy Analyzer', hi: 'AI Policy Analyzer', hg: 'AI Policy Analyzer' },
-  feature3: { en: 'AI Claim Copilot', hi: 'AI Claim Copilot', hg: 'AI Claim Copilot' },
-  feature4: { en: 'AI Coverage Gap Analysis', hi: 'AI Gap Analysis', hg: 'AI Coverage Gap Analysis' },
+  feature1: { en: 'AI Chatbot 24×7', hi: 'AI चैटबॉट 24×7', hg: 'AI Chatbot 24×7' },
+  feature2: { en: 'AI Policy Analyzer', hi: 'AI पॉलिसी एनालाइज़र', hg: 'AI Policy Analyzer' },
+  feature3: { en: 'AI Claim Copilot', hi: 'AI क्लेम कोपायलट', hg: 'AI Claim Copilot' },
+  feature4: { en: 'AI Coverage Gap Analysis', hi: 'AI कवरेज गैप एनालिसिस', hg: 'AI Coverage Gap Analysis' },
 };
 
 const featureDescs: Record<string, { en: string; hi: string; hg: string }> = {
-  feature1: { en: 'Hinglish AI assistant available round the clock', hi: 'हिंग्लिश AI सहायक चौबीसों घंटे उपलब्ध', hg: 'Hinglish AI assistant available round the clock' },
-  feature2: { en: 'Upload PDF → plain-English summary + red flags', hi: 'PDF अपलोड करें → सादे अंग्लिश में सारांश + खतरे के संकेत', hg: 'Upload PDF → plain-English summary + red flags' },
+  feature1: { en: 'Hinglish AI assistant available round the clock', hi: 'हिंग्लिश AI सहायक चौबीसों घंटे उपलब्ध', hg: 'Hinglish AI assistant 24 ghante available' },
+  feature2: { en: 'Upload PDF → plain-English summary + red flags', hi: 'PDF अपलोड करें → सादे अंग्लिश में सारांश + खतरे के संकेत', hg: 'PDF upload karo → aasan summary + danger signs' },
   feature3: { en: 'Step-by-step claim guidance in your language', hi: 'आपकी भाषा में चरण-दर-चरण क्लेम मार्गदर्शन', hg: 'Step-by-step claim guidance aapki bhasha mein' },
-  feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Find out aapki current policy kya cover nahi karti' },
+  feature4: { en: "Find what your current policy doesn't cover", hi: 'पता लगाएं कि आपकी मौजूदा पॉलिसी क्या कवर नहीं करती', hg: 'Jaanein aapki current policy kya cover nahi karti' },
 };
 
 const featureColors = ['#2563EB', '#10B981', '#5E1223', '#8B5CF6'];
@@ -85,9 +85,9 @@ export default function FutureAI() {
   const headingAccent = isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score';
   const outOf = isHindi ? '100 में से' : isEnglish ? 'out of 100' : '100 mein se';
   const scoreLabels = {
-    life: { en: 'Life', hi: 'जीवन', hg: 'Life' },
-    health: { en: 'Health', hi: 'स्वास्थ्य', hg: 'Health' },
-    vehicle: { en: 'Vehicle', hi: 'वाहन', hg: 'Vehicle' },
+    life: { en: 'Life', hi: 'जीवन', hg: 'Jeevan' },
+    health: { en: 'Health', hi: 'स्वास्थ्य', hg: 'Swasthya' },
+    vehicle: { en: 'Vehicle', hi: 'वाहन', hg: 'Vahan' },
   };
   const goodProtection = isHindi ? 'अच्छी सुरक्षा' : isEnglish ? 'Good Protection' : 'Achhi Suraksha';
   const freeAnalysis = isHindi ? 'मुफ्त सुरक्षा विश्लेषण' : isEnglish ? 'Free Protection Analysis' : 'Free Suraksha Analysis';

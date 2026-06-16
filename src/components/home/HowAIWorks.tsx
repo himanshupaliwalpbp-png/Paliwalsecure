@@ -12,14 +12,14 @@ const featuresData = [
     icon: Brain,
     color: '#2563EB',
     titles: { en: 'AI-Powered Insights', hi: 'AI-संचालित अंतर्दृष्टि', hg: 'AI-Powered Insights' },
-    descriptions: { en: 'Get personalized recommendations based on your unique financial situation and goals.', hi: 'अपनी अनूठी वित्तीय स्थिति और लक्ष्यों के आधार पर व्यक्तिगत सिफारिशें प्राप्त करें।', hg: 'Apni unique financial situation aur goals ke basis par personalized recommendations payein.' },
+    descriptions: { en: 'Get personalized recommendations based on your unique financial situation and goals.', hi: 'अपनी अनूठी वित्तीय स्थिति और लक्ष्यों के आधार पर व्यक्तिगत सिफारिशें प्राप्त करें।', hg: 'Aapki financial situation aur goals ke hisaab se personalized recommendations paayein.' },
   },
   {
     key: 'smartAnalytics',
     icon: LineChart,
     color: '#10B981',
     titles: { en: 'Smart Analytics', hi: 'स्मार्ट एनालिटिक्स', hg: 'Smart Analytics' },
-    descriptions: { en: 'Track your protection score and see how your coverage evolves over time.', hi: 'अपना सुरक्षा स्कोर ट्रैक करें और देखें कि आपका कवरेज समय के साथ कैसे बदलता है।', hg: 'Apna protection score track karein aur dekhein aapka coverage kaise badalta hai.' },
+    descriptions: { en: 'Track your protection score and see how your coverage evolves over time.', hi: 'अपना सुरक्षा स्कोर ट्रैक करें और देखें कि आपका कवरेज समय के साथ कैसे बदलता है।', hg: 'Apna protection score track karein aur dekhein coverage kaise improve hota hai.' },
   },
   {
     key: 'comprehensiveProtection',
@@ -47,7 +47,7 @@ const featuresData = [
     icon: Users,
     color: '#F59E0B',
     titles: { en: 'Expert Advisors', hi: 'विशेषज्ञ सलाहकार', hg: 'Expert Advisors' },
-    descriptions: { en: 'Connect with certified advisors who understand your needs and priorities.', hi: 'प्रमाणित सलाहकारों से जुड़ें जो आपकी ज़रूरतों और प्राथमिकताओं को समझते हैं।', hg: 'Certified advisors se judein jo aapki zarooraton aur priorities ko samajhte hain.' },
+    descriptions: { en: 'Connect with certified advisors who understand your needs and priorities.', hi: 'प्रमाणित सलाहकारों से जुड़ें जो आपकी ज़रूरतों और प्राथमिकताओं को समझते हैं।', hg: 'Certified advisors se baat karein jo aapki zarooratein samajhte hain.' },
   },
 ];
 

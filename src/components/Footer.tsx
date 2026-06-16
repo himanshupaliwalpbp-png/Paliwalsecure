@@ -52,8 +52,8 @@ const SOCIAL_LINKS = [
    ──────────────────────────────────────────────────────────────────────────── */
 
 const STATS = [
-  { icon: Shield, value: '50+', labelEn: 'Insurers', labelHi: 'बीमाकर्ता', labelHinglish: 'Insurance Companies' },
-  { icon: CheckCircle2, value: '98%', labelEn: 'Claims', labelHi: 'क्लेम', labelHinglish: 'Claims Settled' },
+  { icon: Shield, value: '50+', labelEn: 'Insurers', labelHi: 'बीमाकर्ता', labelHinglish: 'Insurers' },
+  { icon: CheckCircle2, value: '98%', labelEn: 'Claims', labelHi: 'क्लेम', labelHinglish: 'Claim Settle' },
   { icon: Users, value: '500+', labelEn: 'Families', labelHi: 'परिवार', labelHinglish: 'Parivaar' },
   { icon: Star, value: '4.9★', labelEn: 'Rating', labelHi: 'रेटिंग', labelHinglish: 'Rating' },
 ];

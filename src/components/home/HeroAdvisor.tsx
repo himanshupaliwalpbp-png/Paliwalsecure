@@ -533,7 +533,7 @@ export default function HeroAdvisor() {
                 <div className="flex items-center gap-6 mb-6">
                   <AnimatedScoreCircle score={87} size={110} />
                   <div className="flex-1">
-                    <div className="text-label-premium text-[#374151] dark:text-slate-400 mb-1.5">Protection Score</div>
+                    <div className="text-label-premium text-[#374151] dark:text-slate-400 mb-1.5">{isHindi ? 'सुरक्षा स्कोर' : isEnglish ? 'Protection Score' : 'Protection Score'}</div>
                     <div className="text-3xl font-bold font-display text-[#111111] dark:text-white tracking-tight">87/100</div>
                     <div className="flex items-center gap-1.5 mt-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
                       <TrendingUp className="h-4 w-4" />
@@ -544,9 +544,9 @@ export default function HeroAdvisor() {
 
                 <div className="space-y-3.5">
                   {[
-                    { label: 'Life Coverage', pct: 90, color: 'from-emerald-500 to-emerald-600' },
-                    { label: 'Health Protection', pct: 85, color: 'from-blue-500 to-blue-600' },
-                    { label: 'Vehicle Insurance', pct: 95, color: 'from-amber-400 to-amber-500' },
+                    { label: isHindi ? 'जीवन कवरेज' : isEnglish ? 'Life Coverage' : 'Jeevan Coverage', pct: 90, color: 'from-emerald-500 to-emerald-600' },
+                    { label: isHindi ? 'स्वास्थ्य सुरक्षा' : isEnglish ? 'Health Protection' : 'Swasthya Suraksha', pct: 85, color: 'from-blue-500 to-blue-600' },
+                    { label: isHindi ? 'वाहन बीमा' : isEnglish ? 'Vehicle Insurance' : 'Vahan Insurance', pct: 95, color: 'from-amber-400 to-amber-500' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between gap-4">
                       <span className="text-sm text-[#374151] dark:text-slate-400 font-body min-w-[120px]">{item.label}</span>

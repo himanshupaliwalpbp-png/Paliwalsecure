@@ -811,10 +811,10 @@ export default function InsuranceBeastQuiz() {
                 {/* Category Buttons */}
                 <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
                   {[
-                    { mode: 'categoryHealth' as QuizMode, icon: Heart, label: isHindi ? 'हेल्थ ओनली (8)' : isEnglish ? 'Health Only (8)' : 'Health Only (8)' },
-                    { mode: 'categoryMotor' as QuizMode, icon: Car, label: isHindi ? 'मोटर ओनली (8)' : isEnglish ? 'Motor Only (8)' : 'Motor Only (8)' },
-                    { mode: 'categoryLife' as QuizMode, icon: ShieldCheck, label: isHindi ? 'लाइफ ओनली (8)' : isEnglish ? 'Life Only (8)' : 'Life Only (8)' },
-                    { mode: 'categoryHome' as QuizMode, icon: HomeIcon, label: isHindi ? 'होम ओनली (8)' : isEnglish ? 'Home Only (8)' : 'Home Only (8)' },
+                    { mode: 'categoryHealth' as QuizMode, icon: Heart, label: isHindi ? 'हेल्थ ओनली (8)' : isEnglish ? 'Health Only (8)' : 'Health (8)' },
+                    { mode: 'categoryMotor' as QuizMode, icon: Car, label: isHindi ? 'मोटर ओनली (8)' : isEnglish ? 'Motor Only (8)' : 'Motor (8)' },
+                    { mode: 'categoryLife' as QuizMode, icon: ShieldCheck, label: isHindi ? 'लाइफ ओनली (8)' : isEnglish ? 'Life Only (8)' : 'Life (8)' },
+                    { mode: 'categoryHome' as QuizMode, icon: HomeIcon, label: isHindi ? 'होम ओनली (8)' : isEnglish ? 'Home Only (8)' : 'Home (8)' },
                   ].map((cat) => {
                     const CatIcon = cat.icon;
                     return (
@@ -861,7 +861,7 @@ export default function InsuranceBeastQuiz() {
               <div className="mb-6">
                 <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
                   <span>{isHindi ? `सवाल ${currentIndex + 1} / ${currentQuestions.length}` : isEnglish ? `Question ${currentIndex + 1} / ${currentQuestions.length}` : `Sawaal ${currentIndex + 1} / ${currentQuestions.length}`}</span>
-                  <span>{Math.round(progress)}% {isHindi ? 'पूरा' : isEnglish ? 'complete' : 'complete'}</span>
+                  <span>{Math.round(progress)}% {isHindi ? 'पूरा' : isEnglish ? 'complete' : 'poora'}</span>
                 </div>
                 <div className="h-2 bg-border rounded-full overflow-hidden">
                   <motion.div
@@ -1184,7 +1184,7 @@ export default function InsuranceBeastQuiz() {
                     transition={{ delay: 1.1 }}
                     className="bg-card/80 rounded-2xl p-4 max-w-sm mx-auto"
                   >
-                    <p className="text-xs text-muted-foreground mb-1"><BookOpen className="w-3 h-3 inline mr-1" /> {isHindi ? 'यूनिक क्विज़ कोड' : isEnglish ? 'Unique Quiz Code' : 'Unique Quiz Code'}</p>
+                    <p className="text-xs text-muted-foreground mb-1"><BookOpen className="w-3 h-3 inline mr-1" /> {isHindi ? 'यूनिक क्विज़ कोड' : isEnglish ? 'Unique Quiz Code' : 'Quiz Code'}</p>
                     <p className="text-xl font-mono font-bold text-primary">{generatedCode}</p>
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <Button
@@ -1249,7 +1249,7 @@ export default function InsuranceBeastQuiz() {
                 {/* Exclusive Deals Header */}
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><Sparkles className="w-5 h-5 text-primary" /> {isHindi ? 'आपके लिए खास ऑफ़र!' : isEnglish ? 'Special Offers For You!' : 'Special Offers For You!'}</h3>
-                  <p className="text-muted-foreground text-sm mt-1">{isHindi ? 'क्विज़ पूरा — इन खास डील्स का मज़ा लो!' : isEnglish ? 'Quiz complete — enjoy these exclusive deals!' : 'Quiz complete — enjoy these exclusive deals!'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{isHindi ? 'क्विज़ पूरा — इन खास डील्स का मज़ा लो!' : isEnglish ? 'Quiz complete — enjoy these exclusive deals!' : 'Quiz poora — in deals ka maza lo!'}</p>
                 </div>
 
                 {/* Ajio Deal */}
@@ -1347,13 +1347,13 @@ export default function InsuranceBeastQuiz() {
               className="space-y-4"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><BookOpen className="w-5 h-5 text-primary" /> {isHindi ? 'जवाब रिव्यू' : isEnglish ? 'Answer Review' : 'Answer Review'}</h3>
+                <h3 className="text-2xl font-bold text-foreground flex items-center gap-2"><BookOpen className="w-5 h-5 text-primary" /> {isHindi ? 'जवाब रिव्यू' : isEnglish ? 'Answer Review' : 'Jawab Review'}</h3>
                 <Button
                   onClick={() => setPhase('result')}
                   variant="outline"
                   className="border-border text-muted-foreground hover:bg-primary/5 rounded-full gap-2 text-sm"
                 >
-                  ← {isHindi ? 'परिणामों पर वापस' : isEnglish ? 'Back to Results' : 'Back to Results'}
+                  ← {isHindi ? 'परिणामों पर वापस' : isEnglish ? 'Back to Results' : 'Results par wapas'}
                 </Button>
               </div>
 

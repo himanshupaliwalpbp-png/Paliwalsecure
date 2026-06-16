@@ -32,39 +32,39 @@ interface CategoryItem {
 const categories: CategoryItem[] = [
   { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day', color: '#EF4444', badgeVariant: 'green',
     features: [
-      { en: 'Cashless Treatment', hi: 'कैशलेस इलाज', hg: 'Cashless Treatment' },
+      { en: 'Cashless Treatment', hi: 'कैशलेस इलाज', hg: 'Cashless Ilaj' },
       { en: 'Family Floater', hi: 'फैमिली फ्लोटर', hg: 'Family Floater' },
-      { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Hospitalization se pehle aur baad' },
+      { en: 'Pre & Post Hospitalization', hi: 'अस्पताल से पहले और बाद', hg: 'Hospital ke pehle aur baad ka kharcha' },
     ] },
   { key: 'termLife', icon: Shield, href: '/life-insurance', price: '₹489/mo', emoji: '', quickStat: 'Starting ₹16/day', color: '#043C50', badgeVariant: 'blue',
     features: [
       { en: 'Term Plans', hi: 'टर्म प्लान', hg: 'Term Plans' },
       { en: 'Investment Plans', hi: 'निवेश योजनाएं', hg: 'Investment Plans' },
-      { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Critical Illness Cover' },
+      { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Bimari Cover' },
     ] },
   { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#08799A', badgeVariant: 'green',
     features: [
-      { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Comprehensive Cover' },
+      { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Poori Cover' },
       { en: 'Zero Depreciation', hi: 'ज़ीरो डेप्रिसिएशन', hg: 'Zero Depreciation' },
-      { en: 'Roadside Assistance', hi: 'रोडसाइड सहायता', hg: 'Roadside Assistance' },
+      { en: 'Roadside Assistance', hi: 'रोडसाइड सहायता', hg: 'Roadside Help' },
     ] },
   { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day', color: '#F59E0B', badgeVariant: 'gold',
     features: [
       { en: 'Third Party Cover', hi: 'थर्ड पार्टी कवर', hg: 'Third Party Cover' },
-      { en: 'Comprehensive Plan', hi: 'व्यापक प्लान', hg: 'Comprehensive Plan' },
-      { en: 'Add-on Covers', hi: 'अड-ऑन कवर', hg: 'Add-on Covers' },
+      { en: 'Comprehensive Plan', hi: 'व्यापक प्लान', hg: 'Poori Plan' },
+      { en: 'Add-on Covers', hi: 'अड-ऑन कवर', hg: 'Extra Covers' },
     ] },
   { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip', color: '#06B6D4', badgeVariant: 'blue',
     features: [
       { en: 'Medical Emergency', hi: 'मेडिकल इमरजेंसी', hg: 'Medical Emergency' },
-      { en: 'Trip Cancellation', hi: 'ट्रिप कैंसिलेशन', hg: 'Trip Cancellation' },
+      { en: 'Trip Cancellation', hi: 'ट्रिप कैंसिलेशन', hg: 'Trip Cancel' },
       { en: 'Lost Baggage', hi: 'खोई हुई सामान', hg: 'Samaan kho jane par' },
     ] },
   { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#8B5CF6', badgeVariant: 'blue',
     features: [
-      { en: 'Structure Cover', hi: 'संरचना कवर', hg: 'Structure Cover' },
-      { en: 'Contents Insurance', hi: 'सामग्री बीमा', hg: 'Contents Insurance' },
-      { en: 'Natural Disaster', hi: 'प्राकृतिक आपदा', hg: 'Prakritik aapda' },
+      { en: 'Structure Cover', hi: 'संरचना कवर', hg: 'Ghar ki Structure Cover' },
+      { en: 'Contents Insurance', hi: 'सामग्री बीमा', hg: 'Samaan ka Insurance' },
+      { en: 'Natural Disaster', hi: 'प्राकृतिक आपदा', hg: 'Prakritik Aapda' },
     ] },
 ];
 
@@ -192,7 +192,7 @@ export default function CategoryCards() {
                       </span>
                       <span className="badge-premium-gold">
                         <Sparkles className="w-3 h-3" />
-                        AI Pick
+                        {isHindi ? 'AI चुनाव' : isEnglish ? 'AI Pick' : 'AI Chunaav'}
                       </span>
                     </div>
                   </div>

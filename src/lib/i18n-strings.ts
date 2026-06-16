@@ -252,9 +252,9 @@ export const translations: TranslationStrings = {
 
   // ── Footer ──────────────────────────────────────────────────────────────
   'footer.description': { en: 'AI-powered insurance recommendations for every Indian. IRDAI-compliant, transparent, and simple.', hi: 'हर भारतीय के लिए AI-संचालित बीमा सिफारिशें। IRDAI-अनुपालित, पारदर्शी, और आसान।', hinglish: 'AI-powered insurance recommendations for every Indian. IRDAI-compliant, transparent, aur aasan.' },
-  'footer.trustedBy': { en: 'Trusted Partner Insurers', hi: 'विश्वसनीय भागीदार बीमाकर्ता', hinglish: 'Trusted Partner Insurers' },
+  'footer.trustedBy': { en: 'Trusted Partner Insurers', hi: 'विश्वसनीय भागीदार बीमाकर्ता', hinglish: 'Bharosemand Partner Insurers' },
   'footer.whatsapp': { en: 'WhatsApp', hi: 'व्हाट्सएप', hinglish: 'WhatsApp' },
-  'footer.newsletter': { en: 'Insurance Tips Newsletter', hi: 'बीमा टिप्स न्यूज़लेटर', hinglish: 'Insurance Tips Newsletter' },
+  'footer.newsletter': { en: 'Newsletter', hi: 'न्यूज़लेटर', hinglish: 'Newsletter' },
   'footer.quickLinks': { en: 'Quick Links', hi: 'त्वरित लिंक', hinglish: 'Quick Links' },
   'footer.products': { en: 'Products', hi: 'उत्पाद', hinglish: 'Products' },
   'footer.contactUs': { en: 'Contact Us', hi: 'हमसे संपर्क करें', hinglish: 'Humse Contact Karein' },
@@ -276,6 +276,21 @@ export const translations: TranslationStrings = {
   'footer.legal': { en: 'Legal', hi: 'कानूनी', hinglish: 'Legal' },
   'footer.contactSection': { en: 'Contact', hi: 'संपर्क', hinglish: 'Contact' },
   'footer.irdaiVerified': { en: 'IRDAI Verified', hi: 'IRDAI सत्यापित', hinglish: 'IRDAI Verified' },
+
+  // ── Footer Stats & Labels (SiteFooter) ─────────────────────────────────────
+  'footer.stat.insurers': { en: 'Insurers', hi: 'बीमाकर्ता', hinglish: 'Insurers' },
+  'footer.stat.claims': { en: 'Claims', hi: 'क्लेम', hinglish: 'Claim Settle' },
+  'footer.stat.families': { en: 'Families Protected', hi: 'परिवार सुरक्षित', hinglish: 'Parivaar Surakshit' },
+  'footer.stat.rating': { en: 'Rating', hi: 'रेटिंग', hinglish: 'Rating' },
+  'footer.pospCode': { en: 'POSP Code', hi: 'POSP कोड', hinglish: 'POSP Code' },
+  'footer.irdaiCertified': { en: 'IRDAI Certified', hi: 'IRDAI प्रमाणित', hinglish: 'IRDAI Certified' },
+  'footer.newsletter': { en: 'Newsletter', hi: 'न्यूज़लेटर', hinglish: 'Newsletter' },
+  'footer.newsletterDesc': { en: 'Get insurance tips, updates & exclusive offers — straight to your inbox.', hi: 'बीमा टिप्स, अपडेट और विशेष ऑफर प्राप्त करें — सीधे अपने इनबॉक्स में।', hinglish: 'Insurance tips, updates aur exclusive offers paayein — seedha apne inbox mein.' },
+  'footer.allRightsReserved': { en: 'All Rights Reserved.', hi: 'सर्वाधिकार सुरक्षित।', hinglish: 'All Rights Reserved.' },
+  'footer.grievanceOfficer': { en: 'Grievance Officer', hi: 'शिकायत अधिकारी', hinglish: 'Shikayat Adhikari' },
+  'footer.responseTime': { en: 'Response', hi: 'प्रतिक्रिया', hinglish: 'Response' },
+  'footer.days': { en: 'days', hi: 'दिन', hinglish: 'din' },
+  'footer.viewPolicy': { en: 'View Policy', hi: 'नीति देखें', hinglish: 'Policy Dekhein' },
 
   // ── Hero CTA InsureGPT (updated with emoji — original at line 41) ──────
 
