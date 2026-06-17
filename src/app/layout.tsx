@@ -15,7 +15,6 @@ import { PWARegistrar } from "@/components/PWARegistrar";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import ConsentModal from "@/components/ConsentModal";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import StickyMobileCTA from "@/components/home/StickyMobileCTA";
 import { SafeRender } from "@/components/SafeRender";
 import StyledComponentsRegistry from "@/lib/styled-components-registry";
 
@@ -392,9 +391,6 @@ export default function RootLayout({
               </SafeRender>
               <SafeRender name="WhatsAppFAB">
                 <WhatsAppFAB />
-              </SafeRender>
-              <SafeRender name="StickyMobileCTA">
-                <StickyMobileCTA />
               </SafeRender>
               <SafeRender name="ScrollProgress">
                 <ScrollProgress />
