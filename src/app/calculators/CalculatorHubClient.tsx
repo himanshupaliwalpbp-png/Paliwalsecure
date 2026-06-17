@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import {
   Calculator, Heart, Car, UserCheck, IndianRupee, ShieldCheck,
   TrendingUp, Clock, CheckCircle2, Sparkles, ArrowRight, Info,
+  Activity, Users, Scale,
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -48,6 +49,27 @@ const ClaimSettlementPredictor = dynamic(
     loading: () => <CalculatorLoading />,
   }
 );
+const DiseasePremiumCalculator = dynamic(
+  () => import('@/components/calculators/DiseasePremiumCalculator'),
+  {
+    ssr: false,
+    loading: () => <CalculatorLoading />,
+  }
+);
+const FamilyFloaterOptimizer = dynamic(
+  () => import('@/components/calculators/FamilyFloaterOptimizer'),
+  {
+    ssr: false,
+    loading: () => <CalculatorLoading />,
+  }
+);
+const ROPvsPureTermCalculator = dynamic(
+  () => import('@/components/calculators/ROPvsPureTermCalculator'),
+  {
+    ssr: false,
+    loading: () => <CalculatorLoading />,
+  }
+);
 
 function CalculatorLoading() {
   return (
@@ -58,7 +80,7 @@ function CalculatorLoading() {
 }
 
 // ── Calculator tab config ────────────────────────────────────────────────────
-type CalcTab = 'health' | 'motor' | 'term' | 'tax' | 'claim';
+type CalcTab = 'health' | 'motor' | 'term' | 'tax' | 'claim' | 'disease' | 'family' | 'rop';
 
 interface TabConfig {
   id: CalcTab;
@@ -148,6 +170,54 @@ const TABS: TabConfig[] = [
       { en: 'ML-based probability', hi: 'ML-आधारित संभावना', hinglish: 'ML-based probability' },
       { en: 'Insurer-wise CSR data', hi: 'बीमाकर्ता-वार CSR डेटा', hinglish: 'Insurer-wise CSR data' },
       { en: 'Documentation checklist', hi: 'दस्तावेज़ीकरण चेकलिस्ट', hinglish: 'Documentation checklist' },
+    ],
+  },
+  {
+    id: 'disease',
+    label: { en: 'Disease', hi: 'बीमारी', hinglish: 'Disease' },
+    icon: Activity,
+    color: 'sienna',
+    description: {
+      en: 'Calculate health insurance premium for pre-existing diseases — Diabetes, BP, Heart, Cancer, Asthma, Thyroid, Kidney, Liver. Real PED loading + waiting periods.',
+      hi: 'पूर्व-मौजूद बीमारियों के लिए स्वास्थ्य बीमा प्रीमियम की गणना करें — मधुमेह, बीपी, हृदय, कैंसर, अस्थमा, थायराइड, किडनी, लिवर।',
+      hinglish: 'Pre-existing diseases (Diabetes, BP, Heart, Cancer, Asthma, Thyroid, Kidney, Liver) ke liye health insurance premium calculate karein. Real PED loading + waiting periods.',
+    },
+    features: [
+      { en: '8 disease types', hi: '8 बीमारी प्रकार', hinglish: '8 disease types' },
+      { en: 'Severity-based loading', hi: 'गंभीरता-आधारित लोडिंग', hinglish: 'Severity-based loading' },
+      { en: 'PED waiting period info', hi: 'PED वेटिंग अवधि जानकारी', hinglish: 'PED waiting period info' },
+    ],
+  },
+  {
+    id: 'family',
+    label: { en: 'Family', hi: 'परिवार', hinglish: 'Family' },
+    icon: Users,
+    color: 'emerald',
+    description: {
+      en: 'Optimize family floater health insurance — add members (spouse, kids, parents, in-laws), get optimal sum insured + premium breakdown.',
+      hi: 'परिवार फ्लोटर स्वास्थ्य बीमा अनुकूलित करें — सदस्य जोड़ें (पति/पत्नी, बच्चे, माता-पिता, ससुर), इष्टतम बीमा राशि + प्रीमियम विवरण प्राप्त करें।',
+      hinglish: 'Family floater health insurance optimize karein — members add karein (spouse, kids, parents, in-laws), optimal sum insured + premium breakdown paayein.',
+    },
+    features: [
+      { en: 'Up to 6+ members', hi: '6+ सदस्यों तक', hinglish: '6+ members tak' },
+      { en: 'Optimal base + top-up SI', hi: 'इष्टतम आधार + टॉप-अप SI', hinglish: 'Optimal base + top-up SI' },
+      { en: 'Per-member cost breakdown', hi: 'प्रति-सदस्य लागत विवरण', hinglish: 'Per-member cost breakdown' },
+    ],
+  },
+  {
+    id: 'rop',
+    label: { en: 'ROP vs Term', hi: 'ROP बनाम टर्म', hinglish: 'ROP vs Term' },
+    icon: Scale,
+    color: 'gold',
+    description: {
+      en: 'Compare Return of Premium (ROP) vs Pure Term + MF SIP. Break-even analysis shows which creates more wealth over policy term.',
+      hi: 'रिटर्न ऑफ प्रीमियम (ROP) बनाम प्योर टर्म + MF SIP की तुलना करें। ब्रेक-ईवन विश्लेषण बताता है कि कौन अधिक धन बनाता है।',
+      hinglish: 'Return of Premium (ROP) vs Pure Term + MF SIP compare karein. Break-even analysis batata hai kaun zyada wealth banata hai.',
+    },
+    features: [
+      { en: 'Break-even year analysis', hi: 'ब्रेक-ईवन वर्ष विश्लेषण', hinglish: 'Break-even year analysis' },
+      { en: 'MF SIP future value @12%', hi: 'MF SIP भविष्य मूल्य @12%', hinglish: 'MF SIP future value @12%' },
+      { en: 'Smoker/non-smoker rates', hi: 'धूम्रपान/गैर-धूम्रपान दरें', hinglish: 'Smoker/non-smoker rates' },
     ],
   },
 ];
@@ -254,7 +324,7 @@ export default function CalculatorHubClient() {
          ════════════════════════════════════════════════════════════════════ */}
       <section className="px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 p-2 bg-white dark:bg-[#161A24] rounded-2xl border border-[rgba(15,19,32,0.08)] dark:border-[rgba(232,200,114,0.15)] shadow-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-2 p-2 bg-white dark:bg-[#161A24] rounded-2xl border border-[rgba(15,19,32,0.08)] dark:border-[rgba(232,200,114,0.15)] shadow-sm">
             {TABS.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -322,6 +392,9 @@ export default function CalculatorHubClient() {
               {activeTab === 'term' && <TermLifeCalculator />}
               {activeTab === 'tax' && <TaxSavingsCalculator />}
               {activeTab === 'claim' && <ClaimSettlementPredictor />}
+              {activeTab === 'disease' && <DiseasePremiumCalculator />}
+              {activeTab === 'family' && <FamilyFloaterOptimizer />}
+              {activeTab === 'rop' && <ROPvsPureTermCalculator />}
             </Suspense>
           </motion.div>
 
