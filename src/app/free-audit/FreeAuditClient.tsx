@@ -60,12 +60,15 @@ export default function FreeAuditClient() {
   const [isDragOver, setIsDragOver] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [savingsAmount, setSavingsAmount] = useState('₹2,900/yr');
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
   // InsureGPT opens via global event — no local state needed
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = useCallback((file: File) => {
     setUploadedFile(file);
     setShowResults(false);
+    setAnalysisError(null);
   }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -84,6 +87,7 @@ export default function FreeAuditClient() {
     if (!uploadedFile) return;
     setIsAnalyzing(true);
     setShowResults(false);
+    setAnalysisError(null);
 
     try {
       // Convert file to base64
@@ -133,26 +137,25 @@ export default function FreeAuditClient() {
       if (auditResponse.ok) {
         const auditData = await auditResponse.json();
         if (auditData.success) {
-          // Update comparison data with real results
           setSavingsAmount(`₹${auditData.potentialSavings || 2900}/yr`);
           setShowResults(true);
-          setIsAnalyzing(false);
           return;
         }
       }
 
-      // Fallback: If API fails, still show results with mock data
+      // Fallback: If API fails, still show results with demo data
       console.warn('Audit API failed, showing demo results');
+      setSavingsAmount('₹2,900/yr');
       setShowResults(true);
     } catch (error) {
       console.error('Audit analysis error:', error);
-      // Fallback: Show demo results even on error
+      setAnalysisError('AI analysis me thodi samasya hui. Demo results dikha rahe hain.');
+      setSavingsAmount('₹2,900/yr');
       setShowResults(true);
+    } finally {
+      setIsAnalyzing(false);
     }
-    setIsAnalyzing(false);
   }, [uploadedFile]);
-
-  const [savingsAmount, setSavingsAmount] = useState('₹2,900/yr');
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -165,7 +168,7 @@ export default function FreeAuditClient() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)] pointer-events-none z-[1]" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 flex items-center justify-center min-h-[70vh]">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
