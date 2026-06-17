@@ -90,13 +90,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1,
     },
-    // Also index paliwalinsure.com
-    {
-      url: 'https://paliwalinsure.com',
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1,
-    },
     {
       url: `${baseUrl}/blog`,
       lastModified: now,
