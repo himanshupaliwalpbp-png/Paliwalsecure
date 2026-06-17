@@ -8,6 +8,91 @@ const PUBLIC_PATHS = ["/", "/admin/login"];
 // ── Paths prefixes that are public ──────────────────────────────────────────
 const PUBLIC_PREFIXES = ["/api/admin/auth"];
 
+// ── Known search engine bot user agents (partial match, lowercase) ───────────
+// Used to hide admin routes from crawlers (return 404 so admin is invisible)
+const BOT_PATTERNS = [
+  "googlebot",
+  "bingbot",
+  "slurp",          // Yahoo
+  "duckduckbot",
+  "baiduspider",
+  "yandexbot",
+  "sogou",
+  "exabot",
+  "facebot",
+  "facebookexternalhit",
+  "ia_archiver",    // Alexa
+  "mj12bot",
+  "ahrefsbot",
+  "semrushbot",
+  "dotbot",
+  "rogerbot",
+  "seznambot",
+  "twitterbot",
+  "linkedinbot",
+  "applebot",
+  "petalbot",
+  "bytespider",
+  "crawler",
+  "spider",
+  "bot;",
+  "bot/",
+];
+
+// ── Suspicious patterns for attack detection ────────────────────────────────
+const ATTACK_PATTERNS: { pattern: RegExp; name: string }[] = [
+  // SQL Injection
+  { pattern: /(\b(union\s+select|select\s+.+\s+from|insert\s+into|delete\s+from|drop\s+table|alter\s+table|exec\s*\(|execute\s*\(|xp_cmdshell|information_schema|pg_sleep|waitfor\s+delay)\b)/i, name: "SQL_INJECTION" },
+  { pattern: /('|\")\s*(or|and)\s+('|\")?\d+('|\")?\s*=\s*('|\")?\d+/i, name: "SQL_INJECTION" },
+  { pattern: /;\s*(drop|delete|update|insert|alter|exec|create)\s/i, name: "SQL_INJECTION" },
+  // XSS
+  { pattern: /<script[\s>]/i, name: "XSS" },
+  { pattern: /javascript\s*:/i, name: "XSS" },
+  { pattern: /on(error|load|click|mouseover|focus|blur)\s*=/i, name: "XSS" },
+  { pattern: /(alert|confirm|prompt)\s*\(/i, name: "XSS" },
+  { pattern: /document\.(cookie|location|write)/i, name: "XSS" },
+  // Path Traversal
+  { pattern: /\.\.[\/\\]/, name: "PATH_TRAVERSAL" },
+  { pattern: /(%2e%2e|%252e|%c0%ae)/i, name: "PATH_TRAVERSAL" },
+  // Command Injection
+  { pattern: /(\b(cat|ls|pwd|whoami|uname|id|wget|curl|nc|bash|sh|python|perl|ruby|php)\b)\s*[\|;`$]/i, name: "CMD_INJECTION" },
+  { pattern: /[\|;`]\s*(cat|ls|pwd|whoami|uname|id|wget|curl|nc|bash|sh)/i, name: "CMD_INJECTION" },
+];
+
+// ── In-memory rate limiter for admin login (Edge-compatible) ─────────────────
+interface RateLimitEntry {
+  count: number;
+  resetTime: number;
+  blockedUntil: number;
+}
+
+const adminLoginRateLimit = new Map<string, RateLimitEntry>();
+
+// Cleanup expired entries every 2 minutes
+const CLEANUP_INTERVAL = 2 * 60 * 1000;
+let lastCleanup = Date.now();
+
+function getRateLimit(ip: string): RateLimitEntry {
+  const now = Date.now();
+
+  // Periodic cleanup
+  if (now - lastCleanup > CLEANUP_INTERVAL) {
+    for (const [key, entry] of adminLoginRateLimit) {
+      if (now > entry.resetTime && now > entry.blockedUntil) {
+        adminLoginRateLimit.delete(key);
+      }
+    }
+    lastCleanup = now;
+  }
+
+  let entry = adminLoginRateLimit.get(ip);
+  if (!entry || now > entry.resetTime) {
+    entry = { count: 0, resetTime: now + 60 * 1000, blockedUntil: 0 }; // 1-minute window
+    adminLoginRateLimit.set(ip, entry);
+  }
+  return entry;
+}
+
 // ── Security Headers (HARDENED — Hacker + AI Bot Resistant) ─────────────────
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
@@ -38,6 +123,14 @@ const SECURITY_HEADERS: Record<string, string> = {
   // Cross-Origin-Resource-Policy and Cross-Origin-Opener-Policy are sufficient for security.
 };
 
+// ── Admin-specific extra security headers ───────────────────────────────────
+const ADMIN_SECURITY_HEADERS: Record<string, string> = {
+  "X-Robots-Tag": "noindex, nofollow",
+  "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+  "Pragma": "no-cache",
+  "Expires": "0",
+};
+
 // ── Static asset extensions for cache headers ───────────────────────────────
 const STATIC_EXTENSIONS = [
   ".js", ".css", ".woff", ".woff2", ".ttf", ".otf",
@@ -48,9 +141,23 @@ const STATIC_EXTENSIONS = [
 // ── Canonical URL configuration ─────────────────────────────────────────────
 const CANONICAL_HOST = "paliwalsecure.in";
 
+// ── Helper: check if user agent looks like a bot ───────────────────────────
+function isBot(userAgent: string): boolean {
+  const ua = userAgent.toLowerCase();
+  return BOT_PATTERNS.some((pattern) => ua.includes(pattern));
+}
+
+// ── Helper: check for attack patterns in URL + query ────────────────────────
+function detectAttackPatterns(url: string): string | null {
+  for (const { pattern, name } of ATTACK_PATTERNS) {
+    if (pattern.test(url)) return name;
+  }
+  return null;
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
-  const url = request.nextUrl.clone();
+  const userAgent = request.headers.get("user-agent") ?? "";
 
   // ========================================================================
   // 1. Canonical URL Redirect (www → non-www, http → https)
@@ -70,9 +177,9 @@ export async function proxy(request: NextRequest) {
   }
 
   // ========================================================================
-  // 2. Bot Protection — Block known malicious bots & AI scrapers
+  // 2. Bot Protection — Block known malicious bots & AI scrapers site-wide
   // ========================================================================
-  const userAgent = request.headers.get("user-agent")?.toLowerCase() || "";
+  const uaLower = userAgent.toLowerCase();
   const BLOCKED_BOTS = [
     "semrushbot", "ahrefsbot", "mj12bot", "dotbot", "rogerbot",
     "seznambot", "baiduspider", "yandexbot", "exabot", "sistrix",
@@ -80,7 +187,7 @@ export async function proxy(request: NextRequest) {
     "nikto", "nessus", "openvas", "burpsuite", "zap", "arachni",
     "w3af", "dirbuster", "gobuster", "ffuf", "hydra", "metasploit",
   ];
-  const isBlockedBot = BLOCKED_BOTS.some(bot => userAgent.includes(bot));
+  const isBlockedBot = BLOCKED_BOTS.some(bot => uaLower.includes(bot));
 
   if (isBlockedBot && !pathname.startsWith("/api/")) {
     // Return 403 for malicious bots on page routes
@@ -90,12 +197,97 @@ export async function proxy(request: NextRequest) {
   }
 
   // ========================================================================
-  // 3. Auth Logic (existing, preserved)
+  // 3. Admin Route Security Checks
+  // ========================================================================
+  const isAdminPage = pathname.startsWith("/admin/");
+  const isAdminApi = pathname.startsWith("/api/admin/");
+  const isSecretEntry = pathname.startsWith("/p4l1w4l-s3cur3-4dm1n");
+
+  if (isAdminPage || isAdminApi || isSecretEntry) {
+    // ── 3a. Block bots/crawlers — return 404 so admin routes are invisible ──
+    if (isBot(userAgent)) {
+      return new NextResponse(null, { status: 404, statusText: "Not Found" });
+    }
+
+    // ── 3b. Check for attack patterns in URL ────────────────────────────────
+    const fullUrl = pathname + (searchParams.toString() ? "?" + searchParams.toString() : "");
+    const attackType = detectAttackPatterns(decodeURIComponent(fullUrl));
+    if (attackType) {
+      return new NextResponse(null, { status: 400, statusText: "Bad Request" });
+    }
+
+    // ── 3c. Rate limit admin login attempts (5 per minute per IP) ───────────
+    const isLoginAttempt = pathname === "/api/admin/auth/login" && request.method === "POST";
+    if (isLoginAttempt) {
+      const clientIp =
+        request.headers.get("x-forwarded-for")?.split(",")?.[0]?.trim() ??
+        request.headers.get("x-real-ip") ??
+        "unknown";
+
+      const rateLimit = getRateLimit(clientIp);
+
+      // If temporarily blocked due to too many attempts
+      if (rateLimit.blockedUntil > Date.now()) {
+        const retryAfter = Math.ceil((rateLimit.blockedUntil - Date.now()) / 1000);
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Too many login attempts. Please try again later.",
+            retryAfter,
+          },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(retryAfter),
+              "X-RateLimit-Remaining": "0",
+              ...ADMIN_SECURITY_HEADERS,
+            },
+          }
+        );
+      }
+
+      rateLimit.count++;
+      if (rateLimit.count > 5) {
+        // Block for 5 minutes after exceeding rate
+        rateLimit.blockedUntil = Date.now() + 5 * 60 * 1000;
+        const retryAfter = Math.ceil((rateLimit.blockedUntil - Date.now()) / 1000);
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Too many login attempts. Please try again later.",
+            retryAfter,
+          },
+          {
+            status: 429,
+            headers: {
+              "Retry-After": String(retryAfter),
+              "X-RateLimit-Remaining": "0",
+              ...ADMIN_SECURITY_HEADERS,
+            },
+          }
+        );
+      }
+    }
+  }
+
+  // ========================================================================
+  // 4. Auth Logic
   // ========================================================================
   // Allow public exact paths
   if (PUBLIC_PATHS.includes(pathname)) {
     const response = NextResponse.next();
     addHeaders(response, pathname, searchParams);
+    return response;
+  }
+
+  // Allow secret admin entry (redirect happens in page.tsx)
+  if (isSecretEntry) {
+    const response = NextResponse.next();
+    addHeaders(response, pathname, searchParams);
+    // Add admin security headers for secret entry too
+    for (const [key, value] of Object.entries(ADMIN_SECURITY_HEADERS)) {
+      response.headers.set(key, value);
+    }
     return response;
   }
 
@@ -110,13 +302,14 @@ export async function proxy(request: NextRequest) {
   if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
     const response = NextResponse.next();
     addHeaders(response, pathname, searchParams);
+    // Add admin security headers
+    for (const [key, value] of Object.entries(ADMIN_SECURITY_HEADERS)) {
+      response.headers.set(key, value);
+    }
     return response;
   }
 
   // Only protect /admin/* and /api/admin/* routes
-  const isAdminPage = pathname.startsWith("/admin/");
-  const isAdminApi = pathname.startsWith("/api/admin/");
-
   if (!isAdminPage && !isAdminApi) {
     const response = NextResponse.next();
     addHeaders(response, pathname, searchParams);
@@ -157,6 +350,10 @@ export async function proxy(request: NextRequest) {
 
   const response = NextResponse.next();
   addHeaders(response, pathname, searchParams);
+  // Add admin security headers for all authenticated admin routes
+  for (const [key, value] of Object.entries(ADMIN_SECURITY_HEADERS)) {
+    response.headers.set(key, value);
+  }
   return response;
 }
 
