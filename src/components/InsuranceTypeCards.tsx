@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useLanguage } from '@/lib/i18n';
-import { Heart, Car, Shield, Plane, ArrowRight } from 'lucide-react';
+import { Heart, Car, Shield, Plane, ArrowRight, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface CardData {
@@ -13,6 +13,8 @@ interface CardData {
   priceKey: string;
   featured?: boolean;
   exploreKey: string;
+  /** 3-tone color family: emerald (protection) / sienna (action) / gold (premium) */
+  colorFamily: 'emerald' | 'sienna' | 'gold';
 }
 
 const cards: CardData[] = [
@@ -23,6 +25,7 @@ const cards: CardData[] = [
     priceKey: 'insuranceCards.v2.health.price',
     featured: true,
     exploreKey: 'insuranceCards.v2.explore',
+    colorFamily: 'emerald', // Health = trust, protection
   },
   {
     icon: Car,
@@ -30,6 +33,7 @@ const cards: CardData[] = [
     descKey: 'insuranceCards.v2.motor.desc',
     priceKey: 'insuranceCards.v2.motor.price',
     exploreKey: 'insuranceCards.v2.explore',
+    colorFamily: 'sienna', // Motor = action, energy
   },
   {
     icon: Shield,
@@ -37,6 +41,7 @@ const cards: CardData[] = [
     descKey: 'insuranceCards.v2.life.desc',
     priceKey: 'insuranceCards.v2.life.price',
     exploreKey: 'insuranceCards.v2.explore',
+    colorFamily: 'emerald', // Life = trust, protection
   },
   {
     icon: Plane,
@@ -44,8 +49,43 @@ const cards: CardData[] = [
     descKey: 'insuranceCards.v2.travel.desc',
     priceKey: 'insuranceCards.v2.travel.price',
     exploreKey: 'insuranceCards.v2.explore',
+    colorFamily: 'gold', // Travel = premium, valuable
   },
 ];
+
+// 3-tone color map — each family has its own icon tint, badge bg, accent text
+const colorConfig = {
+  emerald: {
+    iconBg: 'bg-[#E6F4EF] dark:bg-[rgba(45,106,79,0.18)]',
+    iconBorder: 'border-[rgba(45,106,79,0.20)] dark:border-[rgba(45,106,79,0.30)]',
+    iconColor: 'text-[#2D6A4F] dark:text-[#6EE7B7]',
+    iconHoverBg: 'group-hover:bg-[#D5EDE3] dark:group-hover:bg-[rgba(45,106,79,0.28)]',
+    accent: 'text-[#2D6A4F] dark:text-[#6EE7B7]',
+    badgeBg: 'bg-[#E6F4EF] dark:bg-[rgba(45,106,79,0.18)]',
+    badgeText: 'text-[#2D6A4F] dark:text-[#6EE7B7]',
+    glow: 'rgba(45,106,79,0.18)',
+  },
+  sienna: {
+    iconBg: 'bg-[#FBE8E1] dark:bg-[rgba(184,72,44,0.18)]',
+    iconBorder: 'border-[rgba(184,72,44,0.20)] dark:border-[rgba(184,72,44,0.32)]',
+    iconColor: 'text-[#B8482C] dark:text-[#F0A88B]',
+    iconHoverBg: 'group-hover:bg-[#F8DDD2] dark:group-hover:bg-[rgba(184,72,44,0.28)]',
+    accent: 'text-[#B8482C] dark:text-[#F0A88B]',
+    badgeBg: 'bg-[#FBE8E1] dark:bg-[rgba(184,72,44,0.18)]',
+    badgeText: 'text-[#B8482C] dark:text-[#F0A88B]',
+    glow: 'rgba(184,72,44,0.18)',
+  },
+  gold: {
+    iconBg: 'bg-[#FBF3DD] dark:bg-[rgba(184,134,11,0.18)]',
+    iconBorder: 'border-[rgba(184,134,11,0.22)] dark:border-[rgba(232,200,114,0.32)]',
+    iconColor: 'text-[#B8860B] dark:text-[#E8C872]',
+    iconHoverBg: 'group-hover:bg-[#F8EAC4] dark:group-hover:bg-[rgba(184,134,11,0.28)]',
+    accent: 'text-[#B8860B] dark:text-[#E8C872]',
+    badgeBg: 'bg-[#FBF3DD] dark:bg-[rgba(184,134,11,0.18)]',
+    badgeText: 'text-[#8B6508] dark:text-[#E8C872]',
+    glow: 'rgba(184,134,11,0.20)',
+  },
+} as const;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -61,7 +101,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
@@ -85,63 +125,53 @@ export default function InsuranceTypeCards() {
           {cards.map((card) => {
             const IconComp = card.icon;
             const isFeatured = card.featured;
+            const colors = colorConfig[card.colorFamily];
 
             return (
               <motion.div
                 key={card.titleKey}
                 variants={cardVariants}
                 whileHover={{
-                  scale: 1.04,
+                  scale: 1.03,
                   transition: { type: 'spring', stiffness: 300, damping: 20 },
                 }}
                 className={`
                   group glass-card p-6 sm:p-8 flex flex-col gap-4 cursor-pointer relative
                   ${isFeatured ? 'md:col-span-2 lg:col-span-2' : ''}
                 `}
-                style={{
-                  // Gold border glow on hover
-                  transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201, 138, 28, 0.5)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 40px -10px rgba(201, 138, 28, 0.35), 0 0 40px rgba(201, 138, 28, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201, 138, 28, 0.22)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
-                }}
               >
                 {/* Featured badge */}
                 {isFeatured && (
-                  <div className="absolute top-4 right-4">
-                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#0A1330] text-xs font-bold">
-                      ⭐ {t('insuranceCards.v2.featured')}
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full ${colors.badgeBg} ${colors.badgeText} text-xs font-bold border ${colors.iconBorder}`}>
+                      <Sparkles className="w-3 h-3" strokeWidth={2.5} />
+                      {t('insuranceCards.v2.featured')}
                     </span>
                   </div>
                 )}
 
-                {/* Icon */}
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br from-[#C98A1C]/20 to-[#C98A1C]/5 border border-[#C98A1C]/20 flex items-center justify-center group-hover:from-[#C98A1C]/30 group-hover:border-[#C98A1C]/40 transition-all duration-300 ${isFeatured ? 'w-14 h-14' : ''}`}>
-                  <IconComp className={`dark:text-[#C98A1C] text-amber-700 dark:group-hover:text-[#C98A1C] group-hover:text-amber-600 transition-colors duration-300 ${isFeatured ? 'w-7 h-7' : 'w-6 h-6'}`} />
+                {/* Icon — colored by category family */}
+                <div className={`w-12 h-12 rounded-2xl ${colors.iconBg} ${colors.iconHoverBg} border ${colors.iconBorder} flex items-center justify-center transition-all duration-300 ${isFeatured ? 'w-14 h-14' : ''}`}>
+                  <IconComp className={`w-6 h-6 ${colors.iconColor} transition-colors duration-300 ${isFeatured ? 'w-7 h-7' : ''}`} strokeWidth={2} />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg sm:text-xl lg:text-3xl font-bold dark:text-white text-slate-900 font-heading leading-tight">
+                <h3 className="text-lg sm:text-xl lg:text-3xl font-bold text-[#0E1116] dark:text-[#FAF7F2] font-heading leading-tight">
                   {t(card.titleKey)}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm lg:text-lg dark:text-[#8A96A8] text-slate-500 leading-relaxed flex-1">
+                <p className="text-sm lg:text-lg text-[#4A4F57] dark:text-[#A8B0C2] leading-relaxed flex-1">
                   {t(card.descKey)}
                 </p>
 
-                {/* Price */}
-                <p className="text-base sm:text-lg lg:text-2xl font-bold font-mono gradient-text">
+                {/* Price — accent color by category */}
+                <p className={`text-base sm:text-lg lg:text-2xl font-bold font-mono ${colors.accent}`}>
                   {t(card.priceKey)}
                 </p>
 
                 {/* Explore link */}
-                <div className="flex items-center gap-2 dark:text-[#C98A1C] text-amber-700 dark:group-hover:text-[#C98A1C] group-hover:text-amber-600 transition-colors duration-300">
+                <div className={`flex items-center gap-2 ${colors.accent} transition-colors duration-300`}>
                   <span className="text-sm font-semibold">{t(card.exploreKey)}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </div>

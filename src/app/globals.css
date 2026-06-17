@@ -810,13 +810,14 @@ body::after,
    ────────────────────────────────────────────── */
 
 /* Premium Glass Card — Refined Design Bible spec:
-   bg rgba(10,18,46,0.60), border rgba(255,255,255,0.08),
-   backdrop-filter blur(24px) saturate(1.4) */
+   Light mode: pure white cards with subtle warm tint, soft shadow
+   Dark mode: deep navy glass with brass hairlines (luxury feel) */
 .glass-card {
-  background: rgba(10, 18, 46, 0.60);
-  backdrop-filter: blur(24px) saturate(1.4);
-  -webkit-backdrop-filter: blur(24px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Light mode (default) — pure white paper card */
+  background: #FFFFFF;
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(15, 19, 32, 0.10);
   border-radius: 1.25rem;
   contain: layout style;
   transform: translateZ(0);
@@ -825,34 +826,39 @@ body::after,
     box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.3s ease;
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.30),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    0 1px 2px rgba(20, 15, 10, 0.04),
+    0 8px 24px -8px rgba(20, 15, 10, 0.10),
+    0 16px 48px -16px rgba(20, 15, 10, 0.08);
 }
 .glass-card:hover {
-  transform: translateY(-4px) scale(1.005) translateZ(0);
-  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-3px) scale(1.005) translateZ(0);
+  border-color: rgba(184, 72, 44, 0.30);                    /* sienna-tinted border */
   box-shadow:
-    0 20px 48px -12px rgba(0, 0, 0, 0.50),
-    0 0 24px rgba(212, 168, 83, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 2px 4px rgba(20, 15, 10, 0.05),
+    0 12px 32px -8px rgba(184, 72, 44, 0.15),               /* warm sienna glow */
+    0 24px 64px -16px rgba(20, 15, 10, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-/* Dark mode glass card override */
+/* Dark mode glass card — deep navy glass with brass hairlines */
 .dark .glass-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(22, 26, 36, 0.85);                       /* lifted navy-ink, semi-transparent */
   backdrop-filter: blur(24px) saturate(1.4);
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
-  border: 1px solid rgba(212, 168, 83, 0.12);
+  border: 1px solid rgba(232, 200, 114, 0.18);              /* brass @ 18% hairline */
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 8px 24px -8px rgba(0, 0, 0, 0.50),
+    0 16px 48px -16px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 .dark .glass-card:hover {
-  border-color: rgba(212, 168, 83, 0.25);
+  border-color: rgba(232, 200, 114, 0.35);                  /* brighter brass on hover */
   box-shadow:
-    0 20px 48px -12px rgba(0, 0, 0, 0.08),
-    0 4px 16px rgba(212, 168, 83, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    0 2px 4px rgba(0, 0, 0, 0.40),
+    0 12px 32px -8px rgba(232, 200, 114, 0.20),             /* brass glow */
+    0 24px 64px -16px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Glass — standard light glassmorphism */
