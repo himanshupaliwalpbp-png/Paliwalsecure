@@ -146,7 +146,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
 
   return (
     <div
-      className={`fixed bottom-6 right-4 md:right-6 z-[55] ${className}`}
+      className={`fixed bottom-6 left-4 md:left-6 z-[55] ${className}`}
       style={{ display: 'var(--whatsapp-fab-display, flex)' }}
     >
       {/* Expandable Panel */}
@@ -157,7 +157,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-20 right-0 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-[#161A24] rounded-2xl shadow-2xl border border-[rgba(15,19,32,0.10)] dark:border-[rgba(232,200,114,0.18)] overflow-hidden"
+            className="absolute bottom-20 left-0 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-[#161A24] rounded-2xl shadow-2xl border border-[rgba(15,19,32,0.10)] dark:border-[rgba(232,200,114,0.18)] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-[#2D6A4F] to-[#235541] p-4 text-white">

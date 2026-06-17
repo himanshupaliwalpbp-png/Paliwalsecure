@@ -1359,7 +1359,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   >
                     <Sparkles className="w-3 h-3" />
                   </Button>
-                  {/* Close */}
+                  {/* Close — Bigger, more visible */}
                   <Button
                     variant="ghost"
                     size="icon"
@@ -1367,10 +1367,11 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                       setIsOpen(false);
                       closeInsureGPT();
                     }}
-                    className="h-7 w-7 rounded-full text-white/50 hover:text-white hover:bg-white/10 shrink-0 dark:text-[#94A3B8] dark:hover:text-[#F8FAFC] dark:hover:bg-white/10"
+                    className="h-9 w-9 rounded-full text-white/80 hover:text-white hover:bg-red-500/80 shrink-0 dark:text-[#F8FAFC] dark:hover:text-white dark:hover:bg-red-500/80 transition-all duration-200 ring-1 ring-white/20 hover:ring-red-300/50"
                     aria-label="Close chat"
+                    title="Close"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-5 h-5" strokeWidth={2.5} />
                   </Button>
                 </div>
               </div>

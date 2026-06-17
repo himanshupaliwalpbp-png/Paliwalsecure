@@ -311,7 +311,7 @@ export default function SiteHeader() {
                   Paliwal{' '}
                   <span className="text-accent-gradient">Secure</span>
                 </span>
-                <span className={`text-[10px] font-medium tracking-[0.08em] uppercase leading-tight transition-colors duration-300 ${
+                <span className={`text-[10px] font-medium tracking-[0.08em] uppercase leading-tight transition-colors duration-300 pr-[0.08em] whitespace-nowrap ${
                   isLight ? 'text-[#8B9099]' : 'text-[#8B9099]'
                 }`}>
                   Financial Intelligence
@@ -511,7 +511,7 @@ export default function SiteHeader() {
                   Paliwal{' '}
                   <span className="text-accent-gradient">Secure</span>
                 </span>
-                <div className={`text-[10px] font-medium tracking-[0.08em] uppercase ${
+                <div className={`text-[10px] font-medium tracking-[0.08em] uppercase pr-[0.08em] whitespace-nowrap ${
                   isLight ? 'text-[#8B9099]' : 'text-[#8B9099]'
                 }`}>
                   Financial Intelligence
