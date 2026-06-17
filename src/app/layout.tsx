@@ -6,6 +6,7 @@ import { SafeThemeProvider } from "@/lib/safe-theme-provider";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { LanguageProvider } from "@/lib/i18n";
 import FloatingChatBot from "@/components/FloatingChatBot";
+import { WhatsAppFAB } from "@/components/WhatsAppBot";
 import FooterWrapper from "@/components/FooterWrapper";
 import SiteHeader from "@/components/SiteHeader";
 import StructuredData from "@/components/StructuredData";
@@ -388,6 +389,9 @@ export default function RootLayout({
               </SafeRender>
               <SafeRender name="FloatingChatBot">
                 <FloatingChatBot />
+              </SafeRender>
+              <SafeRender name="WhatsAppFAB">
+                <WhatsAppFAB />
               </SafeRender>
               <SafeRender name="StickyMobileCTA">
                 <StickyMobileCTA />
