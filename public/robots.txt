@@ -1,50 +1,123 @@
+# Paliwal Secure AI — robots.txt
+# =====================================================================
+# Allow all major search engine + AI crawler bots to index content.
+# Disallow: /api/, /admin/, /search, /p4l1w4l-s3cur3-4dm1n (admin paths)
+# Sitemap: https://paliwalsecure.in/sitemap.xml
+# =====================================================================
+
+# ── Default rule for all bots ────────────────────────────────────────────────
 User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /search
 Disallow: /p4l1w4l-s3cur3-4dm1n
+Disallow: /*?utm_
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
 
-# Allow AI crawlers to index content
+# ── AI Crawlers — explicitly allow content indexing ──────────────────────────
+
+# OpenAI / ChatGPT
 User-agent: GPTBot
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
 
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Anthropic / Claude
 User-agent: ClaudeBot
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
 
-User-agent: PerplexityBot
+User-agent: Claude-Web
 Allow: /
 Disallow: /api/
 Disallow: /admin/
-
-User-agent: Google-Extended
-Allow: /
-Disallow: /api/
-Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
 
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Google Gemini / AI Overview
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
+
+# Microsoft Copilot / Bing
 User-agent: CCBot
 Allow: /
 Disallow: /api/
 Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
 
-User-agent: Bytespider
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
+
+User-agent: Meta-ExternalFetcher
 Allow: /
 Disallow: /api/
 Disallow: /admin/
 
+# ByteDance / Doubao
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /p4l1w4l-s3cur3-4dm1n
+
+# Amazon / Rufus
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Apple / Applebot-Extended
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# ── Sitemap & Host ───────────────────────────────────────────────────────────
 Sitemap: https://paliwalsecure.in/sitemap.xml
 Host: https://paliwalsecure.in

@@ -30,7 +30,8 @@ interface CategoryItem {
 }
 
 const categories: CategoryItem[] = [
-  { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day', color: '#B8482C', badgeVariant: 'green',
+  // 🟢 Emerald = Protection (health, life) — trust, safety
+  { key: 'health', icon: Heart, href: '/health-insurance', price: '₹499/mo', emoji: '', quickStat: 'Starting ₹15/day', color: '#2D6A4F', badgeVariant: 'green',
     features: [
       { en: 'Cashless Treatment', hi: 'कैशलेस इलाज', hg: 'Cashless Ilaj' },
       { en: 'Family Floater', hi: 'फैमिली फ्लोटर', hg: 'Family Floater' },
@@ -42,25 +43,27 @@ const categories: CategoryItem[] = [
       { en: 'Investment Plans', hi: 'निवेश योजनाएं', hg: 'Investment Plans' },
       { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Bimari Cover' },
     ] },
+  // 🟠 Sienna = Action (car, bike) — energy, movement
   { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#B8482C', badgeVariant: 'green',
     features: [
       { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Poori Cover' },
       { en: 'Zero Depreciation', hi: 'ज़ीरो डेप्रिसिएशन', hg: 'Zero Depreciation' },
       { en: 'Roadside Assistance', hi: 'रोडसाइड सहायता', hg: 'Roadside Help' },
     ] },
-  { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day', color: '#1B4D4A', badgeVariant: 'gold',
+  { key: 'bike', icon: Bike, href: '/bike-insurance', price: '₹714/yr', emoji: '', quickStat: 'Starting ₹2/day', color: '#B8482C', badgeVariant: 'gold',
     features: [
       { en: 'Third Party Cover', hi: 'थर्ड पार्टी कवर', hg: 'Third Party Cover' },
       { en: 'Comprehensive Plan', hi: 'व्यापक प्लान', hg: 'Poori Plan' },
       { en: 'Add-on Covers', hi: 'अड-ऑन कवर', hg: 'Extra Covers' },
     ] },
-  { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip', color: '#B8482C', badgeVariant: 'blue',
+  // 🟡 Gold = Premium (travel, home) — luxury, valuable
+  { key: 'travel', icon: Plane, href: '/travel-insurance', price: '₹256/trip', emoji: '', quickStat: 'From ₹256/trip', color: '#B8860B', badgeVariant: 'blue',
     features: [
       { en: 'Medical Emergency', hi: 'मेडिकल इमरजेंसी', hg: 'Medical Emergency' },
       { en: 'Trip Cancellation', hi: 'ट्रिप कैंसिलेशन', hg: 'Trip Cancel' },
       { en: 'Lost Baggage', hi: 'खोई हुई सामान', hg: 'Samaan kho jane par' },
     ] },
-  { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#1B4D4A', badgeVariant: 'blue',
+  { key: 'home', icon: Home, href: '/home-insurance', price: '₹1,500/yr', emoji: '', quickStat: 'Starting ₹4/day', color: '#B8860B', badgeVariant: 'blue',
     features: [
       { en: 'Structure Cover', hi: 'संरचना कवर', hg: 'Ghar ki Structure Cover' },
       { en: 'Contents Insurance', hi: 'सामग्री बीमा', hg: 'Samaan ka Insurance' },
@@ -127,10 +130,38 @@ export default function CategoryCards() {
             const Icon = cat.icon;
             const title = isHindi ? categoryTitles[cat.key]?.hi : isEnglish ? categoryTitles[cat.key]?.en : categoryTitles[cat.key]?.hg;
             const description = isHindi ? categoryDescriptions[cat.key]?.hi : isEnglish ? categoryDescriptions[cat.key]?.en : categoryDescriptions[cat.key]?.hg;
-            const isAccent = cat.color === '#B8482C';
-            const tintBg = isAccent ? 'bg-[#F4E5DD] dark:bg-[#3A1E14]' : 'bg-[#E6EFEE] dark:bg-[#0F2A28]';
-            const iconColor = isAccent ? '#B8482C' : '#1B4D4A';
-            const checkBg = isAccent ? 'rgba(184,72,44,0.10)' : 'rgba(27,77,74,0.10)';
+
+            // 3-tone color system: Emerald (protection) / Sienna (action) / Gold (premium)
+            const colorFamily = cat.color === '#2D6A4F' || cat.color === '#1B4D4A'
+              ? 'emerald'
+              : cat.color === '#B8860B'
+                ? 'gold'
+                : 'sienna';
+
+            const tintBg = colorFamily === 'emerald'
+              ? 'bg-[#E6F4EF] dark:bg-[#0F2A28]'           // emerald tint
+              : colorFamily === 'gold'
+                ? 'bg-[#FBF3DD] dark:bg-[#2A2310]'         // gold tint
+                : 'bg-[#FBE8E1] dark:bg-[#3A1E14]';        // sienna tint
+
+            const iconColor = colorFamily === 'emerald'
+              ? '#2D6A4F'
+              : colorFamily === 'gold'
+                ? '#B8860B'
+                : '#B8482C';
+
+            const checkBg = colorFamily === 'emerald'
+              ? 'rgba(45,106,79,0.12)'
+              : colorFamily === 'gold'
+                ? 'rgba(184,134,11,0.12)'
+                : 'rgba(184,72,44,0.12)';
+
+            const badgeBg = colorFamily === 'emerald'
+              ? 'bg-[#E6F4EF] text-[#2D6A4F]'
+              : colorFamily === 'gold'
+                ? 'bg-[#FBF3DD] text-[#8B6508]'
+                : 'bg-[#FBE8E1] text-[#8B3520]';
+
             const isFirst = index === 0;
 
             return (
@@ -146,7 +177,7 @@ export default function CategoryCards() {
                 className={isFirst ? 'lg:col-span-2 min-w-0' : 'min-w-0'}
               >
                 <Link href={cat.href} className="block group h-full min-w-0">
-                  <div className="card-ivory-vault p-5 sm:p-6 md:p-7 h-full flex flex-col cursor-pointer min-w-0">
+                  <div className="card-ivory-vault dark:card-midnight-brass p-5 sm:p-6 md:p-7 h-full flex flex-col cursor-pointer min-w-0">
                     {/* Icon + Title row */}
                     <div className="flex items-start gap-4 mb-5">
                       <div
@@ -155,10 +186,10 @@ export default function CategoryCards() {
                         <Icon className="h-5 w-5" style={{ color: iconColor }} strokeWidth={2} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-display text-vault-heading text-xl md:text-2xl tracking-tight" style={{ fontWeight: 500 }}>
+                        <h3 className="font-display text-vault-heading dark:text-brass-heading text-xl md:text-2xl tracking-tight" style={{ fontWeight: 500 }}>
                           {title}
                         </h3>
-                        <p className="text-body-premium text-vault-body mt-1">
+                        <p className="text-body-premium text-vault-body dark:text-brass-body mt-1">
                           {description}
                         </p>
                       </div>
@@ -169,7 +200,7 @@ export default function CategoryCards() {
                       {cat.features.map((feature, i) => {
                         const featureText = isHindi ? feature.hi : isEnglish ? feature.en : feature.hg;
                         return (
-                          <li key={i} className="flex items-start gap-2.5 text-body-premium text-vault-heading min-w-0">
+                          <li key={i} className="flex items-start gap-2.5 text-body-premium text-vault-heading dark:text-brass-heading min-w-0">
                             <div
                               className="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full flex items-center justify-center"
                               style={{ backgroundColor: checkBg }}
@@ -183,12 +214,12 @@ export default function CategoryCards() {
                     </ul>
 
                     {/* Price + AI Pick badge */}
-                    <div className="pt-4 border-t border-[rgba(15,19,32,0.08)] flex items-center justify-between gap-3">
-                      <span className="font-display text-vault-accent tabular-nums text-lg md:text-xl" style={{ fontWeight: 500 }}>
+                    <div className="pt-4 border-t border-[rgba(15,19,32,0.08)] dark:border-[rgba(201,168,76,0.15)] flex items-center justify-between gap-3">
+                      <span className="font-display text-vault-accent dark:text-brass-accent tabular-nums text-lg md:text-xl" style={{ fontWeight: 500 }}>
                         {cat.price}
                       </span>
                       <span
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4E5DD] text-[#8B3520] text-caption-premium"
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full ${badgeBg} dark:bg-[rgba(232,200,114,0.12)] dark:text-[#E8C872] text-caption-premium`}
                         style={{ fontSize: '0.6875rem', letterSpacing: '0.04em' }}
                       >
                         <Sparkles className="w-3 h-3" strokeWidth={2.5} />

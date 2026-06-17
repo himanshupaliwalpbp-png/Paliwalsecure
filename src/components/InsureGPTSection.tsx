@@ -370,7 +370,9 @@ export default function InsureGPTSection() {
     if (!messageText.trim() || isLoading) return;
 
     const userMessage: ChatMessage = { role: 'user', content: messageText.trim() };
-    setMessages((prev) => [...prev, userMessage]);
+    // Placeholder bot message that we'll mutate as chunks arrive
+    const botPlaceholder: ChatMessage = { role: 'bot', content: '' };
+    setMessages((prev) => [...prev, userMessage, botPlaceholder]);
     setInput('');
     setIsLoading(true);
     setSuggestions([]);
@@ -382,9 +384,9 @@ export default function InsureGPTSection() {
       const history = messages.map((m) => ({ role: m.role, content: m.content }));
       const apiLang = langToApiCode[language];
 
-      const res = await fetch('/api/chat', {
+      const res = await fetch('/api/chat/stream', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
         body: JSON.stringify({
           message: messageText.trim(),
           history,
@@ -393,22 +395,82 @@ export default function InsureGPTSection() {
         signal: controller.signal,
       });
 
-      const data = await res.json();
+      if (!res.ok || !res.body) {
+        throw new Error(`HTTP ${res.status}`);
+      }
 
-      if (data.success && data.response) {
-        setMessages((prev) => [...prev, { role: 'bot', content: data.response }]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { role: 'bot', content: t('insureGPT.error') },
-        ]);
+      // ── Read SSE stream ─────────────────────────────────────────────
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let accumulatedContent = '';
+      // We mutate the LAST message (the bot placeholder) in place
+      const updateLastBot = (content: string) => {
+        setMessages((prev) => {
+          if (prev.length === 0) return prev;
+          const next = [...prev];
+          next[next.length - 1] = { role: 'bot', content };
+          return next;
+        });
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const events = buffer.split('\n\n');
+        buffer = events.pop() ?? '';
+
+        for (const event of events) {
+          const lines = event.split('\n');
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed.startsWith('data:')) continue;
+            const data = trimmed.slice(5).trim();
+            if (!data) continue;
+            try {
+              const chunk = JSON.parse(data);
+              if (chunk.content) {
+                accumulatedContent += chunk.content;
+                updateLastBot(accumulatedContent);
+              }
+              if (chunk.done) {
+                reader.cancel();
+                break;
+              }
+              if (chunk.error) {
+                if (!accumulatedContent) {
+                  updateLastBot(t('insureGPT.error'));
+                }
+                reader.cancel();
+                break;
+              }
+            } catch {
+              continue;
+            }
+          }
+        }
+      }
+
+      // If no content received, show error
+      if (!accumulatedContent) {
+        updateLastBot(t('insureGPT.error'));
       }
     } catch (err: any) {
       if (err?.name !== 'AbortError') {
-        setMessages((prev) => [
-          ...prev,
-          { role: 'bot', content: t('insureGPT.networkError') },
-        ]);
+        // Update last (empty) bot message with error
+        setMessages((prev) => {
+          if (prev.length === 0) return prev;
+          const next = [...prev];
+          const last = next[next.length - 1];
+          if (last.role === 'bot' && !last.content) {
+            next[next.length - 1] = { role: 'bot', content: t('insureGPT.networkError') };
+          } else {
+            next.push({ role: 'bot', content: t('insureGPT.networkError') });
+          }
+          return next;
+        });
       }
     } finally {
       setIsLoading(false);

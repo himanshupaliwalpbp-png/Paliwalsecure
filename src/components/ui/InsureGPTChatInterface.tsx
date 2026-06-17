@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback, type FormEvent } from 
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Send, Loader2, MessageCircle, X, RotateCcw, Minimize2,
-  Mic, MicOff, Paperclip, ShieldCheck, Sparkles, Bot, User,
+  Mic, MicOff, Paperclip, ShieldCheck, Sparkles, Bot, User, Square,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -199,13 +199,32 @@ function StreamingMessage({
 
   return (
     <div>
-      <div className="space-y-0.5 text-[13.5px] leading-relaxed">{renderBotContent(displayedContent)}</div>
-      {stillStreaming && (
-        <motion.span
-          className="inline-block w-0.5 h-4 bg-[#C98A1C] dark:bg-amber-400 ml-0.5 align-middle rounded-full"
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
-        />
+      {content.length === 0 && isStreaming ? (
+        // Typing indicator while waiting for first chunk
+        <div className="flex items-center gap-1.5 py-1">
+          {[0, 1, 2].map((i) => (
+            <motion.span
+              key={i}
+              className="w-2 h-2 rounded-full bg-[#C98A1C] dark:bg-amber-400"
+              animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+              transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+            />
+          ))}
+          <span className="text-[10px] dark:text-slate-500 text-slate-400 font-medium ml-1">
+            InsureGPT soch raha hai...
+          </span>
+        </div>
+      ) : (
+        <>
+          <div className="space-y-0.5 text-[13.5px] leading-relaxed">{renderBotContent(displayedContent)}</div>
+          {stillStreaming && (
+            <motion.span
+              className="inline-block w-0.5 h-4 bg-[#C98A1C] dark:bg-amber-400 ml-0.5 align-middle rounded-full"
+              animate={{ opacity: [1, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+            />
+          )}
+        </>
       )}
     </div>
   );
@@ -310,8 +329,11 @@ const InsureGPTChatInterface: React.FC<InsureGPTChatInterfaceProps> = ({
     };
   }, []);
 
+  // ── Streaming abort controller (stop button) ───────────────────────────────
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   // ---------------------------------------------------------------------------
-  // Send message via /api/chat
+  // Send message via /api/chat/stream (SSE real-time streaming)
   // ---------------------------------------------------------------------------
   const sendMessage = useCallback(
     async (text: string) => {
@@ -326,9 +348,23 @@ const InsureGPTChatInterface: React.FC<InsureGPTChatInterfaceProps> = ({
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, userMessage]);
+      // Build a placeholder bot message that we'll mutate as chunks arrive
+      const botMsgId = generateId();
+      const botPlaceholder: ChatMessage = {
+        id: botMsgId,
+        role: 'bot',
+        content: '',
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, userMessage, botPlaceholder]);
       setInputValue('');
       setIsLoading(true);
+      setStreamingMsgId(botMsgId);
+
+      // Abort controller for stop button
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
 
       try {
         const history = messages.slice(-10).map((m) => ({
@@ -338,54 +374,148 @@ const InsureGPTChatInterface: React.FC<InsureGPTChatInterfaceProps> = ({
 
         const apiLanguage = mapLanguage(language);
 
-        const res = await fetch('/api/chat', {
+        const res = await fetch('/api/chat/stream', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
           body: JSON.stringify({
             message: text.trim(),
             profile: profile ?? undefined,
             history,
             language: apiLanguage,
           }),
+          signal: controller.signal,
         });
 
-        const data = await res.json();
-
-        if (data.success && data.response) {
-          const botMsgId = generateId();
-          const botMessage: ChatMessage = {
-            id: botMsgId,
-            role: 'bot',
-            content: data.response,
-            timestamp: new Date(),
-          };
-          setMessages((prev) => [...prev, botMessage]);
-          setStreamingMsgId(botMsgId);
-        } else {
-          const errorMessage: ChatMessage = {
-            id: generateId(),
-            role: 'bot',
-            content: langConfig.errorMessage,
-            timestamp: new Date(),
-            isError: true,
-          };
-          setMessages((prev) => [...prev, errorMessage]);
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
         }
-      } catch {
-        const errorMessage: ChatMessage = {
-          id: generateId(),
-          role: 'bot',
-          content: langConfig.connectionError,
-          timestamp: new Date(),
-          isError: true,
-        };
-        setMessages((prev) => [...prev, errorMessage]);
+
+        if (!res.body) {
+          throw new Error('No response body');
+        }
+
+        // ── Read SSE stream ─────────────────────────────────────────────
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let accumulatedContent = '';
+        let firstChunkReceived = false;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+
+          // Process complete SSE events (separated by "\n\n")
+          const events = buffer.split('\n\n');
+          buffer = events.pop() ?? '';
+
+          for (const event of events) {
+            const lines = event.split('\n');
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (!trimmed.startsWith('data:')) continue;
+              const data = trimmed.slice(5).trim();
+              if (!data) continue;
+
+              try {
+                const chunk = JSON.parse(data);
+
+                if (chunk.content) {
+                  accumulatedContent += chunk.content;
+                  firstChunkReceived = true;
+                  // Update bot message in place
+                  setMessages((prev) =>
+                    prev.map((m) =>
+                      m.id === botMsgId
+                        ? { ...m, content: accumulatedContent }
+                        : m
+                    )
+                  );
+                }
+
+                if (chunk.done) {
+                  // Stream complete
+                  setStreamingMsgId(null);
+                  reader.cancel();
+                  return;
+                }
+
+                if (chunk.error) {
+                  console.error('Stream error:', chunk.error);
+                  setMessages((prev) =>
+                    prev.map((m) =>
+                      m.id === botMsgId
+                        ? {
+                            ...m,
+                            content: accumulatedContent || langConfig.errorMessage,
+                            isError: !accumulatedContent,
+                          }
+                        : m
+                    )
+                  );
+                  setStreamingMsgId(null);
+                  reader.cancel();
+                  return;
+                }
+              } catch {
+                // Skip malformed JSON
+                continue;
+              }
+            }
+          }
+        }
+
+        // Stream ended — if we got no content, show error
+        if (!firstChunkReceived) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === botMsgId
+                ? { ...m, content: langConfig.errorMessage, isError: true }
+                : m
+            )
+          );
+        }
+        setStreamingMsgId(null);
+      } catch (err) {
+        // Abort is expected when user clicks stop
+        if (err instanceof Error && err.name === 'AbortError') {
+          setStreamingMsgId(null);
+          return;
+        }
+
+        console.error('InsureGPT stream fetch error:', err);
+        setMessages((prev) => {
+          // Replace placeholder with error
+          const placeholder = prev.find((m) => m.id === botMsgId);
+          if (placeholder && !placeholder.content) {
+            return prev.map((m) =>
+              m.id === botMsgId
+                ? { ...m, content: langConfig.connectionError, isError: true }
+                : m
+            );
+          }
+          return prev;
+        });
+        setStreamingMsgId(null);
       } finally {
         setIsLoading(false);
+        abortControllerRef.current = null;
       }
     },
     [isLoading, messages, profile, language, langConfig]
   );
+
+  // ── Stop streaming (user clicks stop) ─────────────────────────────────────
+  const handleStopStreaming = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setIsLoading(false);
+    setStreamingMsgId(null);
+  }, []);
 
   // Form submit
   const handleSubmit = (e: FormEvent) => {
@@ -812,16 +942,29 @@ const InsureGPTChatInterface: React.FC<InsureGPTChatInterfaceProps> = ({
                   {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </Button>
 
-                {/* Send button */}
-                <Button
-                  type="submit"
-                  size="icon"
-                  disabled={!inputValue.trim() || isLoading || !!streamingMsgId}
-                  className="h-10 w-10 rounded-full bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#060B1E] shadow-lg shadow-[#C98A1C]/20 disabled:opacity-40 shrink-0 transition-all duration-200 hover:shadow-[#C98A1C]/40"
-                  aria-label="Send message"
-                >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                </Button>
+                {/* Send / Stop button — toggles based on streaming state */}
+                {isLoading ? (
+                  <Button
+                    type="button"
+                    size="icon"
+                    onClick={handleStopStreaming}
+                    className="h-10 w-10 rounded-full bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/30 shrink-0 transition-all duration-200"
+                    aria-label="Stop streaming"
+                    title="Stop"
+                  >
+                    <Square className="w-4 h-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    size="icon"
+                    disabled={!inputValue.trim()}
+                    className="h-10 w-10 rounded-full bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#060B1E] shadow-lg shadow-[#C98A1C]/20 disabled:opacity-40 shrink-0 transition-all duration-200 hover:shadow-[#C98A1C]/40"
+                    aria-label="Send message"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                )}
               </form>
 
               {/* Footer */}

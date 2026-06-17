@@ -3389,63 +3389,70 @@ html.theme-transitioning *::after {
 
 /* ════════════════════════════════════════════════════════════════════════════
    DUAL MOOD CARDS — "Ivory Vault" (light) × "Midnight Brass" (dark)
-   Editorial luxury system: warm paper + hairline + one accent (no loud gradients)
+   Editorial luxury system v2.0 — premium insurance-grade palette
+   Light: pure paper white cards on warm bone canvas (clean, trustworthy)
+   Dark: deep navy-ink cards with brushed brass hairlines (luxury, premium)
+   Accent system: Emerald (trust) + Sienna (action) + Gold (premium highlight)
    ════════════════════════════════════════════════════════════════════════════ */
 
-/* ── IVORY VAULT — Light editorial card (Hermès catalogue feel) ─────────── */
+/* ── IVORY VAULT — Light editorial card (clean paper, premium insurance feel) ── */
 .card-ivory-vault {
-  background-color: #F7F3EC;                                  /* warm ivory */
-  border: 1px solid rgba(15, 19, 32, 0.08);                   /* ink @ 8% hairline */
+  background-color: #FFFFFF;                                    /* pure paper white — clean, trustworthy */
+  border: 1px solid rgba(15, 19, 32, 0.10);                    /* ink @ 10% — slightly stronger for definition */
   border-radius: 1rem;
   box-shadow:
-    0 1px 2px rgba(20, 15, 10, 0.04),
-    0 12px 40px -12px rgba(20, 15, 10, 0.10);
+    0 1px 2px rgba(20, 15, 10, 0.05),
+    0 8px 24px -8px rgba(20, 15, 10, 0.10),
+    0 16px 48px -16px rgba(20, 15, 10, 0.08);                  /* layered depth */
   transition: transform 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
               box-shadow 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
               border-color 0.35s ease;
   will-change: transform;
 }
 .card-ivory-vault:hover {
-  transform: translateY(-2px);
-  border-color: rgba(15, 19, 32, 0.14);
+  transform: translateY(-3px);                                  /* more pronounced lift */
+  border-color: rgba(184, 72, 44, 0.30);                        /* sienna-tinted border on hover */
   box-shadow:
-    0 1px 2px rgba(20, 15, 10, 0.05),
-    0 20px 50px -12px rgba(20, 15, 10, 0.16);
+    0 2px 4px rgba(20, 15, 10, 0.06),
+    0 12px 32px -8px rgba(184, 72, 44, 0.15),                  /* warm sienna glow */
+    0 24px 64px -16px rgba(20, 15, 10, 0.14);
 }
 
-/* Ivory Vault text helpers — deep ink heading + ink@70% body */
-.text-vault-heading { color: #0F1320; }
-.text-vault-body { color: #4A4E5C; }
-.text-vault-accent { color: #B8482C; }   /* burnt sienna — numbers/highlights */
+/* Ivory Vault text helpers — deep ink heading + ink@65% body + sienna accent */
+.text-vault-heading { color: #0E1116; }                         /* deep ink — maximum contrast */
+.text-vault-body { color: #4A4F57; }                            /* ink-soft — readable body */
+.text-vault-accent { color: #B8482C; }                          /* burnt sienna — ₹ numbers/highlights */
+.text-vault-success { color: #2D6A4F; }                         /* deep success green — trust signals */
 
 /* ── MIDNIGHT BRASS — Dark luxe card (Rolex boutique feel) ──────────────── */
 .card-midnight-brass {
-  background-color: #0E1424;                                  /* deep navy-ink */
-  border: 1px solid rgba(201, 168, 76, 0.15);                 /* brass @ 15% */
+  background-color: #161A24;                                    /* lifted navy-ink — not too dark */
+  border: 1px solid rgba(201, 168, 76, 0.18);                  /* brass @ 18% — visible hairline */
   border-radius: 1rem;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),                  /* inner top glow */
-    0 1px 2px rgba(0, 0, 0, 0.30),
-    0 16px 48px -16px rgba(0, 0, 0, 0.50);
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),                   /* inner top glow */
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 16px 48px -16px rgba(0, 0, 0, 0.55);
   transition: transform 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
               box-shadow 0.35s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)),
               border-color 0.35s ease;
   will-change: transform;
 }
 .card-midnight-brass:hover {
-  transform: translateY(-2px);
-  border-color: rgba(201, 168, 76, 0.28);
+  transform: translateY(-3px);
+  border-color: rgba(201, 168, 76, 0.35);                       /* brighter brass on hover */
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 1px 2px rgba(0, 0, 0, 0.35),
-    0 24px 60px -16px rgba(0, 0, 0, 0.60);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.40),
+    0 24px 64px -16px rgba(201, 168, 76, 0.20);                 /* brass glow */
 }
 
 /* Midnight Brass text helpers — warm white heading + slate body + brass/teal accents */
-.text-brass-heading { color: #F5F1E8; }
-.text-brass-body { color: #A8B0C2; }
-.text-brass-accent { color: #C9A84C; }    /* brushed brass — ₹ numbers */
-.text-brass-teal { color: #4FB3A9; }      /* teal whisper — secondary accent */
+.text-brass-heading { color: #FAF7F2; }                         /* warm bone — premium text */
+.text-brass-body { color: #A8B0C2; }                            /* slate body */
+.text-brass-accent { color: #E8C872; }                          /* gold — ₹ numbers (brighter on dark) */
+.text-brass-teal { color: #4FB3A9; }                            /* teal whisper — secondary accent */
+.text-brass-success { color: #6EE7B7; }                         /* emerald 300 — trust signals on dark */
 
 /* ── IVORY VAULT TABLE — editorial paper table ──────────────────────────── */
 .table-ivory-vault {

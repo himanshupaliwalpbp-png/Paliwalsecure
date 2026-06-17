@@ -18,6 +18,24 @@ export const chatMessageSchema = z.object({
   language: z.enum(['hing', 'en', 'hi']).optional(),
 });
 
+// ── Streaming chat message validation (same shape, stricter limits) ─────────
+// Used by /api/chat/stream endpoint
+export const chatStreamMessageSchema = z.object({
+  message: z.string()
+    .min(1, 'Message cannot be empty')
+    .max(2000, 'Message too long (max 2000 chars)'),
+  profile: z.object({}).passthrough().optional(),
+  history: z.array(
+    z.object({
+      role: z.string().max(20),
+      content: z.string().max(5000),
+    })
+  ).max(20, 'Too many history messages (max 20)')
+    .optional(),
+  memory: z.string().max(4000, 'Memory context too long (max 4000 chars)').optional(),
+  language: z.enum(['hing', 'en', 'hi']).optional(),
+});
+
 // ── Admin login validation ───────────────────────────────────────────────────
 export const adminLoginSchema = z.object({
   email: z.string().email('Please provide a valid email'),
