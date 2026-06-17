@@ -198,7 +198,7 @@ export default function TravelInsuranceClientContent() {
           </h1>
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">{pt(t.hero.desc, language)}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/#reverse-audit"><ShinyButton variant="blue"><span>{pt(t.hero.ctaCompare, language)}</span></ShinyButton></Link>
+            <Link href="/free-audit"><ShinyButton variant="blue"><span>{pt(t.hero.ctaCompare, language)}</span></ShinyButton></Link>
             <a href="https://wa.me/919257877312?text=Hi%2C%20I%20need%20help%20with%20travel%20insurance" target="_blank" rel="noopener noreferrer"><ShinyButton variant="secondary"><span>{pt(t.hero.ctaWhatsApp, language)}</span></ShinyButton></a>
           </div>
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
@@ -403,7 +403,7 @@ export default function TravelInsuranceClientContent() {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">{pt(t.cta.heading1, language)} <span className="gradient-text">{pt(t.cta.headingHighlight, language)}</span></h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">{pt(t.cta.desc, language)}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/#reverse-audit"><ShinyButton variant="blue"><span>{pt(t.cta.ctaCompare, language)}</span></ShinyButton></Link>
+            <Link href="/free-audit"><ShinyButton variant="blue"><span>{pt(t.cta.ctaCompare, language)}</span></ShinyButton></Link>
             <a href="https://wa.me/919257877312?text=Hi%2C%20I%20want%20to%20buy%20travel%20insurance" target="_blank" rel="noopener noreferrer"><ShinyButton variant="secondary"><span>{pt(t.cta.ctaWhatsApp, language)}</span></ShinyButton></a>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">

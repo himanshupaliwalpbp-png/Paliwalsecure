@@ -334,7 +334,7 @@ export default function FamilyHealthInsuranceClientContent() {
                   <span>{pt(pageText.hero.ctaWhatsApp, language)}</span>
                 </ShinyButton>
               </a>
-              <a href="/#reverse-audit">
+              <a href="/free-audit">
                 <ShinyButton variant="secondary">
                   <span>{pt(pageText.hero.ctaAudit, language)}</span>
                 </ShinyButton>

@@ -340,7 +340,7 @@ export default function ClientContent() {
             {pt(T.hero.desc, language)}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/#reverse-audit">
+            <Link href="/free-audit">
               <ShinyButton variant="blue" className="text-sm md:text-base">
                 <span>{pt(T.hero.ctaCompare, language)}</span>
               </ShinyButton>
@@ -896,7 +896,7 @@ export default function ClientContent() {
             {pt(T.cta.desc, language)}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/#reverse-audit">
+            <Link href="/free-audit">
               <ShinyButton variant="blue" className="text-sm md:text-base">
                 <span>{pt(T.cta.ctaCompare, language)}</span>
               </ShinyButton>

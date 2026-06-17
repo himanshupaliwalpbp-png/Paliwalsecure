@@ -145,7 +145,7 @@ const NAV_LINKS: NavLink[] = [
     icon: Receipt,
   },
   {
-    href: '#calculators',
+    href: '/calculators',
     labelKey: 'nav.calculators',
     label: 'Calc',
     icon: Calculator,

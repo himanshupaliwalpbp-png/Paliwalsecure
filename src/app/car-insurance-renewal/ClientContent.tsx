@@ -364,7 +364,7 @@ export default function ClientContent() {
                   <span>{t(pageText.hero.ctaWhatsApp)}</span>
                 </ShinyButton>
               </a>
-              <Link href="/#reverse-audit">
+              <Link href="/free-audit">
                 <ShinyButton variant="secondary" className="text-sm sm:text-base">
                   <span>{t(pageText.hero.ctaAudit)}</span>
                 </ShinyButton>

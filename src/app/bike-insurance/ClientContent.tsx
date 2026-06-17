@@ -308,7 +308,7 @@ export default function BikeInsuranceClientContent() {
             {pt(pageText.hero.desc, language)}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/#reverse-audit">
+            <a href="/free-audit">
               <ShinyButton variant="blue">
                 <span>{pt(pageText.hero.ctaCompare, language)}</span>
               </ShinyButton>
@@ -649,7 +649,7 @@ export default function BikeInsuranceClientContent() {
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">{pt(pageText.cta.desc, language)}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/#reverse-audit">
+            <a href="/free-audit">
               <ShinyButton variant="blue">
                 <span>{pt(pageText.cta.ctaCompare, language)}</span>
               </ShinyButton>

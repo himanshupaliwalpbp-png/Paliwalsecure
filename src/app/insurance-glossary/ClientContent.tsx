@@ -486,7 +486,7 @@ export default function ClientContent() {
               <h3 className="font-semibold mt-3 group-hover:text-primary transition">{pt(pageText.related.zeroDepTitle, language)}</h3>
               <p className="text-sm text-muted-foreground mt-1">{pt(pageText.related.zeroDepDesc, language)}</p>
             </Link>
-            <Link href="/#reverse-audit" className="glass-card rounded-xl p-6 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300 group">
+            <Link href="/free-audit" className="glass-card rounded-xl p-6 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300 group">
               <span className="text-2xl">🔍</span>
               <h3 className="font-semibold mt-3 group-hover:text-primary transition">{pt(pageText.related.auditTitle, language)}</h3>
               <p className="text-sm text-muted-foreground mt-1">{pt(pageText.related.auditDesc, language)}</p>

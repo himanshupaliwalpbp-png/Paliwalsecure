@@ -409,7 +409,7 @@ export default function ClientContent() {
                 <span>{tr(pageText.hero.ctaCompare)}</span>
               </ShinyButton>
             </Link>
-            <Link href="/#calculators">
+            <Link href="/calculators">
               <ShinyButton variant="secondary" className="rounded-xl px-6 py-3 text-sm md:text-base">
                 <span>{tr(pageText.hero.ctaPremium)}</span>
               </ShinyButton>

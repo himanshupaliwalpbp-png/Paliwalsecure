@@ -178,7 +178,7 @@ export default function BestHealthInsuranceClientContent() {
               <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20choosing%20the%20best%20health%20insurance%20plan" target="_blank" rel="noopener noreferrer">
                 <ShinyButton variant="blue"><span>{pt(t.hero.ctaRecommend, language)}</span></ShinyButton>
               </a>
-              <Link href="/#reverse-audit">
+              <Link href="/free-audit">
                 <ShinyButton variant="secondary"><span>{pt(t.hero.ctaAudit, language)}</span></ShinyButton>
               </Link>
             </div>

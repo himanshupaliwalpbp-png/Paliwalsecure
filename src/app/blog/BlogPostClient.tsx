@@ -505,7 +505,7 @@ export default function BlogPostClient({
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/#reverse-audit"
+              href="/free-audit"
               className="inline-block bg-gradient-to-r from-[#C98A1C] to-[#0A1330] text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition"
             >
               {startAudit}

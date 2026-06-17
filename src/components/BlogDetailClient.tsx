@@ -335,7 +335,7 @@ export function BlogFinalCTA() {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="/#reverse-audit"
+            href="/free-audit"
             className="inline-block bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition"
           >
             {t('blog.startAudit')}

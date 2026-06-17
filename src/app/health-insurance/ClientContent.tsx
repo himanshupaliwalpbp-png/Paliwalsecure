@@ -218,7 +218,7 @@ export default function HealthInsuranceClientContent() {
                 <span>{pt(pageText.hero.ctaCompare, language)}</span>
               </ShinyButton>
             </a>
-            <a href="/#calculators">
+            <a href="/calculators">
               <ShinyButton variant="secondary">
                 <span>{pt(pageText.hero.ctaCalculator, language)}</span>
               </ShinyButton>

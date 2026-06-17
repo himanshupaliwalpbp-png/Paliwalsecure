@@ -48,7 +48,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'tip-quiz', labelKey: 'nav.quiz', icon: BookOpen, type: 'section' },
   { id: 'features', labelKey: 'sections.features', icon: ShieldCheck, type: 'section' },
   { id: 'plans', labelKey: 'nav.plans', icon: Heart, type: 'section' },
-  { id: 'calculators', labelKey: 'nav.calculators', icon: Calculator, type: 'section' },
+  { id: 'calculators', labelKey: 'nav.calculators', icon: Calculator, type: 'page', href: '/calculators' },
   { id: 'compare', labelKey: 'nav.compare', icon: Scale, type: 'section' },
   { id: 'gyaan', labelKey: 'nav.insureGyaan', icon: BookOpen, type: 'section' },
   { id: 'rights', labelKey: 'nav.rights', icon: Shield, type: 'section' },

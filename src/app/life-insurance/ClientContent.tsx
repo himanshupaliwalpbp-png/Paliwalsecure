@@ -239,7 +239,7 @@ export default function LifeInsuranceClientContent() {
             <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20choosing%20a%20term%20insurance%20plan" target="_blank" rel="noopener noreferrer">
               <ShinyButton variant="blue"><span>{pt(t.hero.ctaRecommend, language)}</span></ShinyButton>
             </a>
-            <Link href="/#reverse-audit">
+            <Link href="/free-audit">
               <ShinyButton variant="secondary"><span>{pt(t.hero.ctaCompare, language)}</span></ShinyButton>
             </Link>
           </div>
@@ -369,7 +369,7 @@ export default function LifeInsuranceClientContent() {
             </table>
             <p className="text-xs text-muted-foreground mt-4">
               {pt(t.topPlans.footnote, language)}{' '}
-              <Link href="/#reverse-audit" className="text-cyan-600 dark:text-cyan-400 hover:underline">
+              <Link href="/free-audit" className="text-cyan-600 dark:text-cyan-400 hover:underline">
                 {pt(t.topPlans.reverseAudit, language)}
               </Link>
             </p>
@@ -547,7 +547,7 @@ export default function LifeInsuranceClientContent() {
                   <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20with%20term%20insurance" target="_blank" rel="noopener noreferrer">
                     <ShinyButton variant="blue"><span>{pt(t.expert.ctaWhatsApp, language)}</span></ShinyButton>
                   </a>
-                  <Link href="/#reverse-audit">
+                  <Link href="/free-audit">
                     <ShinyButton variant="secondary"><span>{pt(t.expert.ctaAudit, language)}</span></ShinyButton>
                   </Link>
                 </div>
@@ -591,7 +591,7 @@ export default function LifeInsuranceClientContent() {
             <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20want%20a%20personalized%20term%20insurance%20recommendation" target="_blank" rel="noopener noreferrer">
               <ShinyButton variant="blue"><span>{pt(t.cta.ctaWhatsApp, language)}</span></ShinyButton>
             </a>
-            <Link href="/#reverse-audit">
+            <Link href="/free-audit">
               <ShinyButton variant="secondary"><span>{pt(t.cta.ctaCompare, language)}</span></ShinyButton>
             </Link>
           </div>
