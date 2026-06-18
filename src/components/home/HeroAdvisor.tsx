@@ -473,16 +473,15 @@ export default function HeroAdvisor() {
               className="mb-10 relative w-full rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)] group"
             >
               <img
-                src="/images/hero-insurance-intelligence.jpeg"
-                alt="Paliwal Secure AI — 3D AI-powered insurance universe with crystal protection shield, glowing AI core, and orbiting insurance spheres for health, life, car, travel, and business insurance"
+                src="/images/hero-3d.jpg"
+                alt="Paliwal Secure AI — 3D AI-powered insurance universe with crystal protection shield, glowing AI core, and orbiting insurance spheres"
                 className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
-                style={{ aspectRatio: '16/9', objectFit: 'cover' }}
                 loading="eager"
               />
-              {/* Premium gradient overlays for depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/40 via-transparent to-[#07111F]/10 pointer-events-none" />
-              {/* Brand badge on image */}
-              <div className="absolute bottom-4 left-4 flex items-center gap-2">
+              {/* Premium gradient overlay for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/40 via-transparent to-transparent pointer-events-none" />
+              {/* Brand badge */}
+              <div className="absolute bottom-4 left-4">
                 <span className="px-3 py-1.5 rounded-full bg-[#07111F]/80 backdrop-blur-sm text-[#C89B3C] text-xs font-bold tracking-wider uppercase border border-[#C89B3C]/20">
                   Paliwal Secure AI
                 </span>
