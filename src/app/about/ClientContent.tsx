@@ -113,10 +113,10 @@ export default function AboutClientContent() {
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
           {/* Breadcrumb */}
-          <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-6">
+          <nav className="flex items-center justify-center gap-2 text-sm text-[#4A4F57] dark:text-white/50 mb-6">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-white/80">{pt(pageText.hero.title1)}</span>
+            <span className="text-[#0E1116] dark:text-white/80">{pt(pageText.hero.title1)}</span>
           </nav>
 
           <div
@@ -133,7 +133,7 @@ export default function AboutClientContent() {
           >
             {pt(pageText.hero.title1)} <span className="gradient-text">{pt(pageText.hero.titleHighlight)}</span>
           </h1>
-          <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-2">
+          <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-white/70 max-w-2xl mx-auto mb-2">
             {pt(pageText.hero.subtitle)}
           </p>
         </div>
@@ -143,15 +143,15 @@ export default function AboutClientContent() {
 
       {/* ═══════════════════ FOUNDER HERO CARD ═══════════════════ */}
       <section className="relative -mt-12 z-20 max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="glass-card p-6 sm:p-8 md:p-10 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ border: '1px solid rgba(201,138,28,0.2)' }}>
+        <div className="glass-card p-6 sm:p-8 md:p-10 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300">
           <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start">
             {/* Avatar — Professional photo with gold ring */}
             <div className="shrink-0">
               <div
-                className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-[#C98A1C] ring-offset-4 ring-offset-[#0A1330] shadow-lg shadow-[#C98A1C]/20"
+                className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-[#C98A1C] ring-offset-4 ring-offset-white dark:ring-offset-[#0A1330] shadow-lg shadow-[#C98A1C]/20"
               >
                 <img
-                  src="/himanshu-photo.png"
+                  src="/images/himanshu-photo.png"
                   alt="Himanshu Paliwal — IRDAI Registered POSP (IP429834)"
                   className="w-full h-full object-cover"
                 />
@@ -160,7 +160,7 @@ export default function AboutClientContent() {
             {/* Info */}
             <div className="text-center md:text-left flex-1">
               <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
-                <h2 className="text-2xl sm:text-3xl font-bold text-white">{pt(pageText.founder.name)}</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#0E1116] dark:text-white">{pt(pageText.founder.name)}</h2>
                 <span
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold"
                   style={{ background: 'rgba(201,138,28,0.12)', color: GOLD }}
@@ -168,7 +168,7 @@ export default function AboutClientContent() {
                   <CheckCircle2 className="w-3 h-3" /> {pt(pageText.founder.verified)}
                 </span>
               </div>
-              <p className="text-sm font-semibold mb-1" style={{ color: GOLD }}>
+              <p className="text-sm font-semibold mb-1 text-[#B8482C] dark:text-[#E8C872]">
                 {pt(pageText.founder.pospTitle)}
               </p>
               <p
@@ -177,17 +177,17 @@ export default function AboutClientContent() {
               >
                 {pt(pageText.founder.pospCode)}
               </p>
-              <p className="text-white/70 mb-3">
+              <p className="text-[#4A4F57] dark:text-white/70 mb-3">
                 {pt(pageText.founder.desc)}
               </p>
               <div className="flex items-center justify-center md:justify-start gap-3 mt-4 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/60">
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#4A4F57] dark:text-white/60">
                   <MapPin className="w-3.5 h-3.5" style={{ color: GOLD }} /> {pt(pageText.founder.location)}
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/60">
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#4A4F57] dark:text-white/60">
                   <Award className="w-3.5 h-3.5" style={{ color: GOLD }} /> {pt(pageText.founder.families)}
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/60">
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#4A4F57] dark:text-white/60">
                   <Bot className="w-3.5 h-3.5" style={{ color: GOLD }} /> {pt(pageText.founder.creator)}
                 </span>
               </div>
@@ -224,7 +224,7 @@ export default function AboutClientContent() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/icon relative w-9 h-9 rounded-lg border border-[#C98A1C]/12 bg-[#0A1330] flex items-center justify-center text-white/50 hover:text-[#C98A1C] hover:border-[#C98A1C]/40 hover:bg-[#C98A1C]/8 transition-all duration-300 overflow-hidden"
+                      className="group/icon relative w-9 h-9 rounded-lg border border-[#C98A1C]/12 bg-[#0A1330] flex items-center justify-center text-[#4A4F57] dark:text-white/50 hover:text-[#C98A1C] hover:border-[#C98A1C]/40 hover:bg-[#C98A1C]/8 transition-all duration-300 overflow-hidden"
                       aria-label={social.label}
                     >
                       <span
@@ -254,12 +254,12 @@ export default function AboutClientContent() {
             <Target className="w-3.5 h-3.5" /> {pt(pageText.mission.badge)}
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-white mb-3"
+            className="text-3xl sm:text-4xl font-bold text-[#0E1116] dark:text-white mb-3"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             {pt(pageText.mission.heading1)} <span className="gradient-text">{pt(pageText.mission.headingHighlight)}</span>
           </h2>
-          <p className="text-white/60 max-w-2xl mx-auto mb-2">
+          <p className="text-[#4A4F57] dark:text-white/60 max-w-2xl mx-auto mb-2">
             {pt(pageText.mission.text)}
           </p>
         </div>
@@ -277,10 +277,10 @@ export default function AboutClientContent() {
                   className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center transition-transform group-hover:scale-110"
                   style={{ background: `linear-gradient(135deg, ${v.color}, ${v.color}dd)` }}
                 >
-                  <IconComp className="w-7 h-7 text-white" />
+                  <IconComp className="w-7 h-7 text-[#B8482C] dark:text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-1">{pt(v.title)}</h3>
-                <p className="text-sm text-white/60">{pt(v.desc)}</p>
+                <h3 className="text-lg font-bold text-[#0E1116] dark:text-white mb-1">{pt(v.title)}</h3>
+                <p className="text-sm text-[#4A4F57] dark:text-white/60">{pt(v.desc)}</p>
               </div>
             );
           })}
@@ -305,21 +305,21 @@ export default function AboutClientContent() {
                 <Sparkles className="w-3.5 h-3.5" /> {pt(pageText.story.badge)}
               </div>
               <h2
-                className="text-3xl sm:text-4xl font-bold text-white mb-6"
+                className="text-3xl sm:text-4xl font-bold text-[#0E1116] dark:text-white mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 {pt(pageText.story.heading1)} <span className="gradient-text">{pt(pageText.story.headingHighlight)}</span> {pt(pageText.story.headingSuffix)}
               </h2>
 
-              <div className="space-y-4 text-white/60">
+              <div className="space-y-4 text-[#4A4F57] dark:text-white/60">
                 <p>
-                  <strong className="text-white">{pt(pageText.story.problemTitle)}</strong> {pt(pageText.story.problem)}
+                  <strong className="text-[#0E1116] dark:text-white">{pt(pageText.story.problemTitle)}</strong> {pt(pageText.story.problem)}
                 </p>
                 <p>
-                  <strong className="text-white">{pt(pageText.story.solutionTitle)}</strong> {pt(pageText.story.solution)}
+                  <strong className="text-[#0E1116] dark:text-white">{pt(pageText.story.solutionTitle)}</strong> {pt(pageText.story.solution)}
                 </p>
                 <p>
-                  <strong className="text-white">{pt(pageText.story.resultTitle)}</strong> {pt(pageText.story.result)}
+                  <strong className="text-[#0E1116] dark:text-white">{pt(pageText.story.resultTitle)}</strong> {pt(pageText.story.result)}
                 </p>
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function AboutClientContent() {
                       className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
                       style={{ background: `linear-gradient(135deg, ${NAVY_800}, ${NAVY_600})` }}
                     >
-                      <MIcon className="w-6 h-6 text-white" />
+                      <MIcon className="w-6 h-6 text-[#B8482C] dark:text-white" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-0.5">
@@ -349,9 +349,9 @@ export default function AboutClientContent() {
                         >
                           {m.year}
                         </span>
-                        <h3 className="font-bold text-white">{pt(m.title)}</h3>
+                        <h3 className="font-bold text-[#0E1116] dark:text-white">{pt(m.title)}</h3>
                       </div>
-                      <p className="text-sm text-white/60">{pt(m.desc)}</p>
+                      <p className="text-sm text-[#4A4F57] dark:text-white/60">{pt(m.desc)}</p>
                     </div>
                   </div>
                 );
@@ -373,7 +373,7 @@ export default function AboutClientContent() {
             <Phone className="w-3.5 h-3.5" /> {pt(pageText.contact.badge)}
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-white"
+            className="text-3xl sm:text-4xl font-bold text-[#0E1116] dark:text-white"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             {pt(pageText.contact.heading1)} <span className="gradient-text">{pt(pageText.contact.headingHighlight)}</span>
@@ -385,30 +385,30 @@ export default function AboutClientContent() {
             className="glass-card p-6 text-center group cursor-pointer hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ border: '1px solid rgba(201,138,28,0.12)' }}>
             <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center"
               style={{ background: 'linear-gradient(135deg, #25D366, #128C7E)' }}>
-              <MessageCircle className="w-7 h-7 text-white" />
+              <MessageCircle className="w-7 h-7 text-[#2D6A4F] dark:text-white" />
             </div>
-            <h3 className="font-bold text-white mb-1">{pt(pageText.contact.whatsapp)}</h3>
+            <h3 className="font-bold text-[#0E1116] dark:text-white mb-1">{pt(pageText.contact.whatsapp)}</h3>
             <p className="text-sm" style={{ color: GOLD }}>+91 9257877312</p>
-            <p className="text-xs text-white/50 mt-1">{pt(pageText.contact.whatsappAvail)}</p>
+            <p className="text-xs text-[#4A4F57] dark:text-white/50 mt-1">{pt(pageText.contact.whatsappAvail)}</p>
           </a>
 
           <a href="mailto:himanshupaliwalpbp@gmail.com"
             className="glass-card p-6 text-center group cursor-pointer hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ border: '1px solid rgba(201,138,28,0.12)' }}>
             <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center"
               style={{ background: `linear-gradient(135deg, ${NAVY_800}, ${NAVY_600})` }}>
-              <Mail className="w-7 h-7 text-white" />
+              <Mail className="w-7 h-7 text-[#B8860B] dark:text-white" />
             </div>
-            <h3 className="font-bold text-white mb-1">{pt(pageText.contact.email)}</h3>
+            <h3 className="font-bold text-[#0E1116] dark:text-white mb-1">{pt(pageText.contact.email)}</h3>
             <p className="text-sm" style={{ color: GOLD }}>himanshupaliwalpbp@gmail.com</p>
-            <p className="text-xs text-white/50 mt-1">{pt(pageText.contact.emailResp)}</p>
+            <p className="text-xs text-[#4A4F57] dark:text-white/50 mt-1">{pt(pageText.contact.emailResp)}</p>
           </a>
 
           <div className="glass-card p-6 text-center group hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ border: '1px solid rgba(201,138,28,0.12)' }}>
             <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center"
               style={{ background: `linear-gradient(135deg, ${NAVY_600}, #1E3A5F)` }}>
-              <MapPin className="w-7 h-7 text-white" />
+              <MapPin className="w-7 h-7 text-[#B8482C] dark:text-white" />
             </div>
-            <h3 className="font-bold text-white mb-1">{pt(pageText.contact.location)}</h3>
+            <h3 className="font-bold text-[#0E1116] dark:text-white mb-1">{pt(pageText.contact.location)}</h3>
             <p className="text-sm" style={{ color: GOLD }}>{pt(pageText.contact.locationVal)}</p>
           </div>
         </div>
@@ -420,9 +420,9 @@ export default function AboutClientContent() {
         >
           <div className="flex items-center justify-center gap-2 mb-2">
             <Shield className="w-5 h-5" style={{ color: GOLD }} />
-            <span className="font-bold text-white">{pt(pageText.contact.irdaiTitle)}</span>
+            <span className="font-bold text-[#0E1116] dark:text-white">{pt(pageText.contact.irdaiTitle)}</span>
           </div>
-          <p className="text-sm text-white/60">
+          <p className="text-sm text-[#4A4F57] dark:text-white/60">
             {pt(pageText.contact.irdaiText)}
           </p>
           <p className="text-xs font-mono font-semibold mt-2" style={{ color: GOLD }}>
