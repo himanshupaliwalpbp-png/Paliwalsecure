@@ -25,6 +25,7 @@ import { SafeRender } from '@/components/SafeRender';
 
 // ── Eager: Above-fold (visible on first paint) ──────────────────────────────
 import HeroAdvisor from '@/components/home/HeroAdvisor';
+import Hero3DAnimation from '@/components/home/Hero3DAnimation';
 
 // ── Lazy: Below-fold ────────────────────────────────────────────────────────
 const InsurerLogoMarquee = dynamic(() => import('@/components/home/InsurerLogoMarquee'), {
@@ -85,6 +86,15 @@ export default function Home() {
         </section>
       }>
         <HeroAdvisor />
+      </SafeRender>
+
+      {/* 1b. 3D AI Insurance Universe — visual showcase */}
+      <SafeRender name="Hero3DAnimation">
+        <section className="relative py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-[#FAF7F2] dark:bg-[#0E1116]">
+          <div className="max-w-7xl mx-auto">
+            <Hero3DAnimation />
+          </div>
+        </section>
       </SafeRender>
 
       {/* 2. Insurer logo marquee */}
