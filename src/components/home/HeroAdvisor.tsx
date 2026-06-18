@@ -462,6 +462,21 @@ export default function HeroAdvisor() {
               {' '}{headlineAfter}
             </motion.h1>
 
+            {/* AI-generated 3D Hero Image — visual showcase */}
+            <motion.div variants={heroChild} className="mb-8 relative rounded-2xl overflow-hidden shadow-premium-lg">
+              <img
+                src="/images/hero-3d-universe.png"
+                alt="Paliwal Secure AI — 3D AI Insurance Universe with crystal shield, AI core, and orbiting insurance spheres"
+                className="w-full h-auto"
+                width={1344}
+                height={768}
+                loading="eager"
+                priority
+              />
+              {/* Subtle gradient overlay at bottom for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/20 to-transparent pointer-events-none" />
+            </motion.div>
+
             {/* Description — lead body, ink-soft */}
             <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-10 max-w-xl font-body">
               {subtext}
