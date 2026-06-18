@@ -240,7 +240,7 @@ export function generateEEATSignalsSchema() {
         email: "himanshu@paliwalsecure.in",
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Jaipur",
+          addressLocality: "Kota",
           addressRegion: "Rajasthan",
           addressCountry: "IN",
         },

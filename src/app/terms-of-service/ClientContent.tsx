@@ -83,7 +83,7 @@ const pageText = {
     {
       heading: { en: '7. Governing Law', hi: '7. शासकीय कानून', hinglish: '7. Governing Law' },
       text1: { en: 'These Terms of Service are governed by and construed in accordance with the laws of India. The Insurance Regulatory and Development Authority of India (IRDAI) regulations shall apply to all insurance-related services.', hi: 'ये सेवा की शर्तें भारत के कानूनों द्वारा शासित हैं। भारत के बीमा नियामक और विकास प्राधिकरण (IRDAI) विनियम सभी बीमा-संबंधित सेवाओं पर लागू होंगे।', hinglish: 'Yeh Terms of Service India ke laws dwara governed hain. IRDAI regulations sabhi insurance-related services pe apply honge.' },
-      text2: { en: 'Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts in Jaipur, Rajasthan, India.', hi: 'इन शर्तों से उत्पन्न कोई भी विवाद जयपुर, राजस्थान, भारत की अदालतों के विशेष अधिकार क्षेत्र में होगा।', hinglish: 'In terms se utpann koi bhi vivaad Jaipur, Rajasthan, India ki adalaton ke exclusive jurisdiction mein hoga.' },
+      text2: { en: 'Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts in Kota, Rajasthan, India.', hi: 'इन शर्तों से उत्पन्न कोई भी विवाद कोटा, राजस्थान, भारत की अदालतों के विशेष अधिकार क्षेत्र में होगा।', hinglish: 'In terms se utpann koi bhi vivaad Kota, Rajasthan, India ki adalaton ke exclusive jurisdiction mein hoga.' },
     },
     {
       heading: { en: '8. Contact', hi: '8. संपर्क', hinglish: '8. Contact' },
@@ -246,7 +246,7 @@ export default function TermsOfServiceClientContent() {
                       style={{ background: 'rgba(201,138,28,0.06)', border: '1px solid rgba(201,138,28,0.15)' }}>
                       <MapPin className="w-6 h-6 mx-auto mb-2" style={{ color: GOLD }} />
                       <h3 className="text-sm font-bold text-white">Location</h3>
-                      <p className="text-xs" style={{ color: GOLD }}>Jaipur, Rajasthan, India</p>
+                      <p className="text-xs" style={{ color: GOLD }}>Kota, Rajasthan, India</p>
                     </div>
                   </div>
                   <div className="rounded-xl p-4" style={{ background: 'rgba(201,138,28,0.06)' }}>
@@ -262,7 +262,7 @@ export default function TermsOfServiceClientContent() {
               {sIdx === 6 && (
                 <div className="flex items-center gap-4 mt-4 flex-wrap">
                   <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/60">
-                    <MapPin className="w-3.5 h-3.5" style={{ color: GOLD }} /> Jaipur, Rajasthan
+                    <MapPin className="w-3.5 h-3.5" style={{ color: GOLD }} /> Kota, Rajasthan
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/60">
                     <Shield className="w-3.5 h-3.5" style={{ color: GOLD }} /> IRDAI Regulated

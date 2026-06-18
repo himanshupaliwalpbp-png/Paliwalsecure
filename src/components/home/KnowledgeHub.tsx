@@ -42,7 +42,7 @@ const articles: ArticleData[] = [
     slug: 'family-health-insurance-guide',
     color: '#EF4444',
     badgeVariant: 'gold',
-    titles: { en: 'How much health cover does a Jaipur family of 4 need?', hi: 'जयपुर के 4-सदस्य परिवार को कितना हेल्थ कवर चाहिए?', hg: 'Jaipur ke 4-member parivaar ko kitna health cover chahiye?' },
+    titles: { en: 'How much health cover does a Kota family of 4 need?', hi: 'कोटा के 4-सदस्य परिवार को कितना हेल्थ कवर चाहिए?', hg: 'Kota ke 4-member parivaar ko kitna health cover chahiye?' },
     categories: { en: 'Health Insurance', hi: 'हेल्थ इंश्योरेंस', hg: 'Health Insurance' },
     readTimes: { en: '5 min read', hi: '5 मिनट पढ़ें', hg: '5 min read' },
     keyPoints: {
@@ -50,7 +50,7 @@ const articles: ArticleData[] = [
       hi: ['₹10-15 लाख फैमिली फ्लोटर न्यूनतम', 'सुपर टॉप-अप ₹3,000/साल में ₹1 करोड़ जोड़ सकता है', 'रूम रेंट कैपिंग बहुत जरूरी'],
       hg: ['₹10-15 Lakh family floater minimum', 'Super Top-Up ₹3,000/year mein ₹1 Crore add karta hai', 'Room rent capping critical hai'],
     },
-    summaries: { en: 'For a Jaipur family of 4, we recommend ₹10-15 Lakh base + ₹1 Crore Super Top-Up. Total cost: ₹8,000-₹15,000/year.', hi: 'जयपुर के 4-सदस्य परिवार के लिए, हम ₹10-15 लाख बेस + ₹1 करोड़ सुपर टॉप-अप की सलाह देते हैं।', hg: 'Jaipur ke 4-member family ke liye, hum ₹10-15 Lakh base + ₹1 Crore Super Top-Up recommend karte hain.' },
+    summaries: { en: 'For a Kota family of 4, we recommend ₹10-15 Lakh base + ₹1 Crore Super Top-Up. Total cost: ₹8,000-₹15,000/year.', hi: 'कोटा के 4-सदस्य परिवार के लिए, हम ₹10-15 लाख बेस + ₹1 करोड़ सुपर टॉप-अप की सलाह देते हैं।', hg: 'Kota ke 4-member family ke liye, hum ₹10-15 Lakh base + ₹1 Crore Super Top-Up recommend karte hain.' },
   },
   {
     articleKey: 'article3',

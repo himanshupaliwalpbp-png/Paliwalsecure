@@ -36,7 +36,7 @@ const pageText = {
         { label: { en: 'POSP Code', hi: 'POSP कोड', hinglish: 'POSP Code' }, value: 'IP429834' },
         { label: { en: 'Registration Type', hi: 'पंजीकरण प्रकार', hinglish: 'Registration Type' }, value: 'Point of Sales Person (POSP)' },
         { label: { en: 'Registered Entity', hi: 'पंजीकृत इकाई', hinglish: 'Registered Entity' }, value: 'Himanshu Paliwal' },
-        { label: { en: 'Location', hi: 'स्थान', hinglish: 'Location' }, value: 'Jaipur, Rajasthan, India' },
+        { label: { en: 'Location', hi: 'स्थान', hinglish: 'Location' }, value: 'Kota, Rajasthan, India' },
         { label: { en: 'Regulatory Body', hi: 'नियामक निकाय', hinglish: 'Regulatory Body' }, value: 'IRDAI' },
         { label: { en: 'License Validity', hi: 'लाइसेंस वैधता', hinglish: 'License Validity' }, value: 'As per IRDAI records' },
       ],
@@ -285,7 +285,7 @@ export default function DisclaimerClientContent() {
                         <p className="flex items-center gap-1.5"><Shield className="w-3 h-3" style={{ color: GOLD }} /> POSP Code: <strong style={{ color: GOLD }}>IP429834</strong></p>
                         <p className="flex items-center gap-1.5"><MessageCircle className="w-3 h-3" style={{ color: GOLD }} /> <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer" style={{ color: GOLD }}>+91 9257877312</a></p>
                         <p className="flex items-center gap-1.5"><Mail className="w-3 h-3" style={{ color: GOLD }} /> <a href="mailto:himanshupaliwalpbp@gmail.com" style={{ color: GOLD }}>himanshupaliwalpbp@gmail.com</a></p>
-                        <p className="flex items-center gap-1.5"><MapPin className="w-3 h-3" style={{ color: GOLD }} /> Jaipur, Rajasthan, India</p>
+                        <p className="flex items-center gap-1.5"><MapPin className="w-3 h-3" style={{ color: GOLD }} /> Kota, Rajasthan, India</p>
                       </div>
                     </div>
                   </div>

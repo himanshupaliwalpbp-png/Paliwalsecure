@@ -13,7 +13,7 @@
  * - Brand: Paliwal Secure AI / InsureGPT
  * - POSP Code: IP429834
  * - WhatsApp: +91 9257877312
- * - Location: Jaipur, Rajasthan, India
+ * - Location: Kota, Rajasthan, India
  * - Website: https://paliwalsecure.in
  * - Author: Himanshu Paliwal
  * - Instagram: @paliwalinsure
@@ -33,7 +33,7 @@ export const POSP_CODE = 'IP429834'
 export const WHATSAPP = '+91 9257877312'
 export const EMAIL = 'himanshupaliwalpbp@gmail.com'
 export const INSTAGRAM = '@paliwalinsure'
-export const LOCATION = 'Jaipur, Rajasthan, India'
+export const LOCATION = 'Kota, Rajasthan, India'
 
 // ============================================================================
 // Blog Post Metadata Generator

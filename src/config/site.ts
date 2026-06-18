@@ -24,7 +24,7 @@ export const siteConfig = {
     "Cashless Health Insurance",
     "IRDAI Certified Advisor",
     "Paliwal Secure AI",
-    "Insurance Advisor Jaipur",
+    "Insurance Advisor Kota",
     "POSP Insurance Agent",
   ],
   pospCode: "IP429834",

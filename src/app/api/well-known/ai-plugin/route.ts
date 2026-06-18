@@ -64,7 +64,7 @@ export async function GET() {
       advisor_name: 'Himanshu Paliwal',
       families_served: 500,
       insurer_count: 51,
-      location: 'Jaipur, Rajasthan, India',
+      location: 'Kota, Rajasthan, India',
       whatsapp: '+919257877312',
     },
   };

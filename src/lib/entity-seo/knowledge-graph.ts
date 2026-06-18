@@ -65,10 +65,10 @@ export function generateOrganizationSchema() {
     ],
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Jaipur",
-      addressLocality: "Jaipur",
+      streetAddress: "Kota",
+      addressLocality: "Kota",
       addressRegion: "Rajasthan",
-      postalCode: "302001",
+      postalCode: "324001",
       addressCountry: "IN",
     },
     areaServed: {
@@ -205,7 +205,7 @@ export function generatePersonSchema() {
     ],
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Jaipur",
+      addressLocality: "Kota",
       addressRegion: "Rajasthan",
       addressCountry: "IN",
     },

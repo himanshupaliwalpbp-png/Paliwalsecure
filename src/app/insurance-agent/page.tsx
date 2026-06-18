@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 export const metadata: Metadata = {
   title: 'Insurance Agents in India — 100+ Cities Directory | Paliwal Secure AI',
   description:
-    'Find IRDAI Registered POSP insurance agents across 100+ Indian cities. Mumbai, Delhi, Bengaluru, Chennai, Hyderabad, Pune, Kolkata, Jaipur, Kota, Lucknow & more. Free consultation by Himanshu Paliwal (IP429834).',
+    'Find IRDAI Registered POSP insurance agents across 100+ Indian cities. Mumbai, Delhi, Bengaluru, Chennai, Hyderabad, Pune, Kolkata, Kota, Jaipur, Lucknow & more. Free consultation by Himanshu Paliwal (IP429834).',
   keywords: [
     'insurance agent india',
     'insurance advisor near me',

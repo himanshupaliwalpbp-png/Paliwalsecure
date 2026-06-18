@@ -976,7 +976,7 @@ export default function TaxSavingPage() {
               <MapPin className="w-7 h-7 text-white" />
             </div>
             <h3 className="font-bold text-foreground mb-1">{tr(pageText.contact.location)}</h3>
-            <p className="text-sm" style={{ color: GOLD }}>Jaipur, Rajasthan</p>
+            <p className="text-sm" style={{ color: GOLD }}>Kota, Rajasthan</p>
             <p className="text-xs text-muted-foreground mt-1">India</p>
           </div>
         </div>

@@ -5,7 +5,7 @@ import ClientContent from './ClientContent';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'About Paliwal Secure AI — IRDAI Registered Insurance Advisor India',
-  description: 'Learn about Paliwal Secure AI — India\'s AI-powered insurance advisory by Himanshu Paliwal, IRDAI Registered POSP (IP429834). Trusted by 500+ families across Jaipur, Rajasthan.',
+  description: 'Learn about Paliwal Secure AI — India\'s AI-powered insurance advisory by Himanshu Paliwal, IRDAI Registered POSP (IP429834). Trusted by 500+ families across Kota, Rajasthan.',
   slug: '/about',
 });
 

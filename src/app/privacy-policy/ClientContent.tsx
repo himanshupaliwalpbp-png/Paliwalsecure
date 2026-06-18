@@ -294,7 +294,7 @@ export default function PrivacyPolicyClientContent() {
                           style={{ background: 'rgba(201,138,28,0.06)', border: '1px solid rgba(201,138,28,0.15)' }}>
                           <MapPin className="w-6 h-6 mx-auto mb-2" style={{ color: GOLD }} />
                           <h3 className="text-sm font-bold text-foreground">Location</h3>
-                          <p className="text-xs" style={{ color: GOLD }}>Jaipur, Rajasthan, India</p>
+                          <p className="text-xs" style={{ color: GOLD }}>Kota, Rajasthan, India</p>
                         </div>
                       </div>
                       <div className="rounded-xl p-4" style={{ background: 'rgba(201,138,28,0.06)' }}>

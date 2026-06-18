@@ -11,7 +11,7 @@ import { generateFAQSchemaData } from '@/data/seoFAQ';
  * - WebSite schema with SearchAction
  * - WebPage schema
  * - FAQPage schema (35+ FAQs)
- * - LocalBusiness schema (Jaipur, Rajasthan)
+ * - LocalBusiness schema (Kota, Rajasthan)
  * - Product schemas (Health, Term, Motor)
  * - BreadcrumbList schema
  * - HowTo schema (claim filing)
@@ -25,7 +25,7 @@ import { generateFAQSchemaData } from '@/data/seoFAQ';
  * - Brand: Paliwal Secure AI / InsureGPT
  * - POSP Code: IP429834
  * - WhatsApp: +91 9257877312
- * - Location: Jaipur, Rajasthan, India
+ * - Location: Kota, Rajasthan, India
  * - Website: https://paliwalsecure.com
  * - Author: Himanshu Paliwal
  * - Instagram: @paliwalinsure
@@ -99,10 +99,10 @@ export default function JsonLd() {
     ],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Jaipur',
-      addressLocality: 'Jaipur',
+      streetAddress: 'Kota',
+      addressLocality: 'Kota',
       addressRegion: 'Rajasthan',
-      postalCode: '302001',
+      postalCode: '324001',
       addressCountry: 'IN',
     },
     areaServed: {
@@ -139,7 +139,7 @@ export default function JsonLd() {
     url: 'https://paliwalsecure.com',
     image: 'https://paliwalsecure.com/logo.svg',
     description:
-      'Himanshu Paliwal is an IRDAI-certified insurance advisor based in Jaipur, Rajasthan. With expertise in health, term, and motor insurance, he has helped 500+ Indian families find the right insurance coverage. He specializes in AI-powered insurance comparison and unbiased recommendations from 51+ IRDAI-registered insurers.',
+      'Himanshu Paliwal is an IRDAI-certified insurance advisor based in Kota, Rajasthan. With expertise in health, term, and motor insurance, he has helped 500+ Indian families find the right insurance coverage. He specializes in AI-powered insurance comparison and unbiased recommendations from 51+ IRDAI-registered insurers.',
     telephone: '+91-9257877312',
     email: 'himanshupaliwalpbp@gmail.com',
     worksFor: {
@@ -170,9 +170,9 @@ export default function JsonLd() {
     ],
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Jaipur',
+      addressLocality: 'Kota',
       addressRegion: 'Rajasthan',
-      postalCode: '302001',
+      postalCode: '324001',
       addressCountry: 'IN',
     },
     sameAs: [
@@ -208,16 +208,16 @@ export default function JsonLd() {
     email: 'himanshupaliwalpbp@gmail.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Jaipur',
-      addressLocality: 'Jaipur',
+      streetAddress: 'Kota',
+      addressLocality: 'Kota',
       addressRegion: 'Rajasthan',
-      postalCode: '302001',
+      postalCode: '324001',
       addressCountry: 'IN',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 26.9124,
-      longitude: 75.7873,
+      latitude: 25.2138,
+      longitude: 75.8648,
     },
     openingHoursSpecification: [
       {
@@ -339,7 +339,7 @@ export default function JsonLd() {
     telephone: '+91-9257877312',
     email: 'himanshupaliwalpbp@gmail.com',
     description:
-      'IRDAI-certified insurance advisor providing AI-powered recommendations from 51+ insurers. Specialist in health, life, and motor insurance for Indian families. Based in Jaipur, Rajasthan with pan-India advisory services.',
+      'IRDAI-certified insurance advisor providing AI-powered recommendations from 51+ insurers. Specialist in health, life, and motor insurance for Indian families. Based in Kota, Rajasthan with pan-India advisory services.',
     knowsAbout: [
       'Health Insurance',
       'Term Insurance',
@@ -358,9 +358,9 @@ export default function JsonLd() {
     },
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Jaipur',
+      addressLocality: 'Kota',
       addressRegion: 'Rajasthan',
-      postalCode: '302001',
+      postalCode: '324001',
       addressCountry: 'IN',
     },
   };
@@ -416,20 +416,20 @@ export default function JsonLd() {
     email: 'himanshupaliwalpbp@gmail.com',
     url: 'https://paliwalsecure.com',
     description:
-      'AI-powered insurance advisory service helping Indian families compare and choose the best insurance from 51+ IRDAI-registered insurers. IRDAI Registered POSP (IP429834) — Himanshu Paliwal, certified insurance advisor in Jaipur, Rajasthan. Trusted by 500+ families.',
+      'AI-powered insurance advisory service helping Indian families compare and choose the best insurance from 51+ IRDAI-registered insurers. IRDAI Registered POSP (IP429834) — Himanshu Paliwal, certified insurance advisor in Kota, Rajasthan. Trusted by 500+ families.',
     priceRange: '₹₹',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Jaipur',
-      addressLocality: 'Jaipur',
+      streetAddress: 'Kota',
+      addressLocality: 'Kota',
       addressRegion: 'Rajasthan',
-      postalCode: '302001',
+      postalCode: '324001',
       addressCountry: 'IN',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 26.9124,
-      longitude: 75.7873,
+      latitude: 25.2138,
+      longitude: 75.8648,
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -456,7 +456,7 @@ export default function JsonLd() {
       worstRating: '1',
       ratingCount: '523',
     },
-    hasMap: 'https://maps.google.com/?q=Jaipur,Rajasthan,India',
+    hasMap: 'https://maps.google.com/?q=Kota,Rajasthan,India',
     identifier: {
       '@type': 'PropertyValue',
       name: 'IRDAI POSP Code',
@@ -474,8 +474,8 @@ export default function JsonLd() {
     areaServed: [
       {
         '@type': 'City',
-        name: 'Jaipur',
-        sameAs: 'https://en.wikipedia.org/wiki/Jaipur',
+        name: 'Kota',
+        sameAs: 'https://en.wikipedia.org/wiki/Kota,_Rajasthan',
       },
       {
         '@type': 'State',
@@ -655,7 +655,7 @@ export default function JsonLd() {
     '@type': 'Product',
     name: 'AI Insurance Advisory — Paliwal Secure AI',
     description:
-      'Free AI-powered insurance comparison and advisory service by IRDAI Registered POSP (IP429834). Compare 51+ insurers, get personalized recommendations with InsureGPT AI, free claim assistance, and policy audit. Expert guidance by Himanshu Paliwal, Jaipur.',
+      'Free AI-powered insurance comparison and advisory service by IRDAI Registered POSP (IP429834). Compare 51+ insurers, get personalized recommendations with InsureGPT AI, free claim assistance, and policy audit. Expert guidance by Himanshu Paliwal, Kota.',
     brand: {
       '@type': 'Brand',
       name: 'Paliwal Secure AI',
@@ -1082,9 +1082,9 @@ export default function JsonLd() {
       telephone: '+91-9257877312',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Jaipur',
+        addressLocality: 'Kota',
         addressRegion: 'Rajasthan',
-        postalCode: '302001',
+        postalCode: '324001',
         addressCountry: 'IN',
       },
     },
@@ -1106,7 +1106,7 @@ export default function JsonLd() {
     '@type': 'WebPage',
     '@id': 'https://paliwalsecure.com/#voice-content',
     name: 'Paliwal Secure — Best Insurance Advisor in India | Voice Search',
-    description: 'Paliwal Secure is the best insurance advisor in India. IRDAI-certified advisor Himanshu Paliwal provides health insurance, term insurance, motor insurance comparison and claims assistance. Located in Jaipur, Rajasthan. Call 9257877312 for free consultation.',
+    description: 'Paliwal Secure is the best insurance advisor in India. IRDAI-certified advisor Himanshu Paliwal provides health insurance, term insurance, motor insurance comparison and claims assistance. Located in Kota, Rajasthan. Call 9257877312 for free consultation.',
     speakable: {
       '@type': 'SpeakableSpecification',
       cssSelector: [
@@ -1123,7 +1123,7 @@ export default function JsonLd() {
       telephone: '+91-9257877312',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Jaipur',
+        addressLocality: 'Kota',
         addressRegion: 'Rajasthan',
         addressCountry: 'IN',
       },

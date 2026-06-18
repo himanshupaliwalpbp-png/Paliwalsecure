@@ -38,7 +38,7 @@ const testimonials = [
     id: 4,
     quote: 'Family floater plan ke liye best advice mili',
     name: 'Sunita R.',
-    city: 'Jaipur',
+    city: 'Kota',
     rating: 5,
     initials: 'SR',
     gradient: 'from-rose-400 to-pink-500',

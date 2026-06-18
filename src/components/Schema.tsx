@@ -34,7 +34,7 @@ const organizationSchema = {
   },
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Jaipur",
+    addressLocality: "Kota",
     addressRegion: "Rajasthan",
     addressCountry: "IN",
   },
