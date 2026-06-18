@@ -351,14 +351,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               } catch(e) {}
               try {
                 var theme = localStorage.getItem('theme');
-                // Dark mode is the default per Intelligence Platform redesign blueprint.
-                // Only add 'dark' class if user explicitly chose light — otherwise default to dark.
-                if (theme !== 'light') {
+                if (theme === 'dark') {
                   document.documentElement.classList.add('dark');
                 }
+                // Light mode is default — no class needed
               } catch(e) {
-                // Default to dark mode on any error
-                document.documentElement.classList.add('dark');
+                // Default to light mode (no class)
               }
             `,
           }}
