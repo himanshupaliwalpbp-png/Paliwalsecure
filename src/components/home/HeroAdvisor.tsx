@@ -467,10 +467,10 @@ export default function HeroAdvisor() {
               {subtext}
             </motion.p>
 
-            {/* Hero Image — user's 3D render, centered with max-width for sharp quality */}
+            {/* Hero Image — full-width high-res showcase, user's 3D render */}
             <motion.div
               variants={heroChild}
-              className="mb-10 relative mx-auto max-w-[640px] w-full rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)] group"
+              className="mb-10 relative w-full rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)] group"
             >
               <img
                 src="/images/hero-3d.jpg"
@@ -481,8 +481,8 @@ export default function HeroAdvisor() {
               {/* Premium gradient overlay for depth */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/40 via-transparent to-transparent pointer-events-none" />
               {/* Brand badge */}
-              <div className="absolute bottom-3 left-3">
-                <span className="px-2.5 py-1 rounded-full bg-[#07111F]/80 backdrop-blur-sm text-[#C89B3C] text-[10px] font-bold tracking-wider uppercase border border-[#C89B3C]/20">
+              <div className="absolute bottom-4 left-4">
+                <span className="px-3 py-1.5 rounded-full bg-[#07111F]/80 backdrop-blur-sm text-[#C89B3C] text-xs font-bold tracking-wider uppercase border border-[#C89B3C]/20">
                   Paliwal Secure AI
                 </span>
               </div>
