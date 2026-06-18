@@ -133,6 +133,43 @@
   --color-trust-teal: #1B4D4A;    /* Deep forest teal */
   --color-trust-teal-tint: #E6EFEE;
   --color-warn-gold: #B8860B;     /* Old gold */
+
+  /* ═══ Design Bible v9.0 "Intelligence Platform" — Blueprint Tokens ═══ */
+  /* New premium dark-first palette per redesign blueprint */
+  --color-intel-midnight: #0B1221;    /* Primary background — deep midnight navy */
+  --color-intel-soft-black: #0A0A0F;  /* Soft black — footer, deepest contrast */
+  --color-intel-surface-dark: #0F1729; /* Card backgrounds, elevated surfaces */
+  --color-intel-surface-light: #131C2E; /* Alternate section backgrounds */
+  --color-intel-gold: #D4A853;        /* Primary CTA, highlights, score ring */
+  --color-intel-gold-glow: rgba(212, 168, 83, 0.15); /* Glow effects, hover borders */
+  --color-intel-gold-hover: #E0B86A;  /* Lighter gold for hover states */
+  --color-intel-teal: #2DD4A8;        /* Success states, live indicators */
+  --color-intel-teal-glow: rgba(45, 212, 168, 0.15);
+  --color-intel-white: #FFFFFF;       /* Headlines, primary text */
+  --color-intel-sage: #94A3B8;        /* Body text — muted sage */
+  --color-intel-gray: #64748B;        /* Tertiary text, captions */
+  --color-intel-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-intel-border-medium: rgba(255, 255, 255, 0.08);
+  --color-intel-border-bright: rgba(255, 255, 255, 0.15);
+
+  /* Gradient presets — Intelligence Platform */
+  --gradient-intel-hero: linear-gradient(135deg, #0B1221 0%, #0D3B3B 50%, #0B1221 100%);
+  --gradient-intel-cta: radial-gradient(circle at center, rgba(212, 168, 83, 0.05) 0%, #0B1221 70%);
+  --gradient-intel-score-ring: conic-gradient(from 0deg, #2DD4A8 0%, #D4A853 70%, rgba(255, 255, 255, 0.1) 70%);
+
+  /* Shadows — Intelligence Platform (dark-optimized) */
+  --shadow-intel-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-intel-md: 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-intel-lg: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.15);
+  --shadow-intel-xl: 0 20px 25px rgba(0, 0, 0, 0.4), 0 10px 10px rgba(0, 0, 0, 0.2);
+  --shadow-intel-cta: 0 8px 32px rgba(212, 168, 83, 0.3), 0 0 0 1px rgba(212, 168, 83, 0.2);
+  --shadow-intel-ambient: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* Easing tokens — Blueprint animation system */
+  --ease-intel-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-intel-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-intel-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ease-intel-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --color-success-deep: #2D6A4F;
   --color-danger-deep: #9B2C2C;
   --color-line: rgba(14, 17, 22, 0.08);        /* Hairline */
@@ -4831,4 +4868,563 @@ html {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN BIBLE v9.0 — "Intelligence Platform" Component Utilities
+   Per Complete Redesign Blueprint — premium dark-first aesthetic
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Intel Container — max-width 1280px, centered, 24px gutters ──────────── */
+.intel-container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (min-width: 768px) {
+  .intel-container { padding-inline: 32px; }
+}
+@media (min-width: 1440px) {
+  .intel-container { padding-inline: 80px; }
+}
+
+/* ── Intel Section — consistent vertical padding per 8pt system ──────────── */
+.intel-section {
+  padding-block: 80px;
+}
+@media (min-width: 768px) {
+  .intel-section { padding-block: 120px; }
+}
+.intel-section-lg {
+  padding-block: 96px;
+}
+@media (min-width: 768px) {
+  .intel-section-lg { padding-block: 160px; }
+}
+
+/* ── Intel Backgrounds — midnight navy surfaces ──────────────────────────── */
+.intel-bg-midnight { background-color: var(--color-intel-midnight); }
+.intel-bg-surface-dark { background-color: var(--color-intel-surface-dark); }
+.intel-bg-surface-light { background-color: var(--color-intel-surface-light); }
+.intel-bg-soft-black { background-color: var(--color-intel-soft-black); }
+.intel-bg-gradient-hero {
+  background: var(--gradient-intel-hero);
+  background-size: 200% 200%;
+  animation: intel-gradient-shift 12s ease infinite;
+}
+.intel-bg-gradient-cta {
+  background: var(--gradient-intel-cta);
+}
+
+@keyframes intel-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ── Intel Glassmorphism — premium glass cards per blueprint ─────────────── */
+.intel-glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: all 0.3s var(--ease-intel-default);
+}
+.intel-glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-intel-lg);
+  transform: translateY(-4px);
+}
+
+.intel-glass-nav {
+  background: rgba(11, 18, 33, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.intel-glass-tooltip {
+  background: rgba(15, 23, 41, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+/* ── Intel Typography Helpers ────────────────────────────────────────────── */
+.intel-label {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-intel-gold);
+}
+.intel-label-sage {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-intel-sage);
+}
+.intel-headline {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', 'Inter', sans-serif;
+  color: var(--color-intel-white);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.intel-headline-display {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.intel-headline-h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.intel-headline-h2 {
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.intel-body-large {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-intel-sage);
+}
+.intel-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-intel-sage);
+}
+.intel-data {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-intel-white);
+}
+
+/* ── Intel Buttons ───────────────────────────────────────────────────────── */
+.intel-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--color-intel-gold);
+  color: var(--color-intel-midnight);
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0 32px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(212, 168, 83, 0.3);
+  transition: all 0.2s var(--ease-intel-default);
+  text-decoration: none;
+}
+.intel-btn-primary:hover {
+  background: var(--color-intel-gold-hover);
+  box-shadow: 0 8px 32px rgba(212, 168, 83, 0.4);
+  transform: translateY(-2px);
+}
+.intel-btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.intel-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--color-intel-white);
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0 32px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-intel-default);
+  text-decoration: none;
+}
+.intel-btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.intel-btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--color-intel-gold);
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s var(--ease-intel-default);
+}
+.intel-btn-text:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.intel-btn-cta-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--color-intel-gold);
+  color: var(--color-intel-midnight);
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 40px;
+  height: 56px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-intel-cta);
+  transition: all 0.2s var(--ease-intel-default);
+  text-decoration: none;
+}
+.intel-btn-cta-large:hover {
+  background: var(--color-intel-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(212, 168, 83, 0.45), 0 0 0 1px rgba(212, 168, 83, 0.3);
+}
+
+/* ── Intel Card Variants ─────────────────────────────────────────────────── */
+.intel-card-feature {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 40px;
+  transition: all 0.3s var(--ease-intel-default);
+}
+.intel-card-feature:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-intel-lg);
+}
+
+.intel-card-category {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 40px;
+  transition: all 0.3s var(--ease-intel-default);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+.intel-card-category:hover {
+  border-color: var(--color-intel-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(212, 168, 83, 0.15);
+}
+.intel-card-category:hover .intel-icon-circle {
+  background: rgba(212, 168, 83, 0.2);
+  transform: scale(1.1);
+}
+
+.intel-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(212, 168, 83, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-intel-gold);
+  transition: all 0.3s var(--ease-intel-default);
+}
+
+.intel-badge-ai-optimized {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-intel-gold);
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  border-radius: 4px;
+}
+
+.intel-trust-line {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-intel-sage);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.intel-trust-line .intel-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-intel-sage);
+  opacity: 0.5;
+}
+
+/* ── Intel Score Ring Visualization ──────────────────────────────────────── */
+.intel-score-ring-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.intel-score-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--gradient-intel-score-ring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 60px rgba(212, 168, 83, 0.2), inset 0 0 40px rgba(11, 18, 33, 0.5);
+  animation: intel-score-pulse 4s ease-in-out infinite;
+}
+.intel-score-ring::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: var(--color-intel-midnight);
+}
+.intel-score-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.intel-score-number {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 700;
+  color: var(--color-intel-white);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-shadow: 0 0 30px rgba(212, 168, 83, 0.3);
+}
+.intel-score-label {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-intel-gold);
+  margin-top: 8px;
+}
+
+@keyframes intel-score-pulse {
+  0%, 100% { box-shadow: 0 0 60px rgba(212, 168, 83, 0.2), inset 0 0 40px rgba(11, 18, 33, 0.5); }
+  50% { box-shadow: 0 0 80px rgba(212, 168, 83, 0.35), inset 0 0 40px rgba(11, 18, 33, 0.5); }
+}
+
+/* ── Intel Particles (CSS-only fallback for 3D orb) ──────────────────────── */
+.intel-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.intel-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-intel-gold);
+  opacity: 0.4;
+  animation: intel-particle-float 8s ease-in-out infinite;
+}
+@keyframes intel-particle-float {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  50% { transform: translate(20px, -30px); opacity: 0.8; }
+}
+
+/* ── Intel Trust Bar — partner logos ─────────────────────────────────────── */
+.intel-trust-bar {
+  background: var(--color-intel-surface-dark);
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+  padding-block: 32px;
+}
+.intel-trust-bar-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 32px;
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: all 0.3s var(--ease-intel-default);
+}
+.intel-trust-bar-logos:hover {
+  opacity: 1;
+}
+.intel-trust-bar-logo {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-intel-white);
+  letter-spacing: -0.01em;
+  transition: all 0.3s var(--ease-intel-default);
+}
+.intel-trust-bar-logos:hover .intel-trust-bar-logo {
+  filter: none;
+  transform: scale(1.05);
+}
+
+/* ── Intel FAQ Accordion ─────────────────────────────────────────────────── */
+.intel-faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+}
+.intel-faq-question {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-intel-white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: color 0.2s var(--ease-intel-default);
+}
+.intel-faq-question:hover {
+  color: var(--color-intel-gold);
+}
+.intel-faq-item[open] .intel-faq-question {
+  color: var(--color-intel-gold);
+}
+.intel-faq-answer {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-intel-sage);
+  padding-top: 16px;
+  max-width: 75ch;
+}
+
+/* ── Intel Section Number (01, 02, 03) ──────────────────────────────────── */
+.intel-section-number {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 48px;
+  font-weight: 500;
+  color: rgba(148, 163, 184, 0.3);
+  letter-spacing: -0.02em;
+}
+
+/* ── Intel Pillar Card (Why Choose Us) ───────────────────────────────────── */
+.intel-pillar {
+  position: relative;
+  padding: 32px 0 32px 24px;
+  border-left: 2px solid transparent;
+  transition: border-color 0.3s var(--ease-intel-default);
+}
+.intel-pillar:hover {
+  border-left-color: var(--color-intel-gold);
+}
+
+/* ── Intel Testimonial Card ──────────────────────────────────────────────── */
+.intel-testimonial {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 48px;
+  min-width: 320px;
+}
+.intel-testimonial-quote {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--color-intel-white);
+  margin-bottom: 24px;
+}
+.intel-testimonial-name {
+  font-family: var(--font-heading), 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-intel-white);
+}
+.intel-testimonial-location {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-intel-sage);
+  margin-top: 4px;
+}
+.intel-testimonial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-intel-gold);
+  background: rgba(212, 168, 83, 0.1);
+  border-radius: 20px;
+  margin-top: 16px;
+}
+
+/* ── Intel Scroll Reveal Animation ───────────────────────────────────────── */
+.intel-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s var(--ease-intel-decelerate), transform 0.6s var(--ease-intel-decelerate);
+}
+.intel-reveal.intel-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Intel Scroll Progress Indicator ─────────────────────────────────────── */
+.intel-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-intel-gold);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(212, 168, 83, 0.6);
 }

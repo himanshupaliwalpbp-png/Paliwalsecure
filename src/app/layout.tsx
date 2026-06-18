@@ -351,12 +351,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               } catch(e) {}
               try {
                 var theme = localStorage.getItem('theme');
-                if (theme === 'dark') {
+                // Dark mode is the default per Intelligence Platform redesign blueprint.
+                // Only add 'dark' class if user explicitly chose light — otherwise default to dark.
+                if (theme !== 'light') {
                   document.documentElement.classList.add('dark');
                 }
-                // Light mode is default — no class needed
               } catch(e) {
-                // Default to light mode (no class)
+                // Default to dark mode on any error
+                document.documentElement.classList.add('dark');
               }
             `,
           }}

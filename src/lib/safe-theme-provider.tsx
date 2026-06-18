@@ -27,8 +27,8 @@ export function SafeThemeProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="light"
-      enableSystem
+      defaultTheme="dark"
+      enableSystem={false}
       disableTransitionOnChange
     >
       <SafeThemeContextWrapper>{children}</SafeThemeContextWrapper>
