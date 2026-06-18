@@ -463,9 +463,26 @@ export default function HeroAdvisor() {
             </motion.h1>
 
             {/* Description — lead body, ink-soft */}
-            <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-10 max-w-xl font-body">
+            <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-8 max-w-xl font-body">
               {subtext}
             </motion.p>
+
+            {/* Hero Image — below description, professional 3D visual */}
+            <motion.div
+              variants={heroChild}
+              className="mb-10 relative rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)]"
+            >
+              <img
+                src="/images/hero-insurance-intelligence.jpeg"
+                alt="Paliwal Secure AI — 3D AI-powered insurance universe with crystal protection shield, glowing AI core, and orbiting insurance spheres for health, life, car, travel, and business insurance"
+                className="w-full h-auto block"
+                width={1344}
+                height={768}
+                loading="eager"
+              />
+              {/* Subtle bottom gradient for depth */}
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#07111F]/30 to-transparent pointer-events-none" />
+            </motion.div>
 
             {/* CTA Buttons — Primary "Stripe" + Ghost "Linear" */}
             <motion.div variants={heroChild} className="flex flex-col sm:flex-row gap-4 mb-14">
