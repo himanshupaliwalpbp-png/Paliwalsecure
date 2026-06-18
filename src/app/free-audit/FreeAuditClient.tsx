@@ -2,13 +2,9 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import DynamicMeshGradientBackground from '@/components/ui/DynamicMeshGradientBackground';
-import GlassmorphismCard from '@/components/ui/GlassmorphismCard';
-import LiquidButton from '@/components/ui/LiquidButton';
-// InsureGPT is accessed via global FloatingChatBot — no separate import needed
 import {
   FileSearch, Upload, Shield, ArrowRight, CheckCircle, AlertTriangle,
-  TrendingDown, Sparkles, Bot, X, ChevronDown, ChevronUp,
+  TrendingDown, Sparkles, Bot, X, Loader2,
 } from 'lucide-react';
 
 /* ── Mock comparison data ── */
@@ -32,23 +28,22 @@ const MOCK_COMPARISON = {
     waitingPeriod: '24 months (PED)',
     maternity: '✅ Covered',
     networkHospitals: '21,700+',
-    roomRent: 'No limit (Single AC)',
-    addons: 'Zero Dep, Super Top-up',
+    roomRent: 'No capping',
+    addons: 'Zero Dep, Restoration',
   },
 };
 
 const COMPARISON_ROWS = [
   { label: 'Annual Premium', current: MOCK_COMPARISON.currentPlan.premium, recommended: MOCK_COMPARISON.recommendedPlan.premium, highlight: true },
-  { label: 'Claim Settlement Ratio', current: MOCK_COMPARISON.currentPlan.csr, recommended: MOCK_COMPARISON.recommendedPlan.csr },
-  { label: 'Coverage Amount', current: MOCK_COMPARISON.currentPlan.coverage, recommended: MOCK_COMPARISON.recommendedPlan.coverage },
-  { label: 'PED Waiting Period', current: MOCK_COMPARISON.currentPlan.waitingPeriod, recommended: MOCK_COMPARISON.recommendedPlan.waitingPeriod },
+  { label: 'Claim Settlement Ratio', current: MOCK_COMPARISON.currentPlan.csr, recommended: MOCK_COMPARISON.recommendedPlan.csr, highlight: true },
+  { label: 'Coverage Amount', current: MOCK_COMPARISON.currentPlan.coverage, recommended: MOCK_COMPARISON.recommendedPlan.coverage, highlight: true },
+  { label: 'PED Waiting Period', current: MOCK_COMPARISON.currentPlan.waitingPeriod, recommended: MOCK_COMPARISON.recommendedPlan.waitingPeriod, highlight: true },
   { label: 'Maternity Cover', current: MOCK_COMPARISON.currentPlan.maternity, recommended: MOCK_COMPARISON.recommendedPlan.maternity },
-  { label: 'Network Hospitals', current: MOCK_COMPARISON.currentPlan.networkHospitals, recommended: MOCK_COMPARISON.recommendedPlan.networkHospitals },
-  { label: 'Room Rent', current: MOCK_COMPARISON.currentPlan.roomRent, recommended: MOCK_COMPARISON.recommendedPlan.roomRent },
+  { label: 'Network Hospitals', current: MOCK_COMPARISON.currentPlan.networkHospitals, recommended: MOCK_COMPARISON.recommendedPlan.networkHospitals, highlight: true },
+  { label: 'Room Rent', current: MOCK_COMPARISON.currentPlan.roomRent, recommended: MOCK_COMPARISON.recommendedPlan.roomRent, highlight: true },
   { label: 'Add-ons', current: MOCK_COMPARISON.currentPlan.addons, recommended: MOCK_COMPARISON.recommendedPlan.addons },
 ];
 
-/* ── Audit Steps ── */
 const AUDIT_STEPS = [
   { icon: <Upload className="w-5 h-5" />, title: 'Upload Policy', desc: 'Upload your existing insurance policy PDF or image' },
   { icon: <Bot className="w-5 h-5" />, title: 'AI Analysis', desc: 'InsureGPT analyzes coverage, premium & gaps' },
@@ -62,7 +57,6 @@ export default function FreeAuditClient() {
   const [showResults, setShowResults] = useState(false);
   const [savingsAmount, setSavingsAmount] = useState('₹2,900/yr');
   const [analysisError, setAnalysisError] = useState<string | null>(null);
-  // InsureGPT opens via global event — no local state needed
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = useCallback((file: File) => {
@@ -90,7 +84,6 @@ export default function FreeAuditClient() {
     setAnalysisError(null);
 
     try {
-      // Convert file to base64
       const reader = new FileReader();
       const dataUrl = await new Promise<string>((resolve, reject) => {
         reader.onload = () => resolve(reader.result as string);
@@ -100,7 +93,6 @@ export default function FreeAuditClient() {
       const base64 = dataUrl.split(',')[1];
       const isPDF = uploadedFile.type === 'application/pdf';
 
-      // Step 1: Extract policy details via AI
       const extractBody = isPDF
         ? { pdfBase64: base64, fileType: 'pdf' }
         : { imageBase64: base64, mimeType: uploadedFile.type, fileType: 'image' };
@@ -112,8 +104,6 @@ export default function FreeAuditClient() {
       });
       const extractData = await extractResponse.json();
 
-      // Step 2: Run audit analysis
-      // Use extracted data or defaults
       const auditBody: Record<string, unknown> = {
         policyType: extractData?.data?.policyType || 'car',
         insurer: extractData?.data?.insurer || 'HDFC ERGO',
@@ -143,7 +133,6 @@ export default function FreeAuditClient() {
         }
       }
 
-      // Fallback: If API fails, still show results with demo data
       console.warn('Audit API failed, showing demo results');
       setSavingsAmount('₹2,900/yr');
       setShowResults(true);
@@ -159,51 +148,77 @@ export default function FreeAuditClient() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Hero Section with DynamicMeshGradientBackground */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-        <DynamicMeshGradientBackground
-          colors={['#0A1330', '#162D5A', '#C98A1C', '#C98A1C']}
-          animationSpeed={8}
-          className="absolute inset-0"
-        />
+      {/* ════════════════════════════════════════════════════════════════
+          HERO SECTION — Plain HTML for guaranteed centering
+         ════════════════════════════════════════════════════════════════ */}
+      <section
+        className="relative flex items-center justify-center overflow-hidden"
+        style={{ minHeight: '70vh' }}
+      >
+        {/* Background — absolute, doesn't affect flex */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0A1330 0%, #162D5A 50%, #C98A1C 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(201, 138, 28, 0.15) 0%, transparent 60%)' }} />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)] pointer-events-none z-[1]" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Centered Content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full"
           >
+            {/* Badge */}
             <div className="inline-flex items-center gap-2 dark:bg-white/[0.06] bg-white/50 backdrop-blur-md border dark:border-[#C98A1C]/25 border-[#C98A1C]/20 rounded-full px-5 py-2.5 text-sm font-medium dark:text-white/90 text-slate-800 shadow-lg mb-8">
               <Shield className="w-4 h-4 text-[#C98A1C]" />
               <span className="whitespace-nowrap">100% Free • No Obligations</span>
             </div>
 
+            {/* Heading */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-6 font-[family-name:var(--font-heading)]">
               <span className="block dark:text-white text-slate-900">Insurance</span>
               <span className="block mt-2 gradient-text italic">Reverse Audit</span>
             </h1>
 
+            {/* Description */}
             <p className="text-lg sm:text-xl dark:text-white/65 text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed">
               Upload your existing policy and our AI finds <strong className="text-[#C98A1C]">hidden savings</strong>, coverage gaps, and better alternatives — all backed by IRDAI data.
             </p>
 
+            {/* CTA Buttons — plain HTML for guaranteed click */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <LiquidButton variant="primary" size="lg" onClick={() => fileInputRef.current?.click()}>
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#0A1330] hover:shadow-lg hover:shadow-[#C98A1C]/40 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98A1C]/50"
+              >
                 <Upload className="w-5 h-5" />
                 Upload Your Policy
-              </LiquidButton>
-              <LiquidButton variant="ghost" size="lg" onClick={() => window.dispatchEvent(new CustomEvent('open-insuregpt'))}>
+              </button>
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-insuregpt'))}
+                className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg bg-white/10 backdrop-blur border border-white/25 text-white hover:bg-white/20 transition-all duration-300 cursor-pointer"
+              >
                 <Sparkles className="w-5 h-5" />
                 Chat with InsureGPT
-              </LiquidButton>
+              </button>
             </div>
+
+            {/* Hidden file input — shared by hero button AND upload section */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.png,.jpg,.jpeg,image/*,application/pdf"
+              className="hidden"
+              onChange={handleFileInput}
+            />
           </motion.div>
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* ════════════════════════════════════════════════════════════════
+          HOW IT WORKS
+         ════════════════════════════════════════════════════════════════ */}
       <section className="relative py-16 sm:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold dark:text-white text-slate-900 text-center mb-10 font-[family-name:var(--font-heading)]">
@@ -217,54 +232,44 @@ export default function FreeAuditClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
+                className="text-center p-6 rounded-2xl dark:bg-white/[0.03] bg-white/50 backdrop-blur border dark:border-white/10 border-slate-200"
               >
-                <GlassmorphismCard
-                  title={step.title}
-                  description={step.desc}
-                  icon={step.icon}
-                  hoverEffect={false}
-                  className="text-center"
-                />
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#C98A1C]/20 to-[#C98A1C]/5 text-[#C98A1C] mb-4">
+                  {step.icon}
+                </div>
+                <h3 className="text-lg font-bold dark:text-white text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-sm dark:text-white/60 text-slate-500">{step.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Upload Section */}
+      {/* ════════════════════════════════════════════════════════════════
+          UPLOAD SECTION — Plain HTML for guaranteed interactivity
+         ════════════════════════════════════════════════════════════════ */}
       <section className="relative py-16 sm:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <GlassmorphismCard
-            title="Upload Your Policy"
-            description="Drag & drop your insurance policy PDF or image, or click to browse"
-            hoverEffect={false}
-          >
+          <div className="rounded-2xl dark:bg-white/[0.03] bg-white/50 backdrop-blur border dark:border-white/10 border-slate-200 p-6 sm:p-8">
+            <h2 className="text-xl sm:text-2xl font-bold dark:text-white text-slate-900 text-center mb-2">Upload Your Policy</h2>
+            <p className="text-sm dark:text-white/60 text-slate-500 text-center mb-6">Drag &amp; drop your insurance policy PDF or image, or click to browse</p>
+
             {/* Drag & Drop Area */}
             <div
               onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
               onDragLeave={() => setIsDragOver(false)}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`
-                relative mt-4 border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300
-                ${isDragOver
+              className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 ${
+                isDragOver
                   ? 'border-[#C98A1C] bg-[#C98A1C]/10'
-                  : 'dark:border-white/20 border-slate-300 dark:hover:border-[#C98A1C]/50 hover:border-[#C98A1C]/50 dark:hover:bg-white/[0.03] hover:bg-slate-50'
-                }
-              `}
+                  : 'dark:border-white/20 border-slate-300 hover:border-[#C98A1C]/50 dark:hover:bg-white/[0.03] hover:bg-slate-50'
+              }`}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click(); }}
               aria-label="Upload policy document"
             >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={handleFileInput}
-              />
-
               {uploadedFile ? (
                 <div className="flex items-center justify-center gap-3">
                   <FileSearch className="w-8 h-8 text-[#C98A1C]" />
@@ -291,26 +296,21 @@ export default function FreeAuditClient() {
               )}
             </div>
 
-            {/* Analyze Button */}
+            {/* Analyze Button — plain HTML button */}
             {uploadedFile && !showResults && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-6 text-center"
               >
-                <LiquidButton
-                  variant="primary"
-                  size="lg"
+                <button
                   onClick={handleAnalyze}
                   disabled={isAnalyzing}
+                  className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#0A1330] hover:shadow-lg hover:shadow-[#C98A1C]/40 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C98A1C]/50"
                 >
                   {isAnalyzing ? (
                     <>
-                      <motion.div
-                        className="w-5 h-5 border-2 border-[#0A1330] border-t-transparent rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                      />
+                      <Loader2 className="w-5 h-5 animate-spin" />
                       Analyzing...
                     </>
                   ) : (
@@ -319,14 +319,21 @@ export default function FreeAuditClient() {
                       Run Free Audit
                     </>
                   )}
-                </LiquidButton>
+                </button>
               </motion.div>
             )}
-          </GlassmorphismCard>
+
+            {/* Error message */}
+            {analysisError && (
+              <p className="mt-4 text-sm text-amber-500 text-center">{analysisError}</p>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* Results Section */}
+      {/* ════════════════════════════════════════════════════════════════
+          RESULTS SECTION
+         ════════════════════════════════════════════════════════════════ */}
       <AnimatePresence>
         {showResults && (
           <motion.section
@@ -355,13 +362,15 @@ export default function FreeAuditClient() {
               {/* Comparison Table */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 {/* Current Plan */}
-                <GlassmorphismCard
-                  title={MOCK_COMPARISON.currentPlan.name}
-                  description="Your existing policy"
-                  icon={<AlertTriangle className="w-6 h-6 text-amber-400" />}
-                  hoverEffect={false}
-                >
-                  <div className="space-y-3 mt-2">
+                <div className="rounded-2xl dark:bg-white/[0.03] bg-white/50 backdrop-blur border dark:border-white/10 border-slate-200 p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <AlertTriangle className="w-6 h-6 text-amber-400" />
+                    <div>
+                      <h3 className="text-lg font-bold dark:text-white text-slate-900">{MOCK_COMPARISON.currentPlan.name}</h3>
+                      <p className="text-xs dark:text-white/60 text-slate-500">Your existing policy</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
                     {COMPARISON_ROWS.map((row) => (
                       <div key={row.label} className="flex justify-between items-center py-1.5 border-b dark:border-white/5 border-slate-100 last:border-0">
                         <span className="text-xs dark:text-[#8A96A8] text-slate-500">{row.label}</span>
@@ -369,17 +378,21 @@ export default function FreeAuditClient() {
                       </div>
                     ))}
                   </div>
-                </GlassmorphismCard>
+                </div>
 
                 {/* Recommended Plan */}
-                <GlassmorphismCard
-                  title={MOCK_COMPARISON.recommendedPlan.name}
-                  description="AI-recommended alternative"
-                  icon={<CheckCircle className="w-6 h-6 text-green-400" />}
-                  featured={true}
-                  hoverEffect={false}
-                >
-                  <div className="space-y-3 mt-2">
+                <div className="rounded-2xl dark:bg-white/[0.06] bg-white/70 backdrop-blur border-2 border-[#C98A1C]/30 p-6 relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#0A1330] text-xs font-bold px-4 py-1 rounded-full">
+                    RECOMMENDED
+                  </div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <CheckCircle className="w-6 h-6 text-green-400" />
+                    <div>
+                      <h3 className="text-lg font-bold dark:text-white text-slate-900">{MOCK_COMPARISON.recommendedPlan.name}</h3>
+                      <p className="text-xs dark:text-white/60 text-slate-500">AI-recommended alternative</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
                     {COMPARISON_ROWS.map((row) => (
                       <div key={row.label} className="flex justify-between items-center py-1.5 border-b dark:border-white/5 border-slate-100 last:border-0">
                         <span className="text-xs dark:text-[#8A96A8] text-slate-500">{row.label}</span>
@@ -387,19 +400,25 @@ export default function FreeAuditClient() {
                       </div>
                     ))}
                   </div>
-                </GlassmorphismCard>
+                </div>
               </div>
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <LiquidButton variant="primary" size="lg" onClick={() => window.dispatchEvent(new CustomEvent('open-insuregpt'))}>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-insuregpt'))}
+                  className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg bg-gradient-to-r from-[#C98A1C] to-[#E0A830] text-[#0A1330] hover:shadow-lg hover:shadow-[#C98A1C]/40 transition-all duration-300 cursor-pointer"
+                >
                   <Sparkles className="w-5 h-5" />
                   Get Personalized Advice
-                </LiquidButton>
-                <LiquidButton variant="secondary" size="lg" href="/compare">
+                </button>
+                <a
+                  href="/compare"
+                  className="inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-lg bg-white/10 backdrop-blur border border-white/25 text-white hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                >
                   Compare All Plans
                   <ArrowRight className="w-5 h-5" />
-                </LiquidButton>
+                </a>
               </div>
             </div>
           </motion.section>
@@ -410,7 +429,7 @@ export default function FreeAuditClient() {
       <section className="relative py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs dark:text-[#8A96A8] text-slate-400/60">
-            ⚠️ Disclaimer: This is a simulated audit for demonstration. For actual policy analysis, chat with InsureGPT or contact Himanshu Paliwal (IRDAI Registered POSP IP429834). Insurance is subject to risk. Read policy documents carefully.
+            ⚠️ Disclaimer: Insurance is the subject matter of solicitation. For actual policy analysis, chat with InsureGPT or contact Himanshu Paliwal (IRDAI Registered POSP IP429834). Read policy documents carefully.
           </p>
         </div>
       </section>
