@@ -3430,6 +3430,79 @@ html.theme-transitioning *::after {
 .text-vault-accent { color: #B8482C; }                          /* burnt sienna — ₹ numbers/highlights */
 .text-vault-success { color: #2D6A4F; }                         /* deep success green — trust signals */
 
+/* ── DARK MODE OVERRIDES — Ivory Vault becomes Midnight Brass automatically ── */
+/* Ensures text remains readable when .card-ivory-vault is used without an
+   explicit dark: variant, or when dark:card-midnight-brass is not detected. */
+.dark .card-ivory-vault,
+.dark .card-ivory-vault:not(.dark\:card-midnight-brass) {
+  background-color: #161A24;                                    /* lifted navy-ink — dark card surface */
+  border-color: rgba(232, 200, 114, 0.18);                     /* brass hairline — visible on dark */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 16px 48px -16px rgba(0, 0, 0, 0.55);
+}
+
+.dark .card-ivory-vault:hover,
+.dark .card-ivory-vault:not(.dark\:card-midnight-brass):hover {
+  border-color: rgba(232, 200, 114, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.40),
+    0 24px 64px -16px rgba(232, 200, 114, 0.20);
+}
+
+/* In dark mode, vault text helpers flip to bright readable colors */
+.dark .text-vault-heading { color: #FAF7F2; }                   /* warm bone — premium text */
+.dark .text-vault-body { color: #A8B0C2; }                      /* slate body — readable */
+.dark .text-vault-accent { color: #E8C872; }                    /* gold — brighter on dark */
+.dark .text-vault-success { color: #6EE7B7; }                   /* emerald 300 — bright on dark */
+
+/* ── GLOBAL DARK MODE FIX — bg-white utilities without dark: variant ── */
+/* Force pure-white card backgrounds to dark card surface in dark mode,
+   so inherited light body text (#B0B0B0) remains readable.
+   Skips elements that already declare a dark:bg-* utility. */
+.dark .bg-white:not([class*="dark:bg-"]):not([class*="dark:bg-") {
+  background-color: #161A21 !important;
+  border-color: rgba(232, 200, 114, 0.15) !important;
+}
+
+/* bg-[#FFFFFF] / bg-[#fff] — same problem, hardcoded pure white */
+.dark .bg-\[\#FFFFFF\],
+.dark .bg-\[\#fff\],
+.dark .bg-\[\#FFF\] {
+  background-color: #161A21 !important;
+  border-color: rgba(232, 200, 114, 0.15) !important;
+}
+
+/* Dark text on light bg utilities — flip to light text in dark mode */
+.dark .text-\[\#0E1116\]:not([class*="dark:text-"]) {
+  color: #FAF7F2 !important;
+}
+.dark .text-\[\#111111\]:not([class*="dark:text-"]) {
+  color: #FAF7F2 !important;
+}
+.dark .text-\[\#0A0A0A\]:not([class*="dark:text-"]) {
+  color: #FAF7F2 !important;
+}
+.dark .text-\[\#1A1A1A\]:not([class*="dark:text-"]) {
+  color: #FAF7F2 !important;
+}
+.dark .text-black:not([class*="dark:text-"]):not([class*="text-black/"]) {
+  color: #FAF7F2 !important;
+}
+
+/* Mid-tone text colors that become unreadable on dark — brighten */
+.dark .text-\[\#4A4F57\]:not([class*="dark:text-"]) {
+  color: #A8B0C2 !important;                                    /* slate body — readable on dark */
+}
+.dark .text-\[\#374151\]:not([class*="dark:text-"]) {
+  color: #B0B0B0 !important;
+}
+.dark .text-\[\#8B9099\]:not([class*="dark:text-"]) {
+  color: #94A3B8 !important;                                    /* slightly brighter slate */
+}
+
 /* ── MIDNIGHT BRASS — Dark luxe card (Rolex boutique feel) ──────────────── */
 .card-midnight-brass {
   background-color: #161A24;                                    /* lifted navy-ink — not too dark */
