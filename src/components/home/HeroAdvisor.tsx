@@ -467,21 +467,26 @@ export default function HeroAdvisor() {
               {subtext}
             </motion.p>
 
-            {/* Hero Image — below description, professional 3D visual */}
+            {/* Hero Image — full-width showcase, user's 3D render */}
             <motion.div
               variants={heroChild}
-              className="mb-10 relative rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)]"
+              className="mb-10 relative w-full rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)] group"
             >
               <img
                 src="/images/hero-insurance-intelligence.jpeg"
                 alt="Paliwal Secure AI — 3D AI-powered insurance universe with crystal protection shield, glowing AI core, and orbiting insurance spheres for health, life, car, travel, and business insurance"
-                className="w-full h-auto block"
-                width={1344}
-                height={768}
+                className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
+                style={{ aspectRatio: '16/9', objectFit: 'cover' }}
                 loading="eager"
               />
-              {/* Subtle bottom gradient for depth */}
-              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#07111F]/30 to-transparent pointer-events-none" />
+              {/* Premium gradient overlays for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/40 via-transparent to-[#07111F]/10 pointer-events-none" />
+              {/* Brand badge on image */}
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <span className="px-3 py-1.5 rounded-full bg-[#07111F]/80 backdrop-blur-sm text-[#C89B3C] text-xs font-bold tracking-wider uppercase border border-[#C89B3C]/20">
+                  Paliwal Secure AI
+                </span>
+              </div>
             </motion.div>
 
             {/* CTA Buttons — Primary "Stripe" + Ghost "Linear" */}
