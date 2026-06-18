@@ -45,7 +45,7 @@ const personJsonLd = {
   telephone: '+91-92587-77312',
   email: 'himanshupaliwalpbp@gmail.com',
   url: 'https://paliwalsecure.in/about/himanshu-paliwal',
-  image: 'https://paliwalsecure.in/himanshu-photo.webp',
+  image: 'https://paliwalsecure.in/images/himanshu-photo.jpg',
   knowsAbout: [
     'Health Insurance India',
     'Life Insurance India',
@@ -113,7 +113,7 @@ export default function HimanshuPaliwalPage() {
           <div className="md:col-span-1">
             <div className="rounded-2xl bg-white dark:bg-[#161A24] p-6 border border-[rgba(15,19,32,0.08)] dark:border-[rgba(232,200,114,0.10)] text-center">
               <img
-                src="/himanshu-photo.webp"
+                src="/images/himanshu-photo.jpg"
                 alt="Himanshu Paliwal — IRDAI Registered POSP IP429834"
                 className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
                 width={128}

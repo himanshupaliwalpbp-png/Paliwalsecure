@@ -151,7 +151,7 @@ export default function AboutClientContent() {
                 className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-[#C98A1C] ring-offset-4 ring-offset-white dark:ring-offset-[#0A1330] shadow-lg shadow-[#C98A1C]/20"
               >
                 <img
-                  src="/images/himanshu-photo.png"
+                  src="/images/himanshu-photo.jpg"
                   alt="Himanshu Paliwal — IRDAI Registered POSP (IP429834)"
                   className="w-full h-full object-cover"
                 />

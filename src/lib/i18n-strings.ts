@@ -23,7 +23,7 @@ export const translations: TranslationStrings = {
   'nav.chatWhatsApp': { en: 'Chat on WhatsApp', hi: 'WhatsApp पर चैट', hinglish: 'WhatsApp pe Chat Karein' },
   'nav.insights': { en: 'Insights', hi: 'अंतर्दृष्टि', hinglish: 'Insights' },
   'nav.csrTrends': { en: 'CSR Trends', hi: 'CSR ट्रेंड्स', hinglish: 'CSR Trends' },
-  'nav.contact': { en: 'Contact', hi: 'संपर्क', hinglish: 'Contact' },
+  'nav.contact': { en: 'About', hi: 'हमारे बारे में', hinglish: 'About' },
   'nav.rights': { en: 'Rights', hi: 'अधिकार', hinglish: 'Adhikaar' },
   'nav.tipQuiz': { en: 'Tip / Quiz', hi: 'टिप / क्विज़', hinglish: 'Tip / Quiz' },
   'nav.addonsRiders': { en: 'Add-ons & Riders', hi: 'अतिरिक्त और राइडर', hinglish: 'Add-ons & Riders' },
