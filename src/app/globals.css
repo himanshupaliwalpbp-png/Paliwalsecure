@@ -3475,6 +3475,19 @@ html.theme-transitioning *::after {
   border-color: rgba(232, 200, 114, 0.15) !important;
 }
 
+/* bg-[#FAF7F2] (warm bone canvas) — auto-flip to dark base in dark mode */
+.dark .bg-\[\#FAF7F2\]:not([class*="dark:bg-"]) {
+  background-color: #0E1116 !important;
+}
+
+/* bg-[#F4F1EC] / bg-[#F4E5DD] (ivory/sienna-tint surfaces) — flip to dark */
+.dark .bg-\[\#F4F1EC\]:not([class*="dark:bg-"]) {
+  background-color: #161A21 !important;
+}
+.dark .bg-\[\#F4E5DD\]:not([class*="dark:bg-"]) {
+  background-color: rgba(212, 99, 63, 0.08) !important;
+}
+
 /* Dark text on light bg utilities — flip to light text in dark mode */
 .dark .text-\[\#0E1116\]:not([class*="dark:text-"]) {
   color: #FAF7F2 !important;
