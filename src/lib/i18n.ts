@@ -91,10 +91,10 @@ export const translations: TranslationMap = {
     hi: 'उद्योग अंतर्दृष्टि',
     hinglish: 'Industry Insights',
   },
-  'nav.contact': {
-    en: 'Contact',
-    hi: 'संपर्क',
-    hinglish: 'Contact',
+  'nav.about': {
+    en: 'About',
+    hi: 'हमारे बारे में',
+    hinglish: 'About',
   },
   'nav.coverageScore': {
     en: 'Coverage Score',

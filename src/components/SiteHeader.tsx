@@ -164,7 +164,7 @@ const NAV_LINKS: NavLink[] = [
   },
   {
     href: '/about',
-    labelKey: 'nav.contact',
+    labelKey: 'nav.about',
     label: 'About',
     icon: Users,
   },
