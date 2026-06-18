@@ -3462,7 +3462,7 @@ html.theme-transitioning *::after {
 /* Force pure-white card backgrounds to dark card surface in dark mode,
    so inherited light body text (#B0B0B0) remains readable.
    Skips elements that already declare a dark:bg-* utility. */
-.dark .bg-white:not([class*="dark:bg-"]):not([class*="dark:bg-") {
+.dark .bg-white:not([class*="dark:bg-"]) {
   background-color: #161A21 !important;
   border-color: rgba(232, 200, 114, 0.15) !important;
 }
