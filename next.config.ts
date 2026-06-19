@@ -13,7 +13,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://apis.google.com; " +
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
       "font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; " +
-      "media-src 'self' blob:; " +
+      "media-src 'self' blob: https://d8j0ntlcm91z4.cloudfront.net; " +
       "img-src 'self' data: blob: https://paliwalsecure.in https://paliwalsecure.com https://www.google-analytics.com https://www.googletagmanager.com; " +
       "connect-src 'self' https://paliwalsecure.in https://paliwalsecure.com https://wa.me https://api.anthropic.com https://open.bigmodel.cn https://www.google-analytics.com https://www.googletagmanager.com https://*.firebase.com https://*.zai.com blob:; " +
       "frame-src 'none'; " +
@@ -26,7 +26,7 @@ const securityHeaders = [
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
   { key: 'X-Permitted-Cross-Domain-Policies', value: 'none' },
   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-  { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+  { key: 'Cross-Origin-Resource-Policy', value: 'cross-origin' },
 ];
 
 const nextConfig: NextConfig = {
