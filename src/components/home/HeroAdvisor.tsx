@@ -19,6 +19,7 @@ import { useLanguage } from '@/lib/i18n';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Progress } from '@/components/ui/progress';
+import { CinematicVideoBackground } from '@/components/home/CinematicVideoBackground';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 interface AdvisorFormData {
@@ -425,6 +426,16 @@ export default function HeroAdvisor() {
       className="relative overflow-hidden section-premium bg-[#FAF7F2]"
     >
       {/* ── Warm Bone Canvas — Design Bible v8.0 "Quiet Confidence" ─────────────────── */}
+
+      {/* ═══ CINEMATIC VIDEO BACKGROUND — ambient atmosphere layer ═══
+          Subtle looping video with custom fade-in/fade-out loop logic
+          via requestAnimationFrame. Positioned at top: 300px, anchored
+          to bottom. Max opacity kept at ~28% so existing hero content
+          (Protection Score, headline, CTAs) remains the primary focus. */}
+      <CinematicVideoBackground
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+        maxOpacity={0.28}
+      />
 
       {/* ONE very subtle burnt-sienna tint blob (low opacity, premium restraint) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
