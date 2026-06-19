@@ -107,6 +107,7 @@ const SECURITY_HEADERS: Record<string, string> = {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; " +
     "img-src 'self' data: blob: https://paliwalsecure.in https://www.google-analytics.com https://www.googletagmanager.com; " +
+    "media-src 'self' blob: https://d8j0ntlcm91z4.cloudfront.net; " +
     "connect-src 'self' https://paliwalsecure.in https://wa.me https://api.anthropic.com https://www.google-analytics.com https://www.googletagmanager.com https://*.firebase.com https://open.bigmodel.cn; " +
     "frame-src 'none'; " +
     "object-src 'none'; " +
@@ -117,7 +118,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
   "X-Permitted-Cross-Domain-Policies": "none",
   "Cross-Origin-Opener-Policy": "same-origin",
-  "Cross-Origin-Resource-Policy": "same-origin",
+  "Cross-Origin-Resource-Policy": "cross-origin",
   // NOTE: Cross-Origin-Embedder-Policy removed — 'require-corp' blocks Google Analytics,
   // Google Fonts, and other essential cross-origin resources, causing page hangs.
   // Cross-Origin-Resource-Policy and Cross-Origin-Opener-Policy are sufficient for security.
