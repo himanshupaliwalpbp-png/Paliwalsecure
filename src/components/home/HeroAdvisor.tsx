@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Progress } from '@/components/ui/progress';
 import { CinematicVideoBackground } from '@/components/home/CinematicVideoBackground';
+import { ScrollFadeText } from '@/components/home/ScrollFadeText';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 interface AdvisorFormData {
@@ -427,14 +428,21 @@ export default function HeroAdvisor() {
     >
       {/* ── Warm Bone Canvas — Design Bible v8.0 "Quiet Confidence" ─────────────────── */}
 
-      {/* ═══ CINEMATIC VIDEO BACKGROUND — ambient atmosphere layer ═══
-          Subtle looping video with custom fade-in/fade-out loop logic
-          via requestAnimationFrame. Positioned at top: 300px, anchored
-          to bottom. Max opacity kept at ~28% so existing hero content
-          (Protection Score, headline, CTAs) remains the primary focus. */}
+      {/* ═══ CINEMATIC VIDEO BACKGROUND — scroll-driven 3D effect ═══
+          Looping video with custom fade-in/fade-out loop logic via
+          requestAnimationFrame. Positioned at top: 300px, anchored to bottom.
+
+          SCROLL EFFECT (the "3D website" feel):
+          - At scrollY = 0: video shows at 0.35 opacity (35%) — text is readable
+          - As user scrolls down, video opacity smoothly increases to 1.0 (100%)
+          - Full opacity reached after scrolling 600px
+          - Combined with ScrollFadeText wrapper on hero text, this creates
+            the illusion of text dissolving into the background video */}
       <CinematicVideoBackground
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-        maxOpacity={0.28}
+        initialOpacity={0.35}
+        maxOpacity={1.0}
+        scrollRange={600}
       />
 
       {/* ONE very subtle burnt-sienna tint blob (low opacity, premium restraint) */}
@@ -465,18 +473,25 @@ export default function HeroAdvisor() {
               </span>
             </motion.div>
 
-            {/* Headline — Fraunces serif, mix of roman + italic + gradient accent */}
-            <motion.h1 variants={heroChild} className="text-display-hero font-display text-[#0E1116] mb-6">
-              {headlineBefore}{' '}
-              <span className="italic text-accent-gradient">{headlineAccent}</span>
-              <br className="hidden sm:block" />
-              {' '}{headlineAfter}
-            </motion.h1>
+            {/* ── Scroll-Fade Hero Text ────────────────────────────────────
+                As user scrolls, this entire block (headline + description)
+                fades out and translates upward — creating the "3D website"
+                feel where text dissolves into the background video which
+                simultaneously fades IN to 100% opacity. */}
+            <ScrollFadeText scrollRange={500} translateY={80}>
+              {/* Headline — Fraunces serif, mix of roman + italic + gradient accent */}
+              <motion.h1 variants={heroChild} className="text-display-hero font-display text-[#0E1116] mb-6">
+                {headlineBefore}{' '}
+                <span className="italic text-accent-gradient">{headlineAccent}</span>
+                <br className="hidden sm:block" />
+                {' '}{headlineAfter}
+              </motion.h1>
 
-            {/* Description — lead body, ink-soft */}
-            <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-8 max-w-xl font-body">
-              {subtext}
-            </motion.p>
+              {/* Description — lead body, ink-soft */}
+              <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-8 max-w-xl font-body">
+                {subtext}
+              </motion.p>
+            </ScrollFadeText>
 
             {/* Hero Image — full-width high-res showcase, user's 3D render */}
             <motion.div
