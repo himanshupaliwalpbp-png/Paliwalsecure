@@ -136,40 +136,36 @@ function StackPanel({
       style={{
         y,
         zIndex: index + 1,
-        // Dark premium background — like Apple's product pages
-        background: 'linear-gradient(180deg, #050507 0%, #0A0A0F 50%, #050507 100%)',
+        // No dark background — image fills the entire panel
+        background: '#000000',
       }}
     >
-      {/* ═══ FULL IMAGE — object-contain (NO cropping) ═══
-          Image displays at its natural aspect ratio, fully visible.
-          The dark gradient background shows in letterbox areas,
-          looking intentional and premium like Apple's dark product pages. */}
-      <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-8 md:p-12">
-        <Link href={item.href} className="block w-full h-full relative group flex items-center justify-center" prefetch={false}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={item.image}
-            alt={`${item.title} — premium protection hero`}
-            className="max-w-full max-h-full object-contain"
-            style={{
-              filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.5))',
-            }}
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
-        </Link>
-      </div>
-
-      {/* ═══ Text overlay — at the BOTTOM, overlaid on letterbox area ═══
-          The text sits in the bottom letterbox area (below the image),
-          so it doesn't cover the image itself. Premium Apple-style typography. */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-8 sm:pb-10 md:pb-12 pt-6">
-        {/* Subtle gradient from transparent to dark for text readability */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(0deg, rgba(5,5,7,0.95) 0%, rgba(5,5,7,0.7) 50%, transparent 100%)',
-          }}
+      {/* ═══ FULL IMAGE — object-cover fills viewport completely ═══
+          Images are 16:9 (matching desktop viewport), so NO cropping
+          on desktop. On mobile, slight side crop but center stays visible.
+          NO dark letterbox bars — image fills entire screen. */}
+      <Link href={item.href} className="block absolute inset-0 w-full h-full group" prefetch={false}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.image}
+          alt={`${item.title} — premium protection hero`}
+          className="w-full h-full object-cover"
+          loading={index === 0 ? 'eager' : 'lazy'}
         />
+      </Link>
+
+      {/* ═══ Subtle gradient at bottom ONLY — for text readability ═══
+          NOT a dark section — just a fade from transparent to dark
+          at the very bottom so text is readable. Image stays fully visible. */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0.85) 100%)',
+        }}
+      />
+
+      {/* ═══ Text overlay — at the BOTTOM, on the image ═══ */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-8 sm:pb-10 md:pb-12 pt-6">
         <div className="relative max-w-4xl mx-auto">
           {/* Accent line + category number */}
           <div className="flex items-center gap-3 mb-3">
@@ -256,8 +252,7 @@ export default function StackingImageSections() {
       {/* ═══ SECTION HEADER — ABOVE the stacking area (NOT on image) ═══
           Normal flow, dark premium background like Apple's product pages.
           This is where "Complete Protection Package" title lives. */}
-      <section className="relative w-full py-20 md:py-28 text-center"
-        style={{ background: 'linear-gradient(180deg, #FAF7F2 0%, #050507 100%)' }}
+      <section className="relative w-full py-20 md:py-28 text-center bg-[#FAF7F2] dark:bg-[#0E1116]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
