@@ -45,7 +45,7 @@ const categories: CategoryItem[] = [
       { en: 'Critical Illness Cover', hi: 'गंभीर बीमारी कवर', hg: 'Bimari Cover' },
     ] },
   // 🟠 Sienna = Action (car, bike) — energy, movement
-  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#B8482C', badgeVariant: 'green', image: '/images/category-cards/car-insurance-hero.png',
+  { key: 'car', icon: Car, href: '/car-insurance', price: '₹2,094/yr', emoji: '', quickStat: 'Starting ₹5.7/day', color: '#B8482C', badgeVariant: 'green', image: '/images/category-cards/car-insurance-hero-v2.png',
     features: [
       { en: 'Comprehensive Cover', hi: 'व्यापक कवर', hg: 'Poori Cover' },
       { en: 'Zero Depreciation', hi: 'ज़ीरो डेप्रिसिएशन', hg: 'Zero Depreciation' },
