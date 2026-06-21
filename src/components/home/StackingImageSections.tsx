@@ -116,11 +116,14 @@ function StackPanel({
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  const segStart = index / total;
-  const segEnd = (index + 1) / total;
+  // Scale segments to 0-0.9 range, leaving 0.9-1.0 for the last panel
+  // to stay visible before the container fades out
+  const SCALE = 0.9;
+  const segStart = (index / total) * SCALE;
+  const segEnd = ((index + 1) / total) * SCALE;
 
   // Panel 0 is always at y=0 (base panel)
-  // Other panels: start at 100vh (below), slide to 0 during their segment, stay at 0
+  // Other panels: start at 100% (below), slide to 0 during their segment, stay at 0
   const y = useTransform(
     scrollYProgress,
     [0, segStart, segEnd, 1],
@@ -237,10 +240,11 @@ export default function StackingImageSections() {
   });
 
   // Fixed container opacity: visible only during the stacking section
-  // Fades in slightly before the section, fades out slightly after
+  // Fades in at start, stays visible through all panels (0-0.9),
+  // then fades out after the last panel is fully shown (0.95-1.0)
   const containerOpacity = useTransform(
     scrollYProgress,
-    [-0.01, 0, 0.98, 1],
+    [-0.01, 0, 0.95, 1],
     [0, 1, 1, 0]
   );
 
