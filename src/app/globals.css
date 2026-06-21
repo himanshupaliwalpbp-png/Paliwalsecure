@@ -5457,3 +5457,20 @@ html {
   transition: width 0.1s linear;
   box-shadow: 0 0 8px rgba(212, 168, 83, 0.6);
 }
+
+/* ═══ Stacking section — smooth scroll + GPU acceleration ═══ */
+.stacking-section {
+  /* Enable smooth scrolling within the section */
+  scroll-behavior: smooth;
+  /* Prevent scroll snapping that might cause "atak" feeling */
+  scroll-snap-type: none;
+}
+
+.stacking-panel {
+  /* GPU acceleration for smooth transforms */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Prevent paint flicker */
+  transform: translateZ(0);
+}

@@ -110,19 +110,25 @@ function StackPanel({
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  const SCALE = 0.92;
-  const segStart = (index / total) * SCALE;
-  const segEnd = ((index + 1) / total) * SCALE;
+  // Each panel's "enter" segment: [i/N, (i+1)/N]
+  // Panel 0 is always visible (base). Others slide up during their segment.
+  // No dead zones — full 0-1 range used for smooth continuous motion.
+  const segStart = index / total;
+  const segEnd = (index + 1) / total;
+  // Small overlap with previous panel's end for smoother transition
+  const overlapStart = Math.max(0, segStart - 0.02);
 
   const y = useTransform(
     scrollYProgress,
-    [0, segStart, segEnd, 1],
-    index === 0 ? ['0%', '0%', '0%', '0%'] : ['100%', '100%', '0%', '0%']
+    [0, overlapStart, segStart, segEnd, 1],
+    index === 0
+      ? ['0%', '0%', '0%', '0%', '0%']
+      : ['100%', '100%', '100%', '0%', '0%']
   );
 
   return (
     <motion.div
-      className="absolute top-0 left-0 w-full h-full overflow-hidden"
+      className="absolute top-0 left-0 w-full h-full overflow-hidden will-change-transform stacking-panel"
       style={{
         y,
         zIndex: index + 1,
@@ -254,7 +260,7 @@ export default function StackingImageSections() {
     >
       {/* Sticky inner wrapper — pins to top during entire scroll */}
       <div
-        className="sticky top-0 w-full h-screen overflow-hidden"
+        className="sticky top-0 w-full h-screen overflow-hidden stacking-section"
         style={{ zIndex: 1 }}
       >
         {/* Section header — floats above the first panel */}
