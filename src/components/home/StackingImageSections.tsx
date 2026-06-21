@@ -110,20 +110,21 @@ function StackPanel({
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  // Each panel's "enter" segment: [i/N, (i+1)/N]
-  // Panel 0 is always visible (base). Others slide up during their segment.
-  // No dead zones — full 0-1 range used for smooth continuous motion.
-  const segStart = index / total;
-  const segEnd = (index + 1) / total;
-  // Small overlap with previous panel's end for smoother transition
-  const overlapStart = Math.max(0, segStart - 0.02);
+  // Each panel slides up during its segment: [(i-1)/N, i/N]
+  // Panel 1 (index 0): always at 0 (base, visible from start)
+  // Panel 2 (index 1): slides from 100%→0% during [0/6, 1/6] = [0, 0.167]
+  // Panel 3 (index 2): slides from 100%→0% during [1/6, 2/6] = [0.167, 0.333]
+  // ...and so on. Each panel starts moving RIGHT AFTER the previous finishes.
+  // This eliminates dead zones — continuous motion throughout the scroll.
+  const segStart = index === 0 ? 0 : (index - 1) / total;
+  const segEnd = index / total;
 
   const y = useTransform(
     scrollYProgress,
-    [0, overlapStart, segStart, segEnd, 1],
+    [0, segStart, segEnd, 1],
     index === 0
-      ? ['0%', '0%', '0%', '0%', '0%']
-      : ['100%', '100%', '100%', '0%', '0%']
+      ? ['0%', '0%', '0%', '0%']
+      : ['100%', '100%', '0%', '0%']
   );
 
   return (
