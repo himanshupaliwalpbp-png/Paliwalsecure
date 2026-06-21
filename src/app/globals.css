@@ -352,7 +352,7 @@ body::after,
   }
 
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Scroll lock for mobile sheet overlay */
