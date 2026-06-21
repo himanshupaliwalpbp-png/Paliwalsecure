@@ -7,23 +7,27 @@ import { ArrowRight } from 'lucide-react';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * StackingImageSections — Premium scroll-stacking effect (Apple/Stripe style)
+ * StackingImageSections — Premium scroll-stacking (position:fixed approach)
  * ═══════════════════════════════════════════════════════════════════════════
  *
- * Effect:
- *   1. First image (Health) is full-screen and pinned
- *   2. Scroll → second image (Life) slides UP from below, covering Health.
- *      Health goes to background (still visible behind, sharp).
- *   3. Continue → Car, Bike, Travel, Home each slide up over the previous
- *   4. Click any image → navigate to that insurance page
+ * Uses position:fixed instead of position:sticky to avoid overflow:hidden
+ * ancestor issues that break sticky positioning.
  *
- * Technique: Framer Motion useScroll + useTransform (NOT position: sticky)
- *   - Container is (N+1) × 100vh tall, creating scroll space
- *   - Inner wrapper is position: sticky → pins to top during entire scroll
- *   - Each panel uses useTransform to animate its Y position:
- *     * Current panel: starts off-screen below (100vh), slides to 0 (covers previous)
- *     * Once covered, stays at 0 (in the stack, behind newer panels)
- *   - Z-index increments so each new panel is above the previous
+ * Structure:
+ *   1. A 700vh tall invisible "scroll space" div — provides scroll distance
+ *   2. A position:fixed panel container — always pinned to viewport top
+ *   3. Panels inside the fixed container, animated via Framer Motion useTransform
+ *
+ * The fixed container's opacity is driven by scrollYProgress:
+ *   - 0 when outside the stacking section (so it doesn't block other content)
+ *   - 1 when inside the stacking section
+ *
+ * Panel animation (per panel i of N total):
+ *   - Segment [i/N, (i+1)/N] of total scroll
+ *   - Before segment: y = 100vh (off-screen below)
+ *   - During segment: y animates 100vh → 0 (slides up, covers previous)
+ *   - After segment: y = 0 (stays in stack, behind newer panels)
+ *   - Z-index increments so newer panels are always above older ones
  */
 
 interface StackItem {
@@ -100,7 +104,7 @@ const STACK_ITEMS: StackItem[] = [
   },
 ];
 
-/* ── Individual panel with scroll-driven Y position ─────────────────────── */
+/* ── Individual panel ───────────────────────────────────────────────────── */
 function StackPanel({
   item,
   index,
@@ -112,46 +116,26 @@ function StackPanel({
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  /**
-   * Each panel's lifecycle during scroll:
-   *
-   * Segment calculation:
-   *   - The scroll (0→1) is divided into (total) segments
-   *   - Panel i's "enter" segment: [i/N, (i+1)/N]
-   *   - Before its segment: panel is off-screen below (y = 100vh)
-   *   - During its segment: panel slides from 100vh → 0 (enters viewport)
-   *   - After its segment: panel stays at y = 0 (in the stack, behind newer panels)
-   *
-   * Example with 6 panels (N=6):
-   *   Panel 0 (Health): segment [0.00, 0.167] — starts visible, stays at 0
-   *   Panel 1 (Life):   segment [0.167, 0.333] — enters from below
-   *   Panel 2 (Car):    segment [0.333, 0.500] — enters from below
-   *   Panel 3 (Bike):   segment [0.500, 0.667] — enters from below
-   *   Panel 4 (Travel): segment [0.667, 0.833] — enters from below
-   *   Panel 5 (Home):   segment [0.833, 1.000] — enters from below
-   */
-
   const segStart = index / total;
   const segEnd = (index + 1) / total;
 
-  // Panel 0 is always at y=0 (it's the base, visible from the start)
-  // Other panels start at 100vh (off-screen below) and slide to 0
+  // Panel 0 is always at y=0 (base panel)
+  // Other panels: start at 100vh (below), slide to 0 during their segment, stay at 0
   const y = useTransform(
     scrollYProgress,
     [0, segStart, segEnd, 1],
-    index === 0 ? [0, 0, 0, 0] : ['100vh', '100vh', '0vh', '0vh']
+    index === 0 ? [0, 0, 0, 0] : ['100%', '100%', '0%', '0%']
   );
 
   return (
     <motion.div
-      className="absolute top-0 left-0 w-full h-screen overflow-hidden"
+      className="absolute top-0 left-0 w-full h-full overflow-hidden"
       style={{
         y,
         zIndex: index + 1,
       }}
     >
       <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
-        {/* ═══ Full-screen image at ORIGINAL quality ═══ */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={item.image}
@@ -160,7 +144,7 @@ function StackPanel({
           loading={index === 0 ? 'eager' : 'lazy'}
         />
 
-        {/* Gradient overlay for text readability — darkens bottom only */}
+        {/* Gradient overlay for text readability */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -175,21 +159,16 @@ function StackPanel({
         {/* Content overlay */}
         <div className="absolute inset-0 flex flex-col justify-end items-start p-8 sm:p-12 md:p-16 lg:p-20">
           <div className="max-w-3xl">
-            {/* Accent line */}
             <div
               className="w-16 h-1 rounded-full mb-6"
               style={{ background: item.accentColor }}
             />
-
-            {/* Category number */}
             <div
               className="font-mono text-sm tracking-widest uppercase mb-4"
               style={{ color: item.accentColor, opacity: 0.95 }}
             >
               {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
             </div>
-
-            {/* Title */}
             <h2
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight mb-2"
               style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
@@ -202,16 +181,12 @@ function StackPanel({
             >
               {item.titleHindi}
             </p>
-
-            {/* Description */}
             <p
               className="text-base sm:text-lg md:text-xl text-white/90 font-body leading-relaxed mb-8 max-w-2xl"
               style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
             >
               {item.description}
             </p>
-
-            {/* Price + CTA */}
             <div className="flex items-center gap-6 flex-wrap">
               <span
                 className="font-mono text-2xl sm:text-3xl font-bold text-white"
@@ -234,7 +209,6 @@ function StackPanel({
           </div>
         </div>
 
-        {/* Scroll hint — only on the first panel */}
         {index === 0 && (
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70">
             <span className="font-mono text-xs tracking-widest uppercase">
@@ -257,58 +231,52 @@ export default function StackingImageSections() {
   const containerRef = useRef<HTMLDivElement>(null);
   const total = STACK_ITEMS.length;
 
-  // Track scroll progress through the entire stacking section
-  // offset: ['start start', 'end end'] means progress goes 0→1
-  // from when the section top hits viewport top, to when section bottom
-  // hits viewport bottom
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
+  // Fixed container opacity: visible only during the stacking section
+  // Fades in slightly before the section, fades out slightly after
+  const containerOpacity = useTransform(
+    scrollYProgress,
+    [-0.01, 0, 0.98, 1],
+    [0, 1, 1, 0]
+  );
+
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full"
-      // Height = (total + 1) × 100vh to give enough scroll space
-      // for all panels to enter one by one
-      style={{ height: `${(total + 1) * 100}vh` }}
-    >
-      {/* Sticky inner wrapper — pins to top during entire scroll
-          This is the key: the wrapper sticks, and panels inside animate
-          their Y position based on scroll progress */}
-      <div
-        className="sticky top-0 w-full h-screen overflow-hidden"
-        style={{ zIndex: 1 }}
+    <>
+      {/* ═══ Fixed panel container — always at viewport top ═══
+          position:fixed is NOT affected by ancestor overflow:hidden,
+          so this works regardless of body overflow settings. */}
+      <motion.div
+        className="fixed top-0 left-0 w-full h-screen overflow-hidden"
+        style={{
+          opacity: containerOpacity,
+          zIndex: 40,
+          pointerEvents: 'auto',
+        }}
       >
-        {/* Section header — floats above the first panel */}
+        {/* Section header */}
         <div className="absolute top-0 left-0 right-0 z-50 pointer-events-none">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 text-center">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+            <h2
               className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight"
               style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
             >
               Complete Protection{' '}
               <span style={{ color: '#E8C872' }}>Package</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            </h2>
+            <p
               className="text-base sm:text-lg text-white/80 font-body mt-4 max-w-2xl mx-auto"
               style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
             >
               Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
-            </motion.p>
+            </p>
           </div>
         </div>
 
-        {/* Stacking panels — each is absolutely positioned, animated via useTransform */}
+        {/* Stacking panels */}
         {STACK_ITEMS.map((item, index) => (
           <StackPanel
             key={item.key}
@@ -318,7 +286,16 @@ export default function StackingImageSections() {
             scrollYProgress={scrollYProgress}
           />
         ))}
-      </div>
-    </section>
+      </motion.div>
+
+      {/* ═══ Scroll space — invisible div that creates scroll distance ═══
+          This is what the user scrolls through. The fixed container above
+          shows/hides based on scroll progress through this element. */}
+      <section
+        ref={containerRef}
+        className="relative w-full"
+        style={{ height: `${(total + 1) * 100}vh` }}
+      />
+    </>
   );
 }
