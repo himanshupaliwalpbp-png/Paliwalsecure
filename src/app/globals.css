@@ -3622,6 +3622,35 @@ html.theme-transitioning *::after {
   background-color: #F1ECE3;
 }
 
+/* ── DARK MODE OVERRIDES for table-ivory-vault ────────────────────────────
+   Ensures the comparison table is readable in dark mode.
+   Without these, the table keeps its light background (#F7F3EC) while
+   text colors flip to light tones → invisible text. */
+.dark .table-ivory-vault {
+  background-color: #161A24;
+  border-color: rgba(232, 200, 114, 0.15);
+}
+.dark .table-ivory-vault thead tr {
+  background-color: #1A1F2A;
+}
+.dark .table-ivory-vault thead th {
+  color: #FAF7F2;
+  border-bottom-color: rgba(232, 200, 114, 0.15);
+}
+.dark .table-ivory-vault tbody td {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  color: #A8B0C2;
+}
+.dark .table-ivory-vault tbody tr:hover {
+  background-color: rgba(232, 200, 114, 0.05);
+}
+.dark .table-ivory-vault tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+.dark .table-ivory-vault tbody tr:nth-child(even):hover {
+  background-color: rgba(232, 200, 114, 0.05);
+}
+
 /* ── MIDNIGHT BRASS TABLE — dark luxe table ─────────────────────────────── */
 .table-midnight-brass {
   width: 100%;

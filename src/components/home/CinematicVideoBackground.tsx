@@ -3,68 +3,67 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * CinematicVideoBackground — full-bleed looping video with custom fade-in/fade-out
- * loop logic AND scroll-driven opacity transition.
+ * CinematicVideoBackground — premium video background for the hero section.
  *
- * Behavior:
+ * Professional design fixes (per user feedback):
+ *   1. Video positioned at TOP of hero (not 300px down) — visible behind headline text
+ *   2. No hard dark line — smooth gradient overlay blends video into background
+ *   3. Better video quality — object-cover with proper sizing
+ *   4. Dark mode aware — adjusts opacity + overlay for dark theme
  *
- * 1. VIDEO LOOP (per cinematic hero spec):
- *   - Fade in over 0.5s at the start (opacity 0 → initialOpacity)
- *   - Fade out over 0.5s before the end (opacity → 0)
- *   - On `ended`: set opacity to 0, wait 100ms, reset currentTime = 0, play again
- *   - Uses requestAnimationFrame to monitor currentTime vs duration
+ * Scroll effect:
+ *   - At scrollY=0: video subtle (initialOpacity) — text fully readable
+ *   - As user scrolls: video brightens to maxOpacity
+ *   - Gradient overlay ensures text remains readable in all states
  *
- * 2. SCROLL-DRIVEN OPACITY (the "3D website" effect):
- *   - At scrollY = 0: video shows at `initialOpacity` (default 0.35) — text is readable
- *   - As user scrolls down, video opacity smoothly increases to `maxOpacity` (default 1.0)
- *   - Full opacity reached after scrolling `scrollRange` pixels (default 600px)
- *   - This creates the effect of "video emerging from behind text" as user scrolls
- *
- * Positioned with `top: 300px` and `inset: 'auto 0 0 0'` per spec.
- *
- * Gradient overlay: from-background via-transparent to-background positioned over video.
+ * Loop logic (per cinematic spec):
+ *   - Fade in over 0.5s at start (opacity 0 → target)
+ *   - Fade out over 0.5s before end (opacity → 0)
+ *   - On ended: opacity → 0, wait 100ms, reset currentTime, play again
  */
 export function CinematicVideoBackground({
   src,
   className = '',
-  initialOpacity = 0.35,
-  maxOpacity = 1.0,
-  scrollRange = 600,
-  overlayFrom = 'rgba(250, 247, 242, 1)',
-  overlayTo = 'rgba(250, 247, 242, 1)',
-  overlayFadeWithScroll = true,
+  initialOpacity = 0.3,
+  maxOpacity = 0.55,
+  scrollRange = 500,
 }: {
   src: string;
   className?: string;
-  /** Video opacity when page is at top (scrollY = 0). Text must remain readable. */
+  /** Video opacity when page is at top (scrollY = 0). */
   initialOpacity?: number;
-  /** Video opacity when user has scrolled `scrollRange` pixels. Default 1.0 (100%). */
+  /** Video opacity when user has scrolled `scrollRange` pixels. */
   maxOpacity?: number;
   /** How many pixels of scroll transitions the video from initial → max opacity. */
   scrollRange?: number;
-  /** Top gradient overlay color. */
-  overlayFrom?: string;
-  /** Bottom gradient overlay color. */
-  overlayTo?: string;
-  /** If true, gradient overlay also fades out as user scrolls (so video becomes fully visible). */
-  overlayFadeWithScroll?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const rafRef = useRef<number | null>(null);
-  const scrollYRef = useRef(0);
-  // Tracks the loop-driven opacity (0 → initialOpacity → 0 → repeat)
   const [loopOpacity, setLoopOpacity] = useState(0);
-  // Tracks the scroll-driven multiplier (0 → 1 as user scrolls scrollRange px)
   const [scrollFactor, setScrollFactor] = useState(0);
+  const [isDark, setIsDark] = useState(false);
 
-  // ── Scroll listener ────────────────────────────────────────────────────
+  // Detect dark mode for overlay adjustments
+  useEffect(() => {
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    checkDark();
+    // Listen for class changes on <html>
+    const observer = new MutationObserver(checkDark);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  // Scroll listener — drives the scroll-based opacity transition
   useEffect(() => {
     let ticking = false;
 
     const update = () => {
       const y = window.scrollY;
-      scrollYRef.current = y;
-      // 0 at top, 1 after scrolling `scrollRange` pixels
       const factor = Math.min(1, Math.max(0, y / scrollRange));
       setScrollFactor(factor);
       ticking = false;
@@ -78,17 +77,17 @@ export function CinematicVideoBackground({
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    update(); // initial call
+    update();
 
     return () => window.removeEventListener('scroll', onScroll);
   }, [scrollRange]);
 
-  // ── Video loop + fade-in/fade-out logic ─────────────────────────────────
+  // Video loop + fade-in/fade-out logic
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const FADE_DURATION = 0.5; // seconds — fade window at start + end
+    const FADE_DURATION = 0.5;
 
     const tick = () => {
       const { currentTime, duration } = video;
@@ -97,19 +96,14 @@ export function CinematicVideoBackground({
         let baseOpacity: number;
 
         if (currentTime < FADE_DURATION) {
-          // Fade-in window (0 → 0.5s)
-          const ratio = currentTime / FADE_DURATION;
-          baseOpacity = Math.min(1, Math.max(0, ratio));
+          baseOpacity = currentTime / FADE_DURATION;
         } else if (currentTime > duration - FADE_DURATION) {
-          // Fade-out window (last 0.5s)
-          const ratio = (duration - currentTime) / FADE_DURATION;
-          baseOpacity = Math.min(1, Math.max(0, ratio));
+          baseOpacity = (duration - currentTime) / FADE_DURATION;
         } else {
-          // Mid-playback — full loop opacity
           baseOpacity = 1;
         }
 
-        setLoopOpacity(baseOpacity);
+        setLoopOpacity(Math.min(1, Math.max(0, baseOpacity)));
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -126,7 +120,6 @@ export function CinematicVideoBackground({
     const video = videoRef.current;
     if (!video) return;
 
-    // Spec: set opacity to 0, wait 100ms, reset currentTime = 0, then play()
     setLoopOpacity(0);
     window.setTimeout(() => {
       if (!video) return;
@@ -135,21 +128,44 @@ export function CinematicVideoBackground({
     }, 100);
   };
 
-  // Combine loop opacity + scroll factor to get the final video opacity
-  // At scrollY=0: finalOpacity = loopOpacity * initialOpacity
-  // At scrollY=scrollRange: finalOpacity = loopOpacity * maxOpacity
+  // Combine loop opacity + scroll factor
   const targetOpacity = initialOpacity + (maxOpacity - initialOpacity) * scrollFactor;
   const finalOpacity = loopOpacity * targetOpacity;
 
-  // Gradient overlay opacity — fades from 1 (at top) to 0 (after scrollRange)
-  // so the video becomes fully visible at the bottom of the scroll range
-  const overlayOpacity = overlayFadeWithScroll ? 1 - scrollFactor : 1;
+  // Smooth gradient overlay — no hard lines
+  // In light mode: fades to warm bone background (#FAF7F2)
+  // In dark mode: fades to dark background (#0E1116)
+  const bgColor = isDark ? '#0E1116' : '#FAF7F2';
+  const overlayGradient = isDark
+    ? `linear-gradient(to bottom,
+        ${bgColor} 0%,
+        rgba(14, 17, 22, 0.7) 15%,
+        rgba(14, 17, 22, 0.3) 35%,
+        rgba(14, 17, 22, 0.3) 65%,
+        rgba(14, 17, 22, 0.7) 85%,
+        ${bgColor} 100%)`
+    : `linear-gradient(to bottom,
+        ${bgColor} 0%,
+        rgba(250, 247, 242, 0.5) 15%,
+        rgba(250, 247, 242, 0.1) 35%,
+        rgba(250, 247, 242, 0.1) 65%,
+        rgba(250, 247, 242, 0.5) 85%,
+        ${bgColor} 100%)`;
+
+  // Text protection overlay — ensures headline is always readable
+  // A semi-transparent layer between video and text
+  const textProtection = isDark
+    ? 'rgba(14, 17, 22, 0.35)'
+    : 'rgba(250, 247, 242, 0.25)';
 
   return (
     <div
       className={`absolute inset-0 z-0 overflow-hidden pointer-events-none ${className}`}
       aria-hidden
     >
+      {/* ═══ Video — covers full hero area, positioned at TOP ═══
+          Per user fix: video should be visible behind the headline text,
+          not pushed down 300px. Using object-cover for proper filling. */}
       <video
         ref={videoRef}
         src={src}
@@ -159,35 +175,46 @@ export function CinematicVideoBackground({
         onEnded={handleEnded}
         style={{
           position: 'absolute',
-          top: '300px',
+          top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
           width: '100%',
-          height: 'calc(100% - 300px)',
+          height: '100%',
           objectFit: 'cover',
           opacity: finalOpacity,
           transition: 'opacity 0.05s linear',
-          // Slight scale on scroll for parallax depth feel
-          transform: `scale(${1 + scrollFactor * 0.05})`,
+          // Slight scale for parallax depth
+          transform: `scale(${1 + scrollFactor * 0.04})`,
           transformOrigin: 'center center',
+          // Improve video quality rendering
+          filter: 'saturate(1.1) contrast(1.05)',
         }}
       />
 
-      {/* Gradient overlay — fades to background color at top and bottom.
-          As user scrolls, overlay fades out so video becomes fully visible. */}
+      {/* ═══ Smooth gradient overlay — no hard lines ═══
+          Fades video into background color at top + bottom,
+          creating a seamless blend with the page background.
+          Middle section is more transparent so video is visible. */}
       <div
         className="absolute inset-0"
         style={{
           pointerEvents: 'none',
-          opacity: overlayOpacity,
-          transition: 'opacity 0.1s linear',
-          background: `linear-gradient(to bottom, ${overlayFrom} 0%, transparent 30%, transparent 70%, ${overlayTo} 100%)`,
+          background: overlayGradient,
+        }}
+      />
+
+      {/* ═══ Text protection layer ═══
+          Semi-transparent overlay ensures headline text remains
+          readable regardless of video content behind it.
+          This replaces the hard "dark line" with a soft, even wash. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          pointerEvents: 'none',
+          background: textProtection,
         }}
       />
     </div>
   );
 }
 
-// Default export for easier dynamic imports
 export default CinematicVideoBackground;

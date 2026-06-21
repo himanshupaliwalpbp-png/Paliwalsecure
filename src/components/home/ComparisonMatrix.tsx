@@ -162,7 +162,7 @@ export default function ComparisonMatrix() {
           variants={tableVariants}
           initial="hidden"
           animate={tableInView ? 'visible' : 'hidden'}
-          className="rounded-2xl overflow-hidden border border-[rgba(15,19,32,0.08)] shadow-[0_1px_2px_rgba(20,15,10,0.04),0_12px_40px_-12px_rgba(20,15,10,0.10)]"
+          className="rounded-2xl overflow-hidden border border-[rgba(15,19,32,0.08)] dark:border-[rgba(232,200,114,0.15)] shadow-[0_1px_2px_rgba(20,15,10,0.04),0_12px_40px_-12px_rgba(20,15,10,0.10)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_12px_40px_-12px_rgba(0,0,0,0.5)]"
         >
           {/* Desktop Table */}
           <div className="overflow-x-auto">
@@ -177,14 +177,14 @@ export default function ComparisonMatrix() {
                     <th
                       key={col.key}
                       className={`px-6 py-5 text-center font-body ${
-                        col.highlight ? 'bg-[#F4E5DD]' : ''
+                        col.highlight ? 'bg-[#F4E5DD] dark:bg-[rgba(212,99,63,0.12)]' : ''
                       }`}
                     >
                       <div className="flex flex-col items-center gap-1.5">
                         <span className={`text-caption-premium ${
                           col.highlight
-                            ? 'text-[#8B3520]'
-                            : 'text-vault-body'
+                            ? 'text-[#8B3520] dark:text-[#E8C872]'
+                            : 'text-vault-body dark:text-[#A8B0C2]'
                         }`}>
                           {getColumnLabel(col)}
                         </span>
@@ -203,10 +203,10 @@ export default function ComparisonMatrix() {
                 {features.map((row, rowIndex) => (
                   <tr
                     key={row.key}
-                    className={rowIndex % 2 === 1 ? 'bg-[rgba(15,19,32,0.015)]' : ''}
+                    className={rowIndex % 2 === 1 ? 'bg-[rgba(15,19,32,0.015)] dark:bg-[rgba(255,255,255,0.02)]' : ''}
                   >
                     {/* Feature name */}
-                    <td className="px-6 py-4 text-vault-heading font-medium text-base font-body">
+                    <td className="px-6 py-4 text-vault-heading dark:text-[#FAF7F2] font-medium text-base font-body">
                       {getFeatureLabel(row.key)}
                     </td>
                     {/* Column cells */}
@@ -219,7 +219,7 @@ export default function ComparisonMatrix() {
                           key={col.key}
                           className={`px-6 py-4 text-center transition-colors duration-200 ${
                             isPaliwal
-                              ? 'bg-[#F4E5DD]/40 border-x border-[#B8482C]/20'
+                              ? 'bg-[#F4E5DD]/40 dark:bg-[rgba(212,99,63,0.08)] border-x border-[#B8482C]/20 dark:border-[#D4633F]/30'
                               : ''
                           }`}
                         >

@@ -1,25 +1,31 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * StackingImageSections — Full image (no crop) + normal scroll + stacking
+ * StackingImageSections — Professional scroll-stacking (Apple/Stripe style)
  * ═══════════════════════════════════════════════════════════════════════════
  *
- * Per user's latest request:
- *   1. Show the FULL image — no cropping (use object-contain, not object-cover)
- *   2. Don't pin/fixed to full screen — website should scroll normally
- *   3. Each image displays at its natural aspect ratio, fully visible
- *   4. Scroll-stacking effect: next image comes ON TOP, previous goes to background
+ * This is the proper "pinned scroll" technique used by Apple, Stripe, and
+ * Linear. Each image panel is pinned to the viewport while the user scrolls,
+ * and the next panel slides up from below to cover it.
  *
- * Technique: position:sticky (works now that body uses overflow-x:clip)
- *   - Each panel is min-h-screen, sticky to top
- *   - Image inside uses object-contain → full image visible, letterboxed if needed
- *   - As you scroll, next panel slides over the previous (sticky keeps it pinned)
- *   - Previous panel stays behind, sharp (no blur)
+ * Technique:
+ *   - Container is (N+1) × 100vh tall — provides scroll space
+ *   - Inner wrapper is position: sticky → pins to top during scroll
+ *   - Each panel is position: absolute, animated via Framer Motion useTransform
+ *   - Panel Y position is driven by scrollYProgress:
+ *     * Before its segment: y = 100% (off-screen below)
+ *     * During its segment: y animates 100% → 0 (slides up to cover)
+ *     * After its segment: y = 0 (stays in stack, behind newer panels)
+ *   - Z-index increments so each new panel is above the previous
+ *   - Previous panels stay SHARP (no blur) — just go to background
+ *
+ * Images are shown FULLY (object-contain, no cropping) at original quality.
  */
 
 interface StackItem {
@@ -96,38 +102,53 @@ const STACK_ITEMS: StackItem[] = [
   },
 ];
 
-/* ── Individual stacking panel ──────────────────────────────────────────── */
+/* ── Individual panel with scroll-driven Y position ─────────────────────── */
 function StackPanel({
   item,
   index,
   total,
+  scrollYProgress,
 }: {
   item: StackItem;
   index: number;
   total: number;
+  scrollYProgress: MotionValue<number>;
 }) {
+  /**
+   * Each panel slides up during its segment of the scroll.
+   * Segments are scaled to 0-0.92 range, leaving the last 8% for the
+   * final panel to stay visible before the section ends.
+   */
+  const SCALE = 0.92;
+  const segStart = (index / total) * SCALE;
+  const segEnd = ((index + 1) / total) * SCALE;
+
+  // Panel 0 is always at y=0 (base panel, visible from start)
+  // Other panels: start at 100% (below screen), slide to 0 during their segment
+  const y = useTransform(
+    scrollYProgress,
+    [0, segStart, segEnd, 1],
+    index === 0 ? ['0%', '0%', '0%', '0%'] : ['100%', '100%', '0%', '0%']
+  );
+
   return (
-    <div
-      className="sticky top-0 w-full h-screen flex flex-col overflow-hidden"
-      style={{ zIndex: index + 1 }}
+    <motion.div
+      className="absolute top-0 left-0 w-full h-full overflow-hidden"
+      style={{
+        y,
+        zIndex: index + 1,
+      }}
     >
-      {/* Dark background so letterboxed areas look intentional */}
+      {/* Dark gradient background — so letterboxed areas look intentional */}
       <div
         className="absolute inset-0"
         style={{ background: 'linear-gradient(180deg, #0B1221 0%, #0F1729 100%)' }}
       />
 
       {/* ═══ FULL IMAGE — object-contain (no cropping) ═══
-          The image displays at its natural aspect ratio, fully visible.
-          If the image is wider than tall, there will be dark bars top/bottom.
-          If taller than wide, dark bars left/right. This is intentional —
-          the user explicitly said "pura dikhao, crop mat karo".
-          
-          Using h-screen on the panel (not min-h-screen) so each panel is
-          EXACTLY viewport height. This ensures the sticky stacking works
-          properly — the next panel fully covers the previous in one viewport
-          of scroll. */}
-      <div className="relative flex-1 flex items-center justify-center overflow-hidden min-h-0">
+          Image displays at its natural aspect ratio, fully visible.
+          Letterboxed with the dark gradient background above. */}
+      <div className="relative w-full h-full flex items-center justify-center">
         <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -139,13 +160,16 @@ function StackPanel({
         </Link>
       </div>
 
-      {/* Content overlay — compact, at the bottom, overlaid on the letterbox area
-          so it doesn't cover the image itself. Kept short so panel stays h-screen. */}
-      <div className="relative z-10 px-6 sm:px-10 md:px-14 pb-5 sm:pb-6 pt-3 shrink-0"
-        style={{ background: 'linear-gradient(0deg, rgba(11,18,33,0.98) 0%, rgba(11,18,33,0.85) 60%, transparent 100%)' }}
+      {/* ═══ Content overlay — bottom of screen, compact ═══
+          Gradient ensures text is readable over the image + letterbox area. */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-10 px-6 sm:px-10 md:px-14 pb-5 sm:pb-6 pt-3"
+        style={{
+          background: 'linear-gradient(0deg, rgba(11,18,33,0.98) 0%, rgba(11,18,33,0.85) 60%, transparent 100%)',
+        }}
       >
         <div className="max-w-3xl mx-auto">
-          {/* Accent line + category number + title in one row */}
+          {/* Accent line + category number */}
           <div className="flex items-center gap-3 mb-2">
             <div
               className="w-10 h-0.5 rounded-full shrink-0"
@@ -159,7 +183,7 @@ function StackPanel({
             </span>
           </div>
 
-          {/* Title + Hindi in one line */}
+          {/* Title + Hindi */}
           <div className="flex flex-wrap items-baseline gap-2 mb-1.5">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">
               {item.title}
@@ -169,11 +193,12 @@ function StackPanel({
             </span>
           </div>
 
-          {/* Description + price + CTA in one compact block */}
+          {/* Description */}
           <p className="text-xs sm:text-sm text-white/75 font-body leading-snug mb-2 max-w-2xl">
             {item.description}
           </p>
 
+          {/* Price + CTA */}
           <div className="flex items-center gap-3 flex-wrap">
             <Link
               href={item.href}
@@ -208,53 +233,73 @@ function StackPanel({
           />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
 /* ── Main component ─────────────────────────────────────────────────────── */
 export default function StackingImageSections() {
-  return (
-    <section className="relative w-full">
-      {/* Section header — normal flow, above the first panel */}
-      <div className="relative z-50 pt-16 pb-8 text-center"
-        style={{ background: 'linear-gradient(180deg, #0B1221 0%, #0F1729 100%)' }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight"
-          >
-            Complete Protection{' '}
-            <span style={{ color: '#E8C872' }}>Package</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base sm:text-lg text-white/70 font-body mt-3 max-w-2xl mx-auto"
-          >
-            Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
-          </motion.p>
-        </div>
-      </div>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const total = STACK_ITEMS.length;
 
-      {/* Stacking panels — each is sticky, so they stack on scroll.
-          Normal page scroll works because panels are in normal flow
-          (not position:fixed). Each panel is min-h-screen so it fills
-          the viewport when it sticks. */}
-      {STACK_ITEMS.map((item, index) => (
-        <StackPanel
-          key={item.key}
-          item={item}
-          index={index}
-          total={STACK_ITEMS.length}
-        />
-      ))}
+  // Track scroll progress through the entire stacking section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative w-full"
+      // Height = (total + 1) × 100vh to give enough scroll space
+      style={{ height: `${(total + 1) * 100}vh` }}
+    >
+      {/* ═══ Sticky inner wrapper — pins to top during entire scroll ═══
+          This is the key to the "pinned scroll" effect.
+          overflow-x: clip on body (already set) allows sticky to work. */}
+      <div
+        className="sticky top-0 w-full h-screen overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        {/* Section header — floats above the first panel */}
+        <div className="absolute top-0 left-0 right-0 z-50 pointer-events-none">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-6 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
+            >
+              Complete Protection{' '}
+              <span style={{ color: '#E8C872' }}>Package</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-base sm:text-lg text-white/80 font-body mt-3 max-w-2xl mx-auto"
+              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
+            >
+              Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Stacking panels — each is absolutely positioned, animated via useTransform */}
+        {STACK_ITEMS.map((item, index) => (
+          <StackPanel
+            key={item.key}
+            item={item}
+            index={index}
+            total={total}
+            scrollYProgress={scrollYProgress}
+          />
+        ))}
+      </div>
     </section>
   );
 }
