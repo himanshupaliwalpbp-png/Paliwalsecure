@@ -1,7 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -10,15 +9,19 @@ import { ArrowRight } from 'lucide-react';
  * StackingImageSections — Full-screen scroll-stacking insurance images
  * ═══════════════════════════════════════════════════════════════════════════
  *
- * Effect (the "premium 3D website" feel):
- *   1. First image (Health Insurance) appears FULL SCREEN
+ * Effect (per user request):
+ *   1. First image (Health Insurance) appears FULL SCREEN at ORIGINAL quality
  *   2. User scrolls → second image (Life Insurance) slides UP from below,
- *      covering the first. First image gets BLURRED behind.
+ *      covering the first. First image goes to BACKGROUND (no blur, just behind).
  *   3. Continue scrolling → Car, Bike, Travel, Home each stack on top
  *   4. Clicking any image navigates to that insurance page
  *
- * Technical: CSS `position: sticky` for stacking + Framer Motion `useScroll`
- * for the blur-on-previous effect.
+ * Technical: CSS `position: sticky` for clean stacking — each panel sticks
+ * to the top, and as you scroll, the next panel slides over the previous one.
+ * The previous image simply goes behind (no blur, no scale change) — exactly
+ * as the user requested.
+ *
+ * Images are FULL ORIGINAL QUALITY (no compression, no resizing).
  */
 
 interface StackItem {
@@ -39,7 +42,7 @@ const STACK_ITEMS: StackItem[] = [
     titleHindi: 'हेल्थ इंश्योरेंस',
     description: 'Apne parivaar ki health ki raksha karein — Cashless Ilaj, Family Floater, Hospital ke pehle aur baad ka kharcha',
     price: '₹499/mo',
-    image: '/images/category-cards/health-stack.jpg',
+    image: '/images/category-cards/health-stack.png',
     href: '/health-insurance',
     accentColor: '#2D6A4F',
   },
@@ -49,7 +52,7 @@ const STACK_ITEMS: StackItem[] = [
     titleHindi: 'लाइफ इंश्योरेंस',
     description: 'Apne parivaar ka future secure karein — Term Plans, Investment Plans, Critical Illness Cover',
     price: '₹489/mo',
-    image: '/images/category-cards/life-stack.jpg',
+    image: '/images/category-cards/life-stack.png',
     href: '/life-insurance',
     accentColor: '#1B4D4A',
   },
@@ -59,7 +62,7 @@ const STACK_ITEMS: StackItem[] = [
     titleHindi: 'कार इंश्योरेंस',
     description: 'Poori car coverage — Comprehensive Cover, Zero Depreciation, Roadside Assistance',
     price: '₹2,094/yr',
-    image: '/images/category-cards/car-stack.jpg',
+    image: '/images/category-cards/car-stack.png',
     href: '/car-insurance',
     accentColor: '#B8482C',
   },
@@ -69,7 +72,7 @@ const STACK_ITEMS: StackItem[] = [
     titleHindi: 'बाइक इंश्योरेंस',
     description: 'Poori bike suraksha — Third Party Cover, Comprehensive Plan, Add-on Covers',
     price: '₹714/yr',
-    image: '/images/category-cards/bike-stack.jpg',
+    image: '/images/category-cards/bike-stack.png',
     href: '/bike-insurance',
     accentColor: '#B8482C',
   },
@@ -79,7 +82,7 @@ const STACK_ITEMS: StackItem[] = [
     titleHindi: 'ट्रैवल इंश्योरेंस',
     description: 'Bina tension ki yatra — Medical Emergency, Trip Cancellation, Lost Baggage cover',
     price: '₹256/trip',
-    image: '/images/category-cards/travel-stack.jpg',
+    image: '/images/category-cards/travel-stack.png',
     href: '/travel-insurance',
     accentColor: '#B8860B',
   },
@@ -89,7 +92,7 @@ const STACK_ITEMS: StackItem[] = [
     titleHindi: 'होम इंश्योरेंस',
     description: 'Apni sabse badi sampatti ki raksha karein — Structure Cover, Contents Insurance, Natural Disaster',
     price: '₹1,500/yr',
-    image: '/images/category-cards/home-stack.jpg',
+    image: '/images/category-cards/home-stack.png',
     href: '/home-insurance',
     accentColor: '#B8860B',
   },
@@ -105,54 +108,33 @@ function StackPanel({
   index: number;
   total: number;
 }) {
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  // Track scroll progress for THIS panel — used to blur the image as the
-  // next panel slides over it
-  const { scrollYProgress } = useScroll({
-    target: panelRef,
-    offset: ['start start', 'end start'],
-  });
-
-  // As the next panel slides over this one, blur this image
-  // 0 = sharp (at top), 1 = blurred (scrolled past)
-  const blurAmount = useTransform(scrollYProgress, [0, 0.8, 1], [0, 0, 12]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.5, 0.7]);
-
   return (
     <div
-      ref={panelRef}
       className="sticky top-0 h-screen w-full overflow-hidden"
       style={{ zIndex: index + 1 }}
     >
       <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
-        {/* Full-screen image with scroll-driven blur + scale */}
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            filter: useTransform(blurAmount, (b) => `blur(${b}px)`),
-            scale: imageScale,
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={item.image}
-            alt={`${item.title} — premium protection hero`}
-            className="w-full h-full object-cover"
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
-        </motion.div>
+        {/* ═══ Full-screen image at ORIGINAL quality ═══
+            No compression, no resizing — image renders at its native resolution.
+            `object-cover` ensures it fills the viewport without distortion. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.image}
+          alt={`${item.title} — premium protection hero`}
+          className="w-full h-full object-cover"
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
 
-        {/* Gradient overlay for text readability — darkens bottom + adds depth */}
-        <motion.div
+        {/* Gradient overlay for text readability — darkens bottom only,
+            keeps the image's full quality visible in the upper portion */}
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: overlayOpacity,
             background: `linear-gradient(180deg, 
-              rgba(11, 18, 33, 0.3) 0%, 
-              rgba(11, 18, 33, 0.1) 40%, 
-              rgba(11, 18, 33, 0.8) 100%)`,
+              rgba(0, 0, 0, 0.1) 0%, 
+              rgba(0, 0, 0, 0.0) 30%, 
+              rgba(0, 0, 0, 0.5) 70%, 
+              rgba(0, 0, 0, 0.85) 100%)`,
           }}
         />
 
@@ -168,27 +150,35 @@ function StackPanel({
             {/* Category number — subtle indicator */}
             <div
               className="font-mono text-sm tracking-widest uppercase mb-4"
-              style={{ color: item.accentColor, opacity: 0.9 }}
+              style={{ color: item.accentColor, opacity: 0.95 }}
             >
               {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
             </div>
 
             {/* Title — large, bold, white */}
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight mb-2">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight mb-2"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
+            >
               {item.title}
             </h2>
-            <p className="text-lg sm:text-xl text-white/60 font-body mb-6">
+            <p className="text-lg sm:text-xl text-white/70 font-body mb-6"
+              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
+            >
               {item.titleHindi}
             </p>
 
             {/* Description */}
-            <p className="text-base sm:text-lg md:text-xl text-white/80 font-body leading-relaxed mb-8 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 font-body leading-relaxed mb-8 max-w-2xl"
+              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
+            >
               {item.description}
             </p>
 
             {/* Price + CTA */}
             <div className="flex items-center gap-6 flex-wrap">
-              <span className="font-mono text-2xl sm:text-3xl font-bold text-white">
+              <span className="font-mono text-2xl sm:text-3xl font-bold text-white"
+                style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
+              >
                 {item.price}
               </span>
               <span
@@ -196,6 +186,7 @@ function StackPanel({
                 style={{
                   background: item.accentColor,
                   color: '#FFFFFF',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
                 }}
               >
                 Explore Plans
@@ -207,14 +198,14 @@ function StackPanel({
 
         {/* Scroll hint — only on the first panel */}
         {index === 0 && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70">
             <span className="font-mono text-xs tracking-widest uppercase">
               Scroll to explore
             </span>
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-              className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent"
+              className="w-px h-8 bg-gradient-to-b from-white/70 to-transparent"
             />
           </div>
         )}
@@ -225,11 +216,8 @@ function StackPanel({
 
 /* ── Main component ─────────────────────────────────────────────────────── */
 export default function StackingImageSections() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
     <section
-      ref={containerRef}
       className="relative w-full"
       style={{ height: `${STACK_ITEMS.length * 100}vh` }}
     >
@@ -242,25 +230,27 @@ export default function StackingImageSections() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
           >
             Complete Protection{' '}
-            <span className="text-accent-gradient">Package</span>
+            <span style={{ color: '#E8C872' }}>Package</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base sm:text-lg text-white/70 font-body mt-4 max-w-2xl mx-auto"
-            style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}
+            className="text-base sm:text-lg text-white/80 font-body mt-4 max-w-2xl mx-auto"
+            style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
           >
             Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
           </motion.p>
         </div>
       </div>
 
-      {/* Stacking panels */}
+      {/* Stacking panels — each panel is sticky, so they stack on scroll.
+          As you scroll, the next panel slides OVER the previous one.
+          The previous image simply goes BEHIND (no blur, no scale change). */}
       {STACK_ITEMS.map((item, index) => (
         <StackPanel
           key={item.key}
