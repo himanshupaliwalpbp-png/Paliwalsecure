@@ -33,8 +33,8 @@ const InsurerLogoMarquee = dynamic(() => import('@/components/home/InsurerLogoMa
 const TrustStrip = dynamic(() => import('@/components/home/TrustStrip'), {
   loading: () => <div className="min-h-[60px]" />,
 });
-const CategoryCards = dynamic(() => import('@/components/home/CategoryCards'), {
-  loading: () => <div className="min-h-[400px]" />,
+const StackingImageSections = dynamic(() => import('@/components/home/StackingImageSections'), {
+  loading: () => <div className="min-h-[100vh]" />,
 });
 const InsureGPTSection = dynamic(() => import('@/components/InsureGPTSection'), {
   loading: () => <div className="min-h-[400px]" />,
@@ -97,9 +97,9 @@ export default function Home() {
         <TrustStrip />
       </SafeRender>
 
-      {/* 4. Insurance category cards */}
-      <SafeRender name="CategoryCards">
-        <CategoryCards />
+      {/* 4. Stacking full-screen insurance images — scroll to reveal each */}
+      <SafeRender name="StackingImageSections">
+        <StackingImageSections />
       </SafeRender>
 
       {/* 5. InsureGPT AI Chat Section */}
