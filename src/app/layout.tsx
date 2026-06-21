@@ -380,7 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <StructuredData type="breadcrumb" />
       </head>
       <body
-        className={`${fraunces.variable} ${interTight.variable} ${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-hidden antialiased`}
+        className={`${fraunces.variable} ${interTight.variable} ${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-clip antialiased`}
       >
         {/* Google Tag Manager (noscript) */}
         <noscript>
