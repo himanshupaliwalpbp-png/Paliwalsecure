@@ -7,14 +7,18 @@ import { ArrowRight } from 'lucide-react';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * StackingImageSections — Professional scroll-stacking (Apple/Stripe style)
+ * StackingImageSections — Professional scroll-stacking (Apple style)
  * ═══════════════════════════════════════════════════════════════════════════
  *
- * Professional design:
- *   - Image fills entire viewport (object-cover, NO letterbox/dark bars)
- *   - Text is overlaid DIRECTLY ON the image
- *   - Subtle gradient at bottom ensures text readability
- *   - Clean, premium feel like Apple/Stripe product pages
+ * Per user's latest request:
+ *   1. "Complete Protection Package" text is ABOVE the images (not on image)
+ *   2. Images shown FULLY — no cropping (object-contain)
+ *   3. Professional design like Apple / world top companies
+ *
+ * Structure:
+ *   - Section header (title + subtitle) — normal flow, ABOVE the stacking area
+ *   - Stacking area — sticky pinned, panels stack on scroll
+ *   - Each panel: dark background + full image (object-contain) + text overlay at bottom
  *
  * Scroll-stacking technique:
  *   - Container is (N+1) × 100vh — provides scroll space
@@ -112,10 +116,9 @@ function StackPanel({
 }) {
   // Each panel slides up during its segment: [(i-1)/N, i/N]
   // Panel 1 (index 0): always at 0 (base, visible from start)
-  // Panel 2 (index 1): slides from 100%→0% during [0/6, 1/6] = [0, 0.167]
-  // Panel 3 (index 2): slides from 100%→0% during [1/6, 2/6] = [0.167, 0.333]
-  // ...and so on. Each panel starts moving RIGHT AFTER the previous finishes.
-  // This eliminates dead zones — continuous motion throughout the scroll.
+  // Panel 2 (index 1): slides from 100%→0% during [0/6, 1/6]
+  // Panel 3 (index 2): slides from 100%→0% during [1/6, 2/6]
+  // etc. — continuous motion, no dead zones
   const segStart = index === 0 ? 0 : (index - 1) / total;
   const segEnd = index / total;
 
@@ -133,112 +136,107 @@ function StackPanel({
       style={{
         y,
         zIndex: index + 1,
+        // Dark premium background — like Apple's product pages
+        background: 'linear-gradient(180deg, #050507 0%, #0A0A0F 50%, #050507 100%)',
       }}
     >
-      <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
-        {/* ═══ FULL-BLEED IMAGE — object-cover fills entire viewport ═══
-            No letterbox, no dark bars. Image covers the full screen
-            like Apple/Stripe hero sections. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={item.image}
-          alt={`${item.title} — premium protection hero`}
-          className="absolute inset-0 w-full h-full object-cover"
-          loading={index === 0 ? 'eager' : 'lazy'}
-        />
+      {/* ═══ FULL IMAGE — object-contain (NO cropping) ═══
+          Image displays at its natural aspect ratio, fully visible.
+          The dark gradient background shows in letterbox areas,
+          looking intentional and premium like Apple's dark product pages. */}
+      <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-8 md:p-12">
+        <Link href={item.href} className="block w-full h-full relative group flex items-center justify-center" prefetch={false}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={item.image}
+            alt={`${item.title} — premium protection hero`}
+            className="max-w-full max-h-full object-contain"
+            style={{
+              filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.5))',
+            }}
+            loading={index === 0 ? 'eager' : 'lazy'}
+          />
+        </Link>
+      </div>
 
-        {/* ═══ Subtle gradient overlay for text readability ═══
-            Only at the bottom — fades from transparent to dark.
-            This ensures text is readable WITHOUT a separate dark section.
-            The rest of the image remains fully visible. */}
+      {/* ═══ Text overlay — at the BOTTOM, overlaid on letterbox area ═══
+          The text sits in the bottom letterbox area (below the image),
+          so it doesn't cover the image itself. Premium Apple-style typography. */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-8 sm:pb-10 md:pb-12 pt-6">
+        {/* Subtle gradient from transparent to dark for text readability */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(180deg, transparent 0%, transparent 40%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.9) 100%)',
+            background: 'linear-gradient(0deg, rgba(5,5,7,0.95) 0%, rgba(5,5,7,0.7) 50%, transparent 100%)',
           }}
         />
+        <div className="relative max-w-4xl mx-auto">
+          {/* Accent line + category number */}
+          <div className="flex items-center gap-3 mb-3">
+            <div
+              className="w-12 h-0.5 rounded-full shrink-0"
+              style={{ background: item.accentColor, boxShadow: `0 0 12px ${item.accentColor}` }}
+            />
+            <span
+              className="font-mono text-xs tracking-widest uppercase shrink-0"
+              style={{ color: item.accentColor }}
+            >
+              {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </span>
+          </div>
 
-        {/* ═══ Text overlay — DIRECTLY ON the image ═══
-            Positioned at the bottom-left, with text shadow for readability.
-            No separate dark section — text floats on the image. */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-10 sm:pb-12 md:pb-14">
-          <div className="max-w-3xl">
-            {/* Accent line + category number */}
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-12 h-0.5 rounded-full shrink-0"
-                style={{ background: item.accentColor, boxShadow: `0 0 12px ${item.accentColor}` }}
-              />
-              <span
-                className="font-mono text-xs tracking-widest uppercase shrink-0"
-                style={{ color: item.accentColor, textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
-              >
-                {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-              </span>
-            </div>
-
-            {/* Title — large, bold, white with text shadow */}
+          {/* Title + Hindi */}
+          <div className="flex flex-wrap items-baseline gap-3 mb-3">
             <h2
-              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight mb-2"
-              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight"
             >
               {item.title}
             </h2>
-            <p
-              className="text-lg sm:text-xl text-white/70 font-body mb-5"
-              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
-            >
+            <span className="text-lg sm:text-xl text-white/50 font-body">
               {item.titleHindi}
-            </p>
+            </span>
+          </div>
 
-            {/* Description */}
-            <p
-              className="text-base sm:text-lg md:text-xl text-white/90 font-body leading-relaxed mb-7 max-w-2xl"
-              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
+          {/* Description */}
+          <p className="text-base sm:text-lg md:text-xl text-white/70 font-body leading-relaxed mb-6 max-w-2xl">
+            {item.description}
+          </p>
+
+          {/* Price + CTA */}
+          <div className="flex items-center gap-5 flex-wrap">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-white">
+              {item.price}
+            </span>
+            <Link
+              href={item.href}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:gap-3"
+              style={{
+                background: item.accentColor,
+                color: '#050507',
+                boxShadow: `0 4px 20px ${item.accentColor}40`,
+              }}
+              prefetch={false}
             >
-              {item.description}
-            </p>
-
-            {/* Price + CTA */}
-            <div className="flex items-center gap-5 flex-wrap">
-              <span
-                className="font-mono text-2xl sm:text-3xl font-bold text-white"
-                style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}
-              >
-                {item.price}
-              </span>
-              <span
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 group-hover:scale-105 group-hover:gap-3"
-                style={{
-                  background: item.accentColor,
-                  color: '#0B1221',
-                  boxShadow: `0 4px 20px ${item.accentColor}40, 0 0 0 1px ${item.accentColor}30`,
-                  textShadow: 'none',
-                }}
-              >
-                Explore Plans
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
+              Explore Plans
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
+      </div>
 
-        {/* Scroll hint — only on the first panel */}
-        {index === 0 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 z-20 pointer-events-none">
-            <span className="font-mono text-[10px] tracking-widest uppercase"
-              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
-            >
-              Scroll to explore
-            </span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-              className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent"
-            />
-          </div>
-        )}
-      </Link>
+      {/* Scroll hint — only on the first panel */}
+      {index === 0 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/40 z-20 pointer-events-none">
+          <span className="font-mono text-[10px] tracking-widest uppercase">
+            Scroll to explore
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+            className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent"
+          />
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -254,54 +252,71 @@ export default function StackingImageSections() {
   });
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full"
-      style={{ height: `${(total + 1) * 100}vh` }}
-    >
-      {/* Sticky inner wrapper — pins to top during entire scroll */}
-      <div
-        className="sticky top-0 w-full h-screen overflow-hidden stacking-section"
-        style={{ zIndex: 1 }}
+    <>
+      {/* ═══ SECTION HEADER — ABOVE the stacking area (NOT on image) ═══
+          Normal flow, dark premium background like Apple's product pages.
+          This is where "Complete Protection Package" title lives. */}
+      <section className="relative w-full py-20 md:py-28 text-center"
+        style={{ background: 'linear-gradient(180deg, #FAF7F2 0%, #050507 100%)' }}
       >
-        {/* Section header — floats above the first panel */}
-        <div className="absolute top-0 left-0 right-0 z-50 pointer-events-none">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-6 text-center">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight"
-              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}
-            >
-              Complete Protection{' '}
-              <span style={{ color: '#E8C872' }}>Package</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-base sm:text-lg text-white/80 font-body mt-3 max-w-2xl mx-auto"
-              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
-            >
-              Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
-            </motion.p>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex items-center justify-center gap-3 mb-5"
+          >
+            <div className="w-12 h-0.5 rounded-full bg-[#E8C872]" />
+            <span className="font-mono text-xs tracking-widest uppercase text-[#E8C872]">
+              6 Categories
+            </span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-[#0E1116] dark:text-white tracking-tight mb-5"
+          >
+            Complete Protection{' '}
+            <span style={{ color: '#E8C872' }}>Package</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-base sm:text-lg md:text-xl text-[#4A4F57] dark:text-white/60 font-body max-w-2xl mx-auto"
+          >
+            Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
+          </motion.p>
         </div>
+      </section>
 
-        {/* Stacking panels */}
-        {STACK_ITEMS.map((item, index) => (
-          <StackPanel
-            key={item.key}
-            item={item}
-            index={index}
-            total={total}
-            scrollYProgress={scrollYProgress}
-          />
-        ))}
-      </div>
-    </section>
+      {/* ═══ STACKING AREA — pinned scroll with full images ═══ */}
+      <section
+        ref={containerRef}
+        className="relative w-full"
+        style={{ height: `${(total + 1) * 100}vh` }}
+      >
+        {/* Sticky inner wrapper — pins to top during entire scroll */}
+        <div
+          className="sticky top-0 w-full h-screen overflow-hidden stacking-section"
+          style={{ zIndex: 1 }}
+        >
+          {/* Stacking panels */}
+          {STACK_ITEMS.map((item, index) => (
+            <StackPanel
+              key={item.key}
+              item={item}
+              index={index}
+              total={total}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
