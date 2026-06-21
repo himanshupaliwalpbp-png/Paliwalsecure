@@ -108,7 +108,7 @@ function StackPanel({
 }) {
   return (
     <div
-      className="sticky top-0 w-full min-h-screen flex flex-col"
+      className="sticky top-0 w-full h-screen flex flex-col overflow-hidden"
       style={{ zIndex: index + 1 }}
     >
       {/* Dark background so letterboxed areas look intentional */}
@@ -121,8 +121,13 @@ function StackPanel({
           The image displays at its natural aspect ratio, fully visible.
           If the image is wider than tall, there will be dark bars top/bottom.
           If taller than wide, dark bars left/right. This is intentional —
-          the user explicitly said "pura dikhao, crop mat karo". */}
-      <div className="relative flex-1 flex items-center justify-center overflow-hidden">
+          the user explicitly said "pura dikhao, crop mat karo".
+          
+          Using h-screen on the panel (not min-h-screen) so each panel is
+          EXACTLY viewport height. This ensures the sticky stacking works
+          properly — the next panel fully covers the previous in one viewport
+          of scroll. */}
+      <div className="relative flex-1 flex items-center justify-center overflow-hidden min-h-0">
         <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -134,57 +139,56 @@ function StackPanel({
         </Link>
       </div>
 
-      {/* Content overlay — at the bottom, overlaid on the letterbox area
-          so it doesn't cover the image itself */}
-      <div className="relative z-10 px-6 sm:px-12 md:px-16 lg:px-20 pb-8 sm:pb-10 md:pb-12 pt-6"
-        style={{ background: 'linear-gradient(0deg, rgba(11,18,33,0.95) 0%, rgba(11,18,33,0.7) 70%, transparent 100%)' }}
+      {/* Content overlay — compact, at the bottom, overlaid on the letterbox area
+          so it doesn't cover the image itself. Kept short so panel stays h-screen. */}
+      <div className="relative z-10 px-6 sm:px-10 md:px-14 pb-5 sm:pb-6 pt-3 shrink-0"
+        style={{ background: 'linear-gradient(0deg, rgba(11,18,33,0.98) 0%, rgba(11,18,33,0.85) 60%, transparent 100%)' }}
       >
         <div className="max-w-3xl mx-auto">
-          {/* Accent line + category number */}
-          <div className="flex items-center gap-4 mb-4">
+          {/* Accent line + category number + title in one row */}
+          <div className="flex items-center gap-3 mb-2">
             <div
-              className="w-12 h-1 rounded-full"
+              className="w-10 h-0.5 rounded-full shrink-0"
               style={{ background: item.accentColor }}
             />
             <span
-              className="font-mono text-xs tracking-widest uppercase"
+              className="font-mono text-[10px] tracking-widest uppercase shrink-0"
               style={{ color: item.accentColor, opacity: 0.95 }}
             >
               {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
             </span>
           </div>
 
-          {/* Title */}
-          <div className="flex flex-wrap items-baseline gap-3 mb-3">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight">
+          {/* Title + Hindi in one line */}
+          <div className="flex flex-wrap items-baseline gap-2 mb-1.5">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">
               {item.title}
             </h2>
-            <span className="text-lg sm:text-xl text-white/60 font-body">
+            <span className="text-sm sm:text-base text-white/60 font-body">
               {item.titleHindi}
             </span>
           </div>
 
-          {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg text-white/80 font-body leading-relaxed mb-5 max-w-2xl">
+          {/* Description + price + CTA in one compact block */}
+          <p className="text-xs sm:text-sm text-white/75 font-body leading-snug mb-2 max-w-2xl">
             {item.description}
           </p>
 
-          {/* Price + CTA */}
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap">
             <Link
               href={item.href}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:gap-3"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 hover:scale-105 hover:gap-2"
               style={{
                 background: item.accentColor,
                 color: '#FFFFFF',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
               }}
               prefetch={false}
             >
               Explore Plans
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-            <span className="font-mono text-lg sm:text-xl font-bold text-white/90">
+            <span className="font-mono text-base sm:text-lg font-bold text-white/90">
               {item.price}
             </span>
           </div>
