@@ -5474,3 +5474,43 @@ html {
   /* Prevent paint flicker */
   transform: translateZ(0);
 }
+
+/* ═══ HINDI TEXT FIX — prevent matra clipping ═══
+   Devanagari script (Hindi) has matras (top marks like ी ै ो े)
+   that extend above the normal text baseline. When line-height is tight
+   (default 1.1-1.2), these matras get clipped/cut off at the top.
+   
+   Fix: Increase line-height + add padding-top for Hindi headings.
+   This applies when body has 'hindi-active' class (set by language toggle). */
+body.hindi-active h1,
+body.hindi-active h2,
+body.hindi-active h3,
+body.hindi-active h4,
+body.hindi-active h5,
+body.hindi-active h6 {
+  line-height: 1.4 !important;
+  padding-top: 0.1em !important;
+}
+
+/* Also fix for elements with lang="hi" or hindi-text class */
+[lang="hi"] h1, [lang="hi"] h2, [lang="hi"] h3, [lang="hi"] h4,
+.hindi-text h1, .hindi-text h2, .hindi-text h3, .hindi-text h4,
+:lang(hi) h1, :lang(hi) h2, :lang(hi) h3, :lang(hi) h4 {
+  line-height: 1.4 !important;
+  padding-top: 0.1em !important;
+}
+
+/* Fix for gradient-text headings (which clip Hindi matras more due to
+   background-clip:text rendering) */
+body.hindi-active .gradient-text,
+[lang="hi"] .gradient-text,
+:lang(hi) .gradient-text {
+  line-height: 1.45 !important;
+  padding-top: 0.15em !important;
+  padding-bottom: 0.05em !important;
+}
+
+/* Fix for any Hindi text in paragraphs too */
+body.hindi-active p {
+  line-height: 1.7 !important;
+}
