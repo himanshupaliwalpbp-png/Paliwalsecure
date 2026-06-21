@@ -10,22 +10,18 @@ import { ArrowRight } from 'lucide-react';
  * StackingImageSections — Professional scroll-stacking (Apple/Stripe style)
  * ═══════════════════════════════════════════════════════════════════════════
  *
- * This is the proper "pinned scroll" technique used by Apple, Stripe, and
- * Linear. Each image panel is pinned to the viewport while the user scrolls,
- * and the next panel slides up from below to cover it.
+ * Professional design:
+ *   - Image fills entire viewport (object-cover, NO letterbox/dark bars)
+ *   - Text is overlaid DIRECTLY ON the image
+ *   - Subtle gradient at bottom ensures text readability
+ *   - Clean, premium feel like Apple/Stripe product pages
  *
- * Technique:
- *   - Container is (N+1) × 100vh tall — provides scroll space
- *   - Inner wrapper is position: sticky → pins to top during scroll
- *   - Each panel is position: absolute, animated via Framer Motion useTransform
- *   - Panel Y position is driven by scrollYProgress:
- *     * Before its segment: y = 100% (off-screen below)
- *     * During its segment: y animates 100% → 0 (slides up to cover)
- *     * After its segment: y = 0 (stays in stack, behind newer panels)
- *   - Z-index increments so each new panel is above the previous
- *   - Previous panels stay SHARP (no blur) — just go to background
- *
- * Images are shown FULLY (object-contain, no cropping) at original quality.
+ * Scroll-stacking technique:
+ *   - Container is (N+1) × 100vh — provides scroll space
+ *   - Inner wrapper is position: sticky → pins to top
+ *   - Each panel: position:absolute, Y driven by scrollYProgress
+ *   - Panel slides from 100% (below) → 0% (covers previous)
+ *   - Previous panel stays behind, sharp (no blur)
  */
 
 interface StackItem {
@@ -48,7 +44,7 @@ const STACK_ITEMS: StackItem[] = [
     price: '₹499/mo',
     image: '/images/category-cards/health-stack.png',
     href: '/health-insurance',
-    accentColor: '#2D6A4F',
+    accentColor: '#4ADE80',
   },
   {
     key: 'life',
@@ -58,7 +54,7 @@ const STACK_ITEMS: StackItem[] = [
     price: '₹489/mo',
     image: '/images/category-cards/life-stack.png',
     href: '/life-insurance',
-    accentColor: '#1B4D4A',
+    accentColor: '#FBBF24',
   },
   {
     key: 'car',
@@ -68,7 +64,7 @@ const STACK_ITEMS: StackItem[] = [
     price: '₹2,094/yr',
     image: '/images/category-cards/car-stack.png',
     href: '/car-insurance',
-    accentColor: '#B8482C',
+    accentColor: '#FB923C',
   },
   {
     key: 'bike',
@@ -78,7 +74,7 @@ const STACK_ITEMS: StackItem[] = [
     price: '₹714/yr',
     image: '/images/category-cards/bike-stack.png',
     href: '/bike-insurance',
-    accentColor: '#B8482C',
+    accentColor: '#F87171',
   },
   {
     key: 'travel',
@@ -88,7 +84,7 @@ const STACK_ITEMS: StackItem[] = [
     price: '₹256/trip',
     image: '/images/category-cards/travel-stack.png',
     href: '/travel-insurance',
-    accentColor: '#B8860B',
+    accentColor: '#22D3EE',
   },
   {
     key: 'home',
@@ -98,7 +94,7 @@ const STACK_ITEMS: StackItem[] = [
     price: '₹1,500/yr',
     image: '/images/category-cards/home-stack.png',
     href: '/home-insurance',
-    accentColor: '#B8860B',
+    accentColor: '#A78BFA',
   },
 ];
 
@@ -114,17 +110,10 @@ function StackPanel({
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  /**
-   * Each panel slides up during its segment of the scroll.
-   * Segments are scaled to 0-0.92 range, leaving the last 8% for the
-   * final panel to stay visible before the section ends.
-   */
   const SCALE = 0.92;
   const segStart = (index / total) * SCALE;
   const segEnd = ((index + 1) / total) * SCALE;
 
-  // Panel 0 is always at y=0 (base panel, visible from start)
-  // Other panels: start at 100% (below screen), slide to 0 during their segment
   const y = useTransform(
     scrollYProgress,
     [0, segStart, segEnd, 1],
@@ -139,100 +128,110 @@ function StackPanel({
         zIndex: index + 1,
       }}
     >
-      {/* Dark gradient background — so letterboxed areas look intentional */}
-      <div
-        className="absolute inset-0"
-        style={{ background: 'linear-gradient(180deg, #0B1221 0%, #0F1729 100%)' }}
-      />
+      <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
+        {/* ═══ FULL-BLEED IMAGE — object-cover fills entire viewport ═══
+            No letterbox, no dark bars. Image covers the full screen
+            like Apple/Stripe hero sections. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.image}
+          alt={`${item.title} — premium protection hero`}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
 
-      {/* ═══ FULL IMAGE — object-contain (no cropping) ═══
-          Image displays at its natural aspect ratio, fully visible.
-          Letterboxed with the dark gradient background above. */}
-      <div className="relative w-full h-full flex items-center justify-center">
-        <Link href={item.href} className="block w-full h-full relative group" prefetch={false}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={item.image}
-            alt={`${item.title} — premium protection hero`}
-            className="w-full h-full object-contain"
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
-        </Link>
-      </div>
+        {/* ═══ Subtle gradient overlay for text readability ═══
+            Only at the bottom — fades from transparent to dark.
+            This ensures text is readable WITHOUT a separate dark section.
+            The rest of the image remains fully visible. */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(180deg, transparent 0%, transparent 40%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.9) 100%)',
+          }}
+        />
 
-      {/* ═══ Content overlay — bottom of screen, compact ═══
-          Gradient ensures text is readable over the image + letterbox area. */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-10 px-6 sm:px-10 md:px-14 pb-5 sm:pb-6 pt-3"
-        style={{
-          background: 'linear-gradient(0deg, rgba(11,18,33,0.98) 0%, rgba(11,18,33,0.85) 60%, transparent 100%)',
-        }}
-      >
-        <div className="max-w-3xl mx-auto">
-          {/* Accent line + category number */}
-          <div className="flex items-center gap-3 mb-2">
-            <div
-              className="w-10 h-0.5 rounded-full shrink-0"
-              style={{ background: item.accentColor }}
-            />
-            <span
-              className="font-mono text-[10px] tracking-widest uppercase shrink-0"
-              style={{ color: item.accentColor, opacity: 0.95 }}
+        {/* ═══ Text overlay — DIRECTLY ON the image ═══
+            Positioned at the bottom-left, with text shadow for readability.
+            No separate dark section — text floats on the image. */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-10 sm:pb-12 md:pb-14">
+          <div className="max-w-3xl">
+            {/* Accent line + category number */}
+            <div className="flex items-center gap-3 mb-3">
+              <div
+                className="w-12 h-0.5 rounded-full shrink-0"
+                style={{ background: item.accentColor, boxShadow: `0 0 12px ${item.accentColor}` }}
+              />
+              <span
+                className="font-mono text-xs tracking-widest uppercase shrink-0"
+                style={{ color: item.accentColor, textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
+              >
+                {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+              </span>
+            </div>
+
+            {/* Title — large, bold, white with text shadow */}
+            <h2
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight mb-2"
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}
             >
-              {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-            </span>
-          </div>
-
-          {/* Title + Hindi */}
-          <div className="flex flex-wrap items-baseline gap-2 mb-1.5">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">
               {item.title}
             </h2>
-            <span className="text-sm sm:text-base text-white/60 font-body">
-              {item.titleHindi}
-            </span>
-          </div>
-
-          {/* Description */}
-          <p className="text-xs sm:text-sm text-white/75 font-body leading-snug mb-2 max-w-2xl">
-            {item.description}
-          </p>
-
-          {/* Price + CTA */}
-          <div className="flex items-center gap-3 flex-wrap">
-            <Link
-              href={item.href}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 hover:scale-105 hover:gap-2"
-              style={{
-                background: item.accentColor,
-                color: '#FFFFFF',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-              }}
-              prefetch={false}
+            <p
+              className="text-lg sm:text-xl text-white/70 font-body mb-5"
+              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
             >
-              Explore Plans
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-            <span className="font-mono text-base sm:text-lg font-bold text-white/90">
-              {item.price}
-            </span>
+              {item.titleHindi}
+            </p>
+
+            {/* Description */}
+            <p
+              className="text-base sm:text-lg md:text-xl text-white/90 font-body leading-relaxed mb-7 max-w-2xl"
+              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
+            >
+              {item.description}
+            </p>
+
+            {/* Price + CTA */}
+            <div className="flex items-center gap-5 flex-wrap">
+              <span
+                className="font-mono text-2xl sm:text-3xl font-bold text-white"
+                style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}
+              >
+                {item.price}
+              </span>
+              <span
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 group-hover:scale-105 group-hover:gap-3"
+                style={{
+                  background: item.accentColor,
+                  color: '#0B1221',
+                  boxShadow: `0 4px 20px ${item.accentColor}40, 0 0 0 1px ${item.accentColor}30`,
+                  textShadow: 'none',
+                }}
+              >
+                Explore Plans
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Scroll hint — only on the first panel */}
-      {index === 0 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 z-20 pointer-events-none">
-          <span className="font-mono text-[10px] tracking-widest uppercase">
-            Scroll to explore
-          </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-            className="w-px h-6 bg-gradient-to-b from-white/50 to-transparent"
-          />
-        </div>
-      )}
+        {/* Scroll hint — only on the first panel */}
+        {index === 0 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 z-20 pointer-events-none">
+            <span className="font-mono text-[10px] tracking-widest uppercase"
+              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
+            >
+              Scroll to explore
+            </span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+              className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent"
+            />
+          </div>
+        )}
+      </Link>
     </motion.div>
   );
 }
@@ -242,7 +241,6 @@ export default function StackingImageSections() {
   const containerRef = useRef<HTMLDivElement>(null);
   const total = STACK_ITEMS.length;
 
-  // Track scroll progress through the entire stacking section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -252,12 +250,9 @@ export default function StackingImageSections() {
     <section
       ref={containerRef}
       className="relative w-full"
-      // Height = (total + 1) × 100vh to give enough scroll space
       style={{ height: `${(total + 1) * 100}vh` }}
     >
-      {/* ═══ Sticky inner wrapper — pins to top during entire scroll ═══
-          This is the key to the "pinned scroll" effect.
-          overflow-x: clip on body (already set) allows sticky to work. */}
+      {/* Sticky inner wrapper — pins to top during entire scroll */}
       <div
         className="sticky top-0 w-full h-screen overflow-hidden"
         style={{ zIndex: 1 }}
@@ -271,7 +266,7 @@ export default function StackingImageSections() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-white tracking-tight"
-              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.7)' }}
+              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.5)' }}
             >
               Complete Protection{' '}
               <span style={{ color: '#E8C872' }}>Package</span>
@@ -282,14 +277,14 @@ export default function StackingImageSections() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-base sm:text-lg text-white/80 font-body mt-3 max-w-2xl mx-auto"
-              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.7)' }}
+              style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
             >
               Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan
             </motion.p>
           </div>
         </div>
 
-        {/* Stacking panels — each is absolutely positioned, animated via useTransform */}
+        {/* Stacking panels */}
         {STACK_ITEMS.map((item, index) => (
           <StackPanel
             key={item.key}
