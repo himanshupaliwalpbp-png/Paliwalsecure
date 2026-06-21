@@ -1334,11 +1334,6 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                       {language === 'hing' ? 'हिं' : language === 'hi' ? 'हि' : 'EN'}
                     </span>
                   </button>
-                  {/* IRDAI badge */}
-                  <div className="hidden sm:flex items-center badge-premium-gold">
-                    <ShieldCheck className="w-2.5 h-2.5" />
-                    <span>IRDAI</span>
-                  </div>
                   {/* Minimize */}
                   <Button
                     variant="ghost"
