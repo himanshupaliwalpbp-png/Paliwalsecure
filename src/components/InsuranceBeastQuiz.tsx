@@ -239,49 +239,16 @@ const allBanks: Record<string, QuizQuestion[]> = {
 // ============================================================================
 
 const DEFAULT_DEALS: Record<string, AffiliateDeal> = {
-  ajio: {
-    title: "AJIO – Minimum 65% Off @ Puma",
-    offer: "Minimum 65% Off on Puma shoes, clothing & accessories",
-    description: "Shop Puma's latest collection on AJIO — running shoes, sneakers, sportswear & more. Mega sale live now!",
-    link: "https://bit.ly/4kM9GtV",
-    buttonText: "Grab Puma Deal →",
-    commission: "You earn upto 10% profit on friends' orders",
-    borderColor: "border-l-[#B8482C]",
-    bgColor: "bg-[#F4E5DD] dark:bg-[#3A1E14]/30",
-    btnBg: "bg-[#0E1116] hover:bg-[#B8482C]",
-  },
-  flipkart: {
-    title: "💻 Flipkart – Canon Printer, Laptops, Tablets",
-    offer: "Upto 8% Extra Off on electronics & gadgets",
-    description: "Canon Printers, Laptops, Tablets & more electronics at Flipkart. Extra discount on top of sale prices!",
-    link: "https://bit.ly/4kTbOj6",
-    buttonText: "🖥️ Deal Dekho →",
-    commission: "You earn commission on every purchase",
-    borderColor: "border-l-[#1B4D4A]",
-    bgColor: "bg-[#E6EFEE] dark:bg-[#0E2A29]/30",
-    btnBg: "bg-[#1B4D4A] hover:bg-[#2D7A77]",
-  },
   myntra: {
-    title: "👗 Myntra – Top Brands Exclusive Deals",
-    offer: "Exclusive Deals on Top Fashion Brands",
-    description: "Style your wardrobe with India's top fashion brands. Exclusive discounts on clothing, footwear & accessories!",
-    link: "https://bit.ly/4mWPJaN",
-    buttonText: "🛍️ Fashion Dekho →",
-    commission: "You earn upto 12% profit on friends' orders",
+    title: "👗 Myntra – Quiz Me Myntra Offer",
+    offer: "Minimum 70% OFF On Work Wear · 30 Days Return Policy",
+    description: "Find a variety of Fashion, Footwear, Accessories, Personal Care & Lifestyle products for Men, Women & Kids. International brands at your doorstep: Tommy Hilfiger, Kelenji, US Polo, H&M, Forever 21, etc.",
+    link: "https://myntr.it/OuSsbCW",
+    buttonText: "🛍️ Shop Myntra Now →",
+    commission: "30 Days Return Policy · Minimum 70% OFF On Work Wear",
     borderColor: "border-l-[#B8482C]",
     bgColor: "bg-[#F4E5DD] dark:bg-[#3A1E14]/30",
     btnBg: "bg-[#B8482C] hover:bg-[#8B3520]",
-  },
-  gonoise: {
-    title: "🎧 GoNoise – Smartwatches & Earbuds",
-    offer: "Latest Smartwatches, Earbuds & Neckbands — Affordable Price",
-    description: "India's favourite smartwatch brand. Best-selling smartwatches, wireless earbuds & neckbands at unbeatable prices!",
-    link: "https://bit.ly/3FfKB7h",
-    buttonText: "🎧 SHOP NOW →",
-    commission: "You earn commission on every purchase",
-    borderColor: "border-l-[#1B4D4A]",
-    bgColor: "bg-[#E6EFEE] dark:bg-[#0E2A29]/30",
-    btnBg: "bg-[#1B4D4A] hover:bg-[#2D7A77]",
   },
 };
 
@@ -716,10 +683,7 @@ export default function InsuranceBeastQuiz() {
   };
 
   const scoreBadge = getScoreBadge();
-  const ajio = DEFAULT_DEALS.ajio;
-  const flipkart = DEFAULT_DEALS.flipkart;
   const myntra = DEFAULT_DEALS.myntra;
-  const gonoise = DEFAULT_DEALS.gonoise;
 
   // ============================================================================
   // RENDER
@@ -1252,40 +1216,6 @@ export default function InsuranceBeastQuiz() {
                   <p className="text-[#8B9099] text-sm mt-1">{isHindi ? 'क्विज़ पूरा — इन खास डील्स का मज़ा लो!' : isEnglish ? 'Quiz complete — enjoy these exclusive deals!' : 'Quiz poora — in deals ka maza lo!'}</p>
                 </div>
 
-                {/* Ajio Deal */}
-                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${ajio.borderColor}`}>
-                  <CardContent className="p-5">
-                    <h4 className="text-[#0E1116] font-display font-medium text-base">{ajio.title}</h4>
-                    <p className="text-[#B8482C] font-semibold text-sm mt-1">{ajio.offer}</p>
-                    <p className="text-[#8B9099] text-xs mt-2">{ajio.description}</p>
-                    <div className="flex items-center gap-3 mt-3">
-                      <a href={ajio.link} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className={`${ajio.btnBg} text-white rounded-full gap-1 text-xs`}>
-                          {ajio.buttonText} <ExternalLink className="w-3 h-3" />
-                        </Button>
-                      </a>
-                    </div>
-                    <p className="text-[10px] text-[#8B9099] mt-2">{ajio.commission}</p>
-                  </CardContent>
-                </Card>
-
-                {/* Flipkart Deal */}
-                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${flipkart.borderColor}`}>
-                  <CardContent className="p-5">
-                    <h4 className="text-[#0E1116] font-display font-medium text-base">{flipkart.title}</h4>
-                    <p className="text-[#1B4D4A] font-semibold text-sm mt-1">{flipkart.offer}</p>
-                    <p className="text-[#8B9099] text-xs mt-2">{flipkart.description}</p>
-                    <div className="flex items-center gap-3 mt-3">
-                      <a href={flipkart.link} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className={`${flipkart.btnBg} text-white rounded-full gap-1 text-xs`}>
-                          {flipkart.buttonText} <ExternalLink className="w-3 h-3" />
-                        </Button>
-                      </a>
-                    </div>
-                    <p className="text-[10px] text-[#8B9099] mt-2">{flipkart.commission}</p>
-                  </CardContent>
-                </Card>
-
                 {/* Myntra Deal */}
                 <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${myntra.borderColor}`}>
                   <CardContent className="p-5">
@@ -1300,23 +1230,6 @@ export default function InsuranceBeastQuiz() {
                       </a>
                     </div>
                     <p className="text-[10px] text-[#8B9099] mt-2">{myntra.commission}</p>
-                  </CardContent>
-                </Card>
-
-                {/* GoNoise Deal */}
-                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${gonoise.borderColor}`}>
-                  <CardContent className="p-5">
-                    <h4 className="text-[#0E1116] font-display font-medium text-base">{gonoise.title}</h4>
-                    <p className="text-[#1B4D4A] font-semibold text-sm mt-1">{gonoise.offer}</p>
-                    <p className="text-[#8B9099] text-xs mt-2">{gonoise.description}</p>
-                    <div className="flex items-center gap-3 mt-3">
-                      <a href={gonoise.link} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className={`${gonoise.btnBg} text-white rounded-full gap-1 text-xs`}>
-                          {gonoise.buttonText} <ExternalLink className="w-3 h-3" />
-                        </Button>
-                      </a>
-                    </div>
-                    <p className="text-[10px] text-[#8B9099] mt-2">{gonoise.commission}</p>
                   </CardContent>
                 </Card>
 
