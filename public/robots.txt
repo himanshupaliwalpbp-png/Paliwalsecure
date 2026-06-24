@@ -5,6 +5,10 @@
 # Sitemap: https://paliwalsecure.in/sitemap.xml
 # =====================================================================
 
+# ── Content Signals (Content Signals spec) ───────────────────────────────────
+# Declare AI content usage preferences
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
 # ── Default rule for all bots ────────────────────────────────────────────────
 User-agent: *
 Allow: /

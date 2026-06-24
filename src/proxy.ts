@@ -408,7 +408,23 @@ function addHeaders(
 
   // ── Compression Hint ───────────────────────────────────────────────────
   // Vercel/CDN handles compression; we set Accept-Encoding hint
-  response.headers.set("Vary", "Accept-Encoding");
+  response.headers.set("Vary", "Accept-Encoding, Accept");
+
+  // ── Link Headers (RFC 8288) — Agent Discovery ────────────────────────
+  // Only add to homepage and key pages
+  if (pathname === "/" || pathname === "/blog" || pathname === "/about") {
+    const links = [
+      '<https://paliwalsecure.in/.well-known/api-catalog>; rel="api-catalog"',
+      '<https://paliwalsecure.in/openapi.json>; rel="service-desc"; type="application/json"',
+      '<https://paliwalsecure.in/docs/api>; rel="service-doc"; type="text/html"',
+      '<https://paliwalsecure.in/.well-known/mcp/server-card.json>; rel="mcp-server"',
+      '<https://paliwalsecure.in/.well-known/agent-skills/index.json>; rel="agent-skills"',
+      '<https://paliwalsecure.in/auth.md>; rel="auth-md"; type="text/markdown"',
+      '<https://paliwalsecure.in/.well-known/oauth-authorization-server>; rel="oauth2-auth-server"',
+      '<https://paliwalsecure.in/.well-known/oauth-protected-resource>; rel="oauth2-resource"',
+    ].join(', ');
+    response.headers.set('Link', links);
+  }
 }
 
 export const config = {

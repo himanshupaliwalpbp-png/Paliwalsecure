@@ -17,6 +17,7 @@ import ConsentModal from "@/components/ConsentModal";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SafeRender } from "@/components/SafeRender";
 import StyledComponentsRegistry from "@/lib/styled-components-registry";
+import { WebMCPProvider } from "@/components/WebMCPProvider";
 
 // ── Premium Editorial Typography — "Editorial Engineering" pairing ──
 // Fraunces: variable serif with optical sizing — has SOUL, feels human + premium
@@ -394,6 +395,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <GoogleAnalytics gaId="G-TKQ9X6G5HX" />
         <SafeThemeProvider>
           <StyledComponentsRegistry>
+            <WebMCPProvider>
             <SafeRender name="AnimatedBackground">
               <AnimatedBackground />
             </SafeRender>
@@ -425,6 +427,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </SafeRender>
               <Toaster />
             </LanguageProvider>
+            </WebMCPProvider>
           </StyledComponentsRegistry>
         </SafeThemeProvider>
       </body>
