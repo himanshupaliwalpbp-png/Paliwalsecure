@@ -1237,29 +1237,30 @@ export default function RatingLeadForm() {
                             prefix={phonePrefix}
                             isDark={isDark}
                           />
-                          {/* Live phone validation hint */}
-                          {leadPhone && leadPhone.replace(/\D/g, '').length !== 10 && (
-                            <p className="text-xs text-[#B8482C] dark:text-[#D4633F] mt-1.5 ml-1 font-medium">
-                              {leadPhone.replace(/\D/g, '').length < 10
-                                ? (isHindi
-                                    ? `${10 - leadPhone.replace(/\D/g, '').length} अंक और दर्ज करें (कुल 10 अंक चाहिए)`
-                                    : isEnglish
-                                      ? `${10 - leadPhone.replace(/\D/g, '').length} more digits needed (10 digits total)`
-                                      : `${10 - leadPhone.replace(/\D/g, '').length} digit aur daalein (kul 10 digit chahiye)`)
-                                : (isHindi
-                                    ? '10 से अधिक अंक नहीं हो सकते'
-                                    : isEnglish
-                                      ? 'Cannot exceed 10 digits'
-                                      : '10 se zyada digit nahi ho sakte')
-                              }
-                            </p>
-                          )}
-                          {leadPhone && leadPhone.replace(/\D/g, '').length === 10 && (
-                            <p className="text-xs text-[#2D6A4F] dark:text-[#6EE7B7] mt-1.5 ml-1 font-medium flex items-center gap-1">
-                              <CheckCircle2 className="w-3 h-3" />
-                              {isHindi ? 'सही नंबर!' : isEnglish ? 'Valid number!' : 'Sahi number!'}
-                            </p>
-                          )}
+                          {/* Phone validation hint — RESERVED HEIGHT container
+                              prevents layout shift (scroll jump) when hint appears/disappears.
+                              The container always takes up 20px, so adding/removing
+                              the hint text doesn't change the page height. */}
+                          <div style={{ height: '20px', overflow: 'hidden' }} className="mt-1 ml-1">
+                            {leadPhone && leadPhone.replace(/\D/g, '').length !== 10 && (
+                              <p className="text-xs text-[#B8482C] dark:text-[#D4633F] font-medium">
+                                {leadPhone.replace(/\D/g, '').length < 10
+                                  ? (isHindi
+                                      ? `${10 - leadPhone.replace(/\D/g, '').length} अंक और दर्ज करें`
+                                      : isEnglish
+                                        ? `${10 - leadPhone.replace(/\D/g, '').length} more digits needed`
+                                        : `${10 - leadPhone.replace(/\D/g, '').length} digit aur daalein`)
+                                  : null
+                                }
+                              </p>
+                            )}
+                            {leadPhone && leadPhone.replace(/\D/g, '').length === 10 && (
+                              <p className="text-xs text-[#2D6A4F] dark:text-[#6EE7B7] font-medium flex items-center gap-1">
+                                <CheckCircle2 className="w-3 h-3" />
+                                {isHindi ? 'सही नंबर!' : isEnglish ? 'Valid number!' : 'Sahi number!'}
+                              </p>
+                            )}
+                          </div>
                         </div>
 
                         {/* Email */}
