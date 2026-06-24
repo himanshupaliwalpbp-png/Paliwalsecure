@@ -961,6 +961,13 @@ export default function RatingLeadForm() {
       style={{
         overflowAnchor: 'none',
         scrollSnapType: 'none',
+        contain: 'layout style',
+        position: 'relative',
+        zIndex: 10,
+      }}
+      style={{
+        overflowAnchor: 'none',
+        scrollSnapType: 'none',
         // Critical: prevent layout shifts from propagating
         contain: 'layout style',
       }}
