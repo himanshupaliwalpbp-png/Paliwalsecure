@@ -340,10 +340,8 @@ function GlassInput({
   const dk = isDarkProp ?? true;
 
   return (
-    <motion.div
+    <div
       className="relative group"
-      animate={focused ? { scale: 1.01 } : { scale: 1 }}
-      transition={{ duration: 0.2 }}
     >
       {/* Sienna focus ring */}
       <motion.div
@@ -381,7 +379,7 @@ function GlassInput({
           className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none"
         />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -407,10 +405,8 @@ function GlassSelect({
   const dk = isDarkProp ?? true;
 
   return (
-    <motion.div
+    <div
       className="relative group"
-      animate={focused ? { scale: 1.01 } : { scale: 1 }}
-      transition={{ duration: 0.2 }}
     >
       <motion.div
         className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
@@ -446,7 +442,7 @@ function GlassSelect({
           focused ? 'text-[#B8482C] dark:text-[#D4633F]' : 'text-[#8B9099] dark:text-[#8B9099]'
         }`} />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -470,10 +466,8 @@ function GlassTextarea({
   const dk = isDarkProp ?? true;
 
   return (
-    <motion.div
+    <div
       className="relative group"
-      animate={focused ? { scale: 1.01 } : { scale: 1 }}
-      transition={{ duration: 0.2 }}
     >
       <motion.div
         className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
@@ -500,7 +494,7 @@ function GlassTextarea({
           className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none resize-none"
         />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -1084,15 +1078,16 @@ export default function RatingLeadForm() {
           {/* Connecting line between cards (desktop only) */}
           <ConnectingLine isDark={isDark} />
 
-          {/* ═══════ LEFT CARD: Rating Form ═════════════════════════════ */}
-          <TiltCard className="relative">
-            <motion.div
-              initial={{ opacity: 0, x: -50, rotateY: 5 }}
-              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative"
-            >
+          {/* ═══════ LEFT CARD: Rating Form ═════════════════════════════
+              No TiltCard — 3D transforms cause scroll jump on re-render. */}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <div className="relative">
               <AnimatedBorder isDark={isDark}>
                 <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#B8482C] dark:border-t-[#D4633F] p-6 md:p-8 lg:p-10">
 
@@ -1183,8 +1178,8 @@ export default function RatingLeadForm() {
                   </AnimatePresence>
                 </div>
               </AnimatedBorder>
-            </motion.div>
-          </TiltCard>
+            </div>
+          </motion.div>
 
           {/* ═══════ RIGHT CARD: Lead Form ══════════════════════════════
               No TiltCard here — tilt effect causes scroll jump when user
