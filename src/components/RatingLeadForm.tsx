@@ -714,10 +714,8 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
 
   return (
     <div ref={inputRef} className="relative">
-      <motion.div
+      <div
         className="relative group"
-        animate={focused ? { scale: 1.01 } : { scale: 1 }}
-        transition={{ duration: 0.2 }}
       >
         <motion.div
           className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
@@ -751,7 +749,7 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
             className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none"
           />
         </div>
-      </motion.div>
+      </div>
 
       {/* City suggestions */}
       <AnimatePresence>
@@ -970,7 +968,16 @@ export default function RatingLeadForm() {
   );
 
   return (
-    <section className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116] overflow-hidden">
+    <section 
+      className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116] overflow-hidden"
+      style={{
+        // Prevent browser auto-scroll (overflow-anchor) that happens when
+        // form inputs change — this is the root cause of "scroll ho rhi hai"
+        overflowAnchor: 'none',
+        // Prevent scroll snapping
+        scrollSnapType: 'none',
+      }}
+    >
       {/* ── Background ────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Mesh gradient */}
@@ -1072,11 +1079,10 @@ export default function RatingLeadForm() {
       </div>
 
       {/* ── Forms Container ──────────────────────────────────────────── */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6" style={{ contain: 'layout' }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 relative">
 
-          {/* Connecting line between cards (desktop only) */}
-          <ConnectingLine isDark={isDark} />
+          {/* Connecting line removed — animation was causing scroll issues */}
 
           {/* ═══════ LEFT CARD: Rating Form ═════════════════════════════
               No TiltCard — 3D transforms cause scroll jump on re-render. */}
@@ -1088,8 +1094,7 @@ export default function RatingLeadForm() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="relative">
-              <AnimatedBorder isDark={isDark}>
-                <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#B8482C] dark:border-t-[#D4633F] p-6 md:p-8 lg:p-10">
+              <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#B8482C] dark:border-t-[#D4633F] p-6 md:p-8 lg:p-10 shadow-premium">
 
                   {/* Header */}
                   <div className="text-center mb-8">
@@ -1177,7 +1182,6 @@ export default function RatingLeadForm() {
                     )}
                   </AnimatePresence>
                 </div>
-              </AnimatedBorder>
             </div>
           </motion.div>
 
@@ -1192,8 +1196,7 @@ export default function RatingLeadForm() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="relative">
-              <AnimatedBorder isDark={isDark}>
-                <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#1B4D4A] dark:border-t-[#2D7A77] p-6 md:p-8 lg:p-10">
+              <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#1B4D4A] dark:border-t-[#2D7A77] p-6 md:p-8 lg:p-10 shadow-premium">
 
                   {/* Header */}
                   <div className="text-center mb-8">
@@ -1322,7 +1325,6 @@ export default function RatingLeadForm() {
                     )}
                   </AnimatePresence>
                 </div>
-              </AnimatedBorder>
             </div>
           </motion.div>
 
