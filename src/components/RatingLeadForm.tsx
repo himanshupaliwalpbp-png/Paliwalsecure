@@ -957,7 +957,7 @@ export default function RatingLeadForm() {
 
   return (
     <section 
-      className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116]"
+      className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116] scroll-mt-16"
       style={{
         overflowAnchor: 'none',
         scrollSnapType: 'none',
@@ -1072,8 +1072,9 @@ export default function RatingLeadForm() {
           {/* Connecting line removed — animation was causing scroll issues */}
 
           {/* ═══════ LEFT CARD: Rating Form ═════════════════════════════
-              No TiltCard — 3D transforms cause scroll jump on re-render. */}
-          <div className="relative">
+              On mobile, appears AFTER the lead form (order-last) so the
+              consultation form is accessible first. */}
+          <div className="relative order-last lg:order-first">
             <div className="relative">
               <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#B8482C] dark:border-t-[#D4633F] p-6 md:p-8 lg:p-10 shadow-premium">
 
@@ -1167,9 +1168,11 @@ export default function RatingLeadForm() {
           </div>
 
           {/* ═══════ RIGHT CARD: Lead Form ══════════════════════════════
-              No TiltCard here — tilt effect causes scroll jump when user
-              types in the form (re-render re-triggers animation). */}
-          <div className="relative">
+              On mobile, this appears FIRST (order-first) so users don't
+              have to scroll past the rating form to reach the consultation
+              form. This prevents the browser auto-scroll "jump" that happens
+              when tapping an input below the viewport. */}
+          <div className="relative order-first lg:order-last">
             <div className="relative">
               <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#1B4D4A] dark:border-t-[#2D7A77] p-6 md:p-8 lg:p-10 shadow-premium">
 
