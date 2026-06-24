@@ -250,6 +250,17 @@ const DEFAULT_DEALS: Record<string, AffiliateDeal> = {
     bgColor: "bg-[#F4E5DD] dark:bg-[#3A1E14]/30",
     btnBg: "bg-[#B8482C] hover:bg-[#8B3520]",
   },
+  mamaearth: {
+    title: "🌿 Mamaearth – Buy 1 Get 1 Free + Flat 5% Off",
+    offer: "Buy 1 Get 1 FREE on All Products · Code: OMG",
+    description: "Share this deal & your friends can Buy 1 Get 1 Free on All Products Only on Mamaearth. Additionally, Get Flat 5% Off On Prepaid Orders across Mamaearth.",
+    link: "https://bitli.in/2ogsvNh",
+    buttonText: "🌿 Shop Mamaearth →",
+    commission: "Use Code: OMG for Buy 1 Get 1 Free · Flat 5% Off on Prepaid Orders",
+    borderColor: "border-l-[#2D6A4F]",
+    bgColor: "bg-[#E6EFEE] dark:bg-[#0E2A29]/30",
+    btnBg: "bg-[#2D6A4F] hover:bg-[#1B4D4A]",
+  },
 };
 
 // ============================================================================
@@ -684,6 +695,7 @@ export default function InsuranceBeastQuiz() {
 
   const scoreBadge = getScoreBadge();
   const myntra = DEFAULT_DEALS.myntra;
+  const mamaearth = DEFAULT_DEALS.mamaearth;
 
   // ============================================================================
   // RENDER
@@ -1230,6 +1242,23 @@ export default function InsuranceBeastQuiz() {
                       </a>
                     </div>
                     <p className="text-[10px] text-[#8B9099] mt-2">{myntra.commission}</p>
+                  </CardContent>
+                </Card>
+
+                {/* Mamaearth Deal */}
+                <Card className={`bg-white border border-[rgba(14,17,22,0.08)] rounded-2xl overflow-hidden border-l-4 ${mamaearth.borderColor}`}>
+                  <CardContent className="p-5">
+                    <h4 className="text-[#0E1116] font-display font-medium text-base">{mamaearth.title}</h4>
+                    <p className="text-[#2D6A4F] font-semibold text-sm mt-1">{mamaearth.offer}</p>
+                    <p className="text-[#8B9099] text-xs mt-2">{mamaearth.description}</p>
+                    <div className="flex items-center gap-3 mt-3">
+                      <a href={mamaearth.link} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className={`${mamaearth.btnBg} text-white rounded-full gap-1 text-xs`}>
+                          {mamaearth.buttonText} <ExternalLink className="w-3 h-3" />
+                        </Button>
+                      </a>
+                    </div>
+                    <p className="text-[10px] text-[#8B9099] mt-2">{mamaearth.commission}</p>
                   </CardContent>
                 </Card>
 
