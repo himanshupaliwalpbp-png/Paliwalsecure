@@ -1186,15 +1186,17 @@ export default function RatingLeadForm() {
             </motion.div>
           </TiltCard>
 
-          {/* ═══════ RIGHT CARD: Lead Form ══════════════════════════════ */}
-          <TiltCard className="relative">
-            <motion.div
-              initial={{ opacity: 0, x: 50, rotateY: -5 }}
-              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative"
-            >
+          {/* ═══════ RIGHT CARD: Lead Form ══════════════════════════════
+              No TiltCard here — tilt effect causes scroll jump when user
+              types in the form (re-render re-triggers animation). */}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="relative">
               <AnimatedBorder isDark={isDark}>
                 <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#1B4D4A] dark:border-t-[#2D7A77] p-6 md:p-8 lg:p-10">
 
@@ -1326,8 +1328,8 @@ export default function RatingLeadForm() {
                   </AnimatePresence>
                 </div>
               </AnimatedBorder>
-            </motion.div>
-          </TiltCard>
+            </div>
+          </motion.div>
 
         </div>
       </div>
