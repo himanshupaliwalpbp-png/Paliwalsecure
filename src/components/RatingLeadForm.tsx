@@ -343,13 +343,10 @@ function GlassInput({
     <div
       className="relative group"
     >
-      {/* Sienna focus ring */}
-      <motion.div
-        className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
-        animate={focused
-          ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
-          : { opacity: 0, boxShadow: 'none' }}
-        transition={{ duration: 0.3 }}
+      {/* Focus ring — CSS only, no animation (prevents scroll jump) */}
+      <div
+        className={`absolute -inset-[1.5px] rounded-xl pointer-events-none transition-opacity duration-300 ${focused ? 'opacity-100' : 'opacity-0'}`}
+        style={focused ? { boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' } : {}}
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
@@ -408,12 +405,9 @@ function GlassSelect({
     <div
       className="relative group"
     >
-      <motion.div
-        className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
-        animate={focused
-          ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
-          : { opacity: 0, boxShadow: 'none' }}
-        transition={{ duration: 0.3 }}
+      <div
+        className={`absolute -inset-[1.5px] rounded-xl pointer-events-none transition-opacity duration-300 ${focused ? 'opacity-100' : 'opacity-0'}`}
+        style={focused ? { boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' } : {}}
       />
       <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
@@ -469,12 +463,9 @@ function GlassTextarea({
     <div
       className="relative group"
     >
-      <motion.div
-        className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
-        animate={focused
-          ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
-          : { opacity: 0, boxShadow: 'none' }}
-        transition={{ duration: 0.3 }}
+      <div
+        className={`absolute -inset-[1.5px] rounded-xl pointer-events-none transition-opacity duration-300 ${focused ? 'opacity-100' : 'opacity-0'}`}
+        style={focused ? { boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' } : {}}
       />
       <div className={`relative flex gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
         focused
@@ -717,12 +708,9 @@ function CityInput({ value, onChange, placeholder, t, isDark: isDarkProp }: {
       <div
         className="relative group"
       >
-        <motion.div
-          className="absolute -inset-[1.5px] rounded-xl pointer-events-none"
-          animate={focused
-            ? { opacity: 1, boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' }
-            : { opacity: 0, boxShadow: 'none' }}
-          transition={{ duration: 0.3 }}
+        <div
+          className={`absolute -inset-[1.5px] rounded-xl pointer-events-none transition-opacity duration-300 ${focused ? 'opacity-100' : 'opacity-0'}`}
+          style={focused ? { boxShadow: '0 0 20px rgba(184, 72, 44, 0.40), 0 0 40px rgba(184, 72, 44, 0.15)' } : {}}
         />
         <div className={`relative flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all duration-300 ${
           focused
@@ -969,13 +957,12 @@ export default function RatingLeadForm() {
 
   return (
     <section 
-      className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116] overflow-hidden"
+      className="relative section-premium bg-[#FAF7F2] dark:bg-[#0E1116]"
       style={{
-        // Prevent browser auto-scroll (overflow-anchor) that happens when
-        // form inputs change — this is the root cause of "scroll ho rhi hai"
         overflowAnchor: 'none',
-        // Prevent scroll snapping
         scrollSnapType: 'none',
+        // Critical: prevent layout shifts from propagating
+        contain: 'layout style',
       }}
     >
       {/* ── Background ────────────────────────────────────────────────── */}
@@ -1086,13 +1073,7 @@ export default function RatingLeadForm() {
 
           {/* ═══════ LEFT CARD: Rating Form ═════════════════════════════
               No TiltCard — 3D transforms cause scroll jump on re-render. */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div className="relative">
             <div className="relative">
               <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#B8482C] dark:border-t-[#D4633F] p-6 md:p-8 lg:p-10 shadow-premium">
 
@@ -1183,18 +1164,12 @@ export default function RatingLeadForm() {
                   </AnimatePresence>
                 </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* ═══════ RIGHT CARD: Lead Form ══════════════════════════════
               No TiltCard here — tilt effect causes scroll jump when user
               types in the form (re-render re-triggers animation). */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div className="relative">
             <div className="relative">
               <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] border-t-[3px] border-t-[#1B4D4A] dark:border-t-[#2D7A77] p-6 md:p-8 lg:p-10 shadow-premium">
 
@@ -1326,7 +1301,7 @@ export default function RatingLeadForm() {
                   </AnimatePresence>
                 </div>
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>
