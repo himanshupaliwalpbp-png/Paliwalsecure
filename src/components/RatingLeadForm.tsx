@@ -366,9 +366,18 @@ function GlassInput({
           type={type}
           placeholder={placeholder}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => {
+            // For phone type, only allow digits and limit to 10
+            if (type === 'tel') {
+              const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+              onChange(digits);
+            } else {
+              onChange(e.target.value);
+            }
+          }}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          maxLength={type === 'tel' ? 10 : undefined}
           className="input-premium border-0 bg-transparent p-0 shadow-none focus:ring-0 focus:shadow-none"
         />
       </div>
@@ -898,7 +907,33 @@ export default function RatingLeadForm() {
   };
 
   const handleLeadSubmit = async () => {
-    if (!leadName.trim() || !leadPhone.trim()) return;
+    // Validate phone: must be exactly 10 digits (Indian mobile)
+    const phoneDigits = leadPhone.replace(/\D/g, '');
+    if (!leadName.trim()) {
+      setLeadError({
+        title: t('leadForm.errorTitle'),
+        message: isHindi ? 'कृपया अपना नाम दर्ज करें' : isEnglish ? 'Please enter your name' : 'Apna naam daalein',
+      });
+      return;
+    }
+    if (!leadPhone.trim()) {
+      setLeadError({
+        title: t('leadForm.errorTitle'),
+        message: isHindi ? 'कृपया अपना मोबाइल नंबर दर्ज करें' : isEnglish ? 'Please enter your mobile number' : 'Apna mobile number daalein',
+      });
+      return;
+    }
+    if (phoneDigits.length !== 10) {
+      setLeadError({
+        title: t('leadForm.errorTitle'),
+        message: isHindi
+          ? `मोबाइल नंबर 10 अंकों का होना चाहिए। आपने ${phoneDigits.length} अंक दर्ज किए हैं। कृपया सही नंबर दर्ज करें।`
+          : isEnglish
+            ? `Mobile number must be 10 digits. You entered ${phoneDigits.length} digits. Please enter a valid number.`
+            : `Mobile number 10 digit ka hona chahiye. Aapne ${phoneDigits.length} digit daale hain. Sahi number daalein.`,
+      });
+      return;
+    }
     setLeadLoading(true);
     setLeadError(null);
 
@@ -1214,15 +1249,40 @@ export default function RatingLeadForm() {
                         />
 
                         {/* Phone with Indian flag */}
-                        <GlassInput
-                          icon={Phone}
-                          placeholder={t('leadForm.phone')}
-                          type="tel"
-                          value={leadPhone}
-                          onChange={setLeadPhone}
-                          prefix={phonePrefix}
-                          isDark={isDark}
-                        />
+                        <div>
+                          <GlassInput
+                            icon={Phone}
+                            placeholder={t('leadForm.phone')}
+                            type="tel"
+                            value={leadPhone}
+                            onChange={setLeadPhone}
+                            prefix={phonePrefix}
+                            isDark={isDark}
+                          />
+                          {/* Live phone validation hint */}
+                          {leadPhone && leadPhone.replace(/\D/g, '').length !== 10 && (
+                            <p className="text-xs text-[#B8482C] dark:text-[#D4633F] mt-1.5 ml-1 font-medium">
+                              {leadPhone.replace(/\D/g, '').length < 10
+                                ? (isHindi
+                                    ? `${10 - leadPhone.replace(/\D/g, '').length} अंक और दर्ज करें (कुल 10 अंक चाहिए)`
+                                    : isEnglish
+                                      ? `${10 - leadPhone.replace(/\D/g, '').length} more digits needed (10 digits total)`
+                                      : `${10 - leadPhone.replace(/\D/g, '').length} digit aur daalein (kul 10 digit chahiye)`)
+                                : (isHindi
+                                    ? '10 से अधिक अंक नहीं हो सकते'
+                                    : isEnglish
+                                      ? 'Cannot exceed 10 digits'
+                                      : '10 se zyada digit nahi ho sakte')
+                              }
+                            </p>
+                          )}
+                          {leadPhone && leadPhone.replace(/\D/g, '').length === 10 && (
+                            <p className="text-xs text-[#2D6A4F] dark:text-[#6EE7B7] mt-1.5 ml-1 font-medium flex items-center gap-1">
+                              <CheckCircle2 className="w-3 h-3" />
+                              {isHindi ? 'सही नंबर!' : isEnglish ? 'Valid number!' : 'Sahi number!'}
+                            </p>
+                          )}
+                        </div>
 
                         {/* Email */}
                         <GlassInput
@@ -1256,7 +1316,7 @@ export default function RatingLeadForm() {
                         {/* Submit */}
                         <button
                           onClick={handleLeadSubmit}
-                          disabled={!leadName.trim() || !leadPhone.trim() || leadLoading}
+                          disabled={!leadName.trim() || leadPhone.replace(/\D/g, '').length !== 10 || leadLoading}
                           className="w-full py-4 rounded-full bg-[#0E1116] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#0E1116] font-body font-medium text-base hover:bg-[#B8482C] dark:hover:bg-[#D4633F] hover:text-white dark:hover:text-white transition-all duration-300 shadow-premium disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {leadLoading ? t('leadForm.submitting') : t('leadForm.submit')}

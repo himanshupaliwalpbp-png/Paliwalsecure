@@ -289,11 +289,13 @@ export default function StackingImageSections() {
         </div>
       </section>
 
-      {/* ═══ STACKING AREA — pinned scroll with full images ═══ */}
+      {/* ═══ STACKING AREA — pinned scroll with full images ═══
+          Height = total × 80vh (not 100vh) to reduce scroll "jam" feeling.
+          Each panel transitions in 80vh of scroll instead of 100vh. */}
       <section
         ref={containerRef}
         className="relative w-full"
-        style={{ height: `${(total + 1) * 100}vh` }}
+        style={{ height: `${total * 80}vh` }}
       >
         {/* Sticky inner wrapper — pins to top during entire scroll */}
         <div
