@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 
 /**
  * /auth.md — Agent registration instructions (auth.md spec)
+ * Must start with "# Auth.md" heading per spec.
  */
 export async function GET() {
-  const md = `# Paliwal Secure AI — Agent Authentication
+  const md = `# Auth.md
 
 ## Overview
 Paliwal Secure AI supports AI agent authentication via OAuth 2.0 / OpenID Connect.
@@ -43,12 +44,21 @@ Revoke tokens at: https://paliwalsecure.in/api/auth/revoke
 ## Claims
 View token claims at: https://paliwalsecure.in/api/auth/claims
 
+## OAuth Protected Resource Metadata
+See: https://paliwalsecure.in/.well-known/oauth-protected-resource
+
+## OAuth Authorization Server Metadata
+See: https://paliwalsecure.in/.well-known/oauth-authorization-server
+
 ## Contact
 - Email: himanshupaliwalpbp@gmail.com
 - WhatsApp: +91 9257877312
 - IRDAI POSP Code: IP429834
 `;
   return new NextResponse(md, {
-    headers: { 'Content-Type': 'text/markdown; charset=utf-8', 'Cache-Control': 'public, max-age=3600' },
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600',
+    },
   });
 }

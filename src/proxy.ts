@@ -101,6 +101,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "X-XSS-Protection": "1; mode=block",
   "Permissions-Policy":
     "camera=(), microphone=(self), geolocation=(), browsing-topics=()",
+  "Content-Signal": "ai-train=yes, search=yes, ai-input=yes",
   "Content-Security-Policy":
     "default-src 'self'; " +
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://apis.google.com; " +
