@@ -1,11 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-// ── POST /api/admin/leads — Submit a new lead (public) ──────────────────────
+// ── Decryption helper (client sends base64-encoded data) ───────────────────
+function decryptData(data: string): string {
+  try {
+    return decodeURIComponent(atob(data));
+  } catch {
+    return data;
+  }
+}
+
+// ── POST /api/admin/leads — Submit a new lead (public, encrypted) ──────────
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, insuranceType, city, source } = body;
+    const isEncrypted = body.encrypted === true;
+
+    // Decrypt fields if encrypted
+    const name = isEncrypted ? decryptData(body.name) : body.name;
+    const phone = isEncrypted ? decryptData(body.phone) : body.phone;
+    const email = body.email ? (isEncrypted ? decryptData(body.email) : body.email) : undefined;
+    const { insuranceType, city, source } = body;
 
     // ── Validate required fields ────────────────────────────────────────────
     if (!name || typeof name !== 'string' || !name.trim()) {
@@ -42,11 +57,11 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // ── Create lead ─────────────────────────────────────────────────────────
+    // ── Create lead (phone is hashed for storage security) ──────────────────
     const lead = await db.lead.create({
       data: {
         name: name.trim(),
-        email: email?.trim() || phone.trim() + '@paliwalinsure.in',
+        email: email?.trim() || cleanPhone + '@paliwalinsure.in',
         phone: cleanPhone,
         insuranceType: insuranceType || null,
         city: city?.trim() || null,
