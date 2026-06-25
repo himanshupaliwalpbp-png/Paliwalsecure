@@ -123,6 +123,12 @@ export default function RatingLeadForm() {
         throw new Error(data.error || 'Failed to submit');
       }
 
+      // If API returns a WhatsApp URL, open it (sends lead to admin)
+      if (data.whatsappUrl) {
+        // Open WhatsApp in background (admin gets notified)
+        window.open(data.whatsappUrl, '_blank');
+      }
+
       setStatus('success');
     } catch (err) {
       setStatus('error');
@@ -179,7 +185,15 @@ export default function RatingLeadForm() {
 
   // ═══ FORM ═══
   return (
-    <section className="relative bg-[#FAF7F2] dark:bg-[#0E1116] py-16 md:py-24" style={{ zIndex: 10, position: 'relative', overflowAnchor: 'none' }}>
+    <section 
+      className="relative bg-[#FAF7F2] dark:bg-[#0E1116] py-16 md:py-24 scroll-mt-16"
+      style={{ 
+        zIndex: 10, 
+        position: 'relative', 
+        overflowAnchor: 'none',
+        overflow: 'visible',
+      }}
+    >
       <div className="max-w-2xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
@@ -196,7 +210,7 @@ export default function RatingLeadForm() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] shadow-lg p-6 md:p-8">
+        <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] shadow-lg p-6 md:p-8" style={{ contain: 'none' }}>
           {/* Error Banner */}
           {status === 'error' && (
             <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
@@ -288,6 +302,11 @@ export default function RatingLeadForm() {
                 <select
                   value={form.insuranceType}
                   onChange={(e) => setForm(prev => ({ ...prev, insuranceType: e.target.value }))}
+                  onFocus={(e) => {
+                    // Prevent browser from scrolling when select opens
+                    const scrollY = window.scrollY;
+                    setTimeout(() => window.scrollTo({ top: scrollY }), 0);
+                  }}
                   className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors appearance-none cursor-pointer"
                 >
                   <option value="">Select insurance type</option>
@@ -312,14 +331,19 @@ export default function RatingLeadForm() {
                     setForm(prev => ({ ...prev, city: e.target.value }));
                     setShowCitySuggestions(true);
                   }}
-                  onFocus={() => setShowCitySuggestions(true)}
+                  onFocus={() => {
+                    setShowCitySuggestions(true);
+                    // Prevent browser from scrolling when input is focused
+                    const scrollY = window.scrollY;
+                    setTimeout(() => window.scrollTo({ top: scrollY }), 0);
+                  }}
                   onBlur={() => setTimeout(() => setShowCitySuggestions(false), 200)}
                   placeholder="Your city"
                   className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors"
                 />
                 {/* City suggestions */}
                 {showCitySuggestions && filteredCities.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-1 py-2 rounded-xl bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] shadow-lg z-20">
+                  <div className="absolute top-full left-0 right-0 mt-1 py-2 rounded-xl bg-white dark:bg-[#161A22] border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] shadow-lg z-20" style={{ maxHeight: '200px', overflowY: 'auto' }}>
                     {filteredCities.map(city => (
                       <button
                         key={city}

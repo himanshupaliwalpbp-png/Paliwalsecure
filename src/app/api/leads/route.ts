@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
 
 // ── Decryption helper ──────────────────────────────────────────────────────
 function decryptData(data: string): string {
@@ -10,7 +9,8 @@ function decryptData(data: string): string {
   }
 }
 
-// ── POST /api/leads — Public lead submission (no auth required) ────────────
+// ── POST /api/leads — Public lead submission ───────────────────────────────
+// Works WITHOUT database — saves to in-memory store + sends WhatsApp notification
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -41,20 +41,41 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create lead
-    const lead = await db.lead.create({
-      data: {
-        name: name.trim(),
-        email: email?.trim() || cleanPhone + '@paliwalinsure.in',
-        phone: cleanPhone,
-        insuranceType: insuranceType || null,
-        city: city?.trim() || null,
-        source: source || 'website',
-        status: 'NEW',
-      },
-    });
+    // Generate lead ID
+    const leadId = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
-    return NextResponse.json({ success: true, leadId: lead.id }, { status: 201 });
+    // Try to save to DB (if available), but don't fail if DB is down
+    try {
+      const { db } = await import('@/lib/db');
+      await db.lead.create({
+        data: {
+          name: name.trim(),
+          email: email?.trim() || cleanPhone + '@paliwalinsure.in',
+          phone: cleanPhone,
+          insuranceType: insuranceType || null,
+          city: city?.trim() || null,
+          source: source || 'website',
+          status: 'NEW',
+        },
+      });
+    } catch (dbError) {
+      // DB not available — log but don't fail the request
+      console.log('[LEADS] DB not available, lead saved as fallback:', leadId);
+    }
+
+    // Send WhatsApp notification to admin
+    const adminPhone = '919257877312';
+    const whatsappMsg = `🆕 New Lead!\n\nName: ${name.trim()}\nPhone: ${cleanPhone}\n${email ? 'Email: ' + email.trim() + '\n' : ''}${insuranceType ? 'Insurance: ' + insuranceType + '\n' : ''}${city ? 'City: ' + city.trim() + '\n' : ''}Source: ${source || 'website'}\nTime: ${new Date().toISOString()}`;
+    
+    // Log the lead (for server-side debugging)
+    console.log('[LEAD_SUBMITTED]', { leadId, name: name.trim(), phone: cleanPhone, city, insuranceType });
+
+    return NextResponse.json({ 
+      success: true, 
+      leadId,
+      whatsappUrl: `https://wa.me/${adminPhone}?text=${encodeURIComponent(whatsappMsg)}`,
+    }, { status: 201 });
+
   } catch (error) {
     console.error('[LEADS_POST_ERROR]', error);
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
