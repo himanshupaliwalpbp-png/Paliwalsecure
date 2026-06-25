@@ -111,7 +111,7 @@ export default function RatingLeadForm() {
         encrypted: true,
       };
 
-      const res = await fetch('/api/admin/leads', {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(encryptedPayload),
