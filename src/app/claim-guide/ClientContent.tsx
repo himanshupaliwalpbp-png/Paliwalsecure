@@ -238,6 +238,28 @@ export default function ClientContent() {
               <p key={i} className="text-muted-foreground leading-relaxed mb-4 last:mb-0">{pt(p, language)}</p>
             ))}
           </div>
+
+          {/* Car Insurance Claim Process Infographic */}
+          <div className="mt-8 flex flex-col items-center">
+            <h3 className="text-lg font-semibold mb-4 text-center">Car Insurance Claim Process — Complete Guide</h3>
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] max-w-2xl w-full">
+              <picture>
+                <source srcSet="/images/car-insurance-claim-process.webp" type="image/webp" />
+                <img
+                  src="/images/car-insurance-claim-process.jpg"
+                  alt="Car Insurance Claim Process Infographic India — Step by step guide from accident to settlement. Cashless vs reimbursement claims, documents needed, IRDAI timelines."
+                  className="w-full h-auto block"
+                  loading="lazy"
+                  width={1200}
+                  height={2527}
+                />
+              </picture>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 text-center max-w-lg">
+              Car insurance claim process in India — from reporting accident to getting settlement. 
+              Covers cashless claims, reimbursement claims, documents required, and IRDAI grievance escalation.
+            </p>
+          </div>
         </div>
       </section>
 
