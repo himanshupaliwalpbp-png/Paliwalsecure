@@ -30,7 +30,7 @@ export function generateMetadata({ params }: { params: Promise<{ city: string }>
 
     return {
       title: `Insurance Agent in ${cityData.name} ${cityData.state} ${new Date().getFullYear()} | IRDAI POSP IP429834 | Paliwal Secure AI`,
-      description: `Best insurance agent in ${cityData.name}, ${cityData.state}. Compare 51+ insurers for health, car, bike, life, travel & home insurance. Free consultation by IRDAI Registered POSP (IP429834). 500+ families served. ${tierLabel} city rates. Call 9258777312.`,
+      description: `Best insurance agent in ${cityData.name}, ${cityData.state}. Compare 51+ insurers for health, car, bike, life, travel & home insurance. Free consultation by IRDAI Registered POSP (IP429834). 500+ families served. ${tierLabel} city rates. Call 9257877312.`,
       keywords: [
         `insurance agent ${cityData.name}`,
         `insurance advisor ${cityData.name} ${cityData.state}`,
@@ -55,7 +55,7 @@ export function generateMetadata({ params }: { params: Promise<{ city: string }>
       ],
       openGraph: {
         title: `Insurance Agent in ${cityData.name} — IRDAI POSP IP429834 | Paliwal Secure AI`,
-        description: `Trusted insurance advisor in ${cityData.name}, ${cityData.state}. Compare 51+ insurers. Free consultation by IRDAI Registered POSP. Call 9258777312.`,
+        description: `Trusted insurance advisor in ${cityData.name}, ${cityData.state}. Compare 51+ insurers. Free consultation by IRDAI Registered POSP. Call 9257877312.`,
         url: `https://paliwalsecure.in/insurance-agent/${cityData.slug}`,
         siteName: 'Paliwal Secure AI',
         type: 'profile',

@@ -134,4 +134,4 @@ A: GTX+ top variant hai jiska ex-showroom price ₹18.5 Lakh hai, toh IDV bhi zy
 
 *⚠️ IRDAI Disclaimer: Insurance is the subject matter of solicitation. For more details on benefits, exclusions, limitations, terms and conditions, please read the sales brochure/policy wording carefully before concluding a sale. | POSP Code: IP429834 | Paliwal Secure AI*
 
-*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9258777312*
+*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9257877312*

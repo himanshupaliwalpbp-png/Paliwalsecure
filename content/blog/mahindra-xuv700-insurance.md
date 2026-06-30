@@ -135,4 +135,4 @@ A: Diesel variants ka IDV typically zyada hota hai kyunki ex-showroom price zyad
 
 *⚠️ IRDAI Disclaimer: Insurance is the subject matter of solicitation. For more details on benefits, exclusions, limitations, terms and conditions, please read the sales brochure/policy wording carefully before concluding a sale. | POSP Code: IP429834 | Paliwal Secure AI*
 
-*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9258777312*
+*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9257877312*

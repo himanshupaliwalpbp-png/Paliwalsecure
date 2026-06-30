@@ -134,4 +134,4 @@ A: Factory-fitted CNG variant ka IDV CNG kit ke saath calculate hota hai, toh pr
 
 *⚠️ IRDAI Disclaimer: Insurance is the subject matter of solicitation. For more details on benefits, exclusions, limitations, terms and conditions, please read the sales brochure/policy wording carefully before concluding a sale. | POSP Code: IP429834 | Paliwal Secure AI*
 
-*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9258777312*
+*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9257877312*

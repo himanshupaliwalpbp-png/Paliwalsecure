@@ -134,4 +134,4 @@ A: Standard insurance racing/track day use cover nahi karta. Agar track pe accid
 
 *⚠️ IRDAI Disclaimer: Insurance is the subject matter of solicitation. For more details on benefits, exclusions, limitations, terms and conditions, please read the sales brochure/policy wording carefully before concluding a sale. | POSP Code: IP429834 | Paliwal Secure AI*
 
-*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9258777312*
+*Written by **Himanshu Paliwal**, IRDAI Certified POSP Insurance Advisor, Jaipur, Rajasthan. Contact: +91 9257877312*
