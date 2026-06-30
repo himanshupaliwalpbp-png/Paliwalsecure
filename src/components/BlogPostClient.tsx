@@ -34,14 +34,32 @@ interface TranslationError {
 
 // ── Props ─────────────────────────────────────────────────────────────────
 interface BlogPostClientProps {
-  englishContent: string;
-  articleTitle: string;
+  englishContent?: string;
+  (articleTitle || title || '')?: string;
+  slug?: string;
+  title?: string;
+  description?: string;
+  content?: string;
+  author?: string;
+  date?: string;
+  category?: string;
+  readTime?: string;
+  relatedPosts?: Array<{ slug: string; title: string; description: string; category: string; readTime: string }>;
 }
 
 // ── BlogPostClient Component ──────────────────────────────────────────────
 export default function BlogPostClient({
   englishContent,
-  articleTitle,
+  (articleTitle || title || ''),
+  slug,
+  title,
+  description,
+  content: blogContent,
+  author,
+  date,
+  category,
+  readTime,
+  relatedPosts,
 }: BlogPostClientProps) {
   // Initialize from the global language context so that a user who has
   // already selected Hindi or Hinglish site-wide sees the blog in that
@@ -52,7 +70,7 @@ export default function BlogPostClient({
   const [translationProgress, setTranslationProgress] = useState(0);
   const [translationError, setTranslationError] = useState<TranslationError | null>(null);
   const [translationCache, setTranslationCache] = useState<TranslationCache>({
-    en: englishContent,
+    en: englishContent || blogContent || '',
     hi: null,
     hinglish: null,
   });
@@ -149,7 +167,7 @@ export default function BlogPostClient({
           body: JSON.stringify({
             content: englishContent,
             language: targetLang === 'hi' ? 'hi' : 'hing',
-            title: articleTitle,
+            title: (articleTitle || title || ''),
           }),
           signal: abortController.signal,
         });
@@ -257,7 +275,7 @@ export default function BlogPostClient({
         }
       }
     },
-    [englishContent, articleTitle, classifyError]
+    [englishContent, (articleTitle || title || ''), classifyError]
   );
 
   // Handle language change
@@ -420,6 +438,27 @@ export default function BlogPostClient({
 
   return (
     <>
+      {/* E-E-A-T: Author byline + date + disclaimer */}
+      {author && (
+        <div className="px-4 sm:px-6 lg:px-8 py-4 border-b border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)]">
+          <div className="max-w-4xl mx-auto flex flex-wrap items-center gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-[#B8482C] flex items-center justify-center text-white text-xs font-bold">HP</div>
+              <div>
+                <p className="font-medium text-[#0E1116] dark:text-white">{author}</p>
+                <p className="text-xs text-[#8B9099]">IRDAI Certified POSP · IP429834</p>
+              </div>
+            </div>
+            {date && <span className="text-[#8B9099] text-xs">Last updated: {formatDate(date)}</span>}
+            {readTime && <span className="text-[#8B9099] text-xs">· {readTime}</span>}
+            {category && <span className="px-2 py-0.5 rounded-full bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E8C872] text-xs font-medium">{category}</span>}
+          </div>
+        </div>
+      )}
+      {/* IRDAI Disclaimer */}
+      <div className="px-4 sm:px-6 lg:px-8 py-2 bg-[#FAF7F2] dark:bg-[#0E1116] border-b border-[rgba(14,17,22,0.04)] dark:border-[rgba(250,247,242,0.06)]">
+        <p className="max-w-4xl mx-auto text-xs text-[#8B9099] text-center">Insurance is the subject matter of solicitation. IRDAI Registered POSP — Code: IP429834</p>
+      </div>
       {/* Language Toggle Bar */}
       <div className="sticky top-0 z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 bg-background/95 backdrop-blur-md border-b border-border/30 mb-6">
         <div className="flex items-center justify-between gap-3">
