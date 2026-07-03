@@ -209,7 +209,7 @@ const breadcrumbSchema = {
 
 export default function Kotak811SuperSavingsPage() {
   return (
-    <main className="flex-1 bg-[#0A0F1A] text-white">
+    <main className="flex-1 bg-[#FAF7F2] dark:bg-[#0A0F1A] text-[#0E1116] dark:text-white">
       {/* ═══ JSON-LD Schemas ═══ */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
@@ -231,29 +231,29 @@ export default function Kotak811SuperSavingsPage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 md:pt-28 md:pb-24">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex items-center gap-2 text-xs text-white/40">
+            <ol className="flex items-center gap-2 text-xs text-[#8B9099] dark:text-white/40">
               <li>
-                <Link href="/" className="hover:text-white/60 transition-colors">
+                <Link href="/" className="hover:text-[#0E1116] dark:hover:text-[#4A4F57] dark:text-white/60 transition-colors">
                   Home
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link href="/products" className="hover:text-white/60 transition-colors">
+                <Link href="/products" className="hover:text-[#0E1116] dark:hover:text-[#4A4F57] dark:text-white/60 transition-colors">
                   Products
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-white/60" aria-current="page">
+              <li className="text-[#4A4F57] dark:text-white/60" aria-current="page">
                 Kotak 811 Super
               </li>
             </ol>
           </nav>
 
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-white/5 border border-white/10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-white dark:bg-white/5 border border-[rgba(14,17,22,0.08)] dark:border-white/10">
             <Shield className="w-3.5 h-3.5 text-[#D4A853]" aria-hidden="true" />
-            <span className="text-xs font-medium text-white/70 tracking-wide">
+            <span className="text-xs font-medium text-[#4A4F57] dark:text-white/70 tracking-wide">
               RBI Regulated · DICGC Insured up to ₹5 Lakh
             </span>
           </div>
@@ -265,7 +265,7 @@ export default function Kotak811SuperSavingsPage() {
           </h1>
 
           {/* Subtext */}
-          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mb-8 leading-relaxed">
+          <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-white/60 max-w-2xl mb-8 leading-relaxed">
             Premium banking, zero balance. Earn up to 5% interest with ActivMoney, get a free
             Platinum Debit Card, and 5% cashback up to ₹6,000/year. Open in 5 minutes with Video KYC.
           </p>
@@ -276,7 +276,7 @@ export default function Kotak811SuperSavingsPage() {
               href={APPLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#D4A853] text-[#0A0F1A] font-semibold text-base hover:bg-[#E0B86A] transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1A]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#D4A853] text-[#0A0F1A] font-semibold text-base hover:bg-[#E0B86A] transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF7F2] dark:focus-visible:ring-offset-[#0A0F1A]"
               aria-label="Apply now for Kotak 811 Super Savings Account"
             >
               Apply Now — Open in 5 Minutes
@@ -284,7 +284,7 @@ export default function Kotak811SuperSavingsPage() {
             </a>
             <a
               href="#features"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold text-base hover:bg-white/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1A]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white dark:bg-white/5 border border-[rgba(14,17,22,0.08)] dark:border-white/10 text-white font-semibold text-base hover:bg-[#F4E5DD] dark:hover:bg-white/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF7F2] dark:focus-visible:ring-offset-[#0A0F1A]"
             >
               Explore Features
             </a>
@@ -298,9 +298,9 @@ export default function Kotak811SuperSavingsPage() {
               { label: 'Annual Cashback', value: '₹6,000' },
               { label: 'Daily Withdrawal', value: '₹1 Lakh' },
             ].map((stat) => (
-              <div key={stat.label} className="border-l border-white/10 pl-4">
+              <div key={stat.label} className="border-l border-[rgba(14,17,22,0.08)] dark:border-white/10 pl-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#D4A853]">{stat.value}</p>
-                <p className="text-xs text-white/40 mt-1 tracking-wide uppercase">{stat.label}</p>
+                <p className="text-xs text-[#8B9099] dark:text-white/40 mt-1 tracking-wide uppercase">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -310,12 +310,12 @@ export default function Kotak811SuperSavingsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           2. KEY FEATURES
           ═══════════════════════════════════════════════════════════════════ */}
-      <section id="features" className="py-16 md:py-24 border-t border-white/5 scroll-mt-16">
+      <section id="features" className="py-16 md:py-24 border-t border-[rgba(14,17,22,0.06)] dark:border-white/5 scroll-mt-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Everything included, nothing hidden
           </h2>
-          <p className="text-white/50 text-lg mb-12 max-w-2xl">
+          <p className="text-[#4A4F57] dark:text-white/50 text-lg mb-12 max-w-2xl">
             Kotak 811 Super gives you premium banking features without any minimum balance commitment.
             Here is exactly what you get.
           </p>
@@ -326,13 +326,13 @@ export default function Kotak811SuperSavingsPage() {
               return (
                 <div
                   key={feature.title}
-                  className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05] hover:border-[#D4A853]/20 transition-all duration-300"
+                  className="p-6 rounded-2xl bg-white dark:bg-white/[0.03] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.06] hover:bg-[#F4E5DD]/50 dark:hover:bg-white/[0.05] hover:border-[#D4A853]/40 dark:hover:border-[#D4A853]/20 transition-all duration-300"
                 >
                   <div className="w-11 h-11 rounded-xl bg-[#D4A853]/10 flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 text-[#D4A853]" aria-hidden="true" />
                   </div>
                   <h3 className="font-semibold text-base mb-2">{feature.title}</h3>
-                  <p className="text-sm text-white/50 leading-relaxed">{feature.description}</p>
+                  <p className="text-sm text-[#4A4F57] dark:text-white/50 leading-relaxed">{feature.description}</p>
                 </div>
               );
             })}
@@ -343,12 +343,12 @@ export default function Kotak811SuperSavingsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           3. HOW TO OPEN — 4-STEP PROCESS
           ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 border-t border-white/5">
+      <section className="py-16 md:py-24 border-t border-[rgba(14,17,22,0.06)] dark:border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Open your account in 4 simple steps
           </h2>
-          <p className="text-white/50 text-lg mb-12">
+          <p className="text-[#4A4F57] dark:text-white/50 text-lg mb-12">
             No branch visits. No paperwork. Just your phone, PAN, and Aadhaar.
           </p>
 
@@ -360,7 +360,7 @@ export default function Kotak811SuperSavingsPage() {
                 </div>
                 <div className="flex-1 pb-8 border-b border-white/5 last:border-0">
                   <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-                  <p className="text-white/50 leading-relaxed">{step.description}</p>
+                  <p className="text-[#4A4F57] dark:text-white/50 leading-relaxed">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -372,7 +372,7 @@ export default function Kotak811SuperSavingsPage() {
               href={APPLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#D4A853] text-[#0A0F1A] font-semibold text-base hover:bg-[#E0B86A] transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1A]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#D4A853] text-[#0A0F1A] font-semibold text-base hover:bg-[#E0B86A] transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF7F2] dark:focus-visible:ring-offset-[#0A0F1A]"
             >
               Start Your Application
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -384,7 +384,7 @@ export default function Kotak811SuperSavingsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           4. ELIGIBILITY NOTE
           ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 border-t border-white/5">
+      <section className="py-16 border-t border-[rgba(14,17,22,0.06)] dark:border-white/5">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-6 md:p-8 rounded-2xl bg-[#D4A853]/[0.04] border border-[#D4A853]/15">
             <div className="flex items-start gap-4">
@@ -393,13 +393,13 @@ export default function Kotak811SuperSavingsPage() {
               </div>
               <div>
                 <h2 className="text-xl font-semibold mb-2">Eligibility — 811 Super is Exclusive</h2>
-                <p className="text-white/50 leading-relaxed text-sm">
+                <p className="text-[#4A4F57] dark:text-white/50 leading-relaxed text-sm">
                   Kotak 811 Super is an exclusive program, not available to everyone. Eligibility is
                   checked during the application process via the Kotak app. If you do not qualify for
                   Super, you may be offered the regular Kotak 811 account instead. Basic eligibility
                   criteria:
                 </p>
-                <ul className="mt-4 space-y-2 text-sm text-white/50">
+                <ul className="mt-4 space-y-2 text-sm text-[#4A4F57] dark:text-white/50">
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-[#D4A853] shrink-0 mt-0.5" aria-hidden="true" />
                     Indian resident aged 18 years or above
@@ -426,12 +426,12 @@ export default function Kotak811SuperSavingsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           5. FAQ SECTION (with JSON-LD schema rendered above)
           ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 border-t border-white/5">
+      <section className="py-16 md:py-24 border-t border-[rgba(14,17,22,0.06)] dark:border-white/5">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Frequently asked questions
           </h2>
-          <p className="text-white/50 text-lg mb-12">
+          <p className="text-[#4A4F57] dark:text-white/50 text-lg mb-12">
             Everything you need to know about Kotak 811 Super Savings Account.
           </p>
 
@@ -439,19 +439,19 @@ export default function Kotak811SuperSavingsPage() {
             {FAQS.map((faq, index) => (
               <details
                 key={index}
-                className="group rounded-xl bg-white/[0.03] border border-white/[0.06] overflow-hidden focus-within:ring-2 focus-within:ring-[#D4A853]/30 transition-colors"
+                className="group rounded-xl bg-white dark:bg-white/[0.03] border border-[rgba(14,17,22,0.08)] dark:border-white/[0.06] overflow-hidden focus-within:ring-2 focus-within:ring-[#D4A853]/30 transition-colors"
               >
                 <summary
-                  className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-medium text-base hover:bg-white/[0.02] transition-colors focus-visible:outline-none"
+                  className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none font-medium text-base hover:bg-[#FAF7F2] dark:hover:bg-[#FAF7F2] dark:hover:bg-white/[0.02] transition-colors focus-visible:outline-none"
                   aria-label={`Toggle answer for: ${faq.question}`}
                 >
                   <span>{faq.question}</span>
                   <ChevronDown
-                    className="w-4 h-4 text-white/40 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                    className="w-4 h-4 text-[#8B9099] dark:text-white/40 shrink-0 transition-transform duration-200 group-open:rotate-180"
                     aria-hidden="true"
                   />
                 </summary>
-                <div className="px-5 pb-5 text-sm text-white/50 leading-relaxed">
+                <div className="px-5 pb-5 text-sm text-[#4A4F57] dark:text-white/50 leading-relaxed">
                   {faq.answer}
                 </div>
               </details>
@@ -463,19 +463,19 @@ export default function Kotak811SuperSavingsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           6. FINAL CTA
           ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 border-t border-white/5">
+      <section className="py-16 md:py-24 border-t border-[rgba(14,17,22,0.06)] dark:border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Ready to open your Kotak 811 Super?
           </h2>
-          <p className="text-white/50 text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-[#4A4F57] dark:text-white/50 text-lg mb-8 max-w-xl mx-auto">
             Zero balance. Up to 5% interest. Free Platinum Debit Card. All in 5 minutes.
           </p>
           <a
             href={APPLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-[#D4A853] text-[#0A0F1A] font-semibold text-lg hover:bg-[#E0B86A] transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1A]"
+            className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-[#D4A853] text-[#0A0F1A] font-semibold text-lg hover:bg-[#E0B86A] transition-all duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF7F2] dark:focus-visible:ring-offset-[#0A0F1A]"
           >
             Apply Now
             <ArrowRight className="w-5 h-5" aria-hidden="true" />
@@ -486,14 +486,14 @@ export default function Kotak811SuperSavingsPage() {
       {/* ═══════════════════════════════════════════════════════════════════
           7. COMPLIANCE DISCLOSURE
           ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-12 border-t border-white/5">
+      <section className="py-12 border-t border-[rgba(14,17,22,0.06)] dark:border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-5 rounded-xl bg-white/[0.02] border border-white/5">
-            <h3 className="text-sm font-semibold text-white/60 mb-2 flex items-center gap-2">
+          <div className="p-5 rounded-xl bg-white dark:bg-white/[0.02] border border-[rgba(14,17,22,0.06)] dark:border-white/5">
+            <h3 className="text-sm font-semibold text-[#4A4F57] dark:text-white/60 mb-2 flex items-center gap-2">
               <Shield className="w-4 h-4 text-[#D4A853]" aria-hidden="true" />
               Compliance Disclosure
             </h3>
-            <p className="text-xs text-white/30 leading-relaxed">
+            <p className="text-xs text-[#8B9099] dark:text-white/30 leading-relaxed">
               Paliwal Secure is a registered referral partner for Kotak 811 via Gromo. We are not the
               account provider; banking services are provided directly by Kotak Mahindra Bank Ltd.
               (RBI License No. DBU.NBD.811). Deposits are insured by DICGC up to ₹5,00,000 per
@@ -505,12 +505,12 @@ export default function Kotak811SuperSavingsPage() {
           {/* ═══════════════════════════════════════════════════════════════
               8. RATES DISCLAIMER
               ═══════════════════════════════════════════════════════════════ */}
-          <div className="mt-4 p-5 rounded-xl bg-white/[0.02] border border-white/5">
-            <h3 className="text-sm font-semibold text-white/60 mb-2 flex items-center gap-2">
+          <div className="mt-4 p-5 rounded-xl bg-white dark:bg-white/[0.02] border border-[rgba(14,17,22,0.06)] dark:border-white/5">
+            <h3 className="text-sm font-semibold text-[#4A4F57] dark:text-white/60 mb-2 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-[#D4A853]" aria-hidden="true" />
               Rates &amp; Offers Disclaimer
             </h3>
-            <p className="text-xs text-white/30 leading-relaxed">
+            <p className="text-xs text-[#8B9099] dark:text-white/30 leading-relaxed">
               Rates and offers subject to change; please verify on the official Kotak app before
               applying. Interest rates, cashback percentages, withdrawal limits, and other features
               mentioned on this page are based on information available as of June 2026. Kotak
@@ -532,7 +532,7 @@ export default function Kotak811SuperSavingsPage() {
           <div className="mt-8 text-center">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/60 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-[#8B9099] dark:text-white/40 hover:text-[#0E1116] dark:hover:text-[#4A4F57] dark:text-white/60 transition-colors"
             >
               ← Back to Paliwal Secure
             </Link>
