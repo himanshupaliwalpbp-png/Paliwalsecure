@@ -493,17 +493,22 @@ export default function HeroAdvisor() {
               </motion.p>
             </ScrollFadeText>
 
-            {/* Hero Image — full-width high-res showcase, user's 3D render */}
+            {/* Hero Image — full-width showcase */}
             <motion.div
               variants={heroChild}
               className="mb-10 relative w-full rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)] group"
             >
-              <img
-                src="/images/hero-3d.jpg"
-                alt="Paliwal Secure AI — 3D AI-powered insurance universe with crystal protection shield, glowing AI core, and orbiting insurance spheres"
-                className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
-                loading="eager"
-              />
+              <picture>
+                <source srcSet="/images/hero-homepage.webp" type="image/webp" />
+                <img
+                  src="/images/hero-homepage.jpg"
+                  alt="Paliwal Secure AI — India's AI-powered insurance intelligence platform with 51+ insurers, InsureGPT AI advisor, and Protection Score technology"
+                  className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
+                  loading="eager"
+                  width={1731}
+                  height={909}
+                />
+              </picture>
               {/* Premium gradient overlay for depth */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/40 via-transparent to-transparent pointer-events-none" />
               {/* Brand badge */}
