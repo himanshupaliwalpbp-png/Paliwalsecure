@@ -36,6 +36,9 @@ const TrustStrip = dynamic(() => import('@/components/home/TrustStrip'), {
 const StackingImageSections = dynamic(() => import('@/components/home/StackingImageSections'), {
   loading: () => <div className="min-h-[100vh]" />,
 });
+const HealthFeaturedBanner = dynamic(() => import('@/components/home/HealthFeaturedBanner'), {
+  loading: () => <div className="min-h-[300px]" />,
+});
 const InsureGPTSection = dynamic(() => import('@/components/InsureGPTSection'), {
   loading: () => <div className="min-h-[400px]" />,
 });
@@ -95,6 +98,11 @@ export default function Home() {
       {/* 3. Trust signals / Stats */}
       <SafeRender name="TrustStrip">
         <TrustStrip />
+      </SafeRender>
+
+      {/* 3.5. Health Insurance Featured Banner */}
+      <SafeRender name="HealthFeaturedBanner">
+        <HealthFeaturedBanner />
       </SafeRender>
 
       {/* 4. Stacking full-screen insurance images — scroll to reveal each */}
