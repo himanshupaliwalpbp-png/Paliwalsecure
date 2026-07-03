@@ -224,6 +224,22 @@ export default function HealthInsuranceClientContent() {
               </ShinyButton>
             </a>
           </div>
+
+          {/* Health Insurance Featured Image */}
+          <div className="mt-12 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)]">
+            <picture>
+              <source srcSet="/images/card-individual-health.webp" type="image/webp" />
+              <img
+                src="/images/card-individual-health.jpg"
+                alt="Individual Health Insurance — Comprehensive coverage with cashless treatment, family floater plans, critical illness cover, and pre-existing disease coverage from 51+ IRDAI insurers"
+                className="w-full h-auto block"
+                loading="lazy"
+                width={1536}
+                height={1024}
+              />
+            </picture>
+          </div>
+
           {/* Trust Badges */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
             {[
