@@ -56,7 +56,8 @@ export async function POST(request: NextRequest) {
     // Check for high-pressure scenario templates
     let templateResponse: string | null = null;
     for (const tpl of responseTemplates) {
-      try {
+
+    try {
         const regex = typeof tpl.trigger === 'string' ? new RegExp(tpl.trigger, 'i') : tpl.trigger;
         if (regex.test(sanitizedMessage)) {
           templateResponse = tpl.response;
@@ -96,7 +97,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Try LLM first, with a timeout of 10 seconds
-    let aiResponse: string | null = null;
+    let aiResponse: string = '';
 
     try {
       const systemPrompt = buildRAGContext(sanitizedMessage, profile as UserProfile | undefined);
@@ -154,30 +155,23 @@ export async function POST(request: NextRequest) {
         ? [apiMessages[0], ...apiMessages.slice(-6)]
         : apiMessages;
 
-      const ZAI = (await import('z-ai-web-dev-sdk')).default;
-      const zai = await ZAI.create();
-
+      // ── Multi-model AI: Claude → ZAI fallback ──────────────────────────────
+      const { callAI } = await import('@/lib/ai-router');
       // Race with a 20-second timeout (maxDuration is 30s, leave 10s for processing)
-      const completionPromise = zai.chat.completions.create({
-        messages: trimmedMessages,
-        thinking: { type: 'disabled' },
-        temperature: 0.3,
+      const aiResult = await callAI({
+        messages: [
+          { role: 'system', content: systemPrompt },
+          ...apiMessages,
+        ],
+        temperature: 0.7,
+        maxTokens: 2048,
       });
-
-      const timeoutPromise = new Promise<null>((resolve) => {
-        setTimeout(() => resolve(null), 20000);
-      });
-
-      const completion = await Promise.race([completionPromise, timeoutPromise]);
-
-      if (completion && completion.choices?.[0]?.message?.content) {
-        aiResponse = completion.choices[0].message.content;
-      }
+      aiResponse = aiResult.content;
     } catch (llmError) {
       console.error('LLM Error:', llmError);
     }
 
-    // Fallback to smart static responses if LLM fails or times out
+    // Fallback to smart static responses if AI fails or times out
     if (!aiResponse) {
       // Check for template response first (high-pressure scenarios)
       if (templateResponse) {
