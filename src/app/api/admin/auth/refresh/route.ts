@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         role: "ADMIN",
       });
 
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         accessToken,
         user: {
@@ -43,6 +43,17 @@ export async function POST(request: NextRequest) {
           name: "Admin",
         },
       });
+
+      // Refresh access-token cookie (httpOnly — XSS-safe)
+      response.cookies.set("admin_access_token", accessToken, {
+        path: "/",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 15 * 60,
+      });
+
+      return response;
     }
 
     // ── Try database for non-env users ───────────────────────────────────
@@ -70,7 +81,7 @@ export async function POST(request: NextRequest) {
       role: adminUser.role,
     });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       accessToken,
       user: {
@@ -80,6 +91,17 @@ export async function POST(request: NextRequest) {
         name: adminUser.name,
       },
     });
+
+    // Refresh access-token cookie (httpOnly — XSS-safe)
+    response.cookies.set("admin_access_token", accessToken, {
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 60,
+    });
+
+    return response;
   } catch (error) {
     console.error("[REFRESH_ERROR]", error);
     return NextResponse.json(

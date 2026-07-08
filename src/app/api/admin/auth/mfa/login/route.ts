@@ -7,7 +7,17 @@ import { createAuditLog } from '@/lib/audit-log';
 import { getClientIp, loginRateLimiter } from '@/lib/server-rate-limiter';
 import { validateInput } from '@/lib/validation';
 
-const MFA_JWT_SECRET = process.env.JWT_SECRET || 'paliwal-secure-jwt-secret-dev-placeholder';
+let _mfaJwtSecret: string | undefined;
+function getMfaJwtSecret(): string {
+  if (_mfaJwtSecret !== undefined) return _mfaJwtSecret;
+  const v = process.env.JWT_SECRET;
+  if (v) { _mfaJwtSecret = v; return v; }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("FATAL: JWT_SECRET environment variable is required in production.");
+  }
+  _mfaJwtSecret = "paliwal-secure-jwt-secret-dev-placeholder";
+  return _mfaJwtSecret;
+}
 const ADMIN_TOTP_SECRET = process.env.ADMIN_TOTP_SECRET || '';
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || '';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || '';
@@ -62,7 +72,7 @@ export async function POST(request: NextRequest) {
     // Verify MFA token
     let mfaPayload: MfaJwtPayload;
     try {
-      mfaPayload = jwt.verify(mfaToken, MFA_JWT_SECRET) as MfaJwtPayload;
+      mfaPayload = jwt.verify(mfaToken, getMfaJwtSecret()) as MfaJwtPayload;
     } catch {
       return NextResponse.json(
         { success: false, error: 'Invalid or expired MFA session. Please login again.' },
@@ -165,6 +175,15 @@ export async function POST(request: NextRequest) {
         maxAge: 7 * 24 * 60 * 60,
       });
 
+      // Access token also httpOnly (XSS-safe)
+      response.cookies.set('admin_access_token', accessToken, {
+        path: '/',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 15 * 60,
+      });
+
       return response;
     }
 
@@ -221,6 +240,15 @@ export async function POST(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60,
+    });
+
+    // Access token also httpOnly (XSS-safe)
+    response.cookies.set('admin_access_token', accessToken, {
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 15 * 60,
     });
 
     return response;

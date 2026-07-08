@@ -101,6 +101,8 @@ export default function RatingLeadForm() {
 
     try {
       // Encrypt sensitive data before sending
+      // (Base64 is encoding, not encryption — HTTPS provides real transport security.
+      //  Kept for backwards-compat with the existing payload format.)
       const encryptedPayload = {
         name: encryptData(form.name.trim()),
         phone: encryptData(form.phone.trim()),
@@ -109,6 +111,9 @@ export default function RatingLeadForm() {
         city: form.city.trim() || undefined,
         source: 'website_form',
         encrypted: true,
+        // Honeypot — real users never fill this. Bots auto-fill all fields.
+        // Server silently discards submissions where this is non-empty.
+        website: '',
       };
 
       const res = await fetch('/api/leads', {

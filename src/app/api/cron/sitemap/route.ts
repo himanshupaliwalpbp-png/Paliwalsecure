@@ -4,10 +4,16 @@
 // Called by Vercel Cron at midnight every Sunday
 // ============================================================================
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
+import { verifyCronSecret, unauthorizedCronResponse } from "@/lib/cron-auth";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   const startTime = Date.now();
 
   try {
@@ -83,5 +89,10 @@ export async function GET() {
 
 // POST for manual trigger
 export async function POST() {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   return GET();
 }

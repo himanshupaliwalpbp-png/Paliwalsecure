@@ -98,13 +98,15 @@ const SECURITY_HEADERS: Record<string, string> = {
   "X-Frame-Options": "DENY",
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "strict-origin-when-cross-origin",
-  "X-XSS-Protection": "1; mode=block",
+  // X-XSS-Protection is deprecated — disable (rely on CSP instead).
+  "X-XSS-Protection": "0",
   "Permissions-Policy":
     "camera=(), microphone=(self), geolocation=(), browsing-topics=()",
   "Content-Signal": "ai-train=yes, search=yes, ai-input=yes",
   "Content-Security-Policy":
     "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://apis.google.com; " +
+    // SECURITY: 'unsafe-eval' removed.
+    "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://apis.google.com; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; " +
     "img-src 'self' data: blob: https://paliwalsecure.in https://www.google-analytics.com https://www.googletagmanager.com; " +
@@ -115,7 +117,10 @@ const SECURITY_HEADERS: Record<string, string> = {
     "base-uri 'self'; " +
     "form-action 'self'; " +
     "frame-ancestors 'none'; " +
-    "upgrade-insecure-requests",
+    "upgrade-insecure-requests; " +
+    "report-uri /api/csp-report; " +
+    "report-to csp-endpoint",
+  "Reporting-Endpoints": 'csp-endpoint="/api/csp-report"',
   "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
   "X-Permitted-Cross-Domain-Policies": "none",
   "Cross-Origin-Opener-Policy": "same-origin",

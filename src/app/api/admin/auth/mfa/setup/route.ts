@@ -6,7 +6,17 @@ import { getAuthUser } from '@/lib/api-auth';
 import { createAuditLog } from '@/lib/audit-log';
 import { getClientIp } from '@/lib/server-rate-limiter';
 
-const MFA_JWT_SECRET = process.env.JWT_SECRET || 'paliwal-secure-jwt-secret-dev-placeholder';
+let _mfaJwtSecret: string | undefined;
+function getMfaJwtSecret(): string {
+  if (_mfaJwtSecret !== undefined) return _mfaJwtSecret;
+  const v = process.env.JWT_SECRET;
+  if (v) { _mfaJwtSecret = v; return v; }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("FATAL: JWT_SECRET environment variable is required in production.");
+  }
+  _mfaJwtSecret = "paliwal-secure-jwt-secret-dev-placeholder";
+  return _mfaJwtSecret;
+}
 const ADMIN_TOTP_SECRET = process.env.ADMIN_TOTP_SECRET || '';
 
 /**
@@ -111,7 +121,7 @@ export async function POST(request: NextRequest) {
     // This allows the verify step to know the secret without database
     const setupToken = jwt.sign(
       { setupStep: true, totpSecret: secret.base32, userId: user.userId },
-      MFA_JWT_SECRET,
+      getMfaJwtSecret(),
       { expiresIn: '10m' }
     );
 

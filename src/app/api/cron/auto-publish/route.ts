@@ -27,6 +27,7 @@ import {
   type GeneratedMarkdownArticle,
 } from '@/lib/auto-article-generator';
 import { blogPosts, type BlogPostSummary } from '@/lib/blog-data';
+import { verifyCronSecret, unauthorizedCronResponse } from "@/lib/cron-auth";
 
 export const maxDuration = 60;
 
@@ -243,6 +244,11 @@ async function processTrend(trend: {
 // ── GET: Cron endpoint (called by Vercel Cron) ─────────────────────────────
 
 export async function GET(request: NextRequest) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   const startTime = Date.now();
 
   try {
@@ -344,6 +350,11 @@ export async function GET(request: NextRequest) {
 // ── POST: Manual trigger ───────────────────────────────────────────────────
 
 export async function POST(request: NextRequest) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   try {
     const body = await request.json().catch(() => ({}));
     const { limit = 5, dryRun = false } = body as { limit?: number; dryRun?: boolean };

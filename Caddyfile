@@ -1,23 +1,15 @@
 :81 {
-	@transform_port_query {
-		query XTransformPort=*
-	}
+        # SECURITY: The @transform_port_query block was removed — it allowed
+        # anyone to hit /?XTransformPort=N and have Caddy reverse-proxy the
+        # request to localhost:N, exposing internal services (Postgres, Redis,
+        # cloud-metadata, etc.). Do not re-add it.
 
-	handle @transform_port_query {
-		reverse_proxy localhost:{query.XTransformPort} {
-			header_up Host {host}
-			header_up X-Forwarded-For {remote_host}
-			header_up X-Forwarded-Proto {scheme}
-			header_up X-Real-IP {remote_host}
-		}
-	}
-
-	handle {
-		reverse_proxy localhost:3000 {
-			header_up Host {host}
-			header_up X-Forwarded-For {remote_host}
-			header_up X-Forwarded-Proto {scheme}
-			header_up X-Real-IP {remote_host}
-		}
-	}
+        handle {
+                reverse_proxy localhost:3000 {
+                        header_up Host {host}
+                        header_up X-Forwarded-For {remote_host}
+                        header_up X-Forwarded-Proto {scheme}
+                        header_up X-Real-IP {remote_host}
+                }
+        }
 }

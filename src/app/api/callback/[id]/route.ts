@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { z } from 'zod';
+import { requireAdmin } from '@/lib/api-auth';
 
 const patchSchema = z.object({
   status: z.enum(['PENDING', 'COMPLETED', 'CANCELLED']),
@@ -11,6 +12,12 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     const body = await request.json();
     const validated = patchSchema.parse(body);

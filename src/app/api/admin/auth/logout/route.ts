@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // ── Clear refresh token cookie ───────────────────────────────────────
+    // ── Clear refresh + access token cookies ──────────────────────────────
     const response = NextResponse.json({ success: true });
 
     response.cookies.set("admin_refresh_token", "", {
@@ -64,13 +64,28 @@ export async function POST(request: NextRequest) {
       maxAge: 0,
     });
 
+    response.cookies.set("admin_access_token", "", {
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 0,
+    });
+
     return response;
   } catch (error) {
     console.error("[LOGOUT_ERROR]", error);
-    // Still clear cookie even if audit log fails
+    // Still clear cookies even if audit log fails
     const response = NextResponse.json({ success: true });
     response.cookies.set("admin_refresh_token", "", {
       path: "/api/admin/auth/refresh",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 0,
+    });
+    response.cookies.set("admin_access_token", "", {
+      path: "/",
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",

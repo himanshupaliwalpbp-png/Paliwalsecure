@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/api-auth';
+import { apiRateLimiter } from '@/lib/server-rate-limiter';
 
 // Simple in-memory storage for quiz leads (since we don't want to modify prisma schema)
 // In production, you'd use a proper database table
@@ -14,6 +16,13 @@ const quizLeads: Array<{
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate-limit public submissions (per IP)
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = apiRateLimiter.check(`quiz-lead:${ip}`, 10, 60_000); // 10/min
+    if (!rl.allowed) {
+      return NextResponse.json({ success: false, error: "Too many requests. Please try again later." }, { status: 429 });
+    }
+
     const body = await request.json();
     const { name, city, interest, score, mode, quizCode } = body;
 
@@ -50,6 +59,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // ── AUTH: admin-only ─────────────────────────────────────────────────────
+  const admin = requireAdmin(request);
+  if (!admin) {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
   return NextResponse.json({ leads: quizLeads, count: quizLeads.length });
 }

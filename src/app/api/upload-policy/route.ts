@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { getClientIp, uploadRateLimiter } from '@/lib/server-rate-limiter';
+import { requireAdmin } from '@/lib/api-auth';
 
 export const maxDuration = 60;
 
@@ -145,9 +146,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// ── GET: List uploaded policies ──────────────────────────────────────────────
+// ── GET: List uploaded policies (admin-only) ────────────────────────────────
 export async function GET(request: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
     const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50);

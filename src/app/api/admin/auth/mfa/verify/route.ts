@@ -7,7 +7,17 @@ import { createAuditLog } from '@/lib/audit-log';
 import { getClientIp } from '@/lib/server-rate-limiter';
 import { validateInput } from '@/lib/validation';
 
-const MFA_JWT_SECRET = process.env.JWT_SECRET || 'paliwal-secure-jwt-secret-dev-placeholder';
+let _mfaJwtSecret: string | undefined;
+function getMfaJwtSecret(): string {
+  if (_mfaJwtSecret !== undefined) return _mfaJwtSecret;
+  const v = process.env.JWT_SECRET;
+  if (v) { _mfaJwtSecret = v; return v; }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("FATAL: JWT_SECRET environment variable is required in production.");
+  }
+  _mfaJwtSecret = "paliwal-secure-jwt-secret-dev-placeholder";
+  return _mfaJwtSecret;
+}
 const ADMIN_TOTP_SECRET = process.env.ADMIN_TOTP_SECRET || '';
 
 const mfaVerifySchema = z.object({
@@ -126,7 +136,7 @@ export async function POST(request: NextRequest) {
     // Decode the setup token to get the pending TOTP secret
     let setupPayload: { setupStep: boolean; totpSecret: string; userId: string };
     try {
-      setupPayload = jwt.verify(setupToken, MFA_JWT_SECRET) as typeof setupPayload;
+      setupPayload = jwt.verify(setupToken, getMfaJwtSecret()) as typeof setupPayload;
     } catch {
       return NextResponse.json(
         { success: false, error: 'Setup session expired. Please start the MFA setup again.' },

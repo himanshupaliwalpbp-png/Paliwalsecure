@@ -1,14 +1,21 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/api-auth';
 
-// GET /api/insuranceos/clients - List clients with search
+// GET /api/insuranceos/clients - List clients with search (admin-only)
 export async function GET(req: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const search = req.nextUrl.searchParams.get('search') || '';
     const city = req.nextUrl.searchParams.get('city') || '';
     const state = req.nextUrl.searchParams.get('state') || '';
 
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (search) {
       where.OR = [
@@ -36,14 +43,21 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: clients });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }
 
-// POST /api/insuranceos/clients - Create client
+// POST /api/insuranceos/clients - Create client (admin-only)
 export async function POST(req: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await req.json();
     const { name, phone, email, address, city, state, pincode } = body;
 
@@ -59,7 +73,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: client }, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }

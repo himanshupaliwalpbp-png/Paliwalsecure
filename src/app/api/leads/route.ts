@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { apiRateLimiter } from "@/lib/server-rate-limiter";
 
 // ── Decryption helper ──────────────────────────────────────────────────────
+// NOTE: Base64 is encoding, NOT encryption. HTTPS provides transport security.
+// This is kept for backwards-compat with the existing client form, but do not
+// rely on it for confidentiality — use HTTPS for that.
 function decryptData(data: string): string {
   try {
     return decodeURIComponent(atob(data));
@@ -13,7 +17,23 @@ function decryptData(data: string): string {
 // Works WITHOUT database — saves to in-memory store + sends WhatsApp notification
 export async function POST(request: NextRequest) {
   try {
+    // ── Rate-limit public submissions (per IP) to prevent lead spam ──────
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = apiRateLimiter.check(`leads-post:${ip}`, 5, 60_000); // 5 leads/min per IP
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { success: false, error: "Too many requests. Please try again later." },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+
+    // ── Honeypot check — if `website` field is filled, it's a bot ────────
     const body = await request.json();
+    if (body.website && typeof body.website === "string" && body.website.trim().length > 0) {
+      // Bot filled the honeypot — pretend success but discard
+      return NextResponse.json({ success: true, leadId: "hp_" + Date.now() }, { status: 201 });
+    }
+
     const isEncrypted = body.encrypted === true;
 
     const name = isEncrypted ? decryptData(body.name) : body.name;
@@ -67,8 +87,8 @@ export async function POST(request: NextRequest) {
     const adminPhone = '919257877312';
     const whatsappMsg = `🆕 New Lead!\n\nName: ${name.trim()}\nPhone: ${cleanPhone}\n${email ? 'Email: ' + email.trim() + '\n' : ''}${insuranceType ? 'Insurance: ' + insuranceType + '\n' : ''}${city ? 'City: ' + city.trim() + '\n' : ''}Source: ${source || 'website'}\nTime: ${new Date().toISOString()}`;
     
-    // Log the lead (for server-side debugging)
-    console.log('[LEAD_SUBMITTED]', { leadId, name: name.trim(), phone: cleanPhone, city, insuranceType });
+    // Log the lead (PII-masked for server logs — never log raw phone/email per DPDP Act)
+    console.log('[LEAD_SUBMITTED]', { leadId, name: name.trim().slice(0,1) + '***', phone: cleanPhone.slice(0,4) + '******' + cleanPhone.slice(-2), city, insuranceType });
 
     return NextResponse.json({ 
       success: true, 

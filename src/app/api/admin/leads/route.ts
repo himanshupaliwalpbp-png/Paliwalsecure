@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { requireAdmin } from "@/lib/api-auth";
+import { apiRateLimiter } from "@/lib/server-rate-limiter";
 
 // ── Decryption helper (client sends base64-encoded data) ───────────────────
 function decryptData(data: string): string {
@@ -13,6 +15,13 @@ function decryptData(data: string): string {
 // ── POST /api/admin/leads — Submit a new lead (public, encrypted) ──────────
 export async function POST(request: NextRequest) {
   try {
+    // Rate-limit public submissions (per IP) to prevent lead spam
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = apiRateLimiter.check(`leads-post:${ip}`, 10, 60_000); // 10/min
+    if (!rl.allowed) {
+      return NextResponse.json({ success: false, error: "Too many requests. Please try again later." }, { status: 429 });
+    }
+
     const body = await request.json();
     const isEncrypted = body.encrypted === true;
 
@@ -86,6 +95,12 @@ export async function POST(request: NextRequest) {
 // ── GET /api/admin/leads — List leads with pagination, filtering, search ────
 export async function GET(request: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
 
     const status = searchParams.get("status");

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { z } from 'zod';
+import { requireAdmin } from '@/lib/api-auth';
+import { apiRateLimiter } from '@/lib/server-rate-limiter';
 
 const callbackSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(50),
@@ -12,6 +14,13 @@ const callbackSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate-limit public submissions (per IP)
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = apiRateLimiter.check(`callback-post:${ip}`, 5, 60_000); // 5/min
+    if (!rl.allowed) {
+      return NextResponse.json({ success: false, error: "Too many requests. Please try again later." }, { status: 429 });
+    }
+
     const body = await request.json();
     const validated = callbackSchema.parse(body);
 
@@ -49,7 +58,12 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  // Admin endpoint to list callback requests
+  // ── AUTH: admin-only ─────────────────────────────────────────────────────
+  const admin = requireAdmin(request);
+  if (!admin) {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const status = searchParams.get('status');
   const page = parseInt(searchParams.get('page') || '1');

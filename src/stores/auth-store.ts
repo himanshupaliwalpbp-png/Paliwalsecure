@@ -24,13 +24,12 @@ interface AuthState {
   initialize: () => void;
 }
 
-// ── Helper: set client-side cookie ──────────────────────────────────────────
-function setClientCookie(name: string, value: string, maxAge: number) {
-  document.cookie = `${name}=${value}; path=/; max-age=${maxAge}; sameSite=strict`;
-}
-
+// ── Helper: set client-side cookie (DEPRECATED — kept for logout only) ──────
+// SECURITY: access token is now set as httpOnly by the server on login/refresh.
+// We no longer write the access token to a JS-readable cookie. The only client-
+// side cookie operation we still need is DELETE on logout.
 function deleteClientCookie(name: string) {
-  document.cookie = `${name}=; path=/; max-age=0`;
+  document.cookie = `${name}=; path=/; max-age=0; sameSite=strict`;
 }
 
 // ── Auth Store ──────────────────────────────────────────────────────────────
@@ -70,8 +69,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return;
       }
 
-      // Store access token in memory + cookie for middleware
-      setClientCookie("admin_access_token", data.accessToken, 15 * 60); // 15 min
+      // Access token is now set as httpOnly cookie by server — keep only in-memory copy for UI state.
       set({
         accessToken: data.accessToken,
         user: data.user,
@@ -107,8 +105,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw new Error(data.error || "MFA verification failed");
       }
 
-      // Store access token in memory + cookie for middleware
-      setClientCookie("admin_access_token", data.accessToken, 15 * 60); // 15 min
+      // Access token is now set as httpOnly cookie by server — keep only in-memory copy for UI state.
       set({
         accessToken: data.accessToken,
         user: data.user,
@@ -156,8 +153,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return;
       }
 
-      // Update access token
-      setClientCookie("admin_access_token", data.accessToken, 15 * 60);
+      // Update in-memory access token (server already set the httpOnly cookie)
       set({ accessToken: data.accessToken, isAuthenticated: true });
     } catch {
       get().logout();

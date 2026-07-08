@@ -21,7 +21,19 @@ yarn-error.log*
 dev.log
 
 # Local env files
+.env
+.env.*
 .env*.local
+!.env.example
+
+# Database (SQLite) — never commit
+*.db
+*.sqlite
+*.sqlite3
+db/
+prisma/dev.db
+prisma/*.db
+prisma/*.sqlite
 
 # Vercel
 .vercel

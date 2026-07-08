@@ -8,12 +8,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { detectTrends, getTrendsForArticleGeneration, type ScoredTrend } from '@/lib/trends';
 import { generateArticle } from '@/lib/article-generator';
+import { verifyCronSecret, unauthorizedCronResponse } from "@/lib/cron-auth";
 
 export async function GET(request: NextRequest) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   return runCronJob(request);
 }
 
 export async function POST(request: NextRequest) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   return runCronJob(request);
 }
 

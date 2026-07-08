@@ -11,7 +11,17 @@ import { isIpAllowed } from "@/lib/ip-whitelist";
 
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCK_DURATION_MS = 60 * 60 * 1000; // 1 hour
-const MFA_JWT_SECRET = process.env.JWT_SECRET || "paliwal-secure-jwt-secret-dev-placeholder";
+let _mfaJwtSecret: string | undefined;
+function getMfaJwtSecret(): string {
+  if (_mfaJwtSecret !== undefined) return _mfaJwtSecret;
+  const v = process.env.JWT_SECRET;
+  if (v) { _mfaJwtSecret = v; return v; }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("FATAL: JWT_SECRET environment variable is required in production.");
+  }
+  _mfaJwtSecret = "paliwal-secure-jwt-secret-dev-placeholder";
+  return _mfaJwtSecret;
+}
 
 // ── Environment Variable Admin (works on Vercel without database) ──────────
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "";
@@ -136,7 +146,7 @@ async function tryDbLogin(
     if (adminUser.mfaEnabled && adminUser.totpSecret) {
       const mfaToken = jwt.sign(
         { userId: adminUser.id, mfaStep: true },
-        MFA_JWT_SECRET,
+        getMfaJwtSecret(),
         { expiresIn: "5m" }
       );
 
@@ -162,12 +172,23 @@ async function tryDbLogin(
       user: { userId: adminUser.id, email: adminUser.email, role: adminUser.role, name: adminUser.name },
     });
 
+    // ── Refresh token: httpOnly cookie, scoped to refresh endpoint ─────────
     response.cookies.set("admin_refresh_token", refreshToken, {
       path: "/api/admin/auth/refresh",
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60,
+    });
+
+    // ── Access token: also httpOnly (XSS-safe). Client keeps only user info
+    //    in memory; middleware reads the cookie for edge-side auth. ─────────
+    response.cookies.set("admin_access_token", accessToken, {
+      path: "/",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 60, // 15 min — matches JWT expiry
     });
 
     return { success: true, response };
@@ -225,7 +246,7 @@ export async function POST(request: NextRequest) {
       if (envResult.mfaRequired) {
         const mfaToken = jwt.sign(
           { userId: envResult.user.userId, mfaStep: true },
-          MFA_JWT_SECRET,
+          getMfaJwtSecret(),
           { expiresIn: "5m" }
         );
 

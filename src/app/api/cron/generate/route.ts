@@ -7,7 +7,7 @@
 // Uses @neondatabase/serverless for direct SQL queries
 // ============================================================================
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getTrendsForArticleGeneration } from '@/lib/trends';
 import { generateArticle, batchGenerateArticles } from '@/lib/article-generator';
 import {
@@ -16,10 +16,16 @@ import {
   createArticle,
   markTrendAsProcessed,
 } from '@/lib/neon-db';
+import { verifyCronSecret, unauthorizedCronResponse } from "@/lib/cron-auth";
 
 export const maxDuration = 60;
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   const startTime = Date.now();
 
   try {
@@ -188,6 +194,11 @@ export async function GET() {
 
 // Also support POST for manual triggering
 export async function POST(request: Request) {
+    // ── CRON AUTH ───────────────────────────────────────────────────────────
+    if (!verifyCronSecret(request)) {
+      return unauthorizedCronResponse();
+    }
+
   try {
     const body = await request.json().catch(() => ({}));
     const { limit = 3, forceRegenerate = false } = body as { limit?: number; forceRegenerate?: boolean };

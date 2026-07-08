@@ -28,7 +28,12 @@ export async function GET(request: NextRequest) {
   const token = searchParams.get('hub.verify_token');
   const challenge = searchParams.get('hub.challenge');
 
-  const expectedToken = process.env.WHATSAPP_VERIFY_TOKEN || 'paliwal_secure_verify_2026';
+  // SECURITY: Hard-fail if verify token is missing. Never ship a fallback.
+  const expectedToken = process.env.WHATSAPP_VERIFY_TOKEN;
+  if (!expectedToken) {
+    console.error('❌ WHATSAPP_VERIFY_TOKEN env var is not set — refusing to verify webhook.');
+    return NextResponse.json({ error: 'Server misconfigured' }, { status: 503 });
+  }
 
   if (mode === 'subscribe' && token === expectedToken) {
     console.log('✅ WhatsApp webhook verified successfully');
@@ -44,8 +49,11 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Log for debugging (in production, use proper logging)
-    console.log('📩 WhatsApp webhook received:', JSON.stringify(body, null, 2));
+    // Log webhook receipt — PII-masked (never log raw phone/body per DPDP Act)
+    console.log('📩 WhatsApp webhook received:', {
+      entryCount: body?.entry?.length || 0,
+      hasMessages: !!(body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]),
+    });
 
     // Meta WhatsApp webhook structure:
     // body.entry[0].changes[0].value.messages[0] = incoming message
@@ -61,7 +69,9 @@ export async function POST(request: NextRequest) {
       const text = message.text?.body || '';
       const timestamp = new Date(parseInt(message.timestamp) * 1000).toISOString();
 
-      console.log(`📱 Message from ${from} at ${timestamp}: ${text}`);
+      // Mask phone (keep last 4) and only log message length, not body
+      const maskedFrom = from.length >= 4 ? from.slice(0, -4) + '****' : '****';
+      console.log(`📱 Message from ${maskedFrom} at ${timestamp} (${text.length} chars)`);
 
       // TODO: When WhatsApp Business API is active:
       // 1. Save to database (Lead table)

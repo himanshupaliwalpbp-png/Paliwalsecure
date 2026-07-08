@@ -1,9 +1,16 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/api-auth';
 
-// GET /api/insuranceos/policies - List all policies with search & filters
+// GET /api/insuranceos/policies - List all policies with search & filters (admin-only)
 export async function GET(req: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const search = req.nextUrl.searchParams.get('search') || '';
     const category = req.nextUrl.searchParams.get('category') || '';
     const status = req.nextUrl.searchParams.get('status') || '';
@@ -47,9 +54,15 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST /api/insuranceos/policies - Create new policy
+// POST /api/insuranceos/policies - Create new policy (admin-only)
 export async function POST(req: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await req.json();
     const {
       clientId,

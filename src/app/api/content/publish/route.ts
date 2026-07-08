@@ -5,11 +5,19 @@
 // ============================================================================
 
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/db';
+import { requireAdmin } from '@/lib/api-auth';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { slug } = body as { slug?: string };
 

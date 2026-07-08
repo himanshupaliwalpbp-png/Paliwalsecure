@@ -1,9 +1,17 @@
 import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { requireAdmin } from '@/lib/api-auth';
 
-// GET /api/insuranceos/dashboard - Dashboard KPIs
-export async function GET() {
+// GET /api/insuranceos/dashboard - Dashboard KPIs (admin-only)
+export async function GET(req: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(req);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const totalClients = await db.insuranceClient.count();
     const activePolicies = await db.insurancePolicy.count({ where: { status: 'ACTIVE' } });
 

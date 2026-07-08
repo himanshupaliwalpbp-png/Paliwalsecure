@@ -7,11 +7,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { detectTrends, getTrendsForArticleGeneration, type ScoredTrend } from '@/lib/trends';
 import { generateArticle, batchGenerateArticles, checkIRDAICompliance } from '@/lib/article-generator';
+import { requireAdmin } from '@/lib/api-auth';
 
 export const maxDuration = 60;
 
 export async function POST(request: NextRequest) {
   try {
+    // ── AUTH: admin-only (LLM cost protection) ───────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json().catch(() => ({}));
     const { trendSlug, trendTitle, autoSelect = false, limit = 1 } = body;
 

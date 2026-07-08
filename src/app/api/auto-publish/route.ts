@@ -17,6 +17,7 @@ import {
   createInternalLink,
   type NeonTrend,
 } from '@/lib/neon-db';
+import { requireAdmin } from '@/lib/api-auth';
 
 export const maxDuration = 60;
 
@@ -336,6 +337,12 @@ export async function POST(request: NextRequest) {
   const startTime = Date.now();
 
   try {
+    // ── AUTH: admin-only (LLM cost + content mutation) ───────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     // Rate limiting
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     if (!checkRateLimit(ip)) {
@@ -467,8 +474,14 @@ export async function POST(request: NextRequest) {
 
 // ── GET: Check for unprocessed trends ──────────────────────────────────────
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const neonAvailable = isNeonAvailable();
 
     let pendingTrends: Array<{

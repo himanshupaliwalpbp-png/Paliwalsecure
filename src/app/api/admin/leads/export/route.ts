@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { requireAdmin } from "@/lib/api-auth";
 
 // ── CSV escaping helper ─────────────────────────────────────────────────────
 function escapeCsvField(value: string | null | undefined): string {
@@ -15,6 +16,12 @@ function escapeCsvField(value: string | null | undefined): string {
 // ── GET /api/admin/leads/export — Export leads as CSV ──────────────────────
 export async function GET(request: NextRequest) {
   try {
+    // ── AUTH: admin-only ─────────────────────────────────────────────────────
+    const admin = requireAdmin(request);
+    if (!admin) {
+      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
 
     const status = searchParams.get("status");

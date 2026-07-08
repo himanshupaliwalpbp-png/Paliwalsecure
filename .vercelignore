@@ -12,3 +12,15 @@ skills/
 mini-services/
 *.log
 dev.log
+
+# Secrets & databases (NEVER upload to Vercel build context)
+.env
+.env.*
+.env*.local
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+db/
+*.bak
+*.backup

@@ -103,13 +103,13 @@ export async function POST(request: NextRequest) {
     const deepLink = `https://wa.me/${HIMAL_PHONE}?text=${encodeURIComponent(message)}`;
 
     // TODO: Save to database (Lead table) when DB is connected
-    // For now, just log
+    // For now, just log (PII-masked — never log raw phone/name per DPDP Act)
     console.log('📝 WhatsApp lead captured:', {
       topic,
       source: source || 'unknown',
-      userName: userName || 'anonymous',
-      userPhone: userPhone || 'not-provided',
-      messagePreview: message.slice(0, 100),
+      userName: userName ? (userName.slice(0,1) + '***') : 'anonymous',
+      userPhone: userPhone ? (userPhone.slice(0,4) + '******' + userPhone.slice(-2)) : 'not-provided',
+      messagePreview: message.slice(0, 50) + (message.length > 50 ? '...' : ''),
       timestamp: new Date().toISOString(),
       deepLink,
     });
