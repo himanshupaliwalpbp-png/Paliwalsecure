@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Calculator, TrendingUp, AlertCircle, CheckCircle2, Info, IndianRupee, Sparkles } from 'lucide-react';
+import { Users, Calculator, TrendingUp, AlertCircle, CheckCircle2, Info, IndianRupee, Sparkles, Loader2 } from 'lucide-react';
 
 // ============================================================================
 // TYPES & CONSTANTS
@@ -237,6 +237,8 @@ export default function FamilyFloaterOptimizer() {
     { id: '3', role: 'child', age: 8, hasPed: false },
   ]);
   const [cityTier, setCityTier] = useState<CityTier>('tier2');
+  const [aiAdvice, setAiAdvice] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
   const result = useMemo(
@@ -260,6 +262,36 @@ export default function FamilyFloaterOptimizer() {
 
   const updateMember = (id: string, updates: Partial<FamilyMember>) => {
     setMembers(members.map((m) => (m.id === id ? { ...m, ...updates } : m)));
+  };
+
+  // ── AI-powered recommendation from InsureGPT ──────────────────────────
+  const handleAIRecommendation = async () => {
+    if (!result) return;
+    setAiLoading(true);
+    setAiAdvice(null);
+    try {
+      const familyDesc = members.map(m => {
+        const pedInfo = m.hasPed ? `, PED: ${PED_LABELS[m.pedType || 'diabetes']}` : '';
+        return `${ROLE_LABELS[m.role].label} (age ${m.age}${pedInfo})`;
+      }).join(', ');
+      const prompt = `I have a family of ${members.length} members: ${familyDesc}. City: ${cityTier}. My recommended base SI is ₹${result.recommendedBaseSI/100000}L with ₹${result.recommendedTopUpSI/100000}L super top-up. Monthly premium estimate: ₹${Math.round(result.totalPremiumMonthly)}. Give me the best 3 health insurance plans with real premiums, CSR, and hospital networks. Be specific with numbers.`;
+      
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: prompt, language: 'en' }),
+      });
+      const data = await res.json();
+      if (data.success && data.response) {
+        setAiAdvice(data.response);
+      } else {
+        setAiAdvice('Unable to get AI recommendation right now. Please try again or chat with InsureGPT directly.');
+      }
+    } catch {
+      setAiAdvice('Unable to connect to AI. Please try again.');
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   return (
@@ -488,6 +520,41 @@ export default function FamilyFloaterOptimizer() {
               <p className="text-[10px] text-center text-[#8B9099] dark:text-[#A8B0C2] mt-2">
                 * Family floater premium based on eldest member age (IRDAI norm). Estimates from IRDAI Annual Report 2025-26.
               </p>
+
+              {/* AI-Powered Recommendation */}
+              <div className="mt-4 pt-4 border-t border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)]">
+                <button
+                  onClick={handleAIRecommendation}
+                  disabled={aiLoading}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
+                >
+                  {aiLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      AI thinking...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4" />
+                      Get AI Recommendation — Real Plans
+                    </>
+                  )}
+                </button>
+                
+                {aiAdvice && (
+                  <div className="mt-4 p-4 rounded-xl bg-[#FAF7F2] dark:bg-[#0E1116] border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] max-h-96 overflow-y-auto">
+                    <div className="flex items-center gap-2 mb-3 pb-2 border-b border-[rgba(14,17,22,0.06)] dark:border-[rgba(250,247,242,0.08)]">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#2563EB] to-[#FFD700] flex items-center justify-center">
+                        <Sparkles className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-sm font-semibold text-[#0E1116] dark:text-white">InsureGPT AI Recommendation</span>
+                    </div>
+                    <div className="text-sm text-[#4A4F57] dark:text-[#A8B0C2] leading-relaxed whitespace-pre-wrap">
+                      {aiAdvice}
+                    </div>
+                  </div>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
