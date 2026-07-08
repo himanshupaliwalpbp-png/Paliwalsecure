@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight, JetBrains_Mono, Noto_Serif_Devanagari, Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Fraunces, Inter_Tight, JetBrains_Mono, Noto_Serif_Devanagari, Plus_Jakarta_Sans, Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SafeThemeProvider } from "@/lib/safe-theme-provider";
@@ -62,6 +62,13 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
   variable: "--font-devanagari",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+// DM Sans: Premium UI font for buttons, labels, stats — clean and modern
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -381,7 +388,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <StructuredData type="breadcrumb" />
       </head>
       <body
-        className={`${fraunces.variable} ${interTight.variable} ${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} min-h-screen flex flex-col overflow-x-clip antialiased`}
+        className={`${fraunces.variable} ${interTight.variable} ${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} ${notoSerifDevanagari.variable} ${dmSans.variable} min-h-screen flex flex-col overflow-x-clip antialiased`}
       >
         {/* Google Tag Manager (noscript) */}
         <noscript>
