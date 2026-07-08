@@ -47,10 +47,10 @@ export function PWAInstallPrompt() {
       if (hoursSinceDismissed < 48) return;
     }
 
-    // Show prompt after 8 seconds
+    // Show prompt after 30 seconds (was 8s — too aggressive, covered hero content)
     const showTimer = setTimeout(() => {
       setShowPrompt(true);
-    }, 8000);
+    }, 30000);
 
     return () => clearTimeout(showTimer);
   }, [deferredPrompt, isInstalled]);
