@@ -424,7 +424,7 @@ export default function HeroAdvisor() {
   return (
     <section
       id="advisor-form"
-      className="relative overflow-hidden section-premium bg-[#FAF7F2]"
+      className="relative overflow-hidden section-premium bg-[#FAF7F2] dark:bg-[#050816] ps-gradient-mesh"
     >
       {/* ── Warm Bone Canvas — Design Bible v8.0 "Quiet Confidence" ─────────────────── */}
 
