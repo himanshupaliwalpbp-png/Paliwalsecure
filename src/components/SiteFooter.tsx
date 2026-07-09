@@ -415,15 +415,26 @@ export default function SiteFooter() {
               </li>
             </ul>
 
-            {/* WhatsApp CTA */}
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <Button
-                className="rounded-xl text-sm font-body font-semibold shadow-[0_0_0_1px_rgba(184,72,44,0.18),0_2px_8px_-2px_rgba(184,72,44,0.22)] hover:shadow-[0_0_0_1px_rgba(184,72,44,0.28),0_4px_16px_-2px_rgba(184,72,44,0.30)] transition-all duration-300 hover:-translate-y-[1px] active:translate-y-0 h-11 px-5 bg-primary text-primary-foreground hover:bg-[#B8482C]"
-                size="sm"
-              >
-                <MessageCircle className="w-4 h-4 mr-2 text-[#25D366]" />
-                {t('footer.whatsapp')}
-              </Button>
+            {/* WhatsApp CTA — "Paliwal Secure insurance on WhatsApp" */}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-xl overflow-hidden border border-[#2D6A4F]/25 shadow-[0_2px_12px_-3px_rgba(45,106,79,0.20)] hover:shadow-[0_4px_20px_-3px_rgba(45,106,79,0.35)] transition-all duration-300 hover:-translate-y-[1px]"
+              aria-label="Paliwal Secure insurance on WhatsApp"
+            >
+              <div className="flex items-center gap-3 bg-gradient-to-br from-[#2D6A4F] to-[#235541] text-white p-3">
+                <div className="shrink-0 w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[11px] uppercase tracking-wider opacity-80 leading-none mb-0.5">Paliwal Secure</p>
+                  <p className="text-sm font-semibold leading-tight">insurance on WhatsApp</p>
+                </div>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/15 group-hover:bg-white/25 transition-colors">
+                  Chat →
+                </span>
+              </div>
             </a>
           </motion.div>
 
