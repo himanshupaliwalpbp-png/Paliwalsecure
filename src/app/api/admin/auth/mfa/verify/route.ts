@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import speakeasy from 'speakeasy';
-import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { getAuthUser } from '@/lib/api-auth';
 import { createAuditLog } from '@/lib/audit-log';
@@ -79,6 +77,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Verify TOTP token
+      const speakeasy = await import('speakeasy');
       const verified = speakeasy.totp.verify({
         secret: adminUser.totpSecret,
         encoding: 'base32',
@@ -136,6 +135,7 @@ export async function POST(request: NextRequest) {
     // Decode the setup token to get the pending TOTP secret
     let setupPayload: { setupStep: boolean; totpSecret: string; userId: string };
     try {
+      const jwt = await import('jsonwebtoken');
       setupPayload = jwt.verify(setupToken, getMfaJwtSecret()) as typeof setupPayload;
     } catch {
       return NextResponse.json(
@@ -152,6 +152,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify TOTP token against the pending secret
+    const speakeasy = await import('speakeasy');
     const verified = speakeasy.totp.verify({
       secret: setupPayload.totpSecret,
       encoding: 'base32',

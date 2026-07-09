@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 import {
   comparePassword,
   generateAccessToken,
@@ -144,6 +143,7 @@ async function tryDbLogin(
 
     // Check MFA
     if (adminUser.mfaEnabled && adminUser.totpSecret) {
+      const jwt = await import('jsonwebtoken');
       const mfaToken = jwt.sign(
         { userId: adminUser.id, mfaStep: true },
         getMfaJwtSecret(),
@@ -244,6 +244,7 @@ export async function POST(request: NextRequest) {
 
       // Check if MFA is required for env-admin (ADMIN_TOTP_SECRET set)
       if (envResult.mfaRequired) {
+        const jwt = await import('jsonwebtoken');
         const mfaToken = jwt.sign(
           { userId: envResult.user.userId, mfaStep: true },
           getMfaJwtSecret(),

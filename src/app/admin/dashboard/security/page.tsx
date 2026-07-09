@@ -472,15 +472,79 @@ export default function SecurityPage() {
 
               {setupStep === 'verify' && (
                 <>
-                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="flex items-start gap-3">
-                      <QrCode className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
+                  {/* ── Google Authenticator Setup Guide ─────────────────────── */}
+                  <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30 shrink-0">
+                        <QrCode className="w-5 h-5 text-white" />
+                      </div>
                       <div>
-                        <p className="text-sm text-blue-700 font-medium">
-                          Step 1: Scan the QR code
+                        <p className="text-base font-semibold text-blue-900">Setup Google Authenticator — 3 Easy Steps</p>
+                        <p className="text-xs text-blue-700 mt-1">Complete all steps below to activate 2FA on your admin account</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {/* Step 1: Install */}
+                      <div className="bg-white p-3 rounded-lg border border-blue-100">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center">1</span>
+                          <p className="text-xs font-semibold text-slate-800">Install App</p>
+                        </div>
+                        <p className="text-[11px] text-slate-600 mb-2">Download from App Store / Play Store:</p>
+                        <div className="flex flex-col gap-1.5">
+                          <a
+                            href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-[11px] text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            Android — Google Authenticator
+                          </a>
+                          <a
+                            href="https://apps.apple.com/app/google-authenticator/id388497605"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-[11px] text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            iOS — Google Authenticator
+                          </a>
+                          <a
+                            href="https://authy.com/download/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-[11px] text-blue-600 hover:text-blue-800 hover:underline"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            Alternative — Authy (cloud backup)
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Step 2: Scan QR */}
+                      <div className="bg-white p-3 rounded-lg border border-blue-100">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center">2</span>
+                          <p className="text-xs font-semibold text-slate-800">Scan QR Code</p>
+                        </div>
+                        <p className="text-[11px] text-slate-600">
+                          Open the app → tap <strong className="text-slate-800">+</strong> button → choose <strong className="text-slate-800">Scan a QR code</strong>
                         </p>
-                        <p className="text-xs text-blue-600 mt-1">
-                          Use Google Authenticator, Authy, or any TOTP app to scan this QR code.
+                        <p className="text-[11px] text-slate-500 mt-1.5">
+                          Or choose <strong>Enter setup key</strong> and paste the manual key below.
+                        </p>
+                      </div>
+
+                      {/* Step 3: Enter code */}
+                      <div className="bg-white p-3 rounded-lg border border-blue-100">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center">3</span>
+                          <p className="text-xs font-semibold text-slate-800">Enter 6-Digit Code</p>
+                        </div>
+                        <p className="text-[11px] text-slate-600">
+                          App will show a 6-digit code that refreshes every 30 seconds. Enter it below to confirm.
                         </p>
                       </div>
                     </div>
@@ -489,13 +553,29 @@ export default function SecurityPage() {
                   {/* QR Code Display */}
                   {qrCodeUrl && (
                     <div className="flex flex-col items-center gap-3 py-4">
-                      <div className="p-3 bg-white rounded-xl shadow-sm border">
-                        <img
-                          src={qrCodeUrl}
-                          alt="MFA QR Code"
-                          className="w-48 h-48"
-                        />
+                      <p className="text-sm font-semibold text-slate-800 self-start">Scan this QR code with your authenticator app:</p>
+                      <div className="p-4 bg-white rounded-2xl shadow-md border-2 border-slate-100">
+                        {qrCodeUrl.startsWith('data:') ? (
+                          <img
+                            src={qrCodeUrl}
+                            alt="MFA QR Code — scan with Google Authenticator"
+                            className="w-56 h-56"
+                          />
+                        ) : (
+                          <div className="w-56 h-56 flex items-center justify-center p-4 text-center">
+                            <a
+                              href={qrCodeUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:underline break-all"
+                            >
+                              Click to open QR code in new tab →<br/>
+                              <span className="text-[10px] text-slate-500">(or use manual key below)</span>
+                            </a>
+                          </div>
+                        )}
                       </div>
+                      <p className="text-xs text-slate-500">⏱ Code refreshes every 30 seconds in your app</p>
                     </div>
                   )}
 

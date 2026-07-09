@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import speakeasy from 'speakeasy';
-import QRCode from 'qrcode';
-import jwt from 'jsonwebtoken';
 import { getAuthUser } from '@/lib/api-auth';
 import { createAuditLog } from '@/lib/audit-log';
 import { getClientIp } from '@/lib/server-rate-limiter';
@@ -57,6 +54,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Generate TOTP secret
+      const speakeasy = await import('speakeasy');
       const secret = speakeasy.generateSecret({
         name: `Paliwal Secure (${adminUser.email})`,
         issuer: 'Paliwal Secure',
@@ -64,6 +62,7 @@ export async function POST(request: NextRequest) {
       });
 
       // Generate QR code
+      const QRCode = await import('qrcode');
       const qrCodeUrl = await QRCode.toDataURL(secret.otpauth_url ?? '', {
         width: 256,
         margin: 2,
@@ -105,12 +104,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate new TOTP secret for env-based setup
+    const speakeasy = await import('speakeasy');
     const secret = speakeasy.generateSecret({
       name: `Paliwal Secure (${process.env.ADMIN_EMAIL || 'admin'})`,
       issuer: 'Paliwal Secure',
       length: 32,
     });
 
+    const QRCode = await import('qrcode');
     const qrCodeUrl = await QRCode.toDataURL(secret.otpauth_url ?? '', {
       width: 256,
       margin: 2,
@@ -119,6 +120,7 @@ export async function POST(request: NextRequest) {
 
     // Create a short-lived setup token containing the secret
     // This allows the verify step to know the secret without database
+    const jwt = await import('jsonwebtoken');
     const setupToken = jwt.sign(
       { setupStep: true, totpSecret: secret.base32, userId: user.userId },
       getMfaJwtSecret(),

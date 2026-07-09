@@ -7,6 +7,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { LanguageProvider } from "@/lib/i18n";
 import FloatingChatBot from "@/components/FloatingChatBot";
 import { WhatsAppFAB } from "@/components/WhatsAppBot";
+import { PublicOnly } from "@/components/PublicOnly";
 import FooterWrapper from "@/components/FooterWrapper";
 import SiteHeader from "@/components/SiteHeader";
 import StructuredData from "@/components/StructuredData";
@@ -415,10 +416,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <FooterWrapper />
               </SafeRender>
               <SafeRender name="FloatingChatBot">
-                <FloatingChatBot />
+                <PublicOnly>
+                  <FloatingChatBot />
+                </PublicOnly>
               </SafeRender>
               <SafeRender name="WhatsAppFAB">
-                <WhatsAppFAB />
+                <PublicOnly>
+                  <WhatsAppFAB />
+                </PublicOnly>
               </SafeRender>
               <SafeRender name="ScrollProgress">
                 <ScrollProgress />

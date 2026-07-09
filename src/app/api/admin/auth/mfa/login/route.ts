@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import speakeasy from 'speakeasy';
-import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { generateAccessToken, generateRefreshToken, comparePassword } from '@/lib/auth';
 import { createAuditLog } from '@/lib/audit-log';
@@ -72,6 +70,7 @@ export async function POST(request: NextRequest) {
     // Verify MFA token
     let mfaPayload: MfaJwtPayload;
     try {
+      const jwt = await import('jsonwebtoken');
       mfaPayload = jwt.verify(mfaToken, getMfaJwtSecret()) as MfaJwtPayload;
     } catch {
       return NextResponse.json(
@@ -104,6 +103,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Verify TOTP code
+      const speakeasy = await import('speakeasy');
       const verified = speakeasy.totp.verify({
         secret: adminUser.totpSecret!,
         encoding: 'base32',
@@ -196,6 +196,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify TOTP code against env var secret
+    const speakeasy = await import('speakeasy');
     const verified = speakeasy.totp.verify({
       secret: ADMIN_TOTP_SECRET,
       encoding: 'base32',
