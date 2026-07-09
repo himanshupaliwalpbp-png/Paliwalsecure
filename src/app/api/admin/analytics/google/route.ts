@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/api-auth';
-import { db } from '@/lib/db';
+import { isDbAvailable, getDemoAnalyticsData } from '@/lib/db-status';
 
 /**
  * GET /api/admin/analytics/google
@@ -10,23 +10,8 @@ import { db } from '@/lib/db';
  * /api/admin/site-config — the JSON credentials downloaded from
  * Google Cloud Console → Service Accounts.
  *
- * Returns:
- *   {
- *     success: true,
- *     data: {
- *       property: string,
- *       range: { start, end, days },
- *       metrics: { totalUsers, newUsers, sessions, pageviews, bounceRate, avgSessionDuration },
- *       topPages: [{ path, views, avgTime }],
- *       topSources: [{ source, users, sessions }],
- *       deviceBreakdown: [{ device, users }],
- *       countryBreakdown: [{ country, users }],
- *       dailyTraffic: [{ date, users, sessions }]
- *     }
- *   }
- *
- * If service account is not configured, returns a friendly "not_configured"
- * response so the frontend can prompt the user to set it up.
+ * When DB or service account is not configured, returns DEMO data with
+ * `_demo: true` flag so the frontend can show a "demo mode" banner.
  */
 export async function GET(request: NextRequest) {
   const admin = requireAdmin(request);
@@ -38,6 +23,20 @@ export async function GET(request: NextRequest) {
   const days = Math.min(parseInt(searchParams.get('days') || '30', 10), 365);
 
   try {
+    // ── Check DB availability first ────────────────────────────────────────
+    const dbAvailable = await isDbAvailable();
+    if (!dbAvailable) {
+      // Return demo data so the UI looks impressive even without DB
+      return NextResponse.json({
+        success: true,
+        data: getDemoAnalyticsData(days),
+        dbConnected: false,
+        demo: true,
+      });
+    }
+
+    const { db } = await import('@/lib/db');
+
     // ── Fetch service account JSON from DB ─────────────────────────────────
     const saSetting = await db.siteSetting.findUnique({
       where: { key: 'ga_service_account_json' },
@@ -47,10 +46,13 @@ export async function GET(request: NextRequest) {
     });
 
     if (!saSetting || !saSetting.value) {
+      // Service account not configured — return demo data with banner
       return NextResponse.json({
-        success: false,
+        success: true,
+        data: getDemoAnalyticsData(days),
         not_configured: true,
-        error: 'Google Analytics service account not configured. Go to Settings → Google Analytics to add your service account JSON.',
+        demo: true,
+        error: 'Google Analytics service account not configured. Showing demo data. Go to Settings → Google Analytics to add your service account JSON for real data.',
       });
     }
 

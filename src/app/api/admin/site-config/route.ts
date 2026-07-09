@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/api-auth';
-import { db } from '@/lib/db';
+import { isDbAvailable, getDemoSiteConfig } from '@/lib/db-status';
 
 /**
  * GET /api/admin/site-config
@@ -24,6 +24,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // ── Check DB availability — return demo config if DB not connected ─────
+    const dbAvailable = await isDbAvailable();
+    if (!dbAvailable) {
+      return NextResponse.json({
+        success: true,
+        config: getDemoSiteConfig(),
+        dbConnected: false,
+      });
+    }
+
+    const { db } = await import('@/lib/db');
     const settings = await db.siteSetting.findMany({
       orderBy: { key: 'asc' },
     });
@@ -38,13 +49,15 @@ export async function GET(request: NextRequest) {
       };
     }
 
-    return NextResponse.json({ success: true, config });
+    return NextResponse.json({ success: true, config, dbConnected: true });
   } catch (error) {
     console.error('[SITE_CONFIG_GET_ERROR]', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch site config' },
-      { status: 500 }
-    );
+    // Fallback to demo config so UI doesn't break
+    return NextResponse.json({
+      success: true,
+      config: getDemoSiteConfig(),
+      dbConnected: false,
+    });
   }
 }
 
@@ -121,6 +134,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // ── Check DB availability — cannot save if DB not connected ────────────
+    const dbAvailable = await isDbAvailable();
+    if (!dbAvailable) {
+      return NextResponse.json({
+        success: false,
+        error: 'Database not connected. To save settings, you need to set up a PostgreSQL database (Neon, Vercel Postgres, or Supabase) and update the DATABASE_URL environment variable. See the Database Setup guide in the admin dashboard.',
+        db_not_connected: true,
+      }, { status: 503 });
+    }
+
+    const { db } = await import('@/lib/db');
     // ── Upsert setting ─────────────────────────────────────────────────────
     const updated = await db.siteSetting.upsert({
       where: { key },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/api-auth';
+import { isDbAvailable } from '@/lib/db-status';
 
 /**
  * GET /api/admin/notifications
@@ -18,6 +19,24 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(parseInt(searchParams.get('limit') || '20', 10), 50);
 
   try {
+    // ── DB availability check — return empty notifications if not connected
+    const dbAvailable = await isDbAvailable();
+    if (!dbAvailable) {
+      return NextResponse.json({
+        success: true,
+        unread: 0,
+        notifications: [],
+        stats: {
+          newLeadsToday: 0,
+          pendingCallbacks: 0,
+          newReviewsToday: 0,
+          expiringPolicies7d: 0,
+          expiringPolicies30d: 0,
+        },
+        dbConnected: false,
+      });
+    }
+
     const { db } = await import('@/lib/db');
 
     const now = new Date();

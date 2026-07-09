@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Phone,
   Zap,
+  Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +42,7 @@ const NAV_ITEMS = [
   { label: "Analytics",  href: "/admin/dashboard/analytics",      icon: BarChart3,       group: "Insights" },
   { label: "Audit Logs", href: "/admin/dashboard/audit-logs",     icon: ClipboardList,   group: "Insights" },
   { label: "Security",   href: "/admin/dashboard/security",       icon: ShieldCheck,     group: "System" },
+  { label: "Database",   href: "/admin/dashboard/setup",          icon: Database,        group: "System" },
   { label: "Settings",   href: "/admin/dashboard/settings",       icon: Settings,        group: "System" },
 ] as const;
 
