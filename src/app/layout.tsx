@@ -73,7 +73,23 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+// ── Dynamic metadata (async) — pulls Google verification code from DB if set
+//    via admin Settings page. Falls back to default 'google8fc09a8ee177a7d9'.
+async function getGoogleVerification(): Promise<string> {
+  try {
+    const { db } = await import('@/lib/db');
+    const setting = await db.siteSetting.findUnique({
+      where: { key: 'google_site_verification' },
+    });
+    return setting?.value || 'google8fc09a8ee177a7d9';
+  } catch {
+    return 'google8fc09a8ee177a7d9';
+  }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const googleVerification = await getGoogleVerification();
+  return {
   metadataBase: new URL('https://paliwalsecure.in'),
   title: {
     default: "Paliwal Secure AI — India's #1 AI Insurance Advisor | Compare 51+ Insurers",
@@ -235,7 +251,11 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google8fc09a8ee177a7d9',
+    google: googleVerification,
+    other: {
+      // Also expose as raw meta — some verification tools need this exact form
+      'google-site-verification': googleVerification,
+    },
   },
   robots: {
     index: true,
@@ -325,7 +345,8 @@ export const metadata: Metadata = {
     "geo.position": "25.18;75.8648",
     "ICBM": "25.18, 75.8648",
   },
-};
+  };
+}
 
 export default function RootLayout({
   children,
