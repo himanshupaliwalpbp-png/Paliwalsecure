@@ -40,9 +40,9 @@ export default function AuthorBio() {
     worksFor: {
       '@type': 'Organization',
       name: 'Paliwal Secure',
-      url: 'https://paliwalsecure.com',
+      url: 'https://paliwalsecure.in',
     },
-    url: 'https://paliwalsecure.com',
+    url: 'https://paliwalsecure.in/about/himanshu-paliwal',
     telephone: '+91-9257877312',
     email: 'himanshupaliwalpbp@gmail.com',
     knowsAbout: [

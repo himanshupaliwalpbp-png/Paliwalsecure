@@ -25,7 +25,7 @@ export function DefinedTerm({ term, definition, className }: DefinedTermProps) {
       <span className="text-sm text-muted-foreground" itemProp="description">
         — {definition}
       </span>
-      <meta itemProp="inDefinedTermSet" content="https://paliwalsecure.com/insurance-glossary" />
+      <meta itemProp="inDefinedTermSet" content="https://paliwalsecure.in/insurance-glossary" />
     </span>
   );
 }

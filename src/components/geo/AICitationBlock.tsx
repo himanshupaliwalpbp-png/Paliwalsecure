@@ -98,7 +98,7 @@ export function AICitationBlock({
           <p className="text-xs text-muted-foreground" itemProp="name">
             Source: {source}
           </p>
-          <meta itemProp="url" content="https://paliwalsecure.com" />
+          <meta itemProp="url" content="https://paliwalsecure.in" />
         </div>
       </CardContent>
     </Card>

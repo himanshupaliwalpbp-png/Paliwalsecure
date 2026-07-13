@@ -77,7 +77,7 @@ export function TrendArticle({
   internalLinks,
   className,
 }: TrendArticleProps) {
-  const articleUrl = `https://paliwalsecure.com/blog/${slug}`;
+  const articleUrl = `https://paliwalsecure.in/blog/${slug}`;
   const gradientColor =
     CATEGORY_COLORS[category.toLowerCase()] || CATEGORY_COLORS.default;
 
@@ -92,14 +92,14 @@ export function TrendArticle({
       '@type': 'Person',
       name: 'Himanshu Paliwal',
       jobTitle: 'IRDAI Certified Insurance Advisor',
-      url: 'https://paliwalsecure.com',
+      url: 'https://paliwalsecure.in',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Paliwal Secure AI',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://paliwalsecure.com/icon.png',
+        url: 'https://paliwalsecure.in/icon.png',
       },
     },
     mainEntityOfPage: {
@@ -119,13 +119,13 @@ export function TrendArticle({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://paliwalsecure.com',
+        item: 'https://paliwalsecure.in',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: 'https://paliwalsecure.com/blog',
+        item: 'https://paliwalsecure.in/blog',
       },
       {
         '@type': 'ListItem',

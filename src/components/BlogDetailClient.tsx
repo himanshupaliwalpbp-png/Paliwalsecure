@@ -144,7 +144,7 @@ export function BlogLanguageHeader({
             </div>
           </div>
           <a
-            href={`https://wa.me/919257877312?text=${encodeURIComponent(`Check out: ${title} - https://paliwalsecure.com/blog/${slug}`)}`}
+            href={`https://wa.me/919257877312?text=${encodeURIComponent(`Check out: ${title} - https://paliwalsecure.in/blog/${slug}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium border border-border bg-card hover:bg-accent transition"

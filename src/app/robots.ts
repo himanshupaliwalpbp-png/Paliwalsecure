@@ -61,7 +61,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/'],
       },
     ],
-    sitemap: ['https://paliwalsecure.in/sitemap.xml', 'https://paliwalsecure.com/sitemap.xml'],
+    sitemap: ['https://paliwalsecure.in/sitemap.xml'],
     host: 'https://paliwalsecure.in',
   }
 }

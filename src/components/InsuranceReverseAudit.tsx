@@ -567,7 +567,7 @@ export default function InsuranceReverseAudit() {
     doc.setTextColor(255, 255, 255); doc.setFontSize(18); doc.setFont('helvetica', 'bold');
     doc.text('Insurance Reverse Audit Report', margin, 15);
     doc.setFontSize(9); doc.setFont('helvetica', 'normal');
-    doc.text('Paliwal Secure | IRDAI Certified POSP | POSP Code: IP429834 | paliwalsecure.com', margin, 23);
+    doc.text('Paliwal Secure | IRDAI Certified POSP | POSP Code: IP429834 | paliwalsecure.in', margin, 23);
     doc.text(`Generated: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}`, margin, 29);
     y = 42;
     doc.setFillColor(240, 253, 244); doc.roundedRect(margin, y, contentW, 22, 3, 3, 'F');

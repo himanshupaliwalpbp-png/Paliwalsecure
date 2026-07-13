@@ -10,10 +10,11 @@ interface SchemaType {
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://paliwalsecure.in/#organization',
   name: 'Paliwal Secure AI',
   alternateName: ['InsureGPT', 'Paliwal Insurance', 'Paliwal Secure'],
-  url: 'https://paliwalsecure.com',
-  logo: 'https://paliwalsecure.com/logo.svg',
+  url: 'https://paliwalsecure.in',
+  logo: 'https://paliwalsecure.in/logo.svg',
   description:
     "India's #1 AI-powered insurance advisor. Compare 51+ IRDAI-registered insurers, get personalized recommendations with InsureGPT AI, hassle-free claims support & save up to ₹75,000 under Section 80D.",
   founder: {
@@ -46,12 +47,12 @@ const organizationSchema = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': 'https://paliwalsecure.com/#localbusiness',
+  '@id': 'https://paliwalsecure.in/#localbusiness',
   name: 'Paliwal Secure AI — Insurance Advisor',
-  image: 'https://paliwalsecure.com/logo.svg',
-  url: 'https://paliwalsecure.com',
+  image: 'https://paliwalsecure.in/logo.svg',
+  url: 'https://paliwalsecure.in',
   telephone: '+91-9257877312',
-  email: 'himanshu@paliwalsecure.com',
+  email: 'himanshupaliwalpbp@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Near MBS Hospital, Kota',
@@ -98,13 +99,13 @@ const productSchema = {
   description:
     'AI-powered insurance comparison tool for Indian families. Compare health, motor, life, and travel insurance from 51+ IRDAI-registered insurers. Free consultation available.',
   brand: { '@type': 'Brand', name: 'Paliwal Secure AI' },
-  image: 'https://paliwalsecure.com/logo.svg',
+  image: 'https://paliwalsecure.in/logo.svg',
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'INR',
     availability: 'https://schema.org/InStock',
-    url: 'https://paliwalsecure.com',
+    url: 'https://paliwalsecure.in',
   },
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -187,10 +188,10 @@ const faqSchema = {
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  '@id': 'https://paliwalsecure.com/#website',
+  '@id': 'https://paliwalsecure.in/#website',
   name: 'Paliwal Secure AI',
   alternateName: ['InsureGPT', 'Paliwal Insurance', 'Paliwal Secure'],
-  url: 'https://paliwalsecure.com',
+  url: 'https://paliwalsecure.in',
   description:
     "India's #1 AI-powered insurance advisor. Compare 51+ IRDAI-registered insurers, get personalized recommendations with InsureGPT AI.",
   inLanguage: ['en-IN', 'hi-IN'],
@@ -198,12 +199,12 @@ const websiteSchema = {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://paliwalsecure.com/search?q={search_term_string}',
+      urlTemplate: 'https://paliwalsecure.in/search?q={search_term_string}',
     },
     'query-input': 'required name=search_term_string',
   },
   publisher: {
-    '@id': 'https://paliwalsecure.com/#organization',
+    '@id': 'https://paliwalsecure.in/#organization',
   },
 };
 
@@ -216,7 +217,7 @@ const defaultBreadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://paliwalsecure.com',
+      item: 'https://paliwalsecure.in',
     },
   ],
 };
