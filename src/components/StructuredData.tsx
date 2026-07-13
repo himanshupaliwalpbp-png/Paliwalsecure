@@ -80,11 +80,9 @@ const localBusinessSchema = {
     closes: '20:00',
   },
   priceRange: '₹₹',
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '500',
-  },
+  // AggregateRating removed — will be populated from real review data
+  // when /api/reviews/stats returns verified data. Using hardcoded ratings
+  // violates Google's structured data guidelines and risks manual action.
   areaServed: [
     { '@type': 'City', name: 'Kota' },
     { '@type': 'State', name: 'Rajasthan' },
@@ -107,11 +105,8 @@ const productSchema = {
     availability: 'https://schema.org/InStock',
     url: 'https://paliwalsecure.in',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '500',
-  },
+  // AggregateRating removed — will be populated from real review data
+  // when /api/reviews/stats returns verified data.
 };
 
 const faqSchema = {

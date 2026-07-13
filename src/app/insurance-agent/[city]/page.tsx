@@ -180,11 +180,6 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
       jobTitle: 'IRDAI Registered POSP',
       identifier: 'IP429834',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '200',
-    },
   };
 
   return (

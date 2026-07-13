@@ -77,12 +77,6 @@ const personJsonLd = {
       name: 'Insurance Regulatory and Development Authority of India (IRDAI)',
     },
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '200',
-    bestRating: '5',
-  },
 };
 
 export default function HimanshuPaliwalPage() {
