@@ -1,6 +1,6 @@
 ---
 title: "Honda SP 125 Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-13"
+date: "2026-07-13"
 author: "Himanshu Paliwal"
 slug: "honda-sp-125-insurance-2026"
 keywords: ['honda sp 125 insurance', 'sp 125 bike insurance', 'honda commuter insurance', 'sp 125 idv', 'honda sp insurance']

@@ -1,6 +1,6 @@
 ---
 title: "ACKO vs HDFC ERGO 2026: Premium, Claim, Service Compared"
-date: "2026-09-20"
+date: "2026-06-27"
 author: "Himanshu Paliwal"
 slug: "acko-vs-hdfc-ergo-comparison-2026"
 keywords: ['acko vs hdfc ergo', 'acko vs hdfc insurance', 'hdfc ergo vs acko comparison', 'digital vs traditional insurance', 'best motor insurance']

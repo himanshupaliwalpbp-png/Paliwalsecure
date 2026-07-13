@@ -1,6 +1,6 @@
 ---
 title: "Insurance for New Car Buyers in India 2026: Complete Guide"
-date: "2026-10-31"
+date: "2026-06-25"
 author: "Himanshu Paliwal"
 slug: "insurance-for-car-buyers-india-2026"
 keywords: ['new car insurance india', 'car insurance for new car', 'zero dep new car', 'new car idv', 'comprehensive new car']

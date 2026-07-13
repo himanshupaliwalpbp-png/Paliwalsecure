@@ -1,6 +1,6 @@
 ---
 title: "Max Life vs HDFC Life 2026: Term Insurance Comparison"
-date: "2026-09-25"
+date: "2026-07-05"
 author: "Himanshu Paliwal"
 slug: "max-life-vs-hdfc-life-comparison-2026"
 keywords: ['max life vs hdfc life', 'max vs hdfc insurance', 'hdfc life vs max comparison', 'best term insurance', 'max life csr']

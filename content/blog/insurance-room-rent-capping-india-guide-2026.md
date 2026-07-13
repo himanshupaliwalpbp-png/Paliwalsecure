@@ -1,6 +1,6 @@
 ---
 title: "Room Rent Capping in Health Insurance India 2026: Hidden Trap?"
-date: "2026-09-05"
+date: "2026-07-10"
 author: "Himanshu Paliwal"
 slug: "insurance-room-rent-capping-india-guide-2026"
 keywords: ['room rent capping', 'room rent limit', 'room rent clause', 'health insurance room cap', 'no room rent capping']

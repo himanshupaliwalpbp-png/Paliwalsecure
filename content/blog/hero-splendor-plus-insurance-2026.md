@@ -1,6 +1,6 @@
 ---
 title: "Hero Splendor Plus Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-14"
+date: "2026-06-20"
 author: "Himanshu Paliwal"
 slug: "hero-splendor-plus-insurance-2026"
 keywords: ['hero splendor insurance', 'splendor plus insurance', 'hero bike insurance', 'splendor idv', 'splendor plus premium']

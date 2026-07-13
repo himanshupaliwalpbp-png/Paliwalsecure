@@ -30,7 +30,7 @@ export const siteConfig = {
   pospCode: "IP429834",
   whatsapp: "+919257877312",
   email: "himanshu@paliwalsecure.in",
-  domains: ["paliwalsecure.in", "paliwalsecure.com"],
+  domains: ["paliwalsecure.in"],
   links: {
     twitter: "https://twitter.com/PaliwalSecureAI",
     linkedin: "https://linkedin.com/company/paliwal-secure-ai",

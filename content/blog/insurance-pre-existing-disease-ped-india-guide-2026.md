@@ -1,6 +1,6 @@
 ---
 title: "Pre-Existing Disease (PED) in Insurance India 2026: Complete Guide"
-date: "2026-09-09"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "insurance-pre-existing-disease-ped-india-guide-2026"
 keywords: ['pre existing disease', 'ped insurance', 'ped waiting period', 'ped meaning', 'ped disclosure']

@@ -1,6 +1,6 @@
 ---
 title: "Pet Insurance in India 2026: Complete Guide for Dog + Cat Owners"
-date: "2026-11-05"
+date: "2026-06-18"
 author: "Himanshu Paliwal"
 slug: "insurance-for-pets-india-2026"
 keywords: ['pet insurance india', 'dog insurance india', 'cat insurance india', 'pet health insurance', 'veterinary insurance']

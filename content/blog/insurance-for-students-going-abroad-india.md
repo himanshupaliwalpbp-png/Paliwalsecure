@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Students Going Abroad from India 2026: Complete Guide"
-date: "2026-07-19"
+date: "2026-07-13"
 author: "Himanshu Paliwal"
 slug: "insurance-for-students-going-abroad-india"
 keywords: ['insurance for students abroad', 'international student insurance', 'study abroad insurance india', 'overseas student insurance', 'university insurance requirement']

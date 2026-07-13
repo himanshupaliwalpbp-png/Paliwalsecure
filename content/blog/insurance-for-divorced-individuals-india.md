@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Divorced Individuals in India 2026: Rebuilding Cover"
-date: "2026-07-17"
+date: "2026-06-19"
 author: "Himanshu Paliwal"
 slug: "insurance-for-divorced-individuals-india"
 keywords: ['insurance for divorced', 'divorce insurance planning', 'nominee change after divorce', 'single insurance after divorce', 'policy update divorce']

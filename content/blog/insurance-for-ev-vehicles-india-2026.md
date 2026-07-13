@@ -1,6 +1,6 @@
 ---
 title: "EV Insurance in India 2026: Complete Guide for Electric Vehicles"
-date: "2026-11-07"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "insurance-for-ev-vehicles-india-2026"
 keywords: ['ev insurance india', 'electric vehicle insurance', 'ev battery insurance', 'tata nexon ev insurance', 'mg zs ev insurance']

@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Jaipur 2026: Best Plans + Cashless Hospitals"
-date: "2026-08-21"
+date: "2026-06-28"
 author: "Himanshu Paliwal"
 slug: "health-insurance-jaipur-complete-guide-2026"
 keywords: ['health insurance jaipur', 'jaipur health insurance', 'cashless hospital jaipur', 'insurance jaipur rajasthan', 'best health insurance jaipur']

@@ -1,6 +1,6 @@
 ---
 title: "Yamaha FZ-S Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-11"
+date: "2026-07-09"
 author: "Himanshu Paliwal"
 slug: "yamaha-fz-s-insurance-2026"
 keywords: ['yamaha fz-s insurance', 'fz-s bike insurance', 'yamaha insurance premium', 'fz-s idv', 'fz insurance']

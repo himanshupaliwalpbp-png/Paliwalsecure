@@ -1,6 +1,6 @@
 ---
 title: "TVS Jupiter Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-16"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "tvz-jupiter-insurance-2026"
 keywords: ['tvs jupiter insurance', 'jupiter scooter insurance', 'tvs jupiter premium', 'jupiter idv', 'jupiter comprehensive']

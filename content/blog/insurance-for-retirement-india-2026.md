@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Retirement in India 2026: Pension + Health + Term"
-date: "2026-11-02"
+date: "2026-06-27"
 author: "Himanshu Paliwal"
 slug: "insurance-for-retirement-india-2026"
 keywords: ['insurance for retirement india', 'retirement insurance planning', 'pension plan india', 'annuity insurance', 'nps retirement']

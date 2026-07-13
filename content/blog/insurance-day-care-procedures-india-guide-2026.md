@@ -1,6 +1,6 @@
 ---
 title: "Day Care Procedures in Health Insurance India 2026: List + Coverage"
-date: "2026-09-08"
+date: "2026-07-09"
 author: "Himanshu Paliwal"
 slug: "insurance-day-care-procedures-india-guide-2026"
 keywords: ['day care procedures', 'day care treatment', 'cataract insurance', 'day care list', 'irdai day care procedures']

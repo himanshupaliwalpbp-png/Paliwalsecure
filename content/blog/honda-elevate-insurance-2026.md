@@ -1,6 +1,6 @@
 ---
 title: "Honda Elevate Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-15"
+date: "2026-07-08"
 author: "Himanshu Paliwal"
 slug: "honda-elevate-insurance-2026"
 keywords: ['honda elevate insurance', 'elevate car insurance', 'elevate premium', 'elevate idv', 'honda elevate comprehensive']

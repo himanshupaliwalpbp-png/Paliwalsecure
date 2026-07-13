@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Senior Citizens in India 2026: Best Plans (60+ Age)"
-date: "2026-10-08"
+date: "2026-07-03"
 author: "Himanshu Paliwal"
 slug: "insurance-for-senior-citizens-india-2026"
 keywords: ['insurance for senior citizens', 'senior citizen health insurance', 'star red carpet', 'care senior insurance', 'senior citizen plans india']

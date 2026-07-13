@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Veterinarians in India 2026: Complete Guide"
-date: "2026-09-18"
+date: "2026-06-22"
 author: "Himanshu Paliwal"
 slug: "insurance-for-veterinarians-india-2026"
 keywords: ['insurance for veterinarians', 'vet insurance india', 'veterinary clinic insurance', 'vet professional indemnity', 'animal treatment insurance']

@@ -1,6 +1,6 @@
 ---
 title: "Wedding Insurance in India 2026: Protect Your Big Day"
-date: "2026-11-03"
+date: "2026-07-13"
 author: "Himanshu Paliwal"
 slug: "insurance-for-wedding-india-2026"
 keywords: ['wedding insurance india', 'marriage insurance', 'event insurance india', 'wedding cancellation insurance', 'wedding day insurance']

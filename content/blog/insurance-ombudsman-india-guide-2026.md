@@ -1,6 +1,6 @@
 ---
 title: "Insurance Ombudsman India 2026: How to File Complaint Against Insurer"
-date: "2026-10-04"
+date: "2026-07-09"
 author: "Himanshu Paliwal"
 slug: "insurance-ombudsman-india-guide-2026"
 keywords: ['insurance ombudsman india', 'file complaint against insurer', 'ombudsman complaint process', 'irdai ombudsman', 'insurance grievance']

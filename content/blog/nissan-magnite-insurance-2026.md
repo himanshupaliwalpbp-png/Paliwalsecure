@@ -1,6 +1,6 @@
 ---
 title: "Nissan Magnite Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-19"
+date: "2026-07-10"
 author: "Himanshu Paliwal"
 slug: "nissan-magnite-insurance-2026"
 keywords: ['nissan magnite insurance', 'magnite car insurance', 'magnite premium', 'magnite idv', 'nissan magnite comprehensive']

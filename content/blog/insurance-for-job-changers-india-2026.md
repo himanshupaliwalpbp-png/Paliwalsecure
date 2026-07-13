@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Job Changers in India 2026: Don't Lose Coverage"
-date: "2026-11-01"
+date: "2026-07-11"
 author: "Himanshu Paliwal"
 slug: "insurance-for-job-changers-india-2026"
 keywords: ['insurance for job changers', 'job change insurance india', 'employer health insurance gap', 'portability job change', 'health insurance between jobs']

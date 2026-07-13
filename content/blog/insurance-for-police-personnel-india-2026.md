@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Police Personnel in India 2026: Complete Guide"
-date: "2026-09-13"
+date: "2026-06-16"
 author: "Himanshu Paliwal"
 slug: "insurance-for-police-personnel-india-2026"
 keywords: ['insurance for police', 'police insurance india', 'police health insurance', 'police accident insurance', 'govt police insurance']

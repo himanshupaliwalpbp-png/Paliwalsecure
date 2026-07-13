@@ -1,6 +1,6 @@
 ---
 title: "Group Health Insurance in India 2026: Employer + Employee Guide"
-date: "2026-10-07"
+date: "2026-07-01"
 author: "Himanshu Paliwal"
 slug: "group-health-insurance-india-2026"
 keywords: ['group health insurance india', 'employer health insurance', 'corporate health insurance', 'group mediclaim', 'employee health insurance']

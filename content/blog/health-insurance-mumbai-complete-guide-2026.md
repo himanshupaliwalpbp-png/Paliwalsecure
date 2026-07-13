@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Mumbai 2026: Best Plans + 1000+ Hospitals"
-date: "2026-08-26"
+date: "2026-06-23"
 author: "Himanshu Paliwal"
 slug: "health-insurance-mumbai-complete-guide-2026"
 keywords: ['health insurance mumbai', 'mumbai health insurance', 'cashless hospital mumbai', 'insurance mumbai maharashtra', 'best health insurance mumbai']

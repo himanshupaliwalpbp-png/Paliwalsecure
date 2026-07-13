@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Jodhpur 2026: Best Plans + Cashless Hospitals"
-date: "2026-08-24"
+date: "2026-06-25"
 author: "Himanshu Paliwal"
 slug: "health-insurance-jodhpur-complete-guide-2026"
 keywords: ['health insurance jodhpur', 'jodhpur health insurance', 'cashless hospital jodhpur', 'insurance jodhpur rajasthan', 'best health insurance jodhpur']

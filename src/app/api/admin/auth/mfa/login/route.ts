@@ -215,7 +215,7 @@ export async function POST(request: NextRequest) {
     const envUserId = 'env-admin-001';
     const tokenPayload = {
       userId: envUserId,
-      email: ADMIN_EMAIL || 'admin@paliwalsecure.com',
+      email: ADMIN_EMAIL || 'admin@paliwalsecure.in',
       role: 'ADMIN',
     };
 
@@ -229,7 +229,7 @@ export async function POST(request: NextRequest) {
       accessToken,
       user: {
         userId: envUserId,
-        email: ADMIN_EMAIL || 'admin@paliwalsecure.com',
+        email: ADMIN_EMAIL || 'admin@paliwalsecure.in',
         role: 'ADMIN',
         name: 'Admin',
       },

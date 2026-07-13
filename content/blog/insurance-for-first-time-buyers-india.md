@@ -1,6 +1,6 @@
 ---
 title: "Insurance for First-Time Buyers in India 2026: Complete Beginner Guide"
-date: "2026-07-20"
+date: "2026-07-12"
 author: "Himanshu Paliwal"
 slug: "insurance-for-first-time-buyers-india"
 keywords: ['first time insurance buyer', 'insurance beginner guide', 'how to buy first insurance', 'insurance for beginners india', 'first insurance plan']

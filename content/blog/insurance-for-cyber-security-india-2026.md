@@ -1,6 +1,6 @@
 ---
 title: "Cyber Insurance in India 2026: Protect Against Online Fraud"
-date: "2026-11-06"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "insurance-for-cyber-security-india-2026"
 keywords: ['cyber insurance india', 'online fraud insurance', 'identity theft insurance', 'upi scam insurance', 'cyber security insurance']

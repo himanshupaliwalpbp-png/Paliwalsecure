@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Children in India 2026: Complete Guide (Education + Health)"
-date: "2026-10-01"
+date: "2026-07-08"
 author: "Himanshu Paliwal"
 slug: "insurance-for-children-india-2026"
 keywords: ['insurance for children india', 'child insurance plan', 'child health insurance', 'education insurance', 'child term insurance']

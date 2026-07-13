@@ -1,6 +1,6 @@
 ---
 title: "Winter Travel Insurance Tips India 2026: Hill Stations + International Trips"
-date: "2026-10-22"
+date: "2026-07-08"
 author: "Himanshu Paliwal"
 slug: "winter-travel-insurance-tips-india-2026"
 keywords: ['winter travel insurance', 'hill station insurance', 'international travel insurance india', 'winter vacation insurance', 'snow trip insurance']

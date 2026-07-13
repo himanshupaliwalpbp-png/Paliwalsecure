@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Startups in India 2026: Complete Guide (Founders + Employees)"
-date: "2026-10-06"
+date: "2026-06-23"
 author: "Himanshu Paliwal"
 slug: "insurance-for-startups-india-2026"
 keywords: ['insurance for startups india', 'startup insurance', 'founder insurance', 'group health insurance startup', 'startup business insurance']

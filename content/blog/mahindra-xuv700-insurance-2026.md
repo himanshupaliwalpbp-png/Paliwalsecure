@@ -1,6 +1,6 @@
 ---
 title: "Mahindra XUV700 Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-13"
+date: "2026-06-24"
 author: "Himanshu Paliwal"
 slug: "mahindra-xuv700-insurance-2026"
 keywords: ['mahindra xuv700 insurance', 'xuv700 car insurance', 'xuv700 premium', 'xuv700 idv', 'xuv700 comprehensive']

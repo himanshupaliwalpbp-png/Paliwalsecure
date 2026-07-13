@@ -1,6 +1,6 @@
 ---
 title: "Super Top-Up Health Insurance India 2026: Affordable High Cover"
-date: "2026-09-07"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "insurance-super-top-up-india-guide-2026"
 keywords: ['super top up insurance', 'top up health insurance', 'deductible meaning', 'super top up vs top up', 'best super top up india']

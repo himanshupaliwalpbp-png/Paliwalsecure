@@ -1,6 +1,6 @@
 ---
 title: "International Travel Insurance from India 2026: Complete Guide"
-date: "2026-11-04"
+date: "2026-06-16"
 author: "Himanshu Paliwal"
 slug: "insurance-for-travel-international-india-2026"
 keywords: ['international travel insurance india', 'schengen insurance', 'usa travel insurance india', 'travel medical insurance', 'trip cancellation insurance']

@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Pharmacists in India 2026: Complete Guide"
-date: "2026-09-16"
+date: "2026-06-18"
 author: "Himanshu Paliwal"
 slug: "insurance-for-pharmacists-india-2026"
 keywords: ['insurance for pharmacists', 'pharmacist insurance india', 'medical store insurance', 'pharmacist professional indemnity', 'pharmacy insurance']

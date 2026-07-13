@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Kota 2026: Best Plans + Student Special"
-date: "2026-08-22"
+date: "2026-06-23"
 author: "Himanshu Paliwal"
 slug: "health-insurance-kota-complete-guide-2026"
 keywords: ['health insurance kota', 'kota health insurance', 'student insurance kota', 'insurance kota rajasthan', 'best health insurance kota']

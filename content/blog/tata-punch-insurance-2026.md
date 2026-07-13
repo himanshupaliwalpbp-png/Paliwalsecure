@@ -1,6 +1,6 @@
 ---
 title: "Tata Punch Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-12"
+date: "2026-07-07"
 author: "Himanshu Paliwal"
 slug: "tata-punch-insurance-2026"
 keywords: ['tata punch insurance', 'punch car insurance', 'punch premium', 'punch idv', 'tata punch comprehensive']

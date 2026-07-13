@@ -1,6 +1,6 @@
 ---
 title: "No Claim Bonus (NCB) in Insurance India 2026: Complete Guide"
-date: "2026-09-03"
+date: "2026-06-25"
 author: "Himanshu Paliwal"
 slug: "insurance-no-claim-bonus-ncb-india-guide-2026"
 keywords: ['no claim bonus', 'ncb insurance', 'ncb meaning', 'ncb discount', 'ncb transfer']

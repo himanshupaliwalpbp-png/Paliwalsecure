@@ -1,6 +1,6 @@
 ---
 title: "ICICI Lombard vs TATA AIG 2026: Premium, Claim, Service Compared"
-date: "2026-09-23"
+date: "2026-07-11"
 author: "Himanshu Paliwal"
 slug: "icici-lombard-vs-tata-aig-comparison-2026"
 keywords: ['icici lombard vs tata aig', 'icici vs tata insurance', 'tata aig vs icici comparison', 'best general insurance', 'icici lombard claim']

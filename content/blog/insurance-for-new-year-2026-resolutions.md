@@ -1,6 +1,6 @@
 ---
 title: "New Year 2026 Insurance Resolutions: Secure Your Future"
-date: "2026-10-29"
+date: "2026-06-19"
 author: "Himanshu Paliwal"
 slug: "insurance-for-new-year-2026-resolutions"
 keywords: ['new year insurance resolutions', '2026 insurance planning', 'new year financial goals', 'insurance review new year', 'financial planning 2026']

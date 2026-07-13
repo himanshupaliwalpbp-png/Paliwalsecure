@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Senior Citizen Parents in India 2026: Best Plans"
-date: "2026-07-18"
+date: "2026-06-20"
 author: "Himanshu Paliwal"
 slug: "insurance-for-senior-citizens-parents-india"
 keywords: ['insurance for senior citizens', 'parents health insurance', 'senior citizen plans india', 'star red carpet', 'care senior insurance']

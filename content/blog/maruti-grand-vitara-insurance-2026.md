@@ -1,6 +1,6 @@
 ---
 title: "Maruti Grand Vitara Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-18"
+date: "2026-06-23"
 author: "Himanshu Paliwal"
 slug: "maruti-grand-vitara-insurance-2026"
 keywords: ['maruti grand vitara insurance', 'grand vitara car insurance', 'grand vitara premium', 'grand vitara idv', 'grand vitara comprehensive']

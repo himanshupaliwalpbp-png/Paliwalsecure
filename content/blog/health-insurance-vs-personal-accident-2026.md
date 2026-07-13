@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance vs Personal Accident Insurance 2026: Both Needed?"
-date: "2026-09-29"
+date: "2026-06-15"
 author: "Himanshu Paliwal"
 slug: "health-insurance-vs-personal-accident-2026"
 keywords: ['health insurance vs personal accident', 'accident insurance vs health', 'personal accident cover', 'do i need accident insurance', 'accident insurance india']

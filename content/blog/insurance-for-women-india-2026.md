@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Women in India 2026: Complete Guide (Working + Homemakers)"
-date: "2026-09-30"
+date: "2026-06-29"
 author: "Himanshu Paliwal"
 slug: "insurance-for-women-india-2026"
 keywords: ['insurance for women india', 'women health insurance', 'working woman insurance', 'homemaker insurance', 'women specific insurance']

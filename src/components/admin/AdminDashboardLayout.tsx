@@ -133,7 +133,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             </Avatar>
             <div className="flex-1 min-w-0">
               <p className="text-[13px] font-medium text-white truncate">{user?.name || "Admin"}</p>
-              <p className="text-[11px] text-slate-400 truncate">{user?.email || "admin@paliwalsecure.com"}</p>
+              <p className="text-[11px] text-slate-400 truncate">{user?.email || "admin@paliwalsecure.in"}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

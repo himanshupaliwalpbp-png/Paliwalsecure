@@ -1,6 +1,6 @@
 ---
 title: "IRDAI POSP Rules 2026: Become a Point of Sale Person"
-date: "2026-10-28"
+date: "2026-06-29"
 author: "Himanshu Paliwal"
 slug: "irdai-posp-rules-2026"
 keywords: ['irdai posp rules', 'how to become posp', 'posp certification india', 'point of sale person insurance', 'posp training']

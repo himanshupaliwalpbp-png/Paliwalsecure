@@ -1,6 +1,6 @@
 ---
 title: "Care Health vs HDFC ERGO 2026: Health Insurance Comparison"
-date: "2026-09-21"
+date: "2026-06-15"
 author: "Himanshu Paliwal"
 slug: "care-health-vs-hdfc-ergo-comparison-2026"
 keywords: ['care health vs hdfc ergo', 'care vs hdfc health insurance', 'hdfc ergo vs care comparison', 'best health insurance', 'care health csr']

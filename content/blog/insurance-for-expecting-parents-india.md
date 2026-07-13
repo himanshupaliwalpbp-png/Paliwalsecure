@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Expecting Parents in India 2026: Maternity + Newborn"
-date: "2026-07-15"
+date: "2026-07-08"
 author: "Himanshu Paliwal"
 slug: "insurance-for-expecting-parents-india"
 keywords: ['insurance for expecting parents', 'maternity insurance india', 'newborn baby insurance', 'pregnancy insurance', 'child future plan']

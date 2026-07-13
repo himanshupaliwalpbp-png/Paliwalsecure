@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Dentists in India 2026: Complete Guide"
-date: "2026-09-17"
+date: "2026-06-15"
 author: "Himanshu Paliwal"
 slug: "insurance-for-dentists-india-2026"
 keywords: ['insurance for dentists', 'dentist insurance india', 'dental clinic insurance', 'dentist professional indemnity', 'dental liability insurance']

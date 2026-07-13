@@ -1,6 +1,6 @@
 ---
 title: "Monsoon Health Insurance Tips India 2026: Stay Protected This Rainy Season"
-date: "2026-10-20"
+date: "2026-07-03"
 author: "Himanshu Paliwal"
 slug: "monsoon-health-insurance-tips-india-2026"
 keywords: ['monsoon health insurance', 'dengue insurance india', 'monsoon disease insurance', 'rainy season insurance', 'monsoon health tips']

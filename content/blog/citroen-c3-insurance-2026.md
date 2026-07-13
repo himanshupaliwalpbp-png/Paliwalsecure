@@ -1,6 +1,6 @@
 ---
 title: "Citroen C3 Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-19"
+date: "2026-06-25"
 author: "Himanshu Paliwal"
 slug: "citroen-c3-insurance-2026"
 keywords: ['citroen c3 insurance', 'c3 car insurance', 'citroen insurance india', 'c3 premium', 'c3 idv']

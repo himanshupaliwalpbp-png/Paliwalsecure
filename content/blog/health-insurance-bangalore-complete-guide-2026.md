@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Bangalore 2026: Best Plans + IT Employees"
-date: "2026-08-28"
+date: "2026-06-30"
 author: "Himanshu Paliwal"
 slug: "health-insurance-bangalore-complete-guide-2026"
 keywords: ['health insurance bangalore', 'bangalore health insurance', 'cashless hospital bangalore', 'insurance bangalore karnataka', 'best health insurance bangalore']

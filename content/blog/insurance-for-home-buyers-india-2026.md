@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Home Buyers in India 2026: Home Loan + Property Insurance"
-date: "2026-10-30"
+date: "2026-06-30"
 author: "Himanshu Paliwal"
 slug: "insurance-for-home-buyers-india-2026"
 keywords: ['insurance for home buyers', 'home loan insurance india', 'property insurance india', 'home insurance guide', 'mortgage insurance']

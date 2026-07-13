@@ -1,6 +1,6 @@
 ---
 title: "Bajaj Allianz vs Star Health 2026: Health Insurance Comparison"
-date: "2026-09-22"
+date: "2026-06-21"
 author: "Himanshu Paliwal"
 slug: "bajaj-allianz-vs-star-health-comparison-2026"
 keywords: ['bajaj allianz vs star health', 'bajaj vs star insurance', 'star health vs bajaj comparison', 'best health insurance', 'bajaj allianz health']

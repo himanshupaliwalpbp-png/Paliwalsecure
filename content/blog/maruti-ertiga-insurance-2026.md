@@ -1,6 +1,6 @@
 ---
 title: "Maruti Ertiga Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-10"
+date: "2026-06-24"
 author: "Himanshu Paliwal"
 slug: "maruti-ertiga-insurance-2026"
 keywords: ['maruti ertiga insurance', 'ertiga car insurance', 'ertiga premium', 'ertiga idv', 'maruti ertiga comprehensive']

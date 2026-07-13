@@ -1,6 +1,6 @@
 ---
 title: "Hyundai i20 Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-11"
+date: "2026-06-23"
 author: "Himanshu Paliwal"
 slug: "hyundai-i20-insurance-2026"
 keywords: ['hyundai i20 insurance', 'i20 car insurance', 'i20 premium', 'i20 idv', 'hyundai i20 comprehensive']

@@ -1,6 +1,6 @@
 ---
 title: "Insurance Portability in India 2026: How to Switch Insurer Without Losing Benefits"
-date: "2026-09-01"
+date: "2026-07-05"
 author: "Himanshu Paliwal"
 slug: "insurance-portability-india-guide-2026"
 keywords: ['insurance portability india', 'switch insurer', 'health insurance portability', 'irdai portability rules', 'policy portability']

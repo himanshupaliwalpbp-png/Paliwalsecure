@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Army & Defence Personnel in India 2026: Complete Guide"
-date: "2026-09-14"
+date: "2026-07-05"
 author: "Himanshu Paliwal"
 slug: "insurance-for-army-defence-personnel-india-2026"
 keywords: ['insurance for army', 'defence personnel insurance india', 'army insurance scheme', 'afpp insurance', 'battle casualty insurance']

@@ -1,6 +1,6 @@
 ---
 title: "IRDAI Bima Sugam 2026: What It Means for Insurance Buyers"
-date: "2026-10-26"
+date: "2026-06-24"
 author: "Himanshu Paliwal"
 slug: "irdai-bima-sugam-launch-2026"
 keywords: ['bima sugam irdai', 'bima sugam launch 2026', 'irdai insurance marketplace', 'bima sugam benefits', 'insurance one platform']

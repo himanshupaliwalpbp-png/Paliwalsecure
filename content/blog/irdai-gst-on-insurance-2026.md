@@ -1,6 +1,6 @@
 ---
 title: "IRDAI GST on Insurance 2026: 18% on Premium + Reduction Hopes"
-date: "2026-10-25"
+date: "2026-07-04"
 author: "Himanshu Paliwal"
 slug: "irdai-gst-on-insurance-2026"
 keywords: ['gst on insurance india', 'insurance gst rate', 'gst on health insurance', 'gst on term insurance', 'insurance gst reduction']

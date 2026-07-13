@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Hyderabad 2026: Best Plans + IT Hub"
-date: "2026-08-30"
+date: "2026-07-08"
 author: "Himanshu Paliwal"
 slug: "health-insurance-hyderabad-complete-guide-2026"
 keywords: ['health insurance hyderabad', 'hyderabad health insurance', 'cashless hospital hyderabad', 'insurance hyderabad telangana', 'best health insurance hyderabad']

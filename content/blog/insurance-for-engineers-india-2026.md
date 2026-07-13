@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Engineers in India 2026: Complete Guide"
-date: "2026-09-10"
+date: "2026-07-03"
 author: "Himanshu Paliwal"
 slug: "insurance-for-engineers-india-2026"
 keywords: ['insurance for engineers', 'engineer insurance india', 'professional indemnity engineer', 'engineer health insurance', 'engineer term insurance']

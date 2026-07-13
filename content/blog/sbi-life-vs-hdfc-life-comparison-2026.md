@@ -1,6 +1,6 @@
 ---
 title: "SBI Life vs HDFC Life 2026: Term Insurance Comparison"
-date: "2026-09-24"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "sbi-life-vs-hdfc-life-comparison-2026"
 keywords: ['sbi life vs hdfc life', 'sbi vs hdfc life insurance', 'hdfc life vs sbi comparison', 'best term insurance', 'sbi life csr']

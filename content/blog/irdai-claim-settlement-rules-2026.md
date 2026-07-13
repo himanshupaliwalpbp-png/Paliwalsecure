@@ -1,6 +1,6 @@
 ---
 title: "IRDAI Claim Settlement Rules 2026: 30-Day Mandate + Cashless 1hr"
-date: "2026-10-24"
+date: "2026-07-11"
 author: "Himanshu Paliwal"
 slug: "irdai-claim-settlement-rules-2026"
 keywords: ['irdai claim settlement rules', 'irdai 30 day claim', 'cashless 1 hour rule', 'irdai 2026 regulations', 'claim settlement mandate']

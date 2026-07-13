@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Journalists in India 2026: Complete Guide"
-date: "2026-09-15"
+date: "2026-06-17"
 author: "Himanshu Paliwal"
 slug: "insurance-for-journalists-india-2026"
 keywords: ['insurance for journalists', 'journalist insurance india', 'media person insurance', 'journalist health insurance', 'press insurance']

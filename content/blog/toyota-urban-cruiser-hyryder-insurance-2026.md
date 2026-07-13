@@ -1,6 +1,6 @@
 ---
 title: "Toyota Urban Cruiser Hyryder Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-17"
+date: "2026-07-08"
 author: "Himanshu Paliwal"
 slug: "toyota-urban-cruiser-hyryder-insurance-2026"
 keywords: ['toyota hyryder insurance', 'hyryder car insurance', 'hyryder premium', 'hyryder idv', 'urban cruiser hyryder insurance']

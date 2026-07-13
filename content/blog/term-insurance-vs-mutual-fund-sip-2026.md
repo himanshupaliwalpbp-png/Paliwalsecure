@@ -1,6 +1,6 @@
 ---
 title: "Term Insurance + SIP vs ULIP 2026: Wealth Creation Comparison"
-date: "2026-09-28"
+date: "2026-06-17"
 author: "Himanshu Paliwal"
 slug: "term-insurance-vs-mutual-fund-sip-2026"
 keywords: ['term insurance vs sip', 'term plus sip vs ulip', 'wealth creation insurance', 'term insurance returns', 'ulip vs term plus sip']

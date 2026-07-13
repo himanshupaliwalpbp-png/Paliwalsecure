@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Pilots in India 2026: Complete Guide"
-date: "2026-09-12"
+date: "2026-06-17"
 author: "Himanshu Paliwal"
 slug: "insurance-for-pilots-india-2026"
 keywords: ['insurance for pilots', 'pilot insurance india', 'loss of license insurance', 'aviation insurance pilot', 'pilot health insurance']

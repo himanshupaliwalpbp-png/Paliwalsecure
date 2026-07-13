@@ -1,6 +1,6 @@
 ---
 title: "Kia Carens Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-16"
+date: "2026-07-09"
 author: "Himanshu Paliwal"
 slug: "kia-carens-insurance-2026"
 keywords: ['kia carens insurance', 'carens car insurance', 'carens premium', 'carens idv', 'kia carens comprehensive']

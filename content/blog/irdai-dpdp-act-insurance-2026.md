@@ -1,6 +1,6 @@
 ---
 title: "DPDP Act 2023 + Insurance 2026: Data Privacy for Policyholders"
-date: "2026-10-27"
+date: "2026-06-26"
 author: "Himanshu Paliwal"
 slug: "irdai-dpdp-act-insurance-2026"
 keywords: ['dpdp act insurance', 'data privacy insurance india', 'dpdp act 2023', 'insurance data protection', 'policyholder data rights']

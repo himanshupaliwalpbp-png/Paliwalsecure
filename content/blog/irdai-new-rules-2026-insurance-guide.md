@@ -1,6 +1,6 @@
 ---
 title: "IRDAI New Rules 2026: What Changes for Policyholders"
-date: "2026-10-05"
+date: "2026-07-04"
 author: "Himanshu Paliwal"
 slug: "irdai-new-rules-2026-insurance-guide"
 keywords: ['irdai new rules 2026', 'irdai regulations 2026', 'insurance rules india 2026', 'irdai cashless rules', 'irdai policyholder rights']

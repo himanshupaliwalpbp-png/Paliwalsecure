@@ -1,6 +1,6 @@
 ---
 title: "Maruti Fronx Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-10-14"
+date: "2026-06-24"
 author: "Himanshu Paliwal"
 slug: "maruti-fronx-insurance-2026"
 keywords: ['maruti fronx insurance', 'fronx car insurance', 'fronx premium', 'fronx idv', 'maruti fronx comprehensive']

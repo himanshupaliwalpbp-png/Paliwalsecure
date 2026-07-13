@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Udaipur 2026: Best Plans + Cashless Hospitals"
-date: "2026-08-23"
+date: "2026-06-29"
 author: "Himanshu Paliwal"
 slug: "health-insurance-udaipur-complete-guide-2026"
 keywords: ['health insurance udaipur', 'udaipur health insurance', 'cashless hospital udaipur', 'insurance udaipur rajasthan', 'best health insurance udaipur']

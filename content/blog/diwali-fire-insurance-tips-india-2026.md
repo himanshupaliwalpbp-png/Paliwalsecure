@@ -1,6 +1,6 @@
 ---
 title: "Diwali Fire Insurance Tips India 2026: Protect Home + Shop This Festival"
-date: "2026-10-21"
+date: "2026-07-02"
 author: "Himanshu Paliwal"
 slug: "diwali-fire-insurance-tips-india-2026"
 keywords: ['diwali fire insurance', 'fire insurance india', 'festival insurance tips', 'home fire insurance', 'diwali safety insurance']

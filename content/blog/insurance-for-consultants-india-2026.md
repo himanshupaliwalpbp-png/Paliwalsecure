@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Consultants in India 2026: Complete Guide"
-date: "2026-09-19"
+date: "2026-06-19"
 author: "Himanshu Paliwal"
 slug: "insurance-for-consultants-india-2026"
 keywords: ['insurance for consultants', 'consultant insurance india', 'professional indemnity consultant', 'consultant liability insurance', 'management consultant insurance']

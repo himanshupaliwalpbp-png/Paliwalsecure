@@ -1,6 +1,6 @@
 ---
 title: "Co-Payment in Health Insurance India 2026: Good or Bad?"
-date: "2026-09-04"
+date: "2026-07-10"
 author: "Himanshu Paliwal"
 slug: "insurance-copayment-india-guide-2026"
 keywords: ['copayment health insurance', 'co-pay meaning', 'copay insurance india', 'health insurance copay', 'copayment clause']

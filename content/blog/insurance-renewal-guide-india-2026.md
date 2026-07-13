@@ -1,6 +1,6 @@
 ---
 title: "Insurance Renewal Guide India 2026: Don't Lose Your Coverage"
-date: "2026-10-09"
+date: "2026-06-30"
 author: "Himanshu Paliwal"
 slug: "insurance-renewal-guide-india-2026"
 keywords: ['insurance renewal india', 'policy renewal process', 'grace period insurance', 'insurance renewal reminder', 'policy renewal tips']

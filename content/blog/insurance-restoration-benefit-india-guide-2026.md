@@ -1,6 +1,6 @@
 ---
 title: "Restoration Benefit in Health Insurance India 2026: How It Works"
-date: "2026-09-06"
+date: "2026-07-07"
 author: "Himanshu Paliwal"
 slug: "insurance-restoration-benefit-india-guide-2026"
 keywords: ['restoration benefit', 'sum insured restoration', 'restore benefit', 'refill sum insured', 'restoration clause']

@@ -1,6 +1,6 @@
 ---
 title: "TVS Apache RTR 160 Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-12"
+date: "2026-06-17"
 author: "Himanshu Paliwal"
 slug: "tvz-apache-rtr-160-insurance-2026"
 keywords: ['tvs apache insurance', 'apache rtr 160 insurance', 'tvs bike insurance', 'apache idv', 'rtr insurance']

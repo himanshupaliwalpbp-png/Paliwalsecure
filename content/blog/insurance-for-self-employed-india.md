@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Self-Employed in India 2026: No Employer Cover"
-date: "2026-07-21"
+date: "2026-07-06"
 author: "Himanshu Paliwal"
 slug: "insurance-for-self-employed-india"
 keywords: ['insurance for self employed', 'self employed health insurance', 'business insurance india', 'gst input credit insurance', 'self employed term insurance']

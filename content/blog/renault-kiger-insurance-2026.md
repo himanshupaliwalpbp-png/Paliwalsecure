@@ -1,6 +1,6 @@
 ---
 title: "Renault Kiger Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-18"
+date: "2026-07-04"
 author: "Himanshu Paliwal"
 slug: "renault-kiger-insurance-2026"
 keywords: ['renault kiger insurance', 'kiger car insurance', 'kiger premium', 'kiger idv', 'renault kiger comprehensive']

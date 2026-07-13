@@ -1,6 +1,6 @@
 ---
 title: "Suzuki Access 125 Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-15"
+date: "2026-06-24"
 author: "Himanshu Paliwal"
 slug: "suzuki-access-125-insurance-2026"
 keywords: ['suzuki access insurance', 'access 125 insurance', 'suzuki scooter insurance', 'access 125 idv', 'access insurance premium']

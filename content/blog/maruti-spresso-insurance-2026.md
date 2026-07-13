@@ -1,6 +1,6 @@
 ---
 title: "Maruti S-Presso Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-17"
+date: "2026-07-12"
 author: "Himanshu Paliwal"
 slug: "maruti-spresso-insurance-2026"
 keywords: ['maruti s-presso insurance', 's-presso car insurance', 's-presso premium', 's-presso idv', 'maruti s-presso comprehensive']

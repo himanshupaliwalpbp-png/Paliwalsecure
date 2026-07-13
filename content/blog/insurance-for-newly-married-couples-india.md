@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Newly Married Couples in India 2026: Complete Guide"
-date: "2026-07-14"
+date: "2026-06-21"
 author: "Himanshu Paliwal"
 slug: "insurance-for-newly-married-couples-india"
 keywords: ['insurance for newly married', 'couple health insurance india', 'joint term insurance', 'family floater newly married', 'wedding insurance planning']

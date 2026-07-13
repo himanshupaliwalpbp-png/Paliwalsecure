@@ -1,6 +1,6 @@
 ---
 title: "Insurance Tax Planning India 2026: Save Up to ₹1.5L Under 80D + 80C"
-date: "2026-10-02"
+date: "2026-06-23"
 author: "Himanshu Paliwal"
 slug: "insurance-tax-planning-india-2026"
 keywords: ['insurance tax planning india', '80d tax saving', '80c tax saving insurance', 'insurance tax benefit', 'tax saving insurance plans']

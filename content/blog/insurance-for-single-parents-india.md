@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Single Parents in India 2026: Complete Protection"
-date: "2026-07-16"
+date: "2026-07-03"
 author: "Himanshu Paliwal"
 slug: "insurance-for-single-parents-india"
 keywords: ['insurance for single parents', 'single parent term insurance', 'child insurance single parent', 'single mother insurance', 'single father insurance']

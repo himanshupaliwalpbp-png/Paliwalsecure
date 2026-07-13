@@ -1,6 +1,6 @@
 ---
 title: "Insurance Grace Period in India 2026: Don't Lose Your Policy"
-date: "2026-09-02"
+date: "2026-07-11"
 author: "Himanshu Paliwal"
 slug: "insurance-grace-period-india-guide-2026"
 keywords: ['insurance grace period', 'grace period meaning', 'premium grace period india', 'policy lapse grace', 'irdai grace period']

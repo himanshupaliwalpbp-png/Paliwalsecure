@@ -1,6 +1,6 @@
 ---
 title: "Top 10 Insurance Claim Rejection Reasons in India 2026 + How to Avoid"
-date: "2026-08-31"
+date: "2026-07-10"
 author: "Himanshu Paliwal"
 slug: "insurance-claim-rejection-reasons-india-2026"
 keywords: ['insurance claim rejection', 'claim rejected reasons', 'how to avoid claim rejection', 'insurance claim tips', 'irdai claim rules']

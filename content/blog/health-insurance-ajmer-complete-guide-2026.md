@@ -1,6 +1,6 @@
 ---
 title: "Health Insurance in Ajmer 2026: Best Plans + Cashless Hospitals"
-date: "2026-08-25"
+date: "2026-06-16"
 author: "Himanshu Paliwal"
 slug: "health-insurance-ajmer-complete-guide-2026"
 keywords: ['health insurance ajmer', 'ajmer health insurance', 'cashless hospital ajmer', 'insurance ajmer rajasthan', 'best health insurance ajmer']

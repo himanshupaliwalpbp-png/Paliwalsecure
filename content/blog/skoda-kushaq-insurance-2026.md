@@ -1,6 +1,6 @@
 ---
 title: "Skoda Kushaq Insurance 2026: Premium, IDV & Best Plans"
-date: "2026-08-20"
+date: "2026-07-12"
 author: "Himanshu Paliwal"
 slug: "skoda-kushaq-insurance-2026"
 keywords: ['skoda kushaq insurance', 'kushaq car insurance', 'kushaq premium', 'kushaq idv', 'skoda kushaq comprehensive']

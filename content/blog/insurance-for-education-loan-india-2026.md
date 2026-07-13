@@ -1,6 +1,6 @@
 ---
 title: "Education Loan Insurance in India 2026: Protect Your Child's Future"
-date: "2026-11-08"
+date: "2026-07-07"
 author: "Himanshu Paliwal"
 slug: "insurance-for-education-loan-india-2026"
 keywords: ['education loan insurance india', 'student loan insurance', 'education loan term cover', 'loan protection insurance', 'child education insurance']

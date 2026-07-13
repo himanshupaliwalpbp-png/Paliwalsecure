@@ -1,6 +1,6 @@
 ---
 title: "Insurance Fraud Awareness in India 2026: How to Protect Yourself"
-date: "2026-10-03"
+date: "2026-07-05"
 author: "Himanshu Paliwal"
 slug: "insurance-fraud-awareness-india-2026"
 keywords: ['insurance fraud india', 'fake insurance policy', 'insurance misselling', 'insurance fraud awareness', 'how to verify insurance policy']

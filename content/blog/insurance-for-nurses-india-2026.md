@@ -1,6 +1,6 @@
 ---
 title: "Insurance for Nurses in India 2026: Complete Guide"
-date: "2026-09-11"
+date: "2026-07-01"
 author: "Himanshu Paliwal"
 slug: "insurance-for-nurses-india-2026"
 keywords: ['insurance for nurses', 'nurse insurance india', 'nurse health insurance', 'needlestick insurance', 'healthcare worker insurance']
