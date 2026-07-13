@@ -236,7 +236,7 @@ export async function GET() {
     <category>Home Insurance</category>
     <ttl>60</ttl>
     <image>
-      <url>${BASE_URL}/og-image.jpg</url>
+      <url>${BASE_URL}/api/og?title=Paliwal%20Secure%20AI&type=default</url>
       <title>Paliwal Secure AI</title>
       <link>${BASE_URL}</link>
       <width>1200</width>

@@ -51,6 +51,19 @@ export function generateMetadata({ params }: { params: Promise<{ city: string }>
         siteName: 'Paliwal Secure AI',
         type: 'article',
         locale: 'en_IN',
+        images: [{
+          url: `https://paliwalsecure.in/api/og?title=${encodeURIComponent(`Health Insurance in ${cityData.name}`)}&type=city&description=${encodeURIComponent(`Top plans for ${cityData.name} residents. ${hospitalCount}+ network hospitals.`)}`,
+          width: 1200,
+          height: 630,
+          alt: `Health Insurance in ${cityData.name}`,
+          type: 'image/png',
+        }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `Best Health Insurance in ${cityData.name} | Paliwal Secure AI`,
+        description: `Top health insurance plans for ${cityData.name} residents. ${hospitalCount}+ network hospitals.`,
+        images: [`https://paliwalsecure.in/api/og?title=${encodeURIComponent(`Health Insurance in ${cityData.name}`)}&type=city`],
       },
       alternates: {
         canonical: `https://paliwalsecure.in/health-insurance/${cityData.slug}`,

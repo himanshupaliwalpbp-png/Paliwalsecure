@@ -41,6 +41,19 @@ export function generateMetadata({ params }: { params: Promise<{ insurer: string
         url: `https://paliwalsecure.in/claim-guide/${data.slug}`,
         siteName: 'Paliwal Secure AI',
         type: 'article',
+        images: [{
+          url: `https://paliwalsecure.in/api/og?title=${encodeURIComponent(`${data.name} Claim Process Guide`)}&type=claim&description=${encodeURIComponent(`How to file ${data.name} health insurance claim`)}`,
+          width: 1200,
+          height: 630,
+          alt: `${data.name} Claim Process Guide`,
+          type: 'image/png',
+        }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${data.logoPlaceholder || data.name} Claim Process — Step-by-Step Guide`,
+        description: `How to file ${data.logoPlaceholder || data.name} health insurance claim.`,
+        images: [`https://paliwalsecure.in/api/og?title=${encodeURIComponent(`${data.name} Claim Process Guide`)}&type=claim`],
       },
       alternates: {
         canonical: `https://paliwalsecure.in/claim-guide/${data.slug}`,

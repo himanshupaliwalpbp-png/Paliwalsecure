@@ -37,11 +37,19 @@ export const metadata: Metadata = {
       'Free, accurate insurance calculators. Health, Motor, Term Life, Tax Savings (80D), Claim Settlement Predictor. Real-time data, IRDAI-verified.',
     url: 'https://paliwalsecure.in/calculators',
     type: 'website',
+    images: [{
+      url: 'https://paliwalsecure.in/api/og?title=Insurance%20Calculators%20India&type=calculator&description=Free%20insurance%20calculators%20-%20Health%2C%20Motor%2C%20Term%20Life%2C%20Tax%20Savings',
+      width: 1200,
+      height: 630,
+      alt: 'Insurance Calculators India — Paliwal Secure',
+      type: 'image/png',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Insurance Calculators India — Paliwal Secure',
     description: 'Free, accurate insurance calculators. Real-time data, IRDAI-verified.',
+    images: ['https://paliwalsecure.in/api/og?title=Insurance%20Calculators%20India&type=calculator'],
   },
   robots: {
     index: true,

@@ -34,12 +34,20 @@ export const metadata: Metadata = {
     siteName: 'Paliwal Secure AI',
     type: 'website',
     locale: 'en_IN',
+    images: [{
+      url: 'https://paliwalsecure.in/api/og?title=Insurance%20Agent%20in%20Kota&type=city&description=Trusted%20insurance%20advisor%20in%20Kota%2C%20Rajasthan.%20IRDAI%20POSP%20IP429834.',
+      width: 1200,
+      height: 630,
+      alt: 'Insurance Agent in Kota — Paliwal Secure AI',
+      type: 'image/png',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Insurance Agent in Kota — Paliwal Secure AI',
     description:
       'Trusted insurance advisor in Kota, Rajasthan. IRDAI Registered POSP (IP429834). Free consultation. Call 9257877312.',
+    images: ['https://paliwalsecure.in/api/og?title=Insurance%20Agent%20in%20Kota&type=city'],
   },
   robots: {
     index: true,

@@ -100,12 +100,23 @@ export async function generateMetadata({
       locale: 'en_IN',
       publishedTime: fm.date,
       authors: [fm.author],
-      images: fm.image ? [{ url: fm.image }] : undefined,
+      images: [
+        {
+          url: `https://paliwalsecure.in/api/og?title=${encodeURIComponent(fm.title)}&type=article&author=${encodeURIComponent(fm.author || 'Himanshu Paliwal')}&date=${encodeURIComponent(fm.date || '')}`,
+          width: 1200,
+          height: 630,
+          alt: fm.title,
+          type: 'image/png',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: fm.title,
       description: fm.description,
+      images: [
+        `https://paliwalsecure.in/api/og?title=${encodeURIComponent(fm.title)}&type=article&author=${encodeURIComponent(fm.author || 'Himanshu Paliwal')}&date=${encodeURIComponent(fm.date || '')}`,
+      ],
     },
   };
 }
@@ -154,7 +165,7 @@ export default async function BlogPostPage({
     author: {
       '@type': 'Person',
       name: fm.author,
-      url: 'https://paliwalsecure.in',
+      url: 'https://paliwalsecure.in/about/himanshu-paliwal',
       jobTitle: 'IRDAI Certified POSP Insurance Advisor',
     },
     publisher: {
@@ -171,7 +182,7 @@ export default async function BlogPostPage({
       '@id': `https://paliwalsecure.in/blog/${fm.slug}`,
     },
     keywords: fm.keywords.join(', '),
-    image: fm.image ? `https://paliwalsecure.in${fm.image}` : undefined,
+    image: `https://paliwalsecure.in/api/og?title=${encodeURIComponent(fm.title)}&type=article&author=${encodeURIComponent(fm.author || 'Himanshu Paliwal')}&date=${encodeURIComponent(fm.date || '')}`,
   };
 
   // BreadcrumbList Schema

@@ -51,6 +51,19 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
         url: `https://paliwalsecure.in/compare/${slug}`,
         siteName: 'Paliwal Secure AI',
         type: 'article',
+        images: [{
+          url: `https://paliwalsecure.in/api/og?title=${encodeURIComponent(`${n1} vs ${n2}`)}&type=compare&description=${encodeURIComponent(`Health Insurance Comparison — CSR, premiums, hospital network`)}`,
+          width: 1200,
+          height: 630,
+          alt: `${n1} vs ${n2} Health Insurance Comparison`,
+          type: 'image/png',
+        }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${n1} vs ${n2} — Health Insurance Comparison`,
+        description: `Side-by-side comparison of ${n1} and ${n2} health insurance.`,
+        images: [`https://paliwalsecure.in/api/og?title=${encodeURIComponent(`${n1} vs ${n2}`)}&type=compare`],
       },
       alternates: {
         canonical: `https://paliwalsecure.in/compare/${slug}`,
