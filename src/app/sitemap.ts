@@ -31,7 +31,6 @@ import * as path from 'path'
  * - /search (noindex via robots.txt)
  * - /p4l1w4l-s3cur3-4dm1n (secret admin entry, noindex)
  * - /vehicle-launch-hub (307 redirect to /hub/vehicle-launch)
- * - /insurance/odel] (malformed route, will be deleted in C4)
  * - Blog slugs without markdown files (13 entries — would 404)
  * - insurance-news/irdai-[slug] (force-dynamic, not SSG)
  */
