@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import PageLayout from '@/components/PageLayout';
 import { generatePageMetadata } from "@/lib/seo-utils";
 import ClientContent from './ClientContent';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 
 export const metadata: Metadata = generatePageMetadata({
   title: "IDV Calculation — How Your Car's Value is Decided 2026 | Paliwal Secure",

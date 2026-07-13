@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { generatePageMetadata } from '@/lib/seo-utils';
 import PageLayout from '@/components/PageLayout';
 import ClientContent from './ClientContent';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'About Paliwal Secure AI — IRDAI Registered Insurance Advisor India',

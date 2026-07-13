@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import PageLayout from '@/components/PageLayout';
 import { generatePageMetadata } from "@/lib/seo-utils";
 import ClientContent from './ClientContent';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Zero Depreciation Car Insurance in India | Complete Guide 2025",

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { generatePageMetadata } from '@/lib/seo-utils';
 import PageLayout from '@/components/PageLayout';
 import ClientContent from './ClientContent';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Tax Saving Guide 2025 — Section 80D, 80C, 80CCC | Paliwal Secure AI',

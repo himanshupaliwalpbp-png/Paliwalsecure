@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import PageLayout from '@/components/PageLayout';
 import { generatePageMetadata } from "@/lib/seo-utils";
 import ClientContent from './ClientContent';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Home Insurance India – Protect Your Home & Belongings from ₹100/Month",

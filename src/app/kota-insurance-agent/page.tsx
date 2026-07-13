@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import PageLayout from '@/components/PageLayout';
 import ClientContent from './ClientContent';
+import { BreadcrumbSchema } from '@/components/BreadcrumbSchema';
 
 export const metadata: Metadata = {
   title: 'Insurance Agent in Kota — Best Health, Motor & Life Insurance Advisor | Paliwal Secure AI',
