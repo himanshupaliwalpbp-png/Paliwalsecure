@@ -244,11 +244,6 @@ export async function generateMetadata(): Promise<Metadata> {
   classification: "Insurance Advisory",
   alternates: {
     canonical: 'https://paliwalsecure.in',
-    languages: {
-      'en-IN': 'https://paliwalsecure.in',
-      'hi-IN': 'https://paliwalsecure.in',
-      'x-default': 'https://paliwalsecure.in',
-    },
   },
   verification: {
     google: googleVerification,
@@ -379,9 +374,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/* Canonical & hreflang — verified via metadata alternates */}
-        <link rel="alternate" hrefLang="en" href="https://paliwalsecure.in" />
-        <link rel="alternate" hrefLang="hi" href="https://paliwalsecure.in" />
-        <link rel="alternate" hrefLang="x-default" href="https://paliwalsecure.in" />
+        {/* Hreflang removed — single-language site with client-side language toggle.
+            No distinct per-locale URLs exist, so hreflang declarations were invalid
+            (all variants pointed to same URL per Google's spec). Will re-add when
+            /hi/ URL structure is implemented. */}
         {/* JSON-LD Structured Data for SEO */}
         <StructuredData type="website" />
         <StructuredData type="organization" />

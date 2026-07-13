@@ -1,0 +1,75 @@
+# Paliwal Secure — AI Insurance Advisor
+
+> India's #1 AI-powered insurance knowledge platform. Compare 51+ IRDAI-registered insurers. Trusted by 500+ families.
+
+## About
+
+Paliwal Secure is an IRDAI Registered POSP (Point of Sale Person) platform founded by **Himanshu Paliwal** (POSP Code: IP429834). We provide:
+
+- AI-powered insurance advisory via InsureGPT (24/7 chatbot)
+- Side-by-side comparison of 51+ insurers (health, motor, life, travel, home)
+- Free policy audit for existing insurance holders
+- Claim assistance across all insurers we represent
+- Hinglish/Hindi/English support
+
+## Key Pages
+
+- [Homepage](https://paliwalsecure.in/) — AI insurance advisor overview
+- [Health Insurance](https://paliwalsecure.in/health-insurance) — Compare health plans
+- [Car Insurance](https://paliwalsecure.in/car-insurance) — Motor insurance comparison
+- [Life Insurance](https://paliwalsecure.in/life-insurance) — Term and life plans
+- [Compare Plans](https://paliwalsecure.in/compare) — Side-by-side insurer comparison
+- [InsureGPT AI](https://paliwalsecure.in/insuregpt) — 24/7 AI insurance chatbot
+- [Free Policy Audit](https://paliwalsecure.in/free-audit) — Review existing policy
+- [Calculators](https://paliwalsecure.in/calculators) — Premium, IDV, tax calculators
+- [Claim Guide](https://paliwalsecure.in/claim-guide) — Step-by-step claim process
+- [Insurance Glossary](https://paliwalsecure.in/insurance-glossary) — Insurance terms explained
+- [Insurance FAQ](https://paliwalsecure.in/insurance-faq) — Common questions answered
+- [Blog](https://paliwalsecure.in/blog) — 390+ insurance knowledge articles
+- [About Himanshu Paliwal](https://paliwalsecure.in/about/himanshu-paliwal) — Author profile
+
+## Author Credentials
+
+- **Name:** Himanshu Paliwal
+- **Role:** IRDAI Registered POSP (Point of Sale Person)
+- **License Code:** IP429834
+- **Experience:** 5+ years, 500+ families served
+- **Languages:** English, Hindi, Hinglish
+- **Location:** Kota, Rajasthan, India
+- **Contact:** +91-92587-77312 | WhatsApp: https://wa.me/919257877312
+
+## Insurance Categories
+
+1. **Health Insurance** — Individual, family floater, senior citizen, critical illness
+2. **Motor Insurance** — Car, bike, EV, commercial vehicle
+3. **Life Insurance** — Term, endowment, ULIP
+4. **Travel Insurance** — Domestic, international, student
+5. **Home Insurance** — Structure, contents, burglary
+
+## Key Data Sources
+
+- IRDAI Annual Report 2024-25 (Claim Settlement Ratios)
+- IRDAI Motor Tariff 2025-26 (Third-Party Premium Rates)
+- Motor Vehicles Act, 1988 (Section 146 — Mandatory Third-Party Insurance)
+- IRDAI Guidelines on Standardization of Health Insurance Products
+- Insurer websites (premium estimates, network hospitals, policy wording)
+
+## Sitemap
+
+- XML Sitemap: https://paliwalsecure.in/sitemap.xml
+- RSS Feed: https://paliwalsecure.in/feed.xml
+- OpenAPI: https://paliwalsecure.in/openapi.json
+
+## AI/LLM Discovery
+
+- Agent Skills: https://paliwalsecure.in/.well-known/agent-skills/index.json
+- API Catalog: https://paliwalsecure.in/.well-known/api-catalog
+- MCP Server Card: https://paliwalsecure.in/.well-known/mcp/server-card.json
+- Auth.md: https://paliwalsecure.in/auth.md
+
+## Compliance
+
+- IRDAI POSP Code: IP429834
+- Insurance is the subject matter of solicitation
+- All premium estimates are indicative (±15% variation)
+- Always read policy wording before purchase

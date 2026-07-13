@@ -101,7 +101,6 @@ PaliwalSecure-Clean-Website.*
 # Public assets not used by website
 public/insurance-posts/
 public/instagram/
-public/llms.txt
 public/offline.html
 
 # Upload folder (reference files)
