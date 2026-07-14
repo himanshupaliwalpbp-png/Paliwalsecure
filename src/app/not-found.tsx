@@ -186,9 +186,7 @@ export default function NotFound() {
                     WhatsApp Now
                   </a>
                 </Button>
-                <Badge variant="secondary" className="text-xs">
-                  +91 9257877312
-                </Badge>
+                <Badge variant="secondary" className="text-xs">WhatsApp</Badge>
               </div>
             </CardContent>
           </Card>

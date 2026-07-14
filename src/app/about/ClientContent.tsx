@@ -388,7 +388,7 @@ export default function AboutClientContent() {
               <MessageCircle className="w-7 h-7 text-[#2D6A4F] dark:text-white" />
             </div>
             <h3 className="font-bold text-[#0E1116] dark:text-white mb-1">{pt(pageText.contact.whatsapp)}</h3>
-            <p className="text-sm" style={{ color: GOLD }}>+91 9257877312</p>
+            <p className="text-sm" style={{ color: GOLD }}>WhatsApp</p>
             <p className="text-xs text-[#4A4F57] dark:text-white/50 mt-1">{pt(pageText.contact.whatsappAvail)}</p>
           </a>
 

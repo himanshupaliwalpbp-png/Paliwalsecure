@@ -108,8 +108,8 @@ const TRUSTED_PARTNERS = [
 
 const WHATSAPP_URL = 'https://wa.me/919257877312';
 const INSTAGRAM_URL = 'https://www.instagram.com/paliwalinsure';
-const PHONE = '+91-92587-77312';
-const PHONE_TEL = 'tel:9257877312';
+const PHONE = "WhatsApp";
+const PHONE_TEL = 'https://wa.me/919257877312';
 const EMAIL = 'himanshupaliwalpbp@gmail.com';
 const POSP_CODE = 'IP429834';
 

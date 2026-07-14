@@ -191,9 +191,9 @@ export default function WhatsAppLeadsForm() {
                 <span className="font-semibold">{t('whatsappForm.preferCall')}</span>
               </div>
               <p className="text-sm text-white/80 mb-3">{t('whatsappForm.callDesc')}</p>
-              <a href="tel:9257877312">
+              <a href="https://wa.me/919257877312">
                 <Button className="bg-white text-[#1E40AF] hover:bg-white/90 rounded-xl font-semibold">
-                  <Phone className="w-4 h-4 mr-1.5" /> Call 9257877312
+                  <Phone className="w-4 h-4 mr-1.5" /> WhatsApp Us
                 </Button>
               </a>
             </div>

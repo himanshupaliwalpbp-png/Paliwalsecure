@@ -54,7 +54,7 @@ export default function WhatsAppPage() {
               <WhatsAppQR size={220} message={WHATSAPP_TEMPLATES.general} />
             </div>
             <p className="text-xs text-[#8B9099] mt-6">
-              Or save manually: <strong className="text-[#2D6A4F]">+91-92587-77312</strong>
+              Or save manually: <strong className="text-[#2D6A4F]">WhatsApp</strong>
             </p>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function WhatsAppPage() {
               </Link>
             </div>
             <p className="text-xs text-[#8B9099] mt-6">
-              📞 Prefer calling? <a href="tel:+919257877312" className="text-[#2D6A4F] font-semibold underline">+91-92587-77312</a>
+              <a href="https://wa.me/919257877312" className="text-[#2D6A4F] font-semibold underline">WhatsApp</a>
               <br />
               📧 Email: <a href="mailto:himanshupaliwalpbp@gmail.com" className="text-[#2D6A4F] font-semibold underline">himanshupaliwalpbp@gmail.com</a>
             </p>

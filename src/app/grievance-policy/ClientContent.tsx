@@ -198,7 +198,7 @@ export default function GrievancePolicyClientContent() {
                           style={{ background: 'rgba(37,211,102,0.08)', border: '1px solid rgba(37,211,102,0.2)' }}>
                           <MessageCircle className="w-6 h-6 mx-auto mb-2 text-green-400" />
                           <h3 className="text-sm font-bold text-white">WhatsApp</h3>
-                          <p className="text-xs" style={{ color: GOLD }}>+91 9257877312</p>
+                          <p className="text-xs" style={{ color: GOLD }}>WhatsApp</p>
                         </a>
                         <a href="mailto:himanshupaliwalpbp@gmail.com"
                           className="rounded-xl p-4 text-center cursor-pointer transition-all hover:shadow-md"

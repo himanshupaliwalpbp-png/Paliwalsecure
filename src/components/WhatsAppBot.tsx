@@ -220,7 +220,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
 
               {/* Direct call option */}
               <a
-                href="tel:+919257877312"
+                href="https://wa.me/919257877312"
                 className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg border border-[#B8482C]/30 text-[#B8482C] dark:text-[#F0A88B] text-sm font-semibold hover:bg-[#FBE8E1] dark:hover:bg-[rgba(184,72,44,0.10)]"
               >
                 <Phone className="w-4 h-4" />
@@ -358,10 +358,10 @@ export function WhatsAppHero() {
           label="Start WhatsApp Chat"
           variant="default"
         />
-        <a href="tel:+919257877312">
+        <a href="https://wa.me/919257877312">
           <Button variant="outline" className="border-[#B8482C] text-[#B8482C] hover:bg-[#FBE8E1]">
             <Phone className="w-4 h-4 mr-2" />
-            Call Instead
+            WhatsApp Us
           </Button>
         </a>
       </div>

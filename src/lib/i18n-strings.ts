@@ -18,7 +18,7 @@ export const translations: TranslationStrings = {
   'nav.compare': { en: 'Compare', hi: 'तुलना', hinglish: 'Compare Karein' },
   'nav.insureGyaan': { en: 'InsureGyaan', hi: 'इंश्योरज्ञान', hinglish: 'InsureGyaan' },
   'nav.yourRights': { en: 'Your Rights', hi: 'आपके अधिकार', hinglish: 'Aapke Rights' },
-  'nav.callNow': { en: 'Call Now', hi: 'अभी कॉल करें', hinglish: 'Abhi Call Karein' },
+  'nav.callNow': { en: 'WhatsApp', hi: 'अभी कॉल करें', hinglish: 'Abhi Call Karein' },
   'nav.bestPlanLo': { en: 'Best Plan Lo', hi: 'सर्वोत्तम योजना लो', hinglish: 'Best Plan Lo' },
   'nav.chatWhatsApp': { en: 'Chat on WhatsApp', hi: 'WhatsApp पर चैट', hinglish: 'WhatsApp pe Chat Karein' },
   'nav.insights': { en: 'Insights', hi: 'अंतर्दृष्टि', hinglish: 'Insights' },
@@ -295,7 +295,7 @@ export const translations: TranslationStrings = {
   // ── Hero CTA InsureGPT (updated with emoji — original at line 41) ──────
 
   // ── Mobile Call Button ──────────────────────────────────────────────────
-  'mobile.callLabel': { en: 'Call: 9257877312', hi: 'कॉल: 9257877312', hinglish: 'Call: 9257877312' },
+  'mobile.callLabel': { en: 'WhatsApp: https://wa.me/919257877312', hi: 'कॉल: 9257877312', hinglish: 'WhatsApp: https://wa.me/919257877312' },
 
   // ── Plan Card Labels ────────────────────────────────────────────────────
   'plans.source': { en: 'Source:', hi: 'स्रोत:', hinglish: 'Source:' },

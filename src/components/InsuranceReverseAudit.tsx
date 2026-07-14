@@ -1547,7 +1547,7 @@ export default function InsuranceReverseAudit() {
                           className={`rounded-full gap-2 text-xs font-bold shadow-sm ${isBest ? 'bg-gradient-to-r from-emerald-600 to-[#C98A1C] hover:from-emerald-700 hover:to-[#C98A1C]/80 text-white' : 'bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white'}`}>
                           <MessageCircle className="w-3.5 h-3.5" /> Get This Plan
                         </Button>
-                        <a href="tel:9257877312"><Button variant="outline" size="sm" className="rounded-full gap-2 text-xs font-semibold w-full sm:w-auto"><Phone className="w-3.5 h-3.5" /> Call for Details</Button></a>
+                        <a href="https://wa.me/919257877312"><Button variant="outline" size="sm" className="rounded-full gap-2 text-xs font-semibold w-full sm:w-auto"><Phone className="w-3.5 h-3.5" /> WhatsApp Us</Button></a>
                       </div>
                     </motion.div>
                   );
@@ -1581,8 +1581,8 @@ export default function InsuranceReverseAudit() {
             <Button size="lg" onClick={handleWhatsAppCTA} className="rounded-full gap-2 h-12 px-8 text-base font-bold shadow-lg bg-white text-emerald-700 hover:bg-emerald-50">
               <MessageCircle className="w-5 h-5" /> Switch & Save on WhatsApp
             </Button>
-            <a href="tel:9257877312"><Button size="lg" variant="outline" className="rounded-full gap-2 h-12 px-8 text-base font-semibold border-white/30 text-white hover:bg-white/15 w-full sm:w-auto">
-              <Phone className="w-4 h-4" /> Call: 9257877312
+            <a href="https://wa.me/919257877312"><Button size="lg" variant="outline" className="rounded-full gap-2 h-12 px-8 text-base font-semibold border-white/30 text-white hover:bg-white/15 w-full sm:w-auto">
+              <Phone className="w-4 h-4" /> WhatsApp: https://wa.me/919257877312
             </Button></a>
           </div>
         </motion.div>

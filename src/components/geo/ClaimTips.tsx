@@ -63,7 +63,7 @@ export function ClaimTips({ tips = defaultTips, category, insuranceType, classNa
         </div>
         <div className="mt-4 p-3 rounded-lg bg-primary/10 text-xs text-center">
           <span className="font-medium">Need claim help? </span>
-          Call Paliwal Secure at <a href="tel:+919257877312" className="font-bold text-primary">+91 9257877312</a> — Free assistance for all policyholders.
+          Call Paliwal Secure at <a href="https://wa.me/919257877312" className="font-bold text-primary">WhatsApp</a> — Free assistance for all policyholders.
         </div>
       </CardContent>
     </Card>

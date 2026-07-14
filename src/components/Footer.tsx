@@ -149,7 +149,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
   const { language } = useLanguage();
 
   const WHATSAPP_URL = 'https://wa.me/919257877312';
-  const PHONE = '+91-92587-77312';
+  const PHONE = 'WhatsApp';
   const EMAIL = 'himanshupaliwalpbp@gmail.com';
 
   const getStatLabel = (stat: typeof STATS[0]) => {
@@ -225,7 +225,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
                   </span>
                 </a>
                 <a
-                  href={`tel:${PHONE.replace(/[^+\d]/g, '')}`}
+                  href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-sm text-[#8B9099] hover:text-[#FAF7F2] transition-colors font-body"
                 >
                   <Phone className="w-3.5 h-3.5" />
@@ -523,7 +523,7 @@ export default function Footer({ onNavigate = () => {} }: FooterProps) {
 
               {/* Phone */}
               <a
-                href={`tel:${PHONE.replace(/[^+\d]/g, '')}`}
+                href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1.5 text-xs text-[#8B9099] hover:text-[#FAF7F2] transition-colors duration-200 font-body"
               >
                 <Phone className="h-3.5 w-3.5" />

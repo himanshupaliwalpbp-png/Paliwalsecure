@@ -235,7 +235,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
                   WhatsApp Now
                 </Button>
               </a>
-              <a href="tel:+919257877312">
+              <a href="https://wa.me/919257877312">
                 <Button variant="outline" className="border-[#B8482C] text-[#B8482C] hover:bg-[#FBE8E1]">
                   <Phone className="w-4 h-4 mr-2" />
                   Call 92587-77312

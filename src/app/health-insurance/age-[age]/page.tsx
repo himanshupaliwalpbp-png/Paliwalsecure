@@ -468,7 +468,7 @@ export default async function AgeHealthInsurancePage({ params }: { params: Promi
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <a href="tel:+919257877312">
+                  <a href="https://wa.me/919257877312">
                     <Phone className="h-4 w-4 mr-2" />
                     Call +91 9257877312
                   </a>

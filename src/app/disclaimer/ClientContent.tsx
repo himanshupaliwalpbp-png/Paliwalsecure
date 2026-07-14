@@ -283,7 +283,7 @@ export default function DisclaimerClientContent() {
                       <p className="text-xs text-white/50 mb-2">IRDAI Registered POSP</p>
                       <div className="space-y-1.5 text-xs text-white/60">
                         <p className="flex items-center gap-1.5"><Shield className="w-3 h-3" style={{ color: GOLD }} /> POSP Code: <strong style={{ color: GOLD }}>IP429834</strong></p>
-                        <p className="flex items-center gap-1.5"><MessageCircle className="w-3 h-3" style={{ color: GOLD }} /> <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer" style={{ color: GOLD }}>+91 9257877312</a></p>
+                        <p className="flex items-center gap-1.5"><MessageCircle className="w-3 h-3" style={{ color: GOLD }} /> <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer" style={{ color: GOLD }}>WhatsApp</a></p>
                         <p className="flex items-center gap-1.5"><Mail className="w-3 h-3" style={{ color: GOLD }} /> <a href="mailto:himanshupaliwalpbp@gmail.com" style={{ color: GOLD }}>himanshupaliwalpbp@gmail.com</a></p>
                         <p className="flex items-center gap-1.5"><MapPin className="w-3 h-3" style={{ color: GOLD }} /> Kota, Rajasthan, India</p>
                       </div>

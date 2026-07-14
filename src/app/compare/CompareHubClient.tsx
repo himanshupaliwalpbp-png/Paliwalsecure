@@ -259,10 +259,10 @@ export default function CompareHubClient() {
                     🎯 Get Best Plan
                   </Button>
                 </a>
-                <a href="tel:9257877312">
+                <a href="https://wa.me/919257877312">
                   <Button variant="outline" className="rounded-full gap-2">
                     <Phone className="w-4 h-4" />
-                    Call Now
+                    WhatsApp
                   </Button>
                 </a>
               </div>

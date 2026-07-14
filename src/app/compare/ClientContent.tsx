@@ -66,7 +66,7 @@ const pageText = {
       hinglish: "IRDAI-certified POSP (Point of Sales Person) ke roop mein, hum health aur life insurance 0% GST pe de sakte hain, jisse tumhare premium pe 18% tak ki bachat hoti hai. Har quote regulator-approved rates pe based hai — koi inflated discount nahi, koi hidden charges nahi."
     },
     ctaPrimary: { en: "Get Best Plan", hi: "सर्वोत्तम योजना प्राप्त करें", hinglish: "Best Plan Pao" },
-    ctaSecondary: { en: "Call Now", hi: "अभी कॉल करें", hinglish: "Abhi Call Karein" },
+    ctaSecondary: { en: "WhatsApp", hi: "अभी कॉल करें", hinglish: "Abhi Call Karein" },
     pospId: { en: `IRDAI POSP: IP429834 • Agent: ${siteConfig.author.name} • Regulated by IRDAI of India`, hi: `IRDAI POSP: IP429834 • एजेंट: ${siteConfig.author.name} • IRDAI of India द्वारा विनियमित`, hinglish: `IRDAI POSP: IP429834 • Agent: ${siteConfig.author.name} • Regulated by IRDAI of India` },
   },
 };
@@ -266,7 +266,7 @@ export default function ClientContent() {
                     <span>🎯 {tr(pageText.posp.ctaPrimary)}</span>
                   </ShinyButton>
                 </a>
-                <a href="tel:9257877312">
+                <a href="https://wa.me/919257877312">
                   <ShinyButton variant="secondary" className="rounded-xl px-6 py-3 text-sm">
                     <span><Phone className="w-4 h-4 inline mr-1" />{tr(pageText.posp.ctaSecondary)}</span>
                   </ShinyButton>

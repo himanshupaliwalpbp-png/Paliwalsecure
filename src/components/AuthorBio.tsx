@@ -120,7 +120,7 @@ export default function AuthorBio() {
               {/* Contact Info */}
               <div className="space-y-3">
                 <a
-                  href="tel:9257877312"
+                  href="https://wa.me/919257877312"
                   className="flex items-center gap-3 text-sm text-foreground hover:text-[#00A9A6] transition-colors"
                 >
                   <Phone className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />

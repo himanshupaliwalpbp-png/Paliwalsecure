@@ -953,7 +953,7 @@ export default function TaxSavingPage() {
               <MessageCircle className="w-7 h-7 text-white" />
             </div>
             <h3 className="font-bold text-foreground mb-1">{tr(pageText.contact.whatsapp)}</h3>
-            <p className="text-sm" style={{ color: GOLD }}>+91 9257877312</p>
+            <p className="text-sm" style={{ color: GOLD }}>WhatsApp</p>
             <p className="text-xs text-muted-foreground mt-1">{tr(pageText.contact.whatsappAvail)}</p>
           </a>
 

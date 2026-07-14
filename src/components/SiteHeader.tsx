@@ -397,7 +397,7 @@ export default function SiteHeader() {
           {/* ══ Right Side: CTAs + Toggles ════════════════════════════════════ */}
           <div className="flex items-center gap-1.5 shrink-0">
 
-            {/* Phone Call button — desktop — ghost text link with teal hover */}
+            {/* WhatsApp button — desktop */}
             <Button
               variant="ghost"
               size="sm"
@@ -408,9 +408,9 @@ export default function SiteHeader() {
               }`}
               asChild
             >
-              <a href="tel:+919257877312" aria-label="Call us">
+              <a href="https://wa.me/919257877312" aria-label="WhatsApp us">
                 <Phone className="h-4 w-4" />
-                <span className="hidden 2xl:inline link-underline-reveal">Call</span>
+                <span className="hidden 2xl:inline link-underline-reveal">WhatsApp</span>
               </a>
             </Button>
 
@@ -661,7 +661,7 @@ export default function SiteHeader() {
             >
               <SheetClose asChild>
                 <a
-                  href="tel:+919257877312"
+                  href="https://wa.me/919257877312"
                   className={`flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 gap-3 min-h-[44px] ${
                     isLight
                       ? 'text-[#4A4F57] hover:text-[#1B4D4A] hover:bg-[#E6EFEE]/60'
@@ -673,7 +673,7 @@ export default function SiteHeader() {
                   }`}>
                     <Phone className="w-4 h-4 opacity-60" />
                   </span>
-                  {t('nav.callNow')}: 9257877312
+                  WhatsApp
                 </a>
               </SheetClose>
             </motion.div>

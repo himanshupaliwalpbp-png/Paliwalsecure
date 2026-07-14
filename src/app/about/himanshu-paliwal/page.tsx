@@ -131,7 +131,7 @@ export default function HimanshuPaliwalPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#4A4F57] dark:text-[#A8B0C2]">Phone</span>
-                  <span className="font-medium text-[#0E1116] dark:text-[#FAF7F2]">+91-92587-77312</span>
+                  <span className="font-medium text-[#0E1116] dark:text-[#FAF7F2]">WhatsApp</span>
                 </div>
               </div>
             </div>
