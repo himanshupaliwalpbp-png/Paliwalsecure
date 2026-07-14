@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n';
 import { ShinyButton } from '@/components/ui/shiny-button';
 import type { Language } from '@/lib/i18n';
+import CarInsuranceCalculator from './CarInsuranceCalculator';
 
 // ── Translation helper ──────────────────────────────────────────────────────
 type TEntry = { en: string; hi: string; hinglish: string };
@@ -496,6 +497,11 @@ export default function ClientContent() {
           </div>
         </div>
       </section>
+
+      <SectionDivider />
+
+      {/* ═══════════════════ CAR INSURANCE CALCULATOR ═══════════════════ */}
+      <CarInsuranceCalculator />
 
       <SectionDivider />
 
