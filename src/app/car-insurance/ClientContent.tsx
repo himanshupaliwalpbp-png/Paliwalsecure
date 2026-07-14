@@ -341,11 +341,11 @@ export default function ClientContent() {
             {pt(T.hero.desc, language)}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/free-audit">
+            <a href="#car-insurance-calculator">
               <ShinyButton variant="blue" className="text-sm md:text-base">
                 <span>{pt(T.hero.ctaCompare, language)}</span>
               </ShinyButton>
-            </Link>
+            </a>
             <a
               href="https://wa.me/919257877312?text=Hi%2C%20I%20need%20help%20with%20car%20insurance%20renewal"
               target="_blank"
@@ -902,11 +902,11 @@ export default function ClientContent() {
             {pt(T.cta.desc, language)}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/free-audit">
+            <a href="#car-insurance-calculator">
               <ShinyButton variant="blue" className="text-sm md:text-base">
                 <span>{pt(T.cta.ctaCompare, language)}</span>
               </ShinyButton>
-            </Link>
+            </a>
             <a href="https://wa.me/919257877312?text=Hi%2C%20I%20want%20to%20compare%20car%20insurance%20plans" target="_blank" rel="noopener noreferrer">
               <ShinyButton variant="secondary" className="text-sm md:text-base">
                 <span>{pt(T.cta.ctaWhatsApp, language)}</span>

@@ -183,7 +183,7 @@ export default function CarInsuranceCalculator() {
   }, [exShowroom, ageYears, car, ncbYears, zeroDep, engineProtect, rti, rsa]);
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-card/50 to-background">
+    <section id="car-insurance-calculator" className="py-16 md:py-24 bg-gradient-to-b from-card/50 to-background scroll-mt-16">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-10">
