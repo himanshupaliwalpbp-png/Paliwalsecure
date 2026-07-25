@@ -58,6 +58,11 @@ const ClaimsTimeline = dynamic(() => import('@/components/home/ClaimsTimeline'),
 const RatingLeadForm = dynamic(() => import('@/components/RatingLeadForm'), {
   loading: () => <div className="min-h-[600px]" />,
 });
+
+// 5-Star Customer Reviews Section — shows approved reviews + rating submission form
+const ReviewsSection = dynamic(() => import('@/components/ReviewsSection'), {
+  loading: () => <div className="min-h-[500px]" />,
+});
 const KnowledgeHub = dynamic(() => import('@/components/home/KnowledgeHub'), {
   loading: () => <div className="min-h-[300px]" />,
 });
@@ -136,6 +141,11 @@ export default function Home() {
       </SafeRender>
 
       {/* 10. Trusted Advisors / Testimonials — REMOVED */}
+
+      {/* 10.5. 5-Star Customer Reviews — NEW: shows approved reviews + rating form */}
+      <SafeRender name="ReviewsSection">
+        <ReviewsSection />
+      </SafeRender>
 
       {/* 11. 5-Star Review + Lead Capture Form */}
       <SafeRender name="RatingLeadForm">
