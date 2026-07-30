@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       steps: [] as Array<{ step: number; action: string; details: string; timeframe: string }>,
       documentsRequired: [] as string[],
       escalationPath: '',
-      irdaHelpline: '155255 or 1800-4254-155 (toll free)',
+      irdaHelpline: 'bimabharosa.irda.gov.in (IRDAI grievance portal)',
       irdaGrievancePortal: 'https://igms.irda.gov.in/',
       tips: [] as string[],
     };

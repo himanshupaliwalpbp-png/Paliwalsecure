@@ -51,7 +51,7 @@ const contextConfig: Record<DisclaimerContext, {
         title: 'Grievance Redressal',
         color: 'text-violet-600 dark:text-violet-400',
         iconBg: 'bg-violet-100 dark:bg-violet-900/40',
-        content: "For complaints: (1) Contact your insurer's Grievance Redressal Officer, (2) File on Bima Bharosa Portal (bimabharosa.irdai.gov.in), (3) Approach Insurance Ombudsman. IRDAI Toll-Free: 1800-425-4732.",
+        content: "For complaints: (1) Contact your insurer's Grievance Redressal Officer, (2) File on Bima Bharosa Portal (bimabharosa.irdai.gov.in), (3) Approach Insurance Ombudsman. IRDAI Toll-Free: bimabharosa.irda.gov.in.",
       },
     ],
     footer: 'Data sourced from IRDAI Annual Report 2025-26, Economic Survey of India 2026, Swiss Re sigma reports. Projections based on industry estimates. Not investment advice.',
@@ -269,7 +269,7 @@ const disclaimerItems = [
     color: 'text-violet-600 dark:text-violet-400',
     iconBg: 'bg-violet-100 dark:bg-violet-900/40',
     content:
-      "For complaints: (1) Contact your insurer's Grievance Redressal Officer, (2) File on Bima Bharosa Portal (bimabharosa.irdai.gov.in), (3) Approach Insurance Ombudsman for claims up to ₹50 Lakh. IRDAI Toll-Free: 1800-425-4732.",
+      "For complaints: (1) Contact your insurer's Grievance Redressal Officer, (2) File on Bima Bharosa Portal (bimabharosa.irdai.gov.in), (3) Approach Insurance Ombudsman for claims up to ₹50 Lakh. IRDAI Toll-Free: bimabharosa.irda.gov.in.",
   },
 ];
 

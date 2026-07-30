@@ -250,7 +250,7 @@ function ClaimRejectionAlert() {
       <div className="flex items-center gap-2 pt-1">
         <Phone className="h-3 w-3 text-red-500" />
         <p className="text-[11px] text-red-600 dark:text-red-400">
-          IRDAI Toll-Free: <strong>1800-425-4732</strong> | Ombudsman: <strong>info@cioins.co.in</strong>
+          IRDAI Toll-Free: <strong>bimabharosa.irda.gov.in</strong> | Ombudsman: <strong>info@cioins.co.in</strong>
         </p>
       </div>
     </div>

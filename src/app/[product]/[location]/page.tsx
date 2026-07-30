@@ -680,7 +680,7 @@ export default async function ProductLocationPage({
                     insurance companies. Premium rates, coverage, and terms are subject to change as per
                     insurer policies. Pre-existing disease coverage is subject to waiting periods and
                     policy terms. Please read the policy document carefully before purchase. For
-                    grievances, contact IRDAI at 1800-267-0076 or grievances@irdai.gov.in.
+                    grievances, contact IRDAI at bimabharosa.irda.gov.in or grievances@irdai.gov.in.
                   </p>
                 </div>
               </div>
@@ -1010,7 +1010,7 @@ export default async function ProductLocationPage({
                   insurance companies. Premium rates, coverage, and terms are subject to change as per
                   insurer policies. {location.name}-specific premiums and network availability may vary.
                   Please read the policy document carefully before purchase. For grievances, contact IRDAI
-                  at 1800-267-0076 or grievances@irdai.gov.in.
+                  at bimabharosa.irda.gov.in or grievances@irdai.gov.in.
                 </p>
               </div>
             </div>
