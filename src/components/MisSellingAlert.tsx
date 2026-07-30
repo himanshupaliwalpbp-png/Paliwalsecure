@@ -222,7 +222,7 @@ export default function MisSellingAlert() {
                 </ul>
                 <div className="mt-3 p-2 bg-red-50 dark:bg-red-950/30 rounded-lg text-sm">
                   <strong>{t('misSelling.redFlagAction')}</strong>{' '}
-                  <span className="font-semibold">1800-258-1111</span> {t('misSelling.irdaiHelpline')}.
+                  <span className="font-semibold">bimabharosa.irda.gov.in</span> {t('misSelling.irdaiHelpline')}.
                 </div>
               </motion.div>
             )}

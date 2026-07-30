@@ -89,7 +89,7 @@ const pageText = {
       heading: { en: '8. Contact', hi: '8. संपर्क', hinglish: '8. Contact' },
       intro: { en: 'For questions or concerns about these Terms of Service, please contact us:', hi: 'इन सेवा की शर्तों के बारे में प्रश्नों या चिंताओं के लिए, कृपया हमसे संपर्क करें:', hinglish: 'In Terms of Service ke baare mein questions ya concerns ke liye, kripya humse contact karein:' },
       irdaiTitle: { en: 'IRDAI Grievance Redressal', hi: 'IRDAI शिकायत निवारण', hinglish: 'IRDAI Grievance Redressal' },
-      irdaiText: { en: "For unresolved disputes, contact IRDAI's Bima Bharosa Portal or call 1800-258-1111 (Toll Free).", hi: 'अनसुलझे विवादों के लिए IRDAI के बीमा भरोसा पोर्टल से संपर्क करें या 1800-258-1111 (टोल फ्री) पर कॉल करें।', hinglish: "Unresolved disputes ke liye IRDAI ke Bima Bharosa Portal se contact karein ya 1800-258-1111 (Toll Free) pe call karein." },
+      irdaiText: { en: "For unresolved disputes, contact IRDAI's Bima Bharosa Portal or call bimabharosa.irda.gov.in (Toll Free).", hi: 'अनसुलझे विवादों के लिए IRDAI के बीमा भरोसा पोर्टल से संपर्क करें या bimabharosa.irda.gov.in (टोल फ्री) पर कॉल करें।', hinglish: "Unresolved disputes ke liye IRDAI ke Bima Bharosa Portal se contact karein ya bimabharosa.irda.gov.in (Toll Free) pe call karein." },
     },
   ],
   cta: {

@@ -16,7 +16,7 @@ const alertData: Record<AlertType, { title: string; message: string; actions: { 
     actions: [
       { label: 'File complaint on Bima Bharosa', link: 'https://bimabharosa.irda.gov.in' },
       { label: 'Contact Insurance Ombudsman (Free)', link: 'https://www.irdai.gov.in/omudsman' },
-      { label: 'Call IRDAI helpline: 1800-258-1111', link: 'tel:18002581111' },
+      { label: 'Call IRDAI helpline: bimabharosa.irda.gov.in', link: 'https://bimabharosa.irda.gov.in' },
     ],
     color: 'red',
   },

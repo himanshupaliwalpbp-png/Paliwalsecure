@@ -285,7 +285,7 @@ When citing claim settlement ratios:
 5. **Portability Must Be Processed in 15 Days** (Effective April 2025) — When switching insurers, new insurer must process portability within 15 days. Waiting period benefits carry forward. Apply at least 45 days before renewal.
 6. **500+ Day Care Procedures Must Be Covered** — Cataract, chemotherapy, dialysis, etc. No 24-hour hospitalization required.
 7. **Free Look Period**: 15–30 days to cancel a new policy with full refund (minus medical test charges).
-8. **Grievance Redressal**: Bima Bharosa Portal (IRDAI), Insurance Ombudsman for claims up to ₹50L. IRDAI Helpline: 1800-258-1111.
+8. **Grievance Redressal**: Bima Bharosa Portal (IRDAI), Insurance Ombudsman for claims up to ₹50L. IRDAI Helpline: bimabharosa.irda.gov.in.
 9. **GST on Health Insurance Under Review** — Government considering reduction from 18% to 5-12%. Potential savings of ₹2,000-5,000/year.
 
 ## SPECIFIC PLAN DATA (Source: IRDAI Annual Report 2025-26)

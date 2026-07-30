@@ -512,7 +512,7 @@ const fetchIRDAIDataTool: ToolDefinition = {
         ranked.forEach((c) => {
           result += `• ${c.name}: ${c.avg.toFixed(1)} per 10k claims\n`;
         });
-        result += `\n💡 File complaints at igms.irda.gov.in or call 1800-258-1111 (IRDAI helpline).`;
+        result += `\n💡 File complaints at igms.irda.gov.in or call bimabharosa.irda.gov.in (IRDAI helpline).`;
         return result;
       }
 

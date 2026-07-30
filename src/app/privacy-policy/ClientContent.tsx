@@ -116,7 +116,7 @@ const pageText = {
       heading: { en: '10. Contact Information', hi: '10. संपर्क जानकारी', hinglish: '10. Contact Information' },
       intro: { en: 'If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us:', hi: 'यदि आपको इस गोपनीयता नीति के बारे में कोई प्रश्न, चिंता या अनुरोध है, तो कृपया हमसे संपर्क करें:', hinglish: 'Agar aapko is Privacy Policy ke baare mein koi question, concern ya request hai, toh kripya humse contact karein:' },
       irdaiTitle: { en: 'IRDAI Grievance Redressal', hi: 'IRDAI शिकायत निवारण', hinglish: 'IRDAI Grievance Redressal' },
-      irdaiText: { en: "For unresolved privacy complaints, contact IRDAI's Bima Bharosa Portal or call 1800-258-1111 (Toll Free).", hi: 'अनसुलझी गोपनीयता शिकायतों के लिए, IRDAI के बीमा भरोसा पोर्टल से संपर्क करें या 1800-258-1111 (टोल फ्री) पर कॉल करें।', hinglish: "Unresolved privacy complaints ke liye, IRDAI ke Bima Bharosa Portal se contact karein ya 1800-258-1111 (Toll Free) pe call karein." },
+      irdaiText: { en: "For unresolved privacy complaints, contact IRDAI's Bima Bharosa Portal or call bimabharosa.irda.gov.in (Toll Free).", hi: 'अनसुलझी गोपनीयता शिकायतों के लिए, IRDAI के बीमा भरोसा पोर्टल से संपर्क करें या bimabharosa.irda.gov.in (टोल फ्री) पर कॉल करें।', hinglish: "Unresolved privacy complaints ke liye, IRDAI ke Bima Bharosa Portal se contact karein ya bimabharosa.irda.gov.in (Toll Free) pe call karein." },
     },
   ],
   cta: {

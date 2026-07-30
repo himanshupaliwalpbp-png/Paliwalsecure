@@ -254,7 +254,7 @@ export default function DisclaimerClientContent() {
                           </a>
                           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold"
                             style={{ background: 'rgba(201,138,28,0.12)', color: GOLD, border: '1px solid rgba(201,138,28,0.3)' }}>
-                            <Phone className="w-3.5 h-3.5" /> 1800-258-1111 (Toll Free)
+                            <Phone className="w-3.5 h-3.5" /> bimabharosa.irda.gov.in (Toll Free)
                           </span>
                         </div>
                       )}
@@ -272,7 +272,7 @@ export default function DisclaimerClientContent() {
                       <h3 className="font-bold text-white mb-2">IRDAI</h3>
                       <p className="text-xs text-white/60 mb-2">Insurance Regulatory and Development Authority of India</p>
                       <div className="space-y-1.5 text-xs text-white/80">
-                        <p className="flex items-center gap-1.5"><Phone className="w-3 h-3" style={{ color: GOLD }} /> Helpline: <strong>1800-258-1111</strong> (Toll Free)</p>
+                        <p className="flex items-center gap-1.5"><Phone className="w-3 h-3" style={{ color: GOLD }} /> Helpline: <strong>bimabharosa.irda.gov.in</strong> (Toll Free)</p>
                         <p className="flex items-center gap-1.5"><ExternalLink className="w-3 h-3" style={{ color: GOLD }} /> <a href="https://bimabharosa.irdai.gov.in" target="_blank" rel="noopener noreferrer" className="hover:underline">bimabharosa.irdai.gov.in</a></p>
                         <p className="flex items-center gap-1.5"><MapPin className="w-3 h-3" style={{ color: GOLD }} /> Hyderabad, Telangana, India</p>
                       </div>

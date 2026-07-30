@@ -260,7 +260,7 @@ export const translations: TranslationStrings = {
   'footer.contactUs': { en: 'Contact Us', hi: 'हमसे संपर्क करें', hinglish: 'Humse Contact Karein' },
   'footer.emailUs': { en: 'Email Us', hi: 'ईमेल करें', hinglish: 'Email Karein' },
   'footer.bimaBharosa': { en: 'Bima Bharosa Portal', hi: 'बीमा भरोसा पोर्टल', hinglish: 'Bima Bharosa Portal' },
-  'footer.ombudsman': { en: 'Ombudsman: 1800-258-1111 (IRDAI Helpline)', hi: 'ओम्बुड्समैन: 1800-258-1111 (IRDAI हेल्पलाइन)', hinglish: 'Ombudsman: 1800-258-1111 (IRDAI Helpline)' },
+  'footer.ombudsman': { en: 'Ombudsman: bimabharosa.irda.gov.in (IRDAI Helpline)', hi: 'ओम्बुड्समैन: bimabharosa.irda.gov.in (IRDAI हेल्पलाइन)', hinglish: 'Ombudsman: bimabharosa.irda.gov.in (IRDAI Helpline)' },
   'footer.poweredBy': { en: 'Powered by', hi: 'संचालित by', hinglish: 'Powered by' },
   'footer.admin': { en: 'Admin', hi: 'एडमिन', hinglish: 'Admin' },
   'footer.subscribed': { en: 'Subscribed!', hi: 'सब्सक्राइब किया!', hinglish: 'Subscribed!' },
