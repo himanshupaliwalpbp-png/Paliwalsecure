@@ -36,6 +36,7 @@ import { IRDAI_MANDATORY_DISCLAIMER } from '@/lib/insurance-data';
 
 const QUICK_LINKS = [
   { href: '/', labelKey: 'footer.link.home' },
+  { href: '/saver', labelKey: 'footer.link.saver' },
   { href: '/health-insurance', labelKey: 'footer.link.healthInsurance' },
   { href: '/car-insurance', labelKey: 'footer.link.carInsurance' },
   { href: '/bike-insurance', labelKey: 'footer.link.bikeInsurance' },

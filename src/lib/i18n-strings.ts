@@ -42,6 +42,7 @@ export const translations: TranslationStrings = {
   'nav.claims': { en: 'Claims', hi: 'क्लेम', hinglish: 'Claims' },
   'nav.instagram': { en: 'Insta', hi: 'इंस्टा', hinglish: 'Insta' },
   'nav.taxSaving': { en: 'Tax Saving', hi: 'कर बचत', hinglish: 'Tax Bachat' },
+  'nav.saver': { en: 'Saver', hi: 'सेवर', hinglish: 'Saver' },
   'nav.getAIQuote': { en: 'Get AI Quote / कोटेशन लें', hi: 'AI कोटेशन लें', hinglish: 'Get AI Quote' },
 
   // ── Hero Section ────────────────────────────────────────────────────────
@@ -895,6 +896,7 @@ export const translations: TranslationStrings = {
   'footer.link.lifeInsurance': { en: 'Life Insurance', hi: 'लाइफ इंश्योरेंस', hinglish: 'Life Insurance' },
   'footer.link.comparePlans': { en: 'Compare Plans', hi: 'योजनाएँ तुलना करें', hinglish: 'Plans Compare Karein' },
   'footer.link.insureGPT': { en: 'InsureGPT', hi: 'इंश्योरGPT', hinglish: 'InsureGPT' },
+  'footer.link.saver': { en: 'Paliwal Saver — Business Savings', hi: 'पालीवाल सेवर — बिज़नेस बचत', hinglish: 'Paliwal Saver — Business Bachat' },
   'footer.link.blog': { en: 'Blog', hi: 'ब्लॉग', hinglish: 'Blog' },
   'footer.link.newVehicleInsurance': { en: 'New Vehicle Insurance', hi: 'नए वाहन इंश्योरेंस', hinglish: 'New Vehicle Insurance' },
   'footer.link.faq': { en: 'FAQ', hi: 'FAQ', hinglish: 'FAQ' },

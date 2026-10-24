@@ -94,8 +94,11 @@ function getRateLimit(ip: string): RateLimitEntry {
 }
 
 // ── Security Headers (HARDENED — Hacker + AI Bot Resistant) ─────────────────
+// NOTE: frame-blocking (X-Frame-Options / frame-ancestors) is applied only in
+// production — dev/preview environments must remain embeddable in iframes.
+const IS_PROD = process.env.NODE_ENV === "production";
+
 const SECURITY_HEADERS: Record<string, string> = {
-  "X-Frame-Options": "DENY",
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   // X-XSS-Protection is deprecated — disable (rely on CSP instead).
@@ -116,7 +119,7 @@ const SECURITY_HEADERS: Record<string, string> = {
     "object-src 'none'; " +
     "base-uri 'self'; " +
     "form-action 'self'; " +
-    "frame-ancestors 'none'; " +
+    (IS_PROD ? "frame-ancestors 'none'; " : "frame-ancestors *; ") +
     "upgrade-insecure-requests; " +
     "report-uri /api/csp-report; " +
     "report-to csp-endpoint",

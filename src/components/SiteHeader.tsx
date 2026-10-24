@@ -25,6 +25,7 @@ import {
   Instagram,
   Sparkles,
   X,
+  PiggyBank,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -93,6 +94,7 @@ interface NavLink {
   labelKey: string;
   label: string;
   icon: React.ElementType;
+  highlight?: boolean;
 }
 
 const NAV_LINKS: NavLink[] = [
@@ -143,6 +145,13 @@ const NAV_LINKS: NavLink[] = [
     labelKey: 'nav.taxSaving',
     label: 'Tax',
     icon: Receipt,
+  },
+  {
+    href: '/saver',
+    labelKey: 'nav.saver',
+    label: 'Saver',
+    icon: PiggyBank,
+    highlight: true,
   },
   {
     href: '/calculators',
@@ -355,16 +364,27 @@ export default function SiteHeader() {
                       ? isLight
                         ? 'text-[#0E1116]'
                         : 'text-[#FAF7F2]'
-                      : isLight
-                        ? 'text-[#4A4F57] hover:text-[#0E1116]'
-                        : 'text-[#8B9099] hover:text-[#FAF7F2]'
+                      : link.highlight
+                        ? isLight
+                          ? 'text-[#B8863B] hover:text-[#8B3520] font-semibold'
+                          : 'text-[#E8C97E] hover:text-[#FAF7F2] font-semibold'
+                        : isLight
+                          ? 'text-[#4A4F57] hover:text-[#0E1116]'
+                          : 'text-[#8B9099] hover:text-[#FAF7F2]'
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-all duration-200 ${
-                    active ? 'opacity-100' : 'opacity-50'
+                    active ? 'opacity-100' : link.highlight ? 'opacity-90' : 'opacity-50'
                   }`} />
                   <span className="link-underline-reveal">{t(link.labelKey) || link.label}</span>
+                  {link.highlight && (
+                    <span className={`ml-0.5 rounded-full px-1.5 py-px text-[9px] font-bold uppercase tracking-wider ${
+                      isLight ? 'bg-[#D4A853]/20 text-[#8B3520]' : 'bg-[#D4A853]/20 text-[#E8C97E]'
+                    }`}>
+                      New
+                    </span>
+                  )}
                   {/* Active animated underline — Stripe-style spring animation */}
                   {active && (
                     <motion.div
@@ -396,23 +416,6 @@ export default function SiteHeader() {
 
           {/* ══ Right Side: CTAs + Toggles ════════════════════════════════════ */}
           <div className="flex items-center gap-1.5 shrink-0">
-
-            {/* WhatsApp button — desktop */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`hidden xl:flex items-center gap-2 text-[13px] font-medium transition-all duration-200 h-9 px-2.5 rounded-lg ${
-                isLight
-                  ? 'text-[#4A4F57] hover:text-[#1B4D4A]'
-                  : 'text-[#8B9099] hover:text-[#FAF7F2]'
-              }`}
-              asChild
-            >
-              <a href="https://wa.me/919257877312" aria-label="WhatsApp us">
-                <Phone className="h-4 w-4" />
-                <span className="hidden 2xl:inline link-underline-reveal">WhatsApp</span>
-              </a>
-            </Button>
 
             {/* WhatsApp button — desktop — WhatsApp green premium CTA */}
             <Button
@@ -573,9 +576,13 @@ export default function SiteHeader() {
                           ? isLight
                             ? 'bg-[#F4E5DD] text-[#0E1116] font-semibold'
                             : 'bg-white/[0.06] text-[#FAF7F2] font-semibold'
-                          : isLight
-                            ? 'text-[#4A4F57] hover:text-[#0E1116] hover:bg-[#F4E5DD]/60'
-                            : 'text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.04]'
+                          : link.highlight
+                            ? isLight
+                              ? 'text-[#B8863B] hover:text-[#8B3520] hover:bg-[#D4A853]/10 font-semibold'
+                              : 'text-[#E8C97E] hover:text-[#FAF7F2] hover:bg-[#D4A853]/10 font-semibold'
+                            : isLight
+                              ? 'text-[#4A4F57] hover:text-[#0E1116] hover:bg-[#F4E5DD]/60'
+                              : 'text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.04]'
                       }`}
                       aria-current={active ? 'page' : undefined}
                     >

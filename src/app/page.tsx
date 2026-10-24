@@ -36,6 +36,9 @@ const TrustStrip = dynamic(() => import('@/components/home/TrustStrip'), {
 const StackingImageSections = dynamic(() => import('@/components/home/StackingImageSections'), {
   loading: () => <div className="min-h-[100vh]" />,
 });
+const SaverShowcase = dynamic(() => import('@/components/home/SaverShowcase'), {
+  loading: () => <div className="min-h-[320px]" />,
+});
 const HealthFeaturedBanner = dynamic(() => import('@/components/home/HealthFeaturedBanner'), {
   loading: () => <div className="min-h-[300px]" />,
 });
@@ -113,6 +116,11 @@ export default function Home() {
       {/* 4. Stacking full-screen insurance images — scroll to reveal each */}
       <SafeRender name="StackingImageSections">
         <StackingImageSections />
+      </SafeRender>
+
+      {/* 4.5. Paliwal Saver — rule-engine savings module (new flagship) */}
+      <SafeRender name="SaverShowcase">
+        <SaverShowcase />
       </SafeRender>
 
       {/* 5. InsureGPT AI Chat Section */}

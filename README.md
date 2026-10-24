@@ -2,6 +2,18 @@
 
 AI-powered insurance recommendation platform targeting the 700 million uninsured/underinsured people in India. Built with Next.js 16, TypeScript, Tailwind CSS, and Framer Motion.
 
+## NEW: Paliwal Saver — Legal Business Savings Engine (`/saver`)
+
+A flagship rule-engine module that finds **legal** savings for Indian small businesses — zero tax evasion, every rupee sourced:
+
+- **PayDesk — UPI fee finder**: merchant MDR under the announced 0.4% P2M framework above ₹2,000 (from Oct 2026), small-merchant QR zero-MDR allowance (₹1L/month), multi-date rule scenarios, monthly/annual impact
+- **Income Tax engine**: Section 44AD (6%/8% deemed), 44ADA (50% for professionals), 44AE (goods carriages), new vs old regime with 87A rebate — full "Smart Compare" across all paths
+- **GST ITC scanner**: per-expense eligibility (likely / review / blocked u/s 17(5)), recoverable credit totals, missing-document checklist
+- **Saver AI**: compliance-first chat (EN/हिंदी/Hinglish) that refuses evasion tricks and cites RBI · NPCI · ITD · CBIC sources
+- **18 free tools** + smart search, FAQ, lead capture — all DB-free (static rulebook v1) so it runs on any host
+
+Engines live in `src/lib/saver/` (pure TypeScript), APIs at `src/app/api/saver/*`, UI at `src/components/saver/`. InsureGPT is Saver-aware and cross-refers automatically.
+
 ## Features
 
 - **Hyper-Personalized AI Engine**: Multi-step onboarding flow collecting Age, Income, Pincode, Medical History, Lifestyle, and more for personalized recommendations
