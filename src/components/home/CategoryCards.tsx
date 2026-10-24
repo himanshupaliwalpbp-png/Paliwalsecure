@@ -195,7 +195,7 @@ function ScrollRevealCard({
             }}
           >
             {/* High-quality premium 3D hero image */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            { }
             <img
               src={cat.image}
               alt={`${title} — premium 3D protection visualization`}

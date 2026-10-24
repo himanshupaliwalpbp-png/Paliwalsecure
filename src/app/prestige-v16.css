@@ -6,6 +6,15 @@
    animated gradient frames, rotating conic avatar rings, gold micro-glows,
    aurum shimmer typography, magnetic buttons, aurora mesh heroes.
 
+   ═══ LUMEN v17 light conversion ═══
+   Owner verdict: "light colour shi tha pahle wala" — the beloved LIGHT
+   cream/terracotta identity is the DEFAULT. Every formerly-dark surface
+   (mesh-aurum hero, igpt-header, badge/btn-ghost/posP strip, grail text)
+   now renders premium LIGHT: cream #FDF9F0/#F3EADB bases, terracotta
+   #B8482C/#C2552F, gold-brown #8F5A1E/#6E4A12 ink accents, teal #2D7A77.
+   Old dark values preserved under `.dark` selectors (site keeps its
+   dark-mode toggle). All animations unchanged.
+
    Palette (Design Bible):
      Sienna #B8482C · Maroon #5E1223 · Gold #E8C872 / #D4A853
      Emerald #2DD4A8 · Cream #F3EADB · Ink #0E1116
@@ -13,15 +22,17 @@
 
 /* ──────────────────────────────────────────────
    1. AURUM SHIMMER TYPOGRAPHY — animated gold sweep
+   LUMEN v17: light default uses deep gold-brown/terracotta anchors
+   so the shimmer stays readable on cream backgrounds.
    ────────────────────────────────────────────── */
 .aurum-text {
   background: linear-gradient(
     100deg,
-    #8F5A1E 0%,
-    #D4A853 25%,
-    #F5E7B8 50%,
-    #D4A853 75%,
-    #8F5A1E 100%
+    #6E4A12 0%,
+    #B8482C 25%,
+    #C98A1C 50%,
+    #B8482C 75%,
+    #6E4A12 100%
   );
   background-size: 220% auto;
   -webkit-background-clip: text;
@@ -48,14 +59,23 @@
   to { background-position: -220% center; }
 }
 
-/* Maroon→Gold gradient text for hero display words */
+/* Maroon→Gold gradient text for hero display words
+   LUMEN v17 light: terracotta→gold-brown sweep, readable on cream;
+   original bright-gold preserved for dark mode. */
 .grail-text {
-  background: linear-gradient(115deg, #E8C872 0%, #D4A853 30%, #F5E7B8 50%, #C98A1C 70%, #E8C872 100%);
+  background: linear-gradient(115deg, #8F5A1E 0%, #C2552F 30%, #C98A1C 50%, #C2552F 70%, #8F5A1E 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  animation: aurum-sheen 6s linear infinite;
+}
+.dark .grail-text {
+  background: linear-gradient(115deg, #E8C872 0%, #D4A853 30%, #F5E7B8 50%, #C98A1C 70%, #E8C872 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
   animation: aurum-sheen 6s linear infinite;
 }
 
@@ -65,6 +85,13 @@
 .igpt-frame {
   position: relative;
 }
+/* LUMEN v17 position-utility guard: this stylesheet is unlayered, so it beats
+   Tailwind's cascade-layered utilities — the floating chat window pairs
+   .igpt-frame with .fixed and MUST stay a fixed overlay, not in-flow.
+   Re-assert the utilities so framed overlays keep their intended position. */
+.igpt-frame.fixed { position: fixed; }
+.igpt-frame.absolute { position: absolute; }
+.igpt-frame.sticky { position: sticky; }
 .igpt-frame::before {
   content: "";
   position: absolute;
@@ -87,7 +114,8 @@
   animation: igpt-ring-rotate 6s linear infinite;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.85;
+  /* LUMEN v17: softened from 0.85 — elegant on light glass, still vivid in dark */
+  opacity: 0.7;
 }
 @property --igpt-ring-angle {
   syntax: "<angle>";
@@ -106,15 +134,16 @@
 }
 
 /* ──────────────────────────────────────────────
-   3. INSUREGPT HEADER — deep maroon aurum bar
+   3. INSUREGPT HEADER — LUMEN v17 light: warm ivory aurum band
+   with terracotta/gold radial highlights (deep maroon kept for dark).
    ────────────────────────────────────────────── */
 .igpt-header {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(120% 180% at 0% 0%, rgba(184, 72, 44, 0.35) 0%, transparent 55%),
-    radial-gradient(120% 180% at 100% 0%, rgba(232, 200, 114, 0.22) 0%, transparent 50%),
-    linear-gradient(135deg, #35101C 0%, #23090F 48%, #160509 100%);
+    radial-gradient(120% 180% at 0% 0%, rgba(184, 72, 44, 0.12) 0%, transparent 55%),
+    radial-gradient(120% 180% at 100% 0%, rgba(212, 168, 83, 0.22) 0%, transparent 50%),
+    linear-gradient(135deg, #FAF6ED 0%, #F5ECDC 55%, #F3E9D8 100%);
 }
 .dark .igpt-header {
   background:
@@ -122,7 +151,7 @@
     radial-gradient(120% 180% at 100% 0%, rgba(232, 200, 114, 0.28) 0%, transparent 50%),
     linear-gradient(135deg, #3A101E 0%, #26090F 48%, #170509 100%);
 }
-/* slow drifting aurum sheen across the header */
+/* slow drifting aurum sheen across the header (tuned for both themes) */
 .igpt-header::after {
   content: "";
   position: absolute;
@@ -130,8 +159,8 @@
   background: linear-gradient(
     100deg,
     transparent 30%,
-    rgba(232, 200, 114, 0.14) 46%,
-    rgba(245, 231, 184, 0.1) 52%,
+    rgba(232, 200, 114, 0.22) 46%,
+    rgba(245, 231, 184, 0.16) 52%,
     transparent 68%
   );
   transform: translateX(-100%);
@@ -246,12 +275,13 @@
 
 /* ──────────────────────────────────────────────
    6. TYPING DOTS — bouncing gold trio
+   LUMEN v17: deeper gold core so dots read on cream bubbles.
    ────────────────────────────────────────────── */
 .igpt-dot {
   width: 5px;
   height: 5px;
   border-radius: 9999px;
-  background: radial-gradient(circle at 30% 30%, #F5E7B8, #D4A853);
+  background: radial-gradient(circle at 30% 30%, #F0DCA0, #C98A1C);
   animation: igpt-dot-bounce 1.2s ease-in-out infinite;
 }
 .igpt-dot:nth-child(2) { animation-delay: 0.15s; }
@@ -323,7 +353,8 @@
   outline-offset: 3px;
 }
 
-/* Ghost companion button (whatsapp/secondary) */
+/* Ghost companion button (whatsapp/secondary)
+   LUMEN v17 light: ivory glass with soft terracotta hairline. */
 .btn-aurum-ghost {
   position: relative;
   display: inline-flex;
@@ -336,22 +367,31 @@
   font-size: 1rem;
   font-weight: 600;
   color: inherit;
-  border: 1px solid rgba(232, 200, 114, 0.5);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(184, 72, 44, 0.45);
+  background: rgba(255, 255, 255, 0.66);
   backdrop-filter: blur(8px);
   cursor: pointer;
   transition: background 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .btn-aurum-ghost:hover {
-  background: rgba(232, 200, 114, 0.14);
-  border-color: rgba(232, 200, 114, 0.8);
+  background: rgba(184, 72, 44, 0.08);
+  border-color: rgba(184, 72, 44, 0.65);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.4);
+  box-shadow: 0 8px 24px -8px rgba(184, 72, 44, 0.35);
 }
 .btn-aurum-ghost:active { transform: translateY(0) scale(0.98); }
 .btn-aurum-ghost:focus-visible {
   outline: 2px solid #D4A853;
   outline-offset: 3px;
+}
+.dark .btn-aurum-ghost {
+  border-color: rgba(232, 200, 114, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+}
+.dark .btn-aurum-ghost:hover {
+  background: rgba(232, 200, 114, 0.14);
+  border-color: rgba(232, 200, 114, 0.8);
+  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.4);
 }
 
 /* ──────────────────────────────────────────────
@@ -411,48 +451,67 @@
 .tilt-card:hover .tilt-inner { transform: rotateX(4deg) rotateY(-4deg) translateY(-4px); }
 
 /* ──────────────────────────────────────────────
-   9. MESH-AURUM HERO — animated aurora background
+   9. MESH-AURUM HERO — LUMEN v17 light: soft cream aurora
+   (terracotta/gold/teal tints over #FDF9F0→#F3EADB);
+   the original deep-maroon aurora lives on in dark mode.
+   Drift animation unchanged.
    ────────────────────────────────────────────── */
 .mesh-aurum {
   position: relative;
+  background:
+    radial-gradient(90% 120% at 8% 8%, rgba(184, 72, 44, 0.14) 0%, transparent 52%),
+    radial-gradient(80% 110% at 92% 12%, rgba(212, 168, 83, 0.18) 0%, transparent 50%),
+    radial-gradient(110% 130% at 50% 110%, rgba(45, 122, 119, 0.10) 0%, transparent 62%),
+    linear-gradient(160deg, #FDF9F0 0%, #F8EFE3 45%, #F3EADB 100%);
+  background-size: 200% 200%;
+  animation: mesh-aurum-drift 18s ease-in-out infinite alternate;
+}
+.dark .mesh-aurum {
   background:
     radial-gradient(90% 120% at 8% 8%, rgba(184, 72, 44, 0.5) 0%, transparent 52%),
     radial-gradient(80% 110% at 92% 12%, rgba(212, 168, 83, 0.38) 0%, transparent 50%),
     radial-gradient(110% 130% at 50% 110%, rgba(94, 18, 35, 0.75) 0%, transparent 62%),
     linear-gradient(160deg, #2A0C15 0%, #1E070D 45%, #140508 100%);
-  background-size: 200% 200%;
-  animation: mesh-aurum-drift 18s ease-in-out infinite alternate;
 }
 @keyframes mesh-aurum-drift {
   0% { background-position: 0% 0%, 100% 0%, 50% 100%, 0% 0%; }
   50% { background-position: 30% 20%, 70% 25%, 40% 80%, 0% 0%; }
   100% { background-position: 15% 10%, 85% 15%, 55% 90%, 0% 0%; }
 }
-/* subtle animated grain-free grid for depth */
+/* subtle animated grid for depth — terracotta hairlines on light */
 .mesh-aurum-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(232, 200, 114, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232, 200, 114, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(184, 72, 44, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 72, 44, 0.06) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(70% 60% at 50% 40%, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, black 30%, transparent 75%);
   pointer-events: none;
 }
+.dark .mesh-aurum-grid {
+  background-image:
+    linear-gradient(rgba(232, 200, 114, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 200, 114, 0.05) 1px, transparent 1px);
+}
 
-/* Floating orbs */
+/* Floating orbs — LUMEN v17: softened for light backgrounds */
 .orb {
   position: absolute;
   border-radius: 9999px;
   filter: blur(70px);
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.38;
   animation: orb-float 11s ease-in-out infinite alternate;
 }
-.orb-gold { background: rgba(212, 168, 83, 0.5); }
-.orb-sienna { background: rgba(184, 72, 44, 0.45); }
-.orb-emerald { background: rgba(45, 212, 168, 0.28); }
+.orb-gold { background: rgba(212, 168, 83, 0.32); }
+.orb-sienna { background: rgba(184, 72, 44, 0.26); }
+.orb-emerald { background: rgba(45, 122, 119, 0.14); }
+.dark .orb { opacity: 0.55; }
+.dark .orb-gold { background: rgba(212, 168, 83, 0.5); }
+.dark .orb-sienna { background: rgba(184, 72, 44, 0.45); }
+.dark .orb-emerald { background: rgba(45, 212, 168, 0.28); }
 @keyframes orb-float {
   0% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(24px, -30px, 0) scale(1.12); }
@@ -481,11 +540,12 @@
 
 /* ──────────────────────────────────────────────
    11. STEP CONNECTOR — animated gradient line
+   LUMEN v17: terracotta rail + gold runner (visible on cream).
    ────────────────────────────────────────────── */
 .step-rail {
   position: relative;
   height: 2px;
-  background: linear-gradient(90deg, rgba(212, 168, 83, 0.15), rgba(212, 168, 83, 0.45), rgba(212, 168, 83, 0.15));
+  background: linear-gradient(90deg, rgba(184, 72, 44, 0.15), rgba(184, 72, 44, 0.38), rgba(184, 72, 44, 0.15));
   overflow: hidden;
 }
 .step-rail::after {
@@ -495,7 +555,7 @@
   left: 0;
   width: 34%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, #D4A853, transparent);
+  background: linear-gradient(90deg, transparent, #B8482C, #D4A853, transparent);
   animation: step-rail-run 2.6s ease-in-out infinite;
 }
 @keyframes step-rail-run {
@@ -523,14 +583,16 @@
 
 /* ──────────────────────────────────────────────
    12. SEGMENTED LANGUAGE SWITCH — sliding thumb
+   LUMEN v17 light: warm terracotta-tinted track, maroon items;
+   dark glass preserved for dark mode.
    ────────────────────────────────────────────── */
 .lang-seg {
   position: relative;
   display: inline-flex;
   padding: 3px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid rgba(232, 200, 114, 0.3);
+  background: rgba(184, 72, 44, 0.08);
+  border: 1px solid rgba(184, 72, 44, 0.22);
   backdrop-filter: blur(6px);
 }
 .lang-seg-item {
@@ -540,14 +602,14 @@
   border-radius: 9999px;
   font-size: 11px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(94, 18, 35, 0.62);
   background: transparent;
   border: none;
   cursor: pointer;
   transition: color 0.25s ease;
   white-space: nowrap;
 }
-.lang-seg-item:hover { color: #F5E7B8; }
+.lang-seg-item:hover { color: #B8482C; }
 .lang-seg-item[data-active="true"] { color: #FFF9EA; }
 .lang-seg-thumb {
   position: absolute;
@@ -559,9 +621,16 @@
   border: 1px solid rgba(232, 200, 114, 0.45);
   transition: left 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
 }
+.dark .lang-seg {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(232, 200, 114, 0.3);
+}
+.dark .lang-seg-item { color: rgba(255, 255, 255, 0.65); }
+.dark .lang-seg-item:hover { color: #F5E7B8; }
 
 /* ──────────────────────────────────────────────
    13. GLASS PILL BADGE — shimmering hero badge
+   LUMEN v17 light: ivory glass, gold hairline, gold-brown ink text.
    ────────────────────────────────────────────── */
 .badge-aurum {
   position: relative;
@@ -574,17 +643,17 @@
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #F5E7B8;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(232, 200, 114, 0.4);
+  color: #8F5A1E;
+  background: rgba(255, 252, 244, 0.72);
+  border: 1px solid rgba(212, 168, 83, 0.45);
   backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 18px -6px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 4px 18px -6px rgba(140, 96, 22, 0.22);
 }
 .badge-aurum::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(232, 200, 114, 0.35) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, rgba(232, 200, 114, 0.45) 50%, transparent 60%);
   transform: translateX(-130%);
   animation: badge-aurum-sheen 4.5s ease-in-out infinite;
   pointer-events: none;
@@ -592,6 +661,15 @@
 @keyframes badge-aurum-sheen {
   0%, 60% { transform: translateX(-130%); }
   90%, 100% { transform: translateX(130%); }
+}
+.dark .badge-aurum {
+  color: #F5E7B8;
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(232, 200, 114, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 18px -6px rgba(0, 0, 0, 0.4);
+}
+.dark .badge-aurum::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(232, 200, 114, 0.35) 50%, transparent 60%);
 }
 
 /* ──────────────────────────────────────────────
@@ -609,6 +687,7 @@
 
 /* ──────────────────────────────────────────────
    15. FOOTNOTE STRIP — POSP compliance bar
+   LUMEN v17 light: warm glass, gold-brown ink.
    ────────────────────────────────────────────── */
 .posP-strip {
   display: inline-flex;
@@ -618,9 +697,14 @@
   border-radius: 9999px;
   font-size: 0.68rem;
   font-weight: 600;
+  color: #6E4A12;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(212, 168, 83, 0.4);
+}
+.dark .posP-strip {
   color: rgba(245, 231, 184, 0.75);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(232, 200, 114, 0.25);
+  border-color: rgba(232, 200, 114, 0.25);
 }
 
 /* ──────────────────────────────────────────────

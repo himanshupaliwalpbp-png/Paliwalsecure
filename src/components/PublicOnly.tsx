@@ -13,7 +13,12 @@ export function PublicOnly({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  // Defer the mount flag via rAF so setState never fires synchronously
+  // inside the effect body (react-hooks/set-state-in-effect).
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   if (mounted && pathname?.startsWith("/admin")) {
     return null;

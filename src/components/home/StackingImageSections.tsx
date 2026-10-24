@@ -145,7 +145,7 @@ function StackPanel({
           on desktop. On mobile, slight side crop but center stays visible.
           NO dark letterbox bars — image fills entire screen. */}
       <Link href={item.href} className="block absolute inset-0 w-full h-full group" prefetch={false}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+        { }
         <img
           src={item.image}
           alt={`${item.title} — premium protection hero`}

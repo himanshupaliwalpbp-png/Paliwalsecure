@@ -563,10 +563,11 @@ export default function InsuranceOS() {
   }, [compareForm]);
 
   // ── WhatsApp Reminder ───────────────────────────────────────────────────
+  // ⛔ OWNER NUMBER LOCKED (worklog Task ID 8): 9257877312 — never change without owner permission.
   const sendWhatsAppReminder = useCallback((policy: Policy) => {
     const days = getDaysToExpiry(policy.endDate);
     const message = `Hello! 🙏 Your vehicle insurance policy (${policy.policyNumber}) with ${policy.insurer} is expiring in ${days} days on ${formatDate(policy.endDate)}. Please renew to stay protected. — InsuranceOS`;
-    window.open(`https://wa.me/91${policy.registrationNumber ? '919876543210' : '919876543210'}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/919257877312?text=${encodeURIComponent(message)}`, '_blank');
   }, []);
 
   // ── PDF Downloads ───────────────────────────────────────────────────────

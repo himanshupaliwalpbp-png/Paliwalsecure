@@ -366,7 +366,8 @@ function TypingIndicator({ thinkingText }: { thinkingText: string }) {
       >
         <Bot className="w-4 h-4 text-[#FDF6EC] drop-shadow-sm" />
       </motion.div>
-      <div className="bg-[#F8FAFC] dark:bg-[#1E293B] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#E2E8F0] dark:border-white/8 shadow-sm">
+      {/* LUMEN v17: soft-gold cream bubble on light panel */}
+      <div className="bg-[#F8EFD3]/85 dark:bg-[#1E293B] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#D4A853]/35 dark:border-white/8 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
             <span className="igpt-dot" />
@@ -1275,7 +1276,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[69] bg-black/60 md:hidden"
+            className="fixed inset-0 z-[69] bg-[#0E1116]/50 md:hidden"
             onClick={() => { setIsOpen(false); closeInsureGPT(); }}
           />
           <motion.div
@@ -1290,10 +1291,10 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                        md:rounded-3xl
                        flex flex-col overflow-hidden rounded-2xl
                        igpt-frame glass-premium
-                       shadow-[0_24px_80px_-12px_rgba(0,0,0,0.4),0_0_1px_0_rgba(255,255,255,0.05)_inset]"
+                       shadow-[0_24px_80px_-12px_rgba(94,18,35,0.28),0_0_1px_0_rgba(255,255,255,0.05)_inset]"
           >
-            {/* ── Chat Header ── */}
-            <div className="igpt-header relative shrink-0 border-b border-[#E8C872]/15">
+            {/* ── Chat Header — LUMEN v17: ivory band (light) / deep maroon (dark) ── */}
+            <div className="igpt-header relative shrink-0 border-b border-[#B8482C]/12 dark:border-[#E8C872]/15">
 
               <div className="relative z-10 px-4 py-3 flex items-center justify-between">
                 {/* Left: Avatar + Info */}
@@ -1303,7 +1304,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     variant="ghost"
                     size="icon"
                     onClick={() => setShowHistory(true)}
-                    className="h-8 w-8 rounded-full text-white/60 hover:text-[#E8C872] hover:bg-white/10 shrink-0"
+                    className="h-8 w-8 rounded-full text-[#5E1223]/60 dark:text-white/60 hover:text-[#B8482C] dark:hover:text-[#E8C872] hover:bg-[#B8482C]/10 dark:hover:bg-white/10 shrink-0"
                     aria-label="Chat history"
                   >
                     <History className="w-3.5 h-3.5" />
@@ -1312,14 +1313,14 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     <div className="igpt-avatar w-10 h-10">
                       <Brain className="w-5 h-5 text-[#FDF6EC] drop-shadow-sm" />
                     </div>
-                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#2A0C15] ring-1 ring-emerald-400/30" />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#FAF6ED] dark:border-[#2A0C15] ring-1 ring-emerald-400/30" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-bold text-base leading-tight text-[#FDF6EC] whitespace-nowrap">InsureGPT</h3>
+                    <h3 className="font-bold text-base leading-tight text-[#0E1116] dark:text-[#FDF6EC] whitespace-nowrap">InsureGPT</h3>
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shrink-0" />
-                      <span className="text-[10px] text-emerald-400/80 font-medium whitespace-nowrap">{t('chatBot.onlineLabel') || 'Online'}</span>
-                      <Sparkles className="w-2.5 h-2.5 text-[#E8C872] shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shrink-0" />
+                      <span className="text-[10px] text-[#2D7A77] dark:text-emerald-400/80 font-medium whitespace-nowrap">{t('chatBot.onlineLabel') || 'Online'}</span>
+                      <Sparkles className="w-2.5 h-2.5 text-[#8F5A1E] dark:text-[#E8C872] shrink-0" />
                     </div>
                   </div>
                 </div>
@@ -1329,12 +1330,12 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   {/* Language Toggle — Compact Globe button with badge */}
                   <button
                     onClick={handleLanguageToggle}
-                    className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1 mr-1 border border-[#E8C872]/30 hover:bg-[#E8C872]/20 hover:border-[#E8C872]/50 transition-all duration-200"
+                    className="flex items-center gap-1 bg-[#B8482C]/8 dark:bg-white/10 rounded-full px-2 py-1 mr-1 border border-[#B8482C]/25 dark:border-[#E8C872]/30 hover:bg-[#B8482C]/15 dark:hover:bg-[#E8C872]/20 hover:border-[#B8482C]/50 dark:hover:border-[#E8C872]/50 transition-all duration-200"
                     aria-label={`Switch language (current: ${language === 'hing' ? 'Hinglish' : language === 'en' ? 'English' : 'Hindi'})`}
                     title={language === 'hing' ? 'Hinglish — Click for Hindi' : language === 'en' ? 'English — Click for Hinglish' : 'हिन्दी — Click for English'}
                   >
-                    <Globe className="w-3 h-3 text-[#E8C872]/80" />
-                    <span className="text-[10px] font-bold text-[#E8C872]">
+                    <Globe className="w-3 h-3 text-[#B8482C]/80 dark:text-[#E8C872]/80" />
+                    <span className="text-[10px] font-bold text-[#5E1223] dark:text-[#E8C872]">
                       {language === 'hing' ? 'हिं' : language === 'hi' ? 'हि' : 'EN'}
                     </span>
                   </button>
@@ -1343,7 +1344,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsMinimized(true)}
-                    className="h-7 w-7 rounded-full text-white/50 hover:text-[#E8C872] hover:bg-white/10 shrink-0"
+                    className="h-7 w-7 rounded-full text-[#5E1223]/50 dark:text-white/50 hover:text-[#B8482C] dark:hover:text-[#E8C872] hover:bg-[#B8482C]/10 dark:hover:bg-white/10 shrink-0"
                     aria-label="Minimize chat"
                   >
                     <Minimize2 className="w-3 h-3" />
@@ -1353,7 +1354,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     variant="ghost"
                     size="icon"
                     onClick={handleNewChat}
-                    className="h-7 w-7 rounded-full text-white/50 hover:text-[#E8C872] hover:bg-[#E8C872]/10 shrink-0"
+                    className="h-7 w-7 rounded-full text-[#5E1223]/50 dark:text-white/50 hover:text-[#B8482C] dark:hover:text-[#E8C872] hover:bg-[#D4A853]/25 dark:hover:bg-[#E8C872]/10 shrink-0"
                     aria-label="New chat"
                   >
                     <Sparkles className="w-3 h-3" />
@@ -1366,7 +1367,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                       setIsOpen(false);
                       closeInsureGPT();
                     }}
-                    className="h-9 w-9 rounded-full text-white/80 hover:text-white hover:bg-red-500/80 shrink-0 dark:text-[#F8FAFC] dark:hover:text-white dark:hover:bg-red-500/80 transition-all duration-200 ring-1 ring-white/20 hover:ring-red-300/50"
+                    className="h-9 w-9 rounded-full text-[#5E1223]/80 dark:text-[#F8FAFC] hover:text-red-600 dark:hover:text-white hover:bg-red-500/15 dark:hover:bg-red-500/80 shrink-0 transition-all duration-200 ring-1 ring-[#5E1223]/15 dark:ring-white/20 hover:ring-red-300/50"
                     aria-label="Close chat"
                     title="Close"
                   >
@@ -1378,8 +1379,8 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
 
             </div>
 
-            {/* ── Quick Action Pills ── */}
-            <div className="px-3 py-2.5 border-b border-[#E2E8F0]/30 dark:border-white/8 shrink-0 bg-[#F8FAFC]/80 dark:bg-[#0F172A]/50">
+            {/* ── Quick Action Pills — LUMEN v17: warm cream strip ── */}
+            <div className="px-3 py-2.5 border-b border-[#E8E0CC]/70 dark:border-white/8 shrink-0 bg-[#FDF9F0]/80 dark:bg-[#0F172A]/50">
               <QuickReplyCarousel
                 actions={langConfig.quickActions}
                 onReply={handleQuickAction}
@@ -1387,10 +1388,10 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
               />
             </div>
 
-            {/* ── Messages Area ── */}
+            {/* ── Messages Area — warm-white canvas ── */}
             <div
               ref={scrollContainerRef}
-              className="flex-1 overflow-y-auto px-4 py-5 scroll-smooth premium-scrollbar bg-white dark:bg-[#0F172A]"
+              className="flex-1 overflow-y-auto px-4 py-5 scroll-smooth premium-scrollbar bg-[#FFFEFA] dark:bg-[#0F172A]"
             >
               <div className="space-y-0">
                 {messages.map((msg) => {
@@ -1418,17 +1419,17 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                           <Bot className="w-4 h-4 text-[#FDF6EC] drop-shadow-sm" />
                         </motion.div>
                       ) : (
-                        <div className="w-8 h-8 rounded-full bg-[#0F172A] dark:bg-[#E8C872] flex items-center justify-center shrink-0 mt-0.5 shadow-sm ring-1 ring-[#0F172A]/10 dark:ring-[#E8C872]/10">
-                          <User className="w-4 h-4 text-white dark:text-[#0F172A]" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#C2552F] to-[#5E1223] flex items-center justify-center shrink-0 mt-0.5 shadow-sm ring-1 ring-[#B8482C]/25">
+                          <User className="w-4 h-4 text-[#FDF6EC]" />
                         </div>
                       )}
 
-                      {/* Bubble */}
+                      {/* Bubble — LUMEN v17: terracotta user bubble, soft-gold bot bubble */}
                       <div
                         className={`max-w-[80%] relative break-words ${
                           msg.role === 'user'
-                            ? 'bg-[#0F172A] dark:bg-[#E8C872] text-white dark:text-[#0F172A] rounded-2xl rounded-tr-sm px-4 py-3 shadow-lg ring-1 ring-[#0F172A]/10 dark:ring-[#E8C872]/10'
-                            : 'bg-[#F8FAFC] dark:bg-[#1E293B] text-[#0F172A] dark:text-[#F8FAFC] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#E2E8F0] dark:border-white/8 shadow-sm'
+                            ? 'bg-gradient-to-br from-[#C2552F] to-[#5E1223] text-[#FDF6EC] rounded-2xl rounded-tr-sm px-4 py-3 shadow-lg ring-1 ring-[#5E1223]/20'
+                            : 'bg-[#F8EFD3]/85 dark:bg-[#1E293B] text-[#2A1608] dark:text-[#F8FAFC] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#D4A853]/35 dark:border-white/8 shadow-sm'
                         }`}
                       >
                         {msg.role === 'bot' ? (
@@ -1442,7 +1443,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                             {/* TTS Play Button + Timestamp — only show when not streaming */}
                             {!isCurrentlyStreaming && (
                               <div className="flex items-center justify-between mt-1.5">
-                                <p className="text-[9px] text-[#64748B] dark:text-[#94A3B8]">
+                                <p className="text-[9px] text-[#8F5A1E]/60 dark:text-[#94A3B8]">
                                   {formatTimestamp(msg.timestamp)}
                                 </p>
                                 {/* TTS / Audio button */}
@@ -1472,7 +1473,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                         ) : (
                           <>
                             <p className="text-[13.5px] leading-relaxed font-medium">{msg.content}</p>
-                            <p className="text-[9px] mt-1 text-white/40 dark:text-[#0F172A]/40 text-right">
+                            <p className="text-[9px] mt-1 text-[#FDF6EC]/55 text-right">
                               {formatTimestamp(msg.timestamp)}
                             </p>
                           </>
@@ -1492,7 +1493,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   <div className="flex justify-center mt-2">
                     <Button
                       onClick={handleStopGenerating}
-                      className="h-7 px-3 rounded-full bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#D4A853]/40 dark:border-[#D4A853]/30 text-[#8F5A1E] dark:text-[#E8C872] text-[11px] font-semibold hover:bg-[#D4A853]/15 dark:hover:bg-[#D4A853]/15 hover:border-[#D4A853]/60 dark:hover:border-[#D4A853]/60 transition-all"
+                      className="h-7 px-3 rounded-full bg-[#FDF9F0] dark:bg-[#1E293B] border border-[#D4A853]/40 dark:border-[#D4A853]/30 text-[#8F5A1E] dark:text-[#E8C872] text-[11px] font-semibold hover:bg-[#D4A853]/15 dark:hover:bg-[#D4A853]/15 hover:border-[#D4A853]/60 dark:hover:border-[#D4A853]/60 transition-all"
                     >
                       <Square className="w-2.5 h-2.5 mr-1.5 fill-current" />
                       {langConfig.stopGenerating}
@@ -1513,7 +1514,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 py-2 bg-red-500/5 dark:bg-red-500/10 border-t border-[#E2E8F0] dark:border-white/8 flex items-center justify-between">
+                  <div className="px-4 py-2 bg-red-500/5 dark:bg-red-500/10 border-t border-[#E8E0CC] dark:border-white/8 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <motion.div
                         className="w-3 h-3 rounded-full bg-red-500"
@@ -1537,8 +1538,8 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
               )}
             </AnimatePresence>
 
-            {/* ── Input Area ── */}
-            <div className="px-3 py-3 border-t border-[#E2E8F0] dark:border-white/8 bg-white dark:bg-[#0F172A] shrink-0">
+            {/* ── Input Area — LUMEN v17 warm-white ── */}
+            <div className="px-3 py-3 border-t border-[#E8E0CC] dark:border-white/8 bg-[#FFFEFA] dark:bg-[#0F172A] shrink-0">
               <form onSubmit={handleSubmit} className="flex items-center gap-2">
                 {/* Voice Input Button */}
                 <Button
@@ -1547,7 +1548,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   className={`h-10 w-10 rounded-full shrink-0 transition-all duration-200 ${
                     isRecording
                       ? 'bg-red-500/20 border border-red-500/40 text-red-400 hover:bg-red-500/30'
-                      : 'bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-white/10 text-[#64748B] dark:text-[#94A3B8] hover:text-[#8F5A1E] dark:hover:text-[#E8C872] hover:bg-[#D4A853]/10 dark:hover:bg-[#D4A853]/10 hover:border-[#D4A853]/40 dark:hover:border-[#D4A853]/40'
+                      : 'bg-[#FDF9F0] dark:bg-[#1E293B] border border-[#E8E0CC] dark:border-white/10 text-[#6E6A5E] dark:text-[#94A3B8] hover:text-[#8F5A1E] dark:hover:text-[#E8C872] hover:bg-[#D4A853]/10 dark:hover:bg-[#D4A853]/10 hover:border-[#D4A853]/40 dark:hover:border-[#D4A853]/40'
                   }`}
                   disabled={isLoading || !!streamingMsgId}
                   aria-label={isRecording ? 'Stop recording' : 'Start voice input'}

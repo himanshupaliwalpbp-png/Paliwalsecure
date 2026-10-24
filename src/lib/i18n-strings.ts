@@ -1697,6 +1697,40 @@ export const translations: TranslationStrings = {
   'insureGPT.suggestion.tax': { en: 'Tax benefits of insurance', hi: 'बीमा के कर लाभ', hinglish: 'Insurance ke tax benefits' },
   'insureGPT.suggestion.compareTerm': { en: 'Compare term plans', hi: 'टर्म प्लान तुलना करें', hinglish: 'Term plans compare karein' },
 
+  // ── InsureGPT Live Demo (home section auto-play conversation) ─────────
+  'insureGPT.demo.thinking': { en: 'InsureGPT is thinking…', hi: 'InsureGPT सोच रहा है…', hinglish: 'InsureGPT soch raha hai…' },
+  'insureGPT.demo.irdaiBadge': { en: 'IRDAI-compliant', hi: 'IRDAI-अनुपालित', hinglish: 'IRDAI-compliant' },
+  'insureGPT.demo.live': { en: 'Live demo', hi: 'लाइव डेमो', hinglish: 'Live Demo' },
+  'insureGPT.demo.tryAsking': { en: 'Try asking', hi: 'यह पूछकर देखें', hinglish: 'Ye poochkar dekho' },
+  'insureGPT.demo.chip.term': { en: 'Do I need term insurance?', hi: 'क्या टर्म इंश्योरेंस ज़रूरी है?', hinglish: 'Term insurance zaroori hai?' },
+  'insureGPT.demo.chip.tax': { en: 'Save tax with Section 80D', hi: 'सेक्शन 80D से टैक्स बचाएँ', hinglish: 'Section 80D se tax bachao' },
+  'insureGPT.demo.chip.zeroDep': { en: 'Zero-dep vs comprehensive', hi: 'ज़ीरो-डेप बनाम कॉम्प्रिहेंसिव', hinglish: 'Zero-dep ya comprehensive' },
+  'insureGPT.demo.chip.claim': { en: 'Cashless claim steps', hi: 'कैशलेस क्लेम के कदम', hinglish: 'Cashless claim steps' },
+  'insureGPT.demo.q1.q': { en: 'Do I really need term insurance at 30?', hi: 'क्या 30 की उम्र में टर्म इंश्योरेंस सच में ज़रूरी है?', hinglish: 'Kya 30 ki age mein term insurance sach mein zaroori hai?' },
+  'insureGPT.demo.q1.a': {
+    en: 'Haan — 30 is the smartest age to lock in! 🎯\n\n• **Cover rule:** 15–20× your annual income\n• **Cost at 30:** ₹1 crore cover for just ₹550–700/month\n• Premium stays locked for 30+ years — buying later only gets costlier\n• Add a **critical illness rider** for complete family protection\n\nShall I calculate your ideal cover? Takes 30 seconds.',
+    hi: 'हाँ — 30 साल की उम्र लॉक-इन के लिए सबसे समझदार उम्र है! 🎯\n\n• **कवर नियम:** वार्षिक आय का 15–20 गुना\n• **30 की उम्र में लागत:** ₹1 करोड़ का कवर सिर्फ ₹550–700/महीने में\n• प्रीमियम 30+ साल के लिए लॉक रहता है — बाद में खरीदना महँगा पड़ता है\n• पूर्ण परिवार सुरक्षा के लिए **क्रिटिकल इलनेस राइडर** जोड़ें\n\nमैं आपका आदर्श कवर कैलकुलेट कर दूँ? सिर्फ 30 सेकंड लगेंगे।',
+    hinglish: 'Haan — 30 ki age lock karne ka smartest time hai! 🎯\n\n• **Cover rule:** annual income ka 15–20×\n• **Cost at 30:** ₹1 crore cover sirf ₹550–700/month\n• Premium 30+ saal ke liye locked — baad mein kharidna mehnga padta hai\n• Complete family protection ke liye **critical illness rider** add karo\n\nIdeal cover calculate karu? Bas 30 seconds.',
+  },
+  'insureGPT.demo.q2.q': { en: 'How much tax will I save on health insurance?', hi: 'हेल्थ इंश्योरेंस पर मुझे कितना टैक्स बचेगा?', hinglish: 'Health insurance pe kitna tax bachega?' },
+  'insureGPT.demo.q2.a': {
+    en: 'Under **Section 80D** you can save up to ₹75,000 every year 💰\n\n• Self + family: **₹25,000** deduction\n• Senior-citizen parents: additional **₹50,000**\n• Preventive health check-ups: ₹5,000 included\n\nIn the 30% tax slab that is real money back — a ₹20,000 premium effectively costs you ~₹14,000. Want me to optimize your 80D deductions?',
+    hi: '**धारा 80D** के तहत आप हर साल ₹75,000 तक बचा सकते हैं 💰\n\n• स्वयं + परिवार: **₹25,000** कटौती\n• वरिष्ठ नागरिक माता-पिता: अतिरिक्त **₹50,000**\n• प्रिवेंटिव हेल्थ चेक-अप: ₹5,000 शामिल\n\n30% टैक्स स्लैब में यह असली बचत है — ₹20,000 का प्रीमियम असल में ~₹14,000 का पड़ता है। क्या मैं आपकी 80D कटौतियाँ ऑप्टिमाइज़ करूँ?',
+    hinglish: '**Section 80D** ke tahat aap har saal ₹75,000 tak bacha sakte hain 💰\n\n• Self + family: **₹25,000** deduction\n• Senior-citizen parents: additional **₹50,000**\n• Preventive health check-ups: ₹5,000 included\n\n30% tax slab mein ye asli money back hai — ₹20,000 ka premium effectively ~₹14,000 ka padta hai. 80D deductions optimize karu?',
+  },
+  'insureGPT.demo.q3.q': { en: 'Zero-dep or comprehensive — which car policy should I buy?', hi: 'ज़ीरो-डेप या कॉम्प्रिहेंसिव — कौन सी कार पॉलिसी लूँ?', hinglish: 'Zero-dep ya comprehensive — konsi car policy lu?' },
+  'insureGPT.demo.q3.a': {
+    en: 'Simple rule 🚗 — they are not rivals, they work together:\n\n• **Comprehensive** = own-damage + third-party cover (the base)\n• **Zero-dep add-on** = insurer pays the full claim, no depreciation cut on plastic & fibre parts\n\nFor a car under 5 years old, zero-dep is worth it — ~15–20% extra premium but saves ₹40,000–60,000 on a big claim. On an older car, skip it and keep the savings. Want a quote for your car?',
+    hi: 'आसान नियम 🚗 — दोनों प्रतिद्वंद्वी नहीं हैं, साथ मिलकर काम करते हैं:\n\n• **कॉम्प्रिहेंसिव** = ओन-डैमेज + थर्ड-पार्टी कवर (बेस पॉलिसी)\n• **ज़ीरो-डेप ऐड-ऑन** = प्लास्टिक और फाइबर पार्ट्स पर डेप्रिसिएशन कटौती के बिना पूरा क्लेम\n\n5 साल से कम उम्र की कार के लिए ज़ीरो-डेप फायदेमंद — ~15–20% अतिरिक्त प्रीमियम, लेकिन बड़े क्लेम पर ₹40,000–60,000 की बचत। पुरानी कार पर छोड़ दें और बचत रखें। कार का कोट चाहिए?',
+    hinglish: 'Simple rule 🚗 — dono rivals nahi hain, saath milke kaam karte hain:\n\n• **Comprehensive** = own-damage + third-party cover (base policy)\n• **Zero-dep add-on** = plastic & fibre parts pe depreciation cut ke bina poora claim\n\n5 saal se nayi car ke liye zero-dep worth it — ~15–20% extra premium, par bade claim pe ₹40,000–60,000 ki bachat. Purani car pe skip karo aur bachat rakho. Apni car ka quote banau?',
+  },
+  'insureGPT.demo.q4.q': { en: 'How does a cashless claim actually work at the hospital?', hi: 'अस्पताल में कैशलेस क्लेम असल में कैसे काम करता है?', hinglish: 'Hospital mein cashless claim actually kaise kaam karta hai?' },
+  'insureGPT.demo.q4.a': {
+    en: '3 simple steps 🏥\n\n**1.** Show your e-card + ID at the insurance/TPA desk of a network hospital\n**2.** Pre-authorization gets approved in 2–4 hours — we follow up for you\n**3.** Bills are settled directly with the hospital; you pay only non-medical items\n\n💡 Tip: intimate the claim within 48 hours. Our claim-support team guides you end-to-end — cashless settlement in as fast as 2 hours.',
+    hi: '3 आसान कदम 🏥\n\n**1.** नेटवर्क अस्पताल के इंश्योरेंस/TPA डेस्क पर अपना e-कार्ड + ID दिखाएँ\n**2.** प्री-ऑथराइज़ेशन 2–4 घंटे में मंज़ूर — हम आपके लिए फॉलो-अप करते हैं\n**3.** बिल सीधे अस्पताल को भुगतान होते हैं — आप केवल नॉन-मेडिकल चीज़ों का भुगतान करते हैं\n\n💡 टिप: 48 घंटे के भीतर क्लेम की सूचना दें। हमारी क्लेम-सपोर्ट टीम शुरू से अंत तक साथ रहती है — कैशलेस सेटलमेंट उतनी तेज़ कि 2 घंटे में।',
+    hinglish: '3 simple steps 🏥\n\n**1.** Network hospital ke insurance/TPA desk pe apna e-card + ID dikhao\n**2.** Pre-authorization 2–4 ghante mein approved — hum aapke liye follow-up karte hain\n**3.** Bills seedha hospital ko settle hote hain — aap sirf non-medical items ke payment karte ho\n\n💡 Tip: 48 ghante ke andar claim intimate karo. Hamari claim-support team end-to-end guide karti hai — cashless settlement 2 ghante mein bhi.',
+  },
+
   // ── Instagram Feed Section ─────────────────────────────────────────────
   'igFeed.title': { en: 'Follow Us on Instagram', hi: 'हमें Instagram पर फ़ॉलो करें', hinglish: 'Instagram pe Follow Karein' },
   'igFeed.subtitle': { en: 'Insurance ke tips, real stories, aur daily updates — follow karo!', hi: 'बीमा टिप्स, असली कहानियां, और रोज़ाना अपडेट — फ़ॉलो करो!', hinglish: 'Insurance ke tips, real stories, aur daily updates — follow karo!' },

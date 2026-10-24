@@ -107,10 +107,11 @@ const sampleConversations = [
 ];
 
 // ── Word-by-word animated headline ─────────────────────────────────────────
+// LUMEN v17: ink headline on the light cream mesh hero.
 function AnimatedHeadline() {
   const words = ['Meet', 'InsureGPT'];
   return (
-    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white text-display-h1">
+    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-[#0E1116] text-display-h1">
       {words.map((word, i) => (
         <motion.span
           key={word}
@@ -158,21 +159,21 @@ function AutoTypeDemo() {
 
   return (
     <div className="card-aurum overflow-hidden text-left">
-      {/* Chat header */}
-      <div className="igpt-header px-4 sm:px-6 py-3 flex items-center justify-between border-b border-[#E8C872]/15">
+      {/* Chat header — LUMEN v17 light ivory band, ink text */}
+      <div className="igpt-header px-4 sm:px-6 py-3 flex items-center justify-between border-b border-[#B8482C]/12">
         <div className="flex items-center gap-2.5">
           <div className="igpt-avatar w-9 h-9">
             <Bot className="w-5 h-5 text-[#FDF6EC]" />
           </div>
           <div>
-            <span className="text-sm font-bold text-[#FDF6EC]">InsureGPT</span>
+            <span className="text-sm font-bold text-[#0E1116]">InsureGPT</span>
             <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-              <span className="text-[10px] text-emerald-400/80 font-medium">Live demo</span>
+              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-[10px] text-[#2D7A77] font-medium">Live demo</span>
             </div>
           </div>
         </div>
-        <Badge variant="outline" className="text-[10px] px-2 py-0.5 border-[#E8C872]/40 text-[#E8C872] bg-[#E8C872]/10">
+        <Badge variant="outline" className="text-[10px] px-2 py-0.5 border-[#D4A853]/50 text-[#8F5A1E] bg-[#D4A853]/15">
           <ShieldCheck className="w-3 h-3 mr-1" />IRDAI Compliant
         </Badge>
       </div>
@@ -261,9 +262,9 @@ export default function InsureGPTPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Badge */}
+            {/* Badge — LUMEN v17: ivory glass with terracotta icon */}
             <div className="badge-aurum mb-6">
-              <Brain className="w-3.5 h-3.5 text-[#E8C872]" />
+              <Brain className="w-3.5 h-3.5 text-[#B8482C]" />
               India&apos;s First AI Insurance Advisor
             </div>
 
@@ -274,7 +275,7 @@ export default function InsureGPTPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.6 }}
-              className="text-lg md:text-xl text-[#F3EADB]/85 max-w-3xl mx-auto mb-3"
+              className="text-lg md:text-xl text-[#4A4F57] max-w-3xl mx-auto mb-3"
             >
               Your AI-powered insurance advisor — trained on IRDAI rules, 1000+ plans &amp; live market data.
             </motion.p>
@@ -282,7 +283,7 @@ export default function InsureGPTPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.75, duration: 0.6 }}
-              className="text-sm text-[#E8C872]/70 max-w-xl mx-auto mb-10"
+              className="text-sm text-[#7A4A12] max-w-xl mx-auto mb-10"
             >
               आपका AI इंश्योरेंस सलाहकार — अंग्रेज़ी, हिंदी या हिंगलिश में कोई भी सवाल पूछें। 🙏
             </motion.p>
@@ -303,9 +304,9 @@ export default function InsureGPTPage() {
                 href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20with%20insurance"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-aurum-ghost text-[#F3EADB]"
+                className="btn-aurum-ghost text-[#5E1223]"
               >
-                <Phone className="w-5 h-5 text-emerald-400" />
+                <Phone className="w-5 h-5 text-[#2D7A77]" />
                 Talk to Expert
               </a>
             </motion.div>
@@ -315,7 +316,7 @@ export default function InsureGPTPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.6 }}
-              className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-[#F3EADB]/70"
+              className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm text-[#4A4F57]/85"
             >
               {[
                 { icon: ShieldCheck, text: 'IRDAI Certified' },
@@ -327,7 +328,7 @@ export default function InsureGPTPage() {
                 const Icon = item.icon;
                 return (
                   <div key={idx} className="flex items-center gap-1.5">
-                    <Icon className="w-4 h-4 text-[#E8C872]" />
+                    <Icon className="w-4 h-4 text-[#B8482C]" />
                     <span>{item.text}</span>
                   </div>
                 );
@@ -342,7 +343,7 @@ export default function InsureGPTPage() {
               className="mt-8 flex justify-center"
             >
               <div className="posP-strip">
-                <ShieldCheck className="w-3 h-3 text-[#E8C872]" />
+                <ShieldCheck className="w-3 h-3 text-[#8F5A1E]" />
                 By Himanshu Paliwal — IRDAI Registered POSP (IP429834)
               </div>
             </motion.div>
@@ -373,7 +374,7 @@ export default function InsureGPTPage() {
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-display-h2">
               How <span className="aurum-text">InsureGPT</span> Works
             </h2>
-            <p className="text-sm text-[#8F5A1E] dark:text-[#D4A853]">InsureGPT कैसे काम करता है</p>
+            <p className="text-sm text-[#6E4A12] dark:text-[#D4A853]">InsureGPT कैसे काम करता है</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 max-w-4xl mx-auto items-start">
             {[
@@ -421,7 +422,7 @@ export default function InsureGPTPage() {
                   </div>
                   <div className="text-xs font-bold tracking-[0.2em] text-[#B8482C] dark:text-[#D4A853] mb-2">STEP {item.step}</div>
                   <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
-                  <p className="text-xs text-[#8F5A1E]/80 dark:text-[#D4A853]/70 mb-2">{item.titleHi}</p>
+                  <p className="text-xs text-[#6E4A12] dark:text-[#D4A853] mb-2">{item.titleHi}</p>
                   <p className="text-sm text-muted-foreground max-w-[240px] mx-auto">{item.desc}</p>
                 </motion.div>
               );
@@ -440,7 +441,7 @@ export default function InsureGPTPage() {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               India&apos;s first AI-powered insurance advisor built on IRDAI regulations, 1000+ insurance plans, and real-time market data.
             </p>
-            <p className="text-sm text-[#8F5A1E] dark:text-[#D4A853] mt-1">
+            <p className="text-sm text-[#6E4A12] dark:text-[#D4A853] mt-1">
               InsureGPT भारत का पहला AI-संचालित इंश्योरेंस चैटबॉट है।
             </p>
           </div>
@@ -462,7 +463,7 @@ export default function InsureGPTPage() {
                       <Icon className="w-6 h-6 text-[#B8482C] dark:text-[#E8C872]" />
                     </div>
                     <h3 className="text-lg font-semibold mb-1">{feature.title}</h3>
-                    <p className="text-xs text-[#8F5A1E]/80 dark:text-[#D4A853]/70 mb-2">{feature.titleHi}</p>
+                    <p className="text-xs text-[#6E4A12] dark:text-[#D4A853] mb-2">{feature.titleHi}</p>
                     <p className="text-sm text-muted-foreground leading-relaxed">{feature.desc}</p>
                   </div>
                 </motion.div>
@@ -482,7 +483,7 @@ export default function InsureGPTPage() {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               From plan comparisons to claim guidance, InsureGPT handles it all. Click any question to try it!
             </p>
-            <p className="text-sm text-[#8F5A1E] dark:text-[#D4A853] mt-1">
+            <p className="text-sm text-[#6E4A12] dark:text-[#D4A853] mt-1">
               प्लान तुलना से लेकर क्लेम मार्गदर्शन तक — InsureGPT सब संभालता है।
             </p>
           </div>
@@ -507,7 +508,7 @@ export default function InsureGPTPage() {
                     <div className="flex-1">
                       <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{q.category}</span>
                       <p className="text-sm font-medium mt-0.5 group-hover:text-[#B8482C] dark:group-hover:text-[#E8C872] transition-colors">{q.question}</p>
-                      <p className="text-[11px] text-[#8F5A1E]/60 dark:text-[#D4A853]/50 mt-0.5">{q.questionHi}</p>
+                      <p className="text-[11px] text-[#6E4A12] dark:text-[#D4A853]/70 mt-0.5">{q.questionHi}</p>
                     </div>
                     <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-[#D4A853] group-hover:translate-x-1 transition-all shrink-0 mt-1" />
                   </div>
@@ -560,14 +561,14 @@ export default function InsureGPTPage() {
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl sm:text-3xl font-bold mb-4 text-white text-display-h2"
+            className="text-2xl sm:text-3xl font-bold mb-4 text-[#0E1116] text-display-h2"
           >
             Ready to Chat with <span className="grail-text">InsureGPT</span>?
           </motion.h2>
-          <p className="text-lg text-[#F3EADB]/85 mb-3 max-w-2xl mx-auto">
+          <p className="text-lg text-[#4A4F57] mb-3 max-w-2xl mx-auto">
             Get instant, personalized insurance guidance. It&apos;s free, it&apos;s smart, and it&apos;s available 24/7.
           </p>
-          <p className="text-sm text-[#E8C872]/70 italic mb-8">
+          <p className="text-sm text-[#7A4A12] italic mb-8">
             तत्काल, व्यक्तिगत इंश्योरेंस मार्गदर्शन प्राप्त करें। यह मुफ़्त है, समझदार है, और 24/7 उपलब्ध है।
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -580,13 +581,13 @@ export default function InsureGPTPage() {
               href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20with%20insurance"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-aurum-ghost text-[#F3EADB]"
+              className="btn-aurum-ghost text-[#5E1223]"
             >
-              <Phone className="w-5 h-5 text-emerald-400" />
+              <Phone className="w-5 h-5 text-[#2D7A77]" />
               Chat on WhatsApp
             </a>
           </div>
-          <p className="mt-8 text-xs text-[#F3EADB]/40">
+          <p className="mt-8 text-xs text-[#0E1116]/60">
             By Himanshu Paliwal — IRDAI Certified Insurance Advisor (POSP Code: IP429834)
           </p>
         </div>

@@ -104,8 +104,13 @@ export function AdminNotificationCenter() {
   const popoverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const stored = localStorage.getItem('admin_notification_sound');
-    if (stored !== null) setSoundEnabled(stored === 'true');
+    // Read persisted preference via rAF so setState never fires
+    // synchronously in the effect body (react-hooks/set-state-in-effect).
+    const id = requestAnimationFrame(() => {
+      const stored = localStorage.getItem('admin_notification_sound');
+      if (stored !== null) setSoundEnabled(stored === 'true');
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
   useEffect(() => {
     localStorage.setItem('admin_notification_sound', String(soundEnabled));
@@ -149,9 +154,17 @@ export function AdminNotificationCenter() {
   }, [lastSeenId, soundEnabled]);
 
   useEffect(() => {
-    fetchNotifications();
+    // Kick off the first fetch via microtask-deferred call so the async
+    // callbacks (which call setState) never run synchronously in the
+    // effect body (react-hooks/set-state-in-effect).
+    let cancelled = false;
+    const t = setTimeout(() => { if (!cancelled) fetchNotifications(); }, 0);
     const interval = setInterval(fetchNotifications, 30_000);
-    return () => clearInterval(interval);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+      clearInterval(interval);
+    };
   }, [fetchNotifications]);
 
   useEffect(() => {
