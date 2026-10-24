@@ -360,25 +360,20 @@ function TypingIndicator({ thinkingText }: { thinkingText: string }) {
   return (
     <div className="flex items-start gap-3 mb-3">
       <motion.div
-        className="w-8 h-8 rounded-full bg-[#2563EB] dark:bg-[#E8C872] flex items-center justify-center shrink-0 mt-0.5 shadow-lg ring-1 ring-[#2563EB]/10 dark:ring-[#E8C872]/10"
+        className="igpt-avatar is-thinking w-8 h-8 shrink-0 mt-0.5"
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <Bot className="w-4 h-4 text-white dark:text-[#0F172A]" />
+        <Bot className="w-4 h-4 text-[#FDF6EC] drop-shadow-sm" />
       </motion.div>
       <div className="bg-[#F8FAFC] dark:bg-[#1E293B] rounded-2xl rounded-tl-sm px-4 py-3 border border-[#E2E8F0] dark:border-white/8 shadow-sm">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                key={i}
-                className="w-1.5 h-1.5 rounded-full bg-[#2563EB]/70 dark:bg-[#60A5FA]/70"
-                animate={{ opacity: [0.2, 1, 0.2], scale: [0.7, 1.15, 0.7] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
-              />
-            ))}
+            <span className="igpt-dot" />
+            <span className="igpt-dot" />
+            <span className="igpt-dot" />
           </div>
-          <span className="text-[10px] text-[#2563EB]/70 dark:text-[#60A5FA]/70 font-medium">{thinkingText}</span>
+          <span className="text-[10px] text-[#8F5A1E] dark:text-[#E8C872]/80 font-semibold tracking-wide">{thinkingText}</span>
         </div>
       </div>
     </div>
@@ -451,8 +446,8 @@ function QuickReplyCarousel({
             key={action.label}
             onClick={() => onReply(action.label)}
             disabled={disabled}
-            className="badge-premium-blue
-                       hover:scale-105 active:scale-95 cursor-pointer
+            className="chip-aurum
+                       cursor-pointer
                        transition-transform duration-200 shrink-0
                        disabled:opacity-40 disabled:cursor-not-allowed
                        whitespace-nowrap"
@@ -1216,24 +1211,31 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
           >
             {/* Pulse ring */}
             <motion.div
-              className="absolute inset-0 rounded-full bg-primary/30"
-              animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+              className="absolute inset-0 rounded-full bg-[#B8482C]/40"
+              animate={{ scale: [1, 1.55], opacity: [0.55, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
+            />
+            <motion.div
+              className="absolute inset-0 rounded-full bg-[#E8C872]/25"
+              animate={{ scale: [1, 1.8], opacity: [0.35, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeOut', delay: 0.6 }}
             />
             <motion.button
               onClick={openChat}
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
-              className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[#0F172A] to-[#1E293B] dark:from-[#E8C872] dark:to-[#D4A853] text-white dark:text-[#0F172A] shadow-2xl cursor-pointer flex items-center justify-center gap-1.5 ring-1 ring-white/10 dark:ring-[#E8C872]/20"
+              className="relative w-14 h-14 md:w-16 md:h-16 rounded-full text-[#FDF6EC] shadow-2xl cursor-pointer flex items-center justify-center gap-1.5 border border-[#E8C872]/40"
               style={{
-                boxShadow: '0 8px 32px -4px rgba(15, 23, 42, 0.35), 0 0 48px -8px rgba(15, 23, 42, 0.12)',
+                background: 'linear-gradient(135deg, #C2552F 0%, #8F2F1E 48%, #5E1223 100%)',
+                boxShadow: '0 8px 32px -4px rgba(94, 18, 35, 0.5), 0 0 42px -8px rgba(232, 200, 114, 0.45), inset 0 1px 0 rgba(255, 240, 210, 0.3)',
               }}
               aria-label="Open InsureGPT AI Chat"
             >
               <Brain className="w-6 h-6 md:w-7 md:h-7 drop-shadow-sm" />
+              <span className="absolute top-0.5 right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-[#5E1223]" />
             </motion.button>
             {/* Label */}
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-1 rounded-md glass-premium text-[10px] font-bold text-[#0F172A] dark:text-[#E8C872] tracking-wider shadow-lg shadow-black/10">
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-1 rounded-md glass-premium text-[10px] font-bold text-[#8F5A1E] dark:text-[#E8C872] tracking-wider shadow-lg shadow-black/10">
               InsureGPT
             </div>
           </motion.div>
@@ -1247,13 +1249,15 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed left-1/2 -translate-x-1/2 z-[45] md:z-[70] flex items-center gap-2 bg-gradient-to-r from-[#0F172A] to-[#1E293B] dark:from-[#E8C872] dark:to-[#D4A853] text-white dark:text-[#0F172A] px-4 py-2.5 rounded-full shadow-xl cursor-pointer transition-bottom duration-300 ring-1 ring-white/10 dark:ring-[#E8C872]/20"
+            className="fixed left-1/2 -translate-x-1/2 z-[45] md:z-[70] flex items-center gap-2 text-[#FDF6EC] px-4 py-2.5 rounded-full shadow-xl cursor-pointer transition-bottom duration-300 border border-[#E8C872]/40"
             style={{
               bottom: stickyCTAVisible ? '88px' : '24px',
+              background: 'linear-gradient(135deg, #C2552F 0%, #8F2F1E 48%, #5E1223 100%)',
+              boxShadow: '0 10px 34px -6px rgba(94, 18, 35, 0.55), inset 0 1px 0 rgba(255, 240, 210, 0.25)',
             }}
             onClick={() => setIsMinimized(false)}
           >
-            <div className="w-7 h-7 rounded-full bg-white/10 dark:bg-[#0F172A]/10 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
               <Brain className="w-3.5 h-3.5" />
             </div>
             <span className="text-sm font-semibold">InsureGPT</span>
@@ -1285,11 +1289,11 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                        h-full md:h-[660px]
                        md:rounded-3xl
                        flex flex-col overflow-hidden rounded-2xl
-                       glass-premium
+                       igpt-frame glass-premium
                        shadow-[0_24px_80px_-12px_rgba(0,0,0,0.4),0_0_1px_0_rgba(255,255,255,0.05)_inset]"
           >
             {/* ── Chat Header ── */}
-            <div className="relative shrink-0 bg-gradient-to-r from-[#0F172A] to-[#1E293B] dark:from-[#E8C872]/10 dark:to-[#D4A853]/5 border-b border-[#E2E8F0]/10 dark:border-white/8">
+            <div className="igpt-header relative shrink-0 border-b border-[#E8C872]/15">
 
               <div className="relative z-10 px-4 py-3 flex items-center justify-between">
                 {/* Left: Avatar + Info */}
@@ -1299,23 +1303,23 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     variant="ghost"
                     size="icon"
                     onClick={() => setShowHistory(true)}
-                    className="h-8 w-8 rounded-full text-white/60 hover:text-white hover:bg-white/10 shrink-0 dark:text-[#94A3B8] dark:hover:text-[#F8FAFC] dark:hover:bg-white/10"
+                    className="h-8 w-8 rounded-full text-white/60 hover:text-[#E8C872] hover:bg-white/10 shrink-0"
                     aria-label="Chat history"
                   >
                     <History className="w-3.5 h-3.5" />
                   </Button>
                   <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-[#2563EB] dark:bg-[#E8C872] flex items-center justify-center shadow-lg ring-1 ring-white/10 dark:ring-[#E8C872]/20">
-                      <Brain className="w-5 h-5 text-white dark:text-[#0F172A] drop-shadow-sm" />
+                    <div className="igpt-avatar w-10 h-10">
+                      <Brain className="w-5 h-5 text-[#FDF6EC] drop-shadow-sm" />
                     </div>
-                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0F172A] dark:border-[#1E293B] ring-1 ring-emerald-400/30" />
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#2A0C15] ring-1 ring-emerald-400/30" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-bold text-base leading-tight text-white dark:text-[#F8FAFC] whitespace-nowrap">InsureGPT</h3>
+                    <h3 className="font-bold text-base leading-tight text-[#FDF6EC] whitespace-nowrap">InsureGPT</h3>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shrink-0" />
                       <span className="text-[10px] text-emerald-400/80 font-medium whitespace-nowrap">{t('chatBot.onlineLabel') || 'Online'}</span>
-                      <Sparkles className="w-2.5 h-2.5 text-[#E8C872] dark:text-[#D4A853] shrink-0" />
+                      <Sparkles className="w-2.5 h-2.5 text-[#E8C872] shrink-0" />
                     </div>
                   </div>
                 </div>
@@ -1325,12 +1329,12 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   {/* Language Toggle — Compact Globe button with badge */}
                   <button
                     onClick={handleLanguageToggle}
-                    className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1 mr-1 border border-white/10 hover:bg-[#E8C872]/20 hover:border-[#E8C872]/30 transition-all duration-200 dark:bg-white/5 dark:border-white/10 dark:hover:bg-[#E8C872]/15 dark:hover:border-[#E8C872]/30"
+                    className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1 mr-1 border border-[#E8C872]/30 hover:bg-[#E8C872]/20 hover:border-[#E8C872]/50 transition-all duration-200"
                     aria-label={`Switch language (current: ${language === 'hing' ? 'Hinglish' : language === 'en' ? 'English' : 'Hindi'})`}
                     title={language === 'hing' ? 'Hinglish — Click for Hindi' : language === 'en' ? 'English — Click for Hinglish' : 'हिन्दी — Click for English'}
                   >
-                    <Globe className="w-3 h-3 text-white/70 dark:text-[#94A3B8]" />
-                    <span className="text-[10px] font-bold text-[#E8C872] dark:text-[#E8C872]">
+                    <Globe className="w-3 h-3 text-[#E8C872]/80" />
+                    <span className="text-[10px] font-bold text-[#E8C872]">
                       {language === 'hing' ? 'हिं' : language === 'hi' ? 'हि' : 'EN'}
                     </span>
                   </button>
@@ -1339,7 +1343,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsMinimized(true)}
-                    className="h-7 w-7 rounded-full text-white/50 hover:text-white hover:bg-white/10 shrink-0 dark:text-[#94A3B8] dark:hover:text-[#F8FAFC] dark:hover:bg-white/10"
+                    className="h-7 w-7 rounded-full text-white/50 hover:text-[#E8C872] hover:bg-white/10 shrink-0"
                     aria-label="Minimize chat"
                   >
                     <Minimize2 className="w-3 h-3" />
@@ -1349,7 +1353,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                     variant="ghost"
                     size="icon"
                     onClick={handleNewChat}
-                    className="h-7 w-7 rounded-full text-white/50 hover:text-[#E8C872] hover:bg-[#E8C872]/10 shrink-0 dark:text-[#94A3B8] dark:hover:text-[#E8C872] dark:hover:bg-[#E8C872]/10"
+                    className="h-7 w-7 rounded-full text-white/50 hover:text-[#E8C872] hover:bg-[#E8C872]/10 shrink-0"
                     aria-label="New chat"
                   >
                     <Sparkles className="w-3 h-3" />
@@ -1407,11 +1411,11 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                       {/* Avatar */}
                       {msg.role === 'bot' ? (
                         <motion.div
-                          className="w-8 h-8 rounded-full bg-[#2563EB] dark:bg-[#E8C872] flex items-center justify-center shrink-0 mt-0.5 shadow-lg ring-1 ring-[#2563EB]/10 dark:ring-[#E8C872]/10"
+                          className={`igpt-avatar w-8 h-8 shrink-0 mt-0.5 ${isCurrentlyStreaming ? 'is-thinking' : ''}`}
                           animate={isCurrentlyStreaming ? { scale: [1, 1.06, 1] } : {}}
                           transition={isCurrentlyStreaming ? { duration: 1.5, repeat: Infinity, ease: 'easeInOut' } : {}}
                         >
-                          <Bot className="w-4 h-4 text-white dark:text-[#0F172A] drop-shadow-sm" />
+                          <Bot className="w-4 h-4 text-[#FDF6EC] drop-shadow-sm" />
                         </motion.div>
                       ) : (
                         <div className="w-8 h-8 rounded-full bg-[#0F172A] dark:bg-[#E8C872] flex items-center justify-center shrink-0 mt-0.5 shadow-sm ring-1 ring-[#0F172A]/10 dark:ring-[#E8C872]/10">
@@ -1444,14 +1448,14 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                                 {/* TTS / Audio button */}
                                 <button
                                   onClick={() => playTTS(msg.id, msg.content)}
-                                  className="flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-medium text-[#2563EB]/60 dark:text-[#60A5FA]/60 hover:text-[#2563EB] dark:hover:text-[#60A5FA] hover:bg-[#2563EB]/10 dark:hover:bg-[#3B82F6]/10 transition-all duration-200"
+                                  className="flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-medium text-[#8F5A1E]/70 dark:text-[#E8C872]/70 hover:text-[#8F5A1E] dark:hover:text-[#E8C872] hover:bg-[#D4A853]/10 dark:hover:bg-[#D4A853]/10 transition-all duration-200"
                                   aria-label={isPlayingTTS ? 'Stop audio' : 'Play audio'}
                                   disabled={isLoadingTTS}
                                 >
                                   {isLoadingTTS ? (
                                     <>
                                       <motion.div
-                                        className="w-3 h-3 border border-[#2563EB]/40 border-t-[#2563EB] dark:border-[#3B82F6]/40 dark:border-t-[#3B82F6] rounded-full"
+                                        className="w-3 h-3 border border-[#D4A853]/40 border-t-[#D4A853] rounded-full"
                                         animate={{ rotate: 360 }}
                                         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                                       />
@@ -1488,7 +1492,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   <div className="flex justify-center mt-2">
                     <Button
                       onClick={handleStopGenerating}
-                      className="h-7 px-3 rounded-full bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-white/10 text-[#2563EB] dark:text-[#60A5FA] text-[11px] font-medium hover:bg-[#2563EB]/10 dark:hover:bg-[#3B82F6]/10 hover:border-[#2563EB]/40 dark:hover:border-[#3B82F6]/40 transition-all"
+                      className="h-7 px-3 rounded-full bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#D4A853]/40 dark:border-[#D4A853]/30 text-[#8F5A1E] dark:text-[#E8C872] text-[11px] font-semibold hover:bg-[#D4A853]/15 dark:hover:bg-[#D4A853]/15 hover:border-[#D4A853]/60 dark:hover:border-[#D4A853]/60 transition-all"
                     >
                       <Square className="w-2.5 h-2.5 mr-1.5 fill-current" />
                       {langConfig.stopGenerating}
@@ -1543,7 +1547,7 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   className={`h-10 w-10 rounded-full shrink-0 transition-all duration-200 ${
                     isRecording
                       ? 'bg-red-500/20 border border-red-500/40 text-red-400 hover:bg-red-500/30'
-                      : 'bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-white/10 text-[#64748B] dark:text-[#94A3B8] hover:text-[#2563EB] dark:hover:text-[#60A5FA] hover:bg-[#2563EB]/5 dark:hover:bg-[#3B82F6]/10 hover:border-[#2563EB]/30 dark:hover:border-[#3B82F6]/30'
+                      : 'bg-[#F8FAFC] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-white/10 text-[#64748B] dark:text-[#94A3B8] hover:text-[#8F5A1E] dark:hover:text-[#E8C872] hover:bg-[#D4A853]/10 dark:hover:bg-[#D4A853]/10 hover:border-[#D4A853]/40 dark:hover:border-[#D4A853]/40'
                   }`}
                   disabled={isLoading || !!streamingMsgId}
                   aria-label={isRecording ? 'Stop recording' : 'Start voice input'}

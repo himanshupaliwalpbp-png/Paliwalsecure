@@ -1,0 +1,646 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PALIWAL SECURE AI — AURUM INTELLIGENCE v16 (InsureGPT World-Class Wave)
+   Imported AFTER prestige-v15.css — additive only, zero content changes.
+
+   Mission: give InsureGPT a world-top-tier AI-engineer look —
+   animated gradient frames, rotating conic avatar rings, gold micro-glows,
+   aurum shimmer typography, magnetic buttons, aurora mesh heroes.
+
+   Palette (Design Bible):
+     Sienna #B8482C · Maroon #5E1223 · Gold #E8C872 / #D4A853
+     Emerald #2DD4A8 · Cream #F3EADB · Ink #0E1116
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────
+   1. AURUM SHIMMER TYPOGRAPHY — animated gold sweep
+   ────────────────────────────────────────────── */
+.aurum-text {
+  background: linear-gradient(
+    100deg,
+    #8F5A1E 0%,
+    #D4A853 25%,
+    #F5E7B8 50%,
+    #D4A853 75%,
+    #8F5A1E 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: aurum-sheen 5.5s linear infinite;
+}
+.dark .aurum-text {
+  background: linear-gradient(
+    100deg,
+    #D4A853 0%,
+    #F5E7B8 30%,
+    #FFF7E0 50%,
+    #F5E7B8 70%,
+    #D4A853 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: aurum-sheen 5s linear infinite;
+}
+@keyframes aurum-sheen {
+  to { background-position: -220% center; }
+}
+
+/* Maroon→Gold gradient text for hero display words */
+.grail-text {
+  background: linear-gradient(115deg, #E8C872 0%, #D4A853 30%, #F5E7B8 50%, #C98A1C 70%, #E8C872 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: aurum-sheen 6s linear infinite;
+}
+
+/* ──────────────────────────────────────────────
+   2. INSUREGPT CHAT WINDOW — animated conic frame
+   ────────────────────────────────────────────── */
+.igpt-frame {
+  position: relative;
+}
+.igpt-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--igpt-ring-angle, 0deg),
+    rgba(184, 72, 44, 0.9) 0deg,
+    rgba(232, 200, 114, 0.95) 70deg,
+    rgba(45, 212, 168, 0.7) 130deg,
+    rgba(94, 18, 35, 0.85) 200deg,
+    rgba(232, 200, 114, 0.55) 290deg,
+    rgba(184, 72, 44, 0.9) 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: igpt-ring-rotate 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+@property --igpt-ring-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes igpt-ring-rotate {
+  to { --igpt-ring-angle: 360deg; }
+}
+/* Fallback for browsers without @property: static gold rim */
+@supports not (background: conic-gradient(from var(--igpt-ring-angle, 0deg), red, blue)) {
+  .igpt-frame::before {
+    background: linear-gradient(135deg, rgba(184,72,44,.7), rgba(232,200,114,.8), rgba(94,18,35,.7));
+    animation: none;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   3. INSUREGPT HEADER — deep maroon aurum bar
+   ────────────────────────────────────────────── */
+.igpt-header {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(184, 72, 44, 0.35) 0%, transparent 55%),
+    radial-gradient(120% 180% at 100% 0%, rgba(232, 200, 114, 0.22) 0%, transparent 50%),
+    linear-gradient(135deg, #35101C 0%, #23090F 48%, #160509 100%);
+}
+.dark .igpt-header {
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(184, 72, 44, 0.5) 0%, transparent 55%),
+    radial-gradient(120% 180% at 100% 0%, rgba(232, 200, 114, 0.28) 0%, transparent 50%),
+    linear-gradient(135deg, #3A101E 0%, #26090F 48%, #170509 100%);
+}
+/* slow drifting aurum sheen across the header */
+.igpt-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(232, 200, 114, 0.14) 46%,
+    rgba(245, 231, 184, 0.1) 52%,
+    transparent 68%
+  );
+  transform: translateX(-100%);
+  animation: igpt-header-sweep 7s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes igpt-header-sweep {
+  0%, 55% { transform: translateX(-100%); }
+  85%, 100% { transform: translateX(100%); }
+}
+
+/* ──────────────────────────────────────────────
+   4. INSUREGPT AVATAR — rotating conic crown ring
+   ────────────────────────────────────────────── */
+.igpt-avatar {
+  position: relative;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #B8482C 0%, #6E1628 55%, #5E1223 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FDF6EC;
+  box-shadow:
+    0 4px 14px -2px rgba(94, 18, 35, 0.55),
+    0 0 22px -6px rgba(232, 200, 114, 0.4);
+}
+.igpt-avatar::before {
+  content: "";
+  position: absolute;
+  inset: -2.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #D4A853 0deg,
+    #B8482C 90deg,
+    #E8C872 180deg,
+    #2DD4A8 260deg,
+    #D4A853 360deg
+  );
+  z-index: -1;
+  animation: igpt-avatar-spin 5s linear infinite;
+  filter: saturate(1.15);
+}
+@keyframes igpt-avatar-spin {
+  to { transform: rotate(360deg); }
+}
+/* small floating "AI thinking" glow when streaming */
+.igpt-avatar.is-thinking {
+  animation: igpt-avatar-breathe 1.6s ease-in-out infinite;
+}
+@keyframes igpt-avatar-breathe {
+  0%, 100% { box-shadow: 0 4px 14px -2px rgba(94,18,35,.55), 0 0 12px -4px rgba(232,200,114,.45); }
+  50% { box-shadow: 0 4px 18px -2px rgba(94,18,35,.6), 0 0 34px -2px rgba(232,200,114,.75); }
+}
+
+/* ──────────────────────────────────────────────
+   5. QUICK-ACTION CHIPS — aurum pill with sweep
+   ────────────────────────────────────────────── */
+.chip-aurum {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #6E4A12;
+  background: linear-gradient(135deg, #F8EFD3 0%, #F3E4B5 100%);
+  border: 1px solid rgba(212, 168, 83, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 8px -2px rgba(140, 96, 22, 0.25);
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease, border-color 0.22s ease;
+  white-space: nowrap;
+}
+.chip-aurum::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 252, 240, 0.8) 50%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+.chip-aurum:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(184, 72, 44, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 6px 16px -4px rgba(140, 96, 22, 0.4);
+}
+.chip-aurum:hover::after { transform: translateX(130%); }
+.chip-aurum:active { transform: translateY(0) scale(0.97); }
+.chip-aurum:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.dark .chip-aurum {
+  color: #F5E7B8;
+  background: linear-gradient(135deg, rgba(94, 18, 35, 0.55) 0%, rgba(46, 22, 8, 0.6) 100%);
+  border-color: rgba(232, 200, 114, 0.35);
+  box-shadow: inset 0 1px 0 rgba(232, 200, 114, 0.18), 0 2px 10px -2px rgba(0, 0, 0, 0.5);
+}
+.dark .chip-aurum::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(232, 200, 114, 0.35) 50%, transparent 60%);
+}
+.dark .chip-aurum:hover {
+  border-color: rgba(232, 200, 114, 0.6);
+  box-shadow: inset 0 1px 0 rgba(232, 200, 114, 0.25), 0 6px 18px -4px rgba(212, 168, 83, 0.35);
+}
+
+/* ──────────────────────────────────────────────
+   6. TYPING DOTS — bouncing gold trio
+   ────────────────────────────────────────────── */
+.igpt-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #F5E7B8, #D4A853);
+  animation: igpt-dot-bounce 1.2s ease-in-out infinite;
+}
+.igpt-dot:nth-child(2) { animation-delay: 0.15s; }
+.igpt-dot:nth-child(3) { animation-delay: 0.3s; }
+@keyframes igpt-dot-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.55; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* ──────────────────────────────────────────────
+   7. BTN-AURUM — flagship maroon→gold CTA
+   ────────────────────────────────────────────── */
+.btn-aurum {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0.85rem 2.1rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #FFF9EA;
+  background: linear-gradient(135deg, #C2552F 0%, #8F2F1E 45%, #5E1223 100%);
+  box-shadow:
+    0 2px 6px rgba(94, 18, 35, 0.28),
+    0 10px 28px -6px rgba(184, 72, 44, 0.5),
+    inset 0 1px 0 rgba(255, 240, 210, 0.25);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, filter 0.25s ease;
+}
+.btn-aurum::before {
+  /* gold sheen sweep */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 32%, rgba(232, 200, 114, 0.4) 50%, transparent 68%);
+  transform: translateX(-130%);
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+.btn-aurum::after {
+  /* soft breathing glow */
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(232, 200, 114, 0.35), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.btn-aurum:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: saturate(1.12) brightness(1.06);
+  box-shadow:
+    0 4px 10px rgba(94, 18, 35, 0.32),
+    0 16px 40px -8px rgba(184, 72, 44, 0.62),
+    inset 0 1px 0 rgba(255, 240, 210, 0.3);
+}
+.btn-aurum:hover::before { transform: translateX(130%); }
+.btn-aurum:hover::after { opacity: 1; }
+.btn-aurum:active { transform: translateY(0) scale(0.98); }
+.btn-aurum:focus-visible {
+  outline: 2px solid #D4A853;
+  outline-offset: 3px;
+}
+
+/* Ghost companion button (whatsapp/secondary) */
+.btn-aurum-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: inherit;
+  border: 1px solid rgba(232, 200, 114, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-aurum-ghost:hover {
+  background: rgba(232, 200, 114, 0.14);
+  border-color: rgba(232, 200, 114, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgba(232, 200, 114, 0.4);
+}
+.btn-aurum-ghost:active { transform: translateY(0) scale(0.98); }
+.btn-aurum-ghost:focus-visible {
+  outline: 2px solid #D4A853;
+  outline-offset: 3px;
+}
+
+/* ──────────────────────────────────────────────
+   8. CARD-AURUM — gradient-rim feature card
+   ────────────────────────────────────────────── */
+.card-aurum {
+  position: relative;
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 245, 0.9) 0%, rgba(250, 244, 230, 0.75) 100%);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  box-shadow:
+    0 1px 2px rgba(94, 18, 35, 0.05),
+    0 10px 30px -12px rgba(94, 18, 35, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+}
+.card-aurum::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--card-aurum-x, 50%) var(--card-aurum-y, 0%),
+    rgba(232, 200, 114, 0.22),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.card-aurum:hover {
+  transform: translateY(-5px);
+  border-color: rgba(184, 72, 44, 0.45);
+  box-shadow:
+    0 2px 4px rgba(94, 18, 35, 0.07),
+    0 22px 48px -14px rgba(184, 72, 44, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.card-aurum:hover::before { opacity: 1; }
+.dark .card-aurum {
+  background: linear-gradient(180deg, rgba(28, 12, 16, 0.9) 0%, rgba(20, 9, 11, 0.85) 100%);
+  border-color: rgba(232, 200, 114, 0.22);
+  box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 34px -12px rgba(0,0,0,.6), inset 0 1px 0 rgba(232,200,114,.08);
+}
+.dark .card-aurum::before {
+  background: radial-gradient(420px circle at var(--card-aurum-x, 50%) var(--card-aurum-y, 0%), rgba(232, 200, 114, 0.14), transparent 45%);
+}
+.dark .card-aurum:hover {
+  border-color: rgba(232, 200, 114, 0.45);
+  box-shadow: 0 2px 6px rgba(0,0,0,.5), 0 24px 52px -14px rgba(212,168,83,.3), inset 0 1px 0 rgba(232,200,114,.12);
+}
+
+/* Tilt wrapper (JS-assisted or pure hover) */
+.tilt-card { transform-style: preserve-3d; perspective: 900px; }
+.tilt-card .tilt-inner { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); transform-style: preserve-3d; }
+.tilt-card:hover .tilt-inner { transform: rotateX(4deg) rotateY(-4deg) translateY(-4px); }
+
+/* ──────────────────────────────────────────────
+   9. MESH-AURUM HERO — animated aurora background
+   ────────────────────────────────────────────── */
+.mesh-aurum {
+  position: relative;
+  background:
+    radial-gradient(90% 120% at 8% 8%, rgba(184, 72, 44, 0.5) 0%, transparent 52%),
+    radial-gradient(80% 110% at 92% 12%, rgba(212, 168, 83, 0.38) 0%, transparent 50%),
+    radial-gradient(110% 130% at 50% 110%, rgba(94, 18, 35, 0.75) 0%, transparent 62%),
+    linear-gradient(160deg, #2A0C15 0%, #1E070D 45%, #140508 100%);
+  background-size: 200% 200%;
+  animation: mesh-aurum-drift 18s ease-in-out infinite alternate;
+}
+@keyframes mesh-aurum-drift {
+  0% { background-position: 0% 0%, 100% 0%, 50% 100%, 0% 0%; }
+  50% { background-position: 30% 20%, 70% 25%, 40% 80%, 0% 0%; }
+  100% { background-position: 15% 10%, 85% 15%, 55% 90%, 0% 0%; }
+}
+/* subtle animated grain-free grid for depth */
+.mesh-aurum-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(232, 200, 114, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 200, 114, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(70% 60% at 50% 40%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, black 30%, transparent 75%);
+  pointer-events: none;
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  opacity: 0.55;
+  animation: orb-float 11s ease-in-out infinite alternate;
+}
+.orb-gold { background: rgba(212, 168, 83, 0.5); }
+.orb-sienna { background: rgba(184, 72, 44, 0.45); }
+.orb-emerald { background: rgba(45, 212, 168, 0.28); }
+@keyframes orb-float {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(24px, -30px, 0) scale(1.12); }
+  100% { transform: translate3d(-18px, 22px, 0) scale(0.94); }
+}
+
+/* ──────────────────────────────────────────────
+   10. CAPABILITY MARQUEE — infinite gold ticker
+   ────────────────────────────────────────────── */
+.marquee-aurum {
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.marquee-aurum-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee-aurum-scroll 30s linear infinite;
+}
+.marquee-aurum:hover .marquee-aurum-track { animation-play-state: paused; }
+@keyframes marquee-aurum-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* ──────────────────────────────────────────────
+   11. STEP CONNECTOR — animated gradient line
+   ────────────────────────────────────────────── */
+.step-rail {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(212, 168, 83, 0.15), rgba(212, 168, 83, 0.45), rgba(212, 168, 83, 0.15));
+  overflow: hidden;
+}
+.step-rail::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #D4A853, transparent);
+  animation: step-rail-run 2.6s ease-in-out infinite;
+}
+@keyframes step-rail-run {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(400%); }
+}
+
+/* Numbered crown medallion */
+.medallion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  color: #F5E7B8;
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, #B8482C 0%, #6E1628 60%, #5E1223 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 210, 0.35),
+    0 6px 18px -4px rgba(94, 18, 35, 0.55);
+  border: 1px solid rgba(232, 200, 114, 0.4);
+}
+
+/* ──────────────────────────────────────────────
+   12. SEGMENTED LANGUAGE SWITCH — sliding thumb
+   ────────────────────────────────────────────── */
+.lang-seg {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(232, 200, 114, 0.3);
+  backdrop-filter: blur(6px);
+}
+.lang-seg-item {
+  position: relative;
+  z-index: 1;
+  padding: 0.28rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  white-space: nowrap;
+}
+.lang-seg-item:hover { color: #F5E7B8; }
+.lang-seg-item[data-active="true"] { color: #FFF9EA; }
+.lang-seg-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #B8482C, #5E1223);
+  box-shadow: 0 2px 10px -2px rgba(184, 72, 44, 0.6), inset 0 1px 0 rgba(255, 240, 210, 0.3);
+  border: 1px solid rgba(232, 200, 114, 0.45);
+  transition: left 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+/* ──────────────────────────────────────────────
+   13. GLASS PILL BADGE — shimmering hero badge
+   ────────────────────────────────────────────── */
+.badge-aurum {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #F5E7B8;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(232, 200, 114, 0.4);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 18px -6px rgba(0, 0, 0, 0.4);
+}
+.badge-aurum::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(232, 200, 114, 0.35) 50%, transparent 60%);
+  transform: translateX(-130%);
+  animation: badge-aurum-sheen 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes badge-aurum-sheen {
+  0%, 60% { transform: translateX(-130%); }
+  90%, 100% { transform: translateX(130%); }
+}
+
+/* ──────────────────────────────────────────────
+   14. AUTO-TYPE DEMO — caret blink
+   ────────────────────────────────────────────── */
+.type-caret::after {
+  content: "▍";
+  color: #D4A853;
+  animation: caret-blink 0.9s step-end infinite;
+}
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ──────────────────────────────────────────────
+   15. FOOTNOTE STRIP — POSP compliance bar
+   ────────────────────────────────────────────── */
+.posP-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(245, 231, 184, 0.75);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 200, 114, 0.25);
+}
+
+/* ──────────────────────────────────────────────
+   GLOBAL GUARDS — reduced motion + print
+   ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .aurum-text, .grail-text { animation: none; }
+  .igpt-frame::before { animation: none; }
+  .igpt-header::after { animation: none; }
+  .igpt-avatar::before { animation: none; }
+  .chip-aurum::after, .btn-aurum::before, .badge-aurum::after { animation: none; transition: none; }
+  .mesh-aurum { animation: none; }
+  .orb { animation: none; }
+  .marquee-aurum-track { animation: none; }
+  .step-rail::after { animation: none; }
+  .igpt-dot { animation: none; }
+  .type-caret::after { animation: none; }
+}
+@media print {
+  .igpt-frame::before, .igpt-header::after, .mesh-aurum-grid, .orb { display: none !important; }
+  .mesh-aurum { background: none !important; }
+  .aurum-text, .grail-text { color: #8F5A1E !important; -webkit-text-fill-color: #8F5A1E !important; background: none !important; }
+}
