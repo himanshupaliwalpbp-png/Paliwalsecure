@@ -35,7 +35,6 @@ interface TranslationError {
 // ── Props ─────────────────────────────────────────────────────────────────
 interface BlogPostClientProps {
   englishContent?: string;
-  (articleTitle || title || '')?: string;
   slug?: string;
   title?: string;
   description?: string;
@@ -50,7 +49,6 @@ interface BlogPostClientProps {
 // ── BlogPostClient Component ──────────────────────────────────────────────
 export default function BlogPostClient({
   englishContent,
-  (articleTitle || title || ''),
   slug,
   title,
   description,
@@ -167,7 +165,7 @@ export default function BlogPostClient({
           body: JSON.stringify({
             content: englishContent,
             language: targetLang === 'hi' ? 'hi' : 'hing',
-            title: (articleTitle || title || ''),
+            title: title || '',
           }),
           signal: abortController.signal,
         });
@@ -275,7 +273,7 @@ export default function BlogPostClient({
         }
       }
     },
-    [englishContent, (articleTitle || title || ''), classifyError]
+    [englishContent, title, classifyError]
   );
 
   // Handle language change

@@ -1,0 +1,329 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PALIWAL SECURE AI — CROWN PRESTIGE v15 (Additive Polish Wave)
+   imported LAST in layout.tsx — only UPGRADES existing classes.
+   Zero content/data changes. Safe layer: everything additive or override-only.
+
+   Palette (from Design Bible):
+     Sienna  #B8482C · Maroon #5E1223 · Gold #E8C872 · Cream #F3EADB · Ink #0E1116
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────
+   1. HERO TYPOGRAPHY — editorial crown weight
+   ────────────────────────────────────────────── */
+.text-display-hero {
+  font-weight: 540;
+  letter-spacing: -0.045em;
+  font-variation-settings: "opsz" 96;
+}
+.text-display-h1 {
+  font-weight: 530;
+  letter-spacing: -0.038em;
+}
+.text-display-h2 {
+  font-weight: 520;
+}
+
+/* ──────────────────────────────────────────────
+   2. PRIMARY CTA — Maroon Prestige gradient + gold sheen
+   (replaces generic blue with the site's own Primary/Accent tokens)
+   ────────────────────────────────────────────── */
+.btn-stripe {
+  position: relative;
+  overflow: hidden;
+  min-height: 52px;
+  background: linear-gradient(135deg, #B8482C 0%, #8F2F1E 55%, #5E1223 100%);
+  color: #FDF6EC;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow:
+    0 2px 4px rgba(94, 18, 35, 0.18),
+    0 8px 24px -6px rgba(184, 72, 44, 0.45);
+}
+/* animated gold sheen sweep */
+.btn-stripe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(232, 200, 114, 0.32) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+  pointer-events: none;
+}
+.btn-stripe:hover {
+  background: linear-gradient(135deg, #C55436 0%, #9A3521 55%, #6E1628 100%);
+  box-shadow:
+    0 4px 8px rgba(94, 18, 35, 0.22),
+    0 14px 34px -8px rgba(184, 72, 44, 0.55);
+  transform: translateY(-1px);
+}
+.btn-stripe:hover::after {
+  transform: translateX(120%);
+}
+.btn-stripe:active {
+  transform: translateY(0);
+}
+.dark .btn-stripe {
+  background: linear-gradient(135deg, #D4633F 0%, #A03A24 55%, #8B2D40 100%);
+  color: #FFF8ED;
+}
+
+/* Ghost button — warmer, taller */
+.btn-linear {
+  min-height: 52px;
+  padding: 0.9rem 1.875rem;
+  border-color: rgba(94, 18, 35, 0.22);
+  color: #3A1410;
+}
+.btn-linear:hover {
+  border-color: rgba(94, 18, 35, 0.5);
+  background: #5E1223;
+  color: #FDF6EC;
+  box-shadow: 0 10px 26px -10px rgba(94, 18, 35, 0.5);
+  transform: translateY(-1px);
+}
+.dark .btn-linear {
+  border-color: rgba(232, 200, 114, 0.28);
+  color: #F3EADB;
+}
+.dark .btn-linear:hover {
+  background: rgba(232, 200, 114, 0.12);
+  border-color: rgba(232, 200, 114, 0.55);
+  color: #F5E7C4;
+}
+
+/* 48px touch targets for secondary CTA links */
+button.shiny-cta,
+a.shiny-cta {
+  min-height: 48px;
+  align-items: center;
+  display: inline-flex;
+}
+
+/* ──────────────────────────────────────────────
+   3. CARD DEPTH — unified premium elevation
+   ────────────────────────────────────────────── */
+.card-premium,
+.glass-card,
+.glass-card-universal {
+  box-shadow:
+    0 1px 2px rgba(61, 48, 27, 0.05),
+    0 10px 34px -14px rgba(94, 18, 35, 0.16);
+  transition: transform 0.45s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    box-shadow 0.45s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    border-color 0.45s ease;
+}
+.card-premium:hover,
+.glass-card:hover,
+.glass-card-universal:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(61, 48, 27, 0.06),
+    0 18px 44px -16px rgba(94, 18, 35, 0.24);
+}
+.dark .card-premium,
+.dark .glass-card,
+.dark .glass-card-universal {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 12px 38px -14px rgba(0, 0, 0, 0.6);
+}
+.dark .card-premium:hover,
+.dark .glass-card:hover,
+.dark .glass-card-universal:hover {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 20px 50px -16px rgba(0, 0, 0, 0.7);
+}
+
+/* ──────────────────────────────────────────────
+   4. SAVER GLASS — gold inner bloom + crisp rim
+   ────────────────────────────────────────────── */
+.saver-glass {
+  border: 1px solid rgba(212, 168, 83, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px rgba(14, 17, 22, 0.4),
+    0 18px 50px -18px rgba(0, 0, 0, 0.65);
+}
+.saver-glass-hover:hover {
+  border-color: rgba(212, 168, 83, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -12px 40px -22px rgba(212, 168, 83, 0.22),
+    0 22px 60px -18px rgba(0, 0, 0, 0.75),
+    0 0 44px -12px rgba(212, 168, 83, 0.35);
+  transform: translateY(-3px);
+}
+
+/* Crown total — gradient showpiece figure for key results */
+.crown-total {
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(120deg, #F5E7C4 0%, #E8C872 45%, #D4A853 70%, #B8482C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(212, 168, 83, 0.25));
+}
+
+/* Gold-rim console for calculator result panels */
+.console-crown {
+  position: relative;
+}
+.console-crown::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(232, 200, 114, 0.75),
+    rgba(212, 168, 83, 0.2) 40%,
+    rgba(232, 200, 114, 0.55)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ──────────────────────────────────────────────
+   5. SECTION UNDERLINE v2 — gold-tipped rule
+   ────────────────────────────────────────────── */
+.section-underline {
+  position: relative;
+  padding-bottom: 1.1rem;
+}
+.section-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 88px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #5E1223 0%, #B8482C 70%, #E8C872 100%);
+}
+.section-underline-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ──────────────────────────────────────────────
+   6. WARM FOCUS RINGS — sitewide accessibility
+   ────────────────────────────────────────────── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid rgba(184, 72, 44, 0.75);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.dark a:focus-visible,
+.dark button:focus-visible,
+.dark input:focus-visible,
+.dark select:focus-visible,
+.dark textarea:focus-visible,
+.dark [role="button"]:focus-visible,
+.dark [tabindex]:focus-visible {
+  outline-color: rgba(232, 200, 114, 0.85);
+}
+
+/* ──────────────────────────────────────────────
+   7. PREMIUM MICRO-TOUCHES
+   ────────────────────────────────────────────── */
+::selection {
+  background: rgba(184, 72, 44, 0.22);
+  color: #2A0E08;
+}
+.dark ::selection {
+  background: rgba(232, 200, 114, 0.3);
+  color: #FDF6EC;
+}
+
+/* Thin warm scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(184, 72, 44, 0.45) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(184, 72, 44, 0.55), rgba(94, 18, 35, 0.55));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(184, 72, 44, 0.8), rgba(94, 18, 35, 0.8));
+  background-clip: content-box;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.5), rgba(232, 200, 114, 0.3));
+  background-clip: content-box;
+}
+
+/* Nav link underline bloom */
+nav a,
+header a {
+  transition: color 0.25s ease;
+}
+
+/* ──────────────────────────────────────────────
+   8. GUARDS — reduced motion + print
+   ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .btn-stripe::after,
+  .btn-stripe:hover::after {
+    transform: none;
+    transition: none;
+  }
+  .btn-stripe:hover,
+  .btn-linear:hover,
+  .card-premium:hover,
+  .glass-card:hover,
+  .glass-card-universal:hover,
+  .saver-glass-hover:hover {
+    transform: none;
+  }
+  .card-premium,
+  .glass-card,
+  .glass-card-universal,
+  .saver-glass-hover {
+    transition: none;
+  }
+}
+
+@media print {
+  .btn-stripe::after,
+  .console-crown::before,
+  .saver-glass-hover {
+    display: none !important;
+  }
+  .btn-stripe,
+  .btn-linear {
+    box-shadow: none !important;
+    background: #f3f3f3 !important;
+    color: #111 !important;
+  }
+  .crown-total {
+    background: none !important;
+    color: #111 !important;
+    -webkit-text-fill-color: #111 !important;
+    filter: none !important;
+  }
+}

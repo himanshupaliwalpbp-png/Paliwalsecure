@@ -222,14 +222,14 @@ export default function PayDeskTab({ onImpact }: { onImpact: (annual: number | n
               className="space-y-5"
             >
               {/* highlight card */}
-              <div className="saver-glass relative overflow-hidden rounded-2xl p-6 sm:p-7">
+              <div className="saver-glass console-crown relative overflow-hidden rounded-2xl p-6 sm:p-7">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2DD4A8]/70 to-transparent" aria-hidden />
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8B93A1]">
                   {result.potentialSaving != null ? "Potential legal saving" : "Fee exposure today"}
                 </p>
                 <CountUpMoney
                   amount={result.potentialSaving ?? result.annualImpact ?? 0}
-                  className="mt-2 block font-mono text-4xl font-bold tabular-nums text-[#2DD4A8] sm:text-5xl"
+                  className="crown-total mt-2 block font-mono text-4xl font-bold tabular-nums sm:text-5xl"
                 />
                 <p className="mt-1 text-sm text-[#7A8290]">per year · estimated</p>
                 {result.savingWhy ? (

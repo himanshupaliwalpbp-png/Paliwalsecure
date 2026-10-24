@@ -19,9 +19,11 @@ export function useCountUp(target: number | null | undefined, duration = 1100): 
   useEffect(() => {
     if (target == null || Number.isNaN(target)) return;
     if (reduced) {
-      setValue(target);
-      prev.current = target;
-      return;
+      const raf = requestAnimationFrame(() => {
+        setValue(target);
+        prev.current = target;
+      });
+      return () => cancelAnimationFrame(raf);
     }
     let raf = 0;
     const from = prev.current;

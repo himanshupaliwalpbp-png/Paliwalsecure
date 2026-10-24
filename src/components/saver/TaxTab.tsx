@@ -295,13 +295,13 @@ function SmartCompare({ onImpact }: { onImpact: (annual: number | null) => void 
           {result ? (
             <motion.div key="tax-res" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-5">
               {/* best path highlight */}
-              <div className="saver-glass relative overflow-hidden rounded-2xl p-6 sm:p-7">
+              <div className="saver-glass console-crown relative overflow-hidden rounded-2xl p-6 sm:p-7">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2DD4A8]/70 to-transparent" aria-hidden />
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8B93A1]">Lowest-tax path (estimate)</p>
                 <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
                   <CountUpMoney
                     amount={Math.min(...candidates.map((c) => c.tax ?? Infinity))}
-                    className="font-mono text-4xl font-bold tabular-nums text-[#2DD4A8]"
+                    className="crown-total font-mono text-4xl font-bold tabular-nums"
                   />
                   <span className="text-sm text-[#7A8290]">
                     {candidates.find((c) => c.key === bestKey)?.title ?? ""}
@@ -469,12 +469,12 @@ function QuickRegime({ onImpact }: { onImpact: (annual: number | null) => void }
         <AnimatePresence>
           {newR && oldR ? (
             <motion.div key="qr-res" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-              <div className="saver-glass relative overflow-hidden rounded-2xl p-6 sm:p-7">
+              <div className="saver-glass console-crown relative overflow-hidden rounded-2xl p-6 sm:p-7">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2DD4A8]/70 to-transparent" aria-hidden />
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8B93A1]">You save more with the {best === "new" ? "NEW" : "OLD"} regime</p>
                 <CountUpMoney
                   amount={Math.abs(newR.totalTax - oldR.totalTax)}
-                  className="mt-2 block font-mono text-4xl font-bold tabular-nums text-[#2DD4A8]"
+                  className="crown-total mt-2 block font-mono text-4xl font-bold tabular-nums"
                 />
                 <p className="mt-1 text-sm text-[#7A8290]">
                   {best === "new"

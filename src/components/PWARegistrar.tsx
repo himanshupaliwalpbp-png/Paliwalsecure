@@ -6,6 +6,9 @@ export function PWARegistrar() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (!('serviceWorker' in navigator)) return;
+    // Never register the SW in development — it caches dev chunks and serves
+    // stale modules after HMR updates, leaving the UI frozen on old code.
+    if (process.env.NODE_ENV === 'development') return;
 
     const registerSW = async () => {
       try {

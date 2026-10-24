@@ -210,12 +210,12 @@ export default function GstTab({ onImpact }: { onImpact: (annual: number | null)
         <AnimatePresence>
           {result ? (
             <motion.div key="gst-res" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-              <div className="saver-glass relative overflow-hidden rounded-2xl p-6 sm:p-7">
+              <div className="saver-glass console-crown relative overflow-hidden rounded-2xl p-6 sm:p-7">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2DD4A8]/70 to-transparent" aria-hidden />
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8B93A1]">Potential ITC recovery</p>
                 <CountUpMoney
                   amount={result.totals.potentialItcAnnual}
-                  className="mt-2 block font-mono text-4xl font-bold tabular-nums text-[#2DD4A8] sm:text-5xl"
+                  className="crown-total mt-2 block font-mono text-4xl font-bold tabular-nums sm:text-5xl"
                 />
                 <p className="mt-1 text-sm text-[#7A8290]">per year · estimated, before conditions</p>
                 <div className="mt-5 grid grid-cols-3 gap-3 border-t border-white/[0.06] pt-4 text-center">

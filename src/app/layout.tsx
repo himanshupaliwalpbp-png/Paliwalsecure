@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter_Tight, JetBrains_Mono, Noto_Serif_Devanagari, Plus_Jakarta_Sans, Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
+import "./prestige-v15.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SafeThemeProvider } from "@/lib/safe-theme-provider";
 import { ScrollProgress } from "@/components/ScrollProgress";
