@@ -270,7 +270,7 @@ export default function BlogSection() {
                           </span>
                           <span className="flex items-center gap-1 bg-muted/60 dark:bg-muted/40 rounded-full px-2 py-0.5">
                             <Calendar className="w-3 h-3 text-[#C98A1C] dark:text-[#C98A1C]" />
-                            {new Date(post.date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', { month: 'short', year: 'numeric' })}
+                            {new Date(post.date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', {timeZone: 'Asia/Kolkata',  month: 'short', year: 'numeric' })}
                           </span>
                         </div>
 

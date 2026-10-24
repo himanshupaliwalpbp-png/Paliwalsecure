@@ -100,7 +100,7 @@ function generateId(): string {
 }
 
 function formatTimestamp(date: Date): string {
-  return date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+  return date.toLocaleTimeString('en-IN', {timeZone: 'Asia/Kolkata',  hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
 // ---------------------------------------------------------------------------
@@ -477,7 +477,7 @@ function HumanHandoffDialog({
         <div className="space-y-3 mt-2">
           {/* Live Agent */}
           <a
-            href="tel:+919999999999"
+            href="tel:+919257877312"
             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-950/30 dark:to-teal-950/30 border border-cyan-100 dark:border-cyan-800/40 hover:shadow-md transition-all group"
           >
             <div className="w-10 h-10 rounded-full bg-cyan-100 dark:bg-cyan-900/50 flex items-center justify-center shrink-0 group-hover:bg-cyan-200 dark:group-hover:bg-cyan-800/50 transition-colors">
@@ -485,14 +485,14 @@ function HumanHandoffDialog({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">Live Agent</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">+91-9999-999-999</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">+91 92578 77312</p>
             </div>
             <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
           </a>
 
           {/* WhatsApp */}
           <a
-            href="https://wa.me/919999999999"
+            href="https://wa.me/919257877312"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-100 dark:border-green-800/40 hover:shadow-md transition-all group"
@@ -502,7 +502,7 @@ function HumanHandoffDialog({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">WhatsApp</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">wa.me/919999999999</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">wa.me/919257877312</p>
             </div>
             <ExternalLink className="w-4 h-4 text-slate-400 shrink-0" />
           </a>
@@ -1147,7 +1147,8 @@ export default function EmbeddedChatBot({ profile, onOnboardingTrigger, isFloati
                       {msg.isEscalation && (
                         <EscalationOptions
                           onWhatsApp={() => {
-                            const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919999999999';
+                            // OWNER CONTACT LOCKED — do not change without owner permission
+                            const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919257877312';
                             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Namaste! Mujhe insurance ke baare mein jaankari chahiye. Paliwal Secure se contact kar raha/rahi hoon.')}`;
                             window.open(whatsappUrl, '_blank');
                           }}

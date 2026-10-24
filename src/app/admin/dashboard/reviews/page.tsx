@@ -488,7 +488,7 @@ export default function ReviewsModerationPage() {
                         <StatusBadge status={review.status} />
                       </TableCell>
                       <TableCell className="text-xs text-slate-500">
-                        {new Date(review.createdAt).toLocaleDateString('en-IN', {
+                        {new Date(review.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric',
@@ -648,7 +648,7 @@ export default function ReviewsModerationPage() {
 
                 <div className="text-xs text-slate-400">
                   Created:{' '}
-                  {new Date(detailReview.createdAt).toLocaleDateString('en-IN', {
+                  {new Date(detailReview.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric',

@@ -170,7 +170,7 @@ export default function InsureGPTChatInterface({
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <span className="text-xs opacity-70 mt-1 block">
-                  {message.timestamp.toLocaleTimeString('en-IN', {
+                  {message.timestamp.toLocaleTimeString('en-IN', {timeZone: 'Asia/Kolkata', 
                     hour: '2-digit',
                     minute: '2-digit',
                   })}

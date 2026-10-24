@@ -149,7 +149,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
   const isLong = review.body.length > 150;
   const displayBody = isLong && !expanded ? review.body.slice(0, 150) + '...' : review.body;
 
-  const dateStr = new Date(review.createdAt).toLocaleDateString('en-IN', {
+  const dateStr = new Date(review.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
     year: 'numeric',
     month: 'short',
     day: 'numeric',

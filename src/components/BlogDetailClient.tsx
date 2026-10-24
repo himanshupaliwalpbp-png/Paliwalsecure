@@ -50,7 +50,7 @@ export function BlogLanguageHeader({
 
   const formattedDate = new Date(date).toLocaleDateString(
     isHindi ? 'hi-IN' : 'en-IN',
-    { year: 'numeric', month: 'long', day: 'numeric' }
+    { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' }
   );
 
   return (

@@ -4,7 +4,7 @@
  * flagship showcase. All financial copy is indicative — engines stay authoritative.
  */
 
-export const WHATSAPP_HANDOFF = "https://wa.me/919829070804";
+export const WHATSAPP_HANDOFF = "https://wa.me/919257877312";
 
 /* ───────────────────────── shared form option sets ───────────────────────── */
 

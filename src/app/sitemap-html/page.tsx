@@ -136,7 +136,7 @@ export default function SitemapHTMLPage() {
 
         <div className="mt-12 pt-8 border-t border-slate-200 text-center">
           <p className="text-sm text-slate-500">
-            Total pages: {blogPosts.length + 30}+ · Last updated: {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+            Total pages: {blogPosts.length + 30}+ · Last updated: {new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
           <p className="mt-2 text-sm text-slate-500">
             <Link href="/sitemap.xml" className="text-amber-600 hover:underline">XML Sitemap</Link>

@@ -102,7 +102,7 @@ Lakshmi compared both for family health insurance. Royal Sundaram: ₹6,800/year
 **A:** Reliance General: 6,000+. Royal Sundaram: 5,000+. Both have pan-India coverage. Check if your preferred hospital is in the network.
 
 ### Q: Can I buy these through Paliwal Secure?
-**A:** Yes. Paliwal Secure is a POSP that can sell policies from both Royal Sundaram and Reliance General, plus 49+ other insurers. You get the same premium plus personalized advisory and claim assistance. WhatsApp +91-92587-77312.
+**A:** Yes. Paliwal Secure is a POSP that can sell policies from both Royal Sundaram and Reliance General, plus 49+ other insurers. You get the same premium plus personalized advisory and claim assistance. WhatsApp +91-92578-77312.
 
 
 ## Final Recommendation
@@ -111,7 +111,7 @@ Lakshmi compared both for family health insurance. Royal Sundaram: ₹6,800/year
 
 **Choose Reliance General if:** You want competitive pricing and easy availability. Reliance General (backed by Reliance Capital) has wider distribution and often lower premiums.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -124,7 +124,7 @@ Lakshmi compared both for family health insurance. Royal Sundaram: ₹6,800/year
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Royal Sundaram and Reliance General based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Royal Sundaram and Reliance General based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

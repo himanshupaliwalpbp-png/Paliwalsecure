@@ -139,7 +139,7 @@ const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pd
 
 // ─── Helper Functions ────────────────────────────────────────────────────────
 const formatCurrency = (n: number) => `₹${n.toLocaleString('en-IN')}`;
-const formatDate = (d: string | Date) => new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+const formatDate = (d: string | Date) => new Date(d).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'short', year: 'numeric' });
 const getDaysToExpiry = (endDate: string | Date) => Math.ceil((new Date(endDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
 const getExpiryStatus = (days: number) => days < 0 ? 'EXPIRED' : days <= 7 ? 'CRITICAL' : days <= 30 ? 'WARNING' : 'ACTIVE';
 

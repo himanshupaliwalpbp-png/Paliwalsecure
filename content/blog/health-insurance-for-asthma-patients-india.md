@@ -208,7 +208,7 @@ Hospital me cashless claim ke liye:
 ### 1. Free Consultation Booking Karein
 Paliwal Secure ke IRDAI-certified advisor se free consultation lein — Asthma ke liye best plan suggest karenge.
 
-**WhatsApp:** +91-92587-77312
+**WhatsApp:** +91-92578-77312
 **Email:** himanshupaliwalpbp@gmail.com
 
 ### 2. InsureGPT se Poochein
@@ -231,7 +231,7 @@ Existing policy review karwana chahte hain? [Free audit page](/free-audit) visit
 
 **Author:** Himanshu Paliwal — IRDAI Registered POSP (Code: IP429834)
 **Location:** Kota, Rajasthan, India
-**Contact:** +91-92587-77312 | himanshupaliwalpbp@gmail.com
+**Contact:** +91-92578-77312 | himanshupaliwalpbp@gmail.com
 **Last updated:** 2026-01-25
 
 **Paliwal Secure** — AI-powered insurance recommendations for every Indian. IRDAI-compliant, transparent, aur aasan.

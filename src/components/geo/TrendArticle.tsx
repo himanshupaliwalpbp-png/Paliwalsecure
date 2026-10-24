@@ -241,7 +241,7 @@ export function TrendArticle({
               className="text-xs text-muted-foreground"
               itemProp="datePublished"
             >
-              {new Date(date).toLocaleDateString('en-IN', {
+              {new Date(date).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',

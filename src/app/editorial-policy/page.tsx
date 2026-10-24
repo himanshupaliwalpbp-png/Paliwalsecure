@@ -78,7 +78,7 @@ export default function EditorialPolicyPage() {
       <section>
         <h2 className="text-xl font-semibold mb-3">Contact</h2>
         <p className="text-slate-700">
-          Questions about our editorial process? Email: himanshupaliwalpbp@gmail.com or WhatsApp: +91-92587-77312
+          Questions about our editorial process? Email: himanshupaliwalpbp@gmail.com or WhatsApp: +91-92578-77312
         </p>
       </section>
     </div>

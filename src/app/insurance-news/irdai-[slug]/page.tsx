@@ -123,7 +123,7 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
 export default async function IRDAINewsPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const topic = getNewsTopic(slug);
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
   const slugTitle = (slug || '').split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
   const defaultFAQs = [
@@ -208,7 +208,7 @@ export default async function IRDAINewsPage({ params }: { params: Promise<{ slug
           <div className="flex items-center gap-2 mb-2">
             <Newspaper className="h-5 w-5 text-primary" />
             <Badge variant="secondary">{topic?.category || 'IRDAI Update'}</Badge>
-            {topic && <Badge variant="outline">{new Date(topic.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</Badge>}
+            {topic && <Badge variant="outline">{new Date(topic.date).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'short', year: 'numeric' })}</Badge>}
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">
             {topic?.title || `IRDAI Update: ${slugTitle}`}

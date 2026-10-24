@@ -111,7 +111,7 @@ Rohan compared both for his car insurance. Future Generali: ₹8,500/year. Liber
 
 **Choose Liberty General if:** You prioritize claim settlement reliability. Liberty General (backed by Liberty Mutual, a Fortune 100 US insurer) has a higher CSR (95.5%).
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -124,7 +124,7 @@ Rohan compared both for his car insurance. Future Generali: ₹8,500/year. Liber
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Future Generali and Liberty General based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Future Generali and Liberty General based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

@@ -166,7 +166,7 @@ export function AdminDashboardLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     const update = () => {
       const now = new Date();
-      setCurrentTime(now.toLocaleString('en-IN', {
+      setCurrentTime(now.toLocaleString('en-IN', {timeZone: 'Asia/Kolkata', 
         weekday: 'short',
         hour: '2-digit',
         minute: '2-digit',

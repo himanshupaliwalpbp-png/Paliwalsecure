@@ -170,7 +170,7 @@ Both are excellent insurers. At Paliwal Secure, we recommend Bajaj Allianz for p
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating your specific needs. Don't wait for a loss — buy insurance before you need it. WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating your specific needs. Don't wait for a loss — buy insurance before you need it. WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

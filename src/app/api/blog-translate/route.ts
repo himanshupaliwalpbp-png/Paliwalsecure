@@ -25,9 +25,18 @@ async function translateWithLLM(
     const zai = await ZAI.create();
 
     const languageInstruction = language === 'hi'
-      ? `You are translating an insurance blog post from English to SIMPLE Hindi (aasan Hindi).
+      ? `You are an expert Hindi translator for insurance blogs. Translate English to SHUDDH, SIMPLE, NATURAL Hindi (आसान हिंदी).
 
-CRITICAL RULES:
+QUALITY RULES (STRICT — follow exactly):
+0. NEVER write English words in Devanagari script. "हेल्थ इंश्योरेंस", "हॉस्पिटल", "वेटिंग पीरियड", "कवरेज" — ये सब गलत हैं।
+   "Health Insurance" → "स्वास्थ्य बीमा"
+   "Hospital" → "अस्पताल"
+   "Waiting Period" → "इंतज़ार अवधि"
+   "Sum Insured" → "बीमा राशि"
+   "Plan" → "पॉलिसी" या "योजना"
+   पहली बार technical शब्द आए तो bracket में English दें: "स्वास्थ्य बीमा (Health Insurance)", "इंतज़ार अवधि (Waiting Period)"। दूसरी बार से सिर्फ हिंदी।
+   शुद्ध देवनागरी वर्तनी का ध्यान रखें।
+
 1. Write in SIMPLE CONVERSATIONAL Hindi - like explaining to a friend at a chai shop
 2. Replace ALL English technical jargon with simple Hindi equivalents:
    - "Comprehensive" → "पूरा बीमा" (NOT "कॉम्प्रिहेंसिव")
@@ -53,7 +62,7 @@ CRITICAL RULES:
    - "Accidental Death" → "एक्सीडेंट से देहांत" (NOT "एक्सीडेंटल डेथ")
    - "Waiver of Premium" → "प्रीमियम माफ" (NOT "वेवर ऑफ प्रीमियम")
    - "Pre-existing Disease" → "पुरानी बीमारी (PED)" (NOT "प्री-एग्जिस्टिंग डिजीज")
-   - "Maternity" → "प्रेगनेंसी / मैटरनिटी" (NOT just "मैटरनिटी" alone)
+   - "Maternity" → "प्रेगनेंसी / मातृत्व" (NOT just "मैटरनिटी" alone)
    - "Battery Degradation" → "बैटरी कम होना" (NOT "बैटरी डिग्रेडेशन")
    - "Lump Sum" → "एकमुश्त" (NOT "लम्प सम")
    - "Cost-Benefit Analysis" → "फायदा-नुकसान हिसाब" (NOT "कॉस्ट-बेनिफिट एनालिसिस")
@@ -115,13 +124,20 @@ ${description || 'N/A'}
 ARTICLE CONTENT (translate this):
 ${truncatedContent}
 
-IMPORTANT: You MUST respond with valid JSON only. No markdown, no code fences, no extra text.
-Respond with this exact JSON structure:
-{"translatedTitle":"your translated title","translatedDescription":"your translated description","translatedContent":"your translated content with \\n for newlines"}`;
+RESPONSE FORMAT — use these EXACT section markers (plain text, NOT JSON):
+<<<TITLE>>>
+your translated title (one line)
+<<<DESCRIPTION>>>
+your translated description (one line)
+<<<CONTENT>>>
+the full translated article content
+<<<END>>>
+
+Do NOT wrap in JSON. Do NOT use code fences. Do NOT add any text before <<<TITLE>>> or after <<<END>>>.`;
 
     const completion = await zai.chat.completions.create({
       messages: [
-        { role: 'system', content: languageInstruction + '\n\nYou MUST respond with valid JSON only. No markdown, no code fences, no extra text outside the JSON object.' },
+        { role: 'system', content: languageInstruction + '\n\nRespond using the section markers <<<TITLE>>>, <<<DESCRIPTION>>>, <<<CONTENT>>>, <<<END>>> exactly as instructed. Never wrap output in JSON or code fences.' },
         { role: 'user', content: fullPrompt },
       ],
       thinking: { type: 'disabled' },
@@ -129,20 +145,118 @@ Respond with this exact JSON structure:
 
     if (completion?.choices?.[0]?.message?.content) {
       let response = completion.choices[0].message.content.trim();
-      response = response.replace(/^```(?:json)?\s*\n?/i, '').replace(/\n?```\s*$/i, '').trim();
+      response = response.replace(/^```(?:json|text|html)?\s*\n?/i, '').replace(/\n?```\s*$/i, '').trim();
 
       let translatedContent = '';
       let translatedTitle = title;
       let translatedDescription = description;
 
-      try {
-        const parsed = JSON.parse(response);
-        if (parsed.translatedTitle) translatedTitle = parsed.translatedTitle;
-        if (parsed.translatedDescription) translatedDescription = parsed.translatedDescription;
-        translatedContent = parsed.translatedContent || parsed.content || '';
-      } catch {
-        translatedContent = response;
+      // ── Robust parser: delimiter format first, JSON fallback ──────────
+      // Handles the model occasionally ignoring format instructions.
+      const parseDelimited = (raw: string): { t: string | null; d: string | null; c: string | null } => {
+        const tM = raw.match(/<<<TITLE>>>\s*([\s\S]*?)\s*<<<(?:DESCRIPTION|END)>>>/);
+        const dM = raw.match(/<<<DESCRIPTION>>>\s*([\s\S]*?)\s*<<<(?:CONTENT|END)>>>/);
+        // Content: from <<<CONTENT>>> to <<<END>>> or end of string
+        const cM = raw.match(/<<<CONTENT>>>\s*([\s\S]*?)(?:\s*<<<END>>>|$)/);
+        return {
+          t: tM ? tM[1].trim() : null,
+          d: dM ? dM[1].trim() : null,
+          c: cM ? cM[1].trim() : null,
+        };
+      };
+
+      // Extract a JSON string value with proper escape handling — never
+      // breaks on embedded quotes/newlines the way naive regex does.
+      const extractJsonValue = (raw: string, key: string): string | null => {
+        const keyIdx = raw.indexOf(`"${key}"`);
+        if (keyIdx === -1) return null;
+        let i = raw.indexOf(':', keyIdx + key.length + 2);
+        if (i === -1) return null;
+        i++;
+        while (i < raw.length && /\s/.test(raw[i])) i++;
+        if (raw[i] !== '"') return null;
+        i++;
+        let out = '';
+        while (i < raw.length) {
+          const ch = raw[i];
+          if (ch === '\\') {
+            const next = raw[i + 1];
+            if (next === 'n') out += '\n';
+            else if (next === 't') out += '\t';
+            else if (next === 'r') out += '\r';
+            else if (next === '"') out += '"';
+            else if (next === '\\') out += '\\';
+            else if (next === '/') out += '/';
+            else if (next === 'u') {
+              const hex = raw.slice(i + 2, i + 6);
+              if (/^[0-9a-fA-F]{4}$/.test(hex)) {
+                out += String.fromCharCode(parseInt(hex, 16));
+                i += 4;
+              } else out += next;
+            } else out += next;
+            i += 2;
+          } else if (ch === '"') {
+            break;
+          } else {
+            out += ch;
+            i++;
+          }
+        }
+        return out;
+      };
+
+      // 1) Try the delimited format (preferred — impossible to half-parse)
+      const delim = parseDelimited(response);
+      if (delim.c && delim.c.length > 20) {
+        if (delim.t) translatedTitle = delim.t;
+        if (delim.d) translatedDescription = delim.d;
+        translatedContent = delim.c;
+      } else {
+        // 2) Try strict JSON.parse
+        let parsedOk = false;
+        try {
+          const parsed = JSON.parse(response);
+          if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+            const tc = String(parsed.translatedContent || parsed.content || '');
+            if (tc.length > 20) {
+              if (parsed.translatedTitle) translatedTitle = String(parsed.translatedTitle);
+              if (parsed.translatedDescription) translatedDescription = String(parsed.translatedDescription);
+              translatedContent = tc;
+              parsedOk = true;
+            }
+          }
+        } catch { /* fall through */ }
+
+        // 3) Try extracting JSON object substring + repair, then value extraction
+        if (!parsedOk && response.includes('{')) {
+          const objMatch = response.match(/\{[\s\S]*\}/);
+          const objStr = objMatch
+            ? objMatch[0].replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'")
+            : response;
+          const tc = extractJsonValue(objStr, 'translatedContent') || extractJsonValue(objStr, 'content');
+          if (tc && tc.length > 20) {
+            const tt = extractJsonValue(objStr, 'translatedTitle');
+            const td = extractJsonValue(objStr, 'translatedDescription');
+            if (tt) translatedTitle = tt;
+            if (td) translatedDescription = td;
+            translatedContent = tc;
+            parsedOk = true;
+          }
+        }
+
+        // 4) Last resort: plain text (only if it does NOT look like JSON)
+        if (!parsedOk && !response.trim().startsWith('{')) {
+          translatedContent = response.trim();
+        }
+        // If it looks like JSON but nothing parsed → keep translatedContent empty
+        // so the caller gracefully falls back to English instead of showing raw JSON.
       }
+
+      // Safety net: never display raw JSON to users
+      const looksLikeRawJson =
+        translatedContent.startsWith('{') ||
+        (translatedContent.includes('"translatedContent"') && translatedContent.includes('"translatedTitle"'));
+      if (looksLikeRawJson) translatedContent = '';
 
       if (translatedContent && translatedContent.length > 20) {
         return { translatedContent, translatedTitle, translatedDescription };

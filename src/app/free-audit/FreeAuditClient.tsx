@@ -51,7 +51,7 @@ export default function FreeAuditClient() {
                 className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
               >
                 <Phone className="w-4 h-4" />
-                Call +91-92587-77312
+                Call +91-92578-77312
               </a>
             </div>
 
@@ -159,7 +159,7 @@ export default function FreeAuditClient() {
               className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-lg transition-all flex items-center gap-2"
             >
               <MessageCircle className="w-4 h-4" />
-              WhatsApp +91-92587-77312
+              WhatsApp +91-92578-77312
             </a>
             <Link href="/compare" className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm shadow-lg transition-all flex items-center gap-2">
               Compare Plans

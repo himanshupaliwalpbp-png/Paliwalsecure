@@ -144,7 +144,7 @@ Both Self + Family Cover and Parents Cover (Additional) qualify for Section 80D 
 2. Evaluated based on family's priorities (coverage scope, premium, network)
 3. Chose the option that aligned with their needs
 
-**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92587-77312.
+**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92578-77312.
 
 ## Common Mistakes
 
@@ -191,7 +191,7 @@ Before choosing between Self + Family Cover and Parents Cover (Additional):
 **A:** Section 80D allows tax deduction on health insurance premium: ₹25,000 for self/spouse/children (under 60), ₹50,000 for senior citizens (60+), and additional ₹25,000-50,000 for parents. Maximum total deduction: ₹1,00,000/year (self senior + parents senior). This can save up to ₹30,000 in taxes (30% s
 
 ### Q: Which is better — Self + Family Cover or Parents Cover (Additional)?
-**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92587-77312.
+**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92578-77312.
 
 ### Q: Can I switch from Self + Family Cover to Parents Cover (Additional)?
 **A:** Yes, in most cases. IRDAI portability allows switching between plans while retaining waiting period credits. Apply at least 45 days before renewal. [Get portability help](/free-audit).
@@ -200,7 +200,7 @@ Before choosing between Self + Family Cover and Parents Cover (Additional):
 **A:** Yes, both qualify if they are health insurance policies (not life insurance). 80D deduction: ₹25,000 (under 60) or ₹50,000 (senior citizen) for self, plus ₹25,000-50,000 for parents.
 
 ### Q: Where can I get personalized advice on choosing between Self + Family Cover and Parents Cover (Additional)?
-**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
+**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
 
 ## Related Guides
 
@@ -215,7 +215,7 @@ Before choosing between Self + Family Cover and Parents Cover (Additional):
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Self + Family Cover and Parents Cover (Additional) based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Self + Family Cover and Parents Cover (Additional) based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

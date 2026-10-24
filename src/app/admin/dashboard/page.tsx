@@ -240,7 +240,7 @@ export default function AdminDashboardPage() {
             Welcome back 👋
           </motion.h1>
           <p className="text-sm text-slate-500 mt-1">
-            {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+            {new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
             {' · '}
             {isDemo ? 'Demo mode' : 'Live data'}
           </p>

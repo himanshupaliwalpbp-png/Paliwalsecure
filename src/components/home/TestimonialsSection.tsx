@@ -236,7 +236,7 @@ export default function TestimonialsSection() {
             className="gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-premium-lg font-body"
             asChild
           >
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer">
               {ctaText}
             </a>
           </Button>

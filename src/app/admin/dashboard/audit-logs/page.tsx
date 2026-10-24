@@ -273,7 +273,7 @@ export default function AuditLogsPage() {
                           </button>
                         </td>
                         <td className="px-4 py-3 text-slate-600 whitespace-nowrap">
-                          {new Date(log.createdAt).toLocaleString('en-IN', {
+                          {new Date(log.createdAt).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata', 
                             day: '2-digit',
                             month: 'short',
                             year: 'numeric',

@@ -92,7 +92,7 @@ TVS Apache RTR 160 insurance ₹1,600-2,800/yr. IDV ₹70k-1L. Performance bike.
 ## FAQ
 
 ### Q: Best plan kaun sa hai?
-**A**: Depends on your needs. [Compare page](/compare) se compare karein. Free consultation: WhatsApp +91-92587-77312.
+**A**: Depends on your needs. [Compare page](/compare) se compare karein. Free consultation: WhatsApp +91-92578-77312.
 
 ### Q: Premium kitna hoga?
 **A**: [Calculator](/calculators) se exact estimate lein.
@@ -109,7 +109,7 @@ TVS Apache RTR 160 insurance ₹1,600-2,800/yr. IDV ₹70k-1L. Performance bike.
 ## Next Steps
 
 ### 1. Free Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal (IRDAI POSP IP429834).
+WhatsApp +91-92578-77312 — Himanshu Paliwal (IRDAI POSP IP429834).
 
 ### 2. Compare Plans
 [Compare page](/compare) — 51+ insurers.

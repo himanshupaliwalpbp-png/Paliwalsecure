@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
       });
       const monthPremium = monthPolicies.reduce((sum, p) => sum + (p.totalPremium || p.premium), 0);
       monthlyPremiums.push({
-        month: monthStart.toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }),
+        month: monthStart.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  month: 'short', year: '2-digit' }),
         premium: monthPremium,
       });
     }

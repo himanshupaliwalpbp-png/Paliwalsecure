@@ -79,7 +79,7 @@ const orgJsonLd = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+91-92587-77312',
+    telephone: '+91-92578-77312',
     email: 'himanshupaliwalpbp@gmail.com',
     contactType: 'customer service',
     areaServed: 'IN',

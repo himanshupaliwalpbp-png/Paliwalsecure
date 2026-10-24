@@ -148,7 +148,7 @@ Online payment (UPI/card/net banking). Policy documents emailed within 24 hours.
 [Calculator page](/calculators) pe Bajaj Pulsar 150-specific premium estimate lein.
 
 ### 3. Free Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal (IRDAI POSP IP429834) personally guide karenge.
+WhatsApp +91-92578-77312 — Himanshu Paliwal (IRDAI POSP IP429834) personally guide karenge.
 
 ### 4. Ask InsureGPT
 24/7 AI chatbot — Hinglish/Hindi/English — [InsureGPT](/insuregpt) pe pucho.

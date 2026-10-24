@@ -112,7 +112,7 @@ Subir from Kolkata chose National Insurance because: (1) head office is in Kolka
 
 **Choose Oriental Insurance if:** You want the PSU insurer with the marginally highest CSR among these two (92.8% vs 92.5%). Oriental Insurance is headquartered in New Delhi with strong North India presence.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -125,7 +125,7 @@ Subir from Kolkata chose National Insurance because: (1) head office is in Kolka
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both National Insurance and Oriental Insurance based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both National Insurance and Oriental Insurance based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

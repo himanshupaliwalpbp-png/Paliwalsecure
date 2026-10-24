@@ -126,7 +126,7 @@ export default async function ClaimGuidePage({ params }: { params: Promise<{ ins
 
   const shortName = data.logoPlaceholder || data.name;
   const steps = getClaimSteps(shortName, data.slug);
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
 
   // FAQs
   const faqs = [

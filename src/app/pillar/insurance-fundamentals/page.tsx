@@ -52,7 +52,7 @@ export default function PillarPage() {
               This pillar guide covers all aspects of {text2} in India. Compare 51+ IRDAI-registered insurers.
               Verify claim settlement ratio from IRDAI Annual Report. Read policy wording carefully.
               Consult IRDAI-certified advisor Himanshu Paliwal (POSP IP429834) for personalized recommendations.
-              WhatsApp +91-92587-77312 for free consultation.
+              WhatsApp +91-92578-77312 for free consultation.
             </p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function PillarPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-lg transition-all">
-              WhatsApp +91-92587-77312
+              WhatsApp +91-92578-77312
             </a>
             <Link href="/compare" className="px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm shadow-lg transition-all">
               Compare Plans

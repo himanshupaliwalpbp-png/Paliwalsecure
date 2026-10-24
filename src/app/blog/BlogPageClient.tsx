@@ -310,7 +310,7 @@ export default function BlogPageClient({
                             <div>
                               <p className="text-sm font-semibold">{featured.frontmatter.author}</p>
                               <p className="text-xs text-muted-foreground">
-                                {t('blog.irdaiCertifiedPOSP')} • {new Date(featured.frontmatter.date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                {t('blog.irdaiCertifiedPOSP')} • {new Date(featured.frontmatter.date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', {timeZone: 'Asia/Kolkata',  year: 'numeric', month: 'long', day: 'numeric' })}
                               </p>
                             </div>
                           </div>
@@ -423,7 +423,7 @@ export default function BlogPageClient({
                             </div>
                             <div>
                               <p className="text-xs font-medium">{post.frontmatter.author}</p>
-                              <p className="text-[10px] text-muted-foreground">{new Date(post.frontmatter.date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                              <p className="text-[10px] text-muted-foreground">{new Date(post.frontmatter.date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', {timeZone: 'Asia/Kolkata',  year: 'numeric', month: 'short', day: 'numeric' })}</p>
                             </div>
                           </div>
                           <span className="flex items-center gap-1 text-xs font-medium text-primary group-hover:gap-2 transition-all">

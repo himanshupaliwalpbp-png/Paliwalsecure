@@ -1329,7 +1329,7 @@ export default function MotorComparisonTool() {
                       </Badge>
                       <Badge className="bg-[#C98A1C]/10 text-[#C98A1C] border-[#C98A1C]/20 text-xs px-3 py-1">
                         <Clock className="w-3 h-3 mr-1" />
-                        {t('motor.updatedLabel')} {metaInfo?.generatedAt ? new Date(metaInfo.generatedAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : 'Mar 2026'}
+                        {t('motor.updatedLabel')} {metaInfo?.generatedAt ? new Date(metaInfo.generatedAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  month: 'short', year: 'numeric' }) : 'Mar 2026'}
                       </Badge>
                       <Badge className="bg-[#162D5A]/10 text-[#162D5A] dark:text-[#3A5090] border-[#162D5A]/20 text-xs px-3 py-1">
                         <Shield className="w-3 h-3 mr-1" />

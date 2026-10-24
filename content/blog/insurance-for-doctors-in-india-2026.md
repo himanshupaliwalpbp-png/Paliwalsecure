@@ -136,7 +136,7 @@ Doctors need professional indemnity (₹50L-5Cr cover), health insurance (high i
 ## Doctors Insurance FAQ
 
 ### Q: Doctors ke liye best insurance plan kaun sa hai?
-**A:** Depends on your specific needs. [Compare page](/compare) pe jao — 51+ insurers ke plans compare karein. Free consultation ke liye WhatsApp +91-92587-77312.
+**A:** Depends on your specific needs. [Compare page](/compare) pe jao — 51+ insurers ke plans compare karein. Free consultation ke liye WhatsApp +91-92578-77312.
 
 ### Q: Kitna term cover chahiye?
 **A:** Annual income × 15-20. E.g., ₹10L income → ₹1.5-2 Cr term cover. Premium: ₹15,000-25,000/yr (30-yr-old).
@@ -153,7 +153,7 @@ Doctors need professional indemnity (₹50L-5Cr cover), health insurance (high i
 ## Next Steps
 
 ### 1. Free Profession-Specific Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal personally guide karenge for Doctors.
+WhatsApp +91-92578-77312 — Himanshu Paliwal personally guide karenge for Doctors.
 
 ### 2. Use Calculators
 - [Health Premium Calculator](/calculators) — premium estimate

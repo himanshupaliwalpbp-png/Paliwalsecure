@@ -102,7 +102,7 @@ function formatTimestamp(iso: string): string {
     if (diffMin < 1) return 'Abhi abhi';
     if (diffMin < 60) return `${diffMin} min pehle`;
     if (diffHr < 24) return `${diffHr} ghante pehle`;
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    return d.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'short', year: 'numeric' });
   } catch {
     return iso;
   }

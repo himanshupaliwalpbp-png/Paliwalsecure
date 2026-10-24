@@ -45,7 +45,7 @@ export function GSTNote({ category, quoteAmount, className }: GSTNoteProps) {
   // For health/life: show savings vs old 18% rate
   if (exempt) {
     const exemptionDate = category === 'health' ? HEALTH_GST_EXEMPTION_DATE : LIFE_GST_EXEMPTION_DATE;
-    const formattedDate = new Date(exemptionDate).toLocaleDateString('en-IN', {
+    const formattedDate = new Date(exemptionDate).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
       day: '2-digit',
       month: 'long',
       year: 'numeric',

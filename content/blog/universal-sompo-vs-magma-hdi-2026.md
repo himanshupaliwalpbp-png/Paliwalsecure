@@ -111,7 +111,7 @@ Vinod from a semi-urban town in Maharashtra chose Magma HDI because: (1) Magma F
 
 **Choose Magma HDI if:** You want competitive pricing and are in a semi-urban/rural area. Magma HDI (backed by HDI Germany and Magma Fincorp) has strong rural distribution.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -124,7 +124,7 @@ Vinod from a semi-urban town in Maharashtra chose Magma HDI because: (1) Magma F
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Universal Sompo and Magma HDI based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Universal Sompo and Magma HDI based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

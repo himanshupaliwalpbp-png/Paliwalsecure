@@ -113,7 +113,7 @@ Rajesh compared HDFC ERGO Optima Secure (₹8,000/year) vs Bajaj Allianz Health 
 
 **Choose Bajaj Allianz if:** You want competitive pricing with flexible add-ons. Bajaj Allianz offers 18+ add-ons and often 10-15% lower premiums for similar coverage.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -126,7 +126,7 @@ Rajesh compared HDFC ERGO Optima Secure (₹8,000/year) vs Bajaj Allianz Health 
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both HDFC ERGO and Bajaj Allianz based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both HDFC ERGO and Bajaj Allianz based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

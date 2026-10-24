@@ -112,7 +112,7 @@ Vikram, 30, wants to invest ₹10,000/month for 20 years. Option A: ULIP with �
 
 **Choose Mutual Fund (SIP) if:** You want to build wealth over the long term (7+ years). Mutual funds (especially equity SIPs) have historically delivered 12-15% returns, compared to 4-6% from traditional insurance plans.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -125,7 +125,7 @@ Vikram, 30, wants to invest ₹10,000/month for 20 years. Option A: ULIP with �
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Insurance (Term + ULIP) and Mutual Fund (SIP) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Insurance (Term + ULIP) and Mutual Fund (SIP) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

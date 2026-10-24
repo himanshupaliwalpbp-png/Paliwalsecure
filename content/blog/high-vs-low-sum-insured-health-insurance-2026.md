@@ -146,7 +146,7 @@ Both High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-5L) qualify for Sec
 2. Evaluated based on family's priorities (coverage scope, premium, network)
 3. Chose the option that aligned with their needs
 
-**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92587-77312.
+**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92578-77312.
 
 ## Common Mistakes
 
@@ -193,7 +193,7 @@ Before choosing between High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-
 **A:** A high sum insured (₹50L-1Cr) protects against major medical events (cancer, cardiac surgery, ICU stays) which can cost ₹10-30L in metros. A low sum insured (₹3-5L) may suffice for minor hospitalization but is insufficient for critical illness. Recommendation: minimum ₹10L for individuals, ₹25L+ for
 
 ### Q: Which is better — High Sum Insured (₹50L-1Cr) or Low Sum Insured (₹3-5L)?
-**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92587-77312.
+**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92578-77312.
 
 ### Q: Can I switch from High Sum Insured (₹50L-1Cr) to Low Sum Insured (₹3-5L)?
 **A:** Yes, in most cases. IRDAI portability allows switching between plans while retaining waiting period credits. Apply at least 45 days before renewal. [Get portability help](/free-audit).
@@ -202,7 +202,7 @@ Before choosing between High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-
 **A:** Yes, both qualify if they are health insurance policies (not life insurance). 80D deduction: ₹25,000 (under 60) or ₹50,000 (senior citizen) for self, plus ₹25,000-50,000 for parents.
 
 ### Q: Where can I get personalized advice on choosing between High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-5L)?
-**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
+**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
 
 ## Related Guides
 
@@ -217,7 +217,7 @@ Before choosing between High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-5L) based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both High Sum Insured (₹50L-1Cr) and Low Sum Insured (₹3-5L) based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

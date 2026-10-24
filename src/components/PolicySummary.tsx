@@ -99,7 +99,7 @@ function formatDate(dateStr: string | null): string {
   if (!dateStr) return 'N/A';
   try {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-IN', {
+    return date.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
       day: '2-digit',
       month: 'short',
       year: 'numeric',

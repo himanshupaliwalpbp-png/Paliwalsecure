@@ -98,7 +98,7 @@ export function getFormattedLastUpdated(category: string): string {
   if (!entry) return 'Unknown';
 
   const date = new Date(entry.lastUpdated);
-  return date.toLocaleDateString('en-IN', {
+  return date.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
     day: '2-digit',
     month: 'long',
     year: 'numeric',

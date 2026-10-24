@@ -369,4 +369,4 @@ export async function postJSON<T = Record<string, unknown>>(
 
 /* ── WhatsApp CTA constant ─────────────────────────────────────────────────── */
 
-export const SAVER_WHATSAPP = "https://wa.me/919829070804?text=Hi%20Paliwal%20Secure%20AI%2C%20I%20want%20help%20maximising%20my%20business%20savings";
+export const SAVER_WHATSAPP = "https://wa.me/919257877312?text=Hi%20Paliwal%20Secure%20AI%2C%20I%20want%20help%20maximising%20my%20business%20savings";

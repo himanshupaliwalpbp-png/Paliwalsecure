@@ -153,7 +153,7 @@ A manufacturing client in Surat had transformer explosion damaging 3 CNC machine
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating your specific needs based on this guidance. Don't wait for a loss — buy insurance before you need it. WhatsApp +91-92587-77312 for personalized advice.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating your specific needs based on this guidance. Don't wait for a loss — buy insurance before you need it. WhatsApp +91-92578-77312 for personalized advice.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

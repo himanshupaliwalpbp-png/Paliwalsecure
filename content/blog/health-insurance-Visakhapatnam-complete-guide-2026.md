@@ -136,7 +136,7 @@ Before buying insurance:
 ## FAQ
 
 ### Q: What is the best health insurance plan in Visakhapatnam?
-**A:** For Vizag residents: HDFC ERGO Optima Secure (98.85% CSR, cashless at Apollo Vizag), Care Health (100% CSR, 21,700+ hospitals), Star Health (specialized plans). Compare at /compare/health or WhatsApp +91-92587-77312.
+**A:** For Vizag residents: HDFC ERGO Optima Secure (98.85% CSR, cashless at Apollo Vizag), Care Health (100% CSR, 21,700+ hospitals), Star Health (specialized plans). Compare at /compare/health or WhatsApp +91-92578-77312.
 
 ### Q: How much does health insurance cost in Visakhapatnam?
 **A:** ₹5,900/year (₹5L, 30yr individual). ₹14,000/year (₹15L family floater, 4 members). ₹20,000+/year (senior citizen ₹10L). Premium varies by insurer, add-ons, health condition.
@@ -162,7 +162,7 @@ Before buying insurance:
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating your specific needs based on the guidance in this article. Don't wait for a loss to realize you need insurance — buy it before you need it. WhatsApp +91-92587-77312 for personalized advice.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating your specific needs based on the guidance in this article. Don't wait for a loss to realize you need insurance — buy it before you need it. WhatsApp +91-92578-77312 for personalized advice.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

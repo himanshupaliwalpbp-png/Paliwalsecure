@@ -332,7 +332,7 @@ export default function BlogPostClient({
                   {t('blog.irdaiAdvisorPosp')}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {new Date(date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', {
+                  {new Date(date).toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-IN', {timeZone: 'Asia/Kolkata', 
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',

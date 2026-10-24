@@ -60,7 +60,7 @@ function truncate(str: string, max: number): string {
 function formatDate(iso: string): string {
   try {
     const d = new Date(iso);
-    return d.toLocaleDateString('en-IN', {
+    return d.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
       day: 'numeric',
       month: 'short',
       year: 'numeric',

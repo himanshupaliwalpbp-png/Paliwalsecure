@@ -566,7 +566,7 @@ export default function LeadsManagementPage() {
                       <TableCell>
                         {lead.followUpDate ? (
                           <span className="text-sm text-slate-600">
-                            {new Date(lead.followUpDate).toLocaleDateString('en-IN', {
+                            {new Date(lead.followUpDate).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                               day: 'numeric',
                               month: 'short',
                             })}
@@ -576,7 +576,7 @@ export default function LeadsManagementPage() {
                         )}
                       </TableCell>
                       <TableCell className="text-xs text-slate-500">
-                        {new Date(lead.createdAt).toLocaleDateString('en-IN', {
+                        {new Date(lead.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric',
@@ -786,7 +786,7 @@ export default function LeadsManagementPage() {
                       <span>{note.author?.name || 'Unknown'}</span>
                       <span>·</span>
                       <span>
-                        {new Date(note.createdAt).toLocaleDateString('en-IN', {
+                        {new Date(note.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric',

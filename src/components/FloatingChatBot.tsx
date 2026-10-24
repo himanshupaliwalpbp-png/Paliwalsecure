@@ -184,7 +184,7 @@ function generateId(): string {
 }
 
 function formatTimestamp(ts: number): string {
-  return new Date(ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+  return new Date(ts).toLocaleTimeString('en-IN', {timeZone: 'Asia/Kolkata',  hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
 // ---------------------------------------------------------------------------

@@ -122,7 +122,7 @@ export default async function ComparePage({ params }: { params: Promise<{ slug: 
 
   const winner = getWinner(i1, i2);
   const headToHead = getHeadToHead(i1, i2);
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
 
   // Count wins
   const i1Wins = headToHead.filter((h) => h.winner === n1).length;

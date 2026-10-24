@@ -112,7 +112,7 @@ First time buying insurance? Start with health (₹10L) + term (₹1Cr). Total �
 ## Next Steps
 
 ### 1. Free Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal personally guide karenge.
+WhatsApp +91-92578-77312 — Himanshu Paliwal personally guide karenge.
 
 ### 2. Policy Review
 [Free Audit page](/free-audit) — existing policy review + better alternatives.

@@ -92,7 +92,7 @@ Hyundai i20 insurance ₹5,500-9,500/yr. IDV ₹5-9L. Premium hatchback. ICICI L
 ## FAQ
 
 ### Q: Best plan kaun sa hai?
-**A**: Depends on your needs. [Compare page](/compare) se compare karein. Free consultation: WhatsApp +91-92587-77312.
+**A**: Depends on your needs. [Compare page](/compare) se compare karein. Free consultation: WhatsApp +91-92578-77312.
 
 ### Q: Premium kitna hoga?
 **A**: [Calculator](/calculators) se exact estimate lein.
@@ -109,7 +109,7 @@ Hyundai i20 insurance ₹5,500-9,500/yr. IDV ₹5-9L. Premium hatchback. ICICI L
 ## Next Steps
 
 ### 1. Free Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal (IRDAI POSP IP429834).
+WhatsApp +91-92578-77312 — Himanshu Paliwal (IRDAI POSP IP429834).
 
 ### 2. Compare Plans
 [Compare page](/compare) — 51+ insurers.

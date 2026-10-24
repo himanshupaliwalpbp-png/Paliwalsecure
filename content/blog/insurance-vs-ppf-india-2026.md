@@ -113,7 +113,7 @@ Sanjay, 35, wants to save for retirement (25 years away). Option A: Endowment in
 
 **Choose Public Provident Fund (PPF) if:** You want tax-free, government-backed, long-term savings. PPF offers 7.1% interest (tax-free), 15-year tenure (extendable in 5-year blocks), and EEE status (Exempt-Exempt-Exempt).
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -126,7 +126,7 @@ Sanjay, 35, wants to save for retirement (25 years away). Option A: Endowment in
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Insurance (Endowment) and Public Provident Fund (PPF) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Insurance (Endowment) and Public Provident Fund (PPF) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

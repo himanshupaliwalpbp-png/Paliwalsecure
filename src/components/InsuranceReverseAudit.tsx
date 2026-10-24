@@ -568,7 +568,7 @@ export default function InsuranceReverseAudit() {
     doc.text('Insurance Reverse Audit Report', margin, 15);
     doc.setFontSize(9); doc.setFont('helvetica', 'normal');
     doc.text('Paliwal Secure | IRDAI Certified POSP | POSP Code: IP429834 | paliwalsecure.in', margin, 23);
-    doc.text(`Generated: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}`, margin, 29);
+    doc.text(`Generated: ${new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' })}`, margin, 29);
     y = 42;
     doc.setFillColor(240, 253, 244); doc.roundedRect(margin, y, contentW, 22, 3, 3, 'F');
     addText(`Insurance Health Score: ${report.healthScore}/100 — ${getScoreLabel(report.healthScore)}`, 14, 'bold', getScoreColor(report.healthScore).startsWith('#10') ? [16, 185, 129] : getScoreColor(report.healthScore).startsWith('#EF') ? [239, 68, 68] : [30, 64, 175]);

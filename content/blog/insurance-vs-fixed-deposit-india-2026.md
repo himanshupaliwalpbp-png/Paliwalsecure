@@ -112,7 +112,7 @@ Meena, 40, wants to save ₹5L for her daughter's wedding in 15 years. Option A:
 
 **Choose Fixed Deposit (FD) if:** You want guaranteed returns with capital protection. FDs offer 6.5-7.5% (senior citizens get 0.5% extra), flexible tenures (7 days to 10 years), and easy liquidity (break anytime with small penalty).
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -125,7 +125,7 @@ Meena, 40, wants to save ₹5L for her daughter's wedding in 15 years. Option A:
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Insurance (Endowment) and Fixed Deposit (FD) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Insurance (Endowment) and Fixed Deposit (FD) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

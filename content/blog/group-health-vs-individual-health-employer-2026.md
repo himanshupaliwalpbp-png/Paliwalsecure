@@ -148,7 +148,7 @@ Both Group Health (Employer) and Individual Health Insurance qualify for Section
 2. Evaluated based on family's priorities (coverage scope, premium, network)
 3. Chose the option that aligned with their needs
 
-**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92587-77312.
+**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92578-77312.
 
 ## Common Mistakes
 
@@ -195,7 +195,7 @@ Before choosing between Group Health (Employer) and Individual Health Insurance:
 **A:** Group health insurance (provided by employers) covers you while employed but ends when you leave the job. Individual health insurance is yours for life — you control coverage, sum insured, and insurer. Relying only on employer cover is risky: job loss = no coverage, especially dangerous if you devel
 
 ### Q: Which is better — Group Health (Employer) or Individual Health Insurance?
-**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92587-77312.
+**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92578-77312.
 
 ### Q: Can I switch from Group Health (Employer) to Individual Health Insurance?
 **A:** Yes, in most cases. IRDAI portability allows switching between plans while retaining waiting period credits. Apply at least 45 days before renewal. [Get portability help](/free-audit).
@@ -204,7 +204,7 @@ Before choosing between Group Health (Employer) and Individual Health Insurance:
 **A:** Yes, both qualify if they are health insurance policies (not life insurance). 80D deduction: ₹25,000 (under 60) or ₹50,000 (senior citizen) for self, plus ₹25,000-50,000 for parents.
 
 ### Q: Where can I get personalized advice on choosing between Group Health (Employer) and Individual Health Insurance?
-**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
+**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
 
 ## Related Guides
 
@@ -219,7 +219,7 @@ Before choosing between Group Health (Employer) and Individual Health Insurance:
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Group Health (Employer) and Individual Health Insurance based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Group Health (Employer) and Individual Health Insurance based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

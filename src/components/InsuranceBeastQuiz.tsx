@@ -330,7 +330,7 @@ function generateQuizCode(): string {
   for (let i = 0; i < 6; i++) {
     code += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  const ddmm = new Date().toLocaleDateString('en-IN').split('/').slice(0, 2).join('');
+  const ddmm = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' }).split('/').slice(0, 2).join('');
   return `${code}-${ddmm}`;
 }
 

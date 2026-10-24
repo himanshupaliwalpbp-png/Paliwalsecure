@@ -42,7 +42,7 @@ const personJsonLd = {
     addressRegion: 'Rajasthan',
     addressCountry: 'IN',
   },
-  telephone: '+91-92587-77312',
+  telephone: '+91-92578-77312',
   email: 'himanshupaliwalpbp@gmail.com',
   url: 'https://paliwalsecure.in/about/himanshu-paliwal',
   image: 'https://paliwalsecure.in/images/himanshu-photo.jpg',
@@ -255,7 +255,7 @@ export default function HimanshuPaliwalPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#2D6A4F] hover:bg-[#235541] text-white text-sm font-semibold transition-colors"
             >
-              WhatsApp: +91-92587-77312
+              WhatsApp: +91-92578-77312
             </a>
             <Link
               href="/insuregpt"

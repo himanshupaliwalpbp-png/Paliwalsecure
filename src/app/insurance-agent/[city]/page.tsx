@@ -105,7 +105,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
   const bikePremium = Math.round(1200 * tierMultiplier);
   const termPremium = Math.round(15000 * tierMultiplier);
   const hospitalCount = cityData.hospitalCount ?? (cityData.tier === 'metro' ? 500 : cityData.tier === 'tier2' ? 150 : 50);
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
 
   // City-specific FAQ schema (JSON-LD)
   const faqJsonLd = {
@@ -117,7 +117,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
         name: `Who is the best insurance agent in ${cityData.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Himanshu Paliwal — IRDAI Registered POSP (Code: IP429834) — is one of the top insurance advisors in ${cityData.name}, ${cityData.state}. With 500+ families served and 4.9★ rating, he offers free consultation across health, motor, life, travel, and home insurance from 51+ IRDAI-registered insurers. Contact: +91-92587-77312.`,
+          text: `Himanshu Paliwal — IRDAI Registered POSP (Code: IP429834) — is one of the top insurance advisors in ${cityData.name}, ${cityData.state}. With 500+ families served and 4.9★ rating, he offers free consultation across health, motor, life, travel, and home insurance from 51+ IRDAI-registered insurers. Contact: +91-92578-77312.`,
         },
       },
       {
@@ -149,7 +149,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
         name: `Can I get insurance consultation at home in ${cityData.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Yes! Himanshu Paliwal offers free home/office consultation in ${cityData.name} and nearby areas. WhatsApp +91-92587-77312 to schedule. Alternatively, InsureGPT AI chatbot (24/7 on paliwalsecure.in) provides instant Hinglish/Hindi/English guidance on insurance queries.`,
+          text: `Yes! Himanshu Paliwal offers free home/office consultation in ${cityData.name} and nearby areas. WhatsApp +91-92578-77312 to schedule. Alternatively, InsureGPT AI chatbot (24/7 on paliwalsecure.in) provides instant Hinglish/Hindi/English guidance on insurance queries.`,
         },
       },
     ],
@@ -162,7 +162,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
     name: 'Paliwal Secure AI — Insurance Advisor',
     description: `IRDAI Registered POSP insurance advisor in ${cityData.name}, ${cityData.state}. Health, motor, life, travel, home insurance from 51+ insurers.`,
     url: `https://paliwalsecure.in/insurance-agent/${cityData.slug}`,
-    telephone: '+91-92587-77312',
+    telephone: '+91-92578-77312',
     email: 'himanshupaliwalpbp@gmail.com',
     areaServed: {
       '@type': 'City',
@@ -238,7 +238,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
               <a href="https://wa.me/919257877312">
                 <Button variant="outline" className="border-[#B8482C] text-[#B8482C] hover:bg-[#FBE8E1]">
                   <Phone className="w-4 h-4 mr-2" />
-                  Call 92587-77312
+                  Call 92578-77312
                 </Button>
               </a>
               <Link href="/insuregpt">
@@ -541,7 +541,7 @@ export default async function CityInsuranceAgentPage({ params }: { params: Promi
               How to Get Insurance in {cityData.name}
             </h3>
             <ol className="space-y-2 list-decimal list-inside">
-              <li><strong>Free Consultation:</strong> WhatsApp +91-92587-77312 or call to schedule a meeting in {cityData.name}.</li>
+              <li><strong>Free Consultation:</strong> WhatsApp +91-92578-77312 or call to schedule a meeting in {cityData.name}.</li>
               <li><strong>Compare Plans:</strong> Use our <Link href="/compare" className="text-[#B8482C] dark:text-[#E8C872] underline">comparison tool</Link> to see 51+ insurers side-by-side.</li>
               <li><strong>Use Calculators:</strong> Get accurate premium estimates on our <Link href="/calculators" className="text-[#B8482C] dark:text-[#E8C872] underline">calculators page</Link>.</li>
               <li><strong>Ask InsureGPT:</strong> 24/7 AI chatbot for Hinglish/Hindi/English insurance queries on <Link href="/insuregpt" className="text-[#B8482C] dark:text-[#E8C872] underline">InsureGPT page</Link>.</li>

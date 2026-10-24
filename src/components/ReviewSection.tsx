@@ -130,7 +130,7 @@ function ReviewCard({
   const displayBody = isLong && !expanded ? review.body.slice(0, 200) + '...' : review.body;
   const hasVoted = votedReviews.has(review.id);
 
-  const dateStr = new Date(review.createdAt).toLocaleDateString('en-IN', {
+  const dateStr = new Date(review.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
     year: 'numeric',
     month: 'short',
     day: 'numeric',

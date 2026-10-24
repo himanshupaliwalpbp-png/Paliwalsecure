@@ -121,7 +121,7 @@ Online payment — policy documents emailed within 24 hours.
 ## Next Steps
 
 ### 1. Free Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal personally guide karenge.
+WhatsApp +91-92578-77312 — Himanshu Paliwal personally guide karenge.
 
 ### 2. Use Calculator
 [Calculator page](/calculators) — exact premium for age 30.

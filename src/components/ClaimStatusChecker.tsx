@@ -67,12 +67,12 @@ function generateMockClaim(policyNumber: string): ClaimResult {
     status,
     policyNumber: policyNumber.toUpperCase().trim(),
     claimAmount,
-    dateFiled: filedDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+    dateFiled: filedDate.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'short', year: 'numeric' }),
     estimatedResolution: status === 'approved'
       ? 'Completed'
       : status === 'rejected'
         ? 'N/A'
-        : resolutionDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+        : resolutionDate.toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'short', year: 'numeric' }),
     claimId,
     insuranceType,
     progressSteps,

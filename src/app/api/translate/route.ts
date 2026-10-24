@@ -94,37 +94,52 @@ export async function POST(request: NextRequest) {
       if (currentChunk.trim()) chunks.push(currentChunk.trim());
     }
 
-    // ── System prompts per language ─────────────────────────────────────────
+    // ── System prompts per language ─────────────────────────────────────
     const systemPrompts: Record<string, string> = {
-      hi: `You are translating an insurance text from English to SIMPLE Hindi (aasan Hindi).
+      hi: `You are an expert Hindi translator for insurance content. Translate English to SHUDDH, SIMPLE, NATURAL Hindi (आसान हिंदी).
 
-CRITICAL RULES:
-1. Write in SIMPLE CONVERSATIONAL Hindi - like explaining to a friend at a chai shop
-2. Replace ALL English technical jargon with simple Hindi equivalents:
-   - "Comprehensive" → "पूरा बीमा" (NOT "कॉम्प्रिहेंसिव")
-   - "Depreciation" → "कीमत कम होना" (NOT "डेप्रिसिएशन")
-   - "Zero Depreciation" → "जीरो डेप / बिना कटोती" (NOT "जीरो डेप्रिसिएशन")
-   - "Deductible" → "खुद का हिस्सा" (NOT "डिडक्टिबल")
-   - "Reimbursement" → "पहले भरो, बाद में रिफंड" (NOT "रीम्बर्समेंट")
-   - "Co-payment" → "हिस्सेदारी" (NOT "को-पेमेंट")
-   - "Coverage" → "कवर / सुरक्षा" (NOT "कवरेज")
-   - "Critical Illness" → "गंभीर बीमारी (CI)" (NOT "क्रिटिकल इलनेस")
-   - "Accidental Death" → "एक्सीडेंट से देहांत" (NOT "एक्सीडेंटल डेथ")
-   - "Waiver of Premium" → "प्रीमियम माफ" (NOT "वेवर ऑफ प्रीमियम")
-   - "Pre-existing Disease" → "पुरानी बीमारी (PED)" (NOT "प्री-एग्जिस्टिंग डिजीज")
-   - "Maternity" → "प्रेगनेंसी / मैटरनिटी" (NOT just "मैटरनिटी")
-   - "Lump Sum" → "एकमुश्त" (NOT "लम्प सम")
-   - "Calculation" → "हिसाब" (NOT "कैलकुलेशन")
-   - "Floater" → "परिवार वाला प्लान" (NOT "फ्लोटर")
-3. Keep these English words as-is: Insurance, Claim, Policy, Premium, EMI, GST, IRDAI, POSP, TP, NCB, IDV, EV
-4. Numbers and ₹ amounts stay as-is
-5. Keep ALL markdown formatting (##, **, •, |, tables)
-6. Use short sentences. Break long sentences into 2-3 simple ones
-7. DO NOT use Sanskrit-heavy Hindi - use everyday bol-chaal ki Hindi
-8. Example: "Comprehensive insurance covers your car + third party" → "पूरा बीमा आपकी कार और दूसरे के नुकसान दोनों कवर करता है"
-9. Return ONLY the translated Hindi text, nothing else.`,
+QUALITY RULES (STRICT):
+1. NEVER write English words in Devanagari script. "हेल्थ इन्श्योरेंस", "प्लान", "हॉस्पिटल", "कवर" — ये सब गलत हैं।
+   "Health Insurance" → "स्वास्थ्य बीमा"
+   "Hospital" → "अस्पताल"
+   "Plan" → "पॉलिसी" या "योजना"
+   "Cover/Coverage" → "कवरेज" नहीं — "सुरक्षा" या "कवर"
+   "Premium" → "प्रीमियम" (यह ठीक है)
+   "Claim" → "क्लेम" (यह ठीक है)
+   "Policy" → "पॉलिसी" (यह ठीक है)
+2. पहली बार आने वाले technical शब्दों के आगे bracket में English दें:
+   "स्वास्थ्य बीमा (Health Insurance)", "बिना कटोती (Zero Dep)", "पुरानी बीमारी (PED)"
+   दूसरी बार से सिर्फ हिंदी शब्द इस्तेमाल करें।
+3. सरल बोल-चाल की हिंदी — जैसे दुकान पर दोस्त को समझाओ। छोटे वाक्य।
+4. Technical शब्दों के आसान हिंदी विकल्प:
+   - "Comprehensive" → "पूरा बीमा" / "कंप्रिहेंसिव (पूरा)"
+   - "Depreciation" → "कीमत कम होना" / "कटोती"
+   - "Zero Depreciation" → "बिना कटोती (Zero Dep)"
+   - "Deductible" → "खुद का हिस्सा"
+   - "Reimbursement" → "पहले भरो, बाद में रिफंड"
+   - "Co-payment" → "हिस्सेदारी"
+   - "Critical Illness" → "गंभीर बीमारी"
+   - "Accidental Death" → "दुर्घटना में मृत्यु"
+   - "Waiver of Premium" → "प्रीमियम माफ"
+   - "Pre-existing Disease" → "पुरानी बीमारी"
+   - "Maternity" → "प्रेगनेंसी / मातृत्व"
+   - "Lump Sum" → "एकमुश्त"
+   - "Network Hospital" → "नेटवर्क अस्पताल"
+   - "Cashless" → "कैशलेस (बिना पैसे दिए इलाज)"
+   - "Sum Insured" → "बीमा राशि"
+   - "Floater" → "परिवार फ्लोटर प्लान"
+   - "Add-on/Rider" → "ऐड-ऑन/राइडर"
+   - "No Claim Bonus" → "नो क्लेम बोनस (NCB)"
+   - "Third Party" → "थर्ड पार्टी (दूसरे का नुकसान)"
+   - "Waiting Period" → "इंतज़ार अवधि"
+5. ये शब्द English में ही रखें: Insurance (बीमा के साथ), Claim, Policy, Premium, EMI, GST, IRDAI, POSP, TP, NCB, IDV, EV, TPA
+6. Numbers और ₹ amounts जस के तस।
+7. सारा markdown formatting (##, **, •, |, tables, links) बरकरार रखें। Links के URL मत बदलो — सिर्फ link text का अनुवाद करो।
+8. लंबे वाक्यों को 2-3 छोटे वाक्यों में तोड़ें।
+9. देवनागरी मात्राएँ सही लगाओ — शुद्ध वर्तनी (spellings) का ध्यान रखो।
+10. Output: सिर्फ अनुवादित हिंदी text, कोई explanation नहीं, कोई code block / markdown fence नहीं।`,
 
-      hing: `You are translating an insurance text from English to HINGLISH (Hindi+English mix, how Indians actually speak on WhatsApp).
+      hing: `You are translating insurance text from English to HINGLISH (Hindi+English mix, how Indians actually speak on WhatsApp).
 
 CRITICAL RULES:
 1. Write EXACTLY how an Indian friend would explain insurance to another friend on WhatsApp
@@ -145,9 +160,9 @@ CRITICAL RULES:
 4. Keep numbers and ₹ as-is
 5. Use WhatsApp-style language: "Bhai", "Yaar", "Dekho", "Samjho", "Matlab", etc.
 6. Short, punchy sentences - no long paragraphs
-7. Keep ALL markdown formatting (##, **, •, |, tables)
+7. Keep ALL markdown formatting (##, **, •, |, tables) and link URLs unchanged
 8. Add emoji where appropriate (🚗, 💰, ⚠️, ✅, etc.)
-9. Return ONLY the translated Hinglish text, nothing else.`,
+9. Return ONLY the translated Hinglish text, nothing else — no code fences.`,
     };
 
     const systemPrompt = systemPrompts[language] || systemPrompts.hi;
@@ -157,6 +172,13 @@ CRITICAL RULES:
 
     // Translate each chunk and combine results
     const translatedChunks: string[] = [];
+
+    // Models sometimes wrap output in ``` fences — strip them
+    const stripFences = (s: string): string => {
+      const trimmed = s.trim();
+      const fenceMatch = trimmed.match(/^```[a-zA-Z]*\n([\s\S]*?)\n?```$/);
+      return fenceMatch ? fenceMatch[1].trim() : trimmed;
+    };
 
     for (const chunk of chunks) {
       try {
@@ -175,7 +197,10 @@ CRITICAL RULES:
         const completion = await Promise.race([completionPromise, timeoutPromise]);
 
         if (completion && completion.choices?.[0]?.message?.content) {
-          translatedChunks.push(completion.choices[0].message.content);
+          const raw = completion.choices[0].message.content;
+          // Guard: if the model returned English unchanged (bad translation),
+          // still pass it through — the cache on client will keep it consistent.
+          translatedChunks.push(stripFences(raw));
         } else {
           // If a chunk times out, use original chunk as fallback
           translatedChunks.push(chunk);

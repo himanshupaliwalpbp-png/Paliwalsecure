@@ -193,7 +193,7 @@ Event insurance is the most under-bought insurance in India. Organizers spend �
 **A:** Public liability: ₹5,000-20,000 (depends on attendee count). Event cancellation: 0.5-1% of total event budget. Equipment: 1-2% of equipment value. For a ₹10L budget event with 1,000 attendees: total insurance ₹15,000-25,000. This is 1.5-2.5% of the budget — less than catering.
 
 ### Q: Can I buy event insurance online?
-**A:** Yes. Several insurers (TATA AIG, ICICI Lombard, Bajaj Allianz) offer online event insurance. For large events (₹1Cr+ budget), use a broker or POSP for customized coverage. WhatsApp Paliwal Secure (+91-92587-77312) for event insurance quotes across multiple insurers.
+**A:** Yes. Several insurers (TATA AIG, ICICI Lombard, Bajaj Allianz) offer online event insurance. For large events (₹1Cr+ budget), use a broker or POSP for customized coverage. WhatsApp Paliwal Secure (+91-92578-77312) for event insurance quotes across multiple insurers.
 
 
 ## Related Guides
@@ -208,7 +208,7 @@ Event insurance is the most under-bought insurance in India. Organizers spend �
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both options based on your specific needs. Don't choose based on premium alone — compare coverage, claim record, and suitability. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both options based on your specific needs. Don't choose based on premium alone — compare coverage, claim record, and suitability. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

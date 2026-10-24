@@ -216,7 +216,7 @@ The biggest mistake I see: buying insurance "for tax savings" under the old regi
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both options based on your specific needs. Don't choose based on premium alone — compare coverage, claim record, and suitability. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both options based on your specific needs. Don't choose based on premium alone — compare coverage, claim record, and suitability. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

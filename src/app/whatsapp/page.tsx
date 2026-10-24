@@ -7,7 +7,7 @@ import { CheckCircle2, MessageCircle, Clock, ShieldCheck, Sparkles, Users, Trend
 export const metadata: Metadata = {
   title: 'WhatsApp Insurance Advisor — InsureGPT on WhatsApp | Paliwal Secure AI',
   description:
-    'Chat with IRDAI Registered POSP Himanshu Paliwal on WhatsApp. Get instant insurance advice, compare 51+ insurers, file claims, tax savings help. Hinglish/Hindi/English. Free consultation. +91-92587-77312.',
+    'Chat with IRDAI Registered POSP Himanshu Paliwal on WhatsApp. Get instant insurance advice, compare 51+ insurers, file claims, tax savings help. Hinglish/Hindi/English. Free consultation. +91-92578-77312.',
   keywords: [
     'whatsapp insurance advisor',
     'whatsapp insurance bot india',

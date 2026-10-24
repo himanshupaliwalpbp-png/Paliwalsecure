@@ -388,7 +388,7 @@ export async function POST(request: NextRequest) {
         console.error('InsureGPT stream error:', error);
         try {
           sseSend(controller, {
-            content: `\n\n⚠️ Sorry, something went wrong. Please try again or WhatsApp us at +91-92587-77312.`,
+            content: `\n\n⚠️ Sorry, something went wrong. Please try again or WhatsApp us at +91-92578-77312.`,
           });
           sseSend(controller, { done: true });
           controller.close();

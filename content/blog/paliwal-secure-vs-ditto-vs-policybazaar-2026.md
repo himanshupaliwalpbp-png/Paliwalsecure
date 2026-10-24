@@ -113,7 +113,7 @@ The Sharma family from Kota had 3 insurance policies (health, term, motor) from 
 
 **Choose Ditto / Policybazaar if:** You want to self-serve with comparison tools (Policybazaar) or are willing to pay a fee for advisory (Ditto). Both are reputable but lack the personal, long-term relationship that Paliwal Secure provides.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -126,7 +126,7 @@ The Sharma family from Kota had 3 insurance policies (health, term, motor) from 
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Paliwal Secure and Ditto / Policybazaar based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Paliwal Secure and Ditto / Policybazaar based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

@@ -855,7 +855,7 @@ const InsureGPTChatInterface: React.FC<InsureGPTChatInterfaceProps> = ({
                             />
                             {!isCurrentlyStreaming && (
                               <p className="text-[9px] mt-1.5 dark:text-slate-500 text-slate-400">
-                                {msg.timestamp.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}
+                                {msg.timestamp.toLocaleTimeString('en-IN', {timeZone: 'Asia/Kolkata',  hour: '2-digit', minute: '2-digit', hour12: true })}
                               </p>
                             )}
                           </>

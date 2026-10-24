@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, ScanLine, Phone, Sparkles, ChevronDown } from 'lucide-react';
+import { MessageCircle, X, ScanLine, Phone, Sparkles, ChevronDown, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getBusinessHoursStatus, type BusinessHoursStatus } from '@/lib/ist';
 
 // ============================================================================
 // WhatsApp Helper — builds deep link URLs with pre-filled messages
@@ -111,6 +112,15 @@ interface WhatsAppFABProps {
 export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  // ── LIVE IST clock (owner directive: Indian time everywhere) ──────────
+  const [ist, setIst] = useState<BusinessHoursStatus | null>(null);
+
+  useEffect(() => {
+    const tick = () => setIst(getBusinessHoursStatus());
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
@@ -169,9 +179,16 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
                   <MessageCircle className="w-5 h-5" fill="white" />
                   <div>
                     <p className="font-bold text-sm">Chat with Himanshu</p>
-                    <p className="text-xs opacity-90 flex items-center gap-1">
+                    <p className="text-xs opacity-90 flex items-center gap-1 flex-wrap">
                       <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
-                      Usually replies in 5 min
+                      {ist ? (
+                        <span className="flex items-center gap-1.5 tabular-nums">
+                          <Clock className="w-3 h-3" />
+                          {ist.istTime} IST · {ist.isOpen ? 'Open now' : 'Opens 9:30 am'}
+                        </span>
+                      ) : (
+                        <span>Usually replies in 5 min</span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -224,7 +241,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
                 className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg border border-[#B8482C]/30 text-[#B8482C] dark:text-[#F0A88B] text-sm font-semibold hover:bg-[#FBE8E1] dark:hover:bg-[rgba(184,72,44,0.10)]"
               >
                 <Phone className="w-4 h-4" />
-                Call: +91-92587-77312
+                Call: +91-92578-77312
               </a>
 
               {/* InsureGPT alternative */}

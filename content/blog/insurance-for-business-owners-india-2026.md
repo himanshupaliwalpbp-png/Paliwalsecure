@@ -138,7 +138,7 @@ Business owners need shop insurance, key person insurance, health (no employer c
 ## Business Owners Insurance FAQ
 
 ### Q: Business Owners ke liye best insurance plan kaun sa hai?
-**A:** Depends on your specific needs. [Compare page](/compare) pe jao — 51+ insurers ke plans compare karein. Free consultation ke liye WhatsApp +91-92587-77312.
+**A:** Depends on your specific needs. [Compare page](/compare) pe jao — 51+ insurers ke plans compare karein. Free consultation ke liye WhatsApp +91-92578-77312.
 
 ### Q: Kitna term cover chahiye?
 **A:** Annual income × 15-20. E.g., ₹10L income → ₹1.5-2 Cr term cover. Premium: ₹15,000-25,000/yr (30-yr-old).
@@ -155,7 +155,7 @@ Business owners need shop insurance, key person insurance, health (no employer c
 ## Next Steps
 
 ### 1. Free Profession-Specific Consultation
-WhatsApp +91-92587-77312 — Himanshu Paliwal personally guide karenge for Business Owners.
+WhatsApp +91-92578-77312 — Himanshu Paliwal personally guide karenge for Business Owners.
 
 ### 2. Use Calculators
 - [Health Premium Calculator](/calculators) — premium estimate

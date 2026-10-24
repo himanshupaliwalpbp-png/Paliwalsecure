@@ -675,7 +675,7 @@ export default function ContentModerationPage() {
                           </TableCell>
                           <TableCell className="text-xs text-slate-500">
                             {article.publishedAt
-                              ? new Date(article.publishedAt).toLocaleDateString('en-IN', {
+                              ? new Date(article.publishedAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                                   day: 'numeric',
                                   month: 'short',
                                   year: 'numeric',

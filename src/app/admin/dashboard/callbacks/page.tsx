@@ -364,7 +364,7 @@ export default function CallbacksManagementPage() {
                         )}
                       </TableCell>
                       <TableCell className="text-xs text-slate-500">
-                        {new Date(cb.createdAt).toLocaleDateString('en-IN', {
+                        {new Date(cb.createdAt).toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata', 
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric',

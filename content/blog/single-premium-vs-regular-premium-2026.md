@@ -112,7 +112,7 @@ Amit, a 35-year-old software engineer, wanted a 20-year term insurance of ₹1 C
 
 **Choose Regular Premium (Annual/Monthly) if:** You want to keep your money invested elsewhere (mutual funds, FDs) and pay insurance premium yearly. Regular premium also gives you the flexibility to switch insurers or adjust coverage as your needs change.
 
-**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
+**Still confused?** Get a [free consultation](/free-audit) from Himanshu Paliwal (IRDAI POSP IP429834). WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers.
 
 ## Related Articles
 
@@ -125,7 +125,7 @@ Amit, a 35-year-old software engineer, wanted a 20-year term insurance of ₹1 C
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Single Premium (One-time) and Regular Premium (Annual/Monthly) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Single Premium (One-time) and Regular Premium (Annual/Monthly) based on your specific needs. Don't choose based on brand alone — compare CSR, network coverage, premium, and add-ons. Use our [comparison tool](/compare) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

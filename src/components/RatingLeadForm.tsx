@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { Phone, Mail, MapPin, User, Shield, CheckCircle2, Loader2, AlertCircle, ArrowRight, Sparkles } from 'lucide-react';
+import { useState, useCallback, useEffect } from 'react';
+import { Phone, Mail, MapPin, User, Shield, CheckCircle2, Loader2, AlertCircle, ArrowRight, Sparkles, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { getBusinessHoursStatus, type BusinessHoursStatus } from '@/lib/ist';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Professional Lead Form — Rebuilt from scratch
 // No framer-motion, no 3D transforms, no scroll jump
-// Features: City field, phone validation, thanks link, encryption
+// Features: City field, phone validation, thanks link, encryption, LIVE IST clock
 // ═══════════════════════════════════════════════════════════════════════════
 
 const INSURANCE_TYPES = [
@@ -61,6 +62,15 @@ export default function RatingLeadForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [showCitySuggestions, setShowCitySuggestions] = useState(false);
+  // ── LIVE IST CLOCK (Indian Standard Time) — owner directive ──────────
+  const [ist, setIst] = useState<BusinessHoursStatus | null>(null);
+
+  useEffect(() => {
+    const tick = () => setIst(getBusinessHoursStatus());
+    tick(); // set immediately (client)
+    const id = setInterval(tick, 30_000); // refresh every 30s
+    return () => clearInterval(id);
+  }, []);
 
   const validate = useCallback((): boolean => {
     const newErrors: FormErrors = {};
@@ -212,6 +222,32 @@ export default function RatingLeadForm() {
           <p className="text-base text-[#4A4F57] dark:text-[#A8B0C2]">
             Our IRDAI-certified advisor will call you within 24 hours. No spam, no charges.
           </p>
+
+          {/* ── LIVE IST CLOCK — Indian time (owner directive) ─────────────── */}
+          {ist && (
+            <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#161A22] border border-[rgba(45,106,79,0.20)] dark:border-[rgba(232,200,114,0.18)] shadow-sm">
+              <span className="flex items-center gap-1.5 text-sm font-semibold text-[#0E1116] dark:text-[#FAF7F2]">
+                <Clock className="w-4 h-4 text-[#2D6A4F]" />
+                <span className="tabular-nums">{ist.istTime}</span>
+                <span className="text-[10px] font-bold text-[#2D6A4F] bg-[#E6F4EF] dark:bg-[rgba(45,106,79,0.25)] px-1.5 py-0.5 rounded-md tracking-wide">IST</span>
+              </span>
+              <span className="w-px h-4 bg-[rgba(14,17,22,0.10)] dark:bg-[rgba(250,247,242,0.15)]" aria-hidden="true" />
+              <span className="text-xs text-[#4A4F57] dark:text-[#A8B0C2]">{ist.istDate}</span>
+              <span
+                className={`flex items-center gap-1.5 text-xs font-semibold ${
+                  ist.isOpen
+                    ? 'text-[#2D6A4F] dark:text-[#6EE7B7]'
+                    : 'text-[#B8482C] dark:text-[#F0A88B]'
+                }`}
+              >
+                <span className={`relative flex w-2 h-2 ${ist.isOpen ? '' : 'opacity-60'}`}>
+                  {ist.isOpen && <span className="absolute inline-flex w-full h-full rounded-full bg-[#2D6A4F] opacity-60 animate-ping" />}
+                  <span className={`relative inline-flex w-2 h-2 rounded-full ${ist.isOpen ? 'bg-[#2D6A4F]' : 'bg-[#B8482C]'}`} />
+                </span>
+                {ist.isOpen ? ist.label : ist.label}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Form Card */}
@@ -386,8 +422,8 @@ export default function RatingLeadForm() {
               )}
             </button>
 
-            {/* Trust indicators */}
-            <div className="flex items-center justify-center gap-4 text-xs text-[#8B9099]">
+            {/* Trust indicators — IST business hours note (owner directive) */}
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-xs text-[#8B9099]">
               <span className="flex items-center gap-1">
                 <Shield className="w-3.5 h-3.5" />
                 End-to-end encrypted
@@ -395,7 +431,7 @@ export default function RatingLeadForm() {
               <span>•</span>
               <span>IRDAI POSP IP429834</span>
               <span>•</span>
-              <span>No spam</span>
+              <span>Mon–Sat 9:30 AM–8:00 PM IST</span>
             </div>
 
             {/* Thanks/Review Link */}

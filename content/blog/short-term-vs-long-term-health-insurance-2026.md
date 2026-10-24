@@ -144,7 +144,7 @@ Both Short-term (1 year) and Long-term (3 years) qualify for Section 80D deducti
 2. Evaluated based on family's priorities (coverage scope, premium, network)
 3. Chose the option that aligned with their needs
 
-**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92587-77312.
+**Lesson:** The "better" choice depends on your specific situation. There is no universal "best" — compare based on your needs. [Get personalized comparison](/compare/health) or WhatsApp +91-92578-77312.
 
 ## Common Mistakes
 
@@ -191,7 +191,7 @@ Before choosing between Short-term (1 year) and Long-term (3 years):
 **A:** Short-term health insurance covers 1-3 years and offers flexibility to switch insurers. Long-term (3-year) policies offer premium discounts (10-15%) and protection against premium hikes but lock you in. For most families, long-term is better — it saves money and ensures continuous coverage. Short-te
 
 ### Q: Which is better — Short-term (1 year) or Long-term (3 years)?
-**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92587-77312.
+**A:** It depends on your needs. Review the comparison table above and match with your priorities. For personalized recommendation, [compare plans](/compare/health) or WhatsApp +91-92578-77312.
 
 ### Q: Can I switch from Short-term (1 year) to Long-term (3 years)?
 **A:** Yes, in most cases. IRDAI portability allows switching between plans while retaining waiting period credits. Apply at least 45 days before renewal. [Get portability help](/free-audit).
@@ -200,7 +200,7 @@ Before choosing between Short-term (1 year) and Long-term (3 years):
 **A:** Yes, both qualify if they are health insurance policies (not life insurance). 80D deduction: ₹25,000 (under 60) or ₹50,000 (senior citizen) for self, plus ₹25,000-50,000 for parents.
 
 ### Q: Where can I get personalized advice on choosing between Short-term (1 year) and Long-term (3 years)?
-**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92587-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
+**A:** Consult Himanshu Paliwal (IRDAI POSP IP429834) on WhatsApp +91-92578-77312 or try [InsureGPT AI](/insuregpt) for instant answers. [Free consultation](/free-audit) — no charges.
 
 ## Related Guides
 
@@ -215,7 +215,7 @@ Before choosing between Short-term (1 year) and Long-term (3 years):
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Short-term (1 year) and Long-term (3 years) based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend evaluating both Short-term (1 year) and Long-term (3 years) based on your specific needs. Don't choose based on premium alone — compare coverage, waiting periods, network, and CSR. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

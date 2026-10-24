@@ -154,7 +154,7 @@ export default async function AgeHealthInsurancePage({ params }: { params: Promi
   const premium25L = Math.round(baseHealthPremium * multiplier * 3.2);
   const premium50L = Math.round(baseHealthPremium * multiplier * 5.5);
   const info = getAgeGroupInfo(age);
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
 
   // Age-specific FAQs
   const faqs = [

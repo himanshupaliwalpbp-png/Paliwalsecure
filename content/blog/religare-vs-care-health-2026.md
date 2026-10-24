@@ -150,7 +150,7 @@ Both Religare (now Care Health) and Care Health Insurance qualify for Section 80
 
 **Decision:** Rajesh chose based on network hospital coverage in his city and the insurer's CSR. The premium difference was minimal; the deciding factor was claim settlement reliability.
 
-**Lesson:** Don't choose based on premium alone. Compare CSR, network hospitals, and add-ons. [Get personalized comparison](/compare/health) or WhatsApp +91-92587-77312.
+**Lesson:** Don't choose based on premium alone. Compare CSR, network hospitals, and add-ons. [Get personalized comparison](/compare/health) or WhatsApp +91-92578-77312.
 
 ## Decision Checklist
 
@@ -200,7 +200,7 @@ Before choosing between Religare (now Care Health) and Care Health Insurance:
 
 ## Author Review
 
-As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend comparing both Religare (now Care Health) and Care Health Insurance based on your specific needs — CSR, network hospitals in your city, premium, and add-ons. Don't choose based on brand alone. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92587-77312.
+As an IRDAI Registered POSP (Code: IP429834) with 500+ families served, I recommend comparing both Religare (now Care Health) and Care Health Insurance based on your specific needs — CSR, network hospitals in your city, premium, and add-ons. Don't choose based on brand alone. Use our [comparison tool](/compare/health) for instant quotes, or consult me personally on WhatsApp +91-92578-77312.
 
 **— Himanshu Paliwal, IRDAI Certified Insurance Advisor**
 

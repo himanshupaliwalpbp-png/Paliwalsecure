@@ -63,7 +63,7 @@ export default async function ProfessionHealthInsurancePage({ params }: { params
   const premium10L = Math.round(premium5L * 1.75);
   const premium25L = Math.round(premium5L * 3.2);
   const loadingPercent = Math.round((prof.healthLoadingFactor - 1) * 100);
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
 
   // Profession-specific FAQs
   const faqs = [

@@ -216,7 +216,7 @@ Consult your CA for business vehicle tax deductions.
 ## FAQ — Hyundai Aura Insurance
 
 ### Q: What is the cheapest Hyundai Aura insurance?
-**A:** Third-party only insurance is the legal minimum (₹2,094 (Petrol)/year). However, we strongly recommend comprehensive cover (₹4,500-7,500/year) as it covers your own vehicle damage too. [Compare plans](/compare/motor) or WhatsApp +91-92587-77312 for personalized quotes.
+**A:** Third-party only insurance is the legal minimum (₹2,094 (Petrol)/year). However, we strongly recommend comprehensive cover (₹4,500-7,500/year) as it covers your own vehicle damage too. [Compare plans](/compare/motor) or WhatsApp +91-92578-77312 for personalized quotes.
 
 ### Q: How much IDV should I declare for my Hyundai Aura?
 **A:** Declare IDV closest to the ex-showroom price minus depreciation (see [IDV table above](#idv-calculation-for-hyundai-aura)). Use our [IDV calculator](/idv-calculation) for exact calculation.
@@ -242,7 +242,7 @@ Consult your CA for business vehicle tax deductions.
 2. **Calculate IDV:** [IDV Calculator](/idv-calculation) — exact IDV for your Hyundai Aura
 3. **Understand NCB:** [NCB Guide](/ncb-meaning) — maximize your discount
 4. **Zero Dep Guide:** [Zero Depreciation Insurance](/zero-dep-car-insurance) — why it's essential
-5. **Free Consultation:** WhatsApp +91-92587-77312 (Himanshu, IRDAI POSP IP429834)
+5. **Free Consultation:** WhatsApp +91-92578-77312 (Himanshu, IRDAI POSP IP429834)
 6. **Ask InsureGPT:** [InsureGPT AI](/insuregpt) — instant answers to insurance questions
 7. **Free Audit:** [Policy Audit](/free-audit) — get your existing Hyundai Aura policy reviewed
 

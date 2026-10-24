@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
     if (income > 1000000 && audit.score < 80) {
       audit.recommendations.push('Your income warrants higher coverage. Consider: health ₹25L+, life ₹1Cr+, critical illness ₹25L+.');
     }
-    audit.recommendations.push('Review all policies annually. Use Paliwal Secure\'s free policy audit service (WhatsApp +91-92587-77312).');
+    audit.recommendations.push('Review all policies annually. Use Paliwal Secure\'s free policy audit service (WhatsApp +91-92578-77312).');
     audit.recommendations.push('Check claim settlement ratio (CSR) of your insurers on IRDAI Annual Report. Target: 95%+ CSR.');
 
     return NextResponse.json(audit);

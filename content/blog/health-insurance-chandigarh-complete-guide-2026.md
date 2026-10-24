@@ -123,7 +123,7 @@ Chandigarh has 200+ network hospitals offering cashless treatment. Major network
 **To verify if a specific hospital is in-network:**
 1. Check insurer's website or app (hospital locator)
 2. Call insurer's TOLL-FREE number
-3. WhatsApp your POSP (Himanshu: +91-92587-77312)
+3. WhatsApp your POSP (Himanshu: +91-92578-77312)
 4. Verify at hospital's insurance desk before admission
 
 > **Note:** Network hospital lists change frequently. Always verify before planned hospitalization.
@@ -232,13 +232,13 @@ Before buying health insurance in Chandigarh, verify:
 ## FAQ
 
 ### Q: What is the best health insurance plan in Chandigarh?
-**A:** The "best" plan depends on your needs (age, family size, pre-existing conditions). For Chandigarh residents, we recommend HDFC ERGO Optima Secure (highest CSR 98.85%), Care Health (100% CSR, 21,700+ hospitals), or Star Health (specialized plans for diabetes/cardiac). [Compare plans](/compare/health) or WhatsApp +91-92587-77312 for personalized recommendation.
+**A:** The "best" plan depends on your needs (age, family size, pre-existing conditions). For Chandigarh residents, we recommend HDFC ERGO Optima Secure (highest CSR 98.85%), Care Health (100% CSR, 21,700+ hospitals), or Star Health (specialized plans for diabetes/cardiac). [Compare plans](/compare/health) or WhatsApp +91-92578-77312 for personalized recommendation.
 
 ### Q: How much does health insurance cost in Chandigarh?
 **A:** For a 30-year-old individual with ₹5L cover: ₹6,500/year. For a family of 4 (30yr + 28yr + 2 children) with ₹15L floater: ₹16,250/year. For senior citizens (65yr) with ₹10L cover: ₹19,500/year. Premium varies by insurer, add-ons, and health condition.
 
 ### Q: Which hospitals in Chandigarh offer cashless treatment?
-**A:** Chandigarh has 200+ network hospitals across major insurers. To find specific hospitals: (1) check insurer's app/website hospital locator, (2) call insurer's TOLL-FREE, (3) WhatsApp +91-92587-77312. Always verify hospital network status before planned admission — lists change frequently.
+**A:** Chandigarh has 200+ network hospitals across major insurers. To find specific hospitals: (1) check insurer's app/website hospital locator, (2) call insurer's TOLL-FREE, (3) WhatsApp +91-92578-77312. Always verify hospital network status before planned admission — lists change frequently.
 
 ### Q: Can I buy health insurance online in Chandigarh?
 **A:** Yes. You can buy online from insurer websites, aggregators, or through a POSP like Paliwal Secure. Buying through a POSP gives you the same premium plus personalized advisory and claim assistance. [Get a quote](/compare/health) or WhatsApp us.

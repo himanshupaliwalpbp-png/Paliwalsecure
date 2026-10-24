@@ -137,12 +137,12 @@ ACKO (99.91% CSR) vs Digit (98.40% CSR) — digital-first insurers comparison. P
 **A:** Haan, IRDAI portability rules ke under. Better plan milne par port karein — waiting period credits transfer hote hain.
 
 ### Q: Free consultation milega?
-**A:** Haan! WhatsApp +91-92587-77312 — Himanshu Paliwal (IRDAI POSP IP429834) free consultation karenge.
+**A:** Haan! WhatsApp +91-92578-77312 — Himanshu Paliwal (IRDAI POSP IP429834) free consultation karenge.
 
 ## Next Steps
 
 ### 1. Get Personalized Recommendation
-WhatsApp +91-92587-77312 — bataiye aapki situation, best option suggest karenge.
+WhatsApp +91-92578-77312 — bataiye aapki situation, best option suggest karenge.
 
 ### 2. Compare Both Options
 [Compare page](/compare) pe ACKO aur Digit side-by-side compare karein.

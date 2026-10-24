@@ -94,7 +94,7 @@ export default async function CityHealthInsurancePage({ params }: { params: Prom
   const topInsurers = (cityData as Record<string, unknown>).topInsurers as string[] | undefined ?? ['HDFC ERGO', 'Niva Bupa', 'Care Health', 'Star Health', 'ICICI Lombard'];
   const avgClaimSize = (cityData as Record<string, unknown>).avgClaimSize as number | undefined ?? (cityData.tier === 'metro' ? 52000 : cityData.tier === 'tier2' ? 35000 : 22000);
   const medicalInflation = (cityData as Record<string, unknown>).medicalInflation as number | undefined ?? 14;
-  const today = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-IN', {timeZone: 'Asia/Kolkata',  day: 'numeric', month: 'long', year: 'numeric' });
 
   // Get best plans for this city
   const bestPlans = healthPlans

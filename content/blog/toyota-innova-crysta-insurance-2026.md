@@ -216,7 +216,7 @@ Consult your CA for business vehicle tax deductions.
 ## FAQ — Toyota Innova Crysta Insurance
 
 ### Q: What is the cheapest Toyota Innova Crysta insurance?
-**A:** Third-party only insurance is the legal minimum (₹2,094 (Petrol) / ₹3,043 (Diesel)/year). However, we strongly recommend comprehensive cover (₹12,000-18,500/year) as it covers your own vehicle damage too. [Compare plans](/compare/motor) or WhatsApp +91-92587-77312 for personalized quotes.
+**A:** Third-party only insurance is the legal minimum (₹2,094 (Petrol) / ₹3,043 (Diesel)/year). However, we strongly recommend comprehensive cover (₹12,000-18,500/year) as it covers your own vehicle damage too. [Compare plans](/compare/motor) or WhatsApp +91-92578-77312 for personalized quotes.
 
 ### Q: How much IDV should I declare for my Toyota Innova Crysta?
 **A:** Declare IDV closest to the ex-showroom price minus depreciation (see [IDV table above](#idv-calculation-for-toyota-innova-crysta)). Use our [IDV calculator](/idv-calculation) for exact calculation.
@@ -242,7 +242,7 @@ Consult your CA for business vehicle tax deductions.
 2. **Calculate IDV:** [IDV Calculator](/idv-calculation) — exact IDV for your Toyota Innova Crysta
 3. **Understand NCB:** [NCB Guide](/ncb-meaning) — maximize your discount
 4. **Zero Dep Guide:** [Zero Depreciation Insurance](/zero-dep-car-insurance) — why it's essential
-5. **Free Consultation:** WhatsApp +91-92587-77312 (Himanshu, IRDAI POSP IP429834)
+5. **Free Consultation:** WhatsApp +91-92578-77312 (Himanshu, IRDAI POSP IP429834)
 6. **Ask InsureGPT:** [InsureGPT AI](/insuregpt) — instant answers to insurance questions
 7. **Free Audit:** [Policy Audit](/free-audit) — get your existing Toyota Innova Crysta policy reviewed
 
