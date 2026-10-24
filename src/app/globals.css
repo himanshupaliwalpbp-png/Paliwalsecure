@@ -1083,19 +1083,20 @@ body::after,
 
 /* Blue-to-Emerald gradient text — primary accent (Design Bible v6.0) */
 .gradient-text {
-  background: linear-gradient(135deg, #2563EB 0%, #FFD700 100%);
+  /* SAFFRON DAWN v19: de-blued — sienna → royal gold (was #2563EB blue) */
+  background: linear-gradient(135deg, #B8482C 0%, #D0672F 45%, #C98A1C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #2563EB; /* Accessibility fallback */
+  color: #B8482C; /* Accessibility fallback */
 }
-/* Dark mode: lighter blue-emerald for visibility on dark backgrounds */
+/* Dark mode: warm sienna → light gold for visibility on dark backgrounds */
 .dark .gradient-text {
-  background: linear-gradient(135deg, #3B82F6 0%, #FFE55C 100%);
+  background: linear-gradient(135deg, #E07B54 0%, #E8B54D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #3B82F6; /* Accessibility fallback */
+  color: #E07B54; /* Accessibility fallback */
 }
 
 /* Hero gradient text — Refined Gold to Light Gold */

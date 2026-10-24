@@ -99,11 +99,14 @@ export default function ClaimsTimeline() {
           animate={isInView ? 'visible' : 'hidden'}
           className="mb-16 md:mb-20 text-center"
         >
-          <div className="btn-pill-dot mb-5 bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572]">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#B8482C] dark:bg-[#D4633F]" />
-            <span className="text-caption-premium text-[#8B3520] dark:text-[#E89572] font-body">{isHindi ? 'क्लेम प्रक्रिया' : isEnglish ? 'Claims Process' : 'Claims Process'}</span>
+          {/* SAFFRON DAWN v19 eyebrow + display heading */}
+          <div className="flex justify-center mb-5">
+            <span className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C872]!">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#B8482C] dark:bg-[#D4633F]" aria-hidden="true" />
+              <span className="font-body">{isHindi ? 'क्लेम प्रक्रिया' : isEnglish ? 'Claims Process' : 'Claims Process'}</span>
+            </span>
           </div>
-          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-[#FAF7F2]">
+          <h2 className="nl-h2 dark:text-[#FAF7F2]!">
             {heading}
           </h2>
           <p className="mt-4 text-lead-premium text-[#4A4F57] dark:text-[#B8BCC2] max-w-md mx-auto">
@@ -113,12 +116,12 @@ export default function ClaimsTimeline() {
 
         {/* Vertical Timeline */}
         <div className="relative">
-          {/* Animated vertical hairline line — was thick gradient */}
+          {/* Animated vertical hairline — SAFFRON DAWN v19 gold-gradient spine */}
           <motion.div
             variants={lineVariants}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            className="absolute left-6 md:left-8 top-4 bottom-4 w-px bg-[rgba(14,17,22,0.08)] dark:bg-white/[0.08]"
+            className="absolute left-6 md:left-8 top-4 bottom-4 w-px bg-[linear-gradient(180deg,rgba(201,138,28,0.65),rgba(184,72,44,0.30)_50%,rgba(201,138,28,0.45))] dark:bg-[linear-gradient(180deg,rgba(232,200,114,0.55),rgba(212,99,63,0.28)_50%,rgba(232,200,114,0.35))]"
           />
 
           {/* Steps */}
@@ -135,18 +138,18 @@ export default function ClaimsTimeline() {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="relative flex items-start gap-5 md:gap-7"
                 >
-                  {/* Step number circle — positioned on the timeline, Fraunces serif number */}
+                  {/* Step number circle — positioned on the timeline, gold-halo ring accent */}
                   <div className="relative z-10 shrink-0">
                     <div
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white font-display text-sm md:text-base tabular-nums ring-4 ring-[#FAF7F2] dark:ring-[#0E1116] transition-transform duration-300"
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white font-display text-sm md:text-base tabular-nums ring-4 ring-[#FAF7F2] dark:ring-[#0E1116] shadow-[0_0_0_2px_rgba(201,138,28,0.45),0_10px_24px_-8px_rgba(94,18,35,0.45)] transition-transform duration-300"
                       style={{ backgroundColor: step.color, fontWeight: 500 }}
                     >
                       {step.number}
                     </div>
                   </div>
 
-                  {/* Card content — paper surface */}
-                  <div className="card-ivory-vault flex-1 flex items-start gap-4 group p-5 md:p-6">
+                  {/* Card content — SAFFRON DAWN v19 glass surface */}
+                  <div className="nl-glass flex-1 flex items-start gap-4 group p-5 md:p-6">
                     {/* Icon — sienna tint or teal tint derived from step.color */}
                     <div
                       className={`shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${

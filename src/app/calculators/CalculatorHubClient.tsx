@@ -265,7 +265,7 @@ export default function CalculatorHubClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FBE8E1] dark:bg-[rgba(184,72,44,0.15)] border border-[rgba(184,72,44,0.20)] text-[#B8482C] dark:text-[#F0A88B] text-xs font-semibold mb-6"
+            className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6"
           >
             <Sparkles className="w-3.5 h-3.5" />
             {isHindi ? 'मुफ़्त • IRDAI-सत्यापित • रियल-टाइम' : isEnglish ? 'Free • IRDAI-Verified • Real-Time' : 'Free • IRDAI-Verified • Real-Time'}
@@ -275,10 +275,10 @@ export default function CalculatorHubClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0E1116] dark:text-[#FAF7F2] mb-6"
+            className="nl-h2 dark:text-[#FAF7F2]! mb-6"
           >
             {isHindi ? 'बीमा कैलकुलेटर' : isEnglish ? 'Insurance Calculators' : 'Insurance Calculators'}
-            <span className="block mt-2 text-[#B8482C] dark:text-[#E8C872] text-3xl sm:text-4xl lg:text-5xl">
+            <span className="block mt-2 italic bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872] text-[0.62em]">
               {isHindi ? 'भारत 2026 के लिए' : isEnglish ? 'For India 2026' : 'India 2026 Ke Liye'}
             </span>
           </motion.h1>
@@ -287,7 +287,7 @@ export default function CalculatorHubClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-[#4A4F57] dark:text-[#A8B0C2] max-w-3xl mx-auto mb-8"
+            className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8"
           >
             {isHindi
               ? 'वास्तविक IRDAI दरों के साथ सटीक प्रीमियम गणना। स्वास्थ्य, मोटर, जीवन, कर बचत, और क्लेम भविष्यवाणी — सब एक जगह।'
@@ -303,16 +303,16 @@ export default function CalculatorHubClient() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-[#4A4F57] dark:text-[#A8B0C2]"
           >
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2D6A4F] dark:text-[#6EE7B7]" />
+            <span className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
+              <CheckCircle2 className="w-4 h-4 nl-chip-ico" />
               {isHindi ? 'IRDAI POSP IP429834' : isEnglish ? 'IRDAI POSP IP429834' : 'IRDAI POSP IP429834'}
             </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2D6A4F] dark:text-[#6EE7B7]" />
+            <span className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
+              <CheckCircle2 className="w-4 h-4 nl-chip-ico" />
               {isHindi ? '500+ परिवार सेवा' : isEnglish ? '500+ Families Served' : '500+ Parivaar Seva'}
             </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2D6A4F] dark:text-[#6EE7B7]" />
+            <span className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
+              <CheckCircle2 className="w-4 h-4 nl-chip-ico" />
               {isHindi ? '100% मुफ़्त' : isEnglish ? '100% Free' : '100% Free'}
             </span>
           </motion.div>
@@ -367,7 +367,7 @@ export default function CalculatorHubClient() {
             transition={{ duration: 0.4 }}
             className="mb-6 text-center"
           >
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#0E1116] dark:text-[#FAF7F2] mb-2 flex items-center justify-center gap-2">
+            <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-2 flex items-center justify-center gap-2">
               <activeConfig.icon className={`w-6 h-6 ${colorClasses[activeConfig.color].icon}`} />
               {tr(TABS.find((t) => t.id === activeTab)!.label)}
               {' '}
@@ -424,7 +424,7 @@ export default function CalculatorHubClient() {
          ════════════════════════════════════════════════════════════════════ */}
       <section className="px-4 sm:px-6 lg:px-8 py-12 bg-white dark:bg-[#161A24] border-y border-[rgba(15,19,32,0.06)] dark:border-[rgba(232,200,114,0.10)]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#0E1116] dark:text-[#FAF7F2] mb-10">
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! text-center mb-10">
             {isHindi ? 'हमारे कैलकुलेटर का उपयोग क्यों करें?' : isEnglish ? 'Why Use Our Calculators?' : 'Humare Calculators Kyu Use Karein?'}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -479,7 +479,7 @@ export default function CalculatorHubClient() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="text-center"
+                  className={`nl-glass nl-rise ${['nl-rise-1', 'nl-rise-2', 'nl-rise-3', 'nl-rise-4'][i]} p-6 text-center`}
                 >
                   <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4 ${colors.tint} border`}>
                     <Icon className={`w-6 h-6 ${colors.icon}`} strokeWidth={2} />
@@ -507,9 +507,9 @@ export default function CalculatorHubClient() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-card p-8 sm:p-12"
+            className="nl-glass p-8 sm:p-12"
           >
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#0E1116] dark:text-[#FAF7F2] mb-4">
+            <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-4">
               {isHindi ? 'अभी अपना बीमा सुरक्षित करें' : isEnglish ? 'Secure Your Insurance Now' : 'Abhi Apna Insurance Secure Karein'}
             </h2>
             <p className="text-sm sm:text-base text-[#4A4F57] dark:text-[#A8B0C2] mb-6 max-w-2xl mx-auto">

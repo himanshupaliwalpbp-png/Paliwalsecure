@@ -177,7 +177,7 @@ function ScrollRevealCard({
       className={isFirst ? 'lg:col-span-2 min-w-0' : 'min-w-0'}
     >
       <Link href={cat.href} className="block group h-full min-w-0">
-        <div className="card-ivory-vault dark:card-midnight-brass p-5 sm:p-6 md:p-7 h-full flex flex-col cursor-pointer min-w-0 overflow-hidden relative">
+        <div className="nl-glass p-5 sm:p-6 md:p-7 h-full flex flex-col cursor-pointer min-w-0 overflow-hidden relative">
 
           {/* ═══ 3D SCROLL-REVEAL IMAGE LAYER ═══
               This image starts invisible (opacity 0, scaled down, translated down)
@@ -293,6 +293,7 @@ export default function CategoryCards() {
 
   const heading = isHindi ? 'संपूर्ण सुरक्षा' : isEnglish ? 'Complete Protection Suite' : 'Complete Protection';
   const headingAccent = isHindi ? 'पैकेज' : isEnglish ? 'Suite' : 'Package';
+  const eyebrow = isHindi ? 'बीमा श्रेणियाँ' : isEnglish ? 'Insurance Categories' : 'Insurance Categories';
   const subtitle = isHindi ? 'हर ज़रूरत के लिए इंश्योरेंस — 51+ बीमाकर्ताओं से AI की सलाह पर प्लान' : isEnglish ? 'From health to wealth, we\'ve got you covered with India\'s leading insurance providers.' : 'Har zaroorat ke liye insurance — 51+ insurers se AI ki salah par plan';
 
   return (
@@ -308,7 +309,13 @@ export default function CategoryCards() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-14 md:mb-18"
         >
-          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-[#FAF7F2] mb-4">
+          {/* SAFFRON DAWN v19 eyebrow + display heading */}
+          <div className="flex justify-center mb-5">
+            <span className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C872]!">
+              {eyebrow}
+            </span>
+          </div>
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-4">
             {heading.replace(headingAccent, '')}
             <span className="text-accent-gradient"> {headingAccent}</span>
           </h2>

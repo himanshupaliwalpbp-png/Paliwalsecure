@@ -170,25 +170,17 @@ function useAnimatedCounter(target: number, duration: number = 2000) {
 
 function Divider({ vertical = false }: { vertical?: boolean }) {
   if (vertical) {
-    return <div className="hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-[rgba(14,17,22,0.08)]" />;
+    return <div className="hidden lg:block absolute right-0 top-4 bottom-4 w-px bg-[rgba(201,138,28,0.22)]" />;
   }
-  return <div className="h-px w-full bg-[rgba(14,17,22,0.08)]" />;
+  return <div className="h-px w-full bg-[rgba(201,138,28,0.22)]" />;
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
-   Heading Accent — burnt sienna underline
+   (v19: superseded by .nl-eyebrow gold-dash treatment on column headings)
    ──────────────────────────────────────────────────────────────────────────── */
 
 function HeadingAccent() {
-  return (
-    <motion.div
-      className="h-0.5 w-8 rounded-full mt-1.5 bg-[#B8482C]"
-      initial={{ width: 0, opacity: 0 }}
-      whileInView={{ width: 32, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-    />
-  );
+  return null;
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -256,14 +248,14 @@ export default function SiteFooter() {
       role="contentinfo"
     >
       {/* ── Top border (premium hairline) ─────────────────────────────────── */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,138,28,0.38)] to-transparent" />
 
       {/* ═══════════════════════════════════════════════════════════════════════
           TRUSTED BY PARTNERS ROW
           ═══════════════════════════════════════════════════════════════════════ */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
         <div className="text-center mb-5">
-          <span className="text-caption-premium text-muted-foreground/60">
+          <span className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]!">
             {t('footer.trustedBy') || 'Trusted Partner Insurers'}
           </span>
         </div>
@@ -397,7 +389,7 @@ export default function SiteFooter() {
                   className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 group"
                 >
                   <Phone className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
-                  <span className="link-underline-reveal">{PHONE}</span>
+                  <span className="nl-link">{PHONE}</span>
                 </a>
               </li>
               <li>
@@ -406,7 +398,7 @@ export default function SiteFooter() {
                   className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 group"
                 >
                   <Mail className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
-                  <span className="break-all text-overflow-safe link-underline-reveal">{EMAIL}</span>
+                  <span className="break-all text-overflow-safe nl-link">{EMAIL}</span>
                 </a>
               </li>
               <li>
@@ -417,7 +409,7 @@ export default function SiteFooter() {
                   className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 group"
                 >
                   <Instagram className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
-                  <span className="link-underline-reveal">@paliwalinsure</span>
+                  <span className="nl-link">@paliwalinsure</span>
                 </a>
               </li>
             </ul>
@@ -448,7 +440,7 @@ export default function SiteFooter() {
           {/* ─── Column 2: Quick Links ─────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
             <Divider vertical />
-            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+            <h3 className="nl-eyebrow dark:text-[#E8C97E]! mb-1 flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-[#B8482C]" />
               {t('footer.quickLinks')}
             </h3>
@@ -460,7 +452,7 @@ export default function SiteFooter() {
                     href={link.href}
                     className="group text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe block min-h-[28px] flex items-center"
                   >
-                    <span className="link-underline-reveal">
+                    <span className="nl-link">
                       {t(link.labelKey)}
                     </span>
                   </Link>
@@ -472,7 +464,7 @@ export default function SiteFooter() {
           {/* ─── Column 3: Products ─────────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
             <Divider vertical />
-            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+            <h3 className="nl-eyebrow dark:text-[#E8C97E]! mb-1 flex items-center gap-2">
               <Shield className="w-4 h-4 text-[#B8482C]" />
               {t('footer.products')}
             </h3>
@@ -487,7 +479,7 @@ export default function SiteFooter() {
                       className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px]"
                     >
                       <ProductIcon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors shrink-0" />
-                      <span className="link-underline-reveal">
+                      <span className="nl-link">
                         {t(product.labelKey)}
                       </span>
                     </Link>
@@ -500,7 +492,7 @@ export default function SiteFooter() {
           {/* ─── Column 4: Compliance ──────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
             <Divider vertical />
-            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+            <h3 className="nl-eyebrow dark:text-[#E8C97E]! mb-1 flex items-center gap-2">
               <Lock className="w-4 h-4 text-[#B8482C]" />
               {t('footer.compliance')}
             </h3>
@@ -522,7 +514,7 @@ export default function SiteFooter() {
                       rel="noopener noreferrer"
                       className="group flex items-center gap-1.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 min-h-[28px]"
                     >
-                      <span className="link-underline-reveal">
+                      <span className="nl-link">
                         {t(link.labelKey)}
                       </span>
                       <ExternalLink className="w-3 h-3 shrink-0 text-muted-foreground/50 group-hover:text-[#B8482C]" />
@@ -532,7 +524,7 @@ export default function SiteFooter() {
                       href={link.href}
                       className="group text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px] block"
                     >
-                      <span className="link-underline-reveal">
+                      <span className="nl-link">
                         {t(link.labelKey)}
                       </span>
                     </Link>
@@ -566,7 +558,7 @@ export default function SiteFooter() {
 
           {/* ─── Column 5: Newsletter ──────────────────────────────────────── */}
           <motion.div variants={itemVariants} className="relative">
-            <h3 className="text-foreground text-caption-premium mb-1 flex items-center gap-2">
+            <h3 className="nl-eyebrow dark:text-[#E8C97E]! mb-1 flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#B8482C]" />
               {t('footer.newsletter')}
             </h3>
@@ -610,7 +602,7 @@ export default function SiteFooter() {
                     className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 min-h-[28px]"
                   >
                     <Icon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors shrink-0" />
-                    <span className="link-underline-reveal">
+                    <span className="nl-link">
                       {t(link.labelKey)}
                     </span>
                   </Link>
@@ -651,7 +643,7 @@ export default function SiteFooter() {
               {t('footer.grievanceOfficer')}:{' '}
               <a
                 href="mailto:himanshupaliwalpbp@gmail.com"
-                className="link-underline-reveal hover:text-primary transition-colors duration-200"
+                className="nl-link hover:text-primary transition-colors duration-200"
               >
                 himanshupaliwalpbp@gmail.com
               </a>
@@ -692,7 +684,7 @@ export default function SiteFooter() {
                 className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-primary transition-colors duration-200"
               >
                 <Phone className="h-3.5 w-3.5" />
-                <span className="link-underline-reveal">{PHONE}</span>
+                <span className="nl-link">{PHONE}</span>
               </a>
 
               {/* Email */}
@@ -701,7 +693,7 @@ export default function SiteFooter() {
                 className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-primary transition-colors duration-200"
               >
                 <Mail className="h-3.5 w-3.5" />
-                <span className="link-underline-reveal">{t('footer.link.email')}</span>
+                <span className="nl-link">{t('footer.link.email')}</span>
               </a>
 
               {/* Instagram */}
@@ -712,7 +704,7 @@ export default function SiteFooter() {
                 className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-primary transition-colors duration-200"
               >
                 <Instagram className="h-3.5 w-3.5" />
-                <span className="link-underline-reveal">{t('footer.link.instagram')}</span>
+                <span className="nl-link">{t('footer.link.instagram')}</span>
               </a>
 
               {/* WhatsApp */}
@@ -723,7 +715,7 @@ export default function SiteFooter() {
                 className="flex items-center gap-1.5 text-xs font-body text-muted-foreground/60 hover:text-[#25D366] transition-colors duration-200"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
-                <span className="link-underline-reveal">{t('footer.whatsapp')}</span>
+                <span className="nl-link">{t('footer.whatsapp')}</span>
               </a>
 
               {/* Admin */}

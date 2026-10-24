@@ -143,7 +143,11 @@ export default function HomeFAQSection() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-14"
         >
-          <h2 className="text-display-h2 font-display text-[#0E1116] mb-4">
+          {/* SAFFRON DAWN v19 eyebrow + display heading */}
+          <div className="flex justify-center mb-5">
+            <span className="nl-eyebrow nl-eyebrow-center">FAQ</span>
+          </div>
+          <h2 className="nl-h2 mb-4">
             {heading} <span className="text-accent-gradient">{headingAccent}</span>
           </h2>
           <p className="text-lead-premium text-[#4A4F57] max-w-2xl mx-auto">
@@ -189,7 +193,7 @@ export default function HomeFAQSection() {
             href="https://wa.me/919257877312"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-linear group"
+            className="nl-cta nl-cta-wa group"
           >
             <MessageCircle className="h-4 w-4" />
             {chatWithUs}

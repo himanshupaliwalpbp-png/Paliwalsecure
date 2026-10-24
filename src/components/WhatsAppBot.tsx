@@ -290,7 +290,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
         }}
         whileTap={{ scale: 0.92 }}
         whileHover={{ scale: 1.05 }}
-        className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#2D6A4F] hover:bg-[#235541] shadow-[0_2px_6px_rgba(45,106,79,0.35),0_16px_40px_-10px_rgba(45,106,79,0.6),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_2px_8px_rgba(45,106,79,0.4),0_20px_48px_-10px_rgba(45,106,79,0.7),inset_0_1px_0_rgba(255,255,255,0.25)] flex items-center justify-center transition-all duration-300"
+        className="relative w-14 h-14 md:w-[68px] md:h-[68px] rounded-full bg-gradient-to-br from-[#1FA855] via-[#148A43] to-[#0C6B33] hover:from-[#1FA855] hover:via-[#148A43] hover:to-[#0A5A2B] shadow-[0_2px_6px_rgba(20,138,67,0.35),0_18px_44px_-10px_rgba(20,138,67,0.55),0_0_0_1px_rgba(201,138,28,0.22),inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_2px_8px_rgba(20,138,67,0.4),0_22px_52px_-10px_rgba(20,138,67,0.65),0_0_0_1px_rgba(201,138,28,0.35),inset_0_1px_0_rgba(255,255,255,0.3)] flex items-center justify-center transition-all duration-300"
         aria-label="Chat on WhatsApp with Himanshu Paliwal"
       >
         {/* Pulse animation */}

@@ -192,12 +192,27 @@ export default function HeroAdvisor() {
   const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // ── SAFFRON DAWN v19: live social-proof ticker (high CTR) ──────────────
+  const [tickerIdx, setTickerIdx] = useState(0);
+
   // Results state
   const [result, setResult] = useState<AdvisorResult | null>(null);
   const [showResults, setShowResults] = useState(false);
 
   const isHindi = language === 'hi';
   const isEnglish = language === 'en';
+
+  // ── SAFFRON DAWN v19: rotating social-proof messages ──────────────────
+  const tickerMessages = isHindi
+    ? ['अभी-अभी: जयपुर परिवार ने ₹42,000 बचाए', '51+ बीमाकर्ताओं से तुलना लाइव', 'InsureGPT ने आज 300+ सवालों के जवाब दिए', 'क्लेम सहायता 24×7 उपलब्ध']
+    : isEnglish
+      ? ['Just now: Jaipur family saved ₹42,000', 'Comparing 51+ insurers live', 'InsureGPT answered 300+ questions today', 'Claims support available 24×7']
+      : ['Abhi-abhi: Jaipur family ne ₹42,000 bachaye', '51+ insurers se live comparison', 'InsureGPT ne aaj 300+ sawaalon ke jawaab diye', 'Claims support 24×7 available'];
+
+  useEffect(() => {
+    const id = setInterval(() => setTickerIdx((i) => (i + 1) % 4), 4200);
+    return () => clearInterval(id);
+  }, []);
 
   // ── Localized strings ─────────────────────────────────────
   const trustBadgeText = isHindi ? '200+ भारतीय परिवारों का भरोसा' : isEnglish ? 'Trusted by 200+ Indian Families' : '200+ Indian Parivaron ka Bharosa';
@@ -424,7 +439,7 @@ export default function HeroAdvisor() {
   return (
     <section
       id="advisor-form"
-      className="relative overflow-hidden section-premium bg-[#FAF7F2] dark:bg-[#050816] ps-gradient-mesh"
+      className="nl-hero relative overflow-hidden section-premium bg-[#FAF7F2] dark:bg-[#050816] ps-gradient-mesh"
     >
       {/* ── Warm Bone Canvas — Design Bible v8.0 "Quiet Confidence" ─────────────────── */}
 
@@ -445,10 +460,11 @@ export default function HeroAdvisor() {
         scrollRange={600}
       />
 
-      {/* ONE very subtle burnt-sienna tint blob (low opacity, premium restraint) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-32 right-[10%] w-[480px] h-[480px] bg-[#F4E5DD] rounded-full blur-3xl opacity-[0.3]" />
+      {/* ═══ SAFFRON DAWN v19 — animated aurora orbs + film grain (new look) ═══ */}
+      <div className="nl-aurora" aria-hidden="true">
+        <div className="nl-aurora-orb3" />
       </div>
+      <div className="nl-grain" aria-hidden="true" />
 
       {/* Hairline top/bottom edge fades */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[rgba(14,17,22,0.08)] to-transparent" />
@@ -466,8 +482,16 @@ export default function HeroAdvisor() {
             animate="visible"
             className="flex flex-col"
           >
+            {/* ── SAFFRON DAWN v19: LIVE social-proof ticker (high CTR) ── */}
+            <motion.div variants={heroChild} className="mb-5">
+              <span className="nl-ticker" role="status" aria-live="polite">
+                <span className="nl-ticker-dot" />
+                <span key={tickerIdx} className="nl-ticker-text">{tickerMessages[tickerIdx]}</span>
+              </span>
+            </motion.div>
+
             {/* Trust Badge — Pill with animated dot */}
-            <motion.div variants={heroChild} className="mb-8">
+            <motion.div variants={heroChild} className="mb-7">
               <span className="btn-pill-dot">
                 {trustBadgeText}
               </span>
@@ -480,23 +504,23 @@ export default function HeroAdvisor() {
                 simultaneously fades IN to 100% opacity. */}
             <ScrollFadeText scrollRange={500} translateY={80}>
               {/* Headline — Fraunces serif, mix of roman + italic + gradient accent */}
-              <motion.h1 variants={heroChild} className="text-display-hero font-display text-[#0E1116] mb-6">
+              <motion.h1 variants={heroChild} className="nl-headline mb-6">
                 {headlineBefore}{' '}
-                <span className="italic text-accent-gradient">{headlineAccent}</span>
+                <span className="nl-accent">{headlineAccent}</span>
                 <br className="hidden sm:block" />
                 {' '}{headlineAfter}
               </motion.h1>
 
               {/* Description — lead body, ink-soft */}
-              <motion.p variants={heroChild} className="text-lead-premium text-[#4A4F57] mb-8 max-w-xl font-body">
+              <motion.p variants={heroChild} className="nl-sub mb-8">
                 {subtext}
               </motion.p>
             </ScrollFadeText>
 
-            {/* Hero Image — full-width showcase */}
+            {/* Hero Image — full-width showcase with gold hairline frame (v19) */}
             <motion.div
               variants={heroChild}
-              className="mb-10 relative w-full rounded-2xl overflow-hidden shadow-premium-lg border border-[rgba(14,17,22,0.08)] group"
+              className="mb-10 relative w-full rounded-2xl overflow-hidden shadow-premium-lg border-[1.5px] border-[rgba(201,138,28,0.35)] ring-1 ring-[rgba(255,255,255,0.6)] group"
             >
               <picture>
                 <source srcSet="/images/hero-homepage.webp" type="image/webp" />
@@ -519,41 +543,45 @@ export default function HeroAdvisor() {
               </div>
             </motion.div>
 
-            {/* CTA Buttons — Primary "Stripe" + Ghost "Linear" */}
-            <motion.div variants={heroChild} className="flex flex-col sm:flex-row gap-4 mb-14">
+            {/* CTAs — SAFFRON DAWN v19 magnetic buttons (high CTR) */}
+            <motion.div variants={heroChild} className="flex flex-col sm:flex-row gap-4 mb-12">
               <a
                 href="#advisor-form"
                 onClick={(e) => {
                   e.preventDefault();
-                  const el = document.getElementById('advisor-form');
+                  const el = document.getElementById('quick-adviser-card');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }}
-                className="btn-stripe"
+                className="nl-cta"
               >
                 <Shield className="h-4 w-4" />
                 {primaryCTA}
-                <ArrowUpRight className="h-4 w-4" />
+                <ArrowUpRight className="h-4 w-4 nl-cta-arrow" />
               </a>
               <a
                 href="https://wa.me/919257877312"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-linear"
+                className="nl-cta-ghost"
               >
                 {secondaryCTA}
                 <ArrowRight className="h-4 w-4" />
               </a>
             </motion.div>
 
-            {/* Stats Row — editorial hairline blocks (Fraunces serif numbers) */}
-            <motion.div variants={heroChild} className="flex flex-wrap gap-10 sm:gap-14">
-              <div className="stat-hairline">
-                <div className="stat-hairline-label">{socialProof1Label}</div>
-                <div className="stat-hairline-value tabular-nums">{socialProof1Val}</div>
+            {/* Stats Row — SAFFRON DAWN v19 stat pills */}
+            <motion.div variants={heroChild} className="flex flex-wrap gap-3 sm:gap-4">
+              <div className="nl-stat">
+                <div className="nl-stat-value"><em>51+</em></div>
+                <div className="nl-stat-label">{isHindi ? 'बीमाकर्ता' : isEnglish ? 'Insurers' : 'Insurers'}</div>
               </div>
-              <div className="stat-hairline">
-                <div className="stat-hairline-label">{socialProof2Label}</div>
-                <div className="stat-hairline-value tabular-nums">{socialProof2Val}</div>
+              <div className="nl-stat">
+                <div className="nl-stat-value">{socialProof1Val}</div>
+                <div className="nl-stat-label">{socialProof1Label}</div>
+              </div>
+              <div className="nl-stat">
+                <div className="nl-stat-value">{socialProof2Val}</div>
+                <div className="nl-stat-label">{socialProof2Label}</div>
               </div>
             </motion.div>
           </motion.div>
@@ -569,7 +597,7 @@ export default function HeroAdvisor() {
           >
             {/* Protection Score Card — desktop only, shown when not filling form */}
             <div className="hidden lg:block mb-6">
-              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[rgba(14,17,22,0.08)] shadow-premium-sm">
+              <div className="nl-glass p-6 sm:p-8">
                 <div className="flex items-center gap-6 mb-6">
                   <AnimatedScoreCircle score={87} size={110} />
                   <div className="flex-1">
@@ -611,23 +639,23 @@ export default function HeroAdvisor() {
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-2 -right-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-[0_1px_2px_rgba(14,17,22,0.05),0_16px_40px_-14px_rgba(94,18,35,0.25)]"
+              className="nl-float-card absolute -top-2 -right-2 hidden lg:block z-10"
             >
-              <div className="text-xs text-[#8B9099] font-body mb-0.5">Savings This Year</div>
+              <div className="text-xs text-[#8A8272] font-body mb-0.5">Savings This Year</div>
               <div className="text-xl font-medium text-accent-gradient font-display tabular-nums">₹45,000</div>
             </motion.div>
 
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-20 -left-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-[0_1px_2px_rgba(14,17,22,0.05),0_16px_40px_-14px_rgba(94,18,35,0.25)]"
+              className="nl-float-card absolute bottom-20 -left-2 hidden lg:block z-10"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-[#E6EFEE] rounded-lg">
                   <ShieldCheck className="h-4 w-4 text-[#1B4D4A]" />
                 </div>
                 <div>
-                  <div className="text-[10px] text-[#8B9099] font-body uppercase tracking-wider">Claims Settled</div>
+                  <div className="text-[10px] text-[#8A8272] font-body uppercase tracking-wider">Claims Settled</div>
                   <div className="text-lg font-medium text-[#0E1116] font-display tabular-nums">100%</div>
                 </div>
               </div>
@@ -653,12 +681,12 @@ export default function HeroAdvisor() {
                   exit={{ opacity: 0, scale: 0.96, filter: 'blur(4px)' }}
                   transition={{ duration: 0.4, ease: easeOutQuart }}
                 >
-                  {/* Premium featured form card — paper surface, hairline border */}
-                  <div className="bg-white rounded-2xl overflow-hidden border border-[rgba(14,17,22,0.08)] shadow-premium">
+                  {/* SAFFRON DAWN v19 — glass form card with gold hairline */}
+                  <div id="quick-adviser-card" className="nl-glass overflow-hidden">
                     {/* Card header */}
                     <div className="flex items-center gap-3 px-6 sm:px-7 py-5 hairline-bottom">
-                      <div className="w-9 h-9 rounded-xl bg-[#E6EFEE] flex items-center justify-center">
-                        <Sparkles className="w-4 h-4 text-[#1B4D4A]" />
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C24E2E] to-[#6E1628] flex items-center justify-center shadow-[0_4px_12px_-4px_rgba(184,72,44,0.5)]">
+                        <Sparkles className="w-4 h-4 text-[#FFF7EC]" />
                       </div>
                       <span className="text-sm font-medium tracking-[0.08em] text-[#0E1116] uppercase font-body">
                         AI Quick Adviser
@@ -875,7 +903,7 @@ export default function HeroAdvisor() {
                         href="https://wa.me/919257877312"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="sheen-hover mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium shadow-[0_1px_2px_rgba(5,46,22,0.2),0_10px_24px_-10px_rgba(5,150,105,0.55)] hover:shadow-[0_2px_4px_rgba(5,46,22,0.22),0_14px_30px_-10px_rgba(5,150,105,0.65)] transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
+                        className="nl-cta nl-cta-wa mt-4 w-full text-sm"
                       >
                         <MessageCircle className="w-4 h-4 relative z-[2]" />
                         <span className="relative z-[2]">{whatsAppInstead}</span>

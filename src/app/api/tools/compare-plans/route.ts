@@ -34,8 +34,15 @@ export async function POST(request: NextRequest) {
     try {
       const compareModule = await import(`@/app/api/compare/${insuranceType.toLowerCase()}/route`);
       if (compareModule.POST) {
-        // Forward request to existing comparison API
-        const compareResponse = await compareModule.POST(request);
+        // Forward a FRESH request carrying the parsed body — the original
+        // request's stream was already consumed by request.json() above,
+        // so re-forwarding it caused "Body has already been read" errors.
+        const forwarded = new NextRequest(request.url, {
+          method: 'POST',
+          headers: request.headers,
+          body: JSON.stringify(body),
+        });
+        const compareResponse = await compareModule.POST(forwarded);
         return compareResponse;
       }
     } catch {

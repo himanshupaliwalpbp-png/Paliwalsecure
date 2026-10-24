@@ -200,19 +200,19 @@ export default function HealthInsuranceClientContent() {
         <div className="orb orb-2" />
         <div className="orb orb-3" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{pt(pageText.hero.badge, language)}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+            <span>{pt(pageText.hero.badge, language)}</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
             {pt(pageText.hero.title1, language)}{' '}
-            <span className="gradient-text">{pt(pageText.hero.title2, language)}</span>{' '}
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(pageText.hero.title2, language)}</span>{' '}
             {pt(pageText.hero.titleSuffix, language)}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {pt(pageText.hero.desc, language)}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <a href="/#compare">
               <ShinyButton variant="blue">
                 <span>{pt(pageText.hero.ctaCompare, language)}</span>
@@ -226,7 +226,7 @@ export default function HealthInsuranceClientContent() {
           </div>
 
           {/* Health Insurance Featured Image */}
-          <div className="mt-12 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)]">
+          <div className="mt-12 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-[rgba(201,138,28,0.35)] dark:border-[rgba(232,200,114,0.25)] nl-rise nl-rise-5">
             <picture>
               <source srcSet="/images/health-homepage.webp" type="image/webp" />
               <img
@@ -247,8 +247,8 @@ export default function HealthInsuranceClientContent() {
               { text: pageText.hero.trustBadge2 },
               { text: pageText.hero.trustBadge3 },
             ].map((b, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+              <div key={i} className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
+                <svg className="w-4 h-4 nl-chip-ico" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                 {pt(b.text, language)}
               </div>
             ))}

@@ -3,6 +3,8 @@ import { Fraunces, Inter_Tight, JetBrains_Mono, Noto_Serif_Devanagari, Plus_Jaka
 import "./globals.css";
 import "./prestige-v15.css";
 import "./prestige-v16.css";
+/* SAFFRON DAWN v19 — "THE NEW LOOK" — imported last so its rules win */
+import "./newlook-v19.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SafeThemeProvider } from "@/lib/safe-theme-provider";
 import { ScrollProgress } from "@/components/ScrollProgress";

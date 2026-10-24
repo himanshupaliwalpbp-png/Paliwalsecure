@@ -144,11 +144,14 @@ export default function ComparisonMatrix() {
           viewport={{ once: true, margin: '-60px' }}
           className="mb-14 text-center"
         >
-          <div className="btn-pill-dot mb-5 bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572]">
-            <Sparkles className="w-3 h-3" />
-            <span className="font-body">Comparison</span>
+          {/* SAFFRON DAWN v19 eyebrow + display heading */}
+          <div className="flex justify-center mb-5">
+            <span className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C872]!">
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="font-body">Comparison</span>
+            </span>
           </div>
-          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-[#FAF7F2] mb-4">
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-4">
             {heading}
           </h2>
           <p className="text-lead-premium text-[#4A4F57] dark:text-[#B8BCC2] max-w-lg mx-auto">
@@ -156,13 +159,13 @@ export default function ComparisonMatrix() {
           </p>
         </motion.div>
 
-        {/* Comparison Table — Ivory Vault editorial paper table */}
+        {/* Comparison Table — SAFFRON DAWN v19 glass frame (table semantics preserved) */}
         <motion.div
           ref={tableRef}
           variants={tableVariants}
           initial="hidden"
           animate={tableInView ? 'visible' : 'hidden'}
-          className="rounded-2xl overflow-hidden border border-[rgba(15,19,32,0.08)] dark:border-[rgba(232,200,114,0.15)] shadow-[0_1px_2px_rgba(20,15,10,0.04),0_12px_40px_-12px_rgba(20,15,10,0.10)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_12px_40px_-12px_rgba(0,0,0,0.5)]"
+          className="nl-glass overflow-hidden"
         >
           {/* Desktop Table */}
           <div className="overflow-x-auto">
@@ -234,7 +237,7 @@ export default function ComparisonMatrix() {
           </div>
 
           {/* Bottom summary bar for Paliwal column */}
-          <div className="border-t border-[rgba(15,19,32,0.08)] bg-[#EFE8DC] px-6 py-4">
+          <div className="border-t border-[rgba(15,19,32,0.08)] dark:border-[rgba(201,138,28,0.18)] bg-[#EFE8DC] dark:bg-[#241C15] px-6 py-4">
             <div className="flex items-center justify-center gap-2">
               <span className="btn-pill-dot bg-[#F4E5DD] text-[#8B3520] !gap-1.5">
                 <Sparkles className="w-3 h-3" />

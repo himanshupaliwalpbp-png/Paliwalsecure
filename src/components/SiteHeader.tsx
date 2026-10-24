@@ -269,9 +269,7 @@ export default function SiteHeader() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`sticky top-0 z-50 transition-all duration-500 ease-out ${
         isLight
-          ? scrolled
-            ? 'bg-[#FAF7F2]/80 backdrop-blur-md border-b border-[rgba(14,17,22,0.08)]'
-            : 'bg-[#FAF7F2]/80 backdrop-blur-md border-b border-[rgba(14,17,22,0.08)]'
+          ? 'nl-nav'
           : scrolled
             ? 'bg-[#0E1116]/90 backdrop-blur-md border-b border-[rgba(250,247,242,0.10)]'
             : 'bg-[#0E1116]/70 backdrop-blur-md border-b border-[rgba(250,247,242,0.08)]'
@@ -350,7 +348,7 @@ export default function SiteHeader() {
                     }`}
                   >
                     <LinkIcon className="w-3.5 h-3.5 shrink-0 opacity-50" />
-                    <span className="link-underline-reveal">{t(link.labelKey) || link.label}</span>
+                    <span className="nl-link">{t(link.labelKey) || link.label}</span>
                   </a>
                 );
               }
@@ -377,7 +375,7 @@ export default function SiteHeader() {
                   <LinkIcon className={`w-3.5 h-3.5 shrink-0 transition-all duration-200 ${
                     active ? 'opacity-100' : link.highlight ? 'opacity-90' : 'opacity-50'
                   }`} />
-                  <span className="link-underline-reveal">{t(link.labelKey) || link.label}</span>
+                  <span className="nl-link">{t(link.labelKey) || link.label}</span>
                   {link.highlight && (
                     <span className={`ml-0.5 rounded-full px-1.5 py-px text-[9px] font-bold uppercase tracking-wider ${
                       isLight ? 'bg-[#D4A853]/20 text-[#8B3520]' : 'bg-[#D4A853]/20 text-[#E8C97E]'

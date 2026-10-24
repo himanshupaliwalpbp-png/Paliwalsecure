@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView, type Variants } from 'framer-motion';
-import { Brain, LineChart, Shield, Zap, Lock, Users } from 'lucide-react';
+import { Brain, LineChart, Shield, Zap, Lock, Users, Check } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Features data ───────────────────────────────────────────────────── */
@@ -109,11 +109,14 @@ export default function HowAIWorks() {
           viewport={{ once: true, margin: '-60px' }}
           className="text-center mb-16 md:mb-20"
         >
-          <div className="btn-pill-dot mb-5 bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#E89572]">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#B8482C] dark:bg-[#D4633F]" />
-            <span className="font-body">{badgeText}</span>
+          {/* SAFFRON DAWN v19 eyebrow + display heading */}
+          <div className="flex justify-center mb-5">
+            <span className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C872]!">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#B8482C] dark:bg-[#D4633F]" aria-hidden="true" />
+              <span className="font-body">{badgeText}</span>
+            </span>
           </div>
-          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-[#FAF7F2] mb-5">
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-5">
             {heading} <span className="text-accent-gradient">{headingAccent}</span>
           </h2>
           <p className="text-lead-premium text-[#4A4F57] dark:text-[#B8BCC2] max-w-2xl mx-auto">
@@ -140,7 +143,11 @@ export default function HowAIWorks() {
                 animate={isInView ? 'visible' : 'hidden'}
                 className="group"
               >
-                <div className="card-ivory-vault h-full flex flex-col relative overflow-hidden p-6 md:p-7">
+                <div
+                  className={`nl-glass nl-rise ${
+                    index === 0 ? 'nl-rise-1' : index === 1 ? 'nl-rise-2' : index === 2 ? 'nl-rise-3' : index === 3 ? 'nl-rise-4' : 'nl-rise-5'
+                  } h-full flex flex-col relative overflow-hidden p-6 md:p-7`}
+                >
                   {/* Subtle gradient overlay on hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -165,15 +172,9 @@ export default function HowAIWorks() {
                         strokeWidth={1.75}
                       />
                     </div>
-                    {/* Feature index badge — Fraunces serif step number */}
-                    <span
-                      className={`text-caption-premium !gap-0 !px-2.5 !py-1 !text-[10px] font-display ${
-                        feature.color === '#1B4D4A'
-                          ? 'bg-[#E6EFEE] dark:bg-[#0F2A28] text-[#1B4D4A] dark:text-[#2D7A77]'
-                          : 'bg-[#F4E5DD] dark:bg-[#3A1E14] text-[#8B3520] dark:text-[#D4633F]'
-                      }`}
-                      style={{ borderRadius: '0.375rem' }}
-                    >
+                    {/* Step number — SAFFRON DAWN v19 verified chip */}
+                    <span className="nl-chip dark:text-[#D9D3C5]! dark:border-[rgba(201,138,28,0.28)]!">
+                      <Check className="w-3 h-3 nl-chip-ico" strokeWidth={2.5} aria-hidden="true" />
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>

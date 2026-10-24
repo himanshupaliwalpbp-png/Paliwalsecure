@@ -80,20 +80,18 @@ function StatItem({
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      className="stat-hairline group"
+      className="nl-stat group items-center text-center"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <span
-          className="inline-flex items-center justify-center w-7 h-7 rounded-full transition-transform duration-300 group-hover:scale-105"
-          style={{ backgroundColor: `${stat.color}14` }}
-        >
-          <Icon className="h-3.5 w-3.5" style={{ color: stat.color }} strokeWidth={2} />
-        </span>
-        <span className="stat-hairline-label !mb-0">{label}</span>
+      <span
+        className="inline-flex items-center justify-center w-8 h-8 rounded-full mb-1 transition-transform duration-300 group-hover:scale-105"
+        style={{ backgroundColor: `${stat.color}14` }}
+      >
+        <Icon className="h-4 w-4" style={{ color: stat.color }} strokeWidth={2} />
+      </span>
+      <div className="nl-stat-value">
+        <em>{formatValue()}</em>
       </div>
-      <div className="stat-hairline-value tabular-nums">
-        {formatValue()}
-      </div>
+      <div className="nl-stat-label">{label}</div>
     </motion.div>
   );
 }
@@ -127,7 +125,7 @@ export default function TrustStrip() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-display-h2 mb-4 text-[#0E1116] dark:text-[#FAF7F2]">
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-4">
             {sectionTitle}
           </h2>
           <p className="text-lead-premium max-w-2xl mx-auto text-[#4A4F57] dark:text-[#B8BCC2]">
@@ -135,8 +133,8 @@ export default function TrustStrip() {
           </p>
         </motion.div>
 
-        {/* Stats grid — 2 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 max-w-2xl mx-auto">
+        {/* Stats — SAFFRON DAWN v19 stat pills, responsive flex wrap */}
+        <div className="flex flex-wrap justify-center items-stretch gap-4 sm:gap-6 max-w-2xl mx-auto">
           {stats.map((stat, index) => (
             <StatItem
               key={stat.key}

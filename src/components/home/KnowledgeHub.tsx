@@ -89,7 +89,7 @@ function ArticleCard({ article, isHindi, isEnglish, isInView, index }: { article
   return (
     <motion.a
       href={`/blog/${article.slug}`}
-      className="group relative flex flex-col h-full card-ivory-vault p-6 lg:p-7 block"
+      className="group relative flex flex-col h-full nl-glass p-6 lg:p-7 block"
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] as const }}
@@ -176,12 +176,14 @@ export default function KnowledgeHub() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4E5DD] text-[#8B3520] text-[0.8125rem] font-medium tracking-[0.01em] font-body mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B8482C] animate-pulse" />
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>InsureGyaan</span>
+          {/* SAFFRON DAWN v19 eyebrow + display heading */}
+          <div className="flex justify-center mb-5">
+            <span className="nl-eyebrow nl-eyebrow-center">
+              <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="font-body">InsureGyaan</span>
+            </span>
           </div>
-          <h2 className="text-display-h2 font-display text-[#0E1116]">
+          <h2 className="nl-h2">
             {heading} <span className="text-accent-gradient">{headingAccent}</span>
           </h2>
           <p className="text-lead-premium text-[#4A4F57] max-w-lg mx-auto mt-4">

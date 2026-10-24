@@ -32,7 +32,7 @@ export default function HomeCTASection() {
   ];
 
   return (
-    <section className="section-premium relative bg-[#0E1116] text-[#FAF7F2] overflow-hidden">
+    <section className="section-premium nl-dark relative bg-[#0E1116] text-[#FAF7F2] overflow-hidden">
       {/* Premium layered background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Single subtle sienna glow — top center */}
@@ -50,28 +50,37 @@ export default function HomeCTASection() {
       {/* Top gradient edge */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(250,247,242,0.08)] to-transparent" />
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Live trust indicator */}
+          {/* SAFFRON DAWN v19 — dark aurora glass panel */}
+          <div className="nl-glass relative overflow-hidden px-6 py-12 sm:px-10 sm:py-14 lg:px-16 lg:py-16 text-center">
+            <div className="nl-aurora" aria-hidden="true">
+              <div className="nl-aurora-orb3" />
+            </div>
+
+            <div className="relative z-10">
+          {/* Live trust indicator — v19 ticker with ping dot */}
           <motion.div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4E5DD] text-[#8B3520] text-[0.8125rem] font-medium tracking-[0.01em] font-body mb-8"
+            className="inline-flex mb-8"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05, duration: 0.5 }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B8482C] animate-pulse" />
-            {liveBadge}
+            <span className="nl-ticker">
+              <span className="nl-ticker-dot" />
+              {liveBadge}
+            </span>
           </motion.div>
 
           {/* Icon */}
           <motion.div
-            className="inline-flex p-4 bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-[rgba(250,247,242,0.10)] mb-8"
+            className="inline-flex p-4 bg-white/[0.06] backdrop-blur-sm rounded-2xl border border-[rgba(201,138,28,0.30)] mb-8"
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
@@ -80,8 +89,8 @@ export default function HomeCTASection() {
             <Shield className="h-10 w-10 text-[#FAF7F2]" strokeWidth={1.8} />
           </motion.div>
 
-          {/* Headline */}
-          <h2 className="text-display-h2 font-display text-white mb-6">
+          {/* Headline — v19 display serif */}
+          <h2 className="nl-h2 text-[#FAF7F2]! mb-6">
             {heading}{' '}
             <span className="text-accent-gradient">{headingAccent}</span>
           </h2>
@@ -90,24 +99,24 @@ export default function HomeCTASection() {
             {subtitle}
           </p>
 
-          {/* CTAs */}
+          {/* CTAs — v19 magnetic buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => {
                 const el = document.getElementById('advisor-form');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }}
-              className="btn-stripe !bg-[#FAF7F2] !text-[#0E1116] hover:!bg-[#D4633F] hover:!text-white group"
+              className="nl-cta group"
             >
               <Shield className="h-4 w-4" />
               {cta1Text}
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-4 w-4 nl-cta-arrow" />
             </button>
             <a
               href="https://wa.me/919257877312"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-[rgba(250,247,242,0.15)] bg-white/[0.04] text-[#FAF7F2]/90 text-[0.9375rem] font-medium tracking-[-0.01em] font-body transition-all duration-500 hover:bg-white/[0.08] hover:border-[rgba(250,247,242,0.28)] hover:text-white"
+              className="nl-cta nl-cta-wa"
             >
               <MessageCircle className="h-4 w-4" />
               {cta2Text}
@@ -116,7 +125,7 @@ export default function HomeCTASection() {
 
           {/* Trust Indicators */}
           <motion.div
-            className="mt-16 pt-10 border-t border-[rgba(250,247,242,0.08)]"
+            className="mt-16 pt-10 border-t border-[rgba(201,138,28,0.25)]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -125,7 +134,7 @@ export default function HomeCTASection() {
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
               {trustIndicators.map((indicator, index) => (
                 <div key={index} className="flex items-center gap-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#D4633F] shadow-[0_0_6px_rgba(212,99,63,0.4)]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#C98A1C] shadow-[0_0_6px_rgba(201,138,28,0.45)]" />
                   <span className="text-sm text-[#FAF7F2]/70 font-body tracking-[-0.01em]">
                     {isHindi ? indicator.hi : isEnglish ? indicator.en : indicator.hg}
                   </span>
@@ -133,6 +142,8 @@ export default function HomeCTASection() {
               ))}
             </div>
           </motion.div>
+            </div>
+          </div>
         </motion.div>
       </div>
 

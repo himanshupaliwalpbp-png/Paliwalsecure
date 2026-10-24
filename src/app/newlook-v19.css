@@ -1,0 +1,495 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SAFFRON DAWN v19 — "THE NEW LOOK" — Paliwal Secure AI
+   ═══════════════════════════════════════════════════════════════════════════
+   Owner directive: "Puri website ko new look dena hai — India's top company,
+   world-top professional, eye-catching, high CTR."
+
+   Design language:
+   • Base: warm ivory #FAF7F2 (LIGHT — owner confirmed)
+   • Drama: animated saffron/gold aurora mesh + floating orbs + grain texture
+   • Type: mega display sizes, gradient-accent words, tighter tracking
+   • CTAs: "magnetic" gradient buttons with shine-sweep + arrow-nudge (high CTR)
+   • Cards: glass with gold hairline + inner glow + levitation
+   • Trust: live ticker, stat pills, verified chips everywhere
+   Brand palette (locked): ivory #FAF7F2 · sienna #B8482C · deep maroon #8B3520
+   · royal gold #C98A1C · deep green #2D6A4F · ink #0E1116. ZERO blue.
+   Additive-only utility layer. Imported LAST — wins the cascade.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. THE AURORA CANVAS — hero + marquee surfaces ─────────────────────── */
+.nl-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.nl-aurora::before,
+.nl-aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+.nl-aurora::before {
+  width: 640px; height: 640px;
+  top: -220px; right: -160px;
+  background: radial-gradient(circle at 30% 30%, rgba(201, 138, 28, 0.20), rgba(184, 72, 44, 0.12) 45%, transparent 70%);
+  animation: nl-orb-drift 18s ease-in-out infinite alternate;
+}
+.nl-aurora::after {
+  width: 560px; height: 560px;
+  bottom: -240px; left: -140px;
+  background: radial-gradient(circle at 70% 60%, rgba(45, 106, 79, 0.14), rgba(201, 138, 28, 0.08) 50%, transparent 72%);
+  animation: nl-orb-drift 22s ease-in-out infinite alternate-reverse;
+}
+.nl-aurora-orb3 {
+  position: absolute;
+  width: 380px; height: 380px;
+  top: 34%; left: 38%;
+  border-radius: 9999px;
+  filter: blur(80px);
+  background: radial-gradient(circle, rgba(214, 122, 63, 0.13), transparent 68%);
+  animation: nl-orb-drift 26s ease-in-out infinite alternate;
+}
+@keyframes nl-orb-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-60px, 40px, 0) scale(1.08); }
+  100% { transform: translate3d(50px, -30px, 0) scale(0.96); }
+}
+
+/* Premium film grain — barely-there texture that kills the "flat AI page" look */
+.nl-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── 2. MEGA TYPOGRAPHY — the new headline system ───────────────────────── */
+.nl-headline {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 560;
+  letter-spacing: -0.028em;
+  line-height: 1.02;
+  font-size: clamp(2.9rem, 1.2rem + 6.2vw, 5.6rem);
+  color: #17130E;
+  text-wrap: balance;
+}
+.nl-headline .nl-accent {
+  position: relative;
+  font-style: italic;
+  background: linear-gradient(100deg, #B8482C 0%, #D0672F 45%, #C98A1C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-right: 0.06em;
+}
+.nl-headline .nl-accent::after {
+  content: '';
+  position: absolute;
+  left: 2%; right: 0; bottom: 0.06em;
+  height: 0.14em;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(184, 72, 44, 0.30), rgba(201, 138, 28, 0.42));
+  z-index: -1;
+  transform: skewX(-8deg);
+}
+.nl-sub {
+  font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.3rem);
+  line-height: 1.65;
+  color: #57503F;
+  max-width: 36rem;
+  text-wrap: pretty;
+}
+
+/* ── 3. MAGNETIC CTAs — the high-CTR button system ──────────────────────── */
+.nl-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.4rem;
+  padding: 0 1.9rem;
+  border-radius: 1rem;
+  font-weight: 720;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  /* Saffron ember gradient */
+  background: linear-gradient(135deg, #C24E2E 0%, #9A3521 52%, #6E1628 100%);
+  color: #FFF7EC;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 10px 28px -8px rgba(184, 72, 44, 0.55),
+    0 2px 6px rgba(94, 18, 35, 0.22);
+}
+.nl-cta:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 16px 38px -8px rgba(184, 72, 44, 0.62),
+    0 4px 10px rgba(94, 18, 35, 0.28);
+}
+.nl-cta:active { transform: translateY(0) scale(0.99); }
+/* Shine sweep — light ribbon that glides across on hover */
+.nl-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255, 244, 220, 0.38), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+.nl-cta:hover::before { left: 125%; }
+.nl-cta > * { position: relative; z-index: 2; }
+.nl-cta .nl-cta-arrow { transition: transform 0.2s ease; }
+.nl-cta:hover .nl-cta-arrow { transform: translate(3px, -3px); }
+
+/* Secondary — glass with gold hairline */
+.nl-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.4rem;
+  padding: 0 1.7rem;
+  border-radius: 1rem;
+  font-weight: 680;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #5E1628;
+  background: rgba(255, 253, 248, 0.72);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(184, 72, 44, 0.35);
+  box-shadow: 0 2px 10px -4px rgba(94, 18, 35, 0.18);
+  transition: all 0.2s ease;
+}
+.nl-cta-ghost:hover {
+  background: rgba(255, 250, 240, 0.95);
+  border-color: rgba(184, 72, 44, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -10px rgba(184, 72, 44, 0.35);
+}
+.nl-cta-wa {
+  background: linear-gradient(135deg, #1FA855 0%, #148A43 60%, #0C6B33 100%);
+  color: #F2FFF6;
+  border: none;
+  box-shadow: 0 10px 28px -8px rgba(20, 138, 67, 0.5), 0 2px 6px rgba(12, 107, 51, 0.25);
+}
+
+/* ── 4. GLASS CARDS — gold-hairline glass system ────────────────────────── */
+.nl-glass {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 253, 0.92), rgba(252, 246, 238, 0.82));
+  backdrop-filter: blur(14px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(201, 138, 28, 0.28);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+    0 24px 60px -24px rgba(94, 18, 35, 0.28),
+    0 6px 18px -8px rgba(94, 18, 35, 0.14);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.nl-glass:hover {
+  transform: translateY(-4px);
+  border-color: rgba(184, 72, 44, 0.45);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.55) inset,
+    0 34px 76px -28px rgba(94, 18, 35, 0.34),
+    0 10px 26px -10px rgba(184, 72, 44, 0.2);
+}
+/* Gold top-edge light — the "lit from above" premium cue */
+.nl-glass::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 1.5px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, rgba(201, 138, 28, 0.65), transparent);
+}
+
+/* ── 5. LIVE TICKER — social proof engine (high CTR) ────────────────────── */
+.nl-ticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 1rem 0.45rem 0.75rem;
+  border-radius: 99px;
+  background: rgba(255, 253, 248, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(45, 106, 79, 0.30);
+  font-size: 0.8rem;
+  font-weight: 620;
+  color: #2A4A38;
+  box-shadow: 0 2px 12px -6px rgba(45, 106, 79, 0.35);
+}
+.nl-ticker-dot {
+  position: relative;
+  width: 8px; height: 8px;
+  border-radius: 99px;
+  background: #1FA855;
+  flex-shrink: 0;
+}
+.nl-ticker-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 99px;
+  border: 2px solid rgba(31, 168, 85, 0.45);
+  animation: nl-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes nl-ping {
+  0%   { transform: scale(0.6); opacity: 1; }
+  80%, 100% { transform: scale(1.7); opacity: 0; }
+}
+.nl-ticker-text { animation: nl-ticker-in 0.45s ease; }
+@keyframes nl-ticker-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 6. STAT PILLS + CHIPS ───────────────────────────────────────────────── */
+.nl-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 1.1rem;
+  background: linear-gradient(165deg, rgba(255, 255, 253, 0.9), rgba(250, 244, 234, 0.78));
+  border: 1px solid rgba(14, 17, 22, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) inset, 0 10px 26px -14px rgba(94, 18, 35, 0.22);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  min-width: 8.5rem;
+}
+.nl-stat:hover { transform: translateY(-3px); border-color: rgba(184, 72, 44, 0.35); }
+.nl-stat-value {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 640;
+  letter-spacing: -0.02em;
+  color: #351910;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.nl-stat-value em {
+  font-style: normal;
+  background: linear-gradient(120deg, #B8482C, #C98A1C);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nl-stat-label {
+  font-size: 0.72rem;
+  font-weight: 640;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A8272;
+}
+
+/* Verified chip */
+.nl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 660;
+  letter-spacing: 0.01em;
+  background: rgba(255, 253, 248, 0.9);
+  border: 1px solid rgba(14, 17, 22, 0.10);
+  color: #4A4F57;
+  box-shadow: 0 1px 6px -3px rgba(94, 18, 35, 0.2);
+}
+.nl-chip .nl-chip-ico { color: #2D6A4F; }
+
+/* ── 7. SECTION EYEBROW — new section-header system ─────────────────────── */
+.nl-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 720;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8B3520;
+}
+.nl-eyebrow::before {
+  content: '';
+  width: 2.4rem;
+  height: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #C98A1C, rgba(201, 138, 28, 0));
+}
+.nl-eyebrow-center::after {
+  content: '';
+  width: 2.4rem;
+  height: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(201, 138, 28, 0), #C98A1C);
+}
+
+/* ── 8. FLOATING MINI-CARDS — levitation system for hero sides ──────────── */
+.nl-float {
+  position: absolute;
+  z-index: 2;
+  animation: nl-levitate 6s ease-in-out infinite;
+  will-change: transform;
+}
+.nl-float-1 { animation-delay: 0s; }
+.nl-float-2 { animation-delay: 1.6s; }
+.nl-float-3 { animation-delay: 3.1s; }
+@keyframes nl-levitate {
+  0%, 100% { transform: translateY(0) rotate(var(--nl-tilt, 0deg)); }
+  50%      { transform: translateY(-12px) rotate(var(--nl-tilt, 0deg)); }
+}
+.nl-float-card {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 253, 248, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 18px 44px -16px rgba(94, 18, 35, 0.30), 0 4px 12px -6px rgba(94, 18, 35, 0.14);
+  font-size: 0.82rem;
+  font-weight: 640;
+  color: #2E2A20;
+  white-space: nowrap;
+}
+.nl-float-ico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem; height: 2.1rem;
+  border-radius: 0.7rem;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+/* ── 9. BENTO GRID — modern product layout ──────────────────────────────── */
+.nl-bento { display: grid; gap: 1.25rem; }
+@media (min-width: 640px)  { .nl-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .nl-bento { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.nl-bento-item { min-width: 0; }
+.nl-bento-tall { grid-row: span 2; }
+.nl-bento-wide { grid-column: span 2; }
+
+/* ── 10. MARQUEE — premium insurer strip ────────────────────────────────── */
+.nl-marquee {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.nl-marquee-track {
+  display: flex;
+  gap: 3.5rem;
+  width: max-content;
+  animation: nl-marquee 36s linear infinite;
+}
+.nl-marquee:hover .nl-marquee-track { animation-play-state: paused; }
+@keyframes nl-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── 11. COUNT-UP + ENTRANCE ANIMATIONS ─────────────────────────────────── */
+@keyframes nl-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.nl-rise { animation: nl-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.nl-rise-1 { animation-delay: 0.08s; }
+.nl-rise-2 { animation-delay: 0.18s; }
+.nl-rise-3 { animation-delay: 0.28s; }
+.nl-rise-4 { animation-delay: 0.4s; }
+.nl-rise-5 { animation-delay: 0.52s; }
+
+/* Underline draw for links */
+.nl-link {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(90deg, #B8482C, #C98A1C);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.3s ease;
+  padding-bottom: 2px;
+}
+.nl-link:hover { background-size: 100% 2px; }
+
+/* ── 12. DARK-SECTION HARMONY (FutureAI etc.) ───────────────────────────── */
+.dark .nl-glass, .nl-dark .nl-glass {
+  background: linear-gradient(160deg, rgba(22, 26, 38, 0.85), rgba(14, 17, 26, 0.75));
+  border-color: rgba(201, 138, 28, 0.30);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 138, 28, 0.12) inset;
+}
+.dark .nl-stat, .nl-dark .nl-stat {
+  background: linear-gradient(165deg, rgba(28, 33, 48, 0.9), rgba(16, 20, 30, 0.8));
+  border-color: rgba(201, 138, 28, 0.22);
+}
+.dark .nl-stat-value, .nl-dark .nl-stat-value { color: #F5EFE2; }
+.dark .nl-stat-label, .nl-dark .nl-stat-label { color: #9AA3B5; }
+.dark .nl-ticker, .nl-dark .nl-ticker {
+  background: rgba(16, 20, 30, 0.8);
+  border-color: rgba(31, 168, 85, 0.4);
+  color: #B7E4C7;
+}
+
+/* ── 13. SITWIDE OVERRIDES — refresh shared vocabulary (new-look feel) ──── */
+/* New hero CTA replaces btn-stripe scale in hero context */
+.nl-hero .btn-stripe, .nl-hero .btn-linear { min-height: 3.4rem; }
+
+/* Section heading refresh — sitewide h2 upgrade */
+.nl-h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.08;
+  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.2rem);
+  color: #17130E;
+  text-wrap: balance;
+}
+
+/* Navbar glass refresh */
+.nl-nav {
+  background: rgba(250, 247, 242, 0.82);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(14, 17, 22, 0.07);
+}
+
+/* Focus ring — warm, sitewide */
+.nl-cta:focus-visible, .nl-cta-ghost:focus-visible, .nl-glass:focus-visible {
+  outline: 2px solid #C98A1C;
+  outline-offset: 3px;
+}
+
+/* ── 14. REDUCED MOTION + PRINT GUARDS ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nl-aurora::before, .nl-aurora::after, .nl-aurora-orb3,
+  .nl-float, .nl-ticker-dot::after, .nl-marquee-track {
+    animation: none !important;
+  }
+  .nl-cta, .nl-glass, .nl-stat { transition: none !important; }
+  .nl-rise { animation-duration: 0.01s; }
+}
+@media print {
+  .nl-aurora, .nl-grain, .nl-float, .nl-ticker, .nl-marquee { display: none !important; }
+}

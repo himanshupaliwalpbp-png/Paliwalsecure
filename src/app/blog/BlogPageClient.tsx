@@ -142,15 +142,15 @@ export default function BlogPageClient({
           <div className="orb orb-1" />
           <div className="orb orb-2" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C98A1C]/10 dark:bg-[#C98A1C]/20 border border-[#C98A1C]/20 dark:border-[#C98A1C]/30 text-sm font-medium text-[#C98A1C] dark:text-[#C98A1C] mb-6">
-              <BookOpen className="w-4 h-4" />
+            <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+              <BookOpen className="w-3.5 h-3.5" />
               {t('blog.heading')}
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-4 nl-rise nl-rise-2">
               {t('blog.heroTitle1')}{' '}
-              <span className="gradient-text">{t('blog.heroTitle2')}</span>
+              <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{t('blog.heroTitle2')}</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed">
+            <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-6 leading-relaxed nl-rise nl-rise-3">
               {t('blog.heroDesc')}{' '}
               <strong className="text-foreground">
                 {t('blog.heroDescHighlight')}
@@ -158,7 +158,7 @@ export default function BlogPageClient({
             </p>
 
             {/* Language Toggle */}
-            <div className="flex items-center justify-center gap-2 mb-8">
+            <div className="flex items-center justify-center gap-2 mb-8 nl-rise nl-rise-4">
               <Languages className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm text-muted-foreground font-medium">{t('blog.languageSwitchLabel')}</span>
               <div className="flex gap-1.5">
@@ -187,7 +187,7 @@ export default function BlogPageClient({
             </div>
 
             {/* Search Bar */}
-            <div className="max-w-xl mx-auto mb-6">
+            <div className="max-w-xl mx-auto mb-6 nl-rise nl-rise-5">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
@@ -216,7 +216,7 @@ export default function BlogPageClient({
                 className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 min-h-[40px] ${
                   activeCategory === 'All'
                     ? 'bg-foreground text-background shadow-md'
-                    : 'bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/20 hover:bg-accent'
+                    : 'bg-[rgba(255,253,248,0.88)] dark:bg-[#1A1F27] border border-[rgba(201,138,28,0.30)] dark:border-[rgba(232,200,114,0.20)] text-muted-foreground hover:text-[#B8482C] dark:hover:text-[#E8C97E] hover:border-[#B8482C]/55 hover:bg-[#FFFDF8] dark:hover:bg-[#232936] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-12px_rgba(94,18,35,0.4)]'
                 }`}
                 aria-pressed={activeCategory === 'All'}
               >
@@ -235,7 +235,7 @@ export default function BlogPageClient({
                     className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 min-h-[40px] max-w-[200px] ${
                       isActive
                         ? `${cm.bg} ${cm.text} ${cm.border} shadow-md`
-                        : 'bg-card border-border/50 text-muted-foreground hover:text-foreground hover:border-foreground/20 hover:bg-accent'
+                        : 'bg-[rgba(255,253,248,0.88)] dark:bg-[#1A1F27] border-[rgba(201,138,28,0.30)] dark:border-[rgba(232,200,114,0.20)] text-muted-foreground hover:text-[#B8482C] dark:hover:text-[#E8C97E] hover:border-[#B8482C]/55 hover:bg-[#FFFDF8] dark:hover:bg-[#232936] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-12px_rgba(94,18,35,0.4)]'
                     }`}
                     aria-pressed={isActive}
                   >
@@ -267,12 +267,12 @@ export default function BlogPageClient({
             <section className="py-4 md:py-8">
               <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <Link href={`/blog/${featured.frontmatter.slug}`} className="group block">
-                  <article className="glass-card p-6 sm:p-8 md:p-10 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#C98A1C] to-[#0A1330]" />
+                  <article className="nl-glass p-6 sm:p-8 md:p-10 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#B8482C] to-[#C98A1C]" />
                     <div className="flex flex-col md:flex-row gap-6 md:gap-10">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-4">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-[#C98A1C] to-[#0A1330] text-white">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-[#B8482C] to-[#C98A1C] text-white">
                             {t('blog.featured')}
                           </span>
                           {(() => {
@@ -332,8 +332,8 @@ export default function BlogPageClient({
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-center gap-2 mb-8">
               <TrendingUp className="w-5 h-5 text-primary" />
-              <h2 className="text-2xl sm:text-3xl font-bold">
-                {searchQuery ? t('blog.searchTitle') : t('blog.allTitle')}{' '}<span className="gradient-text">{t('blog.articlesTitle')}</span>
+              <h2 className="nl-h2 dark:text-[#FAF7F2]!">
+                {searchQuery ? t('blog.searchTitle') : t('blog.allTitle')}{' '}<span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{t('blog.articlesTitle')}</span>
               </h2>
               <span className="ml-auto text-sm text-muted-foreground">{t('blog.articlesCount').replace('{count}', String(filteredPosts.length))}</span>
             </div>
@@ -442,7 +442,7 @@ export default function BlogPageClient({
         {/* SEO Keywords Section */}
         <section className="py-8 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="glass-card p-6 sm:p-8">
+            <div className="nl-glass p-6 sm:p-8">
               <div className="flex items-center gap-2 mb-4">
                 <Search className="w-5 h-5 text-primary" />
                 <h2 className="text-xl font-bold">
@@ -478,7 +478,7 @@ export default function BlogPageClient({
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#C98A1C] to-[#0A1330] mb-6 shadow-lg">
               <Shield className="w-7 h-7 text-white" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+            <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-4">
               {t('blog.ctaHeadingInsureGPT')}
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">

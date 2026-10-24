@@ -328,19 +328,19 @@ export default function ClientContent() {
         <div className="orb orb-2" />
         <div className="orb orb-3" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{pt(T.hero.badge, language)}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+            <span>{pt(T.hero.badge, language)}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
             {pt(T.hero.title1, language)}{' '}
-            <span className="gradient-text">{pt(T.hero.title2, language)}</span>{' '}
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(T.hero.title2, language)}</span>{' '}
             {pt(T.hero.titleSuffix, language)}
           </h1>
-          <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {pt(T.hero.desc, language)}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <a href="#car-insurance-calculator">
               <ShinyButton variant="blue" className="text-sm md:text-base">
                 <span>{pt(T.hero.ctaCompare, language)}</span>
@@ -358,14 +358,14 @@ export default function ClientContent() {
           </div>
 
           {/* Trust Badges Row */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 md:gap-6">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 md:gap-6 nl-rise nl-rise-5">
             {[
               { icon: '🛡️', text: pt(T.hero.trustBadge1, language) },
               { icon: '🏢', text: pt(T.hero.trustBadge2, language) },
               { icon: '⚡', text: pt(T.hero.trustBadge3, language) },
               { icon: '🤝', text: pt(T.hero.trustBadge4, language) },
             ].map((badge, i) => (
-              <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/60 border border-border/40 text-xs md:text-sm text-muted-foreground">
+              <div key={i} className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
                 <span>{badge.icon}</span>
                 <span>{badge.text}</span>
               </div>
@@ -373,16 +373,16 @@ export default function ClientContent() {
           </div>
 
           {/* Key Stats */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto nl-rise nl-rise-5">
             {[
               { value: pt(T.hero.stat1Val, language), label: pt(T.hero.stat1Label, language) },
               { value: pt(T.hero.stat2Val, language), label: pt(T.hero.stat2Label, language) },
               { value: pt(T.hero.stat3Val, language), label: pt(T.hero.stat3Label, language) },
               { value: pt(T.hero.stat4Val, language), label: pt(T.hero.stat4Label, language) },
             ].map((stat, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
+              <div key={idx} className="nl-stat text-center">
+                <div className="nl-stat-value"><em>{stat.value}</em></div>
+                <div className="nl-stat-label">{stat.label}</div>
               </div>
             ))}
           </div>
