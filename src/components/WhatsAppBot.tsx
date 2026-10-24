@@ -170,40 +170,49 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-20 left-0 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-[#161A24] rounded-2xl shadow-2xl border border-[rgba(15,19,32,0.10)] dark:border-[rgba(232,200,114,0.18)] overflow-hidden"
+            className="absolute bottom-20 left-0 w-80 max-w-[calc(100vw-2rem)] bg-white dark:bg-[#161A24] rounded-2xl shadow-[0_2px_6px_rgba(14,17,22,0.06),0_24px_64px_-16px_rgba(94,18,35,0.28)] border border-[rgba(15,19,32,0.08)] dark:border-[rgba(232,200,114,0.18)] overflow-hidden"
           >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-[#2D6A4F] to-[#235541] p-4 text-white">
+            {/* Header — deep green gradient with live IST status */}
+            <div className="bg-gradient-to-br from-[#2D6A4F] to-[#1F4A39] p-4 text-white relative overflow-hidden">
+              {/* Subtle top sheen for depth */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" aria-hidden="true" />
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5" fill="white" />
+                <div className="flex items-center gap-2.5">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white/15 backdrop-blur-sm">
+                    <MessageCircle className="w-4.5 h-4.5" fill="white" />
+                  </div>
                   <div>
-                    <p className="font-bold text-sm">Chat with Himanshu</p>
-                    <p className="text-xs opacity-90 flex items-center gap-1 flex-wrap">
-                      <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
+                    <p className="font-display font-semibold text-[15px] tracking-tight leading-tight">Chat with Himanshu</p>
+                    <p className="text-[11px] opacity-90 flex items-center gap-1.5 flex-wrap mt-0.5">
                       {ist ? (
-                        <span className="flex items-center gap-1.5 tabular-nums">
-                          <Clock className="w-3 h-3" />
-                          {ist.istTime} IST · {ist.isOpen ? 'Open now' : 'Opens 9:30 am'}
-                        </span>
+                        <>
+                          <span className="status-dot-live status-dot-live--mint" aria-hidden="true" />
+                          <span className="flex items-center gap-1 tabular-nums font-medium">
+                            <Clock className="w-3 h-3" />
+                            {ist.istTime} IST · {ist.isOpen ? 'Open now' : 'Opens 9:30 am'}
+                          </span>
+                        </>
                       ) : (
-                        <span>Usually replies in 5 min</span>
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse" aria-hidden="true" />
+                          Usually replies in 5 min
+                        </span>
                       )}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-white/80 hover:text-white"
+                  className="flex items-center justify-center w-7 h-7 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
                   aria-label="Close WhatsApp menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4.5 h-4.5" />
                 </button>
               </div>
             </div>
 
             {/* Body */}
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
               {/* Desktop: Show QR */}
               {isDesktop && (
                 <div className="flex flex-col items-center py-3 border-b border-[rgba(15,19,32,0.06)] dark:border-[rgba(232,200,114,0.10)]">
@@ -214,22 +223,22 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
                 </div>
               )}
 
-              {/* Quick message templates */}
+              {/* Quick message templates — premium rows with hover nudge */}
               <div>
-                <p className="text-xs font-semibold text-[#4A4F57] dark:text-[#A8B0C2] mb-2 uppercase tracking-wide">
+                <p className="text-[10px] font-semibold text-[#8B9099] dark:text-[#A8B0C2] mb-2.5 uppercase tracking-[0.14em]">
                   Quick Messages
                 </p>
-                <div className="grid grid-cols-1 gap-1.5">
+                <div className="grid grid-cols-1 gap-2">
                   {quickLinks.map((link, i) => (
                     <a
                       key={i}
                       href={buildWhatsAppLink(link.message)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-between px-3 py-2 rounded-lg bg-[#FAF7F2] dark:bg-[#1A1F27] hover:bg-[#E6F4EF] dark:hover:bg-[rgba(45,106,79,0.18)] text-sm font-medium text-[#0E1116] dark:text-[#FAF7F2] transition-colors"
+                      className="group flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] dark:bg-[#1A1F27] border border-[rgba(14,17,22,0.05)] dark:border-transparent hover:border-[rgba(45,106,79,0.25)] hover:bg-[#E6F4EF] dark:hover:bg-[rgba(45,106,79,0.18)] text-sm font-medium text-[#0E1116] dark:text-[#FAF7F2] transition-all duration-250 hover:translate-x-0.5"
                     >
                       <span>{link.label}</span>
-                      <ChevronDown className="w-3 h-3 -rotate-90 opacity-50" />
+                      <ChevronDown className="w-3.5 h-3.5 -rotate-90 opacity-40 group-hover:opacity-80 group-hover:text-[#2D6A4F] transition-all" />
                     </a>
                   ))}
                 </div>
@@ -238,7 +247,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
               {/* Direct call option */}
               <a
                 href="https://wa.me/919257877312"
-                className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg border border-[#B8482C]/30 text-[#B8482C] dark:text-[#F0A88B] text-sm font-semibold hover:bg-[#FBE8E1] dark:hover:bg-[rgba(184,72,44,0.10)]"
+                className="flex items-center justify-center gap-2 w-full px-3.5 py-2.5 rounded-xl border border-[#B8482C]/30 text-[#B8482C] dark:text-[#F0A88B] text-sm font-semibold hover:bg-[#FBE8E1] dark:hover:bg-[rgba(184,72,44,0.10)] hover:border-[#B8482C]/50 transition-all duration-250"
               >
                 <Phone className="w-4 h-4" />
                 Call: +91-92578-77312
@@ -252,16 +261,16 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
                   const event = new CustomEvent('open-insuregpt');
                   window.dispatchEvent(event);
                 }}
-                className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg bg-[#FBF3DD] dark:bg-[rgba(184,134,11,0.15)] border border-[rgba(184,134,11,0.25)] text-[#8B6508] dark:text-[#E8C872] text-sm font-semibold hover:bg-[#F8EAC4]"
+                className="sheen-hover flex items-center justify-center gap-2 w-full px-3.5 py-2.5 rounded-xl bg-[#FBF3DD] dark:bg-[rgba(184,134,11,0.15)] border border-[rgba(184,134,11,0.25)] text-[#8B6508] dark:text-[#E8C872] text-sm font-semibold hover:bg-[#F8EAC4] hover:border-[rgba(184,134,11,0.45)] transition-all duration-250"
               >
-                <Sparkles className="w-4 h-4" />
-                Try InsureGPT AI (Instant)
+                <Sparkles className="w-4 h-4 relative z-[2]" />
+                <span className="relative z-[2]">Try InsureGPT AI (Instant)</span>
               </button>
             </div>
 
             {/* Footer */}
-            <div className="bg-[#FAF7F2] dark:bg-[#1A1F27] px-4 py-2 border-t border-[rgba(15,19,32,0.06)] dark:border-[rgba(232,200,114,0.10)]">
-              <p className="text-[10px] text-center text-[#8B9099]">
+            <div className="bg-[#FAF7F2] dark:bg-[#1A1F27] px-4 py-2.5 border-t border-[rgba(15,19,32,0.06)] dark:border-[rgba(232,200,114,0.10)]">
+              <p className="text-[10px] text-center text-[#8B9099] tracking-wide">
                 IRDAI POSP IP429834 · 500+ families served · 4.9★
               </p>
             </div>
@@ -281,7 +290,7 @@ export function WhatsAppFAB({ className = '' }: WhatsAppFABProps) {
         }}
         whileTap={{ scale: 0.92 }}
         whileHover={{ scale: 1.05 }}
-        className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#2D6A4F] hover:bg-[#235541] shadow-2xl shadow-[#2D6A4F]/40 flex items-center justify-center transition-colors"
+        className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#2D6A4F] hover:bg-[#235541] shadow-[0_2px_6px_rgba(45,106,79,0.35),0_16px_40px_-10px_rgba(45,106,79,0.6),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_2px_8px_rgba(45,106,79,0.4),0_20px_48px_-10px_rgba(45,106,79,0.7),inset_0_1px_0_rgba(255,255,255,0.25)] flex items-center justify-center transition-all duration-300"
         aria-label="Chat on WhatsApp with Himanshu Paliwal"
       >
         {/* Pulse animation */}

@@ -4568,28 +4568,29 @@ html.theme-transitioning *::after {
    PREMIUM BUTTONS — 5 Patterns
    ────────────────────────────────────────────── */
 
-/* Pattern 1: "The Stripe" — Primary CTA (ink bg, canvas text, gap expands) */
+/* Pattern 1: "The Stripe" — Primary CTA (sienna prestige gradient, canvas text, gap expands)
+   LUMEN v18: base class de-blued — brand sienna/maroon (was #2563EB blue). */
 .btn-stripe {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #B8482C 0%, #8B3520 55%, #5E1223 100%);
+  color: #FDF6EC;
   padding: 0.875rem 1.75rem;
   border-radius: 9999px;
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 2px 4px rgba(94, 18, 35, 0.18), 0 8px 24px -6px rgba(184, 72, 44, 0.45);
   font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
   transition: all 0.3s var(--ease-out-quart);
   cursor: pointer;
   border: none;
 }
 .btn-stripe:hover {
-  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  background: linear-gradient(135deg, #C55436 0%, #9A3521 55%, #6E1628 100%);
   gap: 1rem;
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 4px 8px rgba(94, 18, 35, 0.22), 0 14px 34px -8px rgba(184, 72, 44, 0.55);
 }
 .btn-stripe svg {
   transition: transform 0.3s var(--ease-out-quart);
@@ -6287,4 +6288,410 @@ body.hindi-active .ps-stat-label {
 @media (prefers-reduced-motion: reduce) {
   .saver-shimmer, .saver-typing-dot { animation: none !important; }
   .saver-gold-btn, .saver-glass-hover { transition: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LUMEN v18 — "WORLD-CLASS POLISH" WAVE (Task 6-a)
+   Additive-only utility layer. Brand: ivory #FAF7F2 · deep green #2D6A4F
+   · terracotta #B8482C · gold #C98A1C. Light theme primary. Zero blue.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Smooth scroll + balanced display typography ─────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+.text-display-hero,
+.text-display-h1,
+.text-display-h2 {
+  text-wrap: balance;
+}
+
+/* ── .premium-card — soft layered elevation, hover lift + border highlight ── */
+.premium-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(14, 17, 22, 0.08);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(14, 17, 22, 0.04),
+    0 10px 30px -14px rgba(94, 18, 35, 0.12);
+  transition:
+    transform 0.35s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    box-shadow 0.35s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    border-color 0.35s ease;
+}
+.premium-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(184, 72, 44, 0.28);
+  box-shadow:
+    0 2px 4px rgba(14, 17, 22, 0.05),
+    0 20px 48px -18px rgba(94, 18, 35, 0.20);
+}
+.dark .premium-card {
+  background: rgba(250, 247, 242, 0.04);
+  border-color: rgba(250, 247, 242, 0.10);
+}
+.dark .premium-card:hover {
+  border-color: rgba(212, 99, 63, 0.45);
+}
+/* Flat variant — same surface, no hover lift (for large form cards) */
+.premium-card.premium-card--flat:hover {
+  transform: none;
+}
+
+/* ── .premium-btn-primary — terracotta prestige gradient + gold sheen sweep ── */
+.premium-btn-primary {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #C2552F 0%, #B8482C 45%, #8B3520 100%);
+  color: #FDF6EC;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    0 1px 2px rgba(94, 18, 35, 0.25),
+    0 10px 24px -10px rgba(184, 72, 44, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    transform 0.3s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    box-shadow 0.3s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    filter 0.3s ease;
+}
+.premium-btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 32%,
+    rgba(232, 200, 114, 0.35) 50%,
+    transparent 68%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.7s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+  pointer-events: none;
+}
+.premium-btn-primary:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.06) brightness(1.04);
+  box-shadow:
+    0 2px 4px rgba(94, 18, 35, 0.28),
+    0 16px 36px -12px rgba(184, 72, 44, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.premium-btn-primary:hover::after {
+  transform: translateX(130%);
+}
+.premium-btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+.premium-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+.dark .premium-btn-primary {
+  background: linear-gradient(135deg, #D4633F 0%, #B8482C 45%, #8B2D40 100%);
+}
+
+/* ── .premium-btn-secondary — ghost with animated fill ────────────────────── */
+.premium-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(14, 17, 22, 0.16);
+  background: transparent;
+  color: #0E1116;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  cursor: pointer;
+  transition:
+    background-color 0.35s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.3s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+}
+.premium-btn-secondary:hover {
+  background: #0E1116;
+  border-color: #0E1116;
+  color: #FAF7F2;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -12px rgba(14, 17, 22, 0.45);
+}
+.premium-btn-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
+.dark .premium-btn-secondary {
+  border-color: rgba(250, 247, 242, 0.22);
+  color: #FAF7F2;
+}
+.dark .premium-btn-secondary:hover {
+  background: rgba(250, 247, 242, 0.10);
+  border-color: rgba(250, 247, 242, 0.45);
+  color: #FAF7F2;
+}
+
+/* ── .sheen-hover — animated gold sheen sweep (drop on any element) ───────── */
+.sheen-hover {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+.sheen-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(232, 200, 114, 0.25) 50%,
+    transparent 70%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.7s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+  pointer-events: none;
+  z-index: 1;
+}
+.sheen-hover:hover::after {
+  transform: translateX(130%);
+}
+
+/* ── .lift-hover — gentle elevation on hover ──────────────────────────────── */
+.lift-hover {
+  transition:
+    transform 0.35s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1)),
+    box-shadow 0.35s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+  will-change: transform;
+}
+.lift-hover:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 2px 4px rgba(14, 17, 22, 0.05),
+    0 18px 44px -16px rgba(94, 18, 35, 0.18);
+}
+.lift-hover:active {
+  transform: translateY(-1px);
+}
+
+/* ── .kicker-eyebrow — section label with gold rule accents ───────────────── */
+.kicker-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-body), 'Inter Tight', system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8B3520;
+  line-height: 1;
+}
+.kicker-eyebrow::before {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, transparent, #C98A1C);
+}
+/* Centered variant gets a symmetric trailing rule */
+.kicker-eyebrow-center::after {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #C98A1C, transparent);
+}
+.dark .kicker-eyebrow {
+  color: #E8C97E;
+}
+
+/* Gold rule under section headings */
+.heading-rule-gold {
+  position: relative;
+}
+.heading-rule-gold::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -0.75rem;
+  width: 3rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #C98A1C 30%, #C98A1C 70%, transparent);
+}
+
+/* ── Icon containers with tinted backgrounds ──────────────────────────────── */
+.icon-tint,
+.icon-tint-green,
+.icon-tint-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.875rem;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+}
+.icon-tint {
+  background: #F4E5DD;
+  color: #B8482C;
+}
+.icon-tint-green {
+  background: #E6F4EF;
+  color: #2D6A4F;
+}
+.icon-tint-gold {
+  background: #FBF0D5;
+  color: #8B6508;
+}
+.group:hover .icon-tint,
+.group:hover .icon-tint-green,
+.group:hover .icon-tint-gold {
+  transform: scale(1.08);
+}
+
+/* ── Input focus rings — terracotta ring with warm halo ───────────────────── */
+.input-ring-premium {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+.input-ring-premium:hover {
+  border-color: rgba(14, 17, 22, 0.16);
+}
+.input-ring-premium:focus {
+  outline: none;
+  border-color: #B8482C;
+  box-shadow: 0 0 0 3px rgba(184, 72, 44, 0.14);
+}
+.dark .input-ring-premium:focus {
+  border-color: #D4633F;
+  box-shadow: 0 0 0 3px rgba(212, 99, 63, 0.18);
+}
+
+/* Refined global focus-visible ring — gold-tinged, offset */
+*:focus-visible {
+  outline: 2px solid #B8482C;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ── Link hover nudge — editorial micro-interaction ───────────────────────── */
+.link-nudge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition:
+    color 0.25s ease,
+    transform 0.25s var(--ease-out-quart, cubic-bezier(0.25, 1, 0.5, 1));
+}
+.link-nudge:hover {
+  transform: translateX(3px);
+}
+
+/* ── Glass pill (IST clock, trust pills) — frosted premium surface ────────── */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(184, 72, 44, 0.14);
+  box-shadow:
+    0 1px 2px rgba(14, 17, 22, 0.04),
+    0 12px 32px -16px rgba(94, 18, 35, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.dark .glass-pill {
+  background: rgba(22, 26, 34, 0.72);
+  border-color: rgba(232, 200, 114, 0.18);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 12px 32px -16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(250, 247, 242, 0.06);
+}
+
+/* Animated status dot — breathing glow (for open/closed indicators) */
+.status-dot-live {
+  position: relative;
+  display: inline-flex;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #2D6A4F;
+  box-shadow: 0 0 0 0 rgba(45, 106, 79, 0.5);
+  animation: status-dot-breathe 2.4s ease-in-out infinite;
+}
+@keyframes status-dot-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(45, 106, 79, 0.45); }
+  50% { box-shadow: 0 0 0 5px rgba(45, 106, 79, 0); }
+}
+/* Mint variant — for use on deep-green surfaces */
+.status-dot-live--mint {
+  background: #6EE7B7;
+}
+
+/* ── Scrollbar refinement — slimmer, warmer thumb ─────────────────────────── */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(14, 17, 22, 0.28);
+  border-radius: 999px;
+  border: 2px solid #FAF7F2;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8482C;
+}
+
+/* ── Trust badge pill refinement — hairline border + soft elevation ───────── */
+.btn-pill-dot {
+  border: 1px solid rgba(184, 72, 44, 0.14);
+  box-shadow:
+    0 1px 2px rgba(14, 17, 22, 0.04),
+    0 8px 20px -12px rgba(94, 18, 35, 0.22);
+  backdrop-filter: blur(8px) saturate(1.3);
+  -webkit-backdrop-filter: blur(8px) saturate(1.3);
+}
+
+/* ── Reduced motion — respect user preference everywhere in this layer ────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .premium-btn-primary::after,
+  .sheen-hover::after {
+    display: none;
+  }
+  .premium-btn-primary:hover,
+  .premium-card:hover,
+  .lift-hover:hover,
+  .link-nudge:hover,
+  .icon-tint,
+  .icon-tint-green,
+  .icon-tint-gold,
+  .group:hover .icon-tint,
+  .group:hover .icon-tint-green,
+  .group:hover .icon-tint-gold {
+    transform: none;
+  }
+  .status-dot-live {
+    animation: none;
+    box-shadow: none;
+  }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { Phone, Mail, MapPin, User, Shield, CheckCircle2, Loader2, AlertCircle, ArrowRight, Sparkles, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, User, Shield, CheckCircle2, Loader2, AlertCircle, ArrowRight, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { getBusinessHoursStatus, type BusinessHoursStatus } from '@/lib/ist';
 
@@ -160,7 +160,7 @@ export default function RatingLeadForm() {
     return (
       <section className="relative bg-[#FAF7F2] dark:bg-[#0E1116] py-16 md:py-24" style={{ zIndex: 10, position: 'relative' }}>
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#2D6A4F] mb-6">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#2D6A4F] mb-6 shadow-[0_0_0_8px_rgba(45,106,79,0.12),0_16px_36px_-12px_rgba(45,106,79,0.45)]">
             <CheckCircle2 className="w-10 h-10 text-white" />
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-[#0E1116] dark:text-white mb-3">
@@ -174,14 +174,14 @@ export default function RatingLeadForm() {
               href={`https://wa.me/919257877312?text=Hi%20Himanshu,%20I%20just%20submitted%20a%20consultation%20request.%20Name:%20${encodeURIComponent(form.name)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-white font-semibold hover:opacity-90 transition-opacity"
+              className="sheen-hover inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-white font-semibold transition-all duration-300 hover:bg-[#1DA851] hover:-translate-y-0.5 hover:shadow-[0_10px_26px_-8px_rgba(37,211,102,0.55)] active:translate-y-0"
             >
               <Phone className="w-4 h-4" />
               Chat on WhatsApp Now
             </a>
             <Link
               href="/"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#0E1116] dark:bg-white text-white dark:text-[#0E1116] font-semibold hover:opacity-90 transition-opacity"
+              className="premium-btn-secondary px-6 py-3"
             >
               Back to Home
               <ArrowRight className="w-4 h-4" />
@@ -210,29 +210,26 @@ export default function RatingLeadForm() {
       }}
     >
       <div className="max-w-2xl mx-auto px-4">
-        {/* Header */}
+        {/* Header — kicker eyebrow + display heading (LUMEN v18 polish) */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-[#E6EFEE] dark:bg-[#0F2A28] text-[#1B4D4A] dark:text-[#2D7A77] text-sm font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
-            Free Consultation
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0E1116] dark:text-white mb-3">
+          <span className="kicker-eyebrow kicker-eyebrow-center mb-4">Free Consultation</span>
+          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-white mb-3 heading-rule-gold">
             Get Free Consultation
           </h2>
-          <p className="text-base text-[#4A4F57] dark:text-[#A8B0C2]">
+          <p className="text-base text-[#4A4F57] dark:text-[#A8B0C2] max-w-md mx-auto">
             Our IRDAI-certified advisor will call you within 24 hours. No spam, no charges.
           </p>
 
           {/* ── LIVE IST CLOCK — Indian time (owner directive) ─────────────── */}
           {ist && (
-            <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#161A22] border border-[rgba(45,106,79,0.20)] dark:border-[rgba(232,200,114,0.18)] shadow-sm">
-              <span className="flex items-center gap-1.5 text-sm font-semibold text-[#0E1116] dark:text-[#FAF7F2]">
+            <div className="glass-pill mt-6 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 px-5 py-3 rounded-2xl">
+              <span className="flex items-center gap-1.5 text-sm font-semibold text-[#0E1116] dark:text-[#FAF7F2] font-body tracking-tight">
                 <Clock className="w-4 h-4 text-[#2D6A4F]" />
                 <span className="tabular-nums">{ist.istTime}</span>
-                <span className="text-[10px] font-bold text-[#2D6A4F] bg-[#E6F4EF] dark:bg-[rgba(45,106,79,0.25)] px-1.5 py-0.5 rounded-md tracking-wide">IST</span>
+                <span className="text-[10px] font-bold text-[#2D6A4F] bg-[#E6F4EF] dark:bg-[rgba(45,106,79,0.25)] px-1.5 py-0.5 rounded-md tracking-[0.08em]">IST</span>
               </span>
               <span className="w-px h-4 bg-[rgba(14,17,22,0.10)] dark:bg-[rgba(250,247,242,0.15)]" aria-hidden="true" />
-              <span className="text-xs text-[#4A4F57] dark:text-[#A8B0C2]">{ist.istDate}</span>
+              <span className="text-xs text-[#4A4F57] dark:text-[#A8B0C2] font-body">{ist.istDate}</span>
               <span
                 className={`flex items-center gap-1.5 text-xs font-semibold ${
                   ist.isOpen
@@ -240,33 +237,34 @@ export default function RatingLeadForm() {
                     : 'text-[#B8482C] dark:text-[#F0A88B]'
                 }`}
               >
-                <span className={`relative flex w-2 h-2 ${ist.isOpen ? '' : 'opacity-60'}`}>
-                  {ist.isOpen && <span className="absolute inline-flex w-full h-full rounded-full bg-[#2D6A4F] opacity-60 animate-ping" />}
-                  <span className={`relative inline-flex w-2 h-2 rounded-full ${ist.isOpen ? 'bg-[#2D6A4F]' : 'bg-[#B8482C]'}`} />
-                </span>
+                {ist.isOpen ? (
+                  <span className="status-dot-live" aria-hidden="true" />
+                ) : (
+                  <span className="inline-flex w-2 h-2 rounded-full bg-[#B8482C] opacity-60" aria-hidden="true" />
+                )}
                 {ist.isOpen ? ist.label : ist.label}
               </span>
             </div>
           )}
         </div>
 
-        {/* Form Card */}
-        <div className="bg-white dark:bg-[#161A22] rounded-2xl border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] shadow-lg p-6 md:p-8" style={{ contain: 'none' }}>
+        {/* Form Card — premium layered elevation */}
+        <div className="premium-card premium-card--flat rounded-2xl p-6 md:p-8" style={{ contain: 'none' }}>
           {/* Error Banner */}
           {status === 'error' && (
-            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+            <div className="mb-6 p-4 rounded-xl bg-[#B8482C]/[0.06] border border-[#B8482C]/25 flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-[#B8482C] flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-red-300 font-semibold text-sm">Submission Failed</p>
-                <p className="text-red-400/70 text-xs mt-1">{errorMessage}</p>
+                <p className="text-[#8B3520] font-semibold text-sm">Submission Failed</p>
+                <p className="text-[#B8482C]/70 text-xs mt-1">{errorMessage}</p>
               </div>
             </div>
           )}
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-[#0E1116] dark:text-white mb-1.5">
+              <label className="block text-sm font-semibold text-[#0E1116] dark:text-white mb-2">
                 Full Name <span className="text-[#B8482C]">*</span>
               </label>
               <div className="relative">
@@ -276,7 +274,7 @@ export default function RatingLeadForm() {
                   value={form.name}
                   onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Enter your full name"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.12)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-all duration-300 input-ring-premium"
                 />
               </div>
               {errors.name && <p className="text-xs text-[#B8482C] mt-1">{errors.name}</p>}
@@ -284,7 +282,7 @@ export default function RatingLeadForm() {
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-medium text-[#0E1116] dark:text-white mb-1.5">
+              <label className="block text-sm font-semibold text-[#0E1116] dark:text-white mb-2">
                 Phone Number <span className="text-[#B8482C]">*</span>
               </label>
               <div className="relative">
@@ -298,7 +296,7 @@ export default function RatingLeadForm() {
                   onChange={(e) => handlePhoneChange(e.target.value)}
                   maxLength={10}
                   placeholder="10-digit mobile number"
-                  className="w-full pl-24 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors"
+                  className="w-full pl-24 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.12)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-all duration-300 input-ring-premium"
                 />
               </div>
               {/* Reserved-height hint area — no layout shift */}
@@ -317,7 +315,7 @@ export default function RatingLeadForm() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-[#0E1116] dark:text-white mb-1.5">
+              <label className="block text-sm font-semibold text-[#0E1116] dark:text-white mb-2">
                 Email <span className="text-[#8B9099]">(optional)</span>
               </label>
               <div className="relative">
@@ -327,7 +325,7 @@ export default function RatingLeadForm() {
                   value={form.email}
                   onChange={(e) => setForm(prev => ({ ...prev, email: e.target.value }))}
                   placeholder="your@email.com"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.12)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-all duration-300 input-ring-premium"
                 />
               </div>
               {errors.email && <p className="text-xs text-[#B8482C] mt-1">{errors.email}</p>}
@@ -335,7 +333,7 @@ export default function RatingLeadForm() {
 
             {/* Insurance Type */}
             <div>
-              <label className="block text-sm font-medium text-[#0E1116] dark:text-white mb-1.5">
+              <label className="block text-sm font-semibold text-[#0E1116] dark:text-white mb-2">
                 Insurance Type <span className="text-[#8B9099]">(optional)</span>
               </label>
               <div className="relative">
@@ -348,7 +346,7 @@ export default function RatingLeadForm() {
                     const scrollY = window.scrollY;
                     setTimeout(() => window.scrollTo({ top: scrollY }), 0);
                   }}
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors appearance-none cursor-pointer"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white border-[rgba(14,17,22,0.12)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-all duration-300 input-ring-premium appearance-none cursor-pointer"
                 >
                   <option value="">Select insurance type</option>
                   {INSURANCE_TYPES.map(t => (
@@ -360,7 +358,7 @@ export default function RatingLeadForm() {
 
             {/* City */}
             <div>
-              <label className="block text-sm font-medium text-[#0E1116] dark:text-white mb-1.5">
+              <label className="block text-sm font-semibold text-[#0E1116] dark:text-white mb-2">
                 City <span className="text-[#8B9099]">(optional)</span>
               </label>
               <div className="relative">
@@ -380,7 +378,7 @@ export default function RatingLeadForm() {
                   }}
                   onBlur={() => setTimeout(() => setShowCitySuggestions(false), 200)}
                   placeholder="Your city"
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-colors"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border bg-[#FAF7F2] dark:bg-[#0E1116] text-[#0E1116] dark:text-white placeholder:text-[#8B9099] border-[rgba(14,17,22,0.12)] dark:border-[rgba(250,247,242,0.10)] focus:border-[#B8482C] dark:focus:border-[#D4633F] focus:outline-none transition-all duration-300 input-ring-premium"
                 />
                 {/* City suggestions */}
                 {showCitySuggestions && filteredCities.length > 0 && (
@@ -403,21 +401,21 @@ export default function RatingLeadForm() {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit Button — terracotta prestige gradient + gold sheen sweep */}
             <button
               onClick={handleSubmit}
               disabled={status === 'loading'}
-              className="w-full py-4 rounded-full bg-[#0E1116] dark:bg-[#FAF7F2] text-[#FAF7F2] dark:text-[#0E1116] font-semibold text-base hover:bg-[#B8482C] dark:hover:bg-[#D4633F] hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="premium-btn-primary w-full py-4 text-base group"
             >
               {status === 'loading' ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-5 h-5 animate-spin relative z-[2]" />
                   Submitting...
                 </>
               ) : (
                 <>
-                  Get Free Callback
-                  <ArrowRight className="w-5 h-5" />
+                  <span className="relative z-[2]">Get Free Callback</span>
+                  <ArrowRight className="w-5 h-5 relative z-[2] transition-transform duration-300 group-hover:translate-x-1" />
                 </>
               )}
             </button>

@@ -181,7 +181,7 @@ export default function ConsentModal() {
                   <p
                     className="text-[12px] sm:text-[13px] leading-relaxed"
                     style={{
-                      color: isDark ? '#94A3B8' : '#64748B',
+                      color: isDark ? '#A8B0C2' : '#3F4A5A',
                       fontFamily:
                         'var(--font-sans), Inter, system-ui, sans-serif',
                     }}

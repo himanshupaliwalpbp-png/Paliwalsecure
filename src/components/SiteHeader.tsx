@@ -359,18 +359,18 @@ export default function SiteHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
+                  className={`relative flex items-center gap-1.5 px-3 py-1.5 text-[13px] rounded-lg transition-all duration-200 whitespace-nowrap ${
                     active
                       ? isLight
-                        ? 'text-[#0E1116]'
-                        : 'text-[#FAF7F2]'
+                        ? 'font-semibold text-[#0E1116]'
+                        : 'font-semibold text-[#FAF7F2]'
                       : link.highlight
                         ? isLight
-                          ? 'text-[#B8863B] hover:text-[#8B3520] font-semibold'
-                          : 'text-[#E8C97E] hover:text-[#FAF7F2] font-semibold'
+                          ? 'font-medium text-[#B8863B] hover:text-[#8B3520] hover:bg-[#D4A853]/10'
+                          : 'font-medium text-[#E8C97E] hover:text-[#FAF7F2] hover:bg-[#D4A853]/10'
                         : isLight
-                          ? 'text-[#4A4F57] hover:text-[#0E1116]'
-                          : 'text-[#8B9099] hover:text-[#FAF7F2]'
+                          ? 'font-medium text-[#4A4F57] hover:text-[#0E1116] hover:bg-[#F4E5DD]/60'
+                          : 'font-medium text-[#8B9099] hover:text-[#FAF7F2] hover:bg-white/[0.05]'
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
@@ -420,7 +420,7 @@ export default function SiteHeader() {
             {/* WhatsApp button — desktop — WhatsApp green premium CTA */}
             <Button
               size="sm"
-              className={`hidden xl:flex items-center gap-2 h-9 px-3.5 text-[13px] font-semibold transition-all duration-300 rounded-lg shadow-sm hover:shadow-md active:scale-[0.97] bg-[#25D366] hover:bg-[#1DA851] text-white shadow-[#25D366]/20 hover:shadow-[#1DA851]/30`}
+              className={`hidden xl:flex items-center gap-2 h-9 px-3.5 text-[13px] font-semibold transition-all duration-300 rounded-full active:scale-[0.97] bg-[#25D366] hover:bg-[#1DA851] text-white shadow-[0_1px_2px_rgba(20,10,0,0.18),0_6px_16px_-8px_rgba(37,211,102,0.55)] hover:shadow-[0_2px_4px_rgba(20,10,0,0.2),0_10px_24px_-8px_rgba(37,211,102,0.65)]`}
               asChild
             >
               <a

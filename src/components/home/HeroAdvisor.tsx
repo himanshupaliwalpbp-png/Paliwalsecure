@@ -348,7 +348,7 @@ export default function HeroAdvisor() {
               variants={cardVariants}
               initial="hidden"
               animate="visible"
-              className="p-5 rounded-xl bg-[#FAF7F2] border border-[rgba(14,17,22,0.08)] hover:border-[rgba(14,17,22,0.16)] transition-all duration-300"
+              className="p-5 rounded-xl premium-card bg-[#FAF7F2] hover:border-[rgba(14,17,22,0.16)] transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
@@ -406,7 +406,7 @@ export default function HeroAdvisor() {
           href="https://wa.me/919257877312"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-colors shadow-premium-sm font-body"
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-colors shadow-[0_1px_2px_rgba(5,46,22,0.18),0_8px_20px_-10px_rgba(5,150,105,0.5)] font-body"
         >
           <MessageCircle className="w-4 h-4" />
           {whatsappCTA}
@@ -607,11 +607,11 @@ export default function HeroAdvisor() {
               </div>
             </div>
 
-            {/* Floating Cards — desktop only */}
+            {/* Floating Cards — desktop only, premium layered shadows */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-2 -right-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-premium"
+              className="absolute -top-2 -right-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-[0_1px_2px_rgba(14,17,22,0.05),0_16px_40px_-14px_rgba(94,18,35,0.25)]"
             >
               <div className="text-xs text-[#8B9099] font-body mb-0.5">Savings This Year</div>
               <div className="text-xl font-medium text-accent-gradient font-display tabular-nums">₹45,000</div>
@@ -620,7 +620,7 @@ export default function HeroAdvisor() {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-20 -left-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-premium"
+              className="absolute bottom-20 -left-2 bg-white rounded-xl p-3.5 border border-[rgba(14,17,22,0.08)] hidden lg:block z-10 shadow-[0_1px_2px_rgba(14,17,22,0.05),0_16px_40px_-14px_rgba(94,18,35,0.25)]"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-[#E6EFEE] rounded-lg">
@@ -875,10 +875,10 @@ export default function HeroAdvisor() {
                         href="https://wa.me/919257877312"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium shadow-premium-sm hover:shadow-premium transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
+                        className="sheen-hover mt-4 flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium shadow-[0_1px_2px_rgba(5,46,22,0.2),0_10px_24px_-10px_rgba(5,150,105,0.55)] hover:shadow-[0_2px_4px_rgba(5,46,22,0.22),0_14px_30px_-10px_rgba(5,150,105,0.65)] transition-all duration-200 font-body hover:scale-[1.01] active:scale-[0.99]"
                       >
-                        <MessageCircle className="w-4 h-4" />
-                        {whatsAppInstead}
+                        <MessageCircle className="w-4 h-4 relative z-[2]" />
+                        <span className="relative z-[2]">{whatsAppInstead}</span>
                       </a>
                     </div>
                   </div>

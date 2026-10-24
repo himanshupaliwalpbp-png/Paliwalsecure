@@ -276,7 +276,7 @@ export default function SiteFooter() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-20px' }}
-              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-body font-medium text-muted-foreground/70 hover:text-primary transition-all duration-300 bg-muted/30 border border-[rgba(14,17,22,0.08)] hover:border-[#B8482C]/30 hover:bg-[#F4E5DD]/40"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-body font-medium text-muted-foreground/70 hover:text-primary transition-all duration-300 bg-muted/30 border border-[rgba(14,17,22,0.08)] hover:border-[#B8482C]/30 hover:bg-[#F4E5DD]/40 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-10px_rgba(94,18,35,0.25)]"
             >
               {partner}
             </motion.div>
@@ -310,7 +310,7 @@ export default function SiteFooter() {
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20px' }}
                 ref={stat.animated ? stat.refProp : undefined}
-                className="rounded-2xl border border-[rgba(14,17,22,0.08)] bg-muted/20 p-3 sm:p-4 text-center transition-colors duration-300 hover:bg-[#F4E5DD]/40 hover:border-[#B8482C]/30"
+                className="lift-hover rounded-2xl border border-[rgba(14,17,22,0.08)] bg-muted/20 p-3 sm:p-4 text-center transition-colors duration-300 hover:bg-[#F4E5DD]/40 hover:border-[#B8482C]/30"
               >
                 <Icon className="w-4 h-4 text-[#B8482C] mx-auto mb-1.5" />
                 <div className="text-lg sm:text-xl font-display font-semibold text-primary tracking-tight tabular-nums">
@@ -380,7 +380,7 @@ export default function SiteFooter() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-xl border border-[rgba(14,17,22,0.08)] bg-muted/20 flex items-center justify-center text-muted-foreground/70 hover:text-[#B8482C] hover:border-[#B8482C]/30 hover:bg-[#F4E5DD]/40 transition-all duration-300"
+                    className="w-9 h-9 rounded-xl border border-[rgba(14,17,22,0.08)] bg-muted/20 flex items-center justify-center text-muted-foreground/70 hover:text-[#B8482C] hover:border-[#B8482C]/35 hover:bg-[#F4E5DD] hover:-translate-y-0.5 hover:shadow-[0_8px_18px_-8px_rgba(184,72,44,0.35)] transition-all duration-300"
                     aria-label={social.label}
                   >
                     <Icon className="w-4 h-4" />
@@ -394,7 +394,7 @@ export default function SiteFooter() {
               <li>
                 <a
                   href={PHONE_TEL}
-                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
+                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 group"
                 >
                   <Phone className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
                   <span className="link-underline-reveal">{PHONE}</span>
@@ -403,7 +403,7 @@ export default function SiteFooter() {
               <li>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
+                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 group"
                 >
                   <Mail className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
                   <span className="break-all text-overflow-safe link-underline-reveal">{EMAIL}</span>
@@ -414,7 +414,7 @@ export default function SiteFooter() {
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 group"
+                  className="flex items-center gap-2.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 group"
                 >
                   <Instagram className="h-4 w-4 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors" />
                   <span className="link-underline-reveal">@paliwalinsure</span>
@@ -458,7 +458,7 @@ export default function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe block min-h-[28px] flex items-center"
+                    className="group text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe block min-h-[28px] flex items-center"
                   >
                     <span className="link-underline-reveal">
                       {t(link.labelKey)}
@@ -484,7 +484,7 @@ export default function SiteFooter() {
                   <li key={product.href}>
                     <Link
                       href={product.href}
-                      className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px]"
+                      className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px]"
                     >
                       <ProductIcon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors shrink-0" />
                       <span className="link-underline-reveal">
@@ -520,7 +520,7 @@ export default function SiteFooter() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-1.5 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 min-h-[28px]"
+                      className="group flex items-center gap-1.5 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 min-h-[28px]"
                     >
                       <span className="link-underline-reveal">
                         {t(link.labelKey)}
@@ -530,7 +530,7 @@ export default function SiteFooter() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="group text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px] block"
+                      className="group text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8482C]/40 rounded text-overflow-safe min-h-[28px] block"
                     >
                       <span className="link-underline-reveal">
                         {t(link.labelKey)}
@@ -582,7 +582,7 @@ export default function SiteFooter() {
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full h-11 pl-4 pr-12 rounded-xl text-sm font-body text-foreground placeholder:text-muted-foreground/40 outline-none transition-all duration-300 bg-muted/20 border border-[rgba(14,17,22,0.08)] focus:border-[#B8482C]/50 focus:ring-2 focus:ring-[#B8482C]/20"
+                className="w-full h-11 pl-4 pr-12 rounded-xl text-sm font-body text-foreground placeholder:text-muted-foreground/40 outline-none input-ring-premium bg-muted/20 border border-[rgba(14,17,22,0.08)]"
                 aria-label="Email for newsletter"
               />
               <button
@@ -607,7 +607,7 @@ export default function SiteFooter() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary transition-colors duration-200 min-h-[28px]"
+                    className="group flex items-center gap-2 text-sm font-body text-muted-foreground/70 hover:text-primary hover:translate-x-0.5 transition-all duration-250 min-h-[28px]"
                   >
                     <Icon className="w-3.5 h-3.5 text-muted-foreground/50 group-hover:text-[#B8482C] transition-colors shrink-0" />
                     <span className="link-underline-reveal">

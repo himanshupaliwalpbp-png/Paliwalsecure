@@ -24,7 +24,7 @@ const articles: ArticleData[] = [
     articleKey: 'article1',
     icon: <Shield className="w-5 h-5" />,
     slug: 'term-insurance-guide-india',
-    color: '#2563EB',
+    color: '#1B4D4A',
     badgeVariant: 'blue',
     titles: { en: 'Term vs Whole Life — explained in 3 min', hi: 'Term vs Whole Life — 3 minute mein samjhein', hg: 'Term vs Whole Life — 3 minute mein samjhein' },
     categories: { en: 'Insurance Guide', hi: 'बीमा गाइड', hg: 'Insurance Guide' },
