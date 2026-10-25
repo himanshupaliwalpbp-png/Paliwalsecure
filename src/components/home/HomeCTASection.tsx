@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Shield, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, Shield, MessageCircle, Gauge } from 'lucide-react';
+import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n';
 
 /* ── Component ──────────────────────────────────────────────────── */
@@ -121,6 +122,11 @@ export default function HomeCTASection() {
               <MessageCircle className="h-4 w-4" />
               {cta2Text}
             </a>
+            <Link href="/protection-score" className="nl-cta nl-cta-ghost group">
+              <Gauge className="h-4 w-4" />
+              Free Protection Score™
+              <ArrowUpRight className="h-4 w-4 nl-cta-arrow" />
+            </Link>
           </div>
 
           {/* Trust Indicators */}

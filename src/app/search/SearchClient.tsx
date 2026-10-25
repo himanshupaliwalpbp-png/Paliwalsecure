@@ -460,7 +460,7 @@ export default function SearchClient() {
                       <ArrowRight className="h-3 w-3 shrink-0" />
                       <span>Star Health Claim Guide</span>
                     </Link>
-                    <Link href="/insurance-news/irdai-gst-exempt-health-insurance" className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
+                    <Link href="/insurance-news/gst-exempt-health-insurance" className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
                       <ArrowRight className="h-3 w-3 shrink-0" />
                       <span>GST Exempt on Health Insurance</span>
                     </Link>

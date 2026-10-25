@@ -47,6 +47,7 @@ const QUICK_LINKS = [
   { href: '/vehicle-launch-hub', labelKey: 'footer.link.newVehicleInsurance' },
   { href: '/insurance-faq', labelKey: 'footer.link.faq' },
   { href: '/insurance-glossary', labelKey: 'footer.link.glossary' },
+  { href: '/contact', labelKey: 'footer.link.contact' },
 ];
 
 /* ──────────────────────────────────────────────────────────────────────────── */

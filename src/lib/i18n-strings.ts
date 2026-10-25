@@ -912,6 +912,7 @@ export const translations: TranslationStrings = {
   'footer.link.email': { en: 'Email', hi: 'ईमेल', hinglish: 'Email' },
   'footer.link.instagram': { en: 'Instagram', hi: 'इंस्टाग्राम', hinglish: 'Instagram' },
   'footer.link.about': { en: 'About Us', hi: 'हमारे बारे में', hinglish: 'Hamare Baare Mein' },
+  'footer.link.contact': { en: 'Contact Us', hi: 'संपर्क करें', hinglish: 'Contact Karein' },
   'footer.link.privacyPolicy': { en: 'Privacy Policy', hi: 'गोपनीयता नीति', hinglish: 'Gopneeyta Neeti' },
   'footer.link.termsOfService': { en: 'Terms of Service', hi: 'सेवा की शर्तें', hinglish: 'Terms of Service' },
   'footer.link.disclaimer': { en: 'IRDAI Disclaimer', hi: 'IRDAI अस्वीकरण', hinglish: 'Disclaimer' },
@@ -1131,6 +1132,7 @@ export const translations: TranslationStrings = {
   // ── Footer Link Labels ─────────────────────────────────────────────────
   'footer.copyright': { en: 'All rights reserved.', hi: 'सर्वाधिकार सुरक्षित।', hinglish: 'All rights reserved.' },
   'footer.link.about': { en: 'About Us', hi: 'हमारे बारे में', hinglish: 'Hamare Baare Mein' },
+  'footer.link.contact': { en: 'Contact Us', hi: 'संपर्क करें', hinglish: 'Contact Karein' },
   'footer.link.privacyPolicy': { en: 'Privacy Policy', hi: 'गोपनीयता नीति', hinglish: 'Gopneeyta Neeti' },
   'footer.link.termsOfService': { en: 'Terms of Service', hi: 'सेवा की शर्तें', hinglish: 'Terms of Service' },
   'footer.link.disclaimer': { en: 'Disclaimer', hi: 'अस्वीकरण', hinglish: 'IRDAI Disclaimer' },

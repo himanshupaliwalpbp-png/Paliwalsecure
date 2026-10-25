@@ -237,7 +237,7 @@ export default function ClientContent() {
               </Card>
             ))}
           </div>
-          <div className="mt-4"><Link href="/insurance-news/irdai-gst-exempt-health-insurance"><ShinyButton variant="secondary"><span>{pt(pageText.gstImpact.readFull, language)}</span></ShinyButton></Link></div>
+          <div className="mt-4"><Link href="/insurance-news/gst-exempt-health-insurance"><ShinyButton variant="secondary"><span>{pt(pageText.gstImpact.readFull, language)}</span></ShinyButton></Link></div>
         </section>
 
         <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />

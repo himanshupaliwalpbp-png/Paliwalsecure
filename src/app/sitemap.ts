@@ -32,7 +32,7 @@ import * as path from 'path'
  * - /p4l1w4l-s3cur3-4dm1n (secret admin entry, noindex)
  * - /vehicle-launch-hub (307 redirect to /hub/vehicle-launch)
  * - Blog slugs without markdown files (13 entries — would 404)
- * - insurance-news/irdai-[slug] (force-dynamic, not SSG)
+ * - insurance-news/[slug] (force-dynamic, not SSG)
  */
 
 const BASE_URL = 'https://paliwalsecure.in'
