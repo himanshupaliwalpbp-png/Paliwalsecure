@@ -695,11 +695,11 @@ export default function InsureGPTSection() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center max-w-2xl mx-auto mb-10 lg:mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F4E5DD] dark:bg-[rgba(212,99,63,0.12)] text-[#8B3520] dark:text-[#D4633F] text-caption-premium mb-5 border border-[#D4A853]/40 dark:border-[rgba(212,168,83,0.3)]">
-            <Brain className="w-3.5 h-3.5" />
-            {t('insureGPT.badge')}
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6">
+            <Brain className="w-3.5 h-3.5 shrink-0" />
+            <span>{t('insureGPT.badge')}</span>
           </div>
-          <h2 className="text-display-h2 text-[#0E1116] dark:text-[#FAF7F2] leading-tight font-display">
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-6">
             {t('insureGPT.chatWith')}
             <span className="relative inline-block">
               <span className="text-accent-gradient">
@@ -716,7 +716,7 @@ export default function InsureGPTSection() {
               />
             </span>
           </h2>
-          <p className="mt-4 text-lead-premium text-[#4A4F57] dark:text-[#B8BCC2] max-w-2xl mx-auto">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto">
             {t('insureGPT.subtitle')}
           </p>
           {/* Powered by PaliwalSecure — full brand name */}

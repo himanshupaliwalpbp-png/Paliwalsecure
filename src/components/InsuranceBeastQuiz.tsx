@@ -741,20 +741,20 @@ export default function InsuranceBeastQuiz() {
                 </div>
               </motion.div>
 
-              <Badge className="mb-4 bg-[#F4E5DD] text-[#8B3520] border border-[#B8482C]/30 rounded-full px-4 py-1 text-sm text-caption-premium">
-                <Zap className="w-3.5 h-3.5 mr-1" />
-                {isHindi ? 'बीमा बीस्ट – इंश्योरेंस IQ टेस्ट' : isEnglish ? 'Bima Beast – Insurance IQ Test' : 'Bima Beast – Insurance IQ Test'}
-              </Badge>
+              <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6">
+                <Zap className="w-3.5 h-3.5 shrink-0" />
+                <span>{isHindi ? 'बीमा बीस्ट – इंश्योरेंस IQ टेस्ट' : isEnglish ? 'Bima Beast – Insurance IQ Test' : 'Bima Beast – Insurance IQ Test'}</span>
+              </div>
 
-              <h2 className="text-display-h1 text-[#0E1116] mt-2">
+              <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-6">
                 {isHindi ? 'इंश्योरेंस' : 'Insurance'}{' '}
-                <span className="text-accent-gradient">
+                <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">
                   Beast
                 </span>{' '}
                 {isHindi ? 'क्विज़' : 'Quiz'}
               </h2>
 
-              <p className="mt-4 text-lead-premium text-[#4A4F57]">
+              <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8">
                 {isHindi ? 'अपना इंश्योरेंस IQ टेस्ट करो' : isEnglish ? 'Test Your Insurance IQ' : 'Apna Insurance IQ Test Karo'}
               </p>
 

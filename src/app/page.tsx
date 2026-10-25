@@ -86,10 +86,10 @@ export default function Home() {
       <SafeRender name="HeroAdvisor" fallback={
         <section className="min-h-[90vh] flex items-center justify-center">
           <div className="text-center space-y-4 px-4">
-            <h1 className="text-4xl sm:text-5xl font-bold font-display">
-              Insurance <span className="gradient-text-blue-emerald">Intelligence</span> for Modern India
+            <h1 className="nl-h2 dark:text-[#FAF7F2]!">
+              Insurance <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">Intelligence</span> for Modern India
             </h1>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto font-body">
+            <p className="nl-sub dark:text-[#A8B0C2]! max-w-xl mx-auto">
               Get a personalised plan from 51+ insurers in 30 seconds — no spam, no pushy agents, IRDAI-registered.
             </p>
           </div>

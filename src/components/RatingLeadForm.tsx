@@ -210,13 +210,13 @@ export default function RatingLeadForm() {
       }}
     >
       <div className="max-w-2xl mx-auto px-4">
-        {/* Header — kicker eyebrow + display heading (LUMEN v18 polish) */}
+        {/* Header — v19 eyebrow + display heading */}
         <div className="text-center mb-10">
-          <span className="kicker-eyebrow kicker-eyebrow-center mb-4">Free Consultation</span>
-          <h2 className="text-display-h2 font-display text-[#0E1116] dark:text-white mb-3 heading-rule-gold">
+          <span className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-4">Free Consultation</span>
+          <h2 className="nl-h2 dark:text-[#FAF7F2]! mb-3 heading-rule-gold">
             Get Free Consultation
           </h2>
-          <p className="text-base text-[#4A4F57] dark:text-[#A8B0C2] max-w-md mx-auto">
+          <p className="nl-sub dark:text-[#A8B0C2]! max-w-md mx-auto">
             Our IRDAI-certified advisor will call you within 24 hours. No spam, no charges.
           </p>
 

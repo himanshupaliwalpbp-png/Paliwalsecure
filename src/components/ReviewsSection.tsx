@@ -388,7 +388,7 @@ export default function ReviewsSection() {
         >
           {/* Badge */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+            className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6"
             style={{ background: 'rgba(201,138,28,0.12)', color: GOLD, border: '1px solid rgba(201,138,28,0.25)' }}
           >
             ⭐ {t('reviews.badge')}
@@ -396,7 +396,7 @@ export default function ReviewsSection() {
 
           {/* Heading with gold italic on "Kehte Hain" */}
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight dark:text-white text-slate-900"
+            className="nl-h2 dark:text-[#FAF7F2]! mb-6"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             {t('testimonials.v2.heading').split(' ').map((word, i, arr) => {

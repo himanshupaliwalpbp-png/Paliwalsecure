@@ -164,21 +164,21 @@ export default function SaverShowcase() {
           <div className="relative grid items-center gap-10 p-7 sm:p-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             {/* copy */}
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#D4A853]/40 bg-[#D4A853]/12 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#E8C97E]">
-                <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                {L.badge}
+              <span className="nl-eyebrow text-[#E8C97E]! nl-rise nl-rise-1">
+                <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <span>{L.badge}</span>
               </span>
 
               <h2
                 id="saver-showcase"
-                className="mt-5 font-display text-3xl leading-[1.1] tracking-tight text-[#FAF7F2] sm:text-4xl lg:text-[2.9rem]"
+                className="mt-5 font-display text-3xl leading-[1.1] tracking-tight text-[#FAF7F2] sm:text-4xl lg:text-[2.9rem] nl-rise nl-rise-2"
               >
                 {L.headlineA}{" "}
                 <em className="saver-gold-text font-semibold italic">{L.headlineEm}</em>{" "}
                 {L.headlineB}
               </h2>
 
-              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#9BA3AE]">
+              <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#9BA3AE] nl-rise nl-rise-3">
                 {L.para}
                 <span className="text-[#E8C97E]">{L.paraAccent}</span>
               </p>

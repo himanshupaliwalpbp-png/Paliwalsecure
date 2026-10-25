@@ -322,20 +322,18 @@ export default function FutureAI() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-[#D4633F]/[0.15] backdrop-blur-sm rounded-full border border-[#D4633F]/[0.30] mb-8">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#D4633F] animate-pulse" />
-              <Shield className="h-3.5 w-3.5 text-[#D4633F]" />
-              <span className="text-sm font-semibold font-display tracking-wide uppercase text-[#F4E5DD]">
-                {freeAnalysis}
-              </span>
+            <div className="nl-eyebrow nl-eyebrow-center text-[#F4E5DD]! mb-8">
+              <span className="h-2 w-2 rounded-full bg-[#D4633F] animate-pulse shrink-0" />
+              <Shield className="h-3.5 w-3.5 shrink-0 text-[#D4633F]" />
+              <span>{freeAnalysis}</span>
             </div>
 
-            <h2 className="text-display-h2 font-display text-white mb-6 leading-[1.1]">
+            <h2 className="nl-h2 text-[#FAF7F2]! mb-6">
               {heading}{' '}
-              <span className="text-accent-gradient">{headingAccent}</span>
+              <span className="bg-gradient-to-r from-[#F0A88B] via-[#E8A06B] to-[#E8C872] bg-clip-text text-transparent">{headingAccent}</span>
             </h2>
 
-            <p className="text-lead-premium text-[#8B9099] mb-10 max-w-lg">
+            <p className="nl-sub text-[#A8B0C2]! mb-10 max-w-lg">
               {subtitle}
             </p>
 

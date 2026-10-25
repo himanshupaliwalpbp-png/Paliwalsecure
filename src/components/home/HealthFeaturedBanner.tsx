@@ -13,7 +13,7 @@ export default function HealthFeaturedBanner() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Image */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg border border-[rgba(14,17,22,0.08)] dark:border-[rgba(250,247,242,0.10)] order-first lg:order-last">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg border border-[rgba(201,138,28,0.35)] dark:border-[rgba(232,200,114,0.25)] order-first lg:order-last nl-rise nl-rise-2">
             <picture>
               <source srcSet="/images/health-homepage.webp" type="image/webp" />
               <img
@@ -29,23 +29,23 @@ export default function HealthFeaturedBanner() {
 
           {/* Content */}
           <div className="flex flex-col gap-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E6EFEE] dark:bg-[#0F2A28] text-[#1B4D4A] dark:text-[#2D7A77] text-sm font-medium w-fit">
-              <Shield className="w-3.5 h-3.5" />
-              Health Insurance
+            <div className="nl-eyebrow dark:text-[#E8C97E]! w-fit nl-rise nl-rise-1">
+              <Shield className="w-3.5 h-3.5 shrink-0" />
+              <span>Health Insurance</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0E1116] dark:text-white">
+            <h2 className="nl-h2 dark:text-[#FAF7F2]! nl-rise nl-rise-2">
               Apne parivaar ki health ki{' '}
-              <span className="text-[#2D6A4F] dark:text-[#6EE7B7]">raksha karein</span>
+              <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">raksha karein</span>
             </h2>
 
-            <p className="text-base sm:text-lg text-[#4A4F57] dark:text-[#A8B0C2] leading-relaxed max-w-lg">
+            <p className="nl-sub dark:text-[#A8B0C2]! max-w-lg nl-rise nl-rise-3">
               Cashless treatment, family floater, critical illness cover — 51+ insurers se best
               health plan chunein. Premium starting ₹499/month. Pre-existing disease cover bhi
               available.
             </p>
 
-            <div className="flex flex-wrap gap-3 items-center">
+            <div className="flex flex-wrap gap-3 items-center nl-rise nl-rise-4">
               <Link
                 href="/health-insurance"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2D6A4F] text-white font-semibold text-sm hover:bg-[#1B4D4A] transition-colors"
