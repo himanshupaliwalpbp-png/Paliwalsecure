@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import { Shield, ShieldCheck, Clock, Sparkles, CheckCircle2, Phone } from 'lucide-react';
+import { Shield, ShieldCheck, Clock, Sparkles, CheckCircle2, Phone, Lock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/lib/i18n';
 import { ShinyButton } from '@/components/ui/shiny-button';
@@ -16,7 +16,7 @@ type Tr = { en: string; hi: string; hinglish: string };
 
 const pageText = {
   hero: {
-    badge: { en: "IRDAI Certified POSP — Accurate Rates", hi: "IRDAI प्रमाणित POSP — सटीक दरें", hinglish: "IRDAI Certified POSP — Accurate Rates" },
+    badge: { en: "Premium Lock™ — IRDAI-Locked Rates", hi: "प्रीमियम लॉक™ — IRDAI-लॉक्ड दरें", hinglish: "Premium Lock™ — IRDAI-Locked Rates" },
     title1a: { en: "Insurance Compare", hi: "इंश्योरेंस तुलना", hinglish: "Insurance Compare" },
     title1b: { en: "Engine", hi: "इंजन", hinglish: "Engine" },
     title2a: { en: "IRDAI Accurate", hi: "IRDAI सटीक", hinglish: "IRDAI Accurate" },
@@ -29,6 +29,7 @@ const pageText = {
     benefit1: { en: "IRDAI Mandated Rates", hi: "IRDAI अनिवार्य दरें", hinglish: "IRDAI Mandated Rates" },
     benefit2: { en: "5 Insurance Categories", hi: "5 बीमा श्रेणियाँ", hinglish: "5 Insurance Categories" },
     benefit3: { en: "Updated FY 2024-25", hi: "FY 2024-25 अपडेट", hinglish: "Updated FY 2024-25" },
+    benefit4: { en: "Premium Lock Guarantee", hi: "प्रीमियम लॉक गारंटी", hinglish: "Premium Lock Guarantee" },
     stat1Value: { en: "5", hi: "5", hinglish: "5" },
     stat1Label: { en: "Categories", hi: "श्रेणियाँ", hinglish: "Categories" },
     stat2Value: { en: "8+", hi: "8+", hinglish: "8+" },
@@ -89,9 +90,9 @@ export default function ClientContent() {
   return (
     <div className="min-h-screen">
       {/* ================================================================ */}
-      {/* HERO SECTION — Insurance Compare Engine                          */}
+      {/* HERO SECTION — Insurance Compare Engine (v19.1 contrast wave)   */}
       {/* ================================================================ */}
-      <section className="relative overflow-hidden pt-12 sm:pt-16 pb-16 sm:pb-24">
+      <section className="nl-dark-hero relative overflow-hidden pt-12 sm:pt-16 pb-16 sm:pb-24">
         {/* Dark gradient background */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#1A130C] via-[#8B3520]/70 to-[#0E1116]" />
 
@@ -110,23 +111,23 @@ export default function ClientContent() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
+            {/* Premium Lock™ badge — the trust lock */}
             <div className="mb-4 sm:mb-6 animate-fade-in-up">
-              <Badge className="badge-shimmer bg-amber-500/20 text-amber-300 border-amber-400/30 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium rounded-full">
-                <ShieldCheck className="w-3.5 h-3.5 mr-1" />
-                {tr(pageText.hero.badge)}
-              </Badge>
+              <div className="nl-premium-lock">
+                <Lock className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                <span>{tr(pageText.hero.badge)}</span>
+              </div>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-[1.8rem] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.15] animate-fade-in-up animation-delay-100">
+            {/* Headline — white + bright gold (nl-dark-hero tokens) */}
+            <h1 className="text-[1.8rem] sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.15] animate-fade-in-up animation-delay-100 drop-shadow-[0_2px_18px_rgba(14,17,22,0.45)]">
               <span className="gradient-text">{tr(pageText.hero.title1a)} {tr(pageText.hero.title1b)}</span>
               <br />
               <span className="gradient-text-amber">{tr(pageText.hero.title2a)} {tr(pageText.hero.title2b)}</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-4 text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-200">
+            <p className="mt-4 text-sm sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-200">
               {tr(pageText.hero.description)}
             </p>
 
@@ -136,15 +137,16 @@ export default function ClientContent() {
                 { icon: ShieldCheck, text: tr(pageText.hero.benefit1) },
                 { icon: Sparkles, text: tr(pageText.hero.benefit2) },
                 { icon: Clock, text: tr(pageText.hero.benefit3) },
+                { icon: Lock, text: tr(pageText.hero.benefit4) },
               ].map((benefit) => {
                 const BIcon = benefit.icon;
                 return (
                   <div
                     key={benefit.text}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-[#E8C97E]/25 hover:border-[#E8C97E]/50 transition-colors"
                   >
-                    <BIcon className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="text-xs sm:text-sm font-medium text-white/90">
+                    <BIcon className="w-3.5 h-3.5 text-[#E8C97E] shrink-0" />
+                    <span className="text-xs sm:text-sm font-semibold text-white">
                       {benefit.text}
                     </span>
                   </div>
@@ -163,7 +165,7 @@ export default function ClientContent() {
                   <p className="text-xl sm:text-3xl font-bold text-white counter-glow">
                     {stat.value}
                   </p>
-                  <p className="text-[10px] sm:text-sm text-slate-400 mt-0.5">{stat.label}</p>
+                  <p className="text-[10px] sm:text-sm text-[#E8C97E]/75 mt-0.5">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -209,7 +211,7 @@ export default function ClientContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto animate-fade-in-up">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-600/20">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#B8482C] to-[#8B3520] flex items-center justify-center shadow-lg shadow-[#8B3520]/25">
                 <Shield className="w-5 h-5 text-white" />
               </div>
             </div>

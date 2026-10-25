@@ -56,8 +56,9 @@ export function ShinyButton({
         }
 
         .shiny-cta {
-          --shiny-cta-bg: #0F1C40;
-          --shiny-cta-bg-subtle: #162D5A;
+          /* v19.1: de-blued — was navy #0F1C40/#162D5A; warm deep maroon now */
+          --shiny-cta-bg: #7A2E1B;
+          --shiny-cta-bg-subtle: #4A1D12;
           --shiny-cta-fg: #ffffff;
           --shiny-cta-highlight: #C98A1C;
           --shiny-cta-highlight-subtle: #C98A1C;
@@ -89,9 +90,9 @@ export function ShinyButton({
               transparent calc(var(--gradient-percent) * 4)
             ) border-box;
           box-shadow:
-            inset 0 0 0 1px rgba(26, 48, 96, 0.4),
-            0 2px 12px rgba(15, 28, 64, 0.3),
-            0 0 20px rgba(201, 138, 28, 0.1);
+            inset 0 0 0 1px rgba(74, 29, 18, 0.4),
+            0 2px 12px rgba(74, 29, 18, 0.35),
+            0 0 20px rgba(201, 138, 28, 0.12);
           transition: var(--transition);
           transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine, box-shadow;
         }
@@ -199,10 +200,10 @@ export function ShinyButton({
           opacity: 1;
         }
 
-        /* Primary variant — dark navy bg + white text + gold animated border */
+        /* Primary variant — v19.1: deep maroon bg + white text + gold animated border (de-blued) */
         .shiny-cta-primary {
-          --shiny-cta-bg: #0F1C40;
-          --shiny-cta-bg-subtle: #162D5A;
+          --shiny-cta-bg: #7A2E1B;
+          --shiny-cta-bg-subtle: #4A1D12;
           --shiny-cta-fg: #ffffff;
           --shiny-cta-highlight: #C98A1C;
           --shiny-cta-highlight-subtle: #C98A1C;
@@ -210,31 +211,31 @@ export function ShinyButton({
 
         .shiny-cta-primary:is(:hover, :focus-visible):not(:disabled) {
           box-shadow:
-            inset 0 0 0 1px rgba(26, 48, 96, 0.5),
-            0 4px 20px rgba(15, 28, 64, 0.4),
+            inset 0 0 0 1px rgba(74, 29, 18, 0.5),
+            0 4px 20px rgba(74, 29, 18, 0.4),
             0 0 30px rgba(201, 138, 28, 0.2),
             0 0 60px rgba(201, 138, 28, 0.1);
         }
 
-        /* Secondary variant — dark navy bg + white text + gold border outline */
+        /* Secondary variant — v19.1: warm ink bg + white text + gold border outline (de-blued) */
         .shiny-cta-secondary {
-          --shiny-cta-bg: #0F1C40;
-          --shiny-cta-bg-subtle: #162D5A;
+          --shiny-cta-bg: #2A1A10;
+          --shiny-cta-bg-subtle: #1A130C;
           --shiny-cta-fg: #ffffff;
           --shiny-cta-highlight: #C98A1C;
           --shiny-cta-highlight-subtle: #C98A1C;
           border: 2px solid rgba(201, 138, 28, 0.5);
           box-shadow:
-            inset 0 0 0 1px rgba(26, 48, 96, 0.4),
-            0 2px 12px rgba(15, 28, 64, 0.3),
-            0 0 15px rgba(201, 138, 28, 0.08);
+            inset 0 0 0 1px rgba(42, 26, 16, 0.4),
+            0 2px 12px rgba(26, 19, 12, 0.3),
+            0 0 15px rgba(201, 138, 28, 0.1);
         }
 
         .shiny-cta-secondary:is(:hover, :focus-visible):not(:disabled) {
           border-color: rgba(201, 138, 28, 0.8);
           box-shadow:
-            inset 0 0 0 1px rgba(26, 48, 96, 0.5),
-            0 4px 20px rgba(15, 28, 64, 0.4),
+            inset 0 0 0 1px rgba(42, 26, 16, 0.5),
+            0 4px 20px rgba(26, 19, 12, 0.4),
             0 0 30px rgba(201, 138, 28, 0.2),
             0 0 60px rgba(201, 138, 28, 0.1);
         }

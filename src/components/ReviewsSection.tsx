@@ -405,7 +405,7 @@ export default function ReviewsSection() {
               const isHain = word === 'Hain' || word === 'हैं';
               if (isKehteHain || isHain) {
                 return (
-                  <span key={i} className="italic gradient-text"> {word}</span>
+                  <span key={i} className="italic gradient-text pr-[0.05em]"> {word}</span>
                 );
               }
               return <span key={i}>{i > 0 ? ' ' : ''}{word}</span>;

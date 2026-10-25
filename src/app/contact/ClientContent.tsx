@@ -60,7 +60,7 @@ export default function ClientContent() {
     <>
       {/* ═══════════ HERO ═══════════ */}
       <section
-        className="relative overflow-hidden py-14 md:py-20"
+        className="nl-dark-hero relative overflow-hidden py-14 md:py-20"
         style={{ background: `linear-gradient(135deg, #1A130C 0%, ${MAROON} 55%, ${INK} 100%)` }}
       >
         <div className="orb orb-1" />
@@ -68,7 +68,7 @@ export default function ClientContent() {
         <div className="orb orb-3" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-5">
+          <nav className="flex items-center justify-center gap-2 text-sm text-white/65 mb-5">
             <Link href="/" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <Home className="w-3.5 h-3.5" /> Home
             </Link>
@@ -93,7 +93,7 @@ export default function ClientContent() {
           <p className="text-2xl sm:text-3xl font-bold mb-5 nl-rise nl-rise-2" style={{ color: GOLD_L }}>
             Himanshu Paliwal
           </p>
-          <p className="text-white/65 max-w-2xl mx-auto mb-8 nl-rise nl-rise-3">
+          <p className="text-white/80 max-w-2xl mx-auto mb-8 nl-rise nl-rise-3">
             No call centers. No commission-hungry agents. When you reach out, you reach Himanshu —
             IRDAI Registered POSP (IP429834) and founder of Paliwal Secure.
           </p>
@@ -173,7 +173,7 @@ export default function ClientContent() {
               <Mail className="w-6 h-6" />
             </span>
             <h3 className="font-bold text-foreground text-lg mb-1">Email</h3>
-            <p className="text-base font-bold text-foreground mb-2 break-all">{EMAIL}</p>
+            <p className="text-[15px] sm:text-base font-bold text-foreground mb-2 break-all hyphens-none tracking-tight">{EMAIL}</p>
             <p className="text-xs text-muted-foreground">Policy PDFs, audits & formal correspondence. Replies within one working day.</p>
           </a>
         </div>

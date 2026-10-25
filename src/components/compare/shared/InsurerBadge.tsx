@@ -17,8 +17,8 @@ interface InsurerBadgeProps {
 const TYPE_CONFIG: Record<string, { label: string; color: string; darkColor: string; icon: typeof Building2 }> = {
   general: {
     label: 'Private',
-    color: 'bg-blue-100 text-blue-800 border-blue-300',
-    darkColor: 'dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700',
+    color: 'bg-[#C98A1C]/15 text-[#8B3520] border-[#C98A1C]/35',
+    darkColor: 'dark:bg-[#C98A1C]/15 dark:text-[#E8C97E] dark:border-[#C98A1C]/35',
     icon: Building2,
   },
   standalone_health: {

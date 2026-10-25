@@ -27,7 +27,7 @@ export default function CompareHubClient() {
       {/* ================================================================ */}
       <section className="relative overflow-hidden pt-12 sm:pt-16 pb-16 sm:pb-24">
         {/* Dark gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A130C] via-[#8B3520]/70 to-[#0E1116]" />
 
         {/* Animated gradient overlay */}
         <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(99,102,241,0.1)_50%,transparent_70%)] bg-[length:200%_100%]" />
@@ -44,7 +44,7 @@ export default function CompareHubClient() {
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' as const }}
         />
         <motion.div
-          className="hidden lg:block absolute bottom-20 right-[12%] w-18 h-18 bg-blue-400/10 rounded-full"
+          className="hidden lg:block absolute bottom-20 right-[12%] w-18 h-18 bg-amber-400/10 rounded-full"
           animate={{ y: [6, -6, 6] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' as const }}
         />
@@ -85,7 +85,7 @@ export default function CompareHubClient() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-4 text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed"
+              className="mt-4 text-sm sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed"
             >
               Compare real premiums from IRDAI-registered insurers. No fake discounts — only
               regulator-approved rates with transparent breakdowns. Save up to{' '}
@@ -135,7 +135,7 @@ export default function CompareHubClient() {
                   <p className="text-xl sm:text-3xl font-bold text-white counter-glow">
                     {stat.value}
                   </p>
-                  <p className="text-[10px] sm:text-sm text-slate-400 mt-0.5">{stat.label}</p>
+                  <p className="text-[10px] sm:text-sm text-[#E8C97E]/75 mt-0.5">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -190,7 +190,7 @@ export default function CompareHubClient() {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-600/20">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#B8482C] to-[#8B3520] flex items-center justify-center shadow-lg shadow-[#8B3520]/25">
                 <Shield className="w-5 h-5 text-white" />
               </div>
             </div>

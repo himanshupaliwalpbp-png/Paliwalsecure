@@ -59,10 +59,10 @@ const categories: CategoryData[] = [
     title: 'Life Insurance',
     description: '0% GST on term plans via POSP. Smoker loading, cover adequacy checks & riders from 8 insurers.',
     features: ['0% GST Savings', '8 Insurers', 'Smoker Loading', 'Cover Adequacy'],
-    gradient: 'from-blue-700 to-blue-500',
-    iconBg: 'bg-blue-500/15',
-    iconColor: 'text-blue-700 dark:text-blue-400',
-    borderHover: 'hover:border-blue-300 dark:hover:border-blue-700/50',
+    gradient: 'from-[#8B3520] to-[#B8482C]',
+    iconBg: 'bg-[#B8482C]/15',
+    iconColor: 'text-[#8B3520] dark:text-[#E8C97E]',
+    borderHover: 'hover:border-[#B8482C]/60 dark:hover:border-[#E8C97E]/40',
     href: '/compare/life',
     showGSTBadge: true,
   },
@@ -171,12 +171,12 @@ export default function CategoryHub() {
                   {cat.description}
                 </p>
 
-                {/* ── Feature Pills ── */}
+                {/* ── Feature Pills (v19.1: warm tinted, high contrast) ── */}
                 <div className="relative z-10 flex flex-wrap gap-1.5 mb-5">
                   {cat.features.map((feat) => (
                     <span
                       key={feat}
-                      className="inline-flex items-center px-2 py-0.5 rounded-md bg-muted text-[10px] sm:text-xs font-medium text-muted-foreground"
+                      className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#C98A1C]/[0.08] border border-[#C98A1C]/25 text-[10px] sm:text-xs font-semibold text-[#8B3520] dark:bg-[#E8C97E]/10 dark:border-[#E8C97E]/25 dark:text-[#E8C97E]"
                     >
                       {feat}
                     </span>

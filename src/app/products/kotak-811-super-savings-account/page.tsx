@@ -300,7 +300,7 @@ export default function Kotak811SuperSavingsPage() {
             ].map((stat) => (
               <div key={stat.label} className="border-l border-[rgba(14,17,22,0.08)] dark:border-white/10 pl-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#D4A853]">{stat.value}</p>
-                <p className="text-xs text-[#8B9099] dark:text-white/40 mt-1 tracking-wide uppercase">{stat.label}</p>
+                <p className="text-xs text-[#8B9099] dark:text-white/60 mt-1 tracking-wide uppercase">{stat.label}</p>
               </div>
             ))}
           </div>

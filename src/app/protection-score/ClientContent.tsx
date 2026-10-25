@@ -189,7 +189,7 @@ export default function ClientContent() {
     <>
       {/* ═══════════ HERO ═══════════ */}
       <section
-        className="relative overflow-hidden py-14 md:py-20"
+        className="nl-dark-hero relative overflow-hidden py-14 md:py-20"
         style={{ background: `linear-gradient(135deg, #1A130C 0%, ${MAROON} 55%, ${INK} 100%)` }}
       >
         <div className="orb orb-1" />
@@ -197,7 +197,7 @@ export default function ClientContent() {
         <div className="orb orb-3" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <nav className="flex items-center justify-center gap-2 text-sm text-white/50 mb-5">
+          <nav className="flex items-center justify-center gap-2 text-sm text-white/65 mb-5">
             <Link href="/" className="hover:text-white transition-colors inline-flex items-center gap-1">
               <Home className="w-3.5 h-3.5" /> Home
             </Link>
@@ -222,7 +222,7 @@ export default function ClientContent() {
           <p className="text-2xl sm:text-3xl font-bold mb-5 nl-rise nl-rise-2" style={{ color: GOLD_L }}>
             Summed Up in One Number
           </p>
-          <p className="text-white/65 max-w-2xl mx-auto mb-8 nl-rise nl-rise-3">
+          <p className="text-white/80 max-w-2xl mx-auto mb-8 nl-rise nl-rise-3">
             Most Indian families are either under-insured (paying for inadequate cover) or over-insured
             (wasting premium). Answer 7 quick questions — get your Protection Score™ instantly, with a
             personalized optimization roadmap.

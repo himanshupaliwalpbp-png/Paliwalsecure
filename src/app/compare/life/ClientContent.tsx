@@ -220,7 +220,7 @@ export default function LifeCompareClient() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50/50 via-white to-white dark:from-violet-950/10 dark:via-background dark:to-background">
       {/* Hero Section (when not showing results) */}
       {!showResults && (
-        <section className="relative overflow-hidden pt-8 sm:pt-12 pb-8">
+        <section className="nl-dark-hero relative overflow-hidden pt-8 sm:pt-12 pb-12 sm:pb-16">
           <div className="absolute inset-0 bg-gradient-to-br from-[#1A130C] via-[#8B3520]/60 to-[#0E1116]" />
           <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(201,138,28,0.08)_50%,transparent_70%)] bg-[length:200%_100%]" />
           <div className="orb orb-1" />
@@ -228,15 +228,15 @@ export default function LifeCompareClient() {
           <div className="orb orb-3" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C98A1C]/15 border border-[#C98A1C]/40 mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8C97E]/15 border border-[#E8C97E]/45 mb-4">
               <span className="h-2 w-2 rounded-full bg-[#E8C97E] animate-pulse" />
-              <span className="text-xs font-medium text-[#E8C97E]">{tr(pageText.hero.badge)}</span>
+              <span className="text-xs font-semibold text-[#F7E8B8]">{tr(pageText.hero.badge)}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3 leading-[1.25]">
-              <span className="gradient-text">{tr(pageText.hero.title2)}</span>{' '}
+              <span className="text-white drop-shadow-[0_2px_14px_rgba(14,17,22,0.4)]">{tr(pageText.hero.title2)}</span>{' '}
               <span className="gradient-text-amber">{tr(pageText.hero.title1)}</span>
             </h1>
-            <p className="text-sm text-white/75 max-w-2xl mx-auto mb-6 leading-relaxed">
+            <p className="text-sm text-white/80 max-w-2xl mx-auto mb-6 leading-relaxed">
               {tr(pageText.hero.description)}
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
@@ -247,13 +247,13 @@ export default function LifeCompareClient() {
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-lg sm:text-xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-[10px] sm:text-xs text-white/65 leading-snug">{stat.label}</div>
+                  <div className="text-[10px] sm:text-xs text-[#E8C97E]/75 leading-snug">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-background to-transparent pointer-events-none" />
         </section>
       )}
 

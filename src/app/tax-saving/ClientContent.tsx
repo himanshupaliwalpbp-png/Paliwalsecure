@@ -329,10 +329,8 @@ export default function TaxSavingPage() {
   return (
     <>
       {/* ═══════════════════ PAGE HEADER ═══════════════════ */}
-      <section
-        className="relative overflow-hidden py-14 md:py-20"
-        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #0E1116 100%)` }}
-      >
+      <section className="nl-dark-hero relative overflow-hidden py-14 md:py-20"
+        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #0E1116 100%)` }}>
         <div className="orb orb-1" />
         <div className="orb orb-2" />
         <div className="orb orb-3" />
@@ -351,24 +349,24 @@ export default function TaxSavingPage() {
             <span>{tr(pageText.hero.badge)}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3 gradient-text nl-rise nl-rise-2"
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3 nl-rise nl-rise-2 drop-shadow-[0_2px_18px_rgba(14,17,22,0.45)]"
             style={{ fontFamily: 'var(--font-heading)' }}>
             {tr(pageText.hero.title)}
           </h1>
-          <p className="text-xl sm:text-2xl font-bold mb-3 nl-rise nl-rise-2" style={{ color: GOLD }}>
+          <p className="text-xl sm:text-2xl font-bold mb-3 nl-rise nl-rise-2 gradient-text-amber" style={{ fontFamily: 'var(--font-heading)' }}>
             {tr(pageText.hero.titleHighlight)}
           </p>
-          <p className="text-white/60 max-w-2xl mx-auto mb-4 nl-rise nl-rise-3">
+          <p className="text-white/80 max-w-2xl mx-auto mb-4 nl-rise nl-rise-3">
             {tr(pageText.hero.description)}
           </p>
-          <p className="text-xs font-medium text-white/50">
+          <p className="text-xs font-medium text-white/65">
             {tr(pageText.hero.lastUpdated)}
           </p>
 
           {/* Hero CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 nl-rise nl-rise-4">
             <Link href="/compare">
-              <ShinyButton variant="blue" className="rounded-xl px-6 py-3 text-sm md:text-base">
+              <ShinyButton variant="dark" className="rounded-xl px-6 py-3 text-sm md:text-base">
                 <span>{tr(pageText.hero.ctaCompare)}</span>
               </ShinyButton>
             </Link>
@@ -896,7 +894,7 @@ export default function TaxSavingPage() {
       <SectionDivider />
 
       {/* ═══════════════════ CTA SECTION ═══════════════════ */}
-      <section className="relative py-16 md:py-20 overflow-hidden"
+      <section className="nl-dark-hero relative py-16 md:py-20 overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #0E1116 100%)` }}>
         <div className="absolute top-5 right-[20%] w-40 h-40 rounded-full opacity-10" style={{ background: GOLD, filter: 'blur(60px)' }} />
 
@@ -907,9 +905,9 @@ export default function TaxSavingPage() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 gradient-text" style={{ fontFamily: 'var(--font-heading)' }}>
-            {tr(pageText.cta.heading1)} <span style={{ color: GOLD }}>{tr(pageText.cta.headingHighlight)}</span>
+            {tr(pageText.cta.heading1)} <span className="gradient-text-amber">{tr(pageText.cta.headingHighlight)}</span>
           </h2>
-          <p className="text-white/60 mb-8">
+          <p className="text-white/80 mb-8">
             {tr(pageText.cta.description)}
           </p>
 

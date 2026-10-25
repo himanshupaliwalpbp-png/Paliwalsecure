@@ -113,9 +113,9 @@ function Section80DCalculator({ premium, isFloater, adults, childCount }: {
             </div>
           </div>
 
-          <div className="flex items-start gap-2 p-2 rounded-md bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800">
-            <Info className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-            <p className="text-[10px] text-blue-700 dark:text-blue-300 leading-tight">
+          <div className="flex items-start gap-2 p-2 rounded-md bg-[#C98A1C]/[0.08] dark:bg-[#C98A1C]/10 border border-[#C98A1C]/30 dark:border-[#C98A1C]/30">
+            <Info className="h-3.5 w-3.5 text-[#B8482C] dark:text-[#E8C97E] shrink-0 mt-0.5" />
+            <p className="text-[10px] text-[#8B3520] dark:text-[#E8C97E] leading-tight">
               Under Section 80D, you can claim deduction up to ₹25,000 (₹50,000 for senior citizens)
               for health insurance premium paid for self, spouse, and children. Additional ₹25,000 (₹50,000
               for senior citizens) for parents. GST exemption means more of your premium is now deductible.

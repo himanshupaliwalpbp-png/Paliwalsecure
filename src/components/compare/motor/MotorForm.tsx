@@ -379,7 +379,7 @@ export function MotorForm({ onCompare, loading = false }: MotorFormProps) {
               </div>
               {exShowroomPrice > 0 && (
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 text-[10px]">
+                  <Badge className="bg-[#C98A1C]/15 text-[#8B3520] border border-[#C98A1C]/30 dark:bg-[#C98A1C]/15 dark:text-[#E8C97E] dark:border-[#C98A1C]/30 text-[10px]">
                     {t('motorCompare.estimatedIDV')} {formatINR(idvEstimate)}
                   </Badge>
                   <span className="text-[10px] text-muted-foreground">

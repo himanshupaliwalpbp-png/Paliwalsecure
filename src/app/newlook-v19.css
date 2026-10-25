@@ -74,8 +74,8 @@
 .nl-headline {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 560;
-  letter-spacing: -0.028em;
-  line-height: 1.02;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
   font-size: clamp(2.9rem, 1.2rem + 6.2vw, 5.6rem);
   color: #17130E;
   text-wrap: balance;
@@ -457,12 +457,14 @@
 /* New hero CTA replaces btn-stripe scale in hero context */
 .nl-hero .btn-stripe, .nl-hero .btn-linear { min-height: 3.4rem; }
 
-/* Section heading refresh — sitewide h2 upgrade */
+/* Section heading refresh — sitewide h2 upgrade
+   v19.1: line-height 1.08 → 1.18 (descender/italic glyph safety — fixes
+   "Log Kya Kehte Hain" e/n letters looking cut) + softer tracking */
 .nl-h2 {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 600;
-  letter-spacing: -0.022em;
-  line-height: 1.08;
+  letter-spacing: -0.012em;
+  line-height: 1.18;
   font-size: clamp(2rem, 1.2rem + 2.8vw, 3.2rem);
   color: #17130E;
   text-wrap: balance;
@@ -481,7 +483,48 @@
   outline-offset: 3px;
 }
 
-/* ── 14. REDUCED MOTION + PRINT GUARDS ──────────────────────────────────── */
+/* ── 14. v19.1 CONTRAST & CLARITY WAVE — dark-hero tokens ────────────────
+   FIXED dark warm hero backgrounds (#1A130C → #8B3520 → #0E1116) need
+   high-luminance text. In LIGHT site mode, .gradient-text (sienna→gold
+   mid-tones) washed out on these heroes (owner: "text shi se nahi dikh
+   raha"). Scope: add .nl-dark-hero to any dark hero <section> and the
+   gradient vocabulary below auto-brightens. */
+.nl-dark-hero .gradient-text {
+  background: linear-gradient(135deg, #FFFDF8 0%, #F7E8B8 60%, #E8C97E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #FFFDF8; /* Accessibility fallback */
+}
+.nl-dark-hero .gradient-text-amber {
+  background: linear-gradient(135deg, #F7E8B8 0%, #E8C97E 55%, #D4A853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #F7E8B8; /* Accessibility fallback */
+}
+/* Stat numbers inside dark heroes — bright white, never mid-tone */
+.nl-dark-hero .counter-glow { color: #FFFFFF; text-shadow: 0 0 28px rgba(232, 201, 126, 0.35); }
+/* Premium Lock™ badge — the trust lock for the Compare Engine */
+.nl-premium-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(232, 201, 126, 0.16), rgba(201, 138, 28, 0.22));
+  border: 1px solid rgba(232, 201, 126, 0.45);
+  box-shadow: 0 0 24px rgba(201, 138, 28, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #F7E8B8;
+  font-size: 0.78rem;
+  font-weight: 720;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+.nl-premium-lock svg { color: #E8C97E; }
+
+/* ── 15. REDUCED MOTION + PRINT GUARDS ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .nl-aurora::before, .nl-aurora::after, .nl-aurora-orb3,
   .nl-float, .nl-ticker-dot::after, .nl-marquee-track {

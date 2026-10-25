@@ -60,7 +60,7 @@ export function IDVCalculator({ exShowroomPrice, registrationYear }: IDVCalculat
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <Card className="border-blue-200 dark:border-blue-800">
+      <Card className="border-[#C98A1C]/30 dark:border-[#C98A1C]/30">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <span className="text-lg">🚗</span>
@@ -69,11 +69,11 @@ export function IDVCalculator({ exShowroomPrice, registrationYear }: IDVCalculat
         </CardHeader>
         <CardContent className="space-y-5">
           {/* Current IDV Highlight */}
-          <div className="rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 p-4 text-center">
+          <div className="rounded-lg bg-gradient-to-br from-[#C98A1C]/[0.07] to-[#B8482C]/[0.06] dark:from-[#C98A1C]/10 dark:to-[#B8482C]/10 p-4 text-center">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
               {t('motorCompare.yourCurrentIDV')}
             </p>
-            <p className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-400">
+            <p className="text-2xl sm:text-3xl font-bold text-[#8B3520] dark:text-[#E8C97E]">
               {formatINR(currentIDV)}
             </p>
             <div className="flex items-center justify-center gap-2 mt-2">
@@ -107,21 +107,21 @@ export function IDVCalculator({ exShowroomPrice, registrationYear }: IDVCalculat
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: idx * 0.06 }}
                     className={`relative flex items-center gap-3 py-2 pl-8 ${
-                      item.isCurrent ? 'bg-blue-50 dark:bg-blue-950/20 -mx-2 px-2 rounded-lg' : ''
+                      item.isCurrent ? 'bg-[#C98A1C]/10 dark:bg-[#C98A1C]/10 -mx-2 px-2 rounded-lg' : ''
                     }`}
                   >
                     {/* Timeline dot */}
                     <div
                       className={`absolute left-[11px] w-3 h-3 rounded-full border-2 ${
                         item.isCurrent
-                          ? 'bg-blue-500 border-blue-300 dark:bg-blue-400 dark:border-blue-500'
+                          ? 'bg-[#B8482C] border-[#E8C97E] dark:bg-[#E8C97E] dark:border-[#F7E8B8]'
                           : 'bg-background border-muted-foreground/30'
                       }`}
                     />
 
                     {/* Age label */}
                     <span className={`text-[10px] w-10 shrink-0 ${
-                      item.isCurrent ? 'font-bold text-blue-700 dark:text-blue-400' : 'text-muted-foreground'
+                      item.isCurrent ? 'font-bold text-[#8B3520] dark:text-[#E8C97E]' : 'text-muted-foreground'
                     }`}>
                       {item.ageLabel}
                     </span>
@@ -134,15 +134,15 @@ export function IDVCalculator({ exShowroomPrice, registrationYear }: IDVCalculat
                         transition={{ duration: 0.5, delay: idx * 0.08 }}
                         className={`h-full rounded-full ${
                           item.isCurrent
-                            ? 'bg-blue-500 dark:bg-blue-500'
-                            : 'bg-blue-300 dark:bg-blue-700'
+                            ? 'bg-[#B8482C] dark:bg-[#B8482C]'
+                            : 'bg-[#C98A1C]/50 dark:bg-[#C98A1C]/40'
                         }`}
                       />
                     </div>
 
                     {/* Value */}
                     <span className={`text-[10px] w-24 shrink-0 text-right tabular-nums ${
-                      item.isCurrent ? 'font-bold text-blue-700 dark:text-blue-400' : 'text-muted-foreground'
+                      item.isCurrent ? 'font-bold text-[#8B3520] dark:text-[#E8C97E]' : 'text-muted-foreground'
                     }`}>
                       {formatINR(item.idv)}
                     </span>
