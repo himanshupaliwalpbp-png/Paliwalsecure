@@ -93,10 +93,10 @@ export default function ClientContent() {
       {/* ================================================================ */}
       <section className="relative overflow-hidden pt-12 sm:pt-16 pb-16 sm:pb-24">
         {/* Dark gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A130C] via-[#8B3520]/70 to-[#0E1116]" />
 
         {/* CSS-only animated gradient overlay */}
-        <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(99,102,241,0.1)_50%,transparent_70%)] bg-[length:200%_100%]" />
+        <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(201,138,28,0.1)_50%,transparent_70%)] bg-[length:200%_100%]" />
 
         {/* Floating orbs */}
         <div className="orb orb-1" />
@@ -105,7 +105,7 @@ export default function ClientContent() {
 
         {/* Decorative shapes — CSS-only */}
         <div className="hidden lg:block absolute top-24 left-[10%] w-14 h-14 bg-amber-400/10 rounded-2xl rotate-12 animate-float-slow" />
-        <div className="hidden lg:block absolute bottom-20 right-[12%] w-18 h-18 bg-blue-400/10 rounded-full animate-float-medium" />
+        <div className="hidden lg:block absolute bottom-20 right-[12%] w-18 h-18 bg-amber-400/10 rounded-full animate-float-medium" />
         <div className="hidden lg:block absolute top-32 right-[30%] w-10 h-10 bg-teal-400/10 rounded-xl rotate-45 animate-float-fast" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

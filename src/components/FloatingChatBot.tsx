@@ -1572,17 +1572,17 @@ export function FloatingChatBot({ profile }: { profile?: any }) {
                   aria-label={isLoading || !!streamingMsgId ? 'Stop generating' : 'Send message'}
                 />
               </form>
-              <div className="flex items-center justify-center gap-3 mt-2">
-                <span className="badge-premium-slate" style={{ fontSize: '9px', padding: '0.125rem 0.5rem' }}>
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-2">
+                <span className="badge-premium-slate shrink-0 whitespace-nowrap" style={{ fontSize: '9px', padding: '0.125rem 0.5rem' }}>
                   <ShieldCheck className="w-2.5 h-2.5" />
                   {langConfig.irdaiPOSP}
                 </span>
-                <span className="text-[9px] text-[#94A3B8]">|</span>
+                <span className="text-[9px] text-[#94A3B8] shrink-0 hidden sm:inline">|</span>
                 <a
                   href="https://wa.me/919257877312"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="badge-premium-green" style={{ fontSize: '9px', padding: '0.125rem 0.5rem', textDecoration: 'none' }}
+                  className="badge-premium-green shrink-0 whitespace-nowrap" style={{ fontSize: '9px', padding: '0.125rem 0.5rem', textDecoration: 'none' }}
                 >
                   <MessageCircle className="w-2.5 h-2.5" />
                   {langConfig.whatsappExpert}

@@ -548,7 +548,7 @@ export default function ReviewsSection() {
                               formErrors.insuranceType ? 'border-red-400' : ''
                             }`}
                           >
-                            <SelectValue placeholder="Type choose karein" />
+                            <SelectValue placeholder="Type chunein" />
                           </SelectTrigger>
                           <SelectContent>
                             {INSURANCE_TYPES.map((type) => (
@@ -570,7 +570,7 @@ export default function ReviewsSection() {
                         Review Title <span className="text-red-400">*</span>
                       </Label>
                       <Input
-                        placeholder="Ek line mein apna experience summarize karein"
+                        placeholder="Ek line mein likhein"
                         maxLength={100}
                         value={form.title}
                         onChange={(e) => updateField('title', e.target.value)}
@@ -596,7 +596,7 @@ export default function ReviewsSection() {
                         Aapka Review <span className="text-red-400">*</span>
                       </Label>
                       <Textarea
-                        placeholder="Apna experience share karein — claim process, customer service, coverage, etc."
+                        placeholder="Apna experience share karein"
                         rows={4}
                         maxLength={2000}
                         value={form.body}
@@ -624,7 +624,7 @@ export default function ReviewsSection() {
                           Naam <span className="text-red-400">*</span>
                         </Label>
                         <Input
-                          placeholder="e.g., Rajesh Kumar"
+                          placeholder="Aapka poora naam"
                           value={form.reviewerName}
                           onChange={(e) => updateField('reviewerName', e.target.value)}
                           className={`text-sm rounded-xl ps-input ${
@@ -660,7 +660,7 @@ export default function ReviewsSection() {
                         Phone <span className="font-normal dark:text-white/40 text-slate-400">(optional)</span>
                       </Label>
                       <Input
-                        placeholder="10-digit mobile number"
+                        placeholder="98765 43210"
                         value={form.reviewerPhone}
                         onChange={(e) => updateField('reviewerPhone', e.target.value)}
                         className={`text-sm rounded-xl ps-input max-w-xs ${

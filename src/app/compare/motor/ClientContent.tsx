@@ -232,22 +232,22 @@ export default function MotorCompareClient() {
       {/* Hero Section (when not showing results) */}
       {!showResults && (
         <section className="relative overflow-hidden pt-8 sm:pt-12 pb-8">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-amber-900/40 to-slate-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A130C] via-[#8B3520]/60 to-[#0E1116]" />
           <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(201,138,28,0.08)_50%,transparent_70%)] bg-[length:200%_100%]" />
           <div className="orb orb-1" />
           <div className="orb orb-2" />
           <div className="orb orb-3" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-medium text-primary">{tr(pageText.hero.badge)}</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C98A1C]/15 border border-[#C98A1C]/40 mb-4">
+              <span className="h-2 w-2 rounded-full bg-[#E8C97E] animate-pulse" />
+              <span className="text-xs font-medium text-[#E8C97E]">{tr(pageText.hero.badge)}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3 leading-[1.25]">
               <span className="gradient-text">{tr(pageText.hero.title2)}</span>{' '}
               <span className="gradient-text-amber">{tr(pageText.hero.title1)}</span>
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-6">
+            <p className="text-sm text-white/75 max-w-2xl mx-auto mb-6 leading-relaxed">
               {tr(pageText.hero.description)}
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
@@ -257,8 +257,8 @@ export default function MotorCompareClient() {
                 { value: tr(pageText.hero.stat3Value), label: tr(pageText.hero.stat3Label) },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="text-lg sm:text-xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground">{stat.label}</div>
+                  <div className="text-lg sm:text-xl font-bold gradient-text leading-snug">{stat.value}</div>
+                  <div className="text-[10px] sm:text-xs text-white/65 leading-snug">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -303,7 +303,7 @@ export default function MotorCompareClient() {
 
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 py-2">
-        <nav className="text-[10px] text-muted-foreground flex items-center gap-1" aria-label="Breadcrumb">
+        <nav className="text-[11px] text-muted-foreground flex items-center gap-1" aria-label="Breadcrumb">
           <a href="/" className="hover:text-foreground transition-colors">{tr(pageText.breadcrumb.home)}</a>
           <span>/</span>
           <a href="/compare" className="hover:text-foreground transition-colors">{tr(pageText.breadcrumb.compare)}</a>
@@ -336,7 +336,7 @@ export default function MotorCompareClient() {
       {/* Footer */}
       <footer className="mt-auto border-t bg-muted/30">
         <div className="container mx-auto px-4 py-4">
-          <p className="text-[10px] text-muted-foreground text-center">
+          <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
             {tr(pageText.footer.disclaimer)}
             <br />
             {tr(pageText.footer.note)}

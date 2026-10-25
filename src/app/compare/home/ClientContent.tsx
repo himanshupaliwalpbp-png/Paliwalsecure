@@ -197,22 +197,22 @@ export default function HomeCompareClient() {
       {/* Hero Section (when not showing results) */}
       {!showResults && (
         <section className="relative overflow-hidden pt-8 sm:pt-12 pb-8">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900/40 to-slate-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1A130C] via-[#8B3520]/60 to-[#0E1116]" />
           <div className="absolute inset-0 animate-gradient-x bg-[linear-gradient(110deg,transparent_30%,rgba(16,185,129,0.08)_50%,transparent_70%)] bg-[length:200%_100%]" />
           <div className="orb orb-1" />
           <div className="orb orb-2" />
           <div className="orb orb-3" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-medium text-emerald-500">{tr(pageText.hero.badge)}</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C98A1C]/15 border border-[#C98A1C]/40 mb-4">
+              <span className="h-2 w-2 rounded-full bg-[#E8C97E] animate-pulse" />
+              <span className="text-xs font-medium text-[#E8C97E]">{tr(pageText.hero.badge)}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3 leading-[1.25]">
               <span className="gradient-text">{tr(pageText.hero.title2)}</span>{' '}
               <span className="gradient-text-amber">{tr(pageText.hero.title1)}</span>
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-6">
+            <p className="text-sm text-white/75 max-w-2xl mx-auto mb-6 leading-relaxed">
               {tr(pageText.hero.description)}
             </p>
             <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
@@ -223,7 +223,7 @@ export default function HomeCompareClient() {
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-lg sm:text-xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground">{stat.label}</div>
+                  <div className="text-[10px] sm:text-xs text-white/65 leading-snug">{stat.label}</div>
                 </div>
               ))}
             </div>
