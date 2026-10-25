@@ -317,18 +317,18 @@ export default function FamilyHealthInsuranceClientContent() {
         <div className="orb orb-3" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">{pt(pageText.hero.badge, language)}</span>
+            <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+              <span>{pt(pageText.hero.badge, language)}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight mb-4">
+            <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
               {pt(pageText.hero.title1, language)}{' '}
-              <span className="gradient-text">{pt(pageText.hero.title2, language)}</span>
+              <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(pageText.hero.title2, language)}</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-6">
+            <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
               {pt(pageText.hero.desc, language)}
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 nl-rise nl-rise-4">
               <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20choosing%20family%20health%20insurance" target="_blank" rel="noopener noreferrer">
                 <ShinyButton variant="blue">
                   <span>{pt(pageText.hero.ctaWhatsApp, language)}</span>
@@ -341,14 +341,14 @@ export default function FamilyHealthInsuranceClientContent() {
               </a>
             </div>
             {/* Trust Badges */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground nl-rise nl-rise-5">
               {[
                 { text: pageText.hero.trustBadge1 },
                 { text: pageText.hero.trustBadge2 },
                 { text: pageText.hero.trustBadge3 },
               ].map((b, i) => (
-                <div key={i} className="flex items-center gap-1.5">
-                  <span className="text-primary font-bold">✓</span>
+                <div key={i} className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
+                  <svg className="w-4 h-4 nl-chip-ico" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                   <span>{pt(b.text, language)}</span>
                 </div>
               ))}

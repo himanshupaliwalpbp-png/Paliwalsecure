@@ -11,8 +11,8 @@ import { useLanguage } from '@/lib/i18n';
 import { ShinyButton } from '@/components/ui/shiny-button';
 
 /* ── Design tokens ─────────────────────────────────────────────────────── */
-const NAVY_800 = '#0A1330';
-const NAVY_600 = '#162D5A';
+const NAVY_800 = '#5A2814'; // SAFFRON DAWN v19: deep warm brown (was navy #0A1330)
+const NAVY_600 = '#8B3520'; // SAFFRON DAWN v19: maroon (was navy #162D5A)
 const GOLD = '#C98A1C';
 
 /* ── Translation type ──────────────────────────────────────────────────── */
@@ -105,7 +105,7 @@ export default function AboutClientContent() {
       {/* ═══════════════════ PAGE HEADER ═══════════════════ */}
       <section
         className="relative overflow-hidden py-16 md:py-24"
-        style={{ background: `linear-gradient(135deg, ${NAVY_800} 0%, ${NAVY_600} 50%, #082247 100%)` }}
+        style={{ background: `linear-gradient(135deg, ${NAVY_800} 0%, ${NAVY_600} 50%, #0E1116 100%)` }}
       >
         <div className="orb orb-1" />
         <div className="orb orb-2" />
@@ -120,20 +120,20 @@ export default function AboutClientContent() {
           </nav>
 
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6"
-            style={{ background: 'rgba(201,138,28,0.15)', color: GOLD, border: '1px solid rgba(201,138,28,0.3)' }}
+            className="nl-eyebrow nl-eyebrow-center text-[#E8C97E]! mb-6 nl-rise nl-rise-1"
+            style={{ background: 'rgba(232,201,126,0.12)', color: '#E8C97E', border: '1px solid rgba(232,201,126,0.3)' }}
           >
-            <Shield className="w-3.5 h-3.5" />
-            {pt(pageText.hero.badge)}
+            <Shield className="w-3.5 h-3.5 shrink-0" />
+            <span>{pt(pageText.hero.badge)}</span>
           </div>
 
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight mb-4"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight mb-4 nl-rise nl-rise-2"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             {pt(pageText.hero.title1)} <span className="gradient-text">{pt(pageText.hero.titleHighlight)}</span>
           </h1>
-          <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-white/70 max-w-2xl mx-auto mb-2">
+          <p className="text-lg sm:text-xl text-[#4A4F57] dark:text-white/70 max-w-2xl mx-auto mb-2 nl-rise nl-rise-3">
             {pt(pageText.hero.subtitle)}
           </p>
         </div>

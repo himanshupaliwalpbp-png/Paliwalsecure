@@ -43,12 +43,12 @@ export default function NCBMeaningClientContent() {
 
       <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-[#C98A1C]/20 text-[#C98A1C] border-[#C98A1C]/30 rounded-full px-4 py-1"><Shield className="w-3.5 h-3.5 mr-1" />Motor Insurance Guide 2026</Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            <span className="gradient-text">NCB Meaning</span>{' '}
-            <span className="text-[#7ED3E6]">{lang === 'hi' ? 'नो क्लेम बोनस समझिए' : 'No Claim Bonus Explained'}</span>
+          <div className="nl-eyebrow nl-eyebrow-center text-[#E8C97E]! mb-6 nl-rise nl-rise-1"><Shield className="w-3.5 h-3.5 shrink-0" />Motor Insurance Guide 2026</div>
+          <h1 className="nl-h2 text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            <span className="bg-gradient-to-r from-[#F0A88B] via-[#E8A06B] to-[#E8C872] bg-clip-text text-transparent">NCB Meaning</span>{' '}
+            <span>{lang === 'hi' ? 'नो क्लेम बोनस समझिए' : 'No Claim Bonus Explained'}</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {lang === 'hi' ? 'NCB आपके प्रीमियम पर 50% तक की छूट है। समझें कि यह कैसे काम करता है, दरें, और इसे कैसे बचाएँ।' : 'NCB is up to 50% discount on your premium. Understand how it works, rates, and how to protect it.'}
           </p>
         </div>

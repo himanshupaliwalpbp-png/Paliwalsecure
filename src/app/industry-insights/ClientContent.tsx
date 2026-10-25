@@ -300,11 +300,11 @@ export default function IndustryInsightsClientContent() {
         </nav>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground">
+            <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-2 nl-rise nl-rise-1">
               {pt(pageText.hero.title1)}{' '}
-              <span className="gradient-text">{pt(pageText.hero.titleHighlight)}</span>
+              <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(pageText.hero.titleHighlight)}</span>
             </h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl">{pt(pageText.hero.subtitle)}</p>
+            <p className="nl-sub dark:text-[#A8B0C2]! mt-2 max-w-2xl nl-rise nl-rise-2">{pt(pageText.hero.subtitle)}</p>
           </div>
           <Link href="/">
             <Button variant="outline" className="rounded-xl gap-2 hover:bg-primary/10 hover:text-primary hover:border-primary/30">

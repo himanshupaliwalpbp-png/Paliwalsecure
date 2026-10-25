@@ -224,18 +224,18 @@ export default function LifeInsuranceClientContent() {
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{pt(t.hero.badge, language)}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+            <span>{pt(t.hero.badge, language)}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
             {pt(t.hero.title1, language)}{' '}
-            <span className="gradient-text">{pt(t.hero.title2, language)}</span>
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(t.hero.title2, language)}</span>
           </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {pt(t.hero.desc, language)}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20choosing%20a%20term%20insurance%20plan" target="_blank" rel="noopener noreferrer">
               <ShinyButton variant="blue"><span>{pt(t.hero.ctaRecommend, language)}</span></ShinyButton>
             </a>
@@ -244,29 +244,29 @@ export default function LifeInsuranceClientContent() {
             </Link>
           </div>
           {/* Trust Badges */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-muted-foreground">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground nl-rise nl-rise-5">
             {[
               pt(t.hero.trustBadge1, language),
               pt(t.hero.trustBadge2, language),
               pt(t.hero.trustBadge3, language),
             ].map((badge, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+              <div key={i} className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
+                <svg className="w-4 h-4 nl-chip-ico" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                 <span>{badge}</span>
               </div>
             ))}
           </div>
           {/* Stats */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto nl-rise nl-rise-5">
             {[
               { val: pt(t.hero.stat1Val, language), label: pt(t.hero.stat1Label, language) },
               { val: pt(t.hero.stat2Val, language), label: pt(t.hero.stat2Label, language) },
               { val: pt(t.hero.stat3Val, language), label: pt(t.hero.stat3Label, language) },
               { val: pt(t.hero.stat4Val, language), label: pt(t.hero.stat4Label, language) },
             ].map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold gradient-text">{s.val}</div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
+              <div key={i} className="nl-stat text-center">
+                <div className="nl-stat-value"><em>{s.val}</em></div>
+                <div className="nl-stat-label">{s.label}</div>
               </div>
             ))}
           </div>

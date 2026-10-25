@@ -107,19 +107,19 @@ export default function CoPayClientContent() {
       {/* Hero */}
       <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-[#C98A1C]/20 text-[#C98A1C] border-[#C98A1C]/30 rounded-full px-4 py-1">
-            <BookOpen className="w-3.5 h-3.5 mr-1" />
+          <div className="nl-eyebrow nl-eyebrow-center text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <BookOpen className="w-3.5 h-3.5 shrink-0" />
             {pt(pageText.hero.badge, lang)}
-          </Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          </div>
+          <h1 className="nl-h2 text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
             {pt(pageText.hero.title1, lang)}{' '}
-            <span className="gradient-text">{pt(pageText.hero.title2, lang)}</span>{' '}
-            <span className="text-[#7ED3E6]">{pt(pageText.hero.subtitle, lang)}</span>
+            <span className="bg-gradient-to-r from-[#F0A88B] via-[#E8A06B] to-[#E8C872] bg-clip-text text-transparent">{pt(pageText.hero.title2, lang)}</span>{' '}
+            <span>{pt(pageText.hero.subtitle, lang)}</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {pt(pageText.hero.desc, lang)}
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="mt-8 flex flex-wrap justify-center gap-4 nl-rise nl-rise-4">
             <a href={getWhatsAppCTA('Hi! I need help understanding co-pay in health insurance.')}>
               <ShinyButton className="bg-[#25D366] hover:bg-[#20BD5A] text-white">
                 <MessageCircle className="w-4 h-4 mr-2" />

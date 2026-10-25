@@ -12,8 +12,8 @@ import {
 } from 'lucide-react';
 
 /* ─── Brand colours ─── */
-const NAVY = '#071B3B';
-const DARK_NAVY = '#2563EB';
+const NAVY = '#8B3520'; // SAFFRON DAWN v19: maroon (was navy #071B3B)
+const DARK_NAVY = '#B8482C'; // SAFFRON DAWN v19: sienna (was BLUE #2563EB)
 const GOLD = '#F4B400';
 
 // ── Translation Maps ──────────────────────────────────────────────────────
@@ -331,7 +331,7 @@ export default function TaxSavingPage() {
       {/* ═══════════════════ PAGE HEADER ═══════════════════ */}
       <section
         className="relative overflow-hidden py-14 md:py-20"
-        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #082247 100%)` }}
+        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #0E1116 100%)` }}
       >
         <div className="orb orb-1" />
         <div className="orb orb-2" />
@@ -345,20 +345,20 @@ export default function TaxSavingPage() {
             <span className="text-white/80">{tr(pageText.breadcrumb.current)}</span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 badge-shimmer"
-            style={{ background: 'rgba(212,160,23,0.15)', color: GOLD, border: `1px solid rgba(212,160,23,0.3)` }}>
-            <Shield className="w-3.5 h-3.5" />
-            {tr(pageText.hero.badge)}
+          <div className="nl-eyebrow nl-eyebrow-center text-[#E8C97E]! mb-6 nl-rise nl-rise-1"
+            style={{ background: 'rgba(232,201,126,0.12)', color: '#E8C97E', border: `1px solid rgba(232,201,126,0.3)` }}>
+            <Shield className="w-3.5 h-3.5 shrink-0" />
+            <span>{tr(pageText.hero.badge)}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3 gradient-text"
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3 gradient-text nl-rise nl-rise-2"
             style={{ fontFamily: 'var(--font-heading)' }}>
             {tr(pageText.hero.title)}
           </h1>
-          <p className="text-xl sm:text-2xl font-bold mb-3" style={{ color: GOLD }}>
+          <p className="text-xl sm:text-2xl font-bold mb-3 nl-rise nl-rise-2" style={{ color: GOLD }}>
             {tr(pageText.hero.titleHighlight)}
           </p>
-          <p className="text-white/60 max-w-2xl mx-auto mb-4">
+          <p className="text-white/60 max-w-2xl mx-auto mb-4 nl-rise nl-rise-3">
             {tr(pageText.hero.description)}
           </p>
           <p className="text-xs font-medium text-white/50">
@@ -366,7 +366,7 @@ export default function TaxSavingPage() {
           </p>
 
           {/* Hero CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 nl-rise nl-rise-4">
             <Link href="/compare">
               <ShinyButton variant="blue" className="rounded-xl px-6 py-3 text-sm md:text-base">
                 <span>{tr(pageText.hero.ctaCompare)}</span>
@@ -419,7 +419,7 @@ export default function TaxSavingPage() {
                       <a key={s.id} href={`#${s.id}`}
                         className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors group">
                         <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 group-hover:text-white transition-colors"
-                          style={{ background: 'rgba(11,43,91,0.08)', color: NAVY }}>
+                          style={{ background: 'rgba(90,40,20,0.08)', color: NAVY }}>
                           {i + 1}
                         </span>
                         <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: GOLD, opacity: 0.6 }} />
@@ -452,7 +452,7 @@ export default function TaxSavingPage() {
               </p>
 
               {/* 80D Deduction Limits Table */}
-              <div className="rounded-xl overflow-hidden mb-5" style={{ border: `1px solid rgba(11,43,91,0.1)` }}>
+              <div className="rounded-xl overflow-hidden mb-5" style={{ border: `1px solid rgba(90,40,20,0.1)` }}>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -462,9 +462,9 @@ export default function TaxSavingPage() {
                         <th className="px-4 py-3 text-center text-white font-semibold">{tr(pageText.sec80d.tableHeaders.maxDeduction)}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y" style={{ borderColor: 'rgba(11,43,91,0.08)' }}>
+                    <tbody className="divide-y" style={{ borderColor: 'rgba(90,40,20,0.08)' }}>
                       {pageText.sec80d.tableRows.map((row, i) => (
-                        <tr key={i} className={i % 2 === 0 ? 'bg-background' : ''} style={i % 2 !== 0 ? { background: 'rgba(11,43,91,0.03)' } : {}}>
+                        <tr key={i} className={i % 2 === 0 ? 'bg-background' : ''} style={i % 2 !== 0 ? { background: 'rgba(90,40,20,0.03)' } : {}}>
                           <td className="px-4 py-3 text-foreground font-medium">{tr(row.who)}</td>
                           <td className="px-4 py-3 text-center text-muted-foreground">{tr(row.age)}</td>
                           <td className="px-4 py-3 text-center font-bold" style={{ color: NAVY }}>{row.max}</td>
@@ -519,7 +519,7 @@ export default function TaxSavingPage() {
                   const icons = [IndianRupee, Users, Receipt, Clock];
                   const Icon = icons[i];
                   return (
-                    <div key={i} className="rounded-xl p-4 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(11,43,91,0.04)' }}>
+                    <div key={i} className="rounded-xl p-4 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(90,40,20,0.04)' }}>
                       <div className="flex items-center gap-2 mb-2">
                         <Icon className="w-4 h-4" style={{ color: GOLD }} />
                         <h3 className="text-sm font-semibold text-foreground">{tr(item.title)}</h3>
@@ -545,7 +545,7 @@ export default function TaxSavingPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {pageText.sec80c.includesItems.map((item, i) => (
                     <span key={i} className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium"
-                      style={{ background: 'rgba(11,43,91,0.06)', color: NAVY }}>
+                      style={{ background: 'rgba(90,40,20,0.06)', color: NAVY }}>
                       <CheckCircle2 className="w-3 h-3" style={{ color: GOLD }} /> {tr(item)}
                     </span>
                   ))}
@@ -574,7 +574,7 @@ export default function TaxSavingPage() {
                   const icons = [Banknote, Calculator, IndianRupee, AlertTriangle];
                   const Icon = icons[i];
                   return (
-                    <div key={i} className="rounded-xl p-4 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(11,43,91,0.04)' }}>
+                    <div key={i} className="rounded-xl p-4 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(90,40,20,0.04)' }}>
                       <div className="flex items-center gap-2 mb-2">
                         <Icon className="w-4 h-4" style={{ color: GOLD }} />
                         <h3 className="text-sm font-semibold text-foreground">{tr(item.title)}</h3>
@@ -626,7 +626,7 @@ export default function TaxSavingPage() {
               </div>
 
               {/* Specified diseases */}
-              <div className="rounded-xl p-5 mb-5" style={{ background: 'rgba(11,43,91,0.04)' }}>
+              <div className="rounded-xl p-5 mb-5" style={{ background: 'rgba(90,40,20,0.04)' }}>
                 <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                   <Stethoscope className="w-4 h-4" style={{ color: GOLD }} />
                   {tr(pageText.sec80ddb.diseasesTitle)}
@@ -673,7 +673,7 @@ export default function TaxSavingPage() {
                 {pageText.howToClaim.steps.map((item, i) => {
                   const icons = [Receipt, CheckCircle2, FileText, Clock];
                   return (
-                    <div key={i} className="rounded-xl p-4 sm:p-5 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(11,43,91,0.04)', border: '1px solid rgba(11,43,91,0.08)' }}>
+                    <div key={i} className="rounded-xl p-4 sm:p-5 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(90,40,20,0.04)', border: '1px solid rgba(90,40,20,0.08)' }}>
                       <div className="flex items-center gap-3 mb-3">
                         <span className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0"
                           style={{ background: `linear-gradient(135deg, ${NAVY}, ${DARK_NAVY})` }}>
@@ -731,7 +731,7 @@ export default function TaxSavingPage() {
                     <div key={i} className="flex items-center justify-between px-3 py-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.08)' }}>
                       <div className="flex items-center gap-2">
                         <span className="inline-flex items-center justify-center w-7 h-7 rounded-md text-[10px] font-bold text-white"
-                          style={{ background: item.section === '80C' ? 'rgba(11,43,91,0.5)' : 'rgba(14,124,123,0.5)' }}>
+                          style={{ background: item.section === '80C' ? 'rgba(90,40,20,0.5)' : 'rgba(14,124,123,0.5)' }}>
                           {item.section}
                         </span>
                         <span className="text-sm text-white/80">{tr(item.desc)}</span>
@@ -795,7 +795,7 @@ export default function TaxSavingPage() {
               </div>
 
               {/* Example 3 - Quick comparison */}
-              <div className="rounded-xl p-5" style={{ background: 'rgba(11,43,91,0.04)' }}>
+              <div className="rounded-xl p-5" style={{ background: 'rgba(90,40,20,0.04)' }}>
                 <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                   <TrendingDown className="w-4 h-4" style={{ color: GOLD }} />
                   {tr(pageText.taxCalc.comparisonTitle)}
@@ -810,14 +810,14 @@ export default function TaxSavingPage() {
                         <th className="px-4 py-2 text-center text-white font-semibold text-xs">{tr(pageText.taxCalc.comparisonHeaders.taxSaved)}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y" style={{ borderColor: 'rgba(11,43,91,0.08)' }}>
+                    <tbody className="divide-y" style={{ borderColor: 'rgba(90,40,20,0.08)' }}>
                       {[
                         { scenario: '₹8L Income (10% slab)', no: '₹0', yes: '₹25,000', saved: '₹2,500' },
                         { scenario: '₹12L Income (15-20% slab)', no: '₹0', yes: '₹1,50,000', saved: '₹22,500' },
                         { scenario: '₹18L Income (30% slab)', no: '₹0', yes: '₹2,85,000', saved: '₹85,500' },
                         { scenario: '₹25L Income (30% slab + cess)', no: '₹0', yes: '₹2,85,000', saved: '₹88,920' },
                       ].map((row, i) => (
-                        <tr key={i} style={i % 2 !== 0 ? { background: 'rgba(11,43,91,0.03)' } : {}}>
+                        <tr key={i} style={i % 2 !== 0 ? { background: 'rgba(90,40,20,0.03)' } : {}}>
                           <td className="px-4 py-2 text-foreground font-medium text-xs">{row.scenario}</td>
                           <td className="px-4 py-2 text-center text-muted-foreground text-xs">{row.no}</td>
                           <td className="px-4 py-2 text-center font-bold text-xs" style={{ color: '#0E7C7B' }}>{row.yes}</td>
@@ -864,7 +864,7 @@ export default function TaxSavingPage() {
 
               <div className="space-y-4">
                 {pageText.disclaimer.items.map((item, i) => (
-                  <div key={i} className="rounded-xl p-4 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(11,43,91,0.04)' }}>
+                  <div key={i} className="rounded-xl p-4 hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300" style={{ background: 'rgba(90,40,20,0.04)' }}>
                     <p className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
                       <AlertTriangle className="w-4 h-4 shrink-0" style={{ color: GOLD }} />
                       {tr(item.title)}
@@ -875,7 +875,7 @@ export default function TaxSavingPage() {
               </div>
 
               {/* IRDAI Registration */}
-              <div className="mt-5 rounded-xl p-5 text-center" style={{ background: 'rgba(11,43,91,0.04)' }}>
+              <div className="mt-5 rounded-xl p-5 text-center" style={{ background: 'rgba(90,40,20,0.04)' }}>
                 <Shield className="w-8 h-8 mx-auto mb-3" style={{ color: GOLD }} />
                 <p className="text-sm font-semibold text-foreground mb-1">
                   {tr(pageText.disclaimer.irdaiTitle)}
@@ -897,7 +897,7 @@ export default function TaxSavingPage() {
 
       {/* ═══════════════════ CTA SECTION ═══════════════════ */}
       <section className="relative py-16 md:py-20 overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #082247 100%)` }}>
+        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${DARK_NAVY} 50%, #0E1116 100%)` }}>
         <div className="absolute top-5 right-[20%] w-40 h-40 rounded-full opacity-10" style={{ background: GOLD, filter: 'blur(60px)' }} />
 
         <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center">
@@ -936,7 +936,7 @@ export default function TaxSavingPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-16">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4 badge-shimmer"
-            style={{ background: 'rgba(11,43,91,0.08)', color: NAVY }}>
+            style={{ background: 'rgba(90,40,20,0.08)', color: NAVY }}>
             <MessageCircle className="w-3.5 h-3.5" /> {tr(pageText.contact.badge)}
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>

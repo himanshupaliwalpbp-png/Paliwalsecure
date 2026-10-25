@@ -49,14 +49,18 @@ export default function HealthInsuranceForParentsClientContent() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background">
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-[#C98A1C]/20 text-[#C98A1C] border-[#C98A1C]/30 rounded-full px-4 py-1"><Heart className="w-3.5 h-3.5 mr-1" />Parents Insurance Guide 2026</Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            <span className="gradient-text">{lang === 'hi' ? 'माता-पिता के लिए सर्वश्रेष्ठ' : 'Best Health Insurance'}</span>{' '}
-            <span className="text-[#7ED3E6]">{lang === 'hi' ? 'हेल्थ इंश्योरेंस' : 'for Parents'}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <Heart className="w-3.5 h-3.5 shrink-0" />
+            <span>Parents Insurance Guide 2026</span>
+          </div>
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{lang === 'hi' ? 'माता-पिता के लिए सर्वश्रेष्ठ' : 'Best Health Insurance'}</span>{' '}
+            <span>{lang === 'hi' ? 'हेल्थ इंश्योरेंस' : 'for Parents'}</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {lang === 'hi' ? 'माता-पिता के लिए सही हेल्थ इंश्योरेंस चुनना सबसे ज़रूरी निर्णय है। PED कवरेज, को-पे, वेटिंग पीरियड और नेटवर्क अस्पतालों की तुलना करें।' : 'Choosing the right health insurance for your parents is the most important decision. Compare PED coverage, co-pay, waiting periods, and network hospitals.'}
           </p>
         </div>

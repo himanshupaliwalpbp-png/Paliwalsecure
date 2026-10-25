@@ -211,15 +211,15 @@ export default function ClientContent() {
       <section className="relative overflow-hidden py-12 md:py-20">
         <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{pt(pageText.hero.badge, language)}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+            <span>{pt(pageText.hero.badge, language)}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight mb-6">
-            {pt(pageText.hero.title1, language)} <span className="gradient-text">{pt(pageText.hero.titleHighlight, language)}</span>
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            {pt(pageText.hero.title1, language)} <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(pageText.hero.titleHighlight, language)}</span>
           </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">{pt(pageText.hero.desc, language)}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">{pt(pageText.hero.desc, language)}</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <a href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20with%20cashless%20claim" target="_blank" rel="noopener noreferrer">
               <ShinyButton variant="blue"><span>{pt(pageText.hero.ctaHelp, language)}</span></ShinyButton>
             </a>

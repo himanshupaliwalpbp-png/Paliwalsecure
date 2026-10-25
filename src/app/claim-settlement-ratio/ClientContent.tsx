@@ -48,15 +48,15 @@ export default function ClaimSettlementRatioClientContent() {
       {/* Hero */}
       <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-[#C98A1C]/20 text-[#C98A1C] border-[#C98A1C]/30 rounded-full px-4 py-1">
-            <Award className="w-3.5 h-3.5 mr-1" />
+          <div className="nl-eyebrow nl-eyebrow-center text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <Award className="w-3.5 h-3.5 shrink-0" />
             IRDAI Data 2026
-          </Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            <span className="gradient-text">Claim Settlement Ratio</span>{' '}
-            <span className="text-[#7ED3E6]">Explained</span>
+          </div>
+          <h1 className="nl-h2 text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            <span className="bg-gradient-to-r from-[#F0A88B] via-[#E8A06B] to-[#E8C872] bg-clip-text text-transparent">Claim Settlement Ratio</span>{' '}
+            <span>Explained</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {lang === 'hi'
               ? 'क्लेम सेटलमेंट रेश्यो (CSR) एक बीमाकर्ता की विश्वसनीयता का सबसे महत्वपूर्ण माप है। IRDAI के नवीनतम डेटा के साथ, सभी भारतीय बीमाकर्ताओं का CSR समझें।'
               : lang === 'hinglish'

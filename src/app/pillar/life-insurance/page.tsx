@@ -22,15 +22,15 @@ export default function PillarPage() {
       
       <section className="py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <Shield className="w-4 h-4 text-primary" />
-            <span className="text-xs font-medium text-primary">Pillar Guide</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <Shield className="w-3.5 h-3.5 shrink-0" />
+            <span>Pillar Guide</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">{title2}</h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">{title2}</h1>
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             India&apos;s most comprehensive {text2} guide. 18+ articles. Real IRDAI data, expert insights.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <Link href="/compare" className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm shadow-lg hover:shadow-xl transition-all">
               Compare Plans
             </Link>

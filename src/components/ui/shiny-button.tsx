@@ -239,30 +239,30 @@ export function ShinyButton({
             0 0 60px rgba(201, 138, 28, 0.1);
         }
 
-        /* Blue variant — dark navy bg + white text + gold highlights */
+        /* "Blue" variant — SAFFRON DAWN v19: sienna → maroon bg + gold highlights (de-blued) */
         .shiny-cta-blue {
-          --shiny-cta-bg: #0F1C40;
-          --shiny-cta-bg-subtle: #162D5A;
+          --shiny-cta-bg: #B8482C;
+          --shiny-cta-bg-subtle: #8B3520;
           --shiny-cta-fg: #ffffff;
-          --shiny-cta-highlight: #C98A1C;
+          --shiny-cta-highlight: #E8C97E;
           --shiny-cta-highlight-subtle: #C98A1C;
         }
 
-        /* Dark variant — original black bg + blue animated border (from provided component) */
+        /* Dark variant — v19: ink bg + gold animated border (de-blued) */
         .shiny-cta-dark {
-          --shiny-cta-bg: #000000;
-          --shiny-cta-bg-subtle: #1a1818;
+          --shiny-cta-bg: #0E1116;
+          --shiny-cta-bg-subtle: #1A1F27;
           --shiny-cta-fg: #ffffff;
-          --shiny-cta-highlight: blue;
-          --shiny-cta-highlight-subtle: #8484ff;
+          --shiny-cta-highlight: #E8C97E;
+          --shiny-cta-highlight-subtle: #C98A1C;
         }
 
         .shiny-cta-dark:is(:hover, :focus-visible):not(:disabled) {
           box-shadow:
-            inset 0 0 0 1px rgba(26, 24, 24, 0.5),
+            inset 0 0 0 1px rgba(26, 31, 39, 0.5),
             0 4px 20px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(0, 0, 255, 0.2),
-            0 0 60px rgba(0, 0, 255, 0.1);
+            0 0 30px rgba(201, 138, 28, 0.2),
+            0 0 60px rgba(201, 138, 28, 0.1);
         }
 
         @keyframes gradient-angle {

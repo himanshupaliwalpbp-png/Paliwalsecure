@@ -189,15 +189,15 @@ export default function TravelInsuranceClientContent() {
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{pt(t.hero.badge, language)}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+            <span>{pt(t.hero.badge, language)}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            {pt(t.hero.title1, language)} <span className="gradient-text">{pt(t.hero.title2, language)}</span> {pt(t.hero.titleSuffix, language)}
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            {pt(t.hero.title1, language)} <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(t.hero.title2, language)}</span> {pt(t.hero.titleSuffix, language)}
           </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">{pt(t.hero.desc, language)}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">{pt(t.hero.desc, language)}</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <Link href="/free-audit"><ShinyButton variant="blue"><span>{pt(t.hero.ctaCompare, language)}</span></ShinyButton></Link>
             <a href="https://wa.me/919257877312?text=Hi%2C%20I%20need%20help%20with%20travel%20insurance" target="_blank" rel="noopener noreferrer"><ShinyButton variant="secondary"><span>{pt(t.hero.ctaWhatsApp, language)}</span></ShinyButton></a>
           </div>
@@ -208,9 +208,9 @@ export default function TravelInsuranceClientContent() {
               { val: pt(t.hero.stat3Val, language), label: pt(t.hero.stat3Label, language) },
               { val: pt(t.hero.stat4Val, language), label: pt(t.hero.stat4Label, language) },
             ].map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold gradient-text">{s.val}</div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
+              <div key={i} className="nl-stat text-center">
+                <div className="nl-stat-value"><em>{s.val}</em></div>
+                <div className="nl-stat-label">{s.label}</div>
               </div>
             ))}
           </div>

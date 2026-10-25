@@ -1133,10 +1133,10 @@ body::after,
   -webkit-text-fill-color: transparent;
 }
 
-/* Amber/gold to navy text */
+/* Amber/gold to maroon text — SAFFRON DAWN v19 (de-navy) */
 .gradient-text-amber {
   color: #D4A853; /* Accessibility fallback */
-  background: linear-gradient(135deg, #D4A853 0%, #0E1A3A 100%);
+  background: linear-gradient(135deg, #D4A853 0%, #8B3520 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -148,32 +148,30 @@ export default function ClientContent() {
             <span className="text-foreground font-medium">{pt(pageText.hero.title1, language)}</span>
           </nav>
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              <Newspaper className="h-3.5 w-3.5 mr-1" />
+            <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+              <Newspaper className="h-3.5 w-3.5 shrink-0" />
               {pt(pageText.hero.badge, language)}
-            </Badge>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            </div>
+            <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
               {pt(pageText.hero.title1, language)}{' '}
-              <span className="gradient-text">{pt(pageText.hero.title2, language)}</span>
+              <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(pageText.hero.title2, language)}</span>
             </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">{pt(pageText.hero.desc, language)}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+            <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">{pt(pageText.hero.desc, language)}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 nl-rise nl-rise-4">
               {[
                 { icon: Newspaper, label: pt({ en: "News Updates", hi: "समाचार अपडेट", hinglish: "News Updates" }, language), value: `${newsItems.length}+` },
                 { icon: ShieldCheck, label: pt({ en: "IRDAI Rules", hi: "IRDAI नियम", hinglish: "IRDAI Rules" }, language), value: `${regulationChanges.length} Key` },
                 { icon: TrendingUp, label: pt({ en: "Medical Inflation", hi: "चिकित्सा मुद्रास्फीति", hinglish: "Medical Inflation" }, language), value: '14%/yr' },
                 { icon: IndianRupee, label: pt({ en: "GST Savings", hi: "GST बचत", hinglish: "GST Savings" }, language), value: '~18%' },
               ].map((stat, i) => (
-                <Card key={i} className="glass-card bg-background/80">
-                  <CardContent className="p-3 text-center">
-                    <stat.icon className="h-5 w-5 text-primary mx-auto mb-1" />
-                    <p className="text-xs text-muted-foreground">{stat.label}</p>
-                    <p className="text-sm font-bold">{stat.value}</p>
-                  </CardContent>
-                </Card>
+                <div key={i} className="nl-stat items-center text-center">
+                  <stat.icon className="h-5 w-5 text-primary mx-auto mb-1 shrink-0" />
+                  <div className="nl-stat-value"><em>{stat.value}</em></div>
+                  <div className="nl-stat-label">{stat.label}</div>
+                </div>
               ))}
             </div>
-            <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/919257877312" target="_blank" rel="noopener noreferrer" className="nl-rise nl-rise-5">
               <ShinyButton variant="blue"><span>{pt(pageText.hero.ctaWhatsApp, language)}</span></ShinyButton>
             </a>
           </div>

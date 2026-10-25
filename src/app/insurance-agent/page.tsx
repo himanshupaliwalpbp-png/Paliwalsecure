@@ -44,30 +44,30 @@ export default function InsuranceAgentDirectory() {
       {/* Hero */}
       <section className="pt-20 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E6F4EF] dark:bg-[rgba(45,106,79,0.18)] border border-[rgba(45,106,79,0.25)] text-[#2D6A4F] dark:text-[#6EE7B7] text-xs font-semibold mb-6">
-            <MapPin className="w-3.5 h-3.5" />
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <MapPin className="w-3.5 h-3.5 shrink-0" />
             100+ Cities · IRDAI POSP IP429834
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0E1116] dark:text-[#FAF7F2] mb-4">
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
             Insurance Agents in{' '}
-            <span className="text-[#B8482C] dark:text-[#E8C872]">100+ Indian Cities</span>
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">100+ Indian Cities</span>
           </h1>
-          <p className="text-base sm:text-lg text-[#4A4F57] dark:text-[#A8B0C2] max-w-3xl mx-auto mb-8">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             Find trusted IRDAI Registered POSP insurance advisor in your city.
             Compare 51+ insurers · Get free consultation · Lifetime claim support.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#4A4F57] dark:text-[#A8B0C2]">
-            <Badge variant="outline" className="bg-white dark:bg-[#161A24] border-[rgba(15,19,32,0.10)]">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+            <div className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
               🏙️ {metros.length} Metro cities
-            </Badge>
-            <Badge variant="outline" className="bg-white dark:bg-[#161A24] border-[rgba(15,19,32,0.10)]">
+            </div>
+            <div className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
               🏘️ {tier2.length} Tier-2 cities
-            </Badge>
-            <Badge variant="outline" className="bg-white dark:bg-[#161A24] border-[rgba(15,19,32,0.10)]">
+            </div>
+            <div className="nl-chip dark:bg-[#1A1F27]! dark:text-[#A8B0C2]! dark:border-[rgba(232,200,114,0.18)]!">
               🌾 {tier3.length} Tier-3 cities
-            </Badge>
+            </div>
           </div>
         </div>
       </section>

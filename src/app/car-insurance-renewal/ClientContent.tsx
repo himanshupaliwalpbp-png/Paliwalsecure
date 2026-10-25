@@ -344,17 +344,17 @@ export default function ClientContent() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">{t(pageText.hero.badge)}</span>
+            <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+              <span>{t(pageText.hero.badge)}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight mb-4">
-              {t(pageText.hero.title)} – <span className="gradient-text">{t(pageText.hero.titleHighlight)}</span>
+            <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+              {t(pageText.hero.title)} – <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{t(pageText.hero.titleHighlight)}</span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
               {t(pageText.hero.description)}
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 nl-rise nl-rise-4">
               <a
                 href="https://wa.me/919257877312?text=Hi%20Himanshu%2C%20I%20need%20help%20with%20car%20insurance%20renewal"
                 target="_blank"

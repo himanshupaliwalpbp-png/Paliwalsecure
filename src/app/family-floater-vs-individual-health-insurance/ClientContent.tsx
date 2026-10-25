@@ -46,16 +46,18 @@ export default function FamilyFloaterVsIndividualClientContent() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background">
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-[#C98A1C]/20 text-[#C98A1C] border-[#C98A1C]/30 rounded-full px-4 py-1">
-            <BookOpen className="w-3.5 h-3.5 mr-1" />Health Insurance Guide 2026
-          </Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            <span className="gradient-text">Family Floater vs Individual</span>{' '}
-            <span className="text-[#7ED3E6]">Health Insurance</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <BookOpen className="w-3.5 h-3.5 shrink-0" />
+            <span>Health Insurance Guide 2026</span>
+          </div>
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">Family Floater vs Individual</span>{' '}
+            <span>Health Insurance</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {lang === 'hi' ? 'क्या आपको फैमिली फ्लोटर खरीदना चाहिए या इंडिविजुअल? फायदे, नुकसान, प्रीमियम और क्लेम परिदृश्यों की तुलना करें।' : 'Should you buy family floater or individual? Compare pros, cons, premiums, and claim scenarios.'}
           </p>
         </div>
@@ -64,10 +66,10 @@ export default function FamilyFloaterVsIndividualClientContent() {
       {/* Comparison Cards */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid md:grid-cols-2 gap-6 mb-10">
-          <Card className="rounded-2xl border-2 border-[#7ED3E6]/30">
+          <Card className="rounded-2xl border-2 border-[#E8C97E]/30">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-4">
-                <Users className="w-8 h-8 text-[#7ED3E6]" />
+                <Users className="w-8 h-8 text-[#E8C97E]" />
                 <h2 className="text-xl font-bold text-foreground">Family Floater</h2>
               </div>
               <p className="text-sm text-muted-foreground mb-4">{lang === 'hi' ? 'एक पॉलिसी, साझा बीमित राशि पूल' : 'One policy, shared sum insured pool'}</p>
@@ -100,7 +102,7 @@ export default function FamilyFloaterVsIndividualClientContent() {
             <thead className="bg-muted/50">
               <tr>
                 <th className="text-left p-3 font-semibold">Feature</th>
-                <th className="text-left p-3 font-semibold text-[#7ED3E6]">Family Floater</th>
+                <th className="text-left p-3 font-semibold text-[#E8C97E]">Family Floater</th>
                 <th className="text-left p-3 font-semibold text-[#C98A1C]">Individual</th>
               </tr>
             </thead>

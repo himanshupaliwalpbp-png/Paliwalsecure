@@ -52,17 +52,18 @@ export default function BestTermInsuranceClientContent() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* Hero */}
-      <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background overflow-hidden">
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-[#C98A1C]/20 text-[#C98A1C] border-[#C98A1C]/30 rounded-full px-4 py-1">
-            <Award className="w-3.5 h-3.5 mr-1" />
-            {lang === 'hi' ? '2026 के सर्वश्रेष्ठ प्लान' : 'Best Plans 2026'}
-          </Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            <span className="gradient-text">{lang === 'hi' ? 'भारत का सर्वश्रेष्ठ' : 'Best Term Insurance'}</span>{' '}
-            <span className="text-[#7ED3E6]">{lang === 'hi' ? 'टर्म इंश्योरेंस 2026' : 'India 2026'}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <Award className="w-3.5 h-3.5 shrink-0" />
+            <span>{lang === 'hi' ? '2026 के सर्वश्रेष्ठ प्लान' : 'Best Plans 2026'}</span>
+          </div>
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{lang === 'hi' ? 'भारत का सर्वश्रेष्ठ' : 'Best Term Insurance'}</span>{' '}
+            <span>{lang === 'hi' ? 'टर्म इंश्योरेंस 2026' : 'India 2026'}</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {lang === 'hi'
               ? 'हमने 25+ टर्म प्लान की CSR, प्रीमियम, राइडर और Paliwal Secure Score™ द्वारा तुलना की। यहाँ शीर्ष 7 प्लान हैं।'
               : 'We compared 25+ term plans by CSR, premium, riders, and Paliwal Secure Score™. Here are the top 7 plans.'}

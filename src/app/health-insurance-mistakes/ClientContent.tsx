@@ -34,13 +34,17 @@ export default function HealthInsuranceMistakesClientContent() {
   return (
     <div className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <section className="relative py-12 sm:py-20 bg-gradient-to-b from-[#0A1330] to-background">
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <div className="orb orb-1" /><div className="orb orb-2" /><div className="orb orb-3" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <Badge className="mb-4 bg-red-500/20 text-red-400 border-red-500/30 rounded-full px-4 py-1"><AlertTriangle className="w-3.5 h-3.5 mr-1" />Health Insurance Guide 2026</Badge>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            <span className="text-red-400">Top 10 Health Insurance</span> <span className="gradient-text">Mistakes to Avoid</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-[#B8482C] dark:text-[#E8C97E]!" />
+            <span>Health Insurance Guide 2026</span>
+          </div>
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">Top 10 Health Insurance</span> <span>Mistakes to Avoid</span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {lang === 'hi' ? 'ये 10 गलतियाँ ₹50,000 से ₹5,00,000 तक का नुकसान करा सकती हैं।' : 'These 10 mistakes can cost you ₹50,000 to ₹5,00,000 or more.'}
           </p>
         </div>
@@ -70,7 +74,7 @@ export default function HealthInsuranceMistakesClientContent() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-6"><div className="p-4 bg-muted/50 rounded-2xl border border-border/50"><div className="flex items-start gap-3"><Scale className="w-5 h-5 text-muted-foreground shrink-0 mt-0.5" /><p className="text-xs text-muted-foreground leading-relaxed">{irdaiDisclaimer[lang]}</p></div></div></section>
       <AuthorBio />
 
-      <section className="py-16 bg-gradient-to-b from-[#0A1330] to-background">
+      <section className="py-16 bg-gradient-to-b from-[#1A130C] to-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">{lang === 'hi' ? 'इन गलतियों से बचें!' : 'Avoid These Mistakes!'}</h2>
           <p className="text-white/70 mb-8 max-w-2xl mx-auto">{lang === 'hi' ? 'WhatsApp पर मुफ़्त सलाह प्राप्त करें।' : 'Get free personalized advice on WhatsApp.'}</p>

@@ -386,24 +386,24 @@ export default function ClientContent() {
         <div className="orb orb-3" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{tr(pageText.hero.badge)}</span>
+          <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
+            <span>{tr(pageText.hero.badge)}</span>
           </div>
 
           {/* Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
             {tr(pageText.hero.title1)}{' '}
-            <span className="gradient-text">{tr(pageText.hero.title2)}</span>
+            <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{tr(pageText.hero.title2)}</span>
           </h1>
 
           {/* Description */}
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
             {tr(pageText.hero.description)}
           </p>
 
           {/* CTAs with ShinyButton */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 nl-rise nl-rise-4">
             <Link href="/#compare">
               <ShinyButton variant="blue" className="rounded-xl px-6 py-3 text-sm md:text-base">
                 <span>{tr(pageText.hero.ctaCompare)}</span>
@@ -424,9 +424,9 @@ export default function ClientContent() {
               { value: tr(pageText.hero.stat3Value), label: tr(pageText.hero.stat3Label) },
               { value: tr(pageText.hero.stat4Value), label: tr(pageText.hero.stat4Label) },
             ].map((stat, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
+              <div key={idx} className="nl-stat text-center">
+                <div className="nl-stat-value"><em>{stat.value}</em></div>
+                <div className="nl-stat-label">{stat.label}</div>
               </div>
             ))}
           </div>

@@ -148,15 +148,15 @@ export default function ClientContent() {
           </nav>
 
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+            <div className="nl-eyebrow nl-eyebrow-center dark:text-[#E8C97E]! mb-6 nl-rise nl-rise-1">
               <Heart className="h-3.5 w-3.5 mr-1" />
               {pt(pageText.hero.badge, language)}
-            </Badge>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            </div>
+            <h1 className="nl-h2 dark:text-[#FAF7F2]! mb-6 nl-rise nl-rise-2">
               {pt(pageText.hero.title1, language)}{' '}
-              <span className="gradient-text">{pt(pageText.hero.title2, language)}</span>
+              <span className="bg-gradient-to-r from-[#B8482C] via-[#D0672F] to-[#C98A1C] bg-clip-text text-transparent dark:from-[#F0A88B] dark:via-[#E8A06B] dark:to-[#E8C872]">{pt(pageText.hero.title2, language)}</span>
             </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="nl-sub dark:text-[#A8B0C2]! mx-auto mb-8 nl-rise nl-rise-3">
               {pt(pageText.hero.desc, language)}
             </p>
 
