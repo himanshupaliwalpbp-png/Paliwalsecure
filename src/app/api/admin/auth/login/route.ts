@@ -269,6 +269,17 @@ export async function POST(request: NextRequest) {
         user: envResult.user,
       });
 
+      // ── Access token: httpOnly cookie (path=/) so the edge proxy lets
+      //    hard navigations to /admin/* deep-links through (env-admin parity
+      //    with the DB-login flow). Client keeps only user info in memory. ──
+      response.cookies.set("admin_access_token", accessToken, {
+        path: "/",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 15 * 60, // 15 min — matches JWT expiry
+      });
+
       response.cookies.set("admin_refresh_token", refreshToken, {
         path: "/api/admin/auth/refresh",
         httpOnly: true,
