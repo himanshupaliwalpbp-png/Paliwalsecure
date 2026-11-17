@@ -1,6 +1,6 @@
-// Paliwal Secure AI — Service Worker v3
-const CACHE_NAME = 'paliwal-secure-v5';
-const STATIC_CACHE_NAME = 'paliwal-static-v5';
+// Paliwal Secure AI — Service Worker v4
+const CACHE_NAME = 'paliwal-secure-v6';
+const STATIC_CACHE_NAME = 'paliwal-static-v6';
 const OFFLINE_URL = '/offline.html';
 
 // Static assets to precache on install
