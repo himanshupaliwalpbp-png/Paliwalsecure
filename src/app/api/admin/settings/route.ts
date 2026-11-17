@@ -70,7 +70,7 @@ export async function PUT(request: NextRequest) {
       action: 'IP_BLOCKED',
       entity: 'SiteSetting',
       details: { ip: clientIp, endpoint: 'settings-update' },
-      userId: admin.userId,
+      userId: admin.userId && !admin.userId.startsWith("env-admin-") ? admin.userId : null,
       ipAddress: clientIp,
     });
     return NextResponse.json(
@@ -113,7 +113,7 @@ export async function PUT(request: NextRequest) {
         entity: 'SiteSetting',
         entityId: setting.id,
         details: JSON.stringify({ key, value }),
-        userId: admin.userId,
+        userId: admin.userId && !admin.userId.startsWith("env-admin-") ? admin.userId : null,
       },
     });
 

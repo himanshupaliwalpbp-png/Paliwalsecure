@@ -90,7 +90,7 @@ export async function PATCH(
             isVerifiedPurchase: updateData.isVerifiedPurchase,
             adminNotes: updateData.adminNotes,
           }),
-          userId: admin.userId,
+          userId: admin.userId && !admin.userId.startsWith("env-admin-") ? admin.userId : null,
           userAgent: request.headers.get("user-agent"),
           ipAddress:
             request.headers.get("x-forwarded-for") ??
@@ -167,7 +167,7 @@ export async function DELETE(
             status: existingReview.status,
           },
         }),
-        userId: admin.userId,
+        userId: admin.userId && !admin.userId.startsWith("env-admin-") ? admin.userId : null,
         userAgent: request.headers.get("user-agent"),
         ipAddress:
           request.headers.get("x-forwarded-for") ??

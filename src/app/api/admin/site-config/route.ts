@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
           entity: 'SiteSetting',
           entityId: updated.id,
           details: JSON.stringify({ key, valuePreview: value.slice(0, 50) + (value.length > 50 ? '...' : '') }),
-          userId: admin.userId,
+          userId: admin.userId && !admin.userId.startsWith("env-admin-") ? admin.userId : null,
           userAgent: request.headers.get('user-agent') ?? undefined,
           ipAddress: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown',
         },
