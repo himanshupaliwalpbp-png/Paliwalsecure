@@ -18,6 +18,31 @@ export type PublicReview = {
 
 const SPRING = { type: 'spring', stiffness: 300, damping: 34 } as const;
 
+/** Auto bold headline word per rating tier — every review gets one, no typing needed */
+export const TIER_LABELS: Record<number, string> = {
+  5: 'Excellent Service',
+  4: 'Bahut Achha Experience',
+  3: 'Achha Experience',
+  2: 'Theek Theek',
+  1: 'Aur Behtar Chahiye',
+};
+
+const TIER_STYLES: Record<number, string> = {
+  5: 'gradient-text',
+  4: 'text-[#B8482C]',
+  3: 'text-[#8A6A28]',
+  2: 'text-[#6B6250]',
+  1: 'text-[#8A8272]',
+};
+
+const TIER_CHIP_STYLES: Record<number, string> = {
+  5: 'border-[#C98A1C]/45 bg-[#C98A1C]/12 text-[#8B3520]',
+  4: 'border-[#B8482C]/35 bg-[#B8482C]/8 text-[#8B3520]',
+  3: 'border-[#8A6A28]/30 bg-[#8A6A28]/8 text-[#6B5B22]',
+  2: 'border-black/10 bg-black/5 text-[#57503F]',
+  1: 'border-black/10 bg-black/5 text-[#57503F]',
+};
+
 function StarRow({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
@@ -115,7 +140,7 @@ export default function ReviewsCarousel({ reviews }: { reviews: PublicReview[] }
       <div ref={containerRef} className="overflow-hidden" style={{ paddingLeft: 0 }}>
         <motion.div
           className="flex cursor-grab active:cursor-grabbing py-2"
-          style={{ x, gap }}
+          style={{ x, gap, perspective: 1400 }}
           drag={count > 1 ? 'x' : false}
           dragConstraints={{ left: -step * (count - 1), right: 0 }}
           dragElastic={0.12}
@@ -132,6 +157,7 @@ export default function ReviewsCarousel({ reviews }: { reviews: PublicReview[] }
                 animate={{
                   scale: dist === 0 ? 1 : dist === 1 ? 0.94 : 0.88,
                   opacity: dist === 0 ? 1 : dist === 1 ? 0.72 : 0.42,
+                  rotateY: dist === 0 ? 0 : i < index ? 9 : -9,
                 }}
                 transition={{ type: 'spring', stiffness: 280, damping: 30 }}
                 aria-hidden={dist > 1}
@@ -139,10 +165,25 @@ export default function ReviewsCarousel({ reviews }: { reviews: PublicReview[] }
                 <article className="nl-glass p-6 flex flex-col gap-3 h-full min-h-[240px] sm:min-h-[256px]">
                   <div className="flex items-center justify-between gap-2">
                     <StarRow rating={r.rating} />
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#8A8272]">
-                      {r.insuranceType}
+                    <span
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full border text-[0.65rem] font-bold uppercase tracking-wider ${
+                        TIER_CHIP_STYLES[r.rating] ?? TIER_CHIP_STYLES[3]
+                      }`}
+                    >
+                      {r.rating}/5
                     </span>
                   </div>
+                  {/* Auto bold headline word — rating tier se auto-generate hota hai */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15, type: 'spring', stiffness: 300, damping: 26 }}
+                    className={`text-xl sm:text-2xl font-extrabold tracking-tight leading-tight ${
+                      TIER_STYLES[r.rating] ?? TIER_STYLES[3]
+                    }`}
+                  >
+                    {TIER_LABELS[r.rating] ?? TIER_LABELS[3]}
+                  </motion.p>
                   <h3 className="font-bold text-[#17130E] leading-snug text-balance">
                     {r.title}
                   </h3>
@@ -155,11 +196,15 @@ export default function ReviewsCarousel({ reviews }: { reviews: PublicReview[] }
                         Verified
                       </span>
                     )}
-                    <span className="ml-auto text-xs text-[#8A8272]">
-                      {new Date(r.createdAt).toLocaleDateString('en-IN', {
-                        month: 'short',
-                        year: 'numeric',
-                      })}
+                    <span className="ml-auto flex items-center gap-2 text-xs text-[#8A8272]">
+                      <span className="font-semibold uppercase tracking-wider">{r.insuranceType}</span>
+                      ·
+                      <span>
+                        {new Date(r.createdAt).toLocaleDateString('en-IN', {
+                          month: 'short',
+                          year: 'numeric',
+                        })}
+                      </span>
                     </span>
                   </div>
                 </article>
