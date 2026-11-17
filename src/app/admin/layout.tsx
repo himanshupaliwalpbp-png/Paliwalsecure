@@ -23,12 +23,22 @@ export default function AdminLayout({
   // Login page is rendered without the dashboard shell
   const isLoginPage = pathname === "/admin/login";
 
-  // Redirect unauthenticated users to login (except when already on login)
+  // Redirect unauthenticated users to login (except when already on login).
+  // Grace-period guard: on a direct deep-link load (e.g. /admin/dashboard/reviews),
+  // the auth store's token refresh is still in flight — effect deps fire with
+  // stale (false/false) state in the same commit. We wait ~900ms and re-check
+  // the CURRENT store state so authenticated deep-links never bounce through
+  // /admin/login → /admin/dashboard and lose their target page.
   useEffect(() => {
-    if (!isLoginPage && !isAuthenticated && !isLoading) {
-      router.push("/admin/login");
-    }
-  }, [isLoginPage, isAuthenticated, isLoading, router]);
+    if (isLoginPage || isAuthenticated || isLoading) return;
+    const t = setTimeout(() => {
+      const s = useAuthStore.getState();
+      if (!s.isAuthenticated && !s.isLoading) {
+        router.push("/admin/login");
+      }
+    }, 900);
+    return () => clearTimeout(t);
+  }, [isLoginPage, isAuthenticated, isLoading, router, pathname]);
 
   // Show loading while checking auth
   if (isLoading && !isLoginPage) {

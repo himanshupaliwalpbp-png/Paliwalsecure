@@ -80,6 +80,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE_URL}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/kota-insurance-agent`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    // Customer rating page (5-star collection link)
+    { url: `${BASE_URL}/rate`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
     // Insurance category pages
     { url: `${BASE_URL}/health-insurance`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/car-insurance`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },

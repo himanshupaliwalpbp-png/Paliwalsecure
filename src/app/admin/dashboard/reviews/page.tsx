@@ -45,6 +45,7 @@ import {
 } from '@/components/ui/select';
 import { useAuthStore } from '@/stores/auth-store';
 import { toast } from '@/hooks/use-toast';
+import { RateCollectionCard } from '@/components/admin/RateCollectionCard';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface Review {
@@ -167,6 +168,20 @@ export default function ReviewsModerationPage() {
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
+
+  // ── Fetch pending count (for the rating-collection header) ───────────────
+  const [pendingCount, setPendingCount] = useState(0);
+  useEffect(() => {
+    if (!accessToken) return;
+    fetch('/api/admin/reviews?status=pending&limit=1', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d?.total === 'number') setPendingCount(d.total);
+      })
+      .catch(() => {});
+  }, [accessToken, reviews]);
 
   // Reset page when filters change
   useEffect(() => {
@@ -303,6 +318,9 @@ export default function ReviewsModerationPage() {
 
   return (
     <div className="space-y-4">
+      {/* ── Rating Collection: share link + live stats ────────────────────── */}
+      <RateCollectionCard pendingCount={pendingCount} />
+
       {/* ── Top Bar: Filters ────────────────────────────────────────────────── */}
       <Card className="border-0 shadow-md">
         <CardContent className="p-4">
@@ -532,7 +550,7 @@ export default function ReviewsModerationPage() {
                           <Button
                             size="icon"
                             variant="ghost"
-                            className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                            className="h-8 w-8 text-amber-600 hover:text-amber-700 hover:bg-amber-50"
                             onClick={() =>
                               updateReview(review.id, {
                                 isVerifiedPurchase: !review.isVerifiedPurchase,
@@ -542,7 +560,7 @@ export default function ReviewsModerationPage() {
                           >
                             <ShieldCheck
                               className={`w-4 h-4 ${
-                                review.isVerifiedPurchase ? 'fill-blue-500' : ''
+                                review.isVerifiedPurchase ? 'fill-amber-500' : ''
                               }`}
                             />
                           </Button>
@@ -640,7 +658,7 @@ export default function ReviewsModerationPage() {
                 </div>
 
                 {detailReview.isVerifiedPurchase && (
-                  <Badge className="bg-blue-50 text-blue-700 border-blue-200">
+                  <Badge className="bg-amber-50 text-amber-700 border-amber-200">
                     <ShieldCheck className="w-3 h-3 mr-1" />
                     Verified Purchase
                   </Badge>

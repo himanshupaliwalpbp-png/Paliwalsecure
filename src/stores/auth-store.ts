@@ -132,6 +132,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       refreshToken: null,
       user: null,
       isAuthenticated: false,
+      isLoading: false,
       mfaRequired: false,
       mfaToken: null,
       mfaUser: null,
@@ -139,6 +140,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   refreshTokenFn: async () => {
+    // Mark loading BEFORE the fetch (only during initial boot, not background
+    // refreshes) so the admin layout waits instead of prematurely redirecting
+    // a deep-link (e.g. /admin/dashboard/reviews) to /admin/login while the
+    // token refresh is still in flight. Background refreshes must NOT flash
+    // the full-screen loader.
+    if (!get().isAuthenticated) set({ isLoading: true });
     try {
       const res = await fetch("/api/admin/auth/refresh", {
         method: "POST",
@@ -153,8 +160,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return;
       }
 
-      // Update in-memory access token (server already set the httpOnly cookie)
-      set({ accessToken: data.accessToken, isAuthenticated: true });
+      // Update in-memory access token (server already set the httpOnly cookie).
+      // Preserve the user object across refreshes so the dashboard header,
+      // role checks and moderation buttons keep working.
+      set({
+        accessToken: data.accessToken,
+        isAuthenticated: true,
+        user: data.user ?? get().user,
+        isLoading: false,
+      });
     } catch {
       get().logout();
     }

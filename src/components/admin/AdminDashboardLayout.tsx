@@ -179,6 +179,15 @@ export function AdminDashboardLayout({ children }: { children: React.ReactNode }
     return () => clearInterval(id);
   }, []);
 
+  // Keep the session alive: silent token refresh every 12 minutes so admin
+  // moderation sessions never die mid-work with 401s (access token lives 15 min).
+  useEffect(() => {
+    const id = setInterval(() => {
+      useAuthStore.getState().refreshTokenFn();
+    }, 12 * 60 * 1000);
+    return () => clearInterval(id);
+  }, []);
+
   const getPageTitle = () => {
     const segments = pathname.split("/").filter(Boolean);
     const lastSegment = segments[segments.length - 1];
