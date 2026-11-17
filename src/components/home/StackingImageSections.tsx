@@ -164,8 +164,10 @@ function StackPanel({
         }}
       />
 
-      {/* ═══ Text overlay — at the BOTTOM, on the image ═══ */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-8 sm:pb-10 md:pb-12 pt-6">
+      {/* ═══ Text overlay — at the BOTTOM, on the image ═══
+          pb-24 on mobile lifts price/CTA above the floating WhatsApp
+          & scroll-to-top buttons (fixed bottom corners, ~72px zone). */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 md:px-16 lg:px-20 pb-28 sm:pb-10 md:pb-12 pt-6">
         <div className="relative max-w-4xl mx-auto">
           {/* Accent line + category number */}
           <div className="flex items-center gap-3 mb-3">
@@ -182,7 +184,7 @@ function StackPanel({
           </div>
 
           {/* Title + Hindi */}
-          <div className="flex flex-wrap items-baseline gap-3 mb-3">
+          <div className="flex flex-wrap items-baseline gap-3 mb-3" style={{ textShadow: '0 2px 16px rgba(0,0,0,0.55)' }}>
             <h2
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tight"
             >
@@ -194,12 +196,15 @@ function StackPanel({
           </div>
 
           {/* Description */}
-          <p className="text-base sm:text-lg md:text-xl text-white/70 font-body leading-relaxed mb-6 max-w-2xl">
+          <p
+            className="text-base sm:text-lg md:text-xl text-white/70 font-body leading-relaxed mb-6 max-w-2xl"
+            style={{ textShadow: '0 1px 10px rgba(0,0,0,0.45), 0 2px 24px rgba(0,0,0,0.35)' }}
+          >
             {item.description}
           </p>
 
           {/* Price + CTA */}
-          <div className="flex items-center gap-5 flex-wrap">
+          <div className="flex items-center gap-5 flex-wrap" style={{ textShadow: '0 1px 10px rgba(0,0,0,0.45)' }}>
             <span className="font-mono text-2xl sm:text-3xl font-bold text-white">
               {item.price}
             </span>
