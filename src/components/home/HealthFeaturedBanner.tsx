@@ -21,8 +21,8 @@ export default function HealthFeaturedBanner() {
                 alt="Health Insurance — Paliwal Secure AI offers comprehensive family health coverage with cashless treatment, family floater plans, and pre-existing disease coverage across 51+ IRDAI insurers"
                 className="w-full h-auto block"
                 loading="lazy"
-                width={1536}
-                height={1024}
+                width={1344}
+                height={768}
               />
             </picture>
           </div>

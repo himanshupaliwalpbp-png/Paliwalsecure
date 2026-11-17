@@ -234,8 +234,8 @@ export default function HealthInsuranceClientContent() {
                 alt="Individual Health Insurance — Comprehensive coverage with cashless treatment, family floater plans, critical illness cover, and pre-existing disease coverage from 51+ IRDAI insurers"
                 className="w-full h-auto block"
                 loading="lazy"
-                width={1536}
-                height={1024}
+                width={1344}
+                height={768}
               />
             </picture>
           </div>

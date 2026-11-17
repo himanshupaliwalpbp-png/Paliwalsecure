@@ -100,12 +100,16 @@ export default function AuthorBio() {
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Profile Card */}
-          <Card className="lg:col-span-1 rounded-3xl border-teal-200 dark:border-teal-800/40 overflow-hidden">
-            <div className="bg-gradient-to-br from-teal-600 to-emerald-600 p-6 text-center">
-              {/* Avatar placeholder */}
-              <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm mx-auto mb-4 flex items-center justify-center border-2 border-white/30 relative overflow-hidden">
-                <span className="text-3xl font-bold text-white">HP</span>
-                {/* Replace with actual photo: <Image src="/himanshu-photo.jpg" alt="Himanshu Paliwal" fill className="object-cover" /> */}
+          <Card className="lg:col-span-1 rounded-3xl border-[#C98A1C]/30 dark:border-[#C98A1C]/25 overflow-hidden">
+            <div className="bg-gradient-to-br from-[#8B3520] to-[#B8482C] p-6 text-center">
+              {/* Owner's real photo */}
+              <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm mx-auto mb-4 flex items-center justify-center border-2 border-[#E8C97E]/60 relative overflow-hidden shadow-[0_10px_28px_-12px_rgba(232,201,126,0.55)]">
+                <img
+                  src="/images/himanshu-photo.jpg"
+                  alt="Himanshu Paliwal — Founder, Paliwal Secure"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <h3 className="text-xl font-bold text-white">Himanshu Paliwal</h3>
               <p className="text-sm text-white/80 mt-1">{t('authorBio.founder')}</p>
@@ -121,20 +125,20 @@ export default function AuthorBio() {
               <div className="space-y-3">
                 <a
                   href="https://wa.me/919257877312"
-                  className="flex items-center gap-3 text-sm text-foreground hover:text-[#00A9A6] transition-colors"
+                  className="flex items-center gap-3 text-sm text-foreground hover:text-[#B8482C] transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
+                  <Phone className="w-4 h-4 text-[#B8482C] dark:text-[#C98A1C] shrink-0" />
                   +91-9257877312
                 </a>
                 <a
                   href="mailto:himanshupaliwalpbp@gmail.com"
-                  className="flex items-center gap-3 text-sm text-foreground hover:text-[#00A9A6] transition-colors"
+                  className="flex items-center gap-3 text-sm text-foreground hover:text-[#B8482C] transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
+                  <Mail className="w-4 h-4 text-[#B8482C] dark:text-[#C98A1C] shrink-0" />
                   himanshupaliwalpbp@gmail.com
                 </a>
                 <div className="flex items-center gap-3 text-sm text-foreground">
-                  <MapPin className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0" />
+                  <MapPin className="w-4 h-4 text-[#B8482C] dark:text-[#C98A1C] shrink-0" />
                   Kota, Rajasthan, India
                 </div>
                 <a

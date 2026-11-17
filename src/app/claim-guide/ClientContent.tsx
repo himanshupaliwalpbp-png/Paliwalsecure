@@ -250,8 +250,8 @@ export default function ClientContent() {
                   alt="Car Insurance Claim Process Infographic India — Step by step guide from accident to settlement. Cashless vs reimbursement claims, documents needed, IRDAI timelines."
                   className="w-full h-auto block"
                   loading="lazy"
-                  width={1200}
-                  height={2527}
+                  width={768}
+                  height={1344}
                 />
               </picture>
             </div>

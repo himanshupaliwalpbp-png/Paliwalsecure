@@ -529,8 +529,8 @@ export default function HeroAdvisor() {
                   alt="Paliwal Secure AI — India's AI-powered insurance intelligence platform with 51+ insurers, InsureGPT AI advisor, and Protection Score technology"
                   className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
-                  width={1731}
-                  height={909}
+                  width={1344}
+                  height={768}
                 />
               </picture>
               {/* Premium gradient overlay for depth */}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Star,
   ShieldCheck,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import ReviewsCarousel, { type PublicReview } from './ReviewsCarousel';
 
 const WA_OWNER = 'https://wa.me/919257877312';
 
@@ -28,36 +30,19 @@ const TYPES = [
 
 const RATING_LABELS: Record<number, string> = {
   1: 'Bahut Bura',
-  2: 'Bura',
+  2: 'Bura Tha',
   3: 'Theek Tha',
-  4: 'Achha',
-  5: 'Excellent!',
+  4: 'Bahut Achha!',
+  5: 'Excellent Service!',
 };
 
-type PublicReview = {
-  id: string;
-  productName: string;
-  insuranceType: string;
-  rating: number;
-  title: string;
-  body: string;
-  reviewerName: string;
-  isVerifiedPurchase: boolean;
-  createdAt: string;
+const RATING_WORD_STYLES: Record<number, string> = {
+  1: 'text-[#6B6250]',
+  2: 'text-[#8A8272]',
+  3: 'text-[#8A6A28]',
+  4: 'text-[#B8482C]',
+  5: 'gradient-text',
 };
-
-function StarRow({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <Star
-          key={i}
-          className={`w-4 h-4 ${i <= rating ? 'text-[#C98A1C] fill-[#C98A1C]' : 'text-[#C98A1C]/30 fill-transparent'}`}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function RateClientContent() {
   const [rating, setRating] = useState(0);
@@ -226,7 +211,7 @@ export default function RateClientContent() {
                   aria-label="Star rating"
                 >
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <button
+                    <motion.button
                       key={i}
                       type="button"
                       role="radio"
@@ -235,7 +220,9 @@ export default function RateClientContent() {
                       onClick={() => setRating(i)}
                       onMouseEnter={() => setHover(i)}
                       onMouseLeave={() => setHover(0)}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition-transform duration-200 active:scale-90 cursor-pointer"
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center cursor-pointer"
                     >
                       <Star
                         className={`w-8 h-8 sm:w-9 sm:h-9 transition-all duration-200 ${
@@ -244,16 +231,37 @@ export default function RateClientContent() {
                             : 'text-[#C98A1C]/30 fill-transparent'
                         }`}
                       />
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
-                <p
-                  className={`mt-3 text-sm font-semibold ${
-                    active ? 'text-[#8B3520]' : 'text-[#8A8272]'
-                  }`}
-                >
-                  {active ? RATING_LABELS[active] : 'Stars tap karke rating dein'}
-                </p>
+                <div className="mt-4 min-h-[3rem] sm:min-h-[3.6rem] flex items-center justify-center" aria-live="polite">
+                  <AnimatePresence mode="wait" initial={false}>
+                    {active ? (
+                      <motion.p
+                        key={`label-${active}`}
+                        initial={{ opacity: 0, y: 16, scale: 0.82 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -12, scale: 0.9 }}
+                        transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                        className={`text-2xl sm:text-4xl font-extrabold tracking-tight text-center px-4 ${
+                          RATING_WORD_STYLES[active] ?? ''
+                        }`}
+                      >
+                        {RATING_LABELS[active]}
+                      </motion.p>
+                    ) : (
+                      <motion.p
+                        key="label-hint"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="text-sm font-semibold text-[#8A8272]"
+                      >
+                        Stars tap karke rating dein
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
 
               <div className="h-px bg-gradient-to-r from-transparent via-[#C98A1C]/30 to-transparent" />
@@ -446,41 +454,7 @@ export default function RateClientContent() {
         </div>
 
         {recent.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {recent.map((r) => (
-              <article key={r.id} className="nl-glass p-6 flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                  <StarRow rating={r.rating} />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#8A8272]">
-                    {r.insuranceType}
-                  </span>
-                </div>
-                <h3 className="font-bold text-[#17130E] leading-snug text-balance">
-                  {r.title}
-                </h3>
-                <p className="text-sm text-[#57503F] leading-relaxed line-clamp-4">
-                  {r.body}
-                </p>
-                <div className="mt-auto pt-3 border-t border-black/5 flex items-center gap-2">
-                  <span className="font-semibold text-sm text-[#8B3520]">
-                    {r.reviewerName}
-                  </span>
-                  {r.isVerifiedPurchase && (
-                    <span className="inline-flex items-center gap-1 text-[0.68rem] font-bold uppercase tracking-wider text-[#2D6A4F]">
-                      <BadgeCheck className="w-3.5 h-3.5" />
-                      Verified
-                    </span>
-                  )}
-                  <span className="ml-auto text-xs text-[#8A8272]">
-                    {new Date(r.createdAt).toLocaleDateString('en-IN', {
-                      month: 'short',
-                      year: 'numeric',
-                    })}
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
+          <ReviewsCarousel reviews={recent} />
         ) : (
           <p className="text-center text-[#8A8272]">
             Abhi tak koi rating publish nahi hui — pehli rating aap ho sakte hain!
